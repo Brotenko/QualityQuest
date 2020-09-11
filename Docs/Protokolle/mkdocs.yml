@@ -1,0 +1,9 @@
+site_name: Sprint-Review Protocols
+nav:
+  - '20.08.2020 - First informations': review_2020_08_20.md
+  - '04.09.2020 - Diagrams, Requirements and Gameplay': review_2020_09_04.md
+  - '18.09.2020 - ': review_2020_09_18.md
+theme: readthedocs
+markdown_extensions:
+  - toc:
+      permalink: "#"
