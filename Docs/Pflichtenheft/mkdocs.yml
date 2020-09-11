@@ -1,1 +1,8 @@
-site_name: My Docs
+site_name: Pflichtenheft
+nav:
+ - QualityQuest: index.md
+ - Glossar: glossar.md
+ - Use-Case: use-case-diagramme.md
+ 
+ 
+theme: material
