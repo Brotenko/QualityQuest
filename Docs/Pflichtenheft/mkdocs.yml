@@ -3,6 +3,10 @@ nav:
  - QualityQuest: index.md
  - Glossar: glossar.md
  - Use-Case: use-case-diagramme.md
+ - StoryFlow: storyflow.md
  
  
-theme: material
+theme: readthedocs
+
+markdown_extensions:
+ - admonition
