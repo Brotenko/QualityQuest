@@ -2,6 +2,7 @@ site_name: Pflichtenheft
 nav:
  - QualityQuest: index.md
  - Glossar: glossar.md
+ - Requirements: requirements.md
  - Use-Case: use-case-diagramme.md
  - StoryFlow: storyflow.md
  
