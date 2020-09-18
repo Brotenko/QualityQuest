@@ -1,7 +1,7 @@
 site_name: Quality Quest Protocols
 nav:
   - General Information: 
-    - 'General information': general_information.md
+    - 'General information': index.md
   - Sprint-Reviews: 
     - '2020.08.20 - First informations': sprint-reviews/review_2020_08_20.md
     - '2020.09.04 - Diagrams, Requirements and Gameplay': sprint-reviews/review_2020_09_04.md
