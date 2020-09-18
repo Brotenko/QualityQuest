@@ -1,0 +1,69 @@
+@startuml
+(*) --> "Character selection"
+if "" then
+--> [male] "Elective subject" as wpf
+else
+--> [female] wpf
+else
+--> [diverse] wpf
+if "" then
+--> [Introduction\nto Bali] "Company internship" as fpr
+else
+--> [Requirements\nEngineering] fpr
+else
+--> [Introduction in\nSoftware Architectures] fpr
+else
+--> [Usability as\nsuccess factor] fpr
+if "" then
+-> [yes] "gain experience" as n
+n -> "graduation" as p
+else
+--> [no] p
+p --> "First project" as ep
+ep --> "First task" as ea
+if "" then
+--> [ask\nMentor] "Writing tests" as ts
+else
+--> [Search the Internet] ts
+else
+--> [Simply\nget started] ts
+if "" then
+--> [thoroughly] "Volunteer training" as fb
+else
+--> [only till\ndeadline] fb
+if "" then
+--> [Holiday\planning] "Modification requests\nfrom customers" as a
+else
+--> [No] a
+else
+--> [Yes] "Improve expertise" as ex
+ex --> a
+if "" then
+--> [implement] "Bug detected" as be
+else
+--> [do not\nimplement] be
+else
+--> [hang up] be
+if "" then
+--> [write bugticket\n] "Spontaneous feature\from customers" as a2
+else
+--> [ignore] a2
+if "" then
+--> [implement] "support colleague" as ku
+else
+--> [ask] "Modification process" as x
+if "" then
+--> [alone] ku
+else
+--> [discuss] ku
+if "" then
+--> [help] "Code Review" as cr
+else
+--> [not help] cr
+if "" then
+--> [yes] "Workshop\on Hawaii" as ws
+else
+--> [no] ws
+ws --> (*)
+
+@enduml

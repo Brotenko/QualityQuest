@@ -1,0 +1,10 @@
+@startuml
+left to right direction
+actor "Audience-Client" as AUDC
+rectangle "Server-Client" {
+usecase "Poll Evaluation" as PE
+}
+
+AUDC --> PE
+
+@enduml
