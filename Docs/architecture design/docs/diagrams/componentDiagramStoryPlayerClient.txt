@@ -1,0 +1,16 @@
+@startuml
+() "Moderator\nInterface" as mi
+() "API"
+
+component "StoryPlayer-Client" <<component>> as ac{
+    [GUI] <<subsystem>>
+    [Logic] <<subsystem>>
+    () " " as empty
+}
+
+API -up- Logic
+mi -up- GUI
+empty - Logic
+GUI -> empty
+
+@enduml

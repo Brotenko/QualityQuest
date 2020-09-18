@@ -1,0 +1,14 @@
+@startuml
+() "User\nInterface" as ui
+
+component "Audience-Client" <<component>> as ac{
+    [GUI] <<subsystem>>
+    [Logic] <<subsystem>>
+    () " " as empty
+}
+
+ui -up- GUI
+empty - Logic
+GUI -> empty
+
+@enduml
