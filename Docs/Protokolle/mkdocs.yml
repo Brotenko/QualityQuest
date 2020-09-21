@@ -5,11 +5,13 @@ nav:
   - Sprint-Reviews: 
     - '2020.08.20 - First informations': sprint-reviews/review_2020_08_20.md
     - '2020.09.04 - Diagrams, Requirements and Gameplay': sprint-reviews/review_2020_09_04.md
-    - '2020.09.18 - ': sprint-reviews/review_2020_09_18.md
+    - '2020.09.18 - Story extension, Voting-tool, Presentation at NewTec': sprint-reviews/review_2020_09_18.md
+    - '2020.10.02 - ': sprint-reviews/review_2020_10_02.md
   - Scrum-Meetings:
     - '2020.08.22 - Who is what, What should be done first': scrum-meetings/meeting_2020_08_22.md
     - '2020.08.28 - Cancelled meeting': scrum-meetings/meeting_2020_08_28.md
     - '2020.09.14 - Switch to MkDocs, Documentation and Raschke': scrum-meetings/meeting_2020_09_14.md
+    - '2020.09.22 - ' : scrum-meetings/meeting_2020_09_22.md
   - Miscellaneous:
     - '2020.09.14 - Questions about the project for Dr. Raschke': miscellaneous/misc_2020_09_14.md
 theme: readthedocs
