@@ -1,38 +1,65 @@
 @startuml
 (*) --> "Character selection"
 if "" then
---> [male] "Elective subject" as wpf
+--> [character 1] "Elective course" as wpf
 else
---> [female] wpf
+--> [character 2] wpf
 else
---> [diverse] wpf
+--> [character 3] wpf
+else
+--> [character 4] wpf
+else
+--> [character 5] wpf
+else
+--> [character 6] wpf
 if "" then
 --> [Introduction\nto Bali] "Company internship" as fpr
 else
 --> [Requirements\nEngineering] fpr
 else
---> [Introduction in\nSoftware Architectures] fpr
+--> [Introduction to\nSoftware Architectures] fpr
 else
 --> [Usability as\nsuccess factor] fpr
 if "" then
--> [yes] "gain experience" as n
-n -> "graduation" as p
+-> [yes] "Gain experience" as n
+n -> "Graduation" as p
 else
 --> [no] p
 p --> "First project" as ep
 ep --> "First task" as ea
 if "" then
---> [ask\nMentor] "Writing tests" as ts
+--> [Ask\nmentor] "Write tests" as ts
 else
---> [Search the Internet] ts
+--> [Search the internet] ts
 else
---> [Simply\nget started] ts
+--> [Just\ngo for it] ts
 if "" then
---> [thoroughly] "Volunteer training" as fb
+--> [thoroughly] "Attend\nchristmas party" as fd
 else
---> [only till\ndeadline] fb
+--> [only till\ndeadline] fd
 if "" then
---> [Holiday\planning] "Modification requests\nfrom customers" as a
+-> [attend] "Christmas party" as cp
+else
+--> [do not attend] "Continue working\n/Fix issues" as cw
+cp --> if "" then
+--> [Sit alone] "Drink something" as dri
+else
+--> [Chat with\ncolleagues] "Level up\nprogramming" as lvl
+lvl --> dri
+else
+--> [Chat with\nsupervisors] "Unlock dialouge options" as sup
+sup --> dri
+if "" then
+--> [Strong alcohol] "Negative effect" as bad
+else
+--> [Weak alcohol] "No negative\neffects" as non
+else 
+--> [Non-alcholic] non
+bad --> "Voluntary training" as vt
+non --> vt
+cw --> vt
+if "" then
+--> [Go on holiday] "Modification requests\nfrom customers" as a
 else
 --> [No] a
 else
@@ -45,7 +72,7 @@ else
 else
 --> [hang up] be
 if "" then
---> [write bugticket\n] "Spontaneous feature\from customers" as a2
+--> [write bugticket\n] "Spontaneous feature\nfrom customers" as a2
 else
 --> [ignore] a2
 if "" then
@@ -61,9 +88,8 @@ if "" then
 else
 --> [not help] cr
 if "" then
---> [yes] "Workshop\on Hawaii" as ws
+--> [yes] "Workshop\non Hawaii" as ws
 else
 --> [no] ws
 ws --> (*)
-
 @enduml
