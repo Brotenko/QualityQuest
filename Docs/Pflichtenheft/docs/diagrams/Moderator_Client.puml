@@ -1,7 +1,7 @@
 @startuml
 left to right direction
 
-rectangle "StoryPlayer-Client" {
+rectangle "Moderator-Client" {
 usecase "Start Application" as START
 usecase "Select Character" as CHAR
 usecase "Make decision on Situation" as MDOCS
