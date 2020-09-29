@@ -1,11 +1,11 @@
 # Component diagrams
 
 ## Overview
-![](diagrams/overview.png)
+![](diagrams/overview.svg)
 ---
 
 ## Audience client
-![](diagrams/componentDiagramAudienceClient.png)
+![](diagrams/componentDiagramPlayerAudienceClient.svg)
 ---
 
 ## Server client
@@ -13,5 +13,5 @@
 ---
 
 ## StoryPlayer client
-![](diagrams/componentDiagramStoryPlayerClient.png)
+![](diagrams/componentDiagramModeratorClient.svg)
 ---

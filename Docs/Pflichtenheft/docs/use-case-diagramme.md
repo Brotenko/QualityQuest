@@ -14,7 +14,7 @@ Server-Client receives the respective decisions from the Audience Client, collec
 The server-client is also an actor within the StoryPlayer client.
 ***
 
-## StoryPlayer-Client
+## Moderator-Client
 ![](diagrams/Moderator_Client.svg)
 
 The Server-Client tells the StoryPlayer-Client what decisions the audience has made. 
