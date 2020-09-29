@@ -17,7 +17,7 @@ The server-client is also an actor within the StoryPlayer client.
 ## Moderator-Client
 ![](diagrams/Moderator_Client.svg)
 
-The Server-Client tells the StoryPlayer-Client what decisions the audience has made. 
+The Server-Client tells the Moderator-Client what decisions the audience has made. 
 The moderator is responsible for starting the application and can pause the voting of decisions.
 A decision is always followed by a new decision until the end of the game.
 ***
