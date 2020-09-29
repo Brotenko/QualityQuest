@@ -7,12 +7,12 @@ component "Logic" <<component>> as logic{
     [Networking] <<subsystem>> as network
     [Message Managment] <<subsystem>> as message
 }
-    [Game State] <<subsystem>> as game
+    [Poll Evaluation] <<subsystem>> as pe
 }
 http -right- network
 
 
-game <-down-> message
+pe <-down-> message
 network <-> message
 
 api -up- network
