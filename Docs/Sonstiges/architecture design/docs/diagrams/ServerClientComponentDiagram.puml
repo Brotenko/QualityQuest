@@ -1,0 +1,19 @@
+@startuml
+() "HTTP" as http
+() "API" as api
+
+component "Server Client" <<component>> as server{
+component "Logic" <<component>> as logic{
+    [Networking] <<subsystem>> as network
+    [Message Managment] <<subsystem>> as message
+}
+    [Game State] <<subsystem>> as game
+}
+http -right- network
+
+
+game <-down-> message
+network <-> message
+
+api -up- network
+@enduml

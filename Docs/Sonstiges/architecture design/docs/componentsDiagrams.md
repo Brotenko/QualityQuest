@@ -5,7 +5,7 @@
 ---
 
 ## Audience client
-![](diagrams/componentDiagramPlayerAudienceClient.svg)
+![](diagrams/PlayerAudienceClientComponentDiagram.svg)
 ---
 
 ## Server client
@@ -13,5 +13,5 @@
 ---
 
 ## StoryPlayer client
-![](diagrams/componentDiagramModeratorClient.svg)
+![](diagrams/ModeratorClientComponentDiagram.svg)
 ---
