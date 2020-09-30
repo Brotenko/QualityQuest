@@ -2,21 +2,14 @@
 
 | Term       | Moderator                                                                    |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| Observe and comment on the game. If the online voting system fails, the moderator becomes the StoryPlayer. |
+| DESCRIPTION| Observe and comment on the game. If the online voting system fails, the moderator plays the game to the end, so he takes over all decisions. |
 | IS-A       | Human                                                                        |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
 
 
-| Term       | StoryPlayer                                                                  |
-|------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| If the online voting system fails, the moderator becomes the StoryPlayer. The StoryPlayer plays the game to the end and makes decisions at a StoryFlowDecisions. |
-| IS-A       | Human                                                                        |
-| CAN-BE     | -                                                                            |
-| EXAMPLE    | -                                                                            |
 
-
-| Term       | Audience                                                                     |
+| Term       | PlayerAudience                                                                     |
 |------------|:-----------------------------------------------------------------------------|
 | DESCRIPTION| Viewers playing the game through StoryFlowDecisions. |
 | IS-A       | Human                                                                        |
@@ -26,7 +19,7 @@
 
 | Term       | Gender                                                                                      |
 |------------|:--------------------------------------------------------------------------------------------|
-| DESCRIPTION|  The gender of the PlayerCharacter. The StoryPlayer selects the gender at the beginning of the game using a StoryFlowDecision. The gender remains the same during a game run. |
+| DESCRIPTION|  The gender of the PlayerCharacter. The PlayerAudience selects the gender at the beginning of the game using a StoryFlowDecision. The gender remains the same during a game run. |
 | IS-A       | PlayerCharacterStatusValue                                                                  |
 | CAN-BE     | male, female, diverse                                                                       |
 | EXAMPLE    | -                                                                                           |
@@ -34,7 +27,7 @@
 
 | Term       |   StoryFlowDecision                                                          |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| A special event within the game where the StoryPlayer needs to take a decision which influences the further StoryFlow. After a StoryFlowDecision the PlayerCharacterStatusValues can increase by several levels. The StoryPlayer decides through OnlineVoting.  |
+| DESCRIPTION| A special event within the game where the PlayerAudience needs to take a decision which influences the further StoryFlow. After a StoryFlowDecision the PlayerCharacterStatusValues can increase by several levels. The PlayerAudience decides through OnlineVoting.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -42,7 +35,7 @@
 
 | Term       | StoryFlow                                                                    |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| The actual flow of the game-story. The Story contains elements where the StoryPlayer needs to make a StoryFlowDecision, depending on the decision, the StoryFlow continuous in diffrent StoryBranches.  |
+| DESCRIPTION| The actual flow of the game-story. The Story contains elements where the PlayerAudience needs to make a StoryFlowDecision, depending on the decision, the StoryFlow continuous in diffrent StoryBranches.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -82,7 +75,7 @@
 
 | Term       | PlayerCharacter                                                              |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| The virtual representation of the StoryPlayer in the game. The PlayerCharacter has diffrent PlayerCharacterStatusValues and a portrait.  |
+| DESCRIPTION| The virtual representation of the PlayerAudience in the game. The PlayerCharacter has diffrent PlayerCharacterStatusValues and a portrait.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -146,7 +139,7 @@
 
 | Term       | OnlineVoting                                                                 |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| The StoryPlayer selects its decisions for a StoryFLowDecision via an online voting system. The Connection with the OnlineVoting is established by a QR-Code.  |
+| DESCRIPTION| The PlayerAudience selects its decisions for a StoryFLowDecision via an online voting system. The Connection with the OnlineVoting is established by a QR-Code.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -154,7 +147,7 @@
 
 | Term       | Sidekick-Pet                                                                 |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| Can be unlocked by the StoryPlayer through a StoryFlowDecision. Helps the player in StoryFlowDecisions with helpful tips and suggestions.  |
+| DESCRIPTION| Can be unlocked by the PlayerAudience through a StoryFlowDecision. Helps the player in StoryFlowDecisions with helpful tips and suggestions.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
