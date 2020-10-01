@@ -32,8 +32,8 @@ This section contains all requirements that specify the basic actions of the sof
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA3                                                                          |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | QualityQuest shall be a graphics-based game.                                 |
-| EXPLANATION    | This means that QualityQuest shall not be a purely text-based game, but text max be an element of the visual appearance of the game.                                                                            |
+| DESCRIPTION    | QualityQuest shall be a graphics-based game and script-based game.                                 |
+| EXPLANATION    | This means that QualityQuest shall not be a purely text-based game, but text max be an element of the visual appearance of the game. The PlayerAudience plays the game only through StoryFlowDecisions.                                                                            |
 
 
 | REQUIREMENT    | NewTec branding                                                              |
@@ -89,14 +89,14 @@ This section contains all requirements that specify the basic actions of the sof
 | ID             | FA10                                                                         |
 | PRIORITY       | +                                                                            |
 | DESCRIPTION    | The story of QualityQuest shall be non-linear.                               |
-| EXPLANATION    | The story shall contain elements where the StoryPlayer needs to make a StoryFlowDecision. Depending on the decision, the StoryFlow shall continue in different StoryBranches.                                                                                  |
+| EXPLANATION    | The story shall contain elements where the PlayerAudience needs to make a StoryFlowDecision. Depending on the decision, the StoryFlow shall continue in different StoryBranches.                                                                                  |
 
 
 | REQUIREMENT    | Influence on the story flow by the player                                    |
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA11                                                                         |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | The StoryPlayer shall influence the selection of StoryBranches by means of StoryFlowDecisions. |
+| DESCRIPTION    | The PlayerAudience shall influence the selection of StoryBranches by means of StoryFlowDecisions. |
 | EXPLANATION    | -                                                                            |
 
 
@@ -104,7 +104,7 @@ This section contains all requirements that specify the basic actions of the sof
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA12                                                                         |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | QualityQuest shall enable the StoryPlayer to let a larger audience participate in StoryFlowDecisions by means of OnlineVoting.|
+| DESCRIPTION    | QualityQuest shall enable the PlayerAudience to let a larger audience participate in StoryFlowDecisions by means of OnlineVoting.|
 | EXPLANATION    | It would be highly desirable that the OnlineVoting feature is directly embedded into the game. Other methods are acceptable depending on the circumstances.                                                                            |
 
 
