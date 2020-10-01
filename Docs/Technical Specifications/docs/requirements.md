@@ -16,8 +16,8 @@ This section contains all requirements that specify the basic actions of the sof
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA1                                                                          |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | QualityQuest shall be a role-playing game.                                   |
-| EXPLANATION    | -                                                                            |
+| DESCRIPTION    | QualityQuest shall be a 2D RPG.                                   |
+| EXPLANATION    | The PlayerAudience takes over the decision of a character in a fictional world of a software engineer. The PlayerAudience plays the game only through StoryFlowDecisions, for example the game plays like a movie in which the PlayerAudience takes over the decisions of the main character.                                                                          |
 
 
 | REQUIREMENT    | Stand-alone game                                                             |
@@ -32,8 +32,8 @@ This section contains all requirements that specify the basic actions of the sof
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA3                                                                          |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | QualityQuest shall be a graphics-based game.                                 |
-| EXPLANATION    | This means that QualityQuest shall not be a purely text-based game, but text max be an element of the visual appearance of the game.                                                                            |
+| DESCRIPTION    | QualityQuest shall be a visual-based 2D RPG.                                |
+| EXPLANATION    | This means that QualityQuest shall not be a purely text-based game, but text max be an element of the visual appearance of the game.                                                                           |
 
 
 | REQUIREMENT    | NewTec branding                                                              |
@@ -89,22 +89,22 @@ This section contains all requirements that specify the basic actions of the sof
 | ID             | FA10                                                                         |
 | PRIORITY       | +                                                                            |
 | DESCRIPTION    | The story of QualityQuest shall be non-linear.                               |
-| EXPLANATION    | The story shall contain elements where the StoryPlayer needs to make a StoryFlowDecision. Depending on the decision, the StoryFlow shall continue in different StoryBranches.                                                                                  |
+| EXPLANATION    | The story shall contain elements where the PlayerAudience needs to make a StoryFlowDecision. Depending on the decision, the StoryFlow shall continue in different StoryBranches.                                                                                  |
 
 
 | REQUIREMENT    | Influence on the story flow by the player                                    |
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA11                                                                         |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | The StoryPlayer shall influence the selection of StoryBranches by means of StoryFlowDecisions. |
+| DESCRIPTION    | The PlayerAudience shall influence the selection of StoryBranches by means of StoryFlowDecisions. |
 | EXPLANATION    | -                                                                            |
 
 
-| REQUIREMENT    | Participation of a larger audience                                           |
+| REQUIREMENT    | Participation of a larger PlayerAudience                                           |
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA12                                                                         |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | QualityQuest shall enable the StoryPlayer to let a larger audience participate in StoryFlowDecisions by means of OnlineVoting.|
+| DESCRIPTION    | QualityQuest shall enable the PlayerAudience to let a larger audience participate in StoryFlowDecisions by means of OnlineVoting.|
 | EXPLANATION    | It would be highly desirable that the OnlineVoting feature is directly embedded into the game. Other methods are acceptable depending on the circumstances.                                                                            |
 
 
@@ -128,7 +128,7 @@ This section contains all requirements that specify the basic actions of the sof
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA15                                                                         |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | The software code should adhere to the Project Coding Styleguide.            |
+| DESCRIPTION    | The PlayerCharacter shall have different status values, which can improve or worsen during the game. The PlayerCharacter shall have all of the following status values: Gender, Programming, Analytics, Communication, Partying.           |
 | EXPLANATION    | -                                                                            |
 
 
@@ -136,7 +136,7 @@ This section contains all requirements that specify the basic actions of the sof
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA16                                                                         |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | The PlayerCharacter shall have all of the following status values: Gender, Programming,Analytics, Communication, Partying   |
+| DESCRIPTION    | At the start of the game the PlayerAudience shall choose the gender of the PlayerCharacter via the voting system.   |
 | EXPLANATION    | -                                                                            |
 
 
@@ -220,6 +220,13 @@ This section contains all requirements that specify the basic actions of the sof
 | EXPLANATION    | -                                                                            |
 
 
+| REQUIREMENT    | Pause Game                                                             |
+|----------------|:-----------------------------------------------------------------------------|
+| ID             | FA25                                                                         |
+| PRIORITY       | +                                                                            |
+| DESCRIPTION    | The moderator shall have the possibility to pause the game with the PauseButton. The PauseButton shall be around the lower right edge.             |
+| EXPLANATION    | -                                                                            |
+
 ## Non-functional Requirements
 
 This section specifies the non-functional requirements for the software system.
@@ -280,7 +287,7 @@ This section specifies the non-functional requirements for the software system.
 | EXPLANATION    | -                                                                            |
 
 
-| REQUIREMENT    | Target audience                                                              |
+| REQUIREMENT    | Target PlayerAudience                                                              |
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | QA8                                                                          |
 | PRIORITY       | +                                                                            |

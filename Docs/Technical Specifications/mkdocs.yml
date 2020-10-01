@@ -1,10 +1,13 @@
 site_name: Technical Specifications
 nav:
- - QualityQuest: index.md
- - Glossar: glossar.md
+ - ChangeHistory: changehistory.md
+ - TableOfContent: index.md
+ - QualityQuest: qualityquest.md
+ - Glossary: glossar.md
  - Requirements: requirements.md
  - Use-Case: use-case-diagramme.md
  - StoryFlow: storyflow.md
+ - UsedTools: usedtools.md
  
  
 theme: readthedocs

@@ -1,22 +1,15 @@
-
+# Glossary
 
 | Term       | Moderator                                                                    |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| Observe and comment on the game. If the online voting system fails, the moderator becomes the StoryPlayer. |
+| DESCRIPTION| Observe and comment on the game. If the online voting system fails, the moderator can take over the decisions and bring the game to an end. |
 | IS-A       | Human                                                                        |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
 
 
-| Term       | StoryPlayer                                                                  |
-|------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| If the online voting system fails, the moderator becomes the StoryPlayer. The StoryPlayer plays the game to the end and makes decisions at a StoryFlowDecisions. |
-| IS-A       | Human                                                                        |
-| CAN-BE     | -                                                                            |
-| EXAMPLE    | -                                                                            |
 
-
-| Term       | Audience                                                                     |
+| Term       | PlayerAudience                                                                     |
 |------------|:-----------------------------------------------------------------------------|
 | DESCRIPTION| Viewers playing the game through StoryFlowDecisions. |
 | IS-A       | Human                                                                        |
@@ -26,7 +19,7 @@
 
 | Term       | Gender                                                                                      |
 |------------|:--------------------------------------------------------------------------------------------|
-| DESCRIPTION|  The gender of the PlayerCharacter. The StoryPlayer selects the gender at the beginning of the game using a StoryFlowDecision. The gender remains the same during a game run. |
+| DESCRIPTION|  The gender of the PlayerCharacter. The PlayerAudience selects the gender at the beginning of the game using a StoryFlowDecision. The gender remains the same during a game run. |
 | IS-A       | PlayerCharacterStatusValue                                                                  |
 | CAN-BE     | male, female, diverse                                                                       |
 | EXAMPLE    | -                                                                                           |
@@ -34,7 +27,7 @@
 
 | Term       |   StoryFlowDecision                                                          |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| A special event within the game where the StoryPlayer needs to take a decision which influences the further StoryFlow. After a StoryFlowDecision the PlayerCharacterStatusValues can increase by several levels. The StoryPlayer decides through OnlineVoting.  |
+| DESCRIPTION| A special event within the game where the PlayerAudience needs to take a decision which influences the further StoryFlow. After a StoryFlowDecision the PlayerCharacterStatusValues can increase by several levels. The PlayerAudience decides through OnlineVoting.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -42,7 +35,7 @@
 
 | Term       | StoryFlow                                                                    |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| The actual flow of the game-story. The Story contains elements where the StoryPlayer needs to make a StoryFlowDecision, depending on the decision, the StoryFlow continuous in diffrent StoryBranches.  |
+| DESCRIPTION| The actual flow of the game-story. The Story contains elements where the PlayerAudience needs to make a StoryFlowDecision and depending on the decision, the StoryFlow progresses in different StoryBranches.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -58,7 +51,7 @@
 
 | Term       | PlayerCharacterStatusValue                                                   |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| The PlayerCharacter has diffrent character status values which improve or change during the course of the game. The PlayerCharacterStatusValues are displayed via a PlayerCharacterStatusBox.   |
+| DESCRIPTION| The PlayerCharacter has different character status values which improve or change during the course of the game. The PlayerCharacterStatusValues are displayed via a PlayerCharacterStatusBox.   |
 | IS-A       | -                                                                            |
 | CAN-BE     | Gender, Programming, Analytics, Communication, Partying                      |
 | EXAMPLE    | -                                                                            |
@@ -74,7 +67,7 @@
 
 | Term       | PlayerCharacterStatusBox                                                     |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| An info box that displays the diffrent PlayerCharacterStatusValues and the portrait of the PlayerCharacter. The box can be displayed for example in the lower left corner.  |
+| DESCRIPTION| An info box that displays the different PlayerCharacterStatusValues and the portrait of the PlayerCharacter. The box can be displayed for example in the lower left corner.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -82,7 +75,7 @@
 
 | Term       | PlayerCharacter                                                              |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| The virtual representation of the StoryPlayer in the game. The PlayerCharacter has diffrent PlayerCharacterStatusValues and a portrait.  |
+| DESCRIPTION| The virtual representation of the PlayerAudience in the game. The PlayerCharacter has different PlayerCharacterStatusValues and a portrait.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -122,10 +115,10 @@
 
 | Term       | Analytics                                                                    |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION|   |
+| DESCRIPTION| Determines how well the character can analyze situations and tasks, which increases the chance of success.  |
 | IS-A       | CharacterStatusValue                                                         |
 | CAN-BE     | -                                                                            |
-| EXAMPLE    | -                                                                            |
+| EXAMPLE    | 4 of 6 DiceRandomness possibilities lead to a positive event, because of high analytic stats.                                                                            |
 
 
 | Term       | Communication                                                                |
@@ -138,7 +131,7 @@
 
 | Term       | Partying                                                                     |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION|   |
+| DESCRIPTION| A character with a good partying skill can make more contacts at a party more quickly.  |
 | IS-A       | CharacterStatusValue                                                         |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -146,7 +139,7 @@
 
 | Term       | OnlineVoting                                                                 |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| The StoryPlayer selects its decisions for a StoryFLowDecision via an online voting system. The Connection with the OnlineVoting is established by a QR-Code.  |
+| DESCRIPTION| The PlayerAudience selects its decisions for a StoryFLowDecision via an online voting system. The Connection with the OnlineVoting is established by a QR-Code.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -154,7 +147,7 @@
 
 | Term       | Sidekick-Pet                                                                 |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| Can be unlocked by the StoryPlayer through a StoryFlowDecision. Helps the player in StoryFlowDecisions with helpful tips and suggestions.  |
+| DESCRIPTION| Can be unlocked by the PlayerAudience through a StoryFlowDecision. Helps the player in StoryFlowDecisions with helpful tips and suggestions.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -171,10 +164,10 @@
 
 | Term       | Voting-Timer                                                                 |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| Timer that is triggered by a StoryFlowDecision. While the timer is running the audience has to vote. The moderator can stop the timer with the pause button.  |
+| DESCRIPTION| Timer that is triggered by a StoryFlowDecision. While the timer is running the PlayerAudience has to vote. The moderator can stop the timer with the pause button.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
-| EXAMPLE    | The audience has 60 seconds to vote on a StoryFlowDecision.                  |
+| EXAMPLE    | The PlayerAudience has 60 seconds to vote on a StoryFlowDecision.                  |
 
 
 | Term       | Pause-Button                                                                 |
