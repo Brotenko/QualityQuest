@@ -115,7 +115,7 @@
 
 | Term       | Analytics                                                                    |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION|   |
+| DESCRIPTION| Determines how well the character can analyze situations and tasks, which increases the chance of success.  |
 | IS-A       | CharacterStatusValue                                                         |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -131,7 +131,7 @@
 
 | Term       | Partying                                                                     |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION|   |
+| DESCRIPTION| A character with a good partying skill can make more contacts at a party more quickly.  |
 | IS-A       | CharacterStatusValue                                                         |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
