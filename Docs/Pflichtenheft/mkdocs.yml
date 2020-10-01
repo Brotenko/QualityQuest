@@ -3,7 +3,7 @@ nav:
  - ChangeHistory: changehistory.md
  - TableOfContent: index.md
  - QualityQuest: qualityquest.md
- - Glossar: glossar.md
+ - Glossary: glossar.md
  - Requirements: requirements.md
  - Use-Case: use-case-diagramme.md
  - StoryFlow: storyflow.md
