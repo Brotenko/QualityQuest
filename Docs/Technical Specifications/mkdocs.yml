@@ -1,4 +1,4 @@
-site_name: Pflichtenheft
+site_name: Technical Specifications
 nav:
  - QualityQuest: index.md
  - Glossar: glossar.md
