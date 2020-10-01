@@ -16,8 +16,8 @@ This section contains all requirements that specify the basic actions of the sof
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA1                                                                          |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | QualityQuest shall be a role-playing game.                                   |
-| EXPLANATION    | -                                                                            |
+| DESCRIPTION    | QualityQuest shall be a role-playing game and script-based game.                                   |
+| EXPLANATION    | The PlayerAudience takes over the decision of a character in a fictional world of a software engineer. The PlayerAudience plays the game only through StoryFlowDecisions, for example the game plays like a movie in which the PlayerAudience takes over the decisions of the main character.                                                                          |
 
 
 | REQUIREMENT    | Stand-alone game                                                             |
@@ -32,8 +32,8 @@ This section contains all requirements that specify the basic actions of the sof
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA3                                                                          |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | QualityQuest shall be a graphics-based game and script-based game.                                 |
-| EXPLANATION    | This means that QualityQuest shall not be a purely text-based game, but text max be an element of the visual appearance of the game. The PlayerAudience plays the game only through StoryFlowDecisions.                                                                            |
+| DESCRIPTION    | QualityQuest shall be a graphics-based.                                 |
+| EXPLANATION    | This means that QualityQuest shall not be a purely text-based game, but text max be an element of the visual appearance of the game.                                                                           |
 
 
 | REQUIREMENT    | NewTec branding                                                              |
@@ -128,7 +128,7 @@ This section contains all requirements that specify the basic actions of the sof
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA15                                                                         |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | The software code should adhere to the Project Coding Styleguide.            |
+| DESCRIPTION    | The PlayerCharacter shall have different status values, which can improve or worsen during the game. The PlayerCharacter shall have all of the following status values: Gender, Programming, Analytics, Communication, Partying.           |
 | EXPLANATION    | -                                                                            |
 
 
@@ -136,7 +136,7 @@ This section contains all requirements that specify the basic actions of the sof
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA16                                                                         |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | The PlayerCharacter shall have all of the following status values: Gender, Programming,Analytics, Communication, Partying   |
+| DESCRIPTION    | At the start of the game the PlayerAudience shall choose the gender of the PlayerCharacter via the voting system.   |
 | EXPLANATION    | -                                                                            |
 
 
@@ -219,6 +219,13 @@ This section contains all requirements that specify the basic actions of the sof
 | DESCRIPTION    | An existing online voting solution may be used, if the license conditions of the online voting solution allow the usage of the online voting solution in the context of QualityQuest as intended by NewTec without license fees.             |
 | EXPLANATION    | -                                                                            |
 
+
+| REQUIREMENT    | Pause Game                                                             |
+|----------------|:-----------------------------------------------------------------------------|
+| ID             | FA25                                                                         |
+| PRIORITY       | +                                                                            |
+| DESCRIPTION    | The moderator shall have the possibility to pause the game with the PauseButton. The PauseButton shall be around the lower right edge.             |
+| EXPLANATION    | -                                                                            |
 
 ## Non-functional Requirements
 
