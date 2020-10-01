@@ -100,7 +100,7 @@ This section contains all requirements that specify the basic actions of the sof
 | EXPLANATION    | -                                                                            |
 
 
-| REQUIREMENT    | Participation of a larger audience                                           |
+| REQUIREMENT    | Participation of a larger PlayerAudience                                           |
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA12                                                                         |
 | PRIORITY       | +                                                                            |
@@ -287,11 +287,11 @@ This section specifies the non-functional requirements for the software system.
 | EXPLANATION    | -                                                                            |
 
 
-| REQUIREMENT    | Target audience                                                              |
+| REQUIREMENT    | Target PlayerAudience                                                              |
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | QA8                                                                          |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | QualityQuest shall address a target audience of university students with interest in a SW engineering career.            |
+| DESCRIPTION    | QualityQuest shall address a target PlayerAudience of university students with interest in a SW engineering career.            |
 | EXPLANATION    | -                                                                            |
 
 
@@ -315,7 +315,7 @@ This section specifies the non-functional requirements for the software system.
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | QA11                                                                         |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | The audience of QualityQuest shall be encouraged to follow the story by motivational elements.            |
+| DESCRIPTION    | The PlayerAudience of QualityQuest shall be encouraged to follow the story by motivational elements.            |
 | EXPLANATION    | Motivational elements could be for example rewards, achievement & level upgrades.  |
 
 

@@ -164,10 +164,10 @@
 
 | Term       | Voting-Timer                                                                 |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| Timer that is triggered by a StoryFlowDecision. While the timer is running the audience has to vote. The moderator can stop the timer with the pause button.  |
+| DESCRIPTION| Timer that is triggered by a StoryFlowDecision. While the timer is running the PlayerAudience has to vote. The moderator can stop the timer with the pause button.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
-| EXAMPLE    | The audience has 60 seconds to vote on a StoryFlowDecision.                  |
+| EXAMPLE    | The PlayerAudience has 60 seconds to vote on a StoryFlowDecision.                  |
 
 
 | Term       | Pause-Button                                                                 |
