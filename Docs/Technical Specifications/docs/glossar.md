@@ -118,7 +118,7 @@
 | DESCRIPTION| Determines how well the character can analyze situations and tasks, which increases the chance of success.  |
 | IS-A       | CharacterStatusValue                                                         |
 | CAN-BE     | -                                                                            |
-| EXAMPLE    | -                                                                            |
+| EXAMPLE    | 4 of 6 DiceRandomness possibilities lead to a positive event, because of high analytic stats.                                                                            |
 
 
 | Term       | Communication                                                                |
