@@ -1,7 +1,7 @@
 @startuml
 () "User\nInterface" as ui
 
-component "Audience-Client" <<component>> as ac{
+component "PlayerAudience-Client" <<component>> as ac{
     [GUI] <<subsystem>>
     [Logic] <<subsystem>>
     () " " as empty

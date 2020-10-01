@@ -1,4 +1,4 @@
-site_name: Pflichtenheft
+site_name: Technical Specifications
 nav:
  - ChangeHistory: changehistory.md
  - TableOfContent: index.md

@@ -3,9 +3,9 @@
 () "API" as api
 () "User\nInterface" as ui
 () "Moderator\nInterface" as mi
-[Audience-Client] <<component>> as AuCl
+[PlayerAudience-Client] <<component>> as AuCl
 [Server-Client] <<component>> as SeCl
-[StoryPlayer-Client] <<component>> as StPlCl
+[Moderator-Client] <<component>> as StPlCl
 
 ui -up- AuCl
 http - SeCl
