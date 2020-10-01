@@ -2,7 +2,7 @@
 
 | Term       | Moderator                                                                    |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| Observe and comment on the game. If the online voting system fails, the moderator plays the game to the end, so he takes over all decisions. |
+| DESCRIPTION| Observe and comment on the game. If the online voting system fails, the moderator can take over the decisions and bring the game to an end. |
 | IS-A       | Human                                                                        |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -35,7 +35,7 @@
 
 | Term       | StoryFlow                                                                    |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| The actual flow of the game-story. The Story contains elements where the PlayerAudience needs to make a StoryFlowDecision, depending on the decision, the StoryFlow continuous in diffrent StoryBranches.  |
+| DESCRIPTION| The actual flow of the game-story. The Story contains elements where the PlayerAudience needs to make a StoryFlowDecision and depending on the decision, the StoryFlow progresses in different StoryBranches.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -51,7 +51,7 @@
 
 | Term       | PlayerCharacterStatusValue                                                   |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| The PlayerCharacter has diffrent character status values which improve or change during the course of the game. The PlayerCharacterStatusValues are displayed via a PlayerCharacterStatusBox.   |
+| DESCRIPTION| The PlayerCharacter has different character status values which improve or change during the course of the game. The PlayerCharacterStatusValues are displayed via a PlayerCharacterStatusBox.   |
 | IS-A       | -                                                                            |
 | CAN-BE     | Gender, Programming, Analytics, Communication, Partying                      |
 | EXAMPLE    | -                                                                            |
@@ -67,7 +67,7 @@
 
 | Term       | PlayerCharacterStatusBox                                                     |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| An info box that displays the diffrent PlayerCharacterStatusValues and the portrait of the PlayerCharacter. The box can be displayed for example in the lower left corner.  |
+| DESCRIPTION| An info box that displays the different PlayerCharacterStatusValues and the portrait of the PlayerCharacter. The box can be displayed for example in the lower left corner.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |
@@ -75,7 +75,7 @@
 
 | Term       | PlayerCharacter                                                              |
 |------------|:-----------------------------------------------------------------------------|
-| DESCRIPTION| The virtual representation of the PlayerAudience in the game. The PlayerCharacter has diffrent PlayerCharacterStatusValues and a portrait.  |
+| DESCRIPTION| The virtual representation of the PlayerAudience in the game. The PlayerCharacter has different PlayerCharacterStatusValues and a portrait.  |
 | IS-A       | -                                                                            |
 | CAN-BE     | -                                                                            |
 | EXAMPLE    | -                                                                            |

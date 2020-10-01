@@ -16,7 +16,7 @@ This section contains all requirements that specify the basic actions of the sof
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA1                                                                          |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | QualityQuest shall be a role-playing game and script-based game.                                   |
+| DESCRIPTION    | QualityQuest shall be a 2D RPG.                                   |
 | EXPLANATION    | The PlayerAudience takes over the decision of a character in a fictional world of a software engineer. The PlayerAudience plays the game only through StoryFlowDecisions, for example the game plays like a movie in which the PlayerAudience takes over the decisions of the main character.                                                                          |
 
 
@@ -32,7 +32,7 @@ This section contains all requirements that specify the basic actions of the sof
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | FA3                                                                          |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | QualityQuest shall be a graphics-based.                                 |
+| DESCRIPTION    | QualityQuest shall be a visual-based 2D RPG.                                |
 | EXPLANATION    | This means that QualityQuest shall not be a purely text-based game, but text max be an element of the visual appearance of the game.                                                                           |
 
 
@@ -291,7 +291,7 @@ This section specifies the non-functional requirements for the software system.
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | QA8                                                                          |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | QualityQuest shall address a target PlayerAudience of university students with interest in a SW engineering career.            |
+| DESCRIPTION    | QualityQuest shall address a target audience of university students with interest in a SW engineering career.            |
 | EXPLANATION    | -                                                                            |
 
 
@@ -315,7 +315,7 @@ This section specifies the non-functional requirements for the software system.
 |----------------|:-----------------------------------------------------------------------------|
 | ID             | QA11                                                                         |
 | PRIORITY       | +                                                                            |
-| DESCRIPTION    | The PlayerAudience of QualityQuest shall be encouraged to follow the story by motivational elements.            |
+| DESCRIPTION    | The audience of QualityQuest shall be encouraged to follow the story by motivational elements.            |
 | EXPLANATION    | Motivational elements could be for example rewards, achievement & level upgrades.  |
 
 
