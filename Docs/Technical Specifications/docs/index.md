@@ -14,4 +14,4 @@
     - [Server-Client](use-case-diagramme.md#server-client)
     - [StoryPlayer-Client](use-case-diagramme.md#storyplayer-client)
 - [StoryFlow](storyflow.md)
-- [UsedTools](usedtools.md)
+- [UsedTools and Plugins](usedtools.md)
