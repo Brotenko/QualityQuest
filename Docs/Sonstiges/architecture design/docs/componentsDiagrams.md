@@ -9,7 +9,7 @@
 ---
 
 ## Server client
-
+![](diagrams/ServerClientComponentDiagram.svg)
 ---
 
 ## StoryPlayer client
