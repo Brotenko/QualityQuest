@@ -1,16 +1,16 @@
 site_name: Technical Specifications
 nav:
- - QualityQuest: qualityquest.md
- - TableOfContent: index.md
- - Glossary: glossar.md
- - Requirements: requirements.md
- - Use-Case: use-case-diagramme.md
- - StoryFlow: storyflow.md
- - Used Tools, Plugins and Libraries: usedtools.md
- - ChangeHistory: changehistory.md
+  - Quality Quest: index.md
+  - Table of content: toc.md
+  - Glossary: glossar.md
+  - Requirements: requirements.md
+  - Use-Cases: use-case-diagramme.md
+  - StoryFlow: storyflow.md
+  - Used Tools, Plugins and Libraries: usedtools.md
+  - Change history: changehistory.md
 
-theme: readthedocs
-
+theme: 
+  readthedocs
 
 markdown_extensions:
- - admonition
+  - admonition

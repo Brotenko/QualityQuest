@@ -1,23 +1,25 @@
 # Use-case diagrams
 
-## Audience-Client
+
+
+## PlayerAudience-Client
 ![](diagrams/PlayerAudience_Client.svg)
 
-Via the Audience-Client, the individual spectator, as part of the audience, has the possibility to vote on the decisions that occur in the game. 
-The Audience-Client is also an actor within the Server-Client.
+Via the PlayerAudience-Client, the individual participant, as part of the audience, has the possibility to vote on the decisions that occur in the game. 
+The PlayerAudience-Client is also acts as an actor for the server.
 ***
 
-## Server-Client
-![](diagrams/Server_Client.svg)
+## Server
+![](diagrams/Server.svg)
 
-Server-Client receives the respective decisions from the Audience Client, collects and evaluates them in relation to the number of votes.
-The server-client is also an actor within the StoryPlayer client.
+Server receives the respective decisions from the PlayerAudience-Client, collects and evaluates them in relation to the number of votes.
+The server also acts as an actor for the Moderator-Client.
 ***
 
 ## Moderator-Client
 ![](diagrams/Moderator_Client.svg)
 
-The Server-Client tells the Moderator-Client what decisions the audience has made. 
-The moderator is responsible for starting the application and can pause the voting of decisions.
-A decision is always followed by a new decision until the end of the game.
+The Server tells the Moderator-Client what decisions the audience has made. 
+The Moderator is responsible for starting the game and can start and pause the voting process at any given time.
+A decision is always followed by a new decision until the game eventually ends.
 ***
