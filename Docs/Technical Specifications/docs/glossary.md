@@ -26,7 +26,7 @@ This section includes all actors involved in the system. Actors are people, but 
 
 | Term        | Participants                                                       |
 | ----------- | :----------------------------------------------------------------- |
-| DESCRIPTION | A person that participants and interacts with the game in any way. |
+| DESCRIPTION | A person that participates and interacts with the game in any way. |
 | IS-A        | Human                                                              |
 | CAN-BE      | Moderator, PlayerAudience                                          |
 | EXAMPLE     | -                                                                  |
@@ -120,7 +120,7 @@ This section contains a collection of information regarding technical terms that
 | ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DESCRIPTION | The PlayerCharacter has different character status values which improve or change during the course of the game. The PlayerCharacterStatusValues are displayed via a PlayerCharacterStatusBox. |
 | IS-A        | -                                                                                                                                                                                              |
-| CAN-BE      | Gender, Programming, Analytics, Communication, Partying                                                                                                                                        |
+| CAN-BE      | Programming, Analytics, Communication, Partying                                                                                                                                        |
 | EXAMPLE     | -                                                                                                                                                                                              |
 
 </br>
@@ -145,7 +145,7 @@ This section contains a collection of information regarding technical terms that
 
 | Term        | PlayerCharacter                                                                                                                             |
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
-| DESCRIPTION | The virtual representation of the PlayerAudience in the game. At the beginning of the game the PlayerAudience choose a PlayerCharacter from a collection of predefined PlayerCharacters with different PlayerCharacterStatusValues. The PlayerCharacter has different PlayerCharacterStatusValues and a portrait. |
+| DESCRIPTION | The virtual representation of the PlayerAudience in the game. At the beginning of the game the PlayerAudience chooses a PlayerCharacter from a collection of predefined PlayerCharacters with different PlayerCharacterStatusValues. The PlayerCharacter has different PlayerCharacterStatusValues and a portrait. |
 | IS-A        | -                                                                                                                                           |
 | CAN-BE      | -                                                                                                                                           |
 | EXAMPLE     | -                                                                                                                                           |
@@ -181,7 +181,7 @@ This section contains a collection of information regarding technical terms that
 
 | Term        | Programming                                                                                                                              |
 | ----------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | A status value of the PlayerCharacter. Influences how well the character can programm, for example less time is needed to program tests. |
+| DESCRIPTION | A status value of the PlayerCharacter. Influences how well the character can program, for example less time is needed to program tests. |
 | IS-A        | CharacterStatusValue                                                                                                                     |
 | CAN-BE      | -                                                                                                                                        |
 | EXAMPLE     | PlayerCharacter James has the programming-skill at 8.                                                                                    |
@@ -217,7 +217,7 @@ This section contains a collection of information regarding technical terms that
 
 | Term        | OnlineVoting                                                                                                                                                    |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | The PlayerAudience selects its decisions for a StoryFLowDecision via an online voting system. The Connection with the OnlineVoting is established by a QR-Code. |
+| DESCRIPTION | The PlayerAudience selects its decisions for a StoryFlowDecision via an online voting system. The Connection with the OnlineVoting is established by a QR-Code. |
 | IS-A        | -                                                                                                                                                               |
 | CAN-BE      | -                                                                                                                                                               |
 | EXAMPLE     | -                                                                                                                                                               |
