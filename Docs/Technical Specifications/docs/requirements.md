@@ -144,7 +144,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ID          | FA15                                                                                                                                                                                                                             |
 | PRIORITY    | +                                                                                                                                                                                                                                |
-| DESCRIPTION | The PlayerCharacter shall have different status values, which can improve or worsen during the game. The PlayerCharacter shall have all of the following status values: Gender, Programming, Analytics, Communication, Partying. |
+| DESCRIPTION | The PlayerCharacter shall have different status values, which can improve or worsen during the game. The PlayerCharacter shall have all of the following status values: Programming, Analytics, Communication, Partying. |
 | EXPLANATION | -                                                                                                                                                                                                                                |
 
 </br>
@@ -162,7 +162,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :--------------------------------------------------------------------------------------- |
 | ID          | FA17                                                                                     |
 | PRIORITY    | +                                                                                        |
-| DESCRIPTION | The first StoryFlowDecision shall be the selection of the gender of the PlayerCharacter. |
+| DESCRIPTION | The first StoryFlowDecision shall be the selection of the PlayerCharacter. |
 | EXPLANATION | This shall be a StoryFlowDecision with ZeroRandomness.                                   |
 
 </br>

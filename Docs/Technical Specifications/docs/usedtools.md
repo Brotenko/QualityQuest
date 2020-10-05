@@ -13,7 +13,7 @@ The following tools were used during the creation of Quality Quest and the docum
 | GIMP               | Editor for raster graphics. Was used for image editing.                             | 2.10.18                                |
 | SourceTree         | GUI for git.                                                                        | 4.0.1                                  |
 | GitKraken          | GUI for git.                                                                        | 5.0.4                                  |
-| MkDocs             | Documentation tool for creating stylised markdown files.                            | 1.1.2                                  |
+| MkDocs             | Documentation tool for creating stylised documentation through markdown files.      | 1.1.2                                  |
 | GitHub             | Tool for source code management and version control.                                | [link](https://github.com/)            |
 | Doxygen            | Tool to generate software reference documentation.                                  | 1.8.20                                 |
 | Aseprite           | Tool to create pixelart sprites and animations.                                     | 1.2.25                                 |
@@ -22,7 +22,7 @@ The following tools were used during the creation of Quality Quest and the docum
 | m2r                | Markdown to reStructuredText converter used for making the docs usable for Sphinx.  | [link](https://github.com/miyakogi/m2r)|
 | Sphinx             | Documentation tool for creating stylised documentation through reStructuredText.    | 3.2.1                                  |
 
-</br>
+<br/>
 
 ## Used Plugins
 
@@ -36,7 +36,7 @@ The following plugins were used during the creation of Quality Quest and the doc
 | Admonition          | MkDocs extension used to create admonitions in the documentation.                                                  | [link](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) |
 
 
-</br>
+<br/>
 
 ## Used Libraries
 
@@ -46,4 +46,4 @@ The following libraries were used during the creation of Quality Quest:
 | :------ | :---------- | :------ |
 |         |             |         |
 
-</br>
+<br/>
