@@ -2,7 +2,7 @@
 In this project a serious game is to be developed, 
 in which the audience can interactively determine the decisions in the course of the game. 
 At the beginning of the game the audience can choose from several player characters.
-The subsequent decisions made by vote influence the further course of the game, 
+The subsequent decisions made by voting influence the further course of the game, 
 either by improving skills and thus better chances for random decisions or by the consequences of bad decisions.
 The goal is to be invited to a prestigious workshop in Hawaii through good work.
 
