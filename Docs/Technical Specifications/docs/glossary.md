@@ -145,7 +145,7 @@ This section contains a collection of information regarding technical terms that
 
 | Term        | PlayerCharacter                                                                                                                             |
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
-| DESCRIPTION | The virtual representation of the PlayerAudience in the game. The PlayerCharacter has different PlayerCharacterStatusValues and a portrait. |
+| DESCRIPTION | The virtual representation of the PlayerAudience in the game. At the beginning of the game the PlayerAudience choose a PlayerCharacter from a collection of predefined PlayerCharacters with different PlayerCharacterStatusValues. The PlayerCharacter has different PlayerCharacterStatusValues and a portrait. |
 | IS-A        | -                                                                                                                                           |
 | CAN-BE      | -                                                                                                                                           |
 | EXAMPLE     | -                                                                                                                                           |
