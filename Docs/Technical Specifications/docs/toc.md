@@ -7,7 +7,7 @@
     - [Context of Project](index.md#context-of-project)
 - [Table of contents](toc.md) 
 - [Glossary](glossary.md)
-    - [Actors and Roels](glossary.md#expertise)
+    - [Actors and Roles](glossary.md#expertise)
     - [Expertise](glossary.md#expertise)
 - [Requirements](requirements.md)
     - [Fuctional Requirements](requirements.md#functional-requirements)
