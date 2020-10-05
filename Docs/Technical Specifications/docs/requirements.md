@@ -37,7 +37,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ID          | FA3                                                                                                                                  |
 | PRIORITY    | +                                                                                                                                    |
 | DESCRIPTION | QualityQuest shall be a visual-based 2D RPG.                                                                                         |
-| EXPLANATION | This means that QualityQuest shall not be a purely text-based game, but text max be an element of the visual appearance of the game. |
+| EXPLANATION | This means that QualityQuest shall not be a purely text-based game, but text may be an element of the visual appearance of the game. |
 
 </br>
 
@@ -306,7 +306,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ID          | FA32                                                                                                                                                                                                                                                                                                                                                   |
 | PRIORITY    | +                                                                                                                                                                                                                                                                                                                                                      |
-| DESCRIPTION | In the event that the server is not functional, the network infrastructure gives way or there being a problem with the connection between clients and server, the Moderator shall have the option to continue the game offline. This Offline-Mode must ensure a smooth transition between online and offline and shall be able to step in at any time. |
+| DESCRIPTION | In the event that the server is not functional, the network infrastructure slows significantly down or there being a problem with the connection between clients and server, the Moderator shall have the option to continue the game offline. This Offline-Mode must ensure a smooth transition between online and offline and shall be able to step in at any time. |
 | EXPLANATION | -                                                                                                                                                                                                                                                                                                                                                      |
 
 </br>
@@ -345,7 +345,7 @@ This section specifies the non-functional requirements for the software system.
 | ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ID          | QA1                                                                                                                                                                                                                                                                    |
 | PRIORITY    | +                                                                                                                                                                                                                                                                      |
-| DESCRIPTION | A System Specification, which comprises use case diagrams, use case descriptions and a static view of the software architecture and Software Design Specification for each software component which describes both the static and the dynamic view shall be delivered. |
+| DESCRIPTION | A System Specification, which comprises use case diagrams, use case descriptions and a static view of the software architecture and Software Design Specification for each software component, which describes both the static and the dynamic view shall be delivered. |
 | EXPLANATION | -                                                                                                                                                                                                                                                                      |
 
 </br>
@@ -454,7 +454,7 @@ This section specifies the non-functional requirements for the software system.
 | ID          | QA13                                                                                                                                               |
 | PRIORITY    | +                                                                                                                                                  |
 | DESCRIPTION | All deliverable artifacts shall be delivered digitally.                                                                                            |
-| EXPLANATION | he delivery can be by depositing the deliverable artefacts in a public version control system. Documents should be delivered in both PDS and DOCX. |
+| EXPLANATION | The delivery can be by depositing the deliverable artefacts in a public version control system. Documents should be delivered in both PDS and DOCX. |
 
 </br>
 
