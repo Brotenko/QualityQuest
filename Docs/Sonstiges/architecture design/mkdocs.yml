@@ -1,8 +1,0 @@
-site_name: Pflichtenheft
-nav:
- - components diagrams: componentsDiagrams.md
- - class diagrams: classDiagrams.md
-
- 
- 
-theme: material
