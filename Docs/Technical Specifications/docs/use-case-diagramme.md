@@ -6,7 +6,7 @@
 ![](diagrams/PlayerAudience_Client.svg)
 
 Via the PlayerAudience-Client, the individual participant, as part of the audience, has the possibility to vote on the decisions that occur in the game. 
-The PlayerAudience-Client is also acts as an actor for the server.
+The PlayerAudience-Client also acts as an actor for the server.
 ***
 
 ## Server
