@@ -12,4 +12,4 @@ The change history is a chronologically ordered list of all changes between diff
 
 ## Version 0.1 - Architecture Design
 
-This is the initial version of the Technical Specifications and thus has not changelog. The next version, which will focus on the component/detailed design, will be the first version with a changelog.
+This is the initial version of the Technical Specifications and thus has no changelog. The next version, which will focus on the component/detailed design, will be the first version with a changelog.
