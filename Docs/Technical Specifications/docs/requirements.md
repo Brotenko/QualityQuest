@@ -72,7 +72,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :----------------------------------------------------------------- |
 | ID          | FA7                                                                |
 | PRIORITY    | -                                                                  |
-| DESCRIPTION | QualityQuest may play mood music to enhance the player experience. |
+| DESCRIPTION | QualityQuest may be accompanied by a suitable musical background to enhance the player experience. |
 | EXPLANATION | -                                                                  |
 
 </br>
