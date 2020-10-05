@@ -2,7 +2,7 @@ site_name: Technical Specifications
 nav:
   - Quality Quest: index.md
   - Table of content: toc.md
-  - Glossary: glossar.md
+  - Glossary: glossary.md
   - Requirements: requirements.md
   - Use-Cases: use-case-diagramme.md
   - StoryFlow: storyflow.md
