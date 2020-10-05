@@ -1,7 +1,7 @@
 @startuml
 left to right direction
 actor "PlayerAudience-Client" as AUDC
-rectangle "Server-Client" {
+rectangle "Server" {
 usecase "Poll Evaluation" as PE
 }
 

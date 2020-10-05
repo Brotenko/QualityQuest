@@ -34,11 +34,11 @@ else
 else
 --> [Just\ngo for it] ts
 if "" then
---> [thoroughly] "Attend\nchristmas party" as fd
+--> [thoroughly] "Attend\company party" as fd
 else
 --> [only till\ndeadline] fd
 if "" then
--> [attend] "Christmas party" as cp
+-> [attend] "Company party" as cp
 else
 --> [do not attend] "Continue working\n/Fix issues" as cw
 cp --> if "" then
