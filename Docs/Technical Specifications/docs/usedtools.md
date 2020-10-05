@@ -9,7 +9,7 @@ The following tools were used during the creation of Quality Quest and the docum
 | Tool               | Description                                                                         | Version                            |
 | :----------------- | :---------------------------------------------------------------------------------- | :--------------------------------- |
 | Visual Studio Code | Tool to create and edit markdown files, and also to create and edit PlantUML files. | 1.49                               |
-| PlantUML           | Used to create the required UML diagrams..                                          | 1.2020.15                          |
+| PlantUML           | Used to create the required UML diagrams.                                          | 1.2020.15                          |
 | GIMP               | Editor for raster graphics. Was used for image editing.                             | 2.10.18                            |
 | SourceTree         | GUI for git.                                                                        | 4.0.1                              |
 | GitKraken          | GUI for git.                                                                        | 5.0.4                              |
