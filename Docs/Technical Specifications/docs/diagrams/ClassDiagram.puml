@@ -42,12 +42,15 @@ package "Moderator Client" {
     {method} +Character()
   }
 
-  class ModeratorView {
+  class "ModeratorView" as mf {
     {field} +timeoutDuration: int
-    {method} +ModeratorView()
+    {method} +ModeratorFacade()
     {method} +pausePolling(Boolean): void
     {method} +checkServerStatus(): void
+    {method} +broadcastNextDecision(): void
+    {method} +offlineMode(val: boolean): void
   }
+
 
   class "ModeratorClientExchange" as mcei <<interface>>{
     {field} +websocket:WebSocket
@@ -104,10 +107,10 @@ package "PlayerAudience Client"{
 }
 
 StoryEvent "n" --* "1" StoryGraph
-StoryGraph -- ModeratorView
+StoryGraph -- mf
 StoryGraph -- Character
 Character "1" *-- "n" Skill
-ModeratorView -- mcei
+mf -- mcei
 smei -- pe
 spaei -- pe
 pacei -up- pav
