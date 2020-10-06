@@ -10,7 +10,7 @@ The requirements are divided into different priorities, whose meaning should be 
 
 </br>
 
-## Functional Requirements
+## Functional requirements
 
 This section contains all requirements that specify the basic actions of the software system.
 
@@ -68,12 +68,12 @@ This section contains all requirements that specify the basic actions of the sof
 
 </br>
 
-| REQUIREMENT | Music                                                              |
-| ----------- | :----------------------------------------------------------------- |
-| ID          | FA7                                                                |
-| PRIORITY    | -                                                                  |
+| REQUIREMENT | Music                                                                                              |
+| ----------- | :------------------------------------------------------------------------------------------------- |
+| ID          | FA7                                                                                                |
+| PRIORITY    | -                                                                                                  |
 | DESCRIPTION | QualityQuest may be accompanied by a suitable musical background to enhance the player experience. |
-| EXPLANATION | -                                                                  |
+| EXPLANATION | -                                                                                                  |
 
 </br>
 
@@ -140,12 +140,12 @@ This section contains all requirements that specify the basic actions of the sof
 
 </br>
 
-| REQUIREMENT | Character status values                                                                                                                                                                                                          |
-| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA15                                                                                                                                                                                                                             |
-| PRIORITY    | +                                                                                                                                                                                                                                |
+| REQUIREMENT | Character status values                                                                                                                                                                                                  |
+| ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FA15                                                                                                                                                                                                                     |
+| PRIORITY    | +                                                                                                                                                                                                                        |
 | DESCRIPTION | The PlayerCharacter shall have different status values, which can improve or worsen during the game. The PlayerCharacter shall have all of the following status values: Programming, Analytics, Communication, Partying. |
-| EXPLANATION | -                                                                                                                                                                                                                                |
+| EXPLANATION | -                                                                                                                                                                                                                        |
 
 </br>
 
@@ -158,12 +158,12 @@ This section contains all requirements that specify the basic actions of the sof
 
 </br>
 
-| REQUIREMENT | Presentation of character status values                                                  |
-| ----------- | :--------------------------------------------------------------------------------------- |
-| ID          | FA17                                                                                     |
-| PRIORITY    | +                                                                                        |
+| REQUIREMENT | Presentation of character status values                                    |
+| ----------- | :------------------------------------------------------------------------- |
+| ID          | FA17                                                                       |
+| PRIORITY    | +                                                                          |
 | DESCRIPTION | The first StoryFlowDecision shall be the selection of the PlayerCharacter. |
-| EXPLANATION | This shall be a StoryFlowDecision with ZeroRandomness.                                   |
+| EXPLANATION | This shall be a StoryFlowDecision with ZeroRandomness.                     |
 
 </br>
 
@@ -302,12 +302,12 @@ This section contains all requirements that specify the basic actions of the sof
 
 </br>
 
-| REQUIREMENT | Offline-Mode                                                                                                                                                                                                                                                                                                                                           |
-| ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA32                                                                                                                                                                                                                                                                                                                                                   |
-| PRIORITY    | +                                                                                                                                                                                                                                                                                                                                                      |
+| REQUIREMENT | Offline-Mode                                                                                                                                                                                                                                                                                                                                                          |
+| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FA32                                                                                                                                                                                                                                                                                                                                                                  |
+| PRIORITY    | +                                                                                                                                                                                                                                                                                                                                                                     |
 | DESCRIPTION | In the event that the server is not functional, the network infrastructure slows significantly down or there being a problem with the connection between clients and server, the Moderator shall have the option to continue the game offline. This Offline-Mode must ensure a smooth transition between online and offline and shall be able to step in at any time. |
-| EXPLANATION | -                                                                                                                                                                                                                                                                                                                                                      |
+| EXPLANATION | -                                                                                                                                                                                                                                                                                                                                                                     |
 
 </br>
 
@@ -341,12 +341,12 @@ This section contains all requirements that specify the basic actions of the sof
 
 This section specifies the non-functional requirements for the software system.
 
-| REQUIREMENT | Documents to be delivered                                                                                                                                                                                                                                              |
-| ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | QA1                                                                                                                                                                                                                                                                    |
-| PRIORITY    | +                                                                                                                                                                                                                                                                      |
+| REQUIREMENT | Documents to be delivered                                                                                                                                                                                                                                               |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | QA1                                                                                                                                                                                                                                                                     |
+| PRIORITY    | +                                                                                                                                                                                                                                                                       |
 | DESCRIPTION | A System Specification, which comprises use case diagrams, use case descriptions and a static view of the software architecture and Software Design Specification for each software component, which describes both the static and the dynamic view shall be delivered. |
-| EXPLANATION | -                                                                                                                                                                                                                                                                      |
+| EXPLANATION | -                                                                                                                                                                                                                                                                       |
 
 </br>
 
@@ -449,11 +449,11 @@ This section specifies the non-functional requirements for the software system.
 
 </br>
 
-| REQUIREMENT | Type of delivery                                                                                                                                   |
-| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | QA13                                                                                                                                               |
-| PRIORITY    | +                                                                                                                                                  |
-| DESCRIPTION | All deliverable artifacts shall be delivered digitally.                                                                                            |
+| REQUIREMENT | Type of delivery                                                                                                                                    |
+| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | QA13                                                                                                                                                |
+| PRIORITY    | +                                                                                                                                                   |
+| DESCRIPTION | All deliverable artifacts shall be delivered digitally.                                                                                             |
 | EXPLANATION | The delivery can be by depositing the deliverable artefacts in a public version control system. Documents should be delivered in both PDS and DOCX. |
 
 </br>

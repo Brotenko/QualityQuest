@@ -1,30 +1,30 @@
-# Used Tools, Plugins and Libraries
+# Used tools, plugins and libraries
 
 A list of all tools, plugins and libraries that have been used to create the documentation of the product and helped implementing Quality Quest. The list contains the name of the respective tool, the version that has been used (or a link to the webpage) and a description on how the tool was used.
 
-## Used Tools
+## Used tools
 
 The following tools were used during the creation of Quality Quest and the documentation:
 
-| Tool               | Description                                                                         | Version                                |
-| :----------------- | :---------------------------------------------------------------------------------- | :------------------------------------- |
-| Visual Studio Code | Tool to create and edit markdown files, and also to create and edit PlantUML files. | 1.49                                   |
-| PlantUML           | Used to create the required UML diagrams..                                          | 1.2020.15                              |
-| GIMP               | Editor for raster graphics. Was used for image editing.                             | 2.10.18                                |
-| SourceTree         | GUI for git.                                                                        | 4.0.1                                  |
-| GitKraken          | GUI for git.                                                                        | 5.0.4                                  |
-| MkDocs             | Documentation tool for creating stylised documentation through markdown files.      | 1.1.2                                  |
-| GitHub             | Tool for source code management and version control.                                | [link](https://github.com/)            |
-| Doxygen            | Tool to generate software reference documentation.                                  | 1.8.20                                 |
-| Aseprite           | Tool to create pixelart sprites and animations.                                     | 1.2.25                                 |
-| Planttext          | A website for converting PlantUML files into svg files.                             | [link](https://www.planttext.com/)     | 
-| Docker             | Tool used to use other tools directly without the need of installing anything,      | 19.03.13                               |
-| m2r                | Markdown to reStructuredText converter used for making the docs usable for Sphinx.  | [link](https://github.com/miyakogi/m2r)|
-| Sphinx             | Documentation tool for creating stylised documentation through reStructuredText.    | 3.2.1                                  |
+| Tool               | Description                                                                         | Version                                 |
+| :----------------- | :---------------------------------------------------------------------------------- | :-------------------------------------- |
+| Visual Studio Code | Tool to create and edit markdown files, and also to create and edit PlantUML files. | 1.49                                    |
+| PlantUML           | Used to create the required UML diagrams..                                          | 1.2020.15                               |
+| GIMP               | Editor for raster graphics. Was used for image editing.                             | 2.10.18                                 |
+| SourceTree         | GUI for git.                                                                        | 4.0.1                                   |
+| GitKraken          | GUI for git.                                                                        | 5.0.4                                   |
+| MkDocs             | Documentation tool for creating stylised documentation through markdown files.      | 1.1.2                                   |
+| GitHub             | Tool for source code management and version control.                                | [link](https://github.com/)             |
+| Doxygen            | Tool to generate software reference documentation.                                  | 1.8.20                                  |
+| Aseprite           | Tool to create pixelart sprites and animations.                                     | 1.2.25                                  |
+| Planttext          | A website for converting PlantUML files into svg files.                             | [link](https://www.planttext.com/)      |
+| Docker             | Tool used to use other tools directly without the need of installing anything,      | 19.03.13                                |
+| m2r                | Markdown to reStructuredText converter used for making the docs usable for Sphinx.  | [link](https://github.com/miyakogi/m2r) |
+| Sphinx             | Documentation tool for creating stylised documentation through reStructuredText.    | 3.2.1                                   |
 
 <br/>
 
-## Used Plugins
+## Used plugins
 
 The following plugins were used during the creation of Quality Quest and the documentation:
 
@@ -38,7 +38,7 @@ The following plugins were used during the creation of Quality Quest and the doc
 
 <br/>
 
-## Used Libraries
+## Used libraries
 
 The following libraries were used during the creation of Quality Quest:
 

@@ -4,7 +4,7 @@
 () "User\nInterface" as ui
 () "Moderator\nInterface" as mi
 [PlayerAudience-Client] <<component>> as AuCl
-[Server-Client] <<component>> as SeCl
+[Server] <<component>> as SeCl
 [Moderator-Client] <<component>> as StPlCl
 
 ui -up- AuCl

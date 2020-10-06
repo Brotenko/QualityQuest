@@ -2,7 +2,7 @@
 () "HTTP" as http
 () "API" as api
 
-component "Server Client" <<component>> as server{
+component "Server" <<component>> as server{
 component "Logic" <<component>> as logic{
     [Networking] <<subsystem>> as network
     [Message Managment] <<subsystem>> as message

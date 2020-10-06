@@ -2,7 +2,7 @@
 
 The glossary contains a list of specific terms and their meaning in the context of the project. They can also contain examples, a description of what they are/can be.
 
-## Actors and Roles
+## Actors and roles
 
 This section includes all actors involved in the system. Actors are people, but also third party technical systems involved in the system.
 
@@ -120,7 +120,7 @@ This section contains a collection of information regarding technical terms that
 | ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DESCRIPTION | The PlayerCharacter has different character status values which improve or change during the course of the game. The PlayerCharacterStatusValues are displayed via a PlayerCharacterStatusBox. |
 | IS-A        | -                                                                                                                                                                                              |
-| CAN-BE      | Programming, Analytics, Communication, Partying                                                                                                                                        |
+| CAN-BE      | Programming, Analytics, Communication, Partying                                                                                                                                                |
 | EXAMPLE     | -                                                                                                                                                                                              |
 
 </br>
@@ -143,12 +143,12 @@ This section contains a collection of information regarding technical terms that
 
 </br>
 
-| Term        | PlayerCharacter                                                                                                                             |
-| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
+| Term        | PlayerCharacter                                                                                                                                                                                                                                                                                                    |
+| ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DESCRIPTION | The virtual representation of the PlayerAudience in the game. At the beginning of the game the PlayerAudience chooses a PlayerCharacter from a collection of predefined PlayerCharacters with different PlayerCharacterStatusValues. The PlayerCharacter has different PlayerCharacterStatusValues and a portrait. |
-| IS-A        | -                                                                                                                                           |
-| CAN-BE      | -                                                                                                                                           |
-| EXAMPLE     | -                                                                                                                                           |
+| IS-A        | -                                                                                                                                                                                                                                                                                                                  |
+| CAN-BE      | -                                                                                                                                                                                                                                                                                                                  |
+| EXAMPLE     | -                                                                                                                                                                                                                                                                                                                  |
 
 </br>
 
@@ -179,12 +179,12 @@ This section contains a collection of information regarding technical terms that
 
 </br>
 
-| Term        | Programming                                                                                                                              |
-| ----------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| Term        | Programming                                                                                                                             |
+| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
 | DESCRIPTION | A status value of the PlayerCharacter. Influences how well the character can program, for example less time is needed to program tests. |
-| IS-A        | CharacterStatusValue                                                                                                                     |
-| CAN-BE      | -                                                                                                                                        |
-| EXAMPLE     | PlayerCharacter James has the programming-skill at 8.                                                                                    |
+| IS-A        | CharacterStatusValue                                                                                                                    |
+| CAN-BE      | -                                                                                                                                       |
+| EXAMPLE     | PlayerCharacter James has the programming-skill at 8.                                                                                   |
 
 </br>
 

@@ -34,7 +34,7 @@ else
 else
 --> [Just\ngo for it] ts
 if "" then
---> [thoroughly] "Attend\company party" as fd
+--> [thoroughly] "Attend\ncompany party" as fd
 else
 --> [only till\ndeadline] fd
 if "" then

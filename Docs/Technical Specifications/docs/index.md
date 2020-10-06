@@ -1,3 +1,5 @@
+# Quality Quest
+
 ## Introduction
 In this project a serious game is to be developed, 
 in which the audience can interactively determine the decisions in the course of the game. 
@@ -16,5 +18,5 @@ humorous way. The decisions made in the game are intended to demonstrate the ski
 The game should have an appealing and clear presentation, and the spectators should be able to participate easily via their cell phones. The moderator should be able to continue 
 the game if there are connection problems, and to pause voting if needed. The story should be played through within twenty minutes.
 
-## Context of Project
+## Context of project
 QualityQuest is developed within a software project of the University of Ulm in cooperation with NewTec, represented by Dr. Axel Newe, and shall be published as OpenSource.
