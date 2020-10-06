@@ -44,7 +44,7 @@ package "Moderator Client" {
 
   class "ModeratorView" as mf {
     {field} +timeoutDuration: int
-    {method} +ModeratorFacade()
+    {method} +ModeratorView()
     {method} +pausePolling(Boolean): void
     {method} +checkServerStatus(): void
     {method} +broadcastNextDecision(): void
