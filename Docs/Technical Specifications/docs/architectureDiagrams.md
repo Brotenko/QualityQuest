@@ -40,3 +40,10 @@ Architectural overview of which subsystems and interfaces the Server component c
 Architectural overview of which subsystems and interfaces the Moderator-Client component consists of.
 
 ![Moderator-Client](diagrams/ModeratorClientComponentDiagram.svg)
+
+
+### Detailed class diagramm Moderator Client
+
+
+
+![ModeratorClient Class Diagram](diagrams/ModeratorClientClassDiagram.svg)

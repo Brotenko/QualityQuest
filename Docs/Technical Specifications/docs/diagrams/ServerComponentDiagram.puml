@@ -3,7 +3,7 @@
 () "WebSocket" as api
 
 component "Server" <<component>> as server{
-component "Logic" <<component>> as logic{
+component "Logic" <<subsystem>> as logic{
     [Networking] <<subsystem>> as network
     [Message Managment] <<subsystem>> as message
 }
