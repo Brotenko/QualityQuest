@@ -1,5 +1,5 @@
 @startuml
-"   " -[#blue,dotted]-> Voluntary training"
+"   " -[#blue,dotted]-> Voluntary training
 if "" then
 --> [Go on holiday] "Modification requests\nfrom customers" as a
 else
