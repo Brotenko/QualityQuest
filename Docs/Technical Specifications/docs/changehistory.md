@@ -81,7 +81,7 @@ The change history is a chronologically ordered list of all changes between diff
 |   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR49:_** Added requirement "Additional PlayerAudience connection options".                                        |
 |   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR50:_** Added requirement "Pause menu".                                                                          |
 |   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR51:_** Added requirement "Pause menu contents".                                                                 |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR52:_** Added requirement "Vote indexing procedure".                                                                                    |
+|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR52:_** Added requirement "Index hashing procedure".                                                                                    |
 |   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR53:_** Added requirement "Cryptographic hashing procedure".                                                                                    |
 |   +   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _NFR23:_** Added requirement "Communication security".                                                     |
 |   +   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _NFR24:_** Added requirement "Postgame statistics".                                                        |
@@ -91,6 +91,8 @@ The change history is a chronologically ordered list of all changes between diff
 |   *   | **[_Requirements:_](/requirements) _Requirements:_** Fixed typos.                                                                                                                         |
 |   *   | **[_Table of content:_](/toc) _Table of content:_** Fixed typos.                                                                                                                          |
 |   *   | **[_Used tools, plugins and libraries:_](/usedtools) _Used tools, plugins and libraries:_** Fixed typos.                                                                                  |
+|   *   | **[_Class diagrams:_](/architectureDiagrams#Classdiagrams) _Class diagrams:_**  Updated class diagrams with Guids and further Adaptions. |
+
 
 </span>
 
