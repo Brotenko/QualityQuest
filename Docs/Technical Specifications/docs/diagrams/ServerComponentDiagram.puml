@@ -1,6 +1,6 @@
 @startuml
 () "HTTP" as http
-() "API" as api
+() "WebSocket" as api
 
 component "Server" <<component>> as server{
 component "Logic" <<component>> as logic{
