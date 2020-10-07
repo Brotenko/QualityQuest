@@ -68,51 +68,10 @@ package "Moderator Client" {
     {method} +makeJSON()
   }
 }
-
-package "Server" {
-
-  class "ServerModeratorExchange" as smei <<interface>>{
-    {field} +websocket: WebSocket
-    {field} +ip: int
-    {field} +port: int
-    {method} +ServerModeratorExchange(ip: int, port: int)
-    {method} +requestCurrentPossibleDecisions(): StoryEvent[]
-  }
-
-  class "ServerPlayerAudienceExchange" as spaei <<interface>>{
-    {field} +websocket: WebSocket
-    {field} +ip: int
-    {field} +port: int
-    {method} +ServerPlayerAudienceExchange(ip: int, port: int)
-    {method} +requestDecision(): int
-  }
-
-}
-
-
-package "PlayerAudience Client"{
-
-  class "PlayerAudienceClientExchange" as pacei <<interface>>{
-    {field} +websocket: WebSocket
-    {field} +ip: int
-    {field} +port: int
-    {method} +PlayerAudienceClientExchange(ip: int, port: int)
-    {method} +requestCurrentPossibleDecisions(): StoryEvent[]
-  }
-
-  class "PlayerAudienceView" as pav {
-    {method} +PlayerAudienceView()
-  }
-}
-
 StoryEvent "n" --* "1" StoryGraph
 StoryGraph -- mf
 StoryGraph -- Character
 Character "1" *-- "n" Skill
 mf -- pe
 pe -- mcei
-smei -- spaei
-pacei -up- pav
-mcei -- smei
-pacei -- spaei
 @enduml
