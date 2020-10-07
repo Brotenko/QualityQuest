@@ -46,11 +46,20 @@ package "Moderator Client" {
     {field} +timeoutDuration: int
     {method} +ModeratorView()
     {method} +pausePolling(Boolean): void
-    {method} +checkServerStatus(): void
-    {method} +broadcastNextDecision(): void
     {method} +offlineMode(val: boolean): void
   }
 
+  class "PollEvaluator" as pe {
+
+    {field} possibleDecisions: StoryEvent[]
+    {field} timeout: int
+    {field} voteCounter: int[]
+    {method} +PollEvaluator()
+    {method} +checkServerStatus(): void
+    {method} +broadcastNextDecision(): void
+    {method} +evaluateVotes(): int
+    {method} +addVote(): void
+  }
 
   class "ModeratorClientExchange" as mcei <<interface>>{
     {field} +websocket:WebSocket
@@ -78,16 +87,6 @@ package "Server" {
     {method} +requestDecision(): int
   }
 
-  class "PollEvaluator" as pe {
-
-    {field} possibleDecisions: StoryEvent[]
-    {field} timeout: int
-    {field} voteCounter: int[]
-    {method} PollEvaluator()
-    {method} pauseTimer(Boolean): void
-    {method} evaluateVotes(): int
-    {method} addVote(): void
-  }
 }
 
 
@@ -110,9 +109,9 @@ StoryEvent "n" --* "1" StoryGraph
 StoryGraph -- mf
 StoryGraph -- Character
 Character "1" *-- "n" Skill
-mf -- mcei
-smei -- pe
-spaei -- pe
+mf -- pe
+pe -- mcei
+smei -- spaei
 pacei -up- pav
 mcei -- smei
 pacei -- spaei
