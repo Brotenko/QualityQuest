@@ -1,0 +1,64 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package "Server" {
+class ServerShell {
+    {field} +port: int
+    {field} +runShell: boolean
+    {field} +serverShell: ServerShell
+    {field} +capacity: int
+    {field} +bufferedReader: BufferedReader
+    {method} +ServerShell()
+    {method} +startShell(): void
+    {method} +stopShell(): void
+    {method} +parseCommand(String): void
+    {method} +showHelp(): void
+    {method} +configPort(): void
+    {method} +configCapacity(): void
+    {method} +startServer(): void
+    {method} +stopServer(): void
+    {method} +main(String[]): void
+  }
+class WebSocket {
+    {field} +clients: ArrayList<WebClients>
+    {method} +onOpen(Session): void
+    {method} +onMessage(String, Session): void
+    {method} +onClose(Session, CloseReason): void
+
+}
+class WebClient {
+    {field} +session: Session
+    {field} +clientManager: ClientManager
+    {method} +WebClient(Session, MainServerLogic): void
+    {method} +send(String): void
+    {method} +recieve(String): void
+}
+class MainServerLogic {
+    {field} +moderator: UUID
+    {field} webServer: Server
+    {field} +moderatorSessionId: UUID
+    {field} +playerAudience: ArrayList<UUID>
+    {field} +playerAudienceSessionId: ArrayList<UUID>
+    {field} +moderator: ClientManager
+    {field} +playerAudienceClientManager: List<ClientManager>
+    {method} MainServerLogic(int, int, Server)
+    {method} +onFalseMessage(String): void
+    {method} +onVotingMessage(String): void
+
+}
+class ClientManager {
+    {field} +client: WebClient
+    {field} +gson: Gson
+    {field} +mainServerLogic: MainServerLogic
+    {field} +sessionInformation: String
+    {method} +ClientManager(WebClient, MainServerLogic): void
+    {method} +disconnect(): void
+    {method} +onDisconnect(): void
+    {method} +recieve(String): void
+    {method} +checkJSON(String): void
+    {method} +sendMessage(String): void
+}
+}
+
+@enduml
