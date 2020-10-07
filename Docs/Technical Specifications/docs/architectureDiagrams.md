@@ -42,8 +42,8 @@ Architectural overview of which subsystems and interfaces the Moderator-Client c
 ![Moderator-Client](diagrams/ModeratorClientComponentDiagram.svg)
 
 
-### Detailed class diagrams 
-## Moderator-Client
+## Detailed class diagrams 
+### Moderator-Client
 
 
 
