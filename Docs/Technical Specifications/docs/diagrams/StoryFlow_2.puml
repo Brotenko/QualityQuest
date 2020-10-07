@@ -1,0 +1,29 @@
+@startuml
+"   " as x-[#blue,dotted]-> "Write tests"
+if "" then
+--> [thoroughly] "Attend\ncompany party" as fd
+else
+--> [only till\ndeadline] fd
+if "" then
+-> [attend] "Company party" as cp
+else
+--> [do not attend] "Continue working\n/Fix issues" as cw
+cp --> if "" then
+--> [Sit alone] "Drink something" as dri
+else
+--> [Chat with\ncolleagues] "Level up\nprogramming" as lvl
+lvl --> dri
+else
+--> [Chat with\nsupervisors] "Unlock dialouge options" as sup
+sup --> dri
+if "" then
+--> [Strong alcohol] "Negative effect" as bad
+else
+--> [Weak alcohol] "No negative\neffects" as non
+else 
+--> [Non-alcholic] non
+bad --> "Voluntary training" as vt
+non --> vt
+cw --> vt
+-[#blue,dotted]-> "   " as y
+@enduml
