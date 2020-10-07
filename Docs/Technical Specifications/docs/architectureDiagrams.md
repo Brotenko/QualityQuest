@@ -43,7 +43,7 @@ Architectural overview of which subsystems and interfaces the Moderator-Client c
 
 
 ### Detailed class diagrams 
-### Moderator Client
+## Moderator-Client
 
 
 
