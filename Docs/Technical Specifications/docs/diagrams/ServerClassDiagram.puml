@@ -22,7 +22,7 @@ class "ServerShell" as ss {
     {method} +main(String[]): void
   }
 class "WebSocket" as ws {
-    {field} +clients: ArrayList<WebClients>
+    {field} +clients: ArrayList<ClientManager>
     {field} +Logger: Logger
     {method} +onOpen(Session): void
     {method} +onMessage(String, Session): void
