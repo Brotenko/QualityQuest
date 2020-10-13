@@ -1,0 +1,29 @@
+@startuml
+"ModeratorClient" as mc -> "Server" as s : StoryEvents
+s --> mc: ACK
+s -> "AudienceClient" as ac : StoryEvents/poll options
+ac --> s: ACK
+mc -> s: Timerstart with interval-length x 
+s --> mc: ACK
+s -> ac: allow polling
+ac --> s: ACK
+ac -> s: polls
+s --> ac: ACK
+s -> mc: summarized polls after x sec
+mc --> s: ACK
+ac -> s: polls
+s --> ac: ACK
+ac -> s: polls
+s --> ac: ACK
+s -> mc: summarized polls after 2x sec
+mc --> s: ACK
+ac -> s: polls
+s --> ac: ACK
+s -> mc: summarized polls after ...x sec
+mc --> s: ACK
+mc -> s: Timerstop
+s -> ac: disallow polling
+ac --> s: ACK
+s -> mc: remaining polls
+mc --> s: ACK
+@enduml

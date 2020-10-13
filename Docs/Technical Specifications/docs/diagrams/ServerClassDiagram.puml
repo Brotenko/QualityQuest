@@ -3,8 +3,8 @@
 skinparam classAttributeIconSize 0
 
 package "Server" {
-class ServerShell {
-    {field} +LOGGER: Logger
+class "ServerShell" as ss {
+    {field} +Logger: Logger
     {field} +port: int
     {field} +runShell: boolean
     {field} +serverShell: ServerShell
@@ -21,48 +21,47 @@ class ServerShell {
     {method} +stopServer(): void
     {method} +main(String[]): void
   }
-class WebSocket {
+class "WebSocket" as ws {
     {field} +clients: ArrayList<WebClients>
+    {field} +Logger: Logger
     {method} +onOpen(Session): void
     {method} +onMessage(String, Session): void
     {method} +onClose(Session, CloseReason): void
 
 }
-class WebClient {
-    {field} +session: Session
-    {field} +clientManager: ClientManager
-    {method} +WebClient(Session, MainServerLogic): void
-    {method} +send(String): void
-    {method} +recieve(String): void
-}
-class MainServerLogic {
+
+class "MainServerLogic" as msl {
     {field} +moderator: UUID
-    {field} webServer: Server
+    {field} output: WebSocket
     {field} +moderatorSessionId: UUID
     {field} +playerAudience: ArrayList<UUID>
     {field} +playerAudienceSessionId: ArrayList<UUID>
     {field} +moderator: ClientManager
-    {field} +playerAudienceClientManager: List<ClientManager>
-    {method} MainServerLogic(int, int, Server)
+    {field} +playerAudienceClientManager: ClientManager
+    {field} +Logger: Logger
+    {method} MainServerLogic(capacity: int, port: int)
     {method} +onFalseMessage(String): void
     {method} +onVotingMessage(String): void
 
 }
-class ClientManager {
+class "ClientManager" as cm {
     {field} +client: WebClient
+    {field} +session: Session
     {field} +gson: Gson
-    {field} +mainServerLogic: MainServerLogic
     {field} +sessionInformation: String
-    {method} +ClientManager(WebClient, MainServerLogic): void
+    {field} +Logger: Logger
+    {method} +ClientManager(session: Session): void
     {method} +disconnect(): void
     {method} +onDisconnect(): void
     {method} +recieve(String): void
     {method} +checkJSON(String): void
     {method} +sendMessage(String): void
+    {method} +send(String): void
+    {method} +recieve(String): void
 }
 
-class ServerLogger {
-    {field} +GLOBALLOGGER: Logger
+class "ServerLogger" as sl {
+    {field} +GlobalLogger: Logger
     {field} +logFile: FileHandler
     {field} +isSetup: Boolean
     {field} +consoleHandler: Handler
@@ -72,5 +71,12 @@ class ServerLogger {
     {method} +setConsoleOutput(boolean): void
 }
 }
+ss -- msl
+msl -- ws
+msl -- cm
+sl ... msl
+sl ... ws
+sl ... cm
+sl ... ss
 
 @enduml
