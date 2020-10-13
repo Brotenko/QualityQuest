@@ -48,3 +48,7 @@ Architectural overview of which subsystems and interfaces the Moderator-Client c
 
 
 ![ModeratorClient Class Diagram](diagrams/ModeratorClientClassDiagram.svg)
+
+### Server
+
+![Server Class Diagram](diagrams/ServerClassDiagram.svg)
