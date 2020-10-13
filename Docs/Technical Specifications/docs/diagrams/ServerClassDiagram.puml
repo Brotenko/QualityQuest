@@ -4,6 +4,7 @@ skinparam classAttributeIconSize 0
 
 package "Server" {
 class ServerShell {
+    {field} +LOGGER: Logger
     {field} +port: int
     {field} +runShell: boolean
     {field} +serverShell: ServerShell
@@ -58,6 +59,17 @@ class ClientManager {
     {method} +recieve(String): void
     {method} +checkJSON(String): void
     {method} +sendMessage(String): void
+}
+
+class ServerLogger {
+    {field} +GLOBALLOGGER: Logger
+    {field} +logFile: FileHandler
+    {field} +isSetup: Boolean
+    {field} +consoleHandler: Handler
+    {method} +setup(): void
+    {method} +addHandler(Logger): void
+    {method} +setLevel(Level): void
+    {method} +setConsoleOutput(boolean): void
 }
 }
 
