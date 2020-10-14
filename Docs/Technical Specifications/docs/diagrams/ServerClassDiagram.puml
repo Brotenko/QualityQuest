@@ -3,7 +3,7 @@
 skinparam classAttributeIconSize 0
 
 package "Server" {
-class "ServerShell" as ss {
+  class "ServerShell" as ss {
     {field} +Logger: Logger
     {field} +port: int
     {field} +runShell: boolean
@@ -21,16 +21,21 @@ class "ServerShell" as ss {
     {method} +stopServer(): void
     {method} +main(String[]): void
   }
-class "WebSocket" as ws {
-    {field} +clients: ArrayList<ClientManager>
-    {field} +Logger: Logger
-    {method} +onOpen(Session): void
-    {method} +onMessage(String, Session): void
-    {method} +onClose(Session, CloseReason): void
 
-}
+  class "WebSocket" as ws {
+    {field} +CloseStatus
+    {field} +CloseStatusDescription
+    {field} +DefaultKeepAliveInterval
+    {field} +State
+    {field} +SupProtocol
+    {method} +Abort()
+    {method} +CreateClientBuffer(Int32, Int32)
+    {method} +ReceiveAsync(Memory<Byte>, Cancellation Token)
+    {method} +SendAsync(ArraySegment<Byte>, WebSocketMessageType, Boolean, CancellationToken)
+  }
 
-class "MainServerLogic" as msl {
+
+  class "MainServerLogic" as msl {
     {field} +moderator: UUID
     {field} output: WebSocket
     {field} +moderatorSessionId: UUID
@@ -43,8 +48,9 @@ class "MainServerLogic" as msl {
     {method} +onFalseMessage(String): void
     {method} +onVotingMessage(String): void
 
-}
-class "ClientManager" as cm {
+  }
+
+  class "ClientManager" as cm {
     {field} +client: WebClient
     {field} +session: Session
     {field} +gson: Gson
@@ -58,9 +64,9 @@ class "ClientManager" as cm {
     {method} +sendMessage(String): void
     {method} +send(String): void
     {method} +recieve(String): void
-}
+  }
 
-class "ServerLogger" as sl {
+  class "ServerLogger" as sl {
     {field} +GlobalLogger: Logger
     {field} +logFile: FileHandler
     {field} +isSetup: Boolean
@@ -69,7 +75,7 @@ class "ServerLogger" as sl {
     {method} +addHandler(Logger): void
     {method} +setLevel(Level): void
     {method} +setConsoleOutput(boolean): void
-}
+  }
 }
 ss -- msl
 msl -- ws

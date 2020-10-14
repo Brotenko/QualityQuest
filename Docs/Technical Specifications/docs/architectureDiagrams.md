@@ -43,6 +43,7 @@ Architectural overview of which subsystems and interfaces the Moderator-Client c
 
 
 ## Detailed class diagrams 
+WebSocket attributes and a selection of methods were taken from the Microsoft documentation.
 ### Moderator-Client
 
 
