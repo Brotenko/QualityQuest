@@ -53,3 +53,6 @@ WebSocket attributes and a selection of methods were taken from the Microsoft do
 ### Server
 
 ![Server Class Diagram](diagrams/ServerClassDiagram.svg)
+
+### PlayerAudience-Client
+![PlayerAudience-Client Diagram](diagrams/PlayerAudienceClientClassDiagram.svg)
