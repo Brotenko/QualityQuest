@@ -7,14 +7,15 @@ nav:
     - '2020.09.04 - Diagrams, Requirements and Gameplay': sprint-reviews/review_2020_09_04.md
     - '2020.09.18 - Story extension, Voting-tool, Presentation at NewTec': sprint-reviews/review_2020_09_18.md
     - '2020.10.02 - Assets, First approval, Diagrams, Documentation': sprint-reviews/review_2020_10_02.md
-    - '2020.10.16 - ' : sprint-reviews/review_2020_10_16.md
+    - '2020.10.20 - Technical Specifications feedback, Diagrams, HTML Docs' : sprint-reviews/review_2020_10_20.md
   - Scrum-Meetings:
     - '2020.08.22 - Who is what, What should be done first': scrum-meetings/meeting_2020_08_22.md
     - '2020.08.28 - Cancelled meeting': scrum-meetings/meeting_2020_08_28.md
     - '2020.09.14 - Switch to MkDocs, Documentation and Raschke': scrum-meetings/meeting_2020_09_14.md
     - '2020.09.22 - MkDocs to PDF, StoryFlow, Fixes' : scrum-meetings/meeting_2020_09_22.md
     - '2020.10.05 - Team restructuring, Schedule changes, Copyright issues' : scrum-meetings/meeting_2020_10_05.md
-    - '2020.10.12 - ' : scrum-meetings/meeting_2020_10_12.md
+    - '2020.10.12 - Server architecture and communication' : scrum-meetings/meeting_2020_10_12.md
+    - '2020.10.21 - Technical Specifications feedback, Team restructuring, Uni-Server' : scrum-meetings/meeting_2020_10_21.md
   - Miscellaneous:
     - '2020.09.14 - Questions about the project for Dr. Raschke': miscellaneous/misc_2020_09_14.md
 theme: readthedocs
