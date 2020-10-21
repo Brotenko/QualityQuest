@@ -1,0 +1,14 @@
+@startuml
+left to right direction
+(*) --> "Component Designs" AS cd
+(*) --> "Network Protocol" AS np
+cd --> "StoryFlow Update" AS sfu
+np --> sfu
+sfu --> "Asset Filtering/Search" AS afs 
+sfu --> "UI Design" AS uid 
+sfu --> "Asset creation" AS ac 
+afs --> "Project setup" AS ps
+uid --> ps
+ac --> ps
+ps --> (*)
+@enduml
