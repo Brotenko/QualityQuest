@@ -4,12 +4,12 @@ A rough overview of the decisions occurring within the story. The diagram exclus
 
 | | | |
 |:--:|:--:|:--:|
-|![StoryFlow](diagrams/StoryFlow_1.svg)|![StoryFlow](diagrams/StoryFlow_2.svg)|![StoryFlow](diagrams/StoryFlow_3.svg)|
+|![StoryFlow](diagrams/StoryFlow/StoryFlow_1.svg)|![StoryFlow](diagrams/StoryFlow/StoryFlow_2.svg)|![StoryFlow](diagrams/StoryFlow/StoryFlow_3.svg)|
 
 
 
-![StoryFlow](diagrams/StoryFlow_1.svg)
+![StoryFlow](diagrams/StoryFlow/StoryFlow_1.svg)
 
-![StoryFlow](diagrams/StoryFlow_2.svg)
+![StoryFlow](diagrams/StoryFlow/StoryFlow_2.svg)
 
-![StoryFlow](diagrams/StoryFlow_3.svg)
+![StoryFlow](diagrams/StoryFlow/StoryFlow_3.svg)
