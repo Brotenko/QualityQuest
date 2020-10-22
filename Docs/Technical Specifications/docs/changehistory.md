@@ -37,6 +37,7 @@ This is the revised version of the Technical Specifications according to the fee
 | Type  | Description |
 | :---: | :---------- |
 | +/-/* | XYZ         |
+|*      | [Changed interface illustration](architectureDiagrams.md#Component-Overview) for the component overview. |
 
 </br>
 

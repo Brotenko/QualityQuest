@@ -8,9 +8,9 @@ component "Moderator-Client" <<component>> as ac{
     () " " as empty
 }
 
-API -up- Logic
-mi -up- GUI
+API )-up- Logic
+mi )-up- GUI
 empty - Logic
-GUI -> empty
+GUI -( empty
 
 @enduml

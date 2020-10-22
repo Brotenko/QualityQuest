@@ -7,8 +7,8 @@ component "PlayerAudience-Client" <<component>> as ac{
     () " " as empty
 }
 
-ui -up- GUI
+ui )-up- GUI
 empty - Logic
-GUI -> empty
+GUI -( empty
 
 @enduml

@@ -9,11 +9,11 @@ component "Logic" <<component>> as logic{
 }
     [Poll Evaluation] <<subsystem>> as pe
 }
-http -right- network
+http )-right- network
 
 
 pe <-down-> message
 network <-> message
 
-api -up- network
+api )-up- network
 @enduml
