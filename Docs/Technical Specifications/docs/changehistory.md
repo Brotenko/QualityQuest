@@ -36,7 +36,7 @@ This is the revised version of the Technical Specifications according to the fee
 
 | Type  | Description |
 | :---: | :---------- |
-|*      | [Changed component overview](architectureDiagrams.md#Component-Overview) for the component overview. |
+|*      | [Changed component diagrams](architectureDiagrams.md#Componentdiagrams) |
 |*|refactored diagram files folder structure|
 |*|[Added live share plugin](usedtools.md#Usedplugins)|
 </br>
