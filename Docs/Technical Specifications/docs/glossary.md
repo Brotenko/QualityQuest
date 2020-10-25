@@ -44,7 +44,7 @@ This section includes all actors involved in the system. Actors are people, but 
 
 | Term        | Moderator-Client                                                                                                                                                                                                                                                                                     |
 | ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | The Moderator-Client offers a graphical interface through which Moderator and PlayerAudience can interact with the game. The Moderator-Client establishes a connection to the server, which receives input from the PlayerAudience and visualises and logically implements the output of the server. |
+| DESCRIPTION | The Moderator-Client offers a graphical interface through which Moderator and PlayerAudience can interact with the game. The Moderator-Client can establish a connection to the server, to include the PlayerAudience in the game, or play the game locally without connecting to a server. In case of a server connection the Moderator-Client visualises and logically implements the output of the server. |
 | IS-A        | Component                                                                                                                                                                                                                                                                                            |
 | CAN-BE      | -                                                                                                                                                                                                                                                                                                    |
 | EXAMPLE     | -                                                                                                                                                                                                                                                                                                    |
@@ -91,7 +91,7 @@ This section contains a collection of information regarding technical terms that
 
 | Term        | StoryFlowDecision                                                                                                                                                                                                                                                    |
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | A special event within the game where the PlayerAudience needs to take a decision which influences the further StoryFlow. After a StoryFlowDecision the PlayerCharacterStatusValues can increase by several levels. The PlayerAudience decides through OnlineVoting. |
+| DESCRIPTION | A special event within the game where the PlayerAudience needs to take a decision which influences the further StoryFlow. After a StoryFlowDecision the PlayerCharacterStatusValues can increase by several levels. The PlayerAudience decides through OnlineVoting. If the server is not available, the moderator decides the StoryFlowDecision. |
 | IS-A        | -                                                                                                                                                                                                                                                                    |
 | CAN-BE      | -                                                                                                                                                                                                                                                                    |
 | EXAMPLE     | -                                                                                                                                                                                                                                                                    |
@@ -172,7 +172,7 @@ This section contains a collection of information regarding technical terms that
 
 | Term        | DiceRandomness                                                                                                     |
 | ----------- | :----------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | After a StoryFlowDecision a die is rolled, which initiates the further StoryFlow and selects the next StoryBranch. |
+| DESCRIPTION | After a StoryFlowDecision a six-sided die is rolled, which initiates the further StoryFlow and selects the next StoryBranch. |
 | IS-A        | Randomness                                                                                                         |
 | CAN-BE      | -                                                                                                                  |
 | EXAMPLE     | -                                                                                                                  |
@@ -247,7 +247,7 @@ This section contains a collection of information regarding technical terms that
 | DESCRIPTION | Timer that is triggered by a StoryFlowDecision. While the timer is running the PlayerAudience has to vote. The moderator can stop the timer with the pause button. |
 | IS-A        | -                                                                                                                                                                  |
 | CAN-BE      | -                                                                                                                                                                  |
-| EXAMPLE     | The PlayerAudience has 60 seconds to vote on a StoryFlowDecision.                                                                                                  |
+| EXAMPLE     | The PlayerAudience has 30 seconds to vote on a StoryFlowDecision.                                                                                                  |
 
 </br>
 
