@@ -39,6 +39,7 @@ This is the revised version of the Technical Specifications according to the fee
 |*      | [Changed component diagrams](architectureDiagrams.md#Componentdiagrams) |
 |*|refactored diagram files folder structure|
 |*|[Added live share plugin](usedtools.md#Usedplugins)|
+|*|[Changed use-case-diagrams for the Moderator-Client](use-case-diagramme.md#moderator-client)
 </br>
 
 ## Version 0.1.0 - Architecture design
