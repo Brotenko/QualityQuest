@@ -16,6 +16,7 @@ nav:
     - '2020.10.05 - Team restructuring, Schedule changes, Copyright issues' : scrum-meetings/meeting_2020_10_05.md
     - '2020.10.12 - Server architecture and communication' : scrum-meetings/meeting_2020_10_12.md
     - '2020.10.21 - Technical Specifications feedback, Team restructuring, Uni-Server' : scrum-meetings/meeting_2020_10_21.md
+    - '2020.10.26 - Implementation of the feedback, Use-Case consultation, Requirements consultation' : scrum-meetings/meeting_2020_10_26.md
   - Miscellaneous:
     - '2020.09.14 - Questions about the project for Dr. Raschke': miscellaneous/misc_2020_09_14.md
 theme: readthedocs
