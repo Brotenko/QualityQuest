@@ -1,27 +1,30 @@
 @startuml
 left to right direction
 
-rectangle "Start" {
-    
+rectangle "Start Application" {
     usecase "Start Application" as s
     usecase "Show Intro" as ia
     usecase "Show Mainmenu" as mm
     usecase "Show Options" as so
     usecase "End Application" as ea
+    together {
     usecase "Connect to Server" as cs
     usecase "Start game" as sg
-
+    }
 }
 actor "Moderator" as m
+actor "Server" as se
 'actor "PlayerAudience" as p
+
 
 
 m -right-> s
 ia .down.> s : <<extend>>
 s .right.> mm : <<include>>
 so .down.> mm : <<extend>>
-mm .down.> sg : <<include>>
-cs ..> sg : <<extend>>
+cs .down.> sg : <<include>>
+mm ..> cs : <<include>>
 ea ..> mm : <<extend>>
+se -> cs
 
 @enduml

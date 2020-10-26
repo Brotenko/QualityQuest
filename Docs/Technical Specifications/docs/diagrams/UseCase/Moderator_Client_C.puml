@@ -5,7 +5,9 @@ rectangle "End" {
 }
 
 actor "Moderator" as b
+actor "Server" as s
 
 b -right-> a
+a -> s
 
 @enduml

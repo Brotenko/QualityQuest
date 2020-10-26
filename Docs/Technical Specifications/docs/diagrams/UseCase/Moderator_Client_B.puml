@@ -4,17 +4,17 @@ actor "Server" as SC
 actor "Moderator" as P
 
 rectangle "Moderator-Client Online Mode" {
-    usecase "Make Decision" as md
+    usecase "Play Game" as md
     usecase "Can Pause" as cp
 } 
 
 rectangle "Moderator-Client Offline Mode" {
-    usecase "Make Decision" as md2
+    usecase "Play Game" as md2
 }
 
-SC -up- md
-P -up- cp
+SC -up-> md
+P -up-> cp
 
-P -up- md2
+P -up-> md2
 
 @enduml

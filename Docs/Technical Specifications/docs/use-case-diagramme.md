@@ -17,9 +17,24 @@ The server also acts as an actor for the Moderator-Client.
 ***
 
 ## Moderator-Client
-![](diagrams/UseCase/Moderator_Client.svg)
 
-The Server tells the Moderator-Client what decisions the audience has made. 
-The Moderator is responsible for starting the game and can start and pause the voting process at any given time.
-A decision is always followed by a new decision until the game eventually ends.
+### Start Application
+![](diagrams/UseCase/Moderator_Client_A.svg)
+
+The moderator is responsible for starting the application. From the main menu the moderator can change settings or close the application directly. The game is started after the moderator has established a connection to the server.
 ***
+
+### Play Game
+
+![](diagrams/UseCase/Moderator_Client_B.svg)
+
+If there is a connection to the server, the server plays the game and the moderator can pause the game. If there is no connection, the moderator plays the game.
+***
+
+### End Application
+
+![](diagrams/UseCase/Moderator_Client_C.svg)
+
+The moderator is responsible for ending the application. If the application is closed, the server is also terminated.
+
+
