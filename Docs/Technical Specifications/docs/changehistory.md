@@ -12,13 +12,13 @@ The change history is a chronologically ordered list of all changes between diff
 
 </br>
 
-## Example
+## Examples
 
 | Type  | Description                                                                                               |
 | :---: | :-------------------------------------------------------------------------------------------------------- |
-|   +   | [Added new example](#example) to change history.                                                          |
-|   -   | [Removed XYZ from the example table](#example) from the change history.                                   |
-|   *   | [Changed the name of "Quick Reference" to "Table of contents"](#table-of-contents) in the change history. |
+|   +   | **[_Section that has the change in it:_](#examples) _What has been changed:_** What exactly has been done.                                                          |
+|   -   | **[_Change History:_](#examples) _Example:_** Removed an example.                                   |
+|   *   | **[_Glossary:_](/glossary) _Moderator-Client:_** Clarification regarding server backup. |
 
 </br>
 
