@@ -3,86 +3,94 @@
 skinparam classAttributeIconSize 0
 
 package "Server" {
-  class "ServerShell" as ss {
-    {field} +Logger: Logger
-    {field} +port: int
-    {field} +runShell: boolean
-    {field} +serverShell: ServerShell
-    {field} +capacity: int
-    {field} +bufferedReader: BufferedReader
-    {method} +ServerShell()
-    {method} +startShell(): void
-    {method} +stopShell(): void
-    {method} +parseCommand(String): void
-    {method} +showHelp(): void
-    {method} +configPort(): void
-    {method} +configCapacity(): void
-    {method} +startServer(): void
-    {method} +stopServer(): void
-    {method} +main(String[]): void
+   class "API" as api <<Subject>> {
+        {field} +observerCollection
+        {method} +registerObserver(observer, cookie)
+        {method} +unregisterObserver(observer)
+        {method} +notifyObservers()
+        {method} +updatePossibleDecisions()
+        {method} +collectVotes()
   }
+  package "Backend" <<Rectangle>>{
+    class "ServerShell" as ss {
+      {field} +Logger: Logger
+      {field} +port: int
+      {field} +runShell: boolean
+      {field} +serverShell: ServerShell
+      {field} +capacity: int
+      {field} +bufferedReader: BufferedReader
+      {method} +ServerShell()
+      {method} +startShell(): void
+      {method} +stopShell(): void
+      {method} +parseCommand(String): void
+      {method} +showHelp(): void
+      {method} +configPort(): void
+      {method} +configCapacity(): void
+      {method} +startServer(): void
+      {method} +stopServer(): void
+      {method} +main(String[]): void
+    }
 
-  class "WebSocket" as ws {
-    {field} +CloseStatus
-    {field} +CloseStatusDescription
-    {field} +DefaultKeepAliveInterval
-    {field} +State
-    {field} +SupProtocol
-    {method} +Abort()
-    {method} +CreateClientBuffer(Int32, Int32)
-    {method} +ReceiveAsync(Memory<Byte>, Cancellation Token)
-    {method} +SendAsync(ArraySegment<Byte>, WebSocketMessageType, Boolean, CancellationToken)
+    class "ClientManager" as cm {
+      {field} +webSocket: WebSocket
+      {field} +ip
+      {field} +port
+      {field} +Logger: Logger
+      {method} +ClientManager(session: Session): void
+      {method} +disconnect(): void
+      {method} +onDisconnect(): void
+      {method} +recieve(String): void
+      {method} +checkJSON(String): void
+      {method} +sendMessage(String): void
+      {method} +send(String): void
+      {method} +recieve(String): void
+    }    
+
+    class "MainServerLogic" as msl {
+      {field} +moderator: WebClient
+      {field} +Logger: Logger
+      {method} MainServerLogic(capacity: int, port: int)
+      {method} +onFalseMessage(String): void
+      {method} +onVotingMessage(String): void
+
+    }
+
+    class "ServerLogger" as sl {
+      {field} +GlobalLogger: Logger
+      {field} +logFile: FileHandler
+      {field} +isSetup: Boolean
+      {field} +consoleHandler: Handler
+      {method} +setup(): void
+      {method} +addHandler(Logger): void
+      {method} +setLevel(Level): void
+      {method} +setConsoleOutput(boolean): void
+    }
   }
+  package "PlayerAudience Client" <<Rectangle>>{  
+    class "PlayerAudienceClientExchange" as pace <<Observer>>{
+      {field} +sessionCookie: Cookie
+      {field} +hasVoted: boolean
+      {field} +selectedDecision: StoryEvent
+      {field} +possibleDecisions: StoryEvent[]
+      {method} +update()
+      {method} +sendSelectedDecision(): StoryEvent 
+    }
 
-
-  class "MainServerLogic" as msl {
-    {field} +moderator: UUID
-    {field} output: WebSocket
-    {field} +moderatorSessionId: UUID
-    {field} +playerAudience: ArrayList<UUID>
-    {field} +playerAudienceSessionId: ArrayList<UUID>
-    {field} +moderator: ClientManager
-    {field} +playerAudienceClientManager: ClientManager
-    {field} +Logger: Logger
-    {method} MainServerLogic(capacity: int, port: int)
-    {method} +onFalseMessage(String): void
-    {method} +onVotingMessage(String): void
-
-  }
-
-  class "ClientManager" as cm {
-    {field} +client: WebClient
-    {field} +session: Session
-    {field} +gson: Gson
-    {field} +sessionInformation: String
-    {field} +Logger: Logger
-    {method} +ClientManager(session: Session): void
-    {method} +disconnect(): void
-    {method} +onDisconnect(): void
-    {method} +recieve(String): void
-    {method} +checkJSON(String): void
-    {method} +sendMessage(String): void
-    {method} +send(String): void
-    {method} +recieve(String): void
-  }
-
-  class "ServerLogger" as sl {
-    {field} +GlobalLogger: Logger
-    {field} +logFile: FileHandler
-    {field} +isSetup: Boolean
-    {field} +consoleHandler: Handler
-    {method} +setup(): void
-    {method} +addHandler(Logger): void
-    {method} +setLevel(Level): void
-    {method} +setConsoleOutput(boolean): void
+    class "PlayerAudienceView" as pav {
+      {method} +PlayerAudienceView()
+    }
   }
 }
-ss -- msl
-msl -- ws
-msl -- cm
-sl ... msl
-sl ... ws
-sl ... cm
-sl ... ss
 
+
+
+ss -- msl
+msl - cm
+msl -right- api
+sl ... cm
+sl ... msl
+sl ... api
+sl ... ss
+pace - pav
+api "1" <-down- "n" pace : observes
 @enduml
