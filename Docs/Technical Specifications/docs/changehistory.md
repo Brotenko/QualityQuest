@@ -10,15 +10,6 @@ The change history is a chronologically ordered list of all changes between diff
 |   -   | A removal from a document.               |
 |   *   | An alteration of something pre-existing. |
 
-</br>
-
-## Example
-
-| Type  | Description                                                                                               |
-| :---: | :-------------------------------------------------------------------------------------------------------- |
-|   +   | [Added new example](#example) to change history.                                                          |
-|   -   | [Removed XYZ from the example table](#example) from the change history.                                   |
-|   *   | [Changed the name of "Quick Reference" to "Table of contents"](#table-of-contents) in the change history. |
 
 </br>
 
@@ -36,10 +27,11 @@ This is the revised version of the Technical Specifications according to the fee
 
 | Type  | Description |
 | :---: | :---------- |
-|*      | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated notation. |
-|*|**[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component-Overview:_** Updated diagram.|
+|*      | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated notation and changed inconsistent interface labels. |
+|*|**[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated descripitons for all component diagrams.|
 |+|**[_Used plugins:_](/usedtools#used-plugins) _Live Share:_** Added used plugin.|
-|*|**[_Use-case diagrams:_](use-case-diagramme.md#moderator-client) _Moderator-Client:_** Division into "Start Application", "Play Game" and "End Application" diagrams. |
+|*|**[_Use-case diagrams:_](/use-case-diagramme#Moderator-Client) _Moderator-Client:_** Division into "Start Application", "Play Game" and "End Application" diagrams. |
+|-|**[_StoryFlow diagram:_](/storyflow) _StoryFlow diagram_** Removed obsolete StoryFlow diagram.|
 
 </br>
 
