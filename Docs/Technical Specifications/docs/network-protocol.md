@@ -19,7 +19,142 @@
 FR 25 (Ggf Zeit anpassen auf 2-5 Sekunden)
 
 ## Wer darf was senden:
-ToDo
+
+<table style="width:100%">
+    <tr>
+        <th>Messages</th>
+    </tr>
+    <tr>
+        <table style="width:100%">
+            <tr>
+                <th style="width:60%">Messages</th>
+                <th style="width:28%">Moderator-Client</th>
+                <th style="width:12%">Server</th>
+            </tr>
+        </table>
+    </tr>
+    <tr>
+        <table style="width:100%">
+            <tr>
+                <th>Initialisation</th>
+            </tr>
+        </table>
+    </tr>
+    <tr>
+        <table style="width:100%">
+            <tr>
+                <th style="width:60%; font-weight: normal">RequestOpenSession</th>
+                <th style="width:28%">O</th>
+                <th style="width:12%">O</th>
+            </tr>
+            <tr>
+                <th style="font-weight: normal">SessionOpened</th>
+                <th>O</th>
+                <th>O</th>
+            </tr>
+            <tr>
+                <th style="font-weight: normal">RequestGameStart</th>
+                <th>O</th>
+                <th>O</th>
+            </tr>
+            <tr>
+                <th style="font-weight: normal">GameStarted</th>
+                <th>O</th>
+                <th>O</th>
+            </tr>
+        </table>
+    </tr>
+    <tr>
+        <table style="width:100%">
+            <tr>
+                <th>Voting</th>
+            </tr>
+        </table>
+    </tr>
+    <tr>
+        <table style="width:100%">
+            <tr>
+                <th style="width:60%; font-weight: normal">RequestStartVoting</th>
+                <th style="width:28%">O</th>
+                <th style="width:12%">O</th>
+            </tr>
+            <tr>
+                <th style="font-weight: normal">VotingStarted</th>
+                <th>O</th>
+                <th>O</th>
+            </tr>
+            <tr>
+                <th style="font-weight: normal">VotingEnded</th>
+                <th>O</th>
+                <th>O</th>
+            </tr>
+        </table>
+    </tr>
+    <tr>
+        <table style="width:100%">
+            <tr>
+                <th>Control messages</th>
+            </tr>
+        </table>
+    </tr>
+    <tr>
+        <table style="width:100%">
+            <tr>
+                <th style="width:60%; font-weight: normal">Error</th>
+                <th style="width:28%">O</th>
+                <th style="width:12%">O</th>
+            </tr>
+            <tr>
+                <th style="font-weight: normal">RequestPauseGame</th>
+                <th>O</th>
+                <th>O</th>
+            </tr>
+            <tr>
+                <th style="font-weight: normal">GamePaused</th>
+                <th>O</th>
+                <th>O</th>
+            </tr>
+            <tr>
+                <th style="font-weight: normal">RequestContinueGame</th>
+                <th>O</th>
+                <th>O</th>
+            </tr>
+            <tr>
+                <th style="font-weight: normal">GameContinued</th>
+                <th>O</th>
+                <th>O</th>
+            </tr>
+            <tr>
+                <th style="font-weight: normal">ModeratorAck</th>
+                <th>O</th>
+                <th>O</th>
+            </tr>
+        </table>
+    </tr>
+    <tr>
+        <table style="width:100%">
+            <tr>
+                <th>Postgame</th>
+            </tr>
+        </table>
+    </tr>
+    <tr>
+        <table style="width:100%">
+            <tr>
+                <th style="width:60%; font-weight: normal">RequestCloseSession</th>
+                <th style="width:28%">O</th>
+                <th style="width:12%">O</th>
+            </tr>
+            <tr>
+                <th style="font-weight: normal">SessionClosed</th>
+                <th>O</th>
+                <th>O</th>
+            </tr>
+        </table>
+    </tr>
+</table>
+
+</br>
 
 ## Was passiert im Falle einer illegalen Nachricht:
 - M-Client will resend wenn nur shit/falscher ACK ankommt.
@@ -29,7 +164,33 @@ ToDo
 ToDo
 
 ## MessageTypeEnum:
-ToDo
+
+Lists all message types. The structuring by comments is only for overview and has no semantic meaning whatsoever. All messages are identified by the [MessageContainer](#messagecontainer).
+
+``` csharp
+enum MessageTypeEnum
+{
+    // Initialisation
+    RequestOpenSession,
+    SessionOpened,
+    RequestGameStart,
+    GameStarted,
+    // Voting
+    RequestStartVoting,
+    VotingStarted,
+    VotingEnded,
+    // Control messages
+    Error,
+    RequestPauseGame,
+    GamePaused,
+    RequestContinueGame,
+    GameContinued,
+    ModeratorAck,
+    // Postgame
+    RequestCloseSession,
+    SessionClosed
+}
+```
 
 ## Messages im Detail:
 ToDo
