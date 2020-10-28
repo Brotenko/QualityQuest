@@ -2,18 +2,22 @@
 () "HTTP" as http
 () "API" as api
 
+
 component "Server" <<component>> as server{
-component "Logic" <<component>> as logic{
-    [Networking] <<subsystem>> as network
-    [Message Managment] <<subsystem>> as message
-}
+    component "Logic" <<component>> as logic{
+        [Networking] <<subsystem>> as network
+        [Message Management] <<subsystem>> as message
+        () " " as empty1
+    }
     [Poll Evaluation] <<subsystem>> as pe
+     () " " as empty2
 }
-http )-right- network
 
 
-pe <-down-> message
-network <-> message
-
+http )-up- network
+empty2 -left- pe
+network -left- empty1
 api )-up- network
+message -( empty1
+message -( empty2
 @enduml

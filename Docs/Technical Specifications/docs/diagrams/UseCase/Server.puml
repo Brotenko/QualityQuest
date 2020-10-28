@@ -7,6 +7,6 @@ usecase "Poll Evaluation" as PE
 }
 
 AUDC --> PE
-MODC -up-> PE
+PE --> MODC
 
 @enduml

@@ -28,13 +28,13 @@ The moderator is responsible for starting the application. From the main menu th
 
 ![](diagrams/UseCase/Moderator_Client_B.svg)
 
-If there is a connection to the server, the server plays the game and the moderator can pause the game. If there is no connection, the moderator plays the game.
+If there is a connection to the server, the server is gathering data from the audience and telling the Moderator-Client what is to be done depending on the data collected and the moderator can pause the game. If there is no connection, the moderator plays the game.
 ***
 
 ### End Application
 
 ![](diagrams/UseCase/Moderator_Client_C.svg)
 
-The moderator is responsible for ending the application. If the application is closed, the server is also terminated.
+The moderator is responsible for ending the application. If the application is closed, the session with the server is also terminated.
 
 

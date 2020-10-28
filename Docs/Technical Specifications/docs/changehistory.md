@@ -36,10 +36,11 @@ This is the revised version of the Technical Specifications according to the fee
 
 | Type  | Description |
 | :---: | :---------- |
-|*      | [Changed component diagrams](architectureDiagrams.md#Componentdiagrams) |
-|*|refactored diagram files folder structure|
-|*|[Added live share plugin](usedtools.md#Usedplugins)|
-|*|[Changed use-case-diagrams for the Moderator-Client](use-case-diagramme.md#moderator-client)
+|*      | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated notation. |
+|*|**[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component-Overview:_** Updated diagram.|
+|+|**[_Used plugins:_](/usedtools#used-plugins) _Live Share:_** Added used plugin.|
+|*|**[_Use-case diagrams:_](use-case-diagramme.md#moderator-client) _Moderator-Client:_** Division into "Start Application", "Play Game" and "End Application" diagrams. |
+
 </br>
 
 ## Version 0.1.0 - Architecture design

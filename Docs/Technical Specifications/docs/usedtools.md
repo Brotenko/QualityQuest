@@ -34,10 +34,10 @@ The following plugins were used during the creation of Quality Quest and the doc
 | PlantUML            | Virtual Studio Code plugin used for creating PlantUML diagrams directly in VSC and to see the diagram live-update. | 2.13.13                                                                    |
 | mkdocs-with-pdf     | MkDocs plugin used for creating a PDF out of the MkDocs documents.                                                 | 0.7.5                                                                      |
 | Admonition          | MkDocs extension used to create admonitions in the documentation.                                                  | [link](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) |
-| Live Share          | Live Share is used for collaboratively editing any codebase with others in real time.                             | v1.0.3046
+| Live Share          | Virutal Studio (Code) plugin used for collaboratively editing any codebase with others in real time.                             | v1.0.3046
 
 
-<br/>
+<br/> 
 
 ## Used libraries
 
