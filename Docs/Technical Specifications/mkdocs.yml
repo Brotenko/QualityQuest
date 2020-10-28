@@ -6,6 +6,7 @@ nav:
   - Requirements: requirements.md
   - Use-Cases: use-case-diagramme.md
   - Architecture diagrams: architectureDiagrams.md
+  - Network protocol: network-protocol.md
   - StoryFlow: storyflow.md
   - Used tools, plugins and libraries: usedtools.md
   - Change history: changehistory.md
