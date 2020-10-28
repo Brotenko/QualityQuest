@@ -78,6 +78,11 @@ This is the revised version of the Technical Specifications according to the fee
 |   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Type of delivery:_** Fixed typo in description. Changed "DOCX" to "HTML".                                                                                                                                                                                                |
 |   *   | **[_Requirements:_](/requirements) _Functional Requirements:_** Changed Id from "FA" to "FR".                                                                                                                                                                                              |
 |   *   | **[_Requirements:_](/requirements) _Non-functional Requirements:_** Changed Id from "QA" to "NFR".                                                                                                                                                                                               |
+|   *   | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated notation and changed inconsistent interface labels. |
+|   *   | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated descripitons for all component diagrams. |
+|   +   | **[_Used plugins:_](/usedtools#used-plugins) _Live Share:_** Added used plugin. |
+|   *   | **[_Use-case diagrams:_](/use-case-diagramme#Moderator-Client) _Moderator-Client:_** Division into "Start Application", "Play Game" and "End Application" diagrams. |
+|   -   | **[_StoryFlow diagram:_](/storyflow) _StoryFlow diagram:_** Removed obsolete StoryFlow diagram. |
 
 </br>
 

@@ -1,6 +1,6 @@
 @startuml
 () "Moderator\nInterface" as mi
-() "API"
+() "Websocket" as API
 
 component "Moderator-Client" <<component>> as ac{
     [GUI] <<subsystem>>
@@ -8,9 +8,9 @@ component "Moderator-Client" <<component>> as ac{
     () " " as empty
 }
 
-API -up- Logic
-mi -up- GUI
+API )-up- Logic
+mi )-up- GUI
 empty - Logic
-GUI -> empty
+GUI -( empty
 
 @enduml
