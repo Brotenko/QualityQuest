@@ -288,7 +288,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
 | ID          | FR31                                                                                                                                          |
 | PRIORITY    | +                                                                                                                                             |
-| DESCRIPTION | If a client does not adhere to the communication protocol 10 times, the UUID of the participant should be excluded from the rest of the game. |
+| DESCRIPTION | If a client does not adhere to the communication protocol 3 times, the UUID of the participant should be excluded from the rest of the game. |
 | EXPLANATION | This ensures that it is not easily possible to tinker with the game through an altered client.                                                |
 
 </br>
