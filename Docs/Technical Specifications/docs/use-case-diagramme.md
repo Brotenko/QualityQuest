@@ -21,7 +21,7 @@ The server also acts as an actor for the Moderator-Client.
 ### Start Application
 ![](diagrams/UseCase/Moderator_Client_A.svg)
 
-The moderator is responsible for starting the application. From the main menu the moderator can change settings or close the application directly. The moderator can establish a connection to the server to play the game with online polling or the moderator can start the game in offline mode.
+The moderator is responsible for starting the application. From the main menu the moderator can change settings or close the application directly. The moderator can establish a connection to the server to play the game with online polling or the moderator can start the game in Offline-Mode.
 ***
 
 ### Play Game
