@@ -67,52 +67,104 @@ package "Moderator Client" {
     {method} +getCurrentPollEval(): int
     {method} +makeJSON()
   }
+  
+  StoryEvent "n" --* "1" StoryGraph
+  StoryGraph -- mf
+  StoryGraph -- Character
+  Character "1" *-- "n" Skill
+  mf -- pe
+  pe -- mcei
 }
 
 package "Server" {
-
-  class "ServerModeratorExchange" as smei <<interface>>{
-    {field} +websocket: WebSocket
-    {field} +ip: int
-    {field} +port: int
-    {method} +ServerModeratorExchange(ip: int, port: int)
-    {method} +requestCurrentPossibleDecisions(): StoryEvent[]
+   class "API" as api {
+        {field} +observerCollection
+        {method} +registerObserver(observer, cookie)
+        {method} +unregisterObserver(observer)
+        {method} +notifyObservers()
+        {method} +updatePossibleDecisions()
+        {method} +collectVotes()
   }
+  package "Backend" <<Rectangle>>{
+    class "ServerShell" as ss {
+      {field} +Logger: Logger
+      {field} +port: int
+      {field} +runShell: boolean
+      {field} +serverShell: ServerShell
+      {field} +capacity: int
+      {field} +bufferedReader: BufferedReader
+      {method} +ServerShell()
+      {method} +startShell(): void
+      {method} +stopShell(): void
+      {method} +parseCommand(String): void
+      {method} +showHelp(): void
+      {method} +configPort(): void
+      {method} +configCapacity(): void
+      {method} +startServer(): void
+      {method} +stopServer(): void
+      {method} +main(String[]): void
+    }
 
-  class "ServerPlayerAudienceExchange" as spaei <<interface>>{
-    {field} +websocket: WebSocket
-    {field} +ip: int
-    {field} +port: int
-    {method} +ServerPlayerAudienceExchange(ip: int, port: int)
-    {method} +requestDecision(): int
+    class "ClientManager" as cm {
+      {field} +webSocket: WebSocket
+      {field} +ip
+      {field} +port
+      {field} +Logger: Logger
+      {method} +ClientManager(session: Session): void
+      {method} +disconnect(): void
+      {method} +onDisconnect(): void
+      {method} +recieve(String): void
+      {method} +checkJSON(String): void
+      {method} +sendMessage(String): void
+      {method} +send(String): void
+      {method} +recieve(String): void
+    }    
+
+    class "MainServerLogic" as msl {
+      {field} +moderator: WebClient
+      {field} +Logger: Logger
+      {method} MainServerLogic(capacity: int, port: int)
+      {method} +onFalseMessage(String): void
+      {method} +onVotingMessage(String): void
+
+    }
+
+    class "ServerLogger" as sl {
+      {field} +GlobalLogger: Logger
+      {field} +logFile: FileHandler
+      {field} +isSetup: Boolean
+      {field} +consoleHandler: Handler
+      {method} +setup(): void
+      {method} +addHandler(Logger): void
+      {method} +setLevel(Level): void
+      {method} +setConsoleOutput(boolean): void
+    }
   }
+  package "PlayerAudience Client" <<Rectangle>>{  
+    class "PlayerAudienceClientExchange" as pace <<Observer>>{
+      {field} +sessionCookie: Cookie
+      {field} +hasVoted: boolean
+      {field} +selectedDecision: StoryEvent
+      {field} +possibleDecisions: StoryEvent[]
+      {method} +update()
+      {method} +sendSelectedDecision(): StoryEvent 
+    }
 
+    class "PlayerAudienceView" as pav {
+      {method} +PlayerAudienceView()
+    }
+  }
+  ss -- msl
+  msl - cm
+  msl -left- api
+  sl ... cm
+  sl ... msl
+  sl ... api
+  sl ... ss
+  pace - pav
+  api "1" <-up- "n" pace : observes
 }
 
+mcei - cm
 
-package "PlayerAudience Client"{
-
-  class "PlayerAudienceClientExchange" as pacei <<interface>>{
-    {field} +websocket: WebSocket
-    {field} +ip: int
-    {field} +port: int
-    {method} +PlayerAudienceClientExchange(ip: int, port: int)
-    {method} +requestCurrentPossibleDecisions(): StoryEvent[]
-  }
-
-  class "PlayerAudienceView" as pav {
-    {method} +PlayerAudienceView()
-  }
-}
-
-StoryEvent "n" --* "1" StoryGraph
-StoryGraph -- mf
-StoryGraph -- Character
-Character "1" *-- "n" Skill
-mf -- pe
-pe -- mcei
-smei -- spaei
-pacei -up- pav
-mcei -- smei
-pacei -- spaei
 @enduml

@@ -3,7 +3,7 @@
 skinparam classAttributeIconSize 0
 
 package "Server" {
-   class "API" as api <<Subject>> {
+   class "API" as api {
         {field} +observerCollection
         {method} +registerObserver(observer, cookie)
         {method} +unregisterObserver(observer)
@@ -92,5 +92,5 @@ sl ... msl
 sl ... api
 sl ... ss
 pace - pav
-api "1" <-down- "n" pace : observes
+api "1" <-up- "n" pace : observes
 @enduml
