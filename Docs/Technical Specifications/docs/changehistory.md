@@ -76,6 +76,8 @@ This is the revised version of the Technical Specifications according to the fee
 |   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _Communication protocol:_** Moved to glossary.                                                                                                                                                                                                          |
 |   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Adherence to Clean Code Principles:_** Changed priority from "0" to "+" and updated the description accordingly.                                                                                                                               |
 |   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Type of delivery:_** Fixed typo in description.                                                                                                                                                                                                |
+|   *   | **[_Requirements:_](/requirements) _Functional Requirements:_** Changed Id from "FA" to "FR".                                                                                                                                                                                              |
+|   *   | **[_Requirements:_](/requirements) _Non-functional Requirements:_** Changed Id from "QA" to "NFR".                                                                                                                                                                                               |
 
 </br>
 

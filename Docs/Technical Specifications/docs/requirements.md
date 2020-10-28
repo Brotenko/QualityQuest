@@ -235,7 +235,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ID          | FR25                                                                                                                                                                                                                                                                                                    |
 | PRIORITY    | +                                                                                                                                                                                                                                                                                                       |
 | DESCRIPTION | If the Moderator-Client does not react within 10 seconds after recieving the server's message, the connection from the Moderator-Client to the server shall be interrupted. In this case the Moderator can either continue playing in Offline-Mode or try to re-establish the connection to the server. |
-| EXPLANATION | This serves as a fail-save, for the case that messages could be corrupted or the connection to the server is lost.                                                                                                                                                                                      |
+| EXPLANATION | This serves as a failsafe, in case of corrupted messages or connection loss.                                                                                                                                                                                     |
 
 </br>
 
@@ -270,7 +270,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ID          | FR29                                                                                                                                                                                                                                                                                                       |
 | PRIORITY    | +                                                                                                                                                                                                                                                                                                          |
-| DESCRIPTION | If any of the following conditions apply: </br></br><ul><li>The server is not functional</li><li>The network infrastructure slows significantly</li><li>There being a problem with the connection between clients and server</li></ul>the Moderator must be given the option to continue the game offline. |
+| DESCRIPTION | If any of the following conditions apply: </br></br><ul><li>The server is not functional</li><li>The network infrastructure slows down significantly</li><li>The connection between clients and server is problematic</li></ul>the Moderator must be given the option to continue the game offline. |
 | EXPLANATION | -                                                                                                                                                                                                                                                                                                          |
 
 </br>
@@ -354,8 +354,8 @@ This section specifies the non-functional requirements for the software system.
 | REQUIREMENT | Adherence to Clean Code Principles                                             |
 | ----------- | :----------------------------------------------------------------------------- |
 | ID          | NFR7                                                                           |
-| PRIORITY    | 0                                                                              |
-| DESCRIPTION | The software code should adhere to Grade 1 (Red) of the Clean Code Principles. |
+| PRIORITY    | +                                                                              |
+| DESCRIPTION | The software code shall adhere to Grade 1 (Red) of the Clean Code Principles. |
 | EXPLANATION | -                                                                              |
 
 </br>
@@ -410,7 +410,7 @@ This section specifies the non-functional requirements for the software system.
 | ID          | NFR13                                                                                                                                               |
 | PRIORITY    | +                                                                                                                                                   |
 | DESCRIPTION | All deliverable artifacts shall be delivered digitally.                                                                                             |
-| EXPLANATION | The delivery can be by depositing the deliverable artefacts in a public version control system. Documents should be delivered in both PDS and DOCX. |
+| EXPLANATION | The delivery can be by depositing the deliverable artefacts in a public version control system. Documents should be delivered in both PDF and HTML/CSS. |
 
 </br>
 
