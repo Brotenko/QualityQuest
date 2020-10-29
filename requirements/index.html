@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Requirements - Technical Specifications</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Requirements";
+    var mkdocs_page_input_path = "requirements.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Technical Specifications</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Quality Quest</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc/">Table of content</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../glossary/">Glossary</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Requirements</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functional-requirements">Functional requirements</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#non-functional-requirements">Non-functional Requirements</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../use-case-diagramme/">Use-Cases</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../architectureDiagrams/">Architecture diagrams</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../storyflow/">StoryFlow</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../usedtools/">Used tools, plugins and libraries</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../changehistory/">Change history</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Technical Specifications</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Requirements</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="requirements">Requirements</h1>
+<p>The requirements are divided into different priorities, whose meaning should be clear from the following table:</p>
+<table>
+<thead>
+<tr>
+<th>PRIORITY</th>
+<th align="left">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td align="left">The requirement must be fulfilled in any case so that the product can be accepted.</td>
+</tr>
+<tr>
+<td>0</td>
+<td align="left">The fulfillment of the requirement is optional and therefore not necessarily a prerequisite for acceptance, but would have a very positive effect on the product.</td>
+</tr>
+<tr>
+<td>-</td>
+<td align="left">The fulfilment of the requirement is also optional and therefore not a prerequisite for the acceptance.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<h2 id="functional-requirements">Functional requirements</h2>
+<p>This section contains all requirements that specify the basic actions of the software system.</p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Game type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR1</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest shall be a 2D RPG.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">The PlayerAudience takes over the decision of a character in a fictional world of a software engineer. The PlayerAudience plays the game only through StoryFlowDecisions, for example the game plays like a movie in which the PlayerAudience takes over the decisions of the main character.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Game presentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR2</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest shall be a visual-based 2D RPG.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">This means that QualityQuest shall not be a purely text-based game, but text may be an element of the visual appearance of the game.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">NewTec branding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR3</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest shall display the NewTec logo clearly visible all the time.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Game language</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR4</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The main language of QualityQuest shall be German.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">The majority of in-game language shall be German, but typical software engineering terms that are not German, but are commonly used in Germany do not need to be translated.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Game language options</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR5</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest should support multiple languages.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Music</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR6</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest may be accompanied by a suitable musical background to enhance the player experience.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Sound effects</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR7</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest should emphasize important events of the StoryFlow with sound effects.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Game content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR8</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest shall tell a story which mainly consists of typical elements of the software engineering profession.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">StoryFlow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR9</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The story of QualityQuest shall be non-linear.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">The story shall contain elements where the PlayerAudience needs to make a StoryFlowDecision. Depending on the decision, the StoryFlow shall continue in different StoryBranches.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Influence on the StoryFlow by the player</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR10</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The PlayerAudience shall influence the selection of StoryBranches by means of StoryFlowDecisions.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Participation of a larger PlayerAudience</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR11</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest shall have the option to let a larger audience participate in StoryFlowDecisions by means of OnlineVoting.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">It would be highly desirable that the OnlineVoting feature is directly embedded into the game, together with an offline backup in case the server can't be used. Other methods are acceptable depending on the circumstances.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Random element of StoryFlow control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR12</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The selection of a StoryBranch after a StoryFlowDecision shall be generated randomly.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">Randomness can be either determined through ZeroRandomness or DiceRandomness.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Visualizing the randomness</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR13</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">If the selection of a StoryBranch after a StoryFlowDecision is generated with DiceRandomness, QualityQuest shall display a clear visualization of the randomizationprocess.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Character status values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR14</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The PlayerCharacter shall have all of the following status values: Programming, Analytics, Communication, Partying.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Selecting a character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR15</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">At the start of the game the PlayerAudience shall choose a PlayerCharacter from a selection of 4 possible PlayerCharacters via the voting system.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Presentation of character status values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR16</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest shall display a PlayerCharacterStatusBox with all status values at all times.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Portrait of the PlayerCharacter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR17</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest shall display a portrait of the PlayerCharacter as part of the PlayerCharacterStatusBox all the time.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Character levelling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR18</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The PayerCharacter shall level up and level down its status values based on events or StoryFlowDecisions.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Visual presentation of PlayerCharacter status changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR19</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The change of status values of the PlayerCharacter shall be highlighted visually.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Acoustic presentation of PlayerCharacter status changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR20</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The change of status values of the PlayerCharacter should be highlighted acoustically.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Operating system</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR21</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest shall run on Microsoft Windows 10 operating system.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Pause Game</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR22</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The moderator shall have the possibility to pause the game with the PauseButton.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">PauseButton location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR23</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The PauseButton shall be around the lower right edge.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Moderator game control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR24</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">Once the Moderator-Client established the connection to the server, the Moderator shall have the option to start or interrupt the game at any time.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Connection Timeout</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR25</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">If the Moderator-Client does not react within 10 seconds after recieving the server's message, the connection from the Moderator-Client to the server shall be interrupted. In this case the Moderator can either continue playing in Offline-Mode or try to re-establish the connection to the server.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">This serves as a failsafe, in case of corrupted messages or connection loss.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Server connection loss</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR26</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">If a Moderator-Client or PlayerAudience-Client loses its connection to the server, its Unique User Identifier (UUID) shall be stored in the server. In this case, the respective client can reconnect to the server to participate in the game again.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Data exchange file format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR27</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The file format for data exchange between clients and server shall be JSON.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Unique User Identifier (UUID)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR28</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">Every client shall be assigned an Unique User Identifier (UUID) in the form of a web-cookie.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">This ensures participants can rejoin the game after leaving the game or losing the connection to the server.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Offline-Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR29</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">If any of the following conditions apply: </br></br><ul><li>The server is not functional</li><li>The network infrastructure slows down significantly</li><li>The connection between clients and server is problematic</li></ul>the Moderator must be given the option to continue the game offline.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Offline-Mode transition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR30</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The Offline-Mode must ensure a smooth transition between online and offline and shall be able to step in at any time.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Communication protocol violation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">FR31</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">If a client does not adhere to the communication protocol 3 times, the UUID of the participant should be excluded from the rest of the game.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">This ensures that it is not easily possible to tinker with the game through an altered client.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<h2 id="non-functional-requirements">Non-functional Requirements</h2>
+<p>This section specifies the non-functional requirements for the software system.</p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Documents to be delivered</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR1</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">A System Specification, which comprises use case diagrams, use case descriptions and a static view of the software architecture and Software Design Specification for each software component, which describes both the static and the dynamic view shall be delivered.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">In-code documentation style</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR2</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The source code shall be documented by means of Doxygen and in Javadoc style.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">In-code documentation content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR3</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">All of the following source code elements shall be documented: Constants, variables and defines. Classes and class members. Methods and method signatures, including return values. Functions and function signatures, including return values.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Documentation style for diagrams</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR4</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">All documentation diagrams shall follow the UML standard.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Delivery of UML diagrams</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR5</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">All UML diagrams shall be delivered in the form of a diagram and a PlantUML link.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Adherence to project Coding Styleguide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR6</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The software code should adhere to the Project Coding Styleguide.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Adherence to Clean Code Principles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR7</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The software code shall adhere to Grade 1 (Red) of the Clean Code Principles.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Target PlayerAudience</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR8</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest shall address a target audience of university students with interest in a SW engineering career.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Playing time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR9</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The complete story of QualityQuest shall be playable in a time frame of 15 to 20 minutes.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Playing fun</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR10</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The story of QualityQuest should be humorous.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Player motivation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR11</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The audience of QualityQuest shall be encouraged to follow the story by motivational elements.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">Motivational elements could be for example rewards, achievement &amp; level upgrades.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Deliverable artefacts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR12</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">Documentation, Source Code and a running version of QualityQuest shall be delivered to NewTec.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Type of delivery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR13</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">All deliverable artifacts shall be delivered digitally.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">The delivery can be by depositing the deliverable artefacts in a public version control system. Documents should be delivered in both PDF and HTML/CSS.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Deadline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR14</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The deadline for the final delivery is 2021-04-28.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Open source development</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR15</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The Source Code of QualityQuest may be published open source under CreativeCommons CC BY-NC 4.0 license terms.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Stand-alone game</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR16</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest shall be a stand-alone game.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">The final binaries shall include everything that is needed to run the game. Any possibly needed frameworks have to be included in the delivery. The installation of additional frameworks or libraries is not acceptable.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Programming language</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR17</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">QualityQuest shall be programmed in a C dialect (C, C++ or C#).</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Development environment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR18</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">Both the source code and the build solution of QualityQuest shall be buildable in one of the following development environments: Microsoft Visual Studio, Microsoft Visual Studio Code.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Usage of online voting solutions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR19</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">An existing online voting solution may be used, if the license conditions of the online voting solution allow the usage of the online voting solution in the context of QualityQuest as intended by NewTec without license fees.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Amount of supported conntecions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR20</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The server shall allow up to 200 PlayerAudience-Clients to connect to the game via the network.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Exclusive Moderator-Client connection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR21</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">The server shall only allow a single Moderator-Client to connect to the server at any given time.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+<table>
+<thead>
+<tr>
+<th>REQUIREMENT</th>
+<th align="left">Game Engine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td align="left">NFR22</td>
+</tr>
+<tr>
+<td>PRIORITY</td>
+<td align="left">+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td align="left">As a game engine the project shall use Unity.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td align="left">The license conditions of the game engine allow the source code of QualityQuest to be open source. The license conditions of the game engine allow the usage of the game engine without license fees. The license conditions of the game engine allow the usage of QualityQuest as intended by NewTec without license fees.</td>
+</tr>
+</tbody>
+</table>
+<p></br></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../use-case-diagramme/" class="btn btn-neutral float-right" title="Use-Cases">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../glossary/" class="btn btn-neutral" title="Glossary"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../glossary/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../use-case-diagramme/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
