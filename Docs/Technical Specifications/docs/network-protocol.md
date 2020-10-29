@@ -20,137 +20,137 @@ FR 25 (Ggf Zeit anpassen auf 2-5 Sekunden)
 
 ## Wer darf was senden:
 
+|sdfsf |
+|:-:|
+|<table style="width:100%"><tr><th style="width:60%">Messages</th><th style="width:28%">Moderator-Client</th><th style="width:12%">Server</th></tr></table> |
+
+</br>
+
 <table style="width:100%">
     <tr>
         <th>Messages</th>
     </tr>
     <tr>
-        <table style="width:100%">
-            <tr>
-                <th style="width:60%">Messages</th>
-                <th style="width:28%">Moderator-Client</th>
-                <th style="width:12%">Server</th>
-            </tr>
-        </table>
+        <td>
+            <table style="width:100%">
+                <tr>
+                    <th style="width:60%">Messages</th>
+                    <th style="width:28%">Moderator-Client</th>
+                    <th style="width:12%">Server</th>
+                </tr>
+            </table>
+        </td>
     </tr>
     <tr>
-        <table style="width:100%">
-            <tr>
-                <th>Initialisation</th>
-            </tr>
-        </table>
+        <th>Initialisation</th>
     </tr>
     <tr>
-        <table style="width:100%">
-            <tr>
-                <th style="width:60%; font-weight: normal">RequestOpenSession</th>
-                <th style="width:28%">O</th>
-                <th style="width:12%">O</th>
-            </tr>
-            <tr>
-                <th style="font-weight: normal">SessionOpened</th>
-                <th>O</th>
-                <th>O</th>
-            </tr>
-            <tr>
-                <th style="font-weight: normal">RequestGameStart</th>
-                <th>O</th>
-                <th>O</th>
-            </tr>
-            <tr>
-                <th style="font-weight: normal">GameStarted</th>
-                <th>O</th>
-                <th>O</th>
-            </tr>
-        </table>
+        <td>
+            <table style="width:100%">
+                <tr>
+                    <th style="width:60%; font-weight: normal"><a href="#requestopensession">RequestOpenSession</a></th>
+                    <th style="width:28%">O</th>
+                    <th style="width:12%">O</th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#sessionopened">SessionOpened</a></th>
+                    <th>O</th>
+                    <th>O</th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#requestgamestart">RequestGameStart</a></th>
+                    <th>O</th>
+                    <th>O</th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#gamestarted">GameStarted</a></th>
+                    <th>O</th>
+                    <th>O</th>
+                </tr>
+            </table>
+        </td>
     </tr>
     <tr>
-        <table style="width:100%">
-            <tr>
-                <th>Voting</th>
-            </tr>
-        </table>
+        <th>Voting</th>
     </tr>
     <tr>
-        <table style="width:100%">
-            <tr>
-                <th style="width:60%; font-weight: normal">RequestStartVoting</th>
-                <th style="width:28%">O</th>
-                <th style="width:12%">O</th>
-            </tr>
-            <tr>
-                <th style="font-weight: normal">VotingStarted</th>
-                <th>O</th>
-                <th>O</th>
-            </tr>
-            <tr>
-                <th style="font-weight: normal">VotingEnded</th>
-                <th>O</th>
-                <th>O</th>
-            </tr>
-        </table>
+        <td>
+            <table style="width:100%">
+                <tr>
+                    <th style="width:60%; font-weight: normal"><a href="#requeststartvoting">RequestStartVoting</a></th>
+                    <th style="width:28%">O</th>
+                    <th style="width:12%">O</th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#votingstarted">VotingStarted</a></th>
+                    <th>O</th>
+                    <th>O</th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#votingended">VotingEnded</a></th>
+                    <th>O</th>
+                    <th>O</th>
+                </tr>
+            </table>
+        </td>
     </tr>
     <tr>
-        <table style="width:100%">
-            <tr>
-                <th>Control messages</th>
-            </tr>
-        </table>
+        <th>Control messages</th>
     </tr>
     <tr>
-        <table style="width:100%">
-            <tr>
-                <th style="width:60%; font-weight: normal">Error</th>
-                <th style="width:28%">O</th>
-                <th style="width:12%">O</th>
-            </tr>
-            <tr>
-                <th style="font-weight: normal">RequestPauseGame</th>
-                <th>O</th>
-                <th>O</th>
-            </tr>
-            <tr>
-                <th style="font-weight: normal">GamePaused</th>
-                <th>O</th>
-                <th>O</th>
-            </tr>
-            <tr>
-                <th style="font-weight: normal">RequestContinueGame</th>
-                <th>O</th>
-                <th>O</th>
-            </tr>
-            <tr>
-                <th style="font-weight: normal">GameContinued</th>
-                <th>O</th>
-                <th>O</th>
-            </tr>
-            <tr>
-                <th style="font-weight: normal">ModeratorAck</th>
-                <th>O</th>
-                <th>O</th>
-            </tr>
-        </table>
+        <td>
+            <table style="width:100%">
+                <tr>
+                    <th style="width:60%; font-weight: normal"><a href="#error">Error</a></th>
+                    <th style="width:28%">O</th>
+                    <th style="width:12%">O</th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#requestpausegame">RequestPauseGame</a></th>
+                    <th>O</th>
+                    <th>O</th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#gamepaused">GamePaused</a></th>
+                    <th>O</th>
+                    <th>O</th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#requestcontinuegame">RequestContinueGame</a></th>
+                    <th>O</th>
+                    <th>O</th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#gamecontinued">GameContinued</a></th>
+                    <th>O</th>
+                    <th>O</th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#moderatorack">ModeratorAck</a></th>
+                    <th>O</th>
+                    <th>O</th>
+                </tr>
+            </table>
+        </td>
     </tr>
     <tr>
-        <table style="width:100%">
-            <tr>
-                <th>Postgame</th>
-            </tr>
-        </table>
+        <th>Postgame</th>
     </tr>
     <tr>
-        <table style="width:100%">
-            <tr>
-                <th style="width:60%; font-weight: normal">RequestCloseSession</th>
-                <th style="width:28%">O</th>
-                <th style="width:12%">O</th>
-            </tr>
-            <tr>
-                <th style="font-weight: normal">SessionClosed</th>
-                <th>O</th>
-                <th>O</th>
-            </tr>
-        </table>
+        <td>
+            <table style="width:100%">
+                <tr>
+                    <th style="width:60%; font-weight: normal"><a href="#requestclosesession">RequestCloseSession</a></th>
+                    <th style="width:28%">O</th>
+                    <th style="width:12%">O</th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#sessionclosed">SessionClosed</a></th>
+                    <th>O</th>
+                    <th>O</th>
+                </tr>
+            </table>
+        </td>
     </tr>
 </table>
 
@@ -194,6 +194,8 @@ enum MessageTypeEnum
 
 ## Messages im Detail:
 ToDo
+
+### RequestOpenSession
 
 ## Sequenzdiagramme zu typischen Abläufen:
 ToDo
