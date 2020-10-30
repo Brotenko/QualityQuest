@@ -13,7 +13,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | -                                                                                                                                           |
 | EXAMPLE     | -                                                                                                                                           |
 
-</br>
+</span>
 
 | Term        | PlayerAudience                                       |
 | ----------- | :--------------------------------------------------- |
@@ -22,7 +22,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | -                                                    |
 | EXAMPLE     | -                                                    |
 
-</br>
+</span>
 
 | Term        | Participants                                                       |
 | ----------- | :----------------------------------------------------------------- |
@@ -31,7 +31,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | Moderator, PlayerAudience                                          |
 | EXAMPLE     | -                                                                  |
 
-</br>
+</span>
 
 | Term        | Customer                                                                                                                        |
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------ |
@@ -40,7 +40,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | -                                                                                                                               |
 | EXAMPLE     | -                                                                                                                               |
 
-</br>
+</span>
 
 | Term        | Moderator-Client                                                                                                                                                                                                                                                                                                                                                                                              |
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -49,7 +49,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | -                                                                                                                                                                                                                                                                                                                                                                                                             |
 | EXAMPLE     | -                                                                                                                                                                                                                                                                                                                                                                                                             |
 
-</br>
+</span>
 
 | Term        | PlayerAudience-Client                                                                                                                                                                                                                    |
 | ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -58,7 +58,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | -                                                                                                                                                                                                                                        |
 | EXAMPLE     | -                                                                                                                                                                                                                                        |
 
-</br>
+</span>
 
 | Term        | Client                                                                                                          |
 | ----------- | :-------------------------------------------------------------------------------------------------------------- |
@@ -67,7 +67,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | Moderator-Client, PlayerAudience-Client                                                                         |
 | EXAMPLE     | -                                                                                                               |
 
-</br>
+</span>
 
 | Term        | Server                                                                                                                                                    |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -76,7 +76,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | -                                                                                                                                                         |
 | EXAMPLE     | -                                                                                                                                                         |
 
-</br>
+</span>
 
 | Term        | Voting-Tool                                                                                                                                                             |
 | ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -85,7 +85,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | -                                                                                                                                                                       |
 | EXAMPLE     | -                                                                                                                                                                       |
 
-</br>
+</span>
 
 ## Expertise
 
@@ -98,7 +98,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                                                                                                                                                                                                                                 |
 | EXAMPLE     | -                                                                                                                                                                                                                                                                                                                                                 |
 
-</br>
+</span>
 
 | Term        | StoryFlow                                                                                                                                                                                                     |
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -107,7 +107,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                                                                                             |
 | EXAMPLE     | -                                                                                                                                                                                                             |
 
-</br>
+</span>
 
 | Term        | StoryBranch                                       |
 | ----------- | :------------------------------------------------ |
@@ -116,7 +116,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                 |
 | EXAMPLE     | -                                                 |
 
-</br>
+</span>
 
 | Term        | PlayerCharacterStatusValue                                                                                                                                                                     |
 | ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -125,7 +125,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | Programming, Analytics, Communication, Partying                                                                                                                                                |
 | EXAMPLE     | -                                                                                                                                                                                              |
 
-</br>
+</span>
 
 | Term        | Role-playing game                                                                                                                          |
 | ----------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
@@ -134,7 +134,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | QualityQuest                                                                                                                               |
 | EXAMPLE     | -                                                                                                                                          |
 
-</br>
+</span>
 
 | Term        | PlayerCharacterStatusBox                                                                                                                                                    |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -143,7 +143,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                                                           |
 | EXAMPLE     | -                                                                                                                                                                           |
 
-</br>
+</span>
 
 | Term        | PlayerCharacter                                                                                                                                                                                                                                                                                                    |
 | ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -152,7 +152,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                                                                                                                                                                                                  |
 | EXAMPLE     | -                                                                                                                                                                                                                                                                                                                  |
 
-</br>
+</span>
 
 | Term        | Randomness                                                                                                                                                                         |
 | ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -161,7 +161,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | ZeroRandomness, DiceRandomness                                                                                                                                                     |
 | EXAMPLE     | -                                                                                                                                                                                  |
 
-</br>
+</span>
 
 | Term        | ZeroRandomness                                                                            |
 | ----------- | :---------------------------------------------------------------------------------------- |
@@ -170,16 +170,16 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                         |
 | EXAMPLE     | -                                                                                         |
 
-</br>
+</span>
 
-| Term        | DiceRandomness                                                                                                               |
-| ----------- | :--------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | After a StoryFlowDecision a six-sided die is rolled, which initiates the further StoryFlow and selects the next StoryBranch. |
-| IS-A        | Randomness                                                                                                                   |
-| CAN-BE      | -                                                                                                                            |
-| EXAMPLE     | -                                                                                                                            |
+| Term        | DiceRandomness                                                                                                                |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | After a StoryFlowDecision a six-sided dice is rolled, which initiates the further StoryFlow and selects the next StoryBranch. |
+| IS-A        | Randomness                                                                                                                    |
+| CAN-BE      | -                                                                                                                             |
+| EXAMPLE     | -                                                                                                                             |
 
-</br>
+</span>
 
 | Term        | Programming                                                                                                                             |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
@@ -188,7 +188,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                       |
 | EXAMPLE     | PlayerCharacter James has the programming-skill at 8.                                                                                   |
 
-</br>
+</span>
 
 | Term        | Analytics                                                                                                  |
 | ----------- | :--------------------------------------------------------------------------------------------------------- |
@@ -197,7 +197,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                          |
 | EXAMPLE     | 4 of 6 DiceRandomness possibilities lead to a positive event, because of high analytic stats.              |
 
-</br>
+</span>
 
 | Term        | Communication                                                                                                                                                                             |
 | ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -206,7 +206,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                                                                         |
 | EXAMPLE     | -                                                                                                                                                                                         |
 
-</br>
+</span>
 
 | Term        | Partying                                                                               |
 | ----------- | :------------------------------------------------------------------------------------- |
@@ -215,7 +215,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                      |
 | EXAMPLE     | -                                                                                      |
 
-</br>
+</span>
 
 | Term        | OnlineVoting                                                                                                                                                    |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -224,7 +224,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                                               |
 | EXAMPLE     | -                                                                                                                                                               |
 
-</br>
+</span>
 
 | Term        | Sidekick-Pet                                                                                                                                 |
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -233,7 +233,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                            |
 | EXAMPLE     | -                                                                                                                                            |
 
-</br>
+</span>
 
 | Term        | Play-Time                                                                                              |
 | ----------- | :----------------------------------------------------------------------------------------------------- |
@@ -242,7 +242,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                      |
 | EXAMPLE     | -                                                                                                      |
 
-</br>
+</span>
 
 | Term        | Voting-Timer                                                                                                                                                       |
 | ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -251,7 +251,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                                                  |
 | EXAMPLE     | The PlayerAudience has 30 seconds to vote on a StoryFlowDecision.                                                                                                  |
 
-</br>
+</span>
 
 | Term        | Pause-Button                                       |
 | ----------- | :------------------------------------------------- |
@@ -260,7 +260,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                  |
 | EXAMPLE     | -                                                  |
 
-</br>
+</span>
 
 | Term        | Communication protocol                                                                                                                                                                                                                                                         |
 | ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -269,4 +269,13 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                                                                                                                                                              |
 | EXAMPLE     | -                                                                                                                                                                                                                                                                              |
 
-</br>
+</span>
+
+| Term        | Session                                                                                                                                                                                                                                                                                           |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| DESCRIPTION | The process of creating an online game, via a server, including playing the game. The moderator always creates the session and the audience joins the session via the server. A game is exclusively referred to as a session if it is played via an active connection between server and clients. |
+| IS-A        | -                                                                                                                                                                                                                                                                                                 |
+| CAN-BE      | -                                                                                                                                                                                                                                                                                                 |
+| EXAMPLE     | -                                                                                                                                                                                                                                                                                                 |
+
+</span>
