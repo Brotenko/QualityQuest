@@ -24,8 +24,8 @@ The change history is a chronologically ordered list of all changes between diff
 
 ## Table of contents
 
-| Version | Quick Description                          | Date       | Link                                                              |
-| ------- | :----------------------------------------- | :--------- | ----------------------------------------------------------------- |
+| Version | Quick Description                          | Date       | Link                                                            |
+| ------- | :----------------------------------------- | :--------- | --------------------------------------------------------------- |
 | 0.1.0   | Architecture design                        | 2020-10-09 | [Link](#version-010-architecture-design)                        |
 | 0.1.1   | First revision of the architecture design  | 2020-10-27 | [Link](#version-011-first-revision-of-the-architecture-design)  |
 | 0.1.2   | Second revision of the architecture design | TBA        | [Link](#version-012-second-revision-of-the-architecture-design) |
@@ -43,15 +43,14 @@ The change history is a chronologically ordered list of all changes between diff
 
 ## Version 0.1.2 - Second revision of the architecture design
 
-| Type  | Description                                                    |
-| :---: | :------------------------------------------------------------- |
-|   *   | **_[Change history:](#table-of-contents) Table of contents:_** Fixed the links to properly work when exported to HTML/CSS. |
-|   *   | **_[Glossary:](/glossary) DiceRandomness:_** Changed "die" to "dice" for clarification.                                                 |
-|   *   | **_[Functional Requirements:](/requirements/#functional-requirements) Offline-Mode:_** Update the description to say "shall" instead of "must".                                                 |
-|   *   | **_[Used Plugins:](/usedtools#used-plugins) Markdown All in One:_** Fixed typo in description.                                                 |
-|   *   | **_[Used Plugins:](/usedtools#used-plugins) PlantUML:_** Fixed typo in description.                                                 |
-|   +   | **_[Glossary:](/glossary#expertise) Session:_** Added new term.                                                |
-|   *   | **_[:]() :_**                                                  |
+| Type  | Description                                                                                                                                     |
+| :---: | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+|   *   | **_[Change history:](#table-of-contents) Table of contents:_** Fixed the links to properly work when exported to HTML/CSS.                      |
+|   *   | **_[Glossary:](/glossary) DiceRandomness:_** Changed "die" to "dice" for clarification.                                                         |
+|   *   | **_[Functional Requirements:](/requirements/#functional-requirements) Offline-Mode:_** Update the description to say "shall" instead of "must". |
+|   *   | **_[Used Plugins:](/usedtools#used-plugins) Markdown All in One:_** Fixed typo in description.                                                  |
+|   *   | **_[Used Plugins:](/usedtools#used-plugins) PlantUML:_** Fixed typo in description.                                                             |
+|   +   | **_[Glossary:](/glossary#expertise) Session:_** Added new term.                                                                                 |
 
 </span>
 
