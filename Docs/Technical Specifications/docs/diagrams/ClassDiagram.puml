@@ -63,6 +63,7 @@ package "Moderator Client" {
 
   class "ModeratorClientExchange" as mcei <<interface>>{
     {field} +websocket:WebSocket
+    {field} +AuthentificationTokenMC: Token
     {method} +ModeratorClientExchange()
     {method} +getCurrentPollEval(): int
     {method} +makeJSON()
@@ -110,6 +111,7 @@ package "Server" {
       {field} +ip
       {field} +port
       {field} +Logger: Logger
+      {field} +AuthentificationTokenMC: Token
       {method} +ClientManager(session: Session): void
       {method} +disconnect(): void
       {method} +onDisconnect(): void

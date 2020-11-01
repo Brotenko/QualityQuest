@@ -36,6 +36,7 @@ package "Server" {
       {field} +ip
       {field} +port
       {field} +Logger: Logger
+      {field} +AuthentificationTokenMC: Token
       {method} +ClientManager(session: Session): void
       {method} +disconnect(): void
       {method} +onDisconnect(): void
