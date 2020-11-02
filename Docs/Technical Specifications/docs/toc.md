@@ -21,4 +21,7 @@
     - [Class diagrams](architectureDiagrams.md#component-diagrams)
 - [StoryFlow](storyflow.md)
 - [Used tools, plugins and libraries](usedtools.md)
+    - [Used tools](usedtools.md#used-tools)
+    - [Used plugins](usedtools.md#used-plugins)
+    - [Used libraries](usedtools.md#used-libraries)
 - [Change history](changehistory.md)
