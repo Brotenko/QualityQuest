@@ -10,27 +10,28 @@ The change history is a chronologically ordered list of all changes between diff
 |   -   | A removal from a document.               |
 |   *   | An alteration of something pre-existing. |
 
-</br>
+</span>
 
 ## Examples
 
-| Type  | Description                                                                                               |
-| :---: | :-------------------------------------------------------------------------------------------------------- |
-|   +   | **[_Section that has the change in it:_](#examples) _What has been changed:_** What exactly has been done.                                                          |
-|   -   | **[_Change History:_](#examples) _Example:_** Removed an example.                                   |
-|   *   | **[_Glossary:_](/glossary) _Moderator-Client:_** Clarification regarding server backup. |
+| Type  | Description                                                                                                |
+| :---: | :--------------------------------------------------------------------------------------------------------- |
+|   +   | **[_Section that has the change in it:_](#examples) _What has been changed:_** What exactly has been done. |
+|   -   | **[_Change History:_](#examples) _Example:_** Removed an example.                                          |
+|   *   | **[_Glossary:_](/glossary) _Moderator-Client:_** Clarification regarding server backup.                    |
 
-</br>
+</span>
 
 ## Table of contents
 
-| Version | Quick Description               | Date       | Link                                                   |
-| ------- | :------------------------------ | :--------- | ------------------------------------------------------ |
-| 0.1.0   | Architecture design             | 2020-10-09 | [Link](#version-010---architecture-design)             |
-| 0.1.1   | Revision of Architecture design | 2020-10-27 | [Link](#version-011---revision-of-architecture-design) |
-| 0.2.0   | Component design                | TBA        | [Link]()                                               |
+| Version | Quick Description                          | Date       | Link                                                            |
+| ------- | :----------------------------------------- | :--------- | --------------------------------------------------------------- |
+| 0.1.0   | Architecture design                        | 2020-10-09 | [Link](#version-010-architecture-design)                        |
+| 0.1.1   | First revision of the architecture design  | 2020-10-27 | [Link](#version-011-first-revision-of-the-architecture-design)  |
+| 0.1.2   | Second revision of the architecture design | TBA        | [Link](#version-012-second-revision-of-the-architecture-design) |
+| 0.2.0   | Component design                           | TBA        | [Link](#version-020-component-design)                           |
 
-</br>
+</span>
 
 ## Version 0.2.0 - Component design
 
@@ -38,9 +39,23 @@ The change history is a chronologically ordered list of all changes between diff
 | :---: | :---------- |
 | */+/- |             |
 
-</br>
+</span>
 
-## Version 0.1.1 - Revision of Architecture design
+## Version 0.1.2 - Second revision of the architecture design
+
+| Type  | Description                                                                                                                                     |
+| :---: | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+|   *   | **_[Change history:](#table-of-contents) Table of contents:_** Fixed the links to properly work when exported to HTML/CSS.                      |
+|   *   | **_[Glossary:](/glossary) DiceRandomness:_** Changed "die" to "dice" for clarification.                                                         |
+|   *   | **_[Functional Requirements:](/requirements/#functional-requirements) Offline-Mode:_** Update the description to say "shall" instead of "must". |
+|   *   | **_[Used Plugins:](/usedtools#used-plugins) Markdown All in One:_** Fixed typo in description.                                                  |
+|   *   | **_[Used Plugins:](/usedtools#used-plugins) PlantUML:_** Fixed typo in description.                                                             |
+|   +   | **_[Glossary:](/glossary#expertise) Session:_** Added new term.                                                                                 |
+|   *   | **_[Change history:](#) Change history:_** Renamed change history versions descriptors.                                                         |
+
+</span>
+
+## Version 0.1.1 - First revision of the architecture design
 
 This is the revised version of the Technical Specifications according to the feedback provided by the customer.
 
@@ -75,16 +90,16 @@ This is the revised version of the Technical Specifications according to the fee
 |   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _Game Engine:_** Moved to non-functional requirements. Resolved redundancy with requirement "Game Engine".                                                                                                                                              |
 |   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _Communication protocol:_** Moved to glossary.                                                                                                                                                                                                          |
 |   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Adherence to Clean Code Principles:_** Changed priority from "0" to "+" and updated the description accordingly.                                                                                                                               |
-|   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Type of delivery:_** Fixed typo in description. Changed "DOCX" to "HTML".                                                                                                                                                                                                |
-|   *   | **[_Requirements:_](/requirements) _Functional Requirements:_** Changed Id from "FA" to "FR".                                                                                                                                                                                              |
-|   *   | **[_Requirements:_](/requirements) _Non-functional Requirements:_** Changed Id from "QA" to "NFR".                                                                                                                                                                                               |
-|   *   | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated notation and changed inconsistent interface labels. |
-|   *   | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated descripitons for all component diagrams. |
-|   +   | **[_Used plugins:_](/usedtools#used-plugins) _Live Share:_** Added used plugin. |
-|   *   | **[_Use-case diagrams:_](/use-case-diagramme#Moderator-Client) _Moderator-Client:_** Division into "Start Application", "Play Game" and "End Application" diagrams. |
-|   -   | **[_StoryFlow diagram:_](/storyflow) _StoryFlow diagram:_** Removed obsolete StoryFlow diagram. |
+|   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Type of delivery:_** Fixed typo in description. Changed "DOCX" to "HTML".                                                                                                                                                                      |
+|   *   | **[_Requirements:_](/requirements) _Functional Requirements:_** Changed Id from "FA" to "FR".                                                                                                                                                                                                                                  |
+|   *   | **[_Requirements:_](/requirements) _Non-functional Requirements:_** Changed Id from "QA" to "NFR".                                                                                                                                                                                                                             |
+|   *   | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated notation and changed inconsistent interface labels.                                                                                                                                                                        |
+|   *   | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated descripitons for all component diagrams.                                                                                                                                                                                   |
+|   +   | **[_Used plugins:_](/usedtools#used-plugins) _Live Share:_** Added used plugin.                                                                                                                                                                                                                                                |
+|   *   | **[_Use-case diagrams:_](/use-case-diagramme#Moderator-Client) _Moderator-Client:_** Division into "Start Application", "Play Game" and "End Application" diagrams.                                                                                                                                                            |
+|   -   | **[_StoryFlow diagram:_](/storyflow) _StoryFlow diagram:_** Removed obsolete StoryFlow diagram.                                                                                                                                                                                                                                |
 
-</br>
+</span>
 
 ## Version 0.1.0 - Architecture design
 
