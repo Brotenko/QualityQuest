@@ -1,0 +1,13 @@
+@startuml
+
+rectangle "End" {
+    usecase "End Application" as a    
+}
+
+actor "Moderator" as b
+actor "Server" as s
+
+b -right-> a
+a -> s
+
+@enduml

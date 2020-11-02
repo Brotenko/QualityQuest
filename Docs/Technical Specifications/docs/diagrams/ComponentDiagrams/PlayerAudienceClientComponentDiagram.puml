@@ -1,5 +1,6 @@
 @startuml
 () "User\nInterface" as ui
+() "API" as api
 
 component "PlayerAudience-Client" <<component>> as ac{
     [GUI] <<subsystem>>
@@ -7,8 +8,9 @@ component "PlayerAudience-Client" <<component>> as ac{
     () " " as empty
 }
 
-ui -up- GUI
+ui )-up- GUI
 empty - Logic
-GUI -> empty
+GUI -( empty
+Logic -down-( api
 
 @enduml
