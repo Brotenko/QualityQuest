@@ -22,21 +22,22 @@ The following tools were used during the creation of Quality Quest and the docum
 | m2r                | Markdown to reStructuredText converter used for making the docs usable for Sphinx.  | [link](https://github.com/miyakogi/m2r) |
 | Sphinx             | Documentation tool for creating stylised documentation through reStructuredText.    | 3.2.1                                   |
 
-<br/>
+</span>
 
 ## Used plugins
 
 The following plugins were used during the creation of Quality Quest and the documentation:
 
-| Plugin              | Description                                                                                                        | Version                                                                    |
-| :------------------ | :----------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------- |
-| Markdown All in One | Virtual Studio Code plugin used for creating MkDocs easier.                                                        | 3.3.0                                                                      |
-| PlantUML            | Virtual Studio Code plugin used for creating PlantUML diagrams directly in VSC and to see the diagram live-update. | 2.13.13                                                                    |
-| mkdocs-with-pdf     | MkDocs plugin used for creating a PDF out of the MkDocs documents.                                                 | 0.7.5                                                                      |
-| Admonition          | MkDocs extension used to create admonitions in the documentation.                                                  | [link](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) |
+| Plugin              | Description                                                                                                       | Version                                                                    |
+| :------------------ | :---------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------- |
+| Markdown All in One | Visual Studio Code plugin used for creating MkDocs easier.                                                        | 3.3.0                                                                      |
+| PlantUML            | Visual Studio Code plugin used for creating PlantUML diagrams directly in VSC and to see the diagram live-update. | 2.13.13                                                                    |
+| mkdocs-with-pdf     | MkDocs plugin used for creating a PDF out of the MkDocs documents.                                                | 0.7.5                                                                      |
+| Admonition          | MkDocs extension used to create admonitions in the documentation.                                                 | [link](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) |
+| Live Share          | Visual Studio (Code) plugin used for collaboratively editing any codebase with others in real time.               | v1.0.3046                                                                  |
 
 
-<br/>
+</span>
 
 ## Used libraries
 
@@ -46,4 +47,4 @@ The following libraries were used during the creation of Quality Quest:
 | :------ | :---------- | :------ |
 |         |             |         |
 
-<br/>
+</span>

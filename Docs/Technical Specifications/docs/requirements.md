@@ -8,7 +8,7 @@ The requirements are divided into different priorities, whose meaning should be 
 | 0        | The fulfillment of the requirement is optional and therefore not necessarily a prerequisite for acceptance, but would have a very positive effect on the product. |
 | -        | The fulfilment of the requirement is also optional and therefore not a prerequisite for the acceptance.                                                           |
 
-</br>
+</span>
 
 ## Functional requirements
 
@@ -16,326 +16,282 @@ This section contains all requirements that specify the basic actions of the sof
 
 | REQUIREMENT | Game type                                                                                                                                                                                                                                                                                     |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA1                                                                                                                                                                                                                                                                                           |
+| ID          | FR1                                                                                                                                                                                                                                                                                           |
 | PRIORITY    | +                                                                                                                                                                                                                                                                                             |
 | DESCRIPTION | QualityQuest shall be a 2D RPG.                                                                                                                                                                                                                                                               |
 | EXPLANATION | The PlayerAudience takes over the decision of a character in a fictional world of a software engineer. The PlayerAudience plays the game only through StoryFlowDecisions, for example the game plays like a movie in which the PlayerAudience takes over the decisions of the main character. |
 
-</br>
-
-| REQUIREMENT | Stand-alone game                                                                                                                                                                                                        |
-| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA2                                                                                                                                                                                                                     |
-| PRIORITY    | +                                                                                                                                                                                                                       |
-| DESCRIPTION | QualityQuest shall be a stand-alone game.                                                                                                                                                                               |
-| EXPLANATION | is means that the final binaries shall include everything that is needed to run the game. Any possibly needed framework needs to be included. The installation of additional frameworks or libraries is not acceptable. |
-
-</br>
+</span>
 
 | REQUIREMENT | Game presentation                                                                                                                    |
 | ----------- | :----------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA3                                                                                                                                  |
+| ID          | FR2                                                                                                                                  |
 | PRIORITY    | +                                                                                                                                    |
 | DESCRIPTION | QualityQuest shall be a visual-based 2D RPG.                                                                                         |
 | EXPLANATION | This means that QualityQuest shall not be a purely text-based game, but text may be an element of the visual appearance of the game. |
 
-</br>
+</span>
 
 | REQUIREMENT | NewTec branding                                                          |
 | ----------- | :----------------------------------------------------------------------- |
-| ID          | FA4                                                                      |
+| ID          | FR3                                                                      |
 | PRIORITY    | +                                                                        |
 | DESCRIPTION | QualityQuest shall display the NewTec logo clearly visible all the time. |
 | EXPLANATION | -                                                                        |
 
-</br>
+</span>
 
 | REQUIREMENT | Game language                                                                                                                                                                |
 | ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA5                                                                                                                                                                          |
+| ID          | FR4                                                                                                                                                                          |
 | PRIORITY    | +                                                                                                                                                                            |
 | DESCRIPTION | The main language of QualityQuest shall be German.                                                                                                                           |
 | EXPLANATION | The majority of in-game language shall be German, but typical software engineering terms that are not German, but are commonly used in Germany do not need to be translated. |
 
-</br>
+</span>
 
 | REQUIREMENT | Game language options                           |
 | ----------- | :---------------------------------------------- |
-| ID          | FA6                                             |
-| PRIORITY    | -                                               |
+| ID          | FR5                                             |
+| PRIORITY    | 0                                               |
 | DESCRIPTION | QualityQuest should support multiple languages. |
 | EXPLANATION | -                                               |
 
-</br>
+</span>
 
 | REQUIREMENT | Music                                                                                              |
 | ----------- | :------------------------------------------------------------------------------------------------- |
-| ID          | FA7                                                                                                |
+| ID          | FR6                                                                                                |
 | PRIORITY    | -                                                                                                  |
 | DESCRIPTION | QualityQuest may be accompanied by a suitable musical background to enhance the player experience. |
 | EXPLANATION | -                                                                                                  |
 
-</br>
+</span>
 
 | REQUIREMENT | Sound effects                                                                       |
 | ----------- | :---------------------------------------------------------------------------------- |
-| ID          | FA8                                                                                 |
+| ID          | FR7                                                                                 |
 | PRIORITY    | 0                                                                                   |
 | DESCRIPTION | QualityQuest should emphasize important events of the StoryFlow with sound effects. |
 | EXPLANATION | -                                                                                   |
 
-</br>
+</span>
 
 | REQUIREMENT | Game content                                                                                                      |
 | ----------- | :---------------------------------------------------------------------------------------------------------------- |
-| ID          | FA9                                                                                                               |
+| ID          | FR8                                                                                                               |
 | PRIORITY    | +                                                                                                                 |
 | DESCRIPTION | QualityQuest shall tell a story which mainly consists of typical elements of the software engineering profession. |
 | EXPLANATION | -                                                                                                                 |
 
-</br>
+</span>
 
 | REQUIREMENT | StoryFlow                                                                                                                                                                        |
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA10                                                                                                                                                                             |
+| ID          | FR9                                                                                                                                                                              |
 | PRIORITY    | +                                                                                                                                                                                |
 | DESCRIPTION | The story of QualityQuest shall be non-linear.                                                                                                                                   |
 | EXPLANATION | The story shall contain elements where the PlayerAudience needs to make a StoryFlowDecision. Depending on the decision, the StoryFlow shall continue in different StoryBranches. |
 
-</br>
+</span>
 
 | REQUIREMENT | Influence on the StoryFlow by the player                                                          |
 | ----------- | :------------------------------------------------------------------------------------------------ |
-| ID          | FA11                                                                                              |
+| ID          | FR10                                                                                              |
 | PRIORITY    | +                                                                                                 |
 | DESCRIPTION | The PlayerAudience shall influence the selection of StoryBranches by means of StoryFlowDecisions. |
 | EXPLANATION | -                                                                                                 |
 
-</br>
+</span>
 
-| REQUIREMENT | Participation of a larger PlayerAudience                                                                                                                    |
-| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA12                                                                                                                                                        |
-| PRIORITY    | +                                                                                                                                                           |
-| DESCRIPTION | QualityQuest shall enable the PlayerAudience to let a larger audience participate in StoryFlowDecisions by means of OnlineVoting.                           |
-| EXPLANATION | It would be highly desirable that the OnlineVoting feature is directly embedded into the game. Other methods are acceptable depending on the circumstances. |
+| REQUIREMENT | Participation of a larger PlayerAudience                                                                                                                                                                                      |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR11                                                                                                                                                                                                                          |
+| PRIORITY    | +                                                                                                                                                                                                                             |
+| DESCRIPTION | QualityQuest shall have the option to let a larger audience participate in StoryFlowDecisions by means of OnlineVoting.                                                                                                       |
+| EXPLANATION | It would be highly desirable that the OnlineVoting feature is directly embedded into the game, together with an offline backup in case the server can't be used. Other methods are acceptable depending on the circumstances. |
 
-</br>
+</span>
 
 | REQUIREMENT | Random element of StoryFlow control                                                   |
 | ----------- | :------------------------------------------------------------------------------------ |
-| ID          | FA13                                                                                  |
+| ID          | FR12                                                                                  |
 | PRIORITY    | +                                                                                     |
 | DESCRIPTION | The selection of a StoryBranch after a StoryFlowDecision shall be generated randomly. |
 | EXPLANATION | Randomness can be either determined through ZeroRandomness or DiceRandomness.         |
 
-</br>
+</span>
 
 | REQUIREMENT | Visualizing the randomness                                                                                                                                                  |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA14                                                                                                                                                                        |
+| ID          | FR13                                                                                                                                                                        |
 | PRIORITY    | +                                                                                                                                                                           |
 | DESCRIPTION | If the selection of a StoryBranch after a StoryFlowDecision is generated with DiceRandomness, QualityQuest shall display a clear visualization of the randomizationprocess. |
 | EXPLANATION | -                                                                                                                                                                           |
 
-</br>
+</span>
 
-| REQUIREMENT | Character status values                                                                                                                                                                                                  |
-| ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA15                                                                                                                                                                                                                     |
-| PRIORITY    | +                                                                                                                                                                                                                        |
-| DESCRIPTION | The PlayerCharacter shall have different status values, which can improve or worsen during the game. The PlayerCharacter shall have all of the following status values: Programming, Analytics, Communication, Partying. |
-| EXPLANATION | -                                                                                                                                                                                                                        |
+| REQUIREMENT | Character status values                                                                                             |
+| ----------- | :------------------------------------------------------------------------------------------------------------------ |
+| ID          | FR14                                                                                                                |
+| PRIORITY    | +                                                                                                                   |
+| DESCRIPTION | The PlayerCharacter shall have all of the following status values: Programming, Analytics, Communication, Partying. |
+| EXPLANATION | -                                                                                                                   |
 
-</br>
+</span>
 
-| REQUIREMENT | Selecting a character                                                                                                                           |
-| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA16                                                                                                                                            |
-| PRIORITY    | +                                                                                                                                               |
-| DESCRIPTION | At the start of the game the PlayerAudience shall choose a PlayerCharacter from a selection of possible PlayerCharacters via the voting system. |
-| EXPLANATION | -                                                                                                                                               |
+| REQUIREMENT | Selecting a character                                                                                                                             |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ID          | FR15                                                                                                                                              |
+| PRIORITY    | +                                                                                                                                                 |
+| DESCRIPTION | At the start of the game the PlayerAudience shall choose a PlayerCharacter from a selection of 4 possible PlayerCharacters via the voting system. |
+| EXPLANATION | -                                                                                                                                                 |
 
-</br>
+</span>
 
-| REQUIREMENT | Presentation of character status values                                    |
-| ----------- | :------------------------------------------------------------------------- |
-| ID          | FA17                                                                       |
-| PRIORITY    | +                                                                          |
-| DESCRIPTION | The first StoryFlowDecision shall be the selection of the PlayerCharacter. |
-| EXPLANATION | This shall be a StoryFlowDecision with ZeroRandomness.                     |
+| REQUIREMENT | Presentation of character status values                                                    |
+| ----------- | :----------------------------------------------------------------------------------------- |
+| ID          | FR16                                                                                       |
+| PRIORITY    | +                                                                                          |
+| DESCRIPTION | QualityQuest shall display a PlayerCharacterStatusBox with all status values at all times. |
+| EXPLANATION | -                                                                                          |
 
-</br>
+</span>
 
 | REQUIREMENT | Portrait of the PlayerCharacter                                                                                    |
 | ----------- | :----------------------------------------------------------------------------------------------------------------- |
-| ID          | FA18                                                                                                               |
+| ID          | FR17                                                                                                               |
 | PRIORITY    | +                                                                                                                  |
 | DESCRIPTION | QualityQuest shall display a portrait of the PlayerCharacter as part of the PlayerCharacterStatusBox all the time. |
 | EXPLANATION | -                                                                                                                  |
 
-</br>
+</span>
 
-| REQUIREMENT | Character levelling                                                                        |
-| ----------- | :----------------------------------------------------------------------------------------- |
-| ID          | FA19                                                                                       |
-| PRIORITY    | +                                                                                          |
-| DESCRIPTION | The PayerCharacter shall level up its status values based on events or StoryFlowDecisions. |
-| EXPLANATION | -                                                                                          |
+| REQUIREMENT | Character levelling                                                                                       |
+| ----------- | :-------------------------------------------------------------------------------------------------------- |
+| ID          | FR18                                                                                                      |
+| PRIORITY    | +                                                                                                         |
+| DESCRIPTION | The PayerCharacter shall level up and level down its status values based on events or StoryFlowDecisions. |
+| EXPLANATION | -                                                                                                         |
 
-</br>
+</span>
 
 | REQUIREMENT | Visual presentation of PlayerCharacter status changes                             |
 | ----------- | :-------------------------------------------------------------------------------- |
-| ID          | FA20                                                                              |
+| ID          | FR19                                                                              |
 | PRIORITY    | +                                                                                 |
 | DESCRIPTION | The change of status values of the PlayerCharacter shall be highlighted visually. |
 | EXPLANATION | -                                                                                 |
 
-</br>
+</span>
 
 | REQUIREMENT | Acoustic presentation of PlayerCharacter status changes                                |
 | ----------- | :------------------------------------------------------------------------------------- |
-| ID          | FA21                                                                                   |
+| ID          | FR20                                                                                   |
 | PRIORITY    | 0                                                                                      |
 | DESCRIPTION | The change of status values of the PlayerCharacter should be highlighted acoustically. |
 | EXPLANATION | -                                                                                      |
 
-</br>
-
-| REQUIREMENT | Programming language                                            |
-| ----------- | :-------------------------------------------------------------- |
-| ID          | FA22                                                            |
-| PRIORITY    | +                                                               |
-| DESCRIPTION | QualityQuest shall be programmed in a C dialect (C, C++ or C#). |
-| EXPLANATION | -                                                               |
-
-</br>
-
-| REQUIREMENT | Development environment                                                                                                                                                                 |
-| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA23                                                                                                                                                                                    |
-| PRIORITY    | +                                                                                                                                                                                       |
-| DESCRIPTION | Both the source code and the build solution of QualityQuest shall be buildable in one of the following development environments: Microsoft Visual Studio, Microsoft Visual Studio Code. |
-| EXPLANATION | -                                                                                                                                                                                       |
-
-</br>
+</span>
 
 | REQUIREMENT | Operating system                                                 |
 | ----------- | :--------------------------------------------------------------- |
-| ID          | FA24                                                             |
+| ID          | FR21                                                             |
 | PRIORITY    | +                                                                |
 | DESCRIPTION | QualityQuest shall run on Microsoft Windows 10 operating system. |
 | EXPLANATION | -                                                                |
 
-</br>
+</span>
 
-| REQUIREMENT | Usage of game engines                                                                                                                                                                                                                                                                                                                                                                                      |
-| ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA25                                                                                                                                                                                                                                                                                                                                                                                                       |
-| PRIORITY    | -                                                                                                                                                                                                                                                                                                                                                                                                          |
-| DESCRIPTION | An existing game engine may be used, if all of the following conditions apply: The license conditions of the game engine allow the source code of QualityQuest to be open source. The license conditions of the game engine allow the usage of the game engine without license fees. The license conditions of the game engine allow the usage of QualityQuest as intended by NewTec without license fees. |
-| EXPLANATION | -                                                                                                                                                                                                                                                                                                                                                                                                          |
+| REQUIREMENT | Pause Game                                                                       |
+| ----------- | :------------------------------------------------------------------------------- |
+| ID          | FR22                                                                             |
+| PRIORITY    | +                                                                                |
+| DESCRIPTION | The moderator shall have the possibility to pause the game with the PauseButton. |
+| EXPLANATION | -                                                                                |
 
-</br>
+</span>
 
-| REQUIREMENT | Usage of online voting solutions                                                                                                                                                                                                 |
-| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA26                                                                                                                                                                                                                             |
-| PRIORITY    | -                                                                                                                                                                                                                                |
-| DESCRIPTION | An existing online voting solution may be used, if the license conditions of the online voting solution allow the usage of the online voting solution in the context of QualityQuest as intended by NewTec without license fees. |
-| EXPLANATION | -                                                                                                                                                                                                                                |
+| REQUIREMENT | PauseButton location                                  |
+| ----------- | :---------------------------------------------------- |
+| ID          | FR23                                                  |
+| PRIORITY    | +                                                     |
+| DESCRIPTION | The PauseButton shall be around the lower right edge. |
+| EXPLANATION | -                                                     |
 
-</br>
+</span>
 
-| REQUIREMENT | Pause Game                                                                                                                             |
-| ----------- | :------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA25                                                                                                                                   |
-| PRIORITY    | +                                                                                                                                      |
-| DESCRIPTION | The moderator shall have the possibility to pause the game with the PauseButton. The PauseButton shall be around the lower right edge. |
-| EXPLANATION | -                                                                                                                                      |
+| REQUIREMENT | Moderator game control                                                                                                                              |
+| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR24                                                                                                                                                |
+| PRIORITY    | +                                                                                                                                                   |
+| DESCRIPTION | Once the Moderator-Client established the connection to the server, the Moderator shall have the option to start or interrupt the game at any time. |
+| EXPLANATION | -                                                                                                                                                   |
 
-</br>
+</span>
 
-| REQUIREMENT | Connection Setup                                                                                                                                                                                                                                                                                                                                                   |
-| ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA26                                                                                                                                                                                                                                                                                                                                                               |
-| PRIORITY    | +                                                                                                                                                                                                                                                                                                                                                                  |
-| DESCRIPTION | The server shall allow as many PlayerAudience-Clients as possible to connect to the game via the network. However, the server should only allow a single Moderator-Client to connect to the server at any given time. Once the Moderator-Client established the connection to the server, the Moderator has the option to start or interrupt the game at any time. |
-| EXPLANATION | -                                                                                                                                                                                                                                                                                                                                                                  |
+| REQUIREMENT | Connection Timeout                                                                                                                                                                                                                                                                                      |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ID          | FR25                                                                                                                                                                                                                                                                                                    |
+| PRIORITY    | +                                                                                                                                                                                                                                                                                                       |
+| DESCRIPTION | If the Moderator-Client does not react within 10 seconds after recieving the server's message, the connection from the Moderator-Client to the server shall be interrupted. In this case the Moderator can either continue playing in Offline-Mode or try to re-establish the connection to the server. |
+| EXPLANATION | This serves as a failsafe, in case of corrupted messages or connection loss.                                                                                                                                                                                                                            |
 
-</br>
-
-| REQUIREMENT | Connection Timeout                                                                                                                                                                                                                                                                                 |
-| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA27                                                                                                                                                                                                                                                                                               |
-| PRIORITY    | +                                                                                                                                                                                                                                                                                                  |
-| DESCRIPTION | If the Moderator-Client does not send back an ACK within a certain time-frame after recieving the server's message, the connection to the server shall be interrupted. In this case the Moderator can either continue playing in offline mode or try to re-establish the connection to the server. |
-| EXPLANATION | This serves as a fail-save, for the case that messages/ACKs could be corrupted or the connection to the server is lost.                                                                                                                                                                            |
-
-</br>
+</span>
 
 | REQUIREMENT | Server connection loss                                                                                                                                                                                                                                |
 | ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA28                                                                                                                                                                                                                                                  |
+| ID          | FR26                                                                                                                                                                                                                                                  |
 | PRIORITY    | +                                                                                                                                                                                                                                                     |
-| DESCRIPTION | If a Moderator-Client or PlayerAudience-Client loses its connection to the server, its Unique User Identifier (UUID) shall be stored in the system. In this case, the respective client can reconnect to the server to participate in the game again. |
+| DESCRIPTION | If a Moderator-Client or PlayerAudience-Client loses its connection to the server, its Unique User Identifier (UUID) shall be stored in the server. In this case, the respective client can reconnect to the server to participate in the game again. |
 | EXPLANATION | -                                                                                                                                                                                                                                                     |
 
-</br>
+</span>
 
 | REQUIREMENT | Data exchange file format                                                   |
 | ----------- | :-------------------------------------------------------------------------- |
-| ID          | FA29                                                                        |
+| ID          | FR27                                                                        |
 | PRIORITY    | +                                                                           |
 | DESCRIPTION | The file format for data exchange between clients and server shall be JSON. |
 | EXPLANATION | -                                                                           |
 
-</br>
+</span>
 
-| REQUIREMENT | Unique User Identifier (UUID)                                                                                         |
+| REQUIREMENT | Unique User Identifier (UUID)                                                                                |
+| ----------- | :----------------------------------------------------------------------------------------------------------- |
+| ID          | FR28                                                                                                         |
+| PRIORITY    | +                                                                                                            |
+| DESCRIPTION | Every client shall be assigned an Unique User Identifier (UUID) in the form of a web-cookie.                 |
+| EXPLANATION | This ensures participants can rejoin the game after leaving the game or losing the connection to the server. |
+
+</span>
+
+| REQUIREMENT | Offline-Mode                                                                                                                                                                                                                                                                  |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR29                                                                                                                                                                                                                                                                          |
+| PRIORITY    | +                                                                                                                                                                                                                                                                             |
+| DESCRIPTION | If any of the following conditions apply: </br></br><ul><li>The server is not functional</li><li>The network infrastructure slows down significantly</li><li>The connection between clients and server is problematic</li></ul>the Moderator shall continue the game offline. |
+| EXPLANATION | -                                                                                                                                                                                                                                                                             |
+
+</span>
+
+| REQUIREMENT | Offline-Mode transition                                                                                               |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA30                                                                                                                  |
+| ID          | FR30                                                                                                                  |
 | PRIORITY    | +                                                                                                                     |
-| DESCRIPTION | Every participant shall be assigned an Unique User Identifier (UUID) based on either their IP-address or MAC-address. |
-| EXPLANATION | This ensures participants can rejoin the game after leaving the game or losing the connection to the server.          |
+| DESCRIPTION | The Offline-Mode must ensure a smooth transition between online and offline and shall be able to step in at any time. |
+| EXPLANATION | -                                                                                                                     |
 
-</br>
+</span>
 
-| REQUIREMENT | Offline-Mode                                                                                                                                                                                                                                                                                                                                                          |
-| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA32                                                                                                                                                                                                                                                                                                                                                                  |
-| PRIORITY    | +                                                                                                                                                                                                                                                                                                                                                                     |
-| DESCRIPTION | In the event that the server is not functional, the network infrastructure slows significantly down or there being a problem with the connection between clients and server, the Moderator shall have the option to continue the game offline. This Offline-Mode must ensure a smooth transition between online and offline and shall be able to step in at any time. |
-| EXPLANATION | -                                                                                                                                                                                                                                                                                                                                                                     |
+| REQUIREMENT | Communication protocol violation                                                                                                             |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR31                                                                                                                                         |
+| PRIORITY    | +                                                                                                                                            |
+| DESCRIPTION | If a client does not adhere to the communication protocol 3 times, the UUID of the participant should be excluded from the rest of the game. |
+| EXPLANATION | This ensures that it is not easily possible to tinker with the game through an altered client.                                               |
 
-</br>
-
-| REQUIREMENT | Game Engine                                   |
-| ----------- | :-------------------------------------------- |
-| ID          | FA32                                          |
-| PRIORITY    | +                                             |
-| DESCRIPTION | As a game engine the project shall use Unity. |
-| EXPLANATION | -                                             |
-
-</br>
-
-| REQUIREMENT | Communication protocol                                                                                                                                                                                                                                                         |
-| ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FA33                                                                                                                                                                                                                                                                           |
-| PRIORITY    | +                                                                                                                                                                                                                                                                              |
-| DESCRIPTION | The communication protocol shall define clearly and well-defined how clients and server shall communicate with each other in order to accept messages. If a client increasingly does not adhere to the communication protocol, a communication protocol violation is detected. |
-| EXPLANATION | This ensures that it is not easily possible to tinker with the game through an altered client.                                                                                                                                                                                 |
-
-</br>
-
-| REQUIREMENT | Communication protocol violation                                                                                                                  |
-| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
-| ID          | FA34                                                                                                                                              |
-| PRIORITY    | +                                                                                                                                                 |
-| DESCRIPTION | If a client increasingly does not adhere to the communication protocol, the UUID of the participant should be excluded from the rest of the game. |
-| EXPLANATION | This ensures that it is not easily possible to tinker with the game through an altered client.                                                    |
-
+</span>
 
 ## Non-functional Requirements
 
@@ -343,137 +299,198 @@ This section specifies the non-functional requirements for the software system.
 
 | REQUIREMENT | Documents to be delivered                                                                                                                                                                                                                                               |
 | ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | QA1                                                                                                                                                                                                                                                                     |
+| ID          | NFR1                                                                                                                                                                                                                                                                    |
 | PRIORITY    | +                                                                                                                                                                                                                                                                       |
 | DESCRIPTION | A System Specification, which comprises use case diagrams, use case descriptions and a static view of the software architecture and Software Design Specification for each software component, which describes both the static and the dynamic view shall be delivered. |
 | EXPLANATION | -                                                                                                                                                                                                                                                                       |
 
-</br>
+</span>
 
 | REQUIREMENT | In-code documentation style                                                   |
 | ----------- | :---------------------------------------------------------------------------- |
-| ID          | QA1                                                                           |
+| ID          | NFR2                                                                          |
 | PRIORITY    | +                                                                             |
 | DESCRIPTION | The source code shall be documented by means of Doxygen and in Javadoc style. |
 | EXPLANATION | -                                                                             |
 
-</br>
+</span>
 
 | REQUIREMENT | In-code documentation content                                                                                                                                                                                                                   |
 | ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | QA3                                                                                                                                                                                                                                             |
+| ID          | NFR3                                                                                                                                                                                                                                            |
 | PRIORITY    | +                                                                                                                                                                                                                                               |
 | DESCRIPTION | All of the following source code elements shall be documented: Constants, variables and defines. Classes and class members. Methods and method signatures, including return values. Functions and function signatures, including return values. |
 | EXPLANATION | -                                                                                                                                                                                                                                               |
 
-</br>
+</span>
 
 | REQUIREMENT | Documentation style for diagrams                          |
 | ----------- | :-------------------------------------------------------- |
-| ID          | QA4                                                       |
+| ID          | NFR4                                                      |
 | PRIORITY    | +                                                         |
 | DESCRIPTION | All documentation diagrams shall follow the UML standard. |
 | EXPLANATION | -                                                         |
 
-</br>
+</span>
 
 | REQUIREMENT | Delivery of UML diagrams                                                          |
 | ----------- | :-------------------------------------------------------------------------------- |
-| ID          | QA5                                                                               |
+| ID          | NFR5                                                                              |
 | PRIORITY    | +                                                                                 |
 | DESCRIPTION | All UML diagrams shall be delivered in the form of a diagram and a PlantUML link. |
 | EXPLANATION | -                                                                                 |
 
-</br>
+</span>
 
 | REQUIREMENT | Adherence to project Coding Styleguide                            |
 | ----------- | :---------------------------------------------------------------- |
-| ID          | QA6                                                               |
+| ID          | NFR6                                                              |
 | PRIORITY    | 0                                                                 |
 | DESCRIPTION | The software code should adhere to the Project Coding Styleguide. |
 | EXPLANATION | -                                                                 |
 
-</br>
+</span>
 
-| REQUIREMENT | Adherence to Clean Code Principles                                             |
-| ----------- | :----------------------------------------------------------------------------- |
-| ID          | QA7                                                                            |
-| PRIORITY    | 0                                                                              |
-| DESCRIPTION | The software code should adhere to Grade 1 (Red) of the Clean Code Principles. |
-| EXPLANATION | -                                                                              |
+| REQUIREMENT | Adherence to Clean Code Principles                                            |
+| ----------- | :---------------------------------------------------------------------------- |
+| ID          | NFR7                                                                          |
+| PRIORITY    | +                                                                             |
+| DESCRIPTION | The software code shall adhere to Grade 1 (Red) of the Clean Code Principles. |
+| EXPLANATION | -                                                                             |
 
-</br>
+</span>
 
 | REQUIREMENT | Target PlayerAudience                                                                                         |
 | ----------- | :------------------------------------------------------------------------------------------------------------ |
-| ID          | QA8                                                                                                           |
+| ID          | NFR8                                                                                                          |
 | PRIORITY    | +                                                                                                             |
 | DESCRIPTION | QualityQuest shall address a target audience of university students with interest in a SW engineering career. |
 | EXPLANATION | -                                                                                                             |
 
-</br>
+</span>
 
 | REQUIREMENT | Playing time                                                                              |
 | ----------- | :---------------------------------------------------------------------------------------- |
-| ID          | QA9                                                                                       |
+| ID          | NFR9                                                                                      |
 | PRIORITY    | +                                                                                         |
 | DESCRIPTION | The complete story of QualityQuest shall be playable in a time frame of 15 to 20 minutes. |
 | EXPLANATION | -                                                                                         |
 
-</br>
+</span>
 
 | REQUIREMENT | Playing fun                                   |
 | ----------- | :-------------------------------------------- |
-| ID          | QA10                                          |
+| ID          | NFR10                                         |
 | PRIORITY    | 0                                             |
 | DESCRIPTION | The story of QualityQuest should be humorous. |
 | EXPLANATION | -                                             |
 
-</br>
+</span>
 
 | REQUIREMENT | Player motivation                                                                              |
 | ----------- | :--------------------------------------------------------------------------------------------- |
-| ID          | QA11                                                                                           |
+| ID          | NFR11                                                                                          |
 | PRIORITY    | +                                                                                              |
 | DESCRIPTION | The audience of QualityQuest shall be encouraged to follow the story by motivational elements. |
 | EXPLANATION | Motivational elements could be for example rewards, achievement & level upgrades.              |
 
-</br>
+</span>
 
 | REQUIREMENT | Deliverable artefacts                                                                          |
 | ----------- | :--------------------------------------------------------------------------------------------- |
-| ID          | QA12                                                                                           |
+| ID          | NFR12                                                                                          |
 | PRIORITY    | +                                                                                              |
 | DESCRIPTION | Documentation, Source Code and a running version of QualityQuest shall be delivered to NewTec. |
 | EXPLANATION | -                                                                                              |
 
-</br>
+</span>
 
-| REQUIREMENT | Type of delivery                                                                                                                                    |
-| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | QA13                                                                                                                                                |
-| PRIORITY    | +                                                                                                                                                   |
-| DESCRIPTION | All deliverable artifacts shall be delivered digitally.                                                                                             |
-| EXPLANATION | The delivery can be by depositing the deliverable artefacts in a public version control system. Documents should be delivered in both PDS and DOCX. |
+| REQUIREMENT | Type of delivery                                                                                                                                        |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ID          | NFR13                                                                                                                                                   |
+| PRIORITY    | +                                                                                                                                                       |
+| DESCRIPTION | All deliverable artifacts shall be delivered digitally.                                                                                                 |
+| EXPLANATION | The delivery can be by depositing the deliverable artefacts in a public version control system. Documents should be delivered in both PDF and HTML/CSS. |
 
-</br>
+</span>
 
 | REQUIREMENT | Deadline                                           |
 | ----------- | :------------------------------------------------- |
-| ID          | QA14                                               |
+| ID          | NFR14                                              |
 | PRIORITY    | +                                                  |
 | DESCRIPTION | The deadline for the final delivery is 2021-04-28. |
 | EXPLANATION | -                                                  |
 
-</br>
+</span>
 
 | REQUIREMENT | Open source development                                                                                        |
 | ----------- | :------------------------------------------------------------------------------------------------------------- |
-| ID          | QA15                                                                                                           |
+| ID          | NFR15                                                                                                          |
 | PRIORITY    | -                                                                                                              |
 | DESCRIPTION | The Source Code of QualityQuest may be published open source under CreativeCommons CC BY-NC 4.0 license terms. |
 | EXPLANATION | -                                                                                                              |
 
+</span>
 
+| REQUIREMENT | Stand-alone game                                                                                                                                                                                                          |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ID          | NFR16                                                                                                                                                                                                                     |
+| PRIORITY    | +                                                                                                                                                                                                                         |
+| DESCRIPTION | QualityQuest shall be a stand-alone game.                                                                                                                                                                                 |
+| EXPLANATION | The final binaries shall include everything that is needed to run the game. Any possibly needed frameworks have to be included in the delivery. The installation of additional frameworks or libraries is not acceptable. |
 
+</span>
 
+| REQUIREMENT | Programming language                                            |
+| ----------- | :-------------------------------------------------------------- |
+| ID          | NFR17                                                           |
+| PRIORITY    | +                                                               |
+| DESCRIPTION | QualityQuest shall be programmed in a C dialect (C, C++ or C#). |
+| EXPLANATION | -                                                               |
+
+</span>
+
+| REQUIREMENT | Development environment                                                                                                                                                                 |
+| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | NFR18                                                                                                                                                                                   |
+| PRIORITY    | +                                                                                                                                                                                       |
+| DESCRIPTION | Both the source code and the build solution of QualityQuest shall be buildable in one of the following development environments: Microsoft Visual Studio, Microsoft Visual Studio Code. |
+| EXPLANATION | -                                                                                                                                                                                       |
+
+</span>
+
+| REQUIREMENT | Usage of online voting solutions                                                                                                                                                                                                 |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | NFR19                                                                                                                                                                                                                            |
+| PRIORITY    | -                                                                                                                                                                                                                                |
+| DESCRIPTION | A self-made online voting solution shall be created by the team in order to implement the requirements of the tool and ensure the compatibility as optimal as possible. |
+| EXPLANATION | -                                                                                                                                                                                                                                |
+
+</span>
+
+| REQUIREMENT | Amount of supported conntecions                                                                 |
+| ----------- | :---------------------------------------------------------------------------------------------- |
+| ID          | NFR20                                                                                           |
+| PRIORITY    | +                                                                                               |
+| DESCRIPTION | The server shall allow up to 200 PlayerAudience-Clients to connect to the game via the network. |
+| EXPLANATION | -                                                                                               |
+
+</span>
+
+| REQUIREMENT | Exclusive Moderator-Client connection                                                             |
+| ----------- | :------------------------------------------------------------------------------------------------ |
+| ID          | NFR21                                                                                             |
+| PRIORITY    | +                                                                                                 |
+| DESCRIPTION | The server shall only allow a single Moderator-Client to connect to the server at any given time. |
+| EXPLANATION | -                                                                                                 |
+
+</span>
+
+| REQUIREMENT | Game Engine                                                                                                                                                                                                                                                                                                                 |
+| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | NFR22                                                                                                                                                                                                                                                                                                                       |
+| PRIORITY    | +                                                                                                                                                                                                                                                                                                                           |
+| DESCRIPTION | As a game engine the project shall use Unity.                                                                                                                                                                                                                                                                               |
+| EXPLANATION | The license conditions of the game engine allow the source code of QualityQuest to be open source. The license conditions of the game engine allow the usage of the game engine without license fees. The license conditions of the game engine allow the usage of QualityQuest as intended by NewTec without license fees. |
+
+</span>

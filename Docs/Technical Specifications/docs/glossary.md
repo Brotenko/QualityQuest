@@ -13,7 +13,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | -                                                                                                                                           |
 | EXAMPLE     | -                                                                                                                                           |
 
-</br>
+</span>
 
 | Term        | PlayerAudience                                       |
 | ----------- | :--------------------------------------------------- |
@@ -22,7 +22,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | -                                                    |
 | EXAMPLE     | -                                                    |
 
-</br>
+</span>
 
 | Term        | Participants                                                       |
 | ----------- | :----------------------------------------------------------------- |
@@ -31,7 +31,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | Moderator, PlayerAudience                                          |
 | EXAMPLE     | -                                                                  |
 
-</br>
+</span>
 
 | Term        | Customer                                                                                                                        |
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------ |
@@ -40,16 +40,16 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | -                                                                                                                               |
 | EXAMPLE     | -                                                                                                                               |
 
-</br>
+</span>
 
-| Term        | Moderator-Client                                                                                                                                                                                                                                                                                     |
-| ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | The Moderator-Client offers a graphical interface through which Moderator and PlayerAudience can interact with the game. The Moderator-Client establishes a connection to the server, which receives input from the PlayerAudience and visualises and logically implements the output of the server. |
-| IS-A        | Component                                                                                                                                                                                                                                                                                            |
-| CAN-BE      | -                                                                                                                                                                                                                                                                                                    |
-| EXAMPLE     | -                                                                                                                                                                                                                                                                                                    |
+| Term        | Moderator-Client                                                                                                                                                                                                                                                                                                                                                                                              |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| DESCRIPTION | The Moderator-Client offers a graphical interface through which Moderator and PlayerAudience can interact with the game. The Moderator-Client can establish a connection to the server, to include the PlayerAudience in the game, or play the game locally without connecting to a server. In case of a server connection the Moderator-Client visualises and logically implements the output of the server. |
+| IS-A        | Component                                                                                                                                                                                                                                                                                                                                                                                                     |
+| CAN-BE      | -                                                                                                                                                                                                                                                                                                                                                                                                             |
+| EXAMPLE     | -                                                                                                                                                                                                                                                                                                                                                                                                             |
 
-</br>
+</span>
 
 | Term        | PlayerAudience-Client                                                                                                                                                                                                                    |
 | ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -58,6 +58,8 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | -                                                                                                                                                                                                                                        |
 | EXAMPLE     | -                                                                                                                                                                                                                                        |
 
+</span>
+
 | Term        | Client                                                                                                          |
 | ----------- | :-------------------------------------------------------------------------------------------------------------- |
 | DESCRIPTION | A client serves as a graphical interface through which a participant can interact with the server and the game. |
@@ -65,7 +67,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | Moderator-Client, PlayerAudience-Client                                                                         |
 | EXAMPLE     | -                                                                                                               |
 
-</br>
+</span>
 
 | Term        | Server                                                                                                                                                    |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -74,7 +76,7 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | -                                                                                                                                                         |
 | EXAMPLE     | -                                                                                                                                                         |
 
-</br>
+</span>
 
 | Term        | Voting-Tool                                                                                                                                                             |
 | ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -83,20 +85,20 @@ This section includes all actors involved in the system. Actors are people, but 
 | CAN-BE      | -                                                                                                                                                                       |
 | EXAMPLE     | -                                                                                                                                                                       |
 
-</br>
+</span>
 
 ## Expertise
 
 This section contains a collection of information regarding technical terms that are used in the context of the project.
 
-| Term        | StoryFlowDecision                                                                                                                                                                                                                                                    |
-| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | A special event within the game where the PlayerAudience needs to take a decision which influences the further StoryFlow. After a StoryFlowDecision the PlayerCharacterStatusValues can increase by several levels. The PlayerAudience decides through OnlineVoting. |
-| IS-A        | -                                                                                                                                                                                                                                                                    |
-| CAN-BE      | -                                                                                                                                                                                                                                                                    |
-| EXAMPLE     | -                                                                                                                                                                                                                                                                    |
+| Term        | StoryFlowDecision                                                                                                                                                                                                                                                                                                                                 |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| DESCRIPTION | A special event within the game where the PlayerAudience needs to take a decision which influences the further StoryFlow. After a StoryFlowDecision the PlayerCharacterStatusValues can increase by several levels. The PlayerAudience decides through OnlineVoting. If the server is not available, the moderator decides the StoryFlowDecision. |
+| IS-A        | -                                                                                                                                                                                                                                                                                                                                                 |
+| CAN-BE      | -                                                                                                                                                                                                                                                                                                                                                 |
+| EXAMPLE     | -                                                                                                                                                                                                                                                                                                                                                 |
 
-</br>
+</span>
 
 | Term        | StoryFlow                                                                                                                                                                                                     |
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -105,7 +107,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                                                                                             |
 | EXAMPLE     | -                                                                                                                                                                                                             |
 
-</br>
+</span>
 
 | Term        | StoryBranch                                       |
 | ----------- | :------------------------------------------------ |
@@ -114,7 +116,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                 |
 | EXAMPLE     | -                                                 |
 
-</br>
+</span>
 
 | Term        | PlayerCharacterStatusValue                                                                                                                                                                     |
 | ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -123,7 +125,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | Programming, Analytics, Communication, Partying                                                                                                                                                |
 | EXAMPLE     | -                                                                                                                                                                                              |
 
-</br>
+</span>
 
 | Term        | Role-playing game                                                                                                                          |
 | ----------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
@@ -132,7 +134,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | QualityQuest                                                                                                                               |
 | EXAMPLE     | -                                                                                                                                          |
 
-</br>
+</span>
 
 | Term        | PlayerCharacterStatusBox                                                                                                                                                    |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -141,7 +143,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                                                           |
 | EXAMPLE     | -                                                                                                                                                                           |
 
-</br>
+</span>
 
 | Term        | PlayerCharacter                                                                                                                                                                                                                                                                                                    |
 | ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -150,16 +152,16 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                                                                                                                                                                                                  |
 | EXAMPLE     | -                                                                                                                                                                                                                                                                                                                  |
 
-</br>
+</span>
 
-| Term        | Randomness                                                                                                                                                         |
-| ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | The progression in the StoryFlow after a StoryFlowDecision is decided by on of the following randomness options: <br> <br>  - ZeroRandomness <br> - DiceRandomness |
-| IS-A        | -                                                                                                                                                                  |
-| CAN-BE      | ZeroRandomness, DiceRandomness                                                                                                                                     |
-| EXAMPLE     | -                                                                                                                                                                  |
+| Term        | Randomness                                                                                                                                                                         |
+| ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | The progression in the StoryFlow after a StoryFlowDecision is decided by on of the following randomness options: </br></br><ul><li>ZeroRandomness</li><li>DiceRandomness</li></ul> |
+| IS-A        | -                                                                                                                                                                                  |
+| CAN-BE      | ZeroRandomness, DiceRandomness                                                                                                                                                     |
+| EXAMPLE     | -                                                                                                                                                                                  |
 
-</br>
+</span>
 
 | Term        | ZeroRandomness                                                                            |
 | ----------- | :---------------------------------------------------------------------------------------- |
@@ -168,16 +170,16 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                         |
 | EXAMPLE     | -                                                                                         |
 
-</br>
+</span>
 
-| Term        | DiceRandomness                                                                                                     |
-| ----------- | :----------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | After a StoryFlowDecision a die is rolled, which initiates the further StoryFlow and selects the next StoryBranch. |
-| IS-A        | Randomness                                                                                                         |
-| CAN-BE      | -                                                                                                                  |
-| EXAMPLE     | -                                                                                                                  |
+| Term        | DiceRandomness                                                                                                                |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | After a StoryFlowDecision a six-sided dice is rolled, which initiates the further StoryFlow and selects the next StoryBranch. |
+| IS-A        | Randomness                                                                                                                    |
+| CAN-BE      | -                                                                                                                             |
+| EXAMPLE     | -                                                                                                                             |
 
-</br>
+</span>
 
 | Term        | Programming                                                                                                                             |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
@@ -186,7 +188,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                       |
 | EXAMPLE     | PlayerCharacter James has the programming-skill at 8.                                                                                   |
 
-</br>
+</span>
 
 | Term        | Analytics                                                                                                  |
 | ----------- | :--------------------------------------------------------------------------------------------------------- |
@@ -195,7 +197,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                          |
 | EXAMPLE     | 4 of 6 DiceRandomness possibilities lead to a positive event, because of high analytic stats.              |
 
-</br>
+</span>
 
 | Term        | Communication                                                                                                                                                                             |
 | ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -204,7 +206,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                                                                         |
 | EXAMPLE     | -                                                                                                                                                                                         |
 
-</br>
+</span>
 
 | Term        | Partying                                                                               |
 | ----------- | :------------------------------------------------------------------------------------- |
@@ -213,7 +215,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                      |
 | EXAMPLE     | -                                                                                      |
 
-</br>
+</span>
 
 | Term        | OnlineVoting                                                                                                                                                    |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -222,7 +224,7 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                                               |
 | EXAMPLE     | -                                                                                                                                                               |
 
-</br>
+</span>
 
 | Term        | Sidekick-Pet                                                                                                                                 |
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -231,25 +233,25 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                                                                                                            |
 | EXAMPLE     | -                                                                                                                                            |
 
-</br>
+</span>
 
 | Term        | Play-Time                                                                                              |
 | ----------- | :----------------------------------------------------------------------------------------------------- |
 | DESCRIPTION | The time it takes to finish a game. The time needed for QualityQuest should be about 15 to 20 minutes. |
-| IS-A        |                                                                                                        |
+| IS-A        | -                                                                                                      |
 | CAN-BE      | -                                                                                                      |
 | EXAMPLE     | -                                                                                                      |
 
-</br>
+</span>
 
 | Term        | Voting-Timer                                                                                                                                                       |
 | ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DESCRIPTION | Timer that is triggered by a StoryFlowDecision. While the timer is running the PlayerAudience has to vote. The moderator can stop the timer with the pause button. |
 | IS-A        | -                                                                                                                                                                  |
 | CAN-BE      | -                                                                                                                                                                  |
-| EXAMPLE     | The PlayerAudience has 60 seconds to vote on a StoryFlowDecision.                                                                                                  |
+| EXAMPLE     | The PlayerAudience has 30 seconds to vote on a StoryFlowDecision.                                                                                                  |
 
-</br>
+</span>
 
 | Term        | Pause-Button                                       |
 | ----------- | :------------------------------------------------- |
@@ -258,4 +260,22 @@ This section contains a collection of information regarding technical terms that
 | CAN-BE      | -                                                  |
 | EXAMPLE     | -                                                  |
 
-</br>
+</span>
+
+| Term        | Communication protocol                                                                                                                                                                                                                                                         |
+| ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | The communication protocol shall define clearly and well-defined how clients and server shall communicate with each other in order to accept messages. If a client increasingly does not adhere to the communication protocol, a communication protocol violation is detected. |
+| IS-A        | -                                                                                                                                                                                                                                                                              |
+| CAN-BE      | -                                                                                                                                                                                                                                                                              |
+| EXAMPLE     | -                                                                                                                                                                                                                                                                              |
+
+</span>
+
+| Term        | Session                                                                                                                                                                                                                                                                                           |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| DESCRIPTION | The process of creating an online game, via a server, including playing the game. The moderator always creates the session and the audience joins the session via the server. A game is exclusively referred to as a session if it is played via an active connection between server and clients. |
+| IS-A        | -                                                                                                                                                                                                                                                                                                 |
+| CAN-BE      | -                                                                                                                                                                                                                                                                                                 |
+| EXAMPLE     | -                                                                                                                                                                                                                                                                                                 |
+
+</span>

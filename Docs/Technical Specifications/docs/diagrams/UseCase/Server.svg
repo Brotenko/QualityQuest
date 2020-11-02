@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="103px" preserveAspectRatio="none" style="width:554px;height:103px;" version="1.1" viewBox="0 0 554 103" width="554px" zoomAndPan="magnify"><defs><filter height="300%" id="f17tps148b8xk7" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[979da56a7f83e2393dc758167ae295d0]
+cluster Server--><rect fill="#FFFFFF" filter="url(#f17tps148b8xk7)" height="83" style="stroke: #000000; stroke-width: 1.5;" width="170" x="209" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="51" x="268.5" y="21.9951">Server</text><ellipse cx="294.06" cy="58.212" fill="#FEFECE" filter="url(#f17tps148b8xk7)" rx="69.06" ry="16.212" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="104" x="242.06" y="62.8604">Poll Evaluation</text><!--MD5=[e34806be013694a7d80e05a3c2669587]
+entity AUDC--><ellipse cx="85.5" cy="27" fill="#FEFECE" filter="url(#f17tps148b8xk7)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 1.5;"/><path d="M85.5,35 L85.5,62 M72.5,43 L98.5,43 M85.5,62 L72.5,77 M85.5,62 L98.5,77 " fill="none" filter="url(#f17tps148b8xk7)" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="159" x="6" y="95.4951">PlayerAudience-Client</text><!--MD5=[dadf5690effe4886e96f5bf124e3cdcf]
+entity MODC--><ellipse cx="485" cy="27" fill="#FEFECE" filter="url(#f17tps148b8xk7)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 1.5;"/><path d="M485,35 L485,62 M472,43 L498,43 M485,62 L472,77 M485,62 L498,77 " fill="none" filter="url(#f17tps148b8xk7)" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="124" x="423" y="95.4951">Moderator-Client</text><!--MD5=[95bef12108480bc60d8863f86591e1ae]
+link AUDC to PE--><path d="M165.158,58 C182.924,58 201.722,58 219.277,58 " fill="none" id="AUDC-to-PE" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="224.682,58,215.682,54,219.682,58,215.682,62,224.682,58" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[7aefd892f97b5380b797d73903b711b1]
+link PE to MODC--><path d="M363.233,58 C380.865,58 399.821,58 417.37,58 " fill="none" id="PE-to-MODC" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="422.768,58,413.768,54,417.768,58,413.768,62,422.768,58" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[d749a731a1f426495ece25538587da95]
+@startuml
+left to right direction
+actor "PlayerAudience-Client" as AUDC
+actor "Moderator-Client" as MODC
+rectangle "Server" {
+usecase "Poll Evaluation" as PE
+}
+
+AUDC - -> PE
+PE - -> MODC
+@enduml
+
+PlantUML version 1.2020.20beta7(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

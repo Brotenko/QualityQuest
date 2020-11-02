@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+() "Websocket" as ws
+() "User\nInterface" as ui
+() "Moderator\nInterface" as mi
+
+
+component "Server" <<device>> as s{
+    () "API" as api
+    [PlayerAudience-Client] <<component>> as AuCl
+    [Server] <<component>> as SeCl
+}
+[Moderator-Client] <<component>> as StPlCl
+
+ws )- StPlCl
+ws )-down- SeCl
+mi )-left- StPlCl
+ui )-up- AuCl
+api - SeCl
+AuCl -( api
+
+@enduml
