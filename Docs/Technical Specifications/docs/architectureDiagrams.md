@@ -6,8 +6,8 @@ The diagrams below show the architectural structure of the different components 
 
 The class diagram shows the architectural structure of the individual components of QualityQuest and thus which classes are used in the implementation to logically implement the project. It also shows which interfaces the individual components use to communicate with each other.
 
-Since the StoryGraph is run and build locally on the Moderator-Client and the server only has a forwarding and poll evaluation function (possible decisions get forwarded to the audience, polls get evaluated, result of the vote gets forwarded to the Moderator-Client), a fallback is easily possible with only the Moderator as decisionmaker.
-So if the server is no longer accessible for the Moderator-Client, this will be noticed by the regular status requests and the Moderator will be informed together with the option to switch to Offline-Mode. Since the server only informs the Moderator-Client about the results of the voting, in case of a server failure, only the information about the voting conditions is lost for the Moderator-Client, because the actual decisions are made locally. 
+Since the StoryGraph is run and build locally on the Moderator-Client and the server only has a forwarding function, a fallback is easily possible with only the Moderator as decisionmaker.
+So if the server is no longer accessible for the Moderator-Client, this will be noticed by the regular status requests and the Moderator will be informed together with the option to switch to Offline-Mode. Since the server only tranfers the polls to the Moderator-Client, in case of a server failure, only the information about the voting conditions is lost for the Moderator-Client, because the actual decisions are made locally. 
 
 In Offline-Mode, the timer is deactivated and the Moderator can select decisions directly, while status checks are still performed in the background to inform the Moderator in case the server becomes available again.
 
@@ -45,4 +45,6 @@ The ***Server*** component consists of a subsystem for the *Poll Evaluation*, wh
 
 The component ***Moderator-Client*** consists of a subsystem *GUI*, which, based on Unity, provides a *moderator interface* for interaction and presentation of the game. The subsystem *Logic* manages the progress in the game tree, the influence of stats on decisions as well as the communication to the component ***Server*** via the *Websocket*.
 
-![Moderator-Client](diagrams/ComponentDiagrams/ModeratorClientComponentDiagram.svg)
+![Moderator-Client](diagrams/ModeratorClientComponentDiagram.svg)
+
+
