@@ -463,7 +463,7 @@ This section specifies the non-functional requirements for the software system.
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ID          | NFR19                                                                                                                                                                                                                            |
 | PRIORITY    | -                                                                                                                                                                                                                                |
-| DESCRIPTION | An existing online voting solution may be used, if the license conditions of the online voting solution allow the usage of the online voting solution in the context of QualityQuest as intended by NewTec without license fees. |
+| DESCRIPTION | A self-made online voting solution shall be created by the team in order to implement the requirements of the tool and ensure the compatibility as optimal as possible. |
 | EXPLANATION | -                                                                                                                                                                                                                                |
 
 </span>
