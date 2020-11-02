@@ -2,11 +2,11 @@
 
 skinparam classAttributeIconSize 0
 
-package "Moderator Client" {
+package "Moderator-Client" {
 
   class StoryEvent {
     {field} +eventId: int
-    {field} +description: String
+    {field} +description: string
     {field} +parent: StoryEvent
     {field} +children: StoryEvent[]
     {method} +StoryEvent(parent: StoryEvent, id: int)
@@ -29,8 +29,8 @@ package "Moderator Client" {
   class Skill {
     {field} +id: int
     {field} +value: int
-    {field} +description: String
-    {method} + Skill(id: int, val: int, desc: String)
+    {field} +description: string
+    {method} + Skill(id: int, val: int, desc: string)
     {method} + setValue(val: int): void
     {method} + getValue(): int
   }
@@ -38,14 +38,14 @@ package "Moderator Client" {
   class Character {
     {field} +sprite: Texture
     {field} +abilities: Skill[]
-    {field} +name: String
+    {field} +name: string
     {method} +Character()
   }
 
   class "ModeratorView" as mf {
     {field} +timeoutDuration: int
     {method} +ModeratorView()
-    {method} +pausePolling(Boolean): void
+    {method} +pausePolling(val: boolean): void
     {method} +offlineMode(val: boolean): void
   }
 
@@ -61,12 +61,12 @@ package "Moderator Client" {
     {method} +addVote(): void
   }
 
-  class "ModeratorClientExchange" as mcei <<interface>>{
-    {field} +websocket:WebSocket
-    {field} +AuthentificationTokenMC: Token
+  class "ModeratorClientExchange" as mcei{
+    {field} +websocket: WebSocket
+    {field} +authentificationTokenModeratorClient: Token
     {method} +ModeratorClientExchange()
     {method} +getCurrentPollEval(): int
-    {method} +makeJSON()
+    {method} +makeJSON(): string
   }
   
   StoryEvent "n" --* "1" StoryGraph
@@ -79,13 +79,15 @@ package "Moderator Client" {
 
 package "Server" {
    class "API" as api {
-        {field} +observerCollection
-        {method} +registerObserver(observer, cookie)
-        {method} +unregisterObserver(observer)
-        {method} +notifyObservers()
-        {method} +updatePossibleDecisions()
-        {method} +collectVotes()
+        {field} +observerCollection: Observer
+        {method} +API()
+        {method} +registerObserver(observer: Observer, cookie: Cookie): void
+        {method} +unregisterObserver(observer: Observer): void
+        {method} +notifyObservers(): void
+        {method} +updatePossibleDecisions(): void
+        {method} +collectVotes(): void
   }
+
   package "Backend" <<Rectangle>>{
     class "ServerShell" as ss {
       {field} +Logger: Logger
@@ -97,58 +99,60 @@ package "Server" {
       {method} +ServerShell()
       {method} +startShell(): void
       {method} +stopShell(): void
-      {method} +parseCommand(String): void
+      {method} +parseCommand(command: string): void
       {method} +showHelp(): void
       {method} +configPort(): void
       {method} +configCapacity(): void
       {method} +startServer(): void
       {method} +stopServer(): void
-      {method} +main(String[]): void
+      {method} +main(args: string[]): void
     }
 
-    class "ClientManager" as cm {
+    class "ModeratorClientManager" as cm {
       {field} +webSocket: WebSocket
-      {field} +ip
-      {field} +port
-      {field} +Logger: Logger
-      {field} +AuthentificationTokenMC: Token
-      {method} +ClientManager(session: Session): void
+      {field} +ip: int
+      {field} +port: int
+      {field} +logger: Logger
+      {field} +authentificationTokenModeratorClient: Token
+      {method} +ModeratorClientManager(session: Session): void
       {method} +disconnect(): void
       {method} +onDisconnect(): void
-      {method} +recieve(String): void
-      {method} +checkJSON(String): void
-      {method} +sendMessage(String): void
-      {method} +send(String): void
-      {method} +recieve(String): void
+      {method} +recieve(message: string): void
+      {method} +checkJSON(message: string): void
+      {method} +sendMessage(message: string): void
+      {method} +send(message: string): void
+      {method} +recieve(message: string): void
     }    
 
     class "MainServerLogic" as msl {
       {field} +moderator: WebClient
-      {field} +Logger: Logger
+      {field} +logger: Logger
       {method} MainServerLogic(capacity: int, port: int)
-      {method} +onFalseMessage(String): void
-      {method} +onVotingMessage(String): void
+      {method} +onFalseMessage(message: string): void
+      {method} +onVotingMessage(message: string): void
 
     }
 
     class "ServerLogger" as sl {
-      {field} +GlobalLogger: Logger
+      {field} +globalLogger: Logger
       {field} +logFile: FileHandler
       {field} +isSetup: Boolean
       {field} +consoleHandler: Handler
+      {method} +Logger()
       {method} +setup(): void
-      {method} +addHandler(Logger): void
-      {method} +setLevel(Level): void
-      {method} +setConsoleOutput(boolean): void
+      {method} +addHandler(logger: Logger): void
+      {method} +setLevel(level: int): void
+      {method} +setConsoleOutput(val: boolean): void
     }
   }
-  package "PlayerAudience Client" <<Rectangle>>{  
+  package "PlayerAudience-Client" <<Rectangle>>{  
     class "PlayerAudienceClientExchange" as pace <<Observer>>{
       {field} +sessionCookie: Cookie
       {field} +hasVoted: boolean
       {field} +selectedDecision: StoryEvent
       {field} +possibleDecisions: StoryEvent[]
-      {method} +update()
+      {method} +PlayerAudienceClientExchange()
+      {method} +update(): void
       {method} +sendSelectedDecision(): StoryEvent 
     }
 
