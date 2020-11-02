@@ -38,7 +38,7 @@ The change history is a chronologically ordered list of all changes between diff
 | Type  | Description |
 | :---: | :---------- |
 |+|**[_Class diagrams:_](/architectureDiagrams#Classdiagrams) _Server Class diagram:_** Added a joined class diagram for AudienceClient and Server|
-| + | **[_Class diagrams:_](/architectureDiagrams#Classdiagrams) _Server class diagrams:_**  Added description          |
+| + | **[_Class diagrams:_](/architectureDiagrams#Classdiagrams) _Server class diagrams:_**  Added description to Server class diagram         |
 | * | **[_Class diagrams:_](/architectureDiagrams#Classdiagrams) _Class diagrams:_**  Updated class diagram with the new Server diagram         |
 
 
