@@ -98,6 +98,7 @@ This is the revised version of the Technical Specifications according to the fee
 |   +   | **[_Used plugins:_](/usedtools#used-plugins) _Live Share:_** Added used plugin.                                                                                                                                                                                                                                                |
 |   *   | **[_Use-case diagrams:_](/use-case-diagramme#Moderator-Client) _Moderator-Client:_** Division into "Start Application", "Play Game" and "End Application" diagrams.                                                                                                                                                            |
 |   -   | **[_StoryFlow diagram:_](/storyflow) _StoryFlow diagram:_** Removed obsolete StoryFlow diagram.                                                                                                                                                                                                                                |
+|   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Usage of online voting solutions:"_** Updated the description to clarify that the voting tool will be made by the team.                                                                                                                        |
 
 </span>
 
