@@ -122,10 +122,10 @@ package "Server" {
 
     class "PollEvaluator" as pe {
     {field} possibleDecisions: StoryEvent[]
-    {field} voteCounter: int[]
+    {field} voteCounter: Dictionary<int,int>
     {method} +PollEvaluator()
-    {method} +evaluateVotes(): int
-    {method} +addVote(): void
+    {method} +evaluateVotes(ids: int[]): int
+    {method} +addVote(id: int): void
   }
 
     class "ServerLogger" as sl {
