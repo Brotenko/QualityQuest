@@ -90,7 +90,7 @@ package "Server" {
 
   package "Backend" <<Rectangle>>{
     class "ServerShell" as ss {
-      {field} +Logger: Logger
+      {field} +logger: Logger
       {field} +port: int
       {field} +runShell: boolean
       {field} +serverShell: ServerShell
