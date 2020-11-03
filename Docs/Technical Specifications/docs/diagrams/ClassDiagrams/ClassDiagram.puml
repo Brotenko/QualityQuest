@@ -26,6 +26,21 @@ package "Moderator-Client" {
     {method} +getNextStoryEventById(id: int): StoryEvent
   }
 
+  class "ModeratorView" as mf {
+    {field} +timeoutDuration: int
+    {method} +ModeratorView()
+    {method} +pausePolling(val: boolean): void
+    {method} +offlineMode(val: boolean): void
+  }
+
+  class "ModeratorClientExchange" as mcei{
+    {field} +websocket: WebSocket
+    {field} +authentificationTokenModeratorClient: Token
+    {method} +ModeratorClientExchange()
+    {method} +getCurrentPollEval(): int
+    {method} +makeJSON(): string
+  }
+
   class Skill {
     {field} +id: int
     {field} +value: int
@@ -41,40 +56,12 @@ package "Moderator-Client" {
     {field} +name: string
     {method} +Character()
   }
-
-  class "ModeratorView" as mf {
-    {field} +timeoutDuration: int
-    {method} +ModeratorView()
-    {method} +pausePolling(val: boolean): void
-    {method} +offlineMode(val: boolean): void
-  }
-
-  class "PollEvaluator" as pe {
-
-    {field} possibleDecisions: StoryEvent[]
-    {field} timeout: int
-    {field} voteCounter: int[]
-    {method} +PollEvaluator()
-    {method} +checkServerStatus(): void
-    {method} +broadcastNextDecision(): void
-    {method} +evaluateVotes(): int
-    {method} +addVote(): void
-  }
-
-  class "ModeratorClientExchange" as mcei{
-    {field} +websocket: WebSocket
-    {field} +authentificationTokenModeratorClient: Token
-    {method} +ModeratorClientExchange()
-    {method} +getCurrentPollEval(): int
-    {method} +makeJSON(): string
-  }
   
   StoryEvent "n" --* "1" StoryGraph
   StoryGraph -- mf
   StoryGraph -- Character
   Character "1" *-- "n" Skill
-  mf -- pe
-  pe -- mcei
+  mf -- mcei
 }
 
 package "Server" {
@@ -133,6 +120,14 @@ package "Server" {
 
     }
 
+    class "PollEvaluator" as pe {
+    {field} possibleDecisions: StoryEvent[]
+    {field} voteCounter: int[]
+    {method} +PollEvaluator()
+    {method} +evaluateVotes(): int
+    {method} +addVote(): void
+  }
+
     class "ServerLogger" as sl {
       {field} +globalLogger: Logger
       {field} +logFile: FileHandler
@@ -162,7 +157,8 @@ package "Server" {
   }
   ss -- msl
   msl - cm
-  msl -left- api
+  msl -left- pe
+  pe -left- api
   sl ... cm
   sl ... msl
   sl ... api
@@ -171,6 +167,6 @@ package "Server" {
   api "1" <-up- "n" pace : observes
 }
 
-mcei - cm
+mcei -right- cm
 
 @enduml

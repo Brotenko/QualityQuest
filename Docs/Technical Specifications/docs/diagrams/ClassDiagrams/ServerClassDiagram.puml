@@ -58,6 +58,14 @@ package "Server" {
 
     }
 
+    class "PollEvaluator" as pe {
+    {field} possibleDecisions: StoryEvent[]
+    {field} voteCounter: int[]
+    {method} +PollEvaluator()
+    {method} +evaluateVotes(): int
+    {method} +addVote(): void
+  }
+
     class "ServerLogger" as sl {
       {field} +globalLogger: Logger
       {field} +logFile: FileHandler
@@ -87,7 +95,8 @@ package "Server" {
   }
   ss -- msl
   msl - cm
-  msl -left- api
+  msl -left- pe
+  pe -left- api
   sl ... cm
   sl ... msl
   sl ... api
