@@ -14,7 +14,6 @@ package "Moderator-Client" {
   }
 
   class StoryGraph {
-    {field} +id: int
     {field} +character: Character
     {field} +root: StoryEvent
     {field} +currentEvent: StoryEvent
@@ -27,32 +26,33 @@ package "Moderator-Client" {
   }
 
   class "ModeratorView" as mf {
-    {field} +timeoutDuration: int
     {method} +ModeratorView()
     {method} +pausePolling(val: boolean): void
     {method} +offlineMode(val: boolean): void
   }
 
   class "ModeratorClientExchange" as mcei{
-    {field} +websocket: WebSocket
-    {field} +authentificationTokenModeratorClient: Token
+    {field} -websocket: WebSocket
+    {field} -authentificationGuid: Guid
+    {field} -timeoutDuration: int
     {method} +ModeratorClientExchange()
-    {method} +getCurrentPollEval(): int
+    {method} +sendMessage(message: string): void
+    {method} +evalJSON(): string
+    {method} +endCurrentPollAndGetVotingResults(): int
     {method} +makeJSON(): string
+    {method} +enterPassword(pw: string): void
   }
 
-  class Skill {
-    {field} +id: int
-    {field} +value: int
-    {field} +description: string
-    {method} + Skill(id: int, val: int, desc: string)
-    {method} + setValue(val: int): void
-    {method} + getValue(): int
+  class Skills {
+    {field} +communication: int
+    {field} +analytics: int
+    {field} +partying: int
+    {field} +programming: int
+    {method} + Skill(commu: int, analy: int, party: int, progr: int)
   }
 
   class Character {
-    {field} +sprite: Texture
-    {field} +abilities: Skill[]
+    {field} +abilities: Skills
     {field} +name: string
     {method} +Character()
   }
@@ -60,8 +60,9 @@ package "Moderator-Client" {
   StoryEvent "n" --* "1" StoryGraph
   StoryGraph -- mf
   StoryGraph -- Character
-  Character "1" *-- "n" Skill
+  Character -- Skills
   mf -- mcei
+  StoryGraph --- mcei
 }
 
 @enduml

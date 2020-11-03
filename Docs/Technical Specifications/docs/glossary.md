@@ -69,9 +69,27 @@ This section includes all actors involved in the system. Actors are people, but 
 
 </span>
 
-| Term        | Server                                                                                                                                                    |
+| Term        | ServerLogic                                                                                                                                                    |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | The server serves as an interface for the communication between the Moderator-Client and the PlayerAudience-Clients. The server contains the Voting-Tool. |
+| DESCRIPTION | The ServerLogic serves as an interface for the communication between the Moderator-Client and the PlayerAudience-Clients. The ServerLogic contains the Voting-Tool. |
+| IS-A        | Component                                                                                                                                                 |
+| CAN-BE      | -                                                                                                                                                         |
+| EXAMPLE     | -                                                                                                                                                         |
+
+</span>
+
+
+| Term        | Server                                                                                                                                                   |
+| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | The server is a  piece of computer hardware or software that provides functionality for other programs or devices.|
+| IS-A        |           -                                                                                                                                   |
+| CAN-BE      | -                                                                                                                                                         |
+| EXAMPLE     | -                                                                                                                                                         |
+
+</span>
+| Term        | ServerApplication                                                                                                                                                  |
+| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | The ServerAppliaction is the software which is used by the server. It contains the components PlayerAudience-Client and ServerLogic  |
 | IS-A        | Component                                                                                                                                                 |
 | CAN-BE      | -                                                                                                                                                         |
 | EXAMPLE     | -                                                                                                                                                         |
