@@ -1,0 +1,25 @@
+@startuml
+(*) --> "Abluss Studium" as as
+--> Wilkommen bei NewTec
+--> NewTec erhält neuen Auftrag
+--> "Du erhälst deine erste Aufgabe" as a1
+if "" then
+--> [Du frägst deinen Mentor] "Character erhält Stat" as a
+else
+--> [Googeln nach der Lösung] " " as b
+else
+--> [Einfach loslegen]" " as c
+
+a --> "Random" as r
+
+
+
+
+
+
+
+'-[#blue,dotted]-> "   "
+
+
+
+@enduml

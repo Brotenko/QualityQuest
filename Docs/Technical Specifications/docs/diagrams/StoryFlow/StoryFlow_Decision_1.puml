@@ -1,0 +1,27 @@
+@startuml
+(*) --> "Für welches Wahlpflichtfach willst du dich entscheiden?"
+if "" then
+--> [Einführung in Bali] "Charakter erhält Stats" as bali
+else
+--> [Requirements\nEngineering] "Charakter erhält Stats" as re
+else
+--> [Einführung in\nSoftware Architectures] "Charakter erhält Stats " as esa
+else
+--> [Usability as\nsuccess factor] "Charakter erhält Stats" as usf
+
+
+usf --> Willst du an einem Firmenpraktikum teilnehmen?
+re --> Willst du an einem Firmenpraktikum teilnehmen?
+bali --> Willst du an einem Firmenpraktikum teilnehmen?
+esa --> Willst du an einem Firmenpraktikum teilnehmen?
+
+-[#blue,dotted]-> "   "
+
+/'
+Wir stehen 1 Jahr vor Ende des Studiums
+Du musst Dich für ein Wahlpflichtfach entscheiden.
+
+
+'/
+
+@enduml
