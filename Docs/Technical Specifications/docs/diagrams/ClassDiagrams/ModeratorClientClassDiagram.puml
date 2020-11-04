@@ -5,18 +5,18 @@ skinparam classAttributeIconSize 0
 package "Moderator-Client" {
 
   class StoryEvent {
-    {field} +eventId: int
-    {field} +description: string
-    {field} +parent: StoryEvent
-    {field} +children: StoryEvent[]
+    {field} -eventId: int
+    {field} -description: string
+    {field} -parent: StoryEvent
+    {field} -children: StoryEvent[]
     {method} +StoryEvent(parent: StoryEvent, id: int)
     {method} +addChild(): void
   }
 
   class StoryGraph {
-    {field} +character: Character
-    {field} +root: StoryEvent
-    {field} +currentEvent: StoryEvent
+    {field} -character: Character
+    {field} -root: StoryEvent
+    {field} -currentEvent: StoryEvent
     {method} +StoryGraph(id: int)
     {method} +loadGraphFromFile(): Graph
     {method} +saveGraphToFile(): void
@@ -44,16 +44,16 @@ package "Moderator-Client" {
   }
 
   class Skills {
-    {field} +communication: int
-    {field} +analytics: int
-    {field} +partying: int
-    {field} +programming: int
+    {field} -communication: int
+    {field} -analytics: int
+    {field} -partying: int
+    {field} -programming: int
     {method} + Skill(commu: int, analy: int, party: int, progr: int)
   }
 
   class Character {
-    {field} +abilities: Skills
-    {field} +name: string
+    {field} -abilities: Skills
+    {field} -name: string
     {method} +Character()
   }
   
