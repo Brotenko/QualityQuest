@@ -1,27 +1,19 @@
 @startuml
-(*) --> "Für welches Wahlpflichtfach willst du dich entscheiden?"
+(*) --> "Mit welchem Charakter willst du das Spiel spielen?"
 if "" then
---> [Einführung in Bali] "Charakter erhält Stats" as bali
+--> [Charakter 1] "Harald \n Stats:\n Programming: 1 \n Analytics: 4\n Communication 3 \n Partying: 2" as char1
 else
---> [Requirements\nEngineering] "Charakter erhält Stats" as re
+--> [Charakter 2] "Isolde \n Stats:\n Programming: 4 \n Analytics: 3\n Communication 1 \n Partying: 0" as char2
 else
---> [Einführung in\nSoftware Architectures] "Charakter erhält Stats " as esa
+--> [Charakter 3] "Heribert \n Stats:\n Programming: 2 \n Analytics: 2\n Communication 2 \n Partying: 2" as char3
 else
---> [Usability as\nsuccess factor] "Charakter erhält Stats" as usf
+--> [Charakter 4] "Kevin \n Stats:\n Programming: 1 \n Analytics: 0\n Communication 2 \n Partying: 5" as char4
 
 
-usf --> Willst du an einem Firmenpraktikum teilnehmen?
-re --> Willst du an einem Firmenpraktikum teilnehmen?
-bali --> Willst du an einem Firmenpraktikum teilnehmen?
-esa --> Willst du an einem Firmenpraktikum teilnehmen?
+--> "Dir fehlt zum Abschluß des Studiums noch ein Wahlpflichtfach." as a
+char1 --> a
+char2 --> a
+char3 --> a
 
--[#blue,dotted]-> "   "
-
-/'
-Wir stehen 1 Jahr vor Ende des Studiums
-Du musst Dich für ein Wahlpflichtfach entscheiden.
-
-
-'/
-
+a-[#blue,dotted]-> " "
 @enduml

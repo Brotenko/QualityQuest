@@ -1,0 +1,27 @@
+@startuml
+(*) --> "Für welches willst du dich entscheiden?"
+if "" then
+--> [Einführung in Bali] "Charakter erhält Stats: \n +2 programming \n +1 analytics" as bali
+else
+--> [Requirements\nEngineering] "Charakter erhält Stats: \n +1 programming \n +2 analytics" as re
+else
+--> [Einführung in\nSoftware Architectures] "Charakter erhält Stats: \n +3 analytics" as esa
+else
+--> [Usability as\nsuccess factor] "Charakter erhält Stats: \n +1 analytics \n +2 communication" as usf
+
+
+usf --> "Nach dem Abschluß des Wahlpflichfaches kannst du deine Freizeit genießen, oder nimmst du doch lieber an einem reiwilligen Firmenpraktikum teil?" as a
+re --> a
+bali --> a
+esa --> a
+
+-[#blue,dotted]-> "   "
+
+/'
+Wir stehen 1 Jahr vor Ende des Studiums
+Du musst Dich für ein Wahlpflichtfach entscheiden.
+
+
+'/
+
+@enduml
