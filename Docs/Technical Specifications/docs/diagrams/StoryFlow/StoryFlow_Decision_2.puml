@@ -10,7 +10,7 @@ else
 --> [Usability as\nsuccess factor] "Charakter erhält Stats: \n +1 analytics \n +2 communication" as usf
 
 
-usf --> "Nach dem Abschluß des Wahlpflichfaches kannst du deine Freizeit genießen, oder nimmst du doch lieber an einem reiwilligen Firmenpraktikum teil?" as a
+usf --> "Nach dem Abschluß des Wahlpflichfaches kannst du deine Freizeit genießen, oder nimmst du doch lieber an einem freiwilligen Firmenpraktikum teil?" as a
 re --> a
 bali --> a
 esa --> a

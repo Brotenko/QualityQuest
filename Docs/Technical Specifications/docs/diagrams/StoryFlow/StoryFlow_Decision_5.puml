@@ -1,0 +1,19 @@
+@startuml
+(*) --> "Willst du an einem Firmenpraktikum teilnehmen?"
+if "" then
+--> [Ja, gerne] "Charakter erhält Stats: \n +1 programming \n +1 analytics \n +1 communication" as ja
+else
+--> [Nein, keine Lust] "Durch viele Parties \n in deiner Freizeit \n steigt dein partying Stat:\n +3 partying " as nein
+
+ja --> "Du hast erfolgreich dein Studium abgeschloßen." as a
+nein --> a
+
+
+
+
+
+-[#blue,dotted]-> " "
+
+
+
+@enduml
