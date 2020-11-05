@@ -5,7 +5,8 @@
 --> "Dein Chef hat einen neuen Auftrag der Bundesregierung übernommen, \n es geht um die neue CoronaApp" as a1
 --> "Deine Aufgabe ist es die Benutzeroberfläche zu gestalten"
 if "" then
---> [Du frägst deinen Mentor] "Du verbesserst \n deine communication Fähigkeit \n +1 communication \n decision +1" as a
+--> [Du frägst deinen Mentor] "mentor Robert"
+--> "Du verbesserst \n deine communication Fähigkeit \n +1 communication \n decision +1" as a
 else
 --> [Googeln nach der Lösung] "Du verschwendest eine Menge Zeit \n aber löst das Problem \n decision 0" as b
 else
