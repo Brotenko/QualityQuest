@@ -278,7 +278,7 @@ All possible causes for an [Error](#error) message, which can occur in the conte
 ``` csharp
 enum ErrorTypeEnum
 {
-    AlreadyServing,
+    WrongPassword,
     UnknownGuid,
     IllegalPauseAction,
     SessionDoesNotExist,
@@ -286,7 +286,7 @@ enum ErrorTypeEnum
 }
 ```
 
-- **AlreadyServing:** Is triggered when a client attempts to connect to the server as a moderator via a RequestOpenSession message, but another Moderator-Client already holds an active connection to the server.
+- **WrongPassword:** Is triggered when a [RequestOpenSession](#requestopensession) message contains the wrong password.
 - **UnknownGuid:** Is triggered when a message with an unknown moderatorId is sent to the server.
 - **IllegalPauseAction:** Is triggered if one of the following cases applies:
     - A request to pause the game reaches the server even though the game is already paused.
