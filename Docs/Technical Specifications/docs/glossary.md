@@ -71,7 +71,7 @@ This section includes all actors involved in the system. Actors are people, but 
 
 | Term        | ServerLogic                                                                                                                                                    |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | The ServerLogic serves as an interface for the communication between the Moderator-Client and the PlayerAudience-Clients. The ServerLogic contains the Voting-Tool. |
+| DESCRIPTION | The ServerLogic serves as an interface for the communication between the Moderator-Client and the PlayerAudience-Clients.  |
 | IS-A        | Component                                                                                                                                                 |
 | CAN-BE      | -                                                                                                                                                         |
 | EXAMPLE     | -                                                                                                                                                         |
@@ -87,14 +87,8 @@ This section includes all actors involved in the system. Actors are people, but 
 | EXAMPLE     | -                                                                                                                                                         |
 
 </span>
-| Term        | ServerApplication                                                                                                                                                  |
-| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | The ServerApplication is the software which is used by the server. It contains the components PlayerAudience-Client and ServerLogic  |
-| IS-A        | Component                                                                                                                                                 |
-| CAN-BE      | -                                                                                                                                                         |
-| EXAMPLE     | -                                                                                                                                                         |
 
-</span>
+
 
 | Term        | Voting-Tool                                                                                                                                                             |
 | ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

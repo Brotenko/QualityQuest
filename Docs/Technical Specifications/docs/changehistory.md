@@ -44,7 +44,6 @@ The change history is a chronologically ordered list of all changes between diff
 |   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Edited term "Server" to "ServerLogic":_** Was edited in "Amount of supported connections" and "Exclusive Moderator-Client connection".|  
 |   +   | **[_Glossary:_](/glossary) _ServerLogic_** Added entry. |
 |   +   | **[_Glossary:_](/glossary) _Server_** Added entry. |
-|   +   | **[_Glossary:_](/glossary) _ServerApplication_** Added entry. |
 </span>
 
 ## Version 0.1.2 - Second revision of the architecture design

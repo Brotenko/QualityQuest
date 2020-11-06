@@ -2,17 +2,8 @@
 
 skinparam classAttributeIconSize 0
 
-package "ServerApplication" {
-   class "API" as api {
-        {field} -observerCollection: ArrayList<Observer>
-        {method} +API()
-        {method} +subscribeObserver(observer: Observer, cookie: Cookie): void
-        {method} +unsubscribeObserver(observer: Observer): void
-        {method} +notifyObservers(): void
-        {method} +updatePossibleDecisions(): void
-        {method} +collectVotes(): void
-        {method} +getVotes(): 
-  }
+package "Server" {
+   
 
   package "ServerLogic" <<Rectangle>>{
     class "ServerShell" as ss {
@@ -57,13 +48,17 @@ package "ServerApplication" {
 
     }
 
-    class "PollEvaluator" as pe {
-    {field}- possibleDecisions: StoryEvent[]
-    {field} -voteCounter: Dictionary<int,int>
-    {field} -api: API
-    {method} +PollEvaluator()
-    {method} +evaluateVotes(ids: int[]): int
-    {method} +addVote(id: int): void
+    class "PlayerAudienceClientManager" as api {
+        {field} -observerCollection: ArrayList<Observer>
+        {field} -possibleDecisions: StoryEvent[]
+        {field} -voteCounter: Dictionary<int, int>
+        {method} +PlayerAudienceClientManager()
+        {method} +subscribeObserver(observer: Observer, cookie: Cookie): void
+        {method} +unsubscribeObserver(observer: Observer): void
+        {method} +notifyObservers(): void
+        {method} +updatePossibleDecisions(): void
+        {method} +collectVotes(): void
+        {method} +evaluateVotes(): Dictionary<int, int>
   }
 
     class "ServerLogger" as sl {
@@ -95,13 +90,13 @@ package "ServerApplication" {
   }
   ss -- msl
   msl - cm
-  msl -left- pe
-  pe -left- api
+  msl -down- api
   sl ... cm
   sl ... msl
   sl ... api
   sl ... ss
-  pace - pav
-  api "1" <-up- "n" pace : observes
+  pace -left- pav
+  api "1" <-right- "n" pace : observes
 }
+
 @enduml
