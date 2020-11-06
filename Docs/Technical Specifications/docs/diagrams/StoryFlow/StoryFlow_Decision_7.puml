@@ -1,7 +1,7 @@
 @startuml
 (*) --> "Die Tests haben ein paar Bugs aufgezeigt, \n aber es steht ebenfalls die Firmen-Party zum Abschluß des Projekts an. \n Was machst du?"
 if "" then 
--[#blue,dotted]-> [An Firmen-Party teilnehmen] " Du bist auf der Party was willst du machen?"
+-[#blue,dotted]-> [An Firmen-Party teilnehmen] "Du bist auf der Party was willst du machen?"
 else 
 --> [Bugs fixen] "Du arbeitest weiter an den Bugs, \n kannst aber keine Kontakte auf der Party knüpfen. \n Dein Charakter erhält Stats: \n +2 programming"
 -[#blue,dotted]-> "Ein freiwillige Fortbildung steht an, nimmst du daran Teil?"

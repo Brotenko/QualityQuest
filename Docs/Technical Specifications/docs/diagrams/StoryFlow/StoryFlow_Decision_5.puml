@@ -1,18 +1,32 @@
 @startuml
-(*) --> "Willst du an einem Firmenpraktikum teilnehmen?"
+(*) --> "Abluss Studium" as as
+--> "... ein halbes Jahr vergeht ..."
+--> "Du hast eine Arbeitsstelle bei NewTec angenommen"
+--> "Dein Chef hat einen neuen Auftrag der Bundesregierung übernommen, \n es geht um die neue CoronaApp" as a1
+--> "Deine Aufgabe ist es die Benutzeroberfläche zu gestalten"
 if "" then
---> [Ja, gerne] "Charakter erhält Stats: \n +1 programming \n +1 analytics \n +1 communication" as ja
+--> [Du frägst deinen Mentor] "Du lernst deinen Mentor kennen, sein Name ist Robert."
+--> "Du verbesserst \n deine communication Fähigkeit \n +1 communication \n decision +1" as a
 else
---> [Nein, keine Lust] "Durch viele Parties \n in deiner Freizeit \n steigt dein partying Stat:\n +3 partying " as nein
+--> [Googeln nach der Lösung] "Du verschwendest eine Menge Zeit \n aber löst das Problem \n decision 0" as b
+else
+--> [Einfach loslegen] "Das war wohl nix \n -1 decision" as c
 
-ja --> "Du hast erfolgreich dein Studium abgeschloßen." as a
-nein --> a
+a --> "Random \n r = programming + random + decision" as r
+b --> r
+c --> r
+
+if "" then
+--> [r >= 5] "+1 programming" as p1
+else
+--> [r < 5] "keine Verbesserung"
+
+--> "Aufgabe abgeschlossen" as aa
+
+p1 --> aa
 
 
-
-
-
--[#blue,dotted]-> " "
+-[#blue,dotted]-> "Nach dem erledigen deiner Aufgabe musst du nun die entsprechenden Tests schreiben."
 
 
 

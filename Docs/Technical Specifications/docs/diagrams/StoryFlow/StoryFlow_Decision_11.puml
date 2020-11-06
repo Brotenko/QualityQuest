@@ -1,0 +1,16 @@
+@startuml
+(*) --> "Die Bundesregierung meldet sich telefonisch und wünscht sich Änderungen an der Corona-App" as app
+if "" then 
+--> [Du hast keine Lust und legst einfach auf. \n Sidekickpet: "Muss jetzt nicht sein"] "Du erhälst Stats: \n -3 communication" as a1
+else 
+--> [Du implementierst die gewünschte Änderung] "Du erhälst Stats: \n +2 programming" as a2
+else
+if "Die Änderung ist nicht machbar"
+--> [Du informierst deinen Kunden]  "Du erhälst Stats: \n +1 communication" as b1
+else 
+--> [Du setzt die Änderung einfach nicht um, \n ohne den Kunden zu informieren.] "Du erhälst Stats: \n -1 communication"
+-[#blue,dotted]-> "Ein Bug ist aufgetaucht." as bug 
+a1 -[#blue,dotted]-> bug
+a2 -[#blue,dotted]-> bug
+b1 -[#blue,dotted]-> bug
+@enduml

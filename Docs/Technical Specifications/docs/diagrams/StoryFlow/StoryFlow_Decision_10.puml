@@ -1,0 +1,15 @@
+@startuml
+(*) --> "Deine Firma bietet eine freiwillge Fortbildung an, nimmst du daran Teil?"
+
+if "" then
+--> [ja] "Du schaltest dein Sidepet frei, \ndas Pet hilft dir bei zukünftigen Entscheidungen.\n Zusätzlich erhälst du: \n+1 programming" as a1
+else
+--> [nein] "Du arbeist an dem Projekt weiter." as a2
+else 
+--> [Nach ich brauche erstmal Urlaub.] "Du nimmst dir eine Woche Urlaub." as a3
+endif
+
+-[#blue,dotted]-> "Die Bundesregierung hat sich gemeldet und wünscht sich Änderungen an der Corona-App" as app
+a2 -[#blue,dotted]-> app
+a1 -[#blue,dotted]-> app
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+(*) --> "Du bist auf der Party was willst du machen?"
+if "" then 
+--> [Du unterhälst dich \n mit deinen Kollegen] "Deine Kollegen geben dir ein paar Tipps \n und du erhälst folgende Stats: \n +2 programming" as tipps
+else 
+--> [Du unterhälst dich \n mit deinem Mentor \n und deinem Chef] "Du schaltest zusätzliche Dialog-Option\n für spätere Entscheidungen frei." as ent
+
+else
+-[#blue,dotted]-> [Du suchst dir einen Platz\n und sitzt alleine hin.] "Du bist durstig und willst dir etwas zu trinken hohlen, was nimmst du?" as alc
+tipps -[#blue,dotted]-> alc
+ent -[#blue,dotted]-> alc
+
+
+endif
+@enduml

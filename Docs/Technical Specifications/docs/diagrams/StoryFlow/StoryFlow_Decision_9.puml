@@ -1,0 +1,22 @@
+@startuml
+(*) --> "Du bist durstig und willst dir etwas zu trinken hohlen, was nimmst du?" as alc
+if "" then 
+--> "Ein Bier reicht für den Abend." as genießen
+genießen --> "Du hast den Abend gut überstanden \n +1 partying" as party
+else 
+--> "Ein gutes altes Spezi reicht vollkommen."
+--> party
+else 
+--> "Ein paar Tequilla-Shots gehen schon, \nist ja umsonst, sollte man ausnutzen." as saufen
+
+endif
+
+saufen --> "r = partying + random" as r
+r --> [r > 8] "Aufgrund deiner ausgezeichnet Party-Erfahrung bist du trinkfest \n und überstehst die Party ohne aufsehen zu erzeugen.\n Du erhälsts Stats: \n +3 partying" as alci
+r --> [r <= 8] "Du bringst gute Stimmung in die Runde, \n fällst aber deinem Mentor und Chef negativ auf, \n da du ziemlich betrunken bist. \n Du erhälst Stats: \n +3 partying \n -2 communication"
+--> "Die Party ist zu Ende und du gehst nach Hause" as hause
+party --> hause
+alci --> hause
+-[#blue,dotted]-> "Deine Firma bietet eine freiwillge Fortbildung an, nimmst du daran Teil?"
+
+@enduml
