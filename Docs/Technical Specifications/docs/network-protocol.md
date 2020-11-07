@@ -1,16 +1,10 @@
 <!---
-ToDo:
-- WebSocket kümmert sich darum, dass Nachrichten nicht corrupted werden, ACKs und Ähnliches
-- Loggen von PA-Client Cookies (mit unter um diesen den Reconnect zu ermöglichen) und Moderator-Guid/sessionKey/qrCode/directLink. Diese werden am Spielende durch RequestCloseSession Message oder das erstellen einer neuen Session komplett gelöscht.
-- Session (bzw die Verbindung zu den PA-Clients) bleibt auf Server-Seite so lange bestehen, bis der Moderator eine neue Session startet, oder nach Timeout (Möglichst hoch setzen, vllt so 30min, da es absolut nicht schadet).
-  - Sollte der Server komplett das Internet verlieren, sollte die Session durch die gelogten Daten neu aufsetzbar sein
-- Jederzeit die SessionKey und QR auf dem Bildschirm anzeigen (Oder im Pause-Menü), damit Leute nachjoinen können (Vor allem wichtig, wenn das Spiel offline gestartet wurde).
-  - Wozu eigentlich die Cookies? Sollen die Leute wie sie wollen nachjoinen, ist ja nicht weiter unser Problem, da dies keinerlei Einschränkungen auf die Implementierung bürgt.
-    Spart uns ja sogar Arbeit und es gibt nachher keine Probleme, wenn Leute später zur Vorlesung kommen oder sonst was.
-
 - Fix FR 25:
   - If the server does not react within 5 seconds after recieving the Moderator-Client's message, the connection from the Moderator-Client to the server shall be interrupted. In this case the Moderator can either continue playing in Offline-Mode or try to re-establish the connection to the server.
 - Add "Offline-Mode" to Glossary.
+- Add "Online-Mode" to Glossary.
+- Scan document and add new Requirements and Glossary entries.
+- Create Sequence diagrams.
 -->
 
 # Network protocol
@@ -535,4 +529,5 @@ class SessionClosed : MessageContainer
 - **statistics:** Contains the id of the option as the key and the respective amount of recieved votes as the value.
 
 ## Sequenzdiagramme zu typischen Abläufen
+
 ToDo
