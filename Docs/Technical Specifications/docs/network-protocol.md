@@ -17,10 +17,8 @@ ToDo:
 
 ## General information
 
-<!---Is there a way to directly implement the password shenanigans into Websocket? Is there a special method/class for that? We have to research that!-->
-
-The "WebSocket" class provided by C# is used for communication between the Moderator-Client and the server. When starting a session, the moderator is asked for a link and password. The link leads to the game server and is then used to establish a WebSocket connection with the server. Once the connection is established, the Moderator-Client sends a [RequestOpenSession](#requestopensession) message to the server, which contains the Moderator-Client's Guid and the entered password in hashed form. If this password is incorrect or if the Moderator-Client takes too long to send the [RequestOpenSession](#requestopensession) message, the WebSocket connection is automatically terminated. If not, a session is opened, and the PlayerAudience can join. The messages sent back and forth between Moderator-Client and server are all in JSON format. </br>
-The security and persistence of communication is guaranteed by the use of WebSockets in combination with the HTTPS protocol.
+The "WebSocket" class provided by C# is used for communication between the Moderator-Client and the server. When starting a session, the moderator is asked for a link and password. The link leads to the game server and is then used to establish a WebSocket connection with the server. Once the connection is established, the Moderator-Client sends a [RequestOpenSession](#requestopensession) message to the server, which contains the Moderator-Client's Guid and the entered password. If this password is incorrect or if the Moderator-Client takes too long to send the [RequestOpenSession](#requestopensession) message, the WebSocket connection is automatically terminated. If not, a session is opened, and the PlayerAudience can join. The messages sent back and forth between Moderator-Client and server are all in JSON format. </br>
+The security and persistence of communication is guaranteed by the use of WebSockets in combination with the HTTPS protocol. Additionally, integral data is stored on the server in hashed form. 
 
 ## Server logs
 
@@ -28,6 +26,14 @@ The server log stores the Moderator-Client's Guid and the sessionKey. If the ser
 
 - The logged Moderator-Client's Guid can still be used to send a [Reconnect](#reconnect) message to the server without requiring the password to be re-entered. This allows the session to resume easily without having to change sessionKey or re-entering the password.
 - The logged sessionKey allows the PlayerAudience-Clients to quickly and easily reconnect to the session without having to enter a new sessionKey.
+
+## Differences between starting in Online-Mode and Offline-Mode
+
+When starting the application, the game offers the possibility to start the game either in form of an online session with a server, or in Offline-Mode. Attention must be paid to a few important points here:
+
+- If you start the game as an online session, you can switch between online and offline at any time.
+- If you start the game in Offline-Mode, the game remains in Offline-Mode until the moderator starts an online session via the main menu. This decision was made because one wants to avoid that the moderator has to enter the link to the server and the password during the game.
+- For network protocol purposes, a flag is set to distinguish whether the game was initialised online or offline, so that sending and receiving messages is disregarded right from the start of the game.
 
 ## Behaviour in the event of connection loss
 
@@ -42,7 +48,7 @@ A selection of possible causes for the loss of connection from the Moderator-Cli
 2. The moderator's end device loses the connection to the network, and thus to the server.
 3. The server does not react within 5 seconds after recieving the Moderator-Client's message.
 
-If the Moderator-Client should at any time lose the connection to the server, it automatically switches to Offline-Mode and notifies the moderator. The moderator can then continue to play the game himself, offline, or try to reconnect to the server at any time. This can result in the following three outcomes:
+If the Moderator-Client should at any time lose the connection to the server, it automatically switches to Offline-Mode and notifies the moderator. The moderator can then continue to play the game himself, offline. In the meantime, the Moderator-Client continuously sends a [RequestServerStatus](#requestserverstatus) message to the server to determine whether the server is back online. When the Moderator-Client receives a [ServerStatus](#serverstatus) message, it informs the moderator that the session can be resumed. In this case, the moderator can either go back online via an UI element or continue playing in Offline-Mode. This can result in the following three scenarios:
 
 - The server is reachable again and the connection can be re-established. Furthermore, the session on the server was not closed and and the PlayerAudience-Clients are still connected to the server. In that case the Moderator-Client only has to send a [Reconnect](#reconnect) message to return to normal gameplay, since the session is still going.
 - The server is reachable again and the connection can be re-established, but the session on the server has been closed and and the PlayerAudience-Clients are no longer connected to the server. In that case the Moderator-Client only has to send a [Reconnect](#reconnect) message, since the logs of the server still hold the Guid of the Moderator-Client. This way the session can be restored without entering the password again and the PlayerAudience-Clients can simply reconnect to the server, through the same QR-code, link and sessionKey, to be able to participate in the game again. 
@@ -81,7 +87,7 @@ If the new Moderator-Client has entered the required password correctly, the old
 
 ## What happens in case of an illegal message being recieved?
 
-Moderator-Client and server should never send [illegal messages](#errortypeenum), as this is a sign of a damaged architecture or insufficient network protocol. Should this marginal case occur nevertheless, the connection between Moderator-Client and server should be cut and the [illegal message](#errortypeenum) ignored.
+Moderator-Client and server should never send [illegal messages](#errortypeenum), as this is a sign of a damaged architecture or insufficient network protocol. Should this marginal case occur nevertheless, the connection between Moderator-Client and server should be cut and the [illegal message](#errortypeenum) ignored. The game is then continued in Offline-Mode, unless the moderator chooses to go back online and reconenct to the server.
 
 ## What happens in case of a pause?
 
@@ -91,14 +97,10 @@ Breaks are always initiated by the Moderator-Client and cannot be initiated by t
 - Despite the pause, the server continues to communicate with the Moderator-Client and the PlayerAudience-Clients.
 - If a vote is in progress, the server will pause the voting timer.
 
-## Kommunikation mit PlayerAudience-Clients?
+## What about the communication between PlayerAudience-Clients and server?
 
-TODO
-
-- Nicht per Nachrichten
-- Alles auf gleichem Backend (Server und PA-Clients)
-- Wird per API geregelt
-- etc. (Kommunikationsformat hier hin?)
+Communication between the server and the PlayerAudience-Clients is not specified as part of the network protocol because the back-end of the PlayerAudience-Clients and the general server logic are on the same physical server and can thus communicate directly with each other. This communication happens locally, through different functions, and does not need pre-defined message types, like the communication between Moderator-Client and server. Since the front-end of the PlayerAudience-Clients is a web page, nothing more specific needs to be defined here either, as preimplemented solutions of HTML and JavaScript can be used to implement the communication between PlayerAudience-Clients and server. </br>
+Apart from that, the Observer-pattern is used to make the communication simple and efficient. Here the PlayerAudience-Clients subscribe to the server to observe it.
 
 ## MessageContainer
 
@@ -109,7 +111,7 @@ class MessageContainer {
     Guid moderatorId; 
     MessageTypeEnum type;
     Date creationDate;
-    String debugMessage;
+    string debugMessage;
 }
 ```
 
@@ -128,6 +130,8 @@ enum MessageTypeEnum
     // Initialisation
     RequestOpenSession,
     SessionOpened,
+    RequestServerStatus,
+    ServerStauts,
     Reconnect,
     RequestGameStart,
     GameStarted,
@@ -137,10 +141,8 @@ enum MessageTypeEnum
     VotingEnded,
     // Control messages
     Error,
-    RequestPauseGame,
-    GamePaused,
-    RequestContinueGame,
-    GameContinued,
+    RequestPauseGameStatusChange,
+    GamePauseStatus,
     // Postgame
     RequestCloseSession,
     SessionClosed
@@ -179,6 +181,16 @@ Listing which participant may send which message, the order of the listing is ba
                 </tr>
                 <tr>
                     <th style="font-weight: normal"><a href="#sessionopened">SessionOpened</a></th>
+                    <th></th>
+                    <th>✓</th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#requestserverstatus">RequestServerStatus</a></th>
+                    <th>✓</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#serverstatus">ServerStatus</a></th>
                     <th></th>
                     <th>✓</th>
                 </tr>
@@ -301,12 +313,12 @@ enum ErrorTypeEnum
 #### RequestOpenSession
 
 Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageTypeEnum](#messagetypeenum)::RequestOpenSession**. </br>
-This message is sent from the Moderator-Client to the server when the moderator wants to connect to the server. The hashedPassword confirms that the moderator is allowed to use the server and the Guid of the moderator will be saved in the logs henceforth, for further communication. In addition, the creation of a session is also requested from the server at the same time.
+This message is sent from the Moderator-Client to the server when the moderator wants to connect to the server. The password confirms that the moderator is allowed to use the server and the Guid of the moderator will be saved in the logs henceforth, for further communication. In addition, the creation of a session is also requested from the server at the same time.
 
 ``` csharp
 class RequestOpenSession : MessageContainer 
 {
-    string hashedPassword;
+    string password;
 }
 ```
 
@@ -329,6 +341,32 @@ class SessionOpened : MessageContainer
 - **sessionKey:** A randomly generated session key required by the audience to join the session, after connecting to the server.
 - **directLink:** A direct link that the audience can use to connect to the server via the PlayerAudience-Client should the QR code not be usable.
 - **qrCode:** A QR-code automatically generated by the server which can be scanned by the audience to connect to the server. 
+
+#### RequestServerStatus
+
+Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageTypeEnum](#messagetypeenum)::RequestServerStatus**. </br>
+This message is sent from the Moderator-Client to the server if there is currently no connection to a server. This message is sent to the server at regular intervals until the server returns a response in form of a [ServerStauts](#serverstatus). If [ServerStatus](#serverstatus) is received by the Moderator-Client at any given time, the moderator is notified that a connection to the server is possible, and at the same time, RequestServerStatus messages are stopped being sent to the server.
+
+``` csharp
+class RequestServerStatus : MessageContainer 
+{
+    // No extra fields needed
+}
+```
+
+The server responds with a **[ServerStatus](#serverstatus)** message.
+
+#### ServerStatus
+
+Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageTypeEnum](#messagetypeenum)::ServerStatus**. </br>
+This message is sent from the server to the Moderator-Client in response to a **[RequestServerStatus](#requestserverstatus)** message to confirm that the server is available for a connection.
+
+``` csharp
+class ServerStatus : MessageContainer 
+{
+    // No extra fields needed
+}
+```
 
 #### Reconnect
 
@@ -414,7 +452,7 @@ class VotingEnded : MessageContainer
 ```
 
 - **winningOption:** The id of the option that got the most votes from the PlayerAudience.
-- **votingResults:** Contains the id of the option as key and the respective amount of recieved votes as value.
+- **votingResults:** Contains the id of the option, which is generated by hashing the description, as the key and the respective amount of recieved votes as the value.
 
 ### Control messages
 
@@ -448,10 +486,12 @@ class RequestPauseGameStatusChange : MessageContainer
 
 - **gamePausedStatus:** Specifies whether the game is to be paused or whether the already paused game is to be continued. With _true_ indicating that the game is to be paused, and _false_ indicating that the game is to be continued.
 
+The server responds with a **[GamePauseStatus](#gamepausestatus)** message.
+
 #### GamePauseStatus
 
 Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageTypeEnum](#messagetypeenum)::GamePauseStatus**. </br>
-This message is sent from the server to the Moderator-Client to confirm that the game is now either continuing or being paused.
+This message is sent from the server to the Moderator-Client in response to a **[RequestPauseGameStatusChange](#requestpausegamestatuschange)** message, to confirm that the game is now either continuing or being paused.
 
 ``` csharp
 class GamePauseStatus : MessageContainer 
@@ -478,17 +518,21 @@ class RequestCloseSession : MessageContainer
 
 - **sessionKey:** The key of the to be closed session.
 
+The server responds with a **[SessionClosed](#sessionclosed)** message.
+
 #### SessionClosed
 
 Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageTypeEnum](#messagetypeenum)::SessionClosed**. </br>
-This message is sent from the server to the Moderator-Client to confirm that the session has been successfully closed and that the logs have been cleared completely.
+This message is sent from the server to the Moderator-Client in response to a **[RequestCloseSession](#requestclosesession)** message, to confirm that the session has been successfully closed and that the logs have been cleared completely. In addition to that, the statistics of the session are returned to the Moderator-Client, which display ever vote and which option got how many votes.
 
 ``` csharp
 class SessionClosed : MessageContainer 
 {
-    // No extra fields needed
+    Dictionary<int, int> statistics;
 }
 ```
+
+- **statistics:** Contains the id of the option as the key and the respective amount of recieved votes as the value.
 
 ## Sequenzdiagramme zu typischen Abläufen
 ToDo
