@@ -5,6 +5,7 @@
 - Add "Online-Mode" to Glossary.
 - Scan document and add new Requirements and Glossary entries.
 - Create Sequence diagrams.
+- Add changelog entry for "Added network protocol" (and everything else).
 -->
 
 # Network protocol
