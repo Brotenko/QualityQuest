@@ -1,0 +1,22 @@
+@startuml
+(*) --> "Dein Kollege James kommt auf dich zu.\n James benötigt dringend deine unterstützung bei seiner Aufgabe. \n Wie gehst du vor?"
+if "" then 
+--> [Ich helfe ihm.] "Random"
+if "" then
+--> [random <= 3] "Dein Kollege ist zufrieden. \n +2 communication" as a
+else
+--> [random > 3] "Dein Kollege ist zufrieden, \n du hast aber aufgrund der Verzögerung \n nun Probleme deine Deadline einzuhalten, \n deshalb frägst du deinen anderen Kollegen Siggi um Hilfe." as b
+if "" then 
+--> [Communication-Skill > 6] "Siggi hilft dir und du kannst deine Deadline einhalten." as c
+else
+--> [Communication-Skill <=6] "Siggi hilft dir nicht und deshalb verpasst du deine Deadline \n und benötigst noch zusätzlich 5 Tage."
+-[#blue,dotted]-> "Das Projekt steht kurz vor dem Abschluss, \n es fehlt nur noch eine Code Review." as ende
+endif
+endif
+else
+--> [Ich helfe ihm nicht] "Ich habe selbst genug zu tun \n und kümmere mich \n um mein eigenes Zeug!" as assi
+endif
+a -[#blue,dotted]-> ende
+c -[#blue,dotted]-> ende
+assi -[#blue,dotted]-> ende
+@enduml

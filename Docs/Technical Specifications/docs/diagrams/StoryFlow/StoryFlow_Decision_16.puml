@@ -1,0 +1,12 @@
+@startuml
+(*) --> "Das Projekt ist abgeschlossen, \n nun werden die besten Mitarbeiter mit einem Workshop in Hawaii belohnt." as shop
+if "" then
+--> [Anzahl aller Stats > 15] "Herzlichen Glückwunsch, \ndu wirst zu dem Workshop eingeladen." as a
+else 
+--> [Anzahl aller Stats <= 15 && > 5] "Leider hat es für dich nicht ganz gereicht,\n viel Glück beim nächsten Projekt." as b
+else
+--> [Anzahl aller Stats < 5] "Herzlichen Glückwunsch, du wurdest gefeuert."
+-[#blue,dotted]-> "ENDE GUT ALLES GUT" as ende
+a -[#blue,dotted]-> ende
+b -[#blue,dotted]-> ende
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+(*) --> "Das Projekt steht kurz vor dem Abschluss, \n es fehlt nur noch eine Code Review." as ende
+if "" then 
+--> [Na, klar. \n Sidekickpet:"Eine Review ist wichtig"] "+2 analytics \n +2 communication." as good
+else 
+--> [Neee, der Test läuft ja durch. \n Alles gut soweit.] "-2 analytics \n -2 communication."
+-[#blue,dotted]-> "Das Projekt ist abgeschlossen, nun werden die besten Mitarbeiter mit einem Workshop in Hawaii belohnt." as shop
+good -[#blue,dotted]-> shop
+@enduml

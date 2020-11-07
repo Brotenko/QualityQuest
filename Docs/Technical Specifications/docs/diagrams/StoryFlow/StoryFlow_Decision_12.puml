@@ -1,0 +1,20 @@
+@startuml
+(*) --> "Ein Bug ist aufgetaucht."
+--> "Bisher hat kein anderer den Bug gefunden, wie gehst du vor?"
+if "" then 
+--> [Du schreibst ein Bugticket. \n Sidekickpet:"Wäre angebracht"] "Robert sieht das Ticket \n und gibt es an die entsprechende Stelle weiter. \n Du erhälst Stats: \n +2 analytics" as y
+else
+--> [Einfach ignorieren, \n wird schon keinem auffallen] "Du bekommst folgende Stats: \n -3 analytics" as x
+endif
+--> "Du erhälst Stats: \n -3 analytics"
+--> "Bug wird von einer anderen Person gefunden" as z
+if "Random" then
+--> [Random > 3] "Bug wird gefunden  und die Abteilung \n ist der Meinung du hättest den Bug finden müssen,\n da du als letztes daran gearbeit hast. \n Du erhälst Stats: \n -3 communication" as p
+
+else
+--> [Random <= 3] "Bug wird nicht gefunden \n Nochmal davon gekommen."
+-[#blue,dotted]-> "Der Kunde hat sich nochmal gemeldet, ihm ist Spontan ein neues Feature eingefallen." as f 
+endif
+p -[#blue,dotted]-> f
+y -[#blue,dotted]-> f
+@enduml

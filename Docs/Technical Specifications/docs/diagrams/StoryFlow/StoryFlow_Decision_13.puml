@@ -1,0 +1,23 @@
+@startuml
+(*) --> "Der Projektkunde ruft wieder mal an \n und möchte eine ganz neues Feature eingebaut haben.\n Der Wunsch kommt dir etwas seltsam vor, \n weil er möglicherweise anderen Requirement widerspricht. Was tun?" as f 
+'if "" then 
+'--> [Du arbeitest einfach drauf los.] "f"
+--> "Der Projektkunde ruft wieder mal an \n und möchte eine ganz neues Feature eingebaut haben. \n Der Wunsch kommt dir etwas seltsam vor, \nweil er möglicherweise anderen Requirement widerspricht.\n Was tun?"
+if " " then
+--> "Wenn der Kunde es unbedingt so will... \nSchließlich bezahlt er uns dafür."
+--> "Du implementierst das neue Feature alleine. \n +2 programming \n -2 communication" as c
+else
+--> "Ich frage nach und versuche herauszufinden, \nob er das WIRKLICH so will. \n +2 communication"
+endif
+'Vorbedingung: Nur wenn zuvor gewählt wurde, mit dem Kunden nochmal darüber zu reden!
+--> "Der Kunde hat sich jetzt doch dazu entschieden, \nmit seiner neuen Feature-Idee den Änderungsprozess zu durchlaufen. \nWelchen Weg wählst Du?"
+if " " then
+--> "Ich ziehe das alleine mit dem Kunden durch. \n +2 programming \n -2 analytics" as a
+else
+--> "Ich setze eine Besprechung mit Req.-Engineer, \nUsability und Testmanagerin auf. \n +1 communication \n +2 analytics" as b
+--> "Das neue Feature ist umgesetzt" as fertig
+endif
+a --> fertig
+c --> fertig
+-[#blue,dotted]-> "Dein Kollege James kommt auf dich zu.\n James benötigt dringend deine unterstützung bei seiner Aufgabe. \n Wie gehst du vor?"
+@enduml
