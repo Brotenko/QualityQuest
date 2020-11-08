@@ -12,8 +12,8 @@
 
 ## General information
 
-The "WebSocket" class provided by C# is used for communication between the Moderator-Client and the server. When starting a session, the moderator is asked for a link and password. The link leads to the game server and is then used to establish a WebSocket connection with the server. Once the connection is established, the Moderator-Client sends a [RequestOpenSession](#requestopensession) message to the server, which contains the Moderator-Client's Guid and the entered password. If this password is incorrect or if the Moderator-Client takes too long to send the [RequestOpenSession](#requestopensession) message, the WebSocket connection is automatically terminated. If not, a session is opened, and the PlayerAudience can join. The messages sent back and forth between Moderator-Client and server are all in JSON format. </br>
-The security and persistence of communication is guaranteed by the use of WebSockets in combination with the HTTPS protocol. Additionally, integral data is stored on the server in hashed form. 
+The "WebSocket" class provided by C# is used for communication between the Moderator-Client and the server. When starting a session, the moderator is asked for a URL and password. The URL leads to the game server and is then used to establish a WebSocket connection with the server. Once the connection is established, the Moderator-Client sends a [RequestOpenSession](#requestopensession) message to the server, which contains the Moderator-Client's Guid and the entered password. If this password is incorrect or if the Moderator-Client takes too long to send the [RequestOpenSession](#requestopensession) message, the WebSocket connection is automatically terminated. If not, a session is opened, and the PlayerAudience can join. The messages sent back and forth between Moderator-Client and server are all in JSON format. </br>
+The security and persistence of communication is guaranteed by the use of WebSockets in combination with the HTTPS protocol. In addition, for communication integral data is stored on the server in hashed form. This includes the server password and the moderator's Guid.
 
 ## Server logs
 
@@ -27,7 +27,7 @@ The server log stores the Moderator-Client's Guid and the sessionKey. If the ser
 When starting the application, the game offers the possibility to start the game either in form of an online session with a server, or in Offline-Mode. Attention must be paid to a few important points here:
 
 - If you start the game as an online session, you can switch between online and offline at any time.
-- If you start the game in Offline-Mode, the game remains in Offline-Mode until the moderator starts an online session via the main menu. This decision was made because one wants to avoid that the moderator has to enter the link to the server and the password during the game.
+- If you start the game in Offline-Mode, the game remains in Offline-Mode until the moderator starts an online session via the main menu. This decision was made because one wants to avoid that the moderator has to enter the URL to the server and the password during the game.
 - For network protocol purposes, a flag is set to distinguish whether the game was initialised online or offline, so that sending and receiving messages is disregarded right from the start of the game.
 
 ## Behaviour in the event of connection loss
@@ -46,7 +46,7 @@ A selection of possible causes for the loss of connection from the Moderator-Cli
 If the Moderator-Client should at any time lose the connection to the server, it automatically switches to Offline-Mode and notifies the moderator. The moderator can then continue to play the game himself, offline. In the meantime, the Moderator-Client continuously sends a [RequestServerStatus](#requestserverstatus) message to the server to determine whether the server is back online. When the Moderator-Client receives a [ServerStatus](#serverstatus) message, it informs the moderator that the session can be resumed. In this case, the moderator can either go back online via an UI element or continue playing in Offline-Mode. This can result in the following three scenarios:
 
 - The server is reachable again and the connection can be re-established. Furthermore, the session on the server was not closed and and the PlayerAudience-Clients are still connected to the server. In that case the Moderator-Client only has to send a [Reconnect](#reconnect) message to return to normal gameplay, since the session is still going.
-- The server is reachable again and the connection can be re-established, but the session on the server has been closed and and the PlayerAudience-Clients are no longer connected to the server. In that case the Moderator-Client only has to send a [Reconnect](#reconnect) message, since the logs of the server still hold the Guid of the Moderator-Client. This way the session can be restored without entering the password again and the PlayerAudience-Clients can simply reconnect to the server, through the same QR-code, link and sessionKey, to be able to participate in the game again. 
+- The server is reachable again and the connection can be re-established, but the session on the server has been closed and and the PlayerAudience-Clients are no longer connected to the server. In that case the Moderator-Client only has to send a [Reconnect](#reconnect) message, since the logs of the server still hold the Guid of the Moderator-Client. This way the session can be restored without entering the password again and the PlayerAudience-Clients can simply reconnect to the server, through the same QR-code, URL and sessionKey, to be able to participate in the game again. 
 - The Moderator-Client still cannot reach the server and the game continues in Offline-Mode.
 
 If the moderator ever returns to the main menu, the session must be started anew by connecting to the server via password again.
@@ -59,7 +59,7 @@ A selection of possible causes for the loss of connection from the PlayerAudienc
 2. The audience member's end device loses the connection to the network, and thus to the server.
 3. The server goes offline or loses its connection to the Internet.
 
-Since no data of the audience member has to be saved and it has absolutely no relevance for the course of the game whether the spectator has been part of the session before or not, he can connect to the server again at any time and does not have to lose any disadvantages. Even audience members who were not connected to the server at all before the start of the session can join in this way without any problems.
+Since no data of the audience member has to be saved and it has absolutely no relevance for the course of the game whether the spectator has been part of the session before or not, he can connect to the server again at any time and does not have to suffer any disadvantages compared to the other PlayerAudience-Clients. Even audience members who were not connected to the server at all before the start of the session can join in this way without any problems.
 
 ### Server connection loss
 
@@ -328,13 +328,13 @@ This message is sent from the server to the Moderator-Client in response to a **
 class SessionOpened : MessageContainer 
 {
     string sessionKey;
-    string directLink;
+    string directURL;
     Bitmap qrCode;
 }
 ```
 
 - **sessionKey:** A randomly generated session key required by the audience to join the session, after connecting to the server.
-- **directLink:** A direct link that the audience can use to connect to the server via the PlayerAudience-Client should the QR code not be usable.
+- **directURL:** A direct URL that the audience can use to connect to the server via the PlayerAudience-Client should the QR code not be usable.
 - **qrCode:** A QR-code automatically generated by the server which can be scanned by the audience to connect to the server. 
 
 #### RequestServerStatus
@@ -495,7 +495,7 @@ class GamePauseStatus : MessageContainer
 }
 ```
 
-- **gamePausedStatus:** Specifies whether the game is being paused or whether the already paused game is being continued. With _true_ indicating that the game has been paused, and _false_ indicating that the game continuing.
+- **gamePausedStatus:** Specifies whether the game is being paused or whether the already paused game is being continued. With _true_ indicating that the game has been paused, and _false_ indicating that the game is continuing.
 
 ### Postgame
 
