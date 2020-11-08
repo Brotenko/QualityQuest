@@ -14,8 +14,8 @@ In Offline-Mode, the timer is deactivated and the Moderator can select decisions
 ![Class diagram](diagrams/ClassDiagrams/ClassDiagram.svg)
 
 ### Server class diagrams
-The software components ***Audience Client*** and ***Server*** are located on the same physical device, which is also called **Server**. Therefore, the software component ***Server*** is referred to as ***Backend*** in this diagram. Accordingly, the AudienceClient corresponds to the front end. Since a separate ***AudienceClient*** with cookie is created for each call of the server URL in the form of a session, the communication between ***Backend*** and ***AudienceClient*** is realized via an interface *API*, which uses the Observer pattern. 
-The communication between ***Backend*** and ***Moderator-Client*** is realized via a web socket connection, which is established after successful authentication.
+The software components **Audience Client** and **ServerLogic** are located on the same physical device, which is called *Server*. Since a separate **AudienceClient** with cookie is created for each call of the server URL in the form of a session, the communication between **ServerLogic** and **AudienceClient** is realized via the class `PlayerAudienceClientManager`, which uses the Observer-pattern. 
+The communication between **ServerLogic** and **Moderator-Client** is realized via a web socket connection over HTTPS, which is established after successfull authentication.
 ![Class diagram](diagrams/ClassDiagrams/ServerClassDiagram.svg)
 
 ## Component diagrams
