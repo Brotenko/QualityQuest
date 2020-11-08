@@ -32,7 +32,7 @@ When starting the application, the game offers the possibility to start the game
 
 ## Behaviour in the event of connection loss
 
-A clear distinction must be made between three different cases. First and foremost, a single, specific PlayerAudience-Client may lose its connection to the server. Secondly, the server can also lose the connection to all clients - in other words, a complete loss of connection to the server. Finally, it is possible for only the Moderator-Client to lose its connection to the server, while all other clients can maintain their connection to the server. </br>
+A clear distinction must be made between three different cases. First of all, we refer here to the view of a single, specific PlayerAudience-Client, which can lose the connection to the server, but this behaviour is not exclusive to single PlayerAudience-Client and can also happen to multiple PlayerAudience-Clients, but due to the same reasons listed below. Secondly, the server can also lose the connection to all clients - in other words, a complete loss of connection to the server. Finally, it is possible for only the Moderator-Client to lose its connection to the server, while all other clients can maintain their connection to the server. </br>
 Since this can have very different effects, the following section specifies how, these cases may occur and which actors have to do what in order to deal correctly with the loss of connection.
 
 ### Moderator-Client connection loss
@@ -412,7 +412,7 @@ This message is sent from the Moderator-Client to the server to request the star
 class RequestStartVoting : MessageContainer 
 {
     int votingTime;
-    Dictionary<int, string> votingOptions;
+    string[] votingOptions;
 }
 ```
 
