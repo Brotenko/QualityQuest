@@ -417,7 +417,7 @@ class RequestStartVoting : MessageContainer
 ```
 
 - **votingTime:** The time in seconds that PlayerAudience-Clients have to cast their vote.
-- **votingOptions:** Contains the id of the option as key and the respective textual description as value.
+- **votingOptions:** Contains the textual description of the voting options.
 
 The server responds with a [VotingStarted](#votingstarted) message and some time after with a [VotingEnded](#votingended) message.
 
