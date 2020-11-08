@@ -43,10 +43,10 @@ A selection of possible causes for the loss of connection from the Moderator-Cli
 2. The moderator's end device loses the connection to the network, and thus to the server.
 3. The server does not react within 5 seconds after recieving the Moderator-Client's message.
 
-If the Moderator-Client should at any time lose the connection to the server, it automatically switches to Offline-Mode and notifies the moderator. The moderator can then continue to play the game himself, offline. In the meantime, the Moderator-Client continuously sends a [RequestServerStatus](#requestserverstatus) message to the server to determine whether the server is back online. When the Moderator-Client receives a [ServerStatus](#serverstatus) message, it informs the moderator that the session can be resumed. In this case, the moderator can either go back online via an UI element or continue playing in Offline-Mode. This can result in the following three scenarios:
+If the Moderator-Client should at any time lose the connection to the server, it automatically switches to Offline-Mode and notifies the moderator. The moderator can then continue to play the game in Offline-Mode. In the meantime, the Moderator-Client continuously sends a [RequestServerStatus](#requestserverstatus) message to the server to determine whether the server is back online. When the Moderator-Client receives a [ServerStatus](#serverstatus) message, it informs the moderator that the session can be resumed. In this case, the moderator can either go back online via an UI element or continue playing in Offline-Mode. This can result in the following three scenarios:
 
-- The server is reachable again and the connection can be re-established. Furthermore, the session on the server was not closed and and the PlayerAudience-Clients are still connected to the server. In that case the Moderator-Client only has to send a [Reconnect](#reconnect) message to return to normal gameplay, since the session is still going.
-- The server is reachable again and the connection can be re-established, but the session on the server has been closed and and the PlayerAudience-Clients are no longer connected to the server. In that case the Moderator-Client only has to send a [Reconnect](#reconnect) message, since the logs of the server still hold the Guid of the Moderator-Client. This way the session can be restored without entering the password again and the PlayerAudience-Clients can simply reconnect to the server, through the same QR-code, URL and sessionKey, to be able to participate in the game again. 
+- The server is reachable again and the connection can be re-established. Furthermore, the session on the server was not closed and the PlayerAudience-Clients are still connected to the server. In that case the Moderator-Client only has to send a [Reconnect](#reconnect) message to return to normal gameplay, since the session is still going.
+- The server is reachable again and the connection can be re-established, but the session on the server has been closed and the PlayerAudience-Clients are no longer connected to the server. In that case the Moderator-Client only has to send a [Reconnect](#reconnect) message, since the logs of the server still hold the Guid of the Moderator-Client. This way the session can be restored without entering the password again and the PlayerAudience-Clients can simply reconnect to the server, through the same QR-code, URL and sessionKey, to be able to participate in the game again. 
 - The Moderator-Client still cannot reach the server and the game continues in Offline-Mode.
 
 If the moderator ever returns to the main menu, the session must be started anew by connecting to the server via password again.
@@ -126,7 +126,7 @@ enum MessageTypeEnum
     RequestOpenSession,
     SessionOpened,
     RequestServerStatus,
-    ServerStauts,
+    ServerStatus,
     Reconnect,
     RequestGameStart,
     GameStarted,
@@ -280,7 +280,7 @@ Listing which participant may send which message, the order of the listing is ba
 
 ## ErrorTypeEnum
 
-All possible causes for an [Error](#error) message, which can occur in the context of communication between server and Moderator-Client. These appliy both when establishing the connection and during the general course of the game.
+All possible causes for an [Error](#error) message, which can occur in the context of communication between server and Moderator-Client. These apply both when establishing the connection and during the general course of the game.
 
 ``` csharp
 enum ErrorTypeEnum
@@ -340,7 +340,7 @@ class SessionOpened : MessageContainer
 #### RequestServerStatus
 
 Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageTypeEnum](#messagetypeenum)::RequestServerStatus**. </br>
-This message is sent from the Moderator-Client to the server if there is currently no connection to a server. This message is sent to the server at regular intervals until the server returns a response in form of a [ServerStauts](#serverstatus). If [ServerStatus](#serverstatus) is received by the Moderator-Client at any given time, the moderator is notified that a connection to the server is possible, and at the same time, RequestServerStatus messages are stopped being sent to the server.
+This message is sent from the Moderator-Client to the server if there is currently no connection to a server. This message is sent to the server at regular intervals until the server returns a response in form of a [ServerStatus](#serverstatus). If [ServerStatus](#serverstatus) is received by the Moderator-Client at any given time, the moderator is notified that a connection to the server is possible, and at the same time, RequestServerStatus messages are stopped being sent to the server.
 
 ``` csharp
 class RequestServerStatus : MessageContainer 
@@ -518,7 +518,7 @@ The server responds with a **[SessionClosed](#sessionclosed)** message.
 #### SessionClosed
 
 Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageTypeEnum](#messagetypeenum)::SessionClosed**. </br>
-This message is sent from the server to the Moderator-Client in response to a **[RequestCloseSession](#requestclosesession)** message, to confirm that the session has been successfully closed and that the logs have been cleared completely. In addition to that, the statistics of the session are returned to the Moderator-Client, which display ever vote and which option got how many votes.
+This message is sent from the server to the Moderator-Client in response to a **[RequestCloseSession](#requestclosesession)** message, to confirm that the session has been successfully closed and that the logs have been cleared completely. In addition to that, the statistics of the session are returned to the Moderator-Client, which can be used to display every conducted vote and which option got how many votes.
 
 ``` csharp
 class SessionClosed : MessageContainer 
@@ -529,6 +529,6 @@ class SessionClosed : MessageContainer
 
 - **statistics:** Contains the id of the option as the key and the respective amount of recieved votes as the value.
 
-## Sequenzdiagramme zu typischen Abläufen
+## Sequence diagrams of typical communicational processes
 
 ToDo
