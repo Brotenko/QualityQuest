@@ -37,13 +37,13 @@ The change history is a chronologically ordered list of all changes between diff
 
 | Type  | Description |
 | :---: | :---------- |
-|+|**[_Class diagrams:_](/architectureDiagrams#Classdiagrams) _Server Class diagram:_** Added a joined class diagram for AudienceClient and Server|
-| + | **[_Class diagrams:_](/architectureDiagrams#Classdiagrams) _Server class diagrams:_**  Added description to Server class diagram         |
+|+|**[_Class diagrams:_](/architectureDiagrams#server-class-diagrams) _Server class diagram:_** Added a joined class diagram for PlayerAudience-Client and Server, along with a description.|
 | * | **[_Class diagrams:_](/architectureDiagrams#Classdiagrams) _Class diagrams:_**  Updated class diagram with the new Server diagram         |
-|   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _Edited term "Server" to "ServerLogic":_** Was edited in FR24, FR25, FR26, FR27, FR28 and FR29.
-|   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Edited term "Server" to "ServerLogic":_** Was edited in "Amount of supported connections" and "Exclusive Moderator-Client connection".|  
-|   +   | **[_Glossary:_](/glossary) _ServerLogic_** Added entry. |
-|   +   | **[_Glossary:_](/glossary) _Server_** Added entry. |
+|   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in FR24, FR25, FR26, FR27, FR28 and FR29.|
+|   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in NFR20 and NFR21.|  
+|   +   | **[_Glossary:_](/glossary) _ServerLogic_** Added new term. |
+|   *   | **[_Glossary:_](/glossary) _Server_** Changed description. |
+
 </span>
 
 ## Version 0.1.2 - Second revision of the architecture design

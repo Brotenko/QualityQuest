@@ -81,7 +81,7 @@ This section includes all actors involved in the system. Actors are people, but 
 
 | Term        | Server                                                                                                                                                   |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | The server is a piece of computer hardware or software that provides functionality for other programs or devices.|
+| DESCRIPTION | The server is a piece of computer hardware or software that hosts the ServerLogic and the PlayerAudience-Client.|
 | IS-A        |           -                                                                                                                                   |
 | CAN-BE      | -                                                                                                                                                         |
 | EXAMPLE     | -                                                                                                                                                         |

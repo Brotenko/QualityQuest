@@ -262,7 +262,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ID          | FR28                                                                                                         |
 | PRIORITY    | +                                                                                                            |
 | DESCRIPTION | Every client shall be assigned an Unique User Identifier (UUID) in the form of a web-cookie.                 |
-| EXPLANATION | This ensures participants can rejoin the game after leaving the game or losing the connection to the ServerLogic. |
+| EXPLANATION | This ensures participants can rejoin the game after leaving the game or losing the connection to the Server. |
 
 </span>
 
@@ -270,7 +270,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ID          | FR29                                                                                                                                                                                                                                                                          |
 | PRIORITY    | +                                                                                                                                                                                                                                                                             |
-| DESCRIPTION | If any of the following conditions apply: </br></br><ul><li>The server is not functional</li><li>The network infrastructure slows down significantly</li><li>The connection between Moderator-Client and ServerLogic is problematic</li></ul>the Moderator shall continue the game offline. |
+| DESCRIPTION | If any of the following conditions apply: </br></br><ul><li>The server is not functional</li><li>The network infrastructure slows down significantly</li><li>The connection between Moderator-Client and Server is problematic</li></ul>the Moderator shall continue the game offline. |
 | EXPLANATION | -                                                                                                                                                                                                                                                                             |
 
 </span>
@@ -472,7 +472,7 @@ This section specifies the non-functional requirements for the software system.
 | ----------- | :---------------------------------------------------------------------------------------------- |
 | ID          | NFR20                                                                                           |
 | PRIORITY    | +                                                                                               |
-| DESCRIPTION | The ServerLogic shall allow up to 200 PlayerAudience-Clients to connect to the game via the network. |
+| DESCRIPTION | The Server shall allow up to 200 PlayerAudience-Clients to connect to the game via the network. |
 | EXPLANATION | -                                                                                               |
 
 </span>
