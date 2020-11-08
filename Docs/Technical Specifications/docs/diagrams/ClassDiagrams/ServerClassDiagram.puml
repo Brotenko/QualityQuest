@@ -9,9 +9,9 @@ package "Server" {
     class "ServerShell" as ss {
       {field} +logger: Logger
       {field} -port: int
-      {field} -runShell: boolean
+      {field} -runShell: bool
       {field} -serverShell: ServerShell
-      {field} -bufferedReader: BufferedReader
+      {field} -streamReader: StreamReader
       {method} +ServerShell()
       {method} +startShell(): void
       {method} +stopShell(): void
@@ -26,21 +26,23 @@ package "Server" {
 
     class "ModeratorClientManager" as cm {
       {field} -webSocket: WebSocket
-      {field} -ip: int
+      {field} -ip: IPAdress
       {field} -port: int
       {field} +logger: Logger
       {field} -authentificationTokenModeratorClientHash: int
-      {method} +ModeratorClientManager(session: Session): void
+      {method} +ModeratorClientManager(): void
       {method} +disconnect(): void
       {method} +recieveMessage(message: string): void
-      {method} +checkJSON(message: string): void
+      {method} +checkJSON(message: string): bool
       {method} +sendMessage(message: string): void
-      {method} +evalJSON(): string
+      {method} +sendVotingResults(results: Dictionary<int, int>): void
+      {method} +evalJSON(json: string): string[]
 
     }    
 
     class "MainServerLogic" as msl {
-      {field} -moderator: WebClient
+      {field} -moderator: ModeratorClientManager
+      {field} -playerAudience: PlayerAudienceClientManager
       {field} +logger: Logger
       {method} +MainServerLogic(capacity: int, port: int)
       {method} +onFalseMessage(message: string): void
@@ -50,38 +52,37 @@ package "Server" {
 
     class "PlayerAudienceClientManager" as api {
         {field} -observerCollection: ArrayList<Observer>
-        {field} -possibleDecisions: StoryEvent[]
+        {field} -possibleDecisions: string[]
         {field} -voteCounter: Dictionary<int, int>
         {method} +PlayerAudienceClientManager()
         {method} +subscribeObserver(observer: Observer, cookie: Cookie): void
         {method} +unsubscribeObserver(observer: Observer): void
-        {method} +notifyObservers(): void
-        {method} +updatePossibleDecisions(): void
-        {method} +collectVotes(): void
+        {method} -notifyObservers(): void
+        {method} +updatePossibleDecisions(decisions: string[]): void
         {method} +evaluateVotes(): Dictionary<int, int>
   }
 
     class "ServerLogger" as sl {
       {field} +globalLogger: Logger
-      {field} +logFile: FileHandler
-      {field} +isSetup: Boolean
+      {field} +logFile: StreamWriter
+      {field} +isSetup: bool
       {field} +consoleHandler: Handler
       {method} +Logger()
       {method} +setup(): void
       {method} +addHandler(logger: Logger): void
       {method} +setLevel(level: int): void
-      {method} +setConsoleOutput(val: boolean): void
+      {method} +setConsoleOutput(val: bool): void
     }
   }
   package "PlayerAudience-Client" <<Rectangle>>{  
     class "PlayerAudienceClientExchange" as pace <<Observer>>{
       {field} -sessionCookie: Cookie
-      {field} -hasVoted: boolean
-      {field} -selectedDecision: StoryEvent
-      {field} -possibleDecisions: StoryEvent[]
+      {field} -votingAllowed: bool
+      {field} -selectedDecision: int
+      {field} -possibleDecisions: string[]
       {method} +PlayerAudienceClientExchange()
       {method} +update(): void
-      {method} +sendSelectedDecision(): StoryEvent 
+      {method} -hashifyStringToID(decision: string): int
     }
 
     class "PlayerAudienceView" as pav {

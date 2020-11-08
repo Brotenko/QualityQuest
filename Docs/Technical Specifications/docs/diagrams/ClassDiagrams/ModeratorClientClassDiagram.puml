@@ -18,17 +18,18 @@ package "Moderator-Client" {
     {field} -root: StoryEvent
     {field} -currentEvent: StoryEvent
     {method} +StoryGraph(id: int)
-    {method} +loadGraphFromFile(): Graph
-    {method} +saveGraphToFile(): void
+    {method} +loadGraphFromFile(filepath: string): Graph
+    {method} +saveGraphToFile(filepath: string): void
     {method} +getNextPossibleEvent(): StoryEvent[]
     {method} +setCurrentEvent(newCurrentEvent: StoryEvent): void
     {method} +getNextStoryEventById(id: int): StoryEvent
   }
 
   class "ModeratorView" as mf {
+    {field} -startedOnline: bool
     {method} +ModeratorView()
-    {method} +pausePolling(val: boolean): void
-    {method} +offlineMode(val: boolean): void
+    {method} +pausePolling(val: bool): void
+    {method} +offlineMode(val: bool): void
   }
 
   class "ModeratorClientExchange" as mcei{
@@ -37,7 +38,7 @@ package "Moderator-Client" {
     {field} -timeoutDuration: int
     {method} +ModeratorClientExchange()
     {method} +sendMessage(message: string): void
-    {method} +evalJSON(): string
+    {method} +evalJSON(json: string): bool
     {method} +endCurrentPollAndGetVotingResults(): int
     {method} +makeJSON(): string
     {method} +enterPassword(pw: string): void
@@ -48,7 +49,7 @@ package "Moderator-Client" {
     {field} -analytics: int
     {field} -partying: int
     {field} -programming: int
-    {method} + Skill(commu: int, analy: int, party: int, progr: int)
+    {method} + Skills(commu: int, analy: int, party: int, progr: int)
   }
 
   class Character {
