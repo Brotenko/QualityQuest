@@ -90,7 +90,7 @@ package "Server" {
 
     class "ModeratorClientManager" as cm {
       {field} -webSocket: WebSocket
-      {field} -ip: IPAdress
+      {field} -ip: IPAddress
       {field} -port: int
       {field} +logger: Logger
       {field} -authentificationTokenModeratorClientHash: int
