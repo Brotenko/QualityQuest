@@ -45,6 +45,6 @@ The ***Server*** component consists of a subsystem for the *Poll Evaluation*, wh
 
 The component ***Moderator-Client*** consists of a subsystem *GUI*, which, based on Unity, provides a *moderator interface* for interaction and presentation of the game. The subsystem *Logic* manages the progress in the game tree, the influence of stats on decisions as well as the communication to the component ***Server*** via the *Websocket*.
 
-![Moderator-Client](diagrams/ModeratorClientComponentDiagram.svg)
+![Moderator-Client](diagrams/ComponentDiagrams/ModeratorClientComponentDiagram.svg)
 
 

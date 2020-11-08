@@ -50,6 +50,10 @@ package "Moderator-Client" {
     {field} -partying: int
     {field} -programming: int
     {method} + Skills(commu: int, analy: int, party: int, progr: int)
+    {method} + increaseCommunication(value: int)
+    {method} + increaseAnalytics(value: int)
+    {method} + increasePartying(value: int)
+    {method} + increaseProgramming(value: int)
   }
 
   class Character {
