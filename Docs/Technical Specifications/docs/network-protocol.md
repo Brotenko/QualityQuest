@@ -43,7 +43,7 @@ A selection of possible causes for the loss of connection from the Moderator-Cli
 2. The moderator's end device loses the connection to the network, and thus to the server.
 3. The server does not react within 5 seconds after recieving the Moderator-Client's message.
 
-If the Moderator-Client should at any time lose the connection to the server, it automatically switches to Offline-Mode and notifies the moderator. The moderator can then continue to play the game in Offline-Mode. In the meantime, the Moderator-Client continuously sends a [RequestServerStatus](#requestserverstatus) message to the server to determine whether the server is back online. When the Moderator-Client receives a [ServerStatus](#serverstatus) message, it informs the moderator that the session can be resumed. In this case, the moderator can either go back online via an UI element or continue playing in Offline-Mode. This can result in the following three scenarios:
+If the Moderator-Client should at any time lose the connection to the server, it automatically switches to Offline-Mode and notifies the moderator. The moderator can then continue to play the game in Offline-Mode. In the meantime, the Moderator-Client continuously sends a [RequestServerStatus](#requestserverstatus) message to the server to determine if the server is back online. When the Moderator-Client receives a [ServerStatus](#serverstatus) message, it informs the moderator that the session can be resumed. In this case, the moderator can either go back online via an UI element or continue playing in Offline-Mode. This can result in the following three scenarios:
 
 - The server is reachable again and the connection can be re-established. Furthermore, the session on the server was not closed and the PlayerAudience-Clients are still connected to the server. In that case the Moderator-Client only has to send a [Reconnect](#reconnect) message to return to normal gameplay, since the session is still going.
 - The server is reachable again and the connection can be re-established, but the session on the server has been closed and the PlayerAudience-Clients are no longer connected to the server. In that case the Moderator-Client only has to send a [Reconnect](#reconnect) message, since the logs of the server still hold the Guid of the Moderator-Client. This way the session can be restored without entering the password again and the PlayerAudience-Clients can simply reconnect to the server, through the same QR-code, URL and sessionKey, to be able to participate in the game again. 
@@ -77,7 +77,7 @@ Though, in the second and third case, nothing can be done for the time being and
 If the new Moderator-Client has entered the required password correctly, the old Moderator-Client is disconnected from the server and a new session is started. This has the following reasons:
 
 1. Since the password is only known to the server owners, the moderator cannot be thrown out by a random person. 
-2. The moderator can start a new session at any time and does not have to worry about whether there is still a session going on somewhere.
+2. The moderator can start a new session at any time and does not have to worry about if there is still a session going on somewhere.
 3. In the event that the server mistakenly thinks that a session is already in progress, the server will not be blocked and can continue to be used without problems. 
 
 ## What happens in case of an illegal message being recieved?
@@ -113,7 +113,7 @@ class MessageContainer {
 - **moderatorId:** The individual identifier assigned to the Moderator-Client. Only the Moderator-Client sends this id to the server to identify itself. The server leaves this field empty.
 - **type:** Specifies the type of the message to be able to parse it accordingly.
 - **creationDate:** The timestamp of the message.
-- **debugMessage:** Can be used during development to transport additional data between server and Moderator-Client. This way, in case of a non parseable message, or an error occuring, information can be carried to the Moderator-Client directly for quick access, without the need to search through the logs.
+- **debugMessage:** Can be used during development to transport additional data between server and Moderator-Client. This way, in case of a non parsable message, or an error occuring, information can be carried to the Moderator-Client directly for quick access, without the need to search through the logs.
 
 ## MessageTypeEnum
 
@@ -128,6 +128,7 @@ enum MessageTypeEnum
     RequestServerStatus,
     ServerStatus,
     Reconnect,
+    ReconnectSuccessful,
     RequestGameStart,
     GameStarted,
     // Voting
@@ -193,6 +194,11 @@ Listing which participant may send which message, the order of the listing is ba
                     <th style="font-weight: normal"><a href="#reconnect">Reconnect</a></th>
                     <th>✓</th>
                     <th></th>
+                </tr>
+                <tr>
+                    <th style="font-weight: normal"><a href="#reconnectsuccessful">ReconnectSuccessful</a></th>
+                    <th></th>
+                    <th>✓</th>
                 </tr>
                 <tr>
                     <th style="font-weight: normal"><a href="#requestgamestart">RequestGameStart</a></th>
@@ -370,6 +376,20 @@ This message is sent from the Moderator-Client to the server to reestablish a lo
 
 ``` csharp
 class Reconnect : MessageContainer 
+{
+    // No extra fields needed
+}
+```
+
+The server responds with a **[ReconnectSuccessful](#reconnectsuccessful)** message.
+
+#### ReconnectSuccessful
+
+Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageTypeEnum](#messagetypeenum)::ReconnectSuccessful**. </br>
+This message is sent from the the server to the Moderator-Client to confirm that a lost connection has been reestablished. 
+
+``` csharp
+class ReconnectSuccessful : MessageContainer 
 {
     // No extra fields needed
 }
