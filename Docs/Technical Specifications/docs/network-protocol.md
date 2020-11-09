@@ -82,7 +82,7 @@ If the new Moderator-Client has entered the required password correctly, the old
 
 ## What happens in case of an illegal message being recieved?
 
-Moderator-Client and server should never send [illegal messages](#errortypeenum), as this is a sign of a damaged architecture or insufficient network protocol. Should this marginal case occur nevertheless, the connection between Moderator-Client and server should be cut and the [illegal message](#errortypeenum) ignored. The game is then continued in Offline-Mode, unless the moderator chooses to go back online and reconenct to the server.
+Moderator-Client and server should never send [illegal messages](#errortypeenum), as this is a sign of a damaged architecture or insufficient network protocol. Should this marginal case occur nevertheless, the connection between Moderator-Client and server should be cut and the [illegal message](#errortypeenum) ignored. The game is then continued in Offline-Mode, unless the moderator chooses to go back online and reconnect to the server.
 
 ## What happens in case of a pause?
 
