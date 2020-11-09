@@ -69,14 +69,26 @@ This section includes all actors involved in the system. Actors are people, but 
 
 </span>
 
-| Term        | Server                                                                                                                                                    |
+| Term        | ServerLogic                                                                                                                                                    |
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | The server serves as an interface for the communication between the Moderator-Client and the PlayerAudience-Clients. The server contains the Voting-Tool. |
+| DESCRIPTION | The ServerLogic serves as an interface for the communication between the Moderator-Client and the PlayerAudience-Clients.  |
 | IS-A        | Component                                                                                                                                                 |
 | CAN-BE      | -                                                                                                                                                         |
 | EXAMPLE     | -                                                                                                                                                         |
 
 </span>
+
+
+| Term        | Server                                                                                                                                                   |
+| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | The server is a piece of computer hardware or software that hosts the ServerLogic and the PlayerAudience-Client.|
+| IS-A        |           -                                                                                                                                   |
+| CAN-BE      | -                                                                                                                                                         |
+| EXAMPLE     | -                                                                                                                                                         |
+
+</span>
+
+
 
 | Term        | Voting-Tool                                                                                                                                                             |
 | ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

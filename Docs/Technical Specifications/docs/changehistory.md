@@ -37,7 +37,12 @@ The change history is a chronologically ordered list of all changes between diff
 
 | Type  | Description |
 | :---: | :---------- |
-| */+/- |             |
+|+|**[_Class diagrams:_](/architectureDiagrams#server-class-diagrams) _Server class diagram:_** Added a joined class diagram for PlayerAudience-Client and Server, along with a description.|
+| * | **[_Class diagrams:_](/architectureDiagrams#Classdiagrams) _Class diagrams:_**  Updated class diagram with the new Server diagram         |
+|   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in FR24, FR25, FR26, FR27, FR28 and FR29.|
+|   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in NFR20 and NFR21.|  
+|   +   | **[_Glossary:_](/glossary) _ServerLogic:_** Added new term. |
+|   *   | **[_Glossary:_](/glossary) _Server:_** Changed description. |
 
 </span>
 

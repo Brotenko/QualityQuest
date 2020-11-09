@@ -2,7 +2,7 @@
 
 The diagrams below show the architectural structure of the different components of QualityQuest and how they communicate via well-defined interfaces. Since the architecture is currently still in the concept phase, future changes are very likely.
 
-## Class diagram
+## Class diagrams
 
 The class diagram shows the architectural structure of the individual components of QualityQuest and thus which classes are used in the implementation to logically implement the project. It also shows which interfaces the individual components use to communicate with each other.
 
@@ -12,6 +12,11 @@ So if the server is no longer accessible for the Moderator-Client, this will be 
 In Offline-Mode, the timer is deactivated and the Moderator can select decisions directly, while status checks are still performed in the background to inform the Moderator in case the server becomes available again.
 
 ![Class diagram](diagrams/ClassDiagrams/ClassDiagram.svg)
+
+### Server class diagrams
+The software components **Audience Client** and **ServerLogic** are located on the same physical device, which is called *Server*. Since a separate **AudienceClient** with cookie is created for each call of the server URL in the form of a session, the communication between **ServerLogic** and **AudienceClient** is realized via the class `PlayerAudienceClientManager`, which uses the Observer-pattern. 
+The communication between **ServerLogic** and **Moderator-Client** is realized via a web socket connection over HTTPS, which is established after successfull authentication.
+![Class diagram](diagrams/ClassDiagrams/ServerClassDiagram.svg)
 
 ## Component diagrams
 

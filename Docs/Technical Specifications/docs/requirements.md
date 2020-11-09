@@ -225,7 +225,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ID          | FR24                                                                                                                                                |
 | PRIORITY    | +                                                                                                                                                   |
-| DESCRIPTION | Once the Moderator-Client established the connection to the server, the Moderator shall have the option to start or interrupt the game at any time. |
+| DESCRIPTION | Once the Moderator-Client established the connection to the ServerLogic, the Moderator shall have the option to start or interrupt the game at any time. |
 | EXPLANATION | -                                                                                                                                                   |
 
 </span>
@@ -234,16 +234,16 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | ID          | FR25                                                                                                                                                                                                                                                                                                    |
 | PRIORITY    | +                                                                                                                                                                                                                                                                                                       |
-| DESCRIPTION | If the Moderator-Client does not react within 10 seconds after recieving the server's message, the connection from the Moderator-Client to the server shall be interrupted. In this case the Moderator can either continue playing in Offline-Mode or try to re-establish the connection to the server. |
+| DESCRIPTION | If the Moderator-Client does not react within 10 seconds after recieving the ServerLogic's message, the connection from the Moderator-Client to the ServerLogic shall be interrupted. In this case the Moderator can either continue playing in Offline-Mode or try to re-establish the connection to the ServerLogic. |
 | EXPLANATION | This serves as a failsafe, in case of corrupted messages or connection loss.                                                                                                                                                                                                                            |
 
 </span>
 
-| REQUIREMENT | Server connection loss                                                                                                                                                                                                                                |
+| REQUIREMENT | ServerLogic connection loss                                                                                                                                                                                                                                |
 | ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ID          | FR26                                                                                                                                                                                                                                                  |
 | PRIORITY    | +                                                                                                                                                                                                                                                     |
-| DESCRIPTION | If a Moderator-Client or PlayerAudience-Client loses its connection to the server, its Unique User Identifier (UUID) shall be stored in the server. In this case, the respective client can reconnect to the server to participate in the game again. |
+| DESCRIPTION | If a Moderator-Client or PlayerAudience-Client loses its connection to the ServerLogic, its Unique User Identifier (UUID) shall be stored in the ServerLogic. In this case, the respective client can reconnect to the ServerLogic to participate in the game again. |
 | EXPLANATION | -                                                                                                                                                                                                                                                     |
 
 </span>
@@ -252,7 +252,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :-------------------------------------------------------------------------- |
 | ID          | FR27                                                                        |
 | PRIORITY    | +                                                                           |
-| DESCRIPTION | The file format for data exchange between clients and server shall be JSON. |
+| DESCRIPTION | The file format for data exchange between Moderator-Client and ServerLogic shall be JSON. |
 | EXPLANATION | -                                                                           |
 
 </span>
@@ -262,7 +262,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ID          | FR28                                                                                                         |
 | PRIORITY    | +                                                                                                            |
 | DESCRIPTION | Every client shall be assigned an Unique User Identifier (UUID) in the form of a web-cookie.                 |
-| EXPLANATION | This ensures participants can rejoin the game after leaving the game or losing the connection to the server. |
+| EXPLANATION | This ensures participants can rejoin the game after leaving the game or losing the connection to the Server. |
 
 </span>
 
@@ -270,7 +270,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ID          | FR29                                                                                                                                                                                                                                                                          |
 | PRIORITY    | +                                                                                                                                                                                                                                                                             |
-| DESCRIPTION | If any of the following conditions apply: </br></br><ul><li>The server is not functional</li><li>The network infrastructure slows down significantly</li><li>The connection between clients and server is problematic</li></ul>the Moderator shall continue the game offline. |
+| DESCRIPTION | If any of the following conditions apply: </br></br><ul><li>The server is not functional</li><li>The network infrastructure slows down significantly</li><li>The connection between Moderator-Client and Server is problematic</li></ul>the Moderator shall continue the game offline. |
 | EXPLANATION | -                                                                                                                                                                                                                                                                             |
 
 </span>
@@ -468,11 +468,11 @@ This section specifies the non-functional requirements for the software system.
 
 </span>
 
-| REQUIREMENT | Amount of supported conntecions                                                                 |
+| REQUIREMENT | Amount of supported connections                                                                 |
 | ----------- | :---------------------------------------------------------------------------------------------- |
 | ID          | NFR20                                                                                           |
 | PRIORITY    | +                                                                                               |
-| DESCRIPTION | The server shall allow up to 200 PlayerAudience-Clients to connect to the game via the network. |
+| DESCRIPTION | The Server shall allow up to 200 PlayerAudience-Clients to connect to the game via the network. |
 | EXPLANATION | -                                                                                               |
 
 </span>
@@ -481,7 +481,7 @@ This section specifies the non-functional requirements for the software system.
 | ----------- | :------------------------------------------------------------------------------------------------ |
 | ID          | NFR21                                                                                             |
 | PRIORITY    | +                                                                                                 |
-| DESCRIPTION | The server shall only allow a single Moderator-Client to connect to the server at any given time. |
+| DESCRIPTION | The ServerLogic shall only allow a single Moderator-Client to connect to the ServerLogic at any given time. |
 | EXPLANATION | -                                                                                                 |
 
 </span>
