@@ -1,19 +1,18 @@
 @startuml
-(*) --> "Ein Bug ist aufgetaucht."
---> "Bisher hat kein anderer den Bug gefunden, wie gehst du vor?"
+(*) --> "A bug has surfaced."
+--> "So far no one else has found the bug, how do you proceed?"
 if "" then 
---> [Du schreibst ein Bugticket. \n Sidekickpet:"Wäre angebracht"] "Robert sieht das Ticket \n und gibt es an die entsprechende Stelle weiter. \n Du erhälst Stats: \n +2 analytics" as y
+--> [You write a bug ticket. \n Sidekickpet: "Would be appropriate"] "Yaggaya sees the ticket \n and passes it on to the appropriate place. \n You get stats: \n +2 analytics" as y
 else
---> [Einfach ignorieren, \n wird schon keinem auffallen] "Du bekommst folgende Stats: \n -3 analytics" as x
+--> [Just ignore, \n no one will notice] "You will get the following stats: \n -3 analytics" as x
 endif
---> "Du erhälst Stats: \n -3 analytics"
---> "Bug wird von einer anderen Person gefunden" as z
+--> "You will receive stats: \n -3 analytics"
 if "Random" then
---> [Random > 3] "Bug wird gefunden  und die Abteilung \n ist der Meinung du hättest den Bug finden müssen,\n da du als letztes daran gearbeit hast. \n Du erhälst Stats: \n -3 communication" as p
+--> [Random > 3] "Bug is found and the department \n thinks you should have found the bug since you were the last one to work on it. \You get stats: \n -3 communication" as p
 
 else
---> [Random <= 3] "Bug wird nicht gefunden \n Nochmal davon gekommen."
--[#blue,dotted]-> "Der Kunde hat sich nochmal gemeldet, ihm ist Spontan ein neues Feature eingefallen." as f 
+--> [Random <= 3] "Bug is not found."
+-[#blue,dotted]-> "The customer contacted us again and \n spontaneously came up with a new feature." as f 
 endif
 p -[#blue,dotted]-> f
 y -[#blue,dotted]-> f

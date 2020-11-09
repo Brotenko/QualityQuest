@@ -1,16 +1,16 @@
 @startuml
-(*) --> "Abluss Studium" as as
---> "... ein halbes Jahr vergeht ..."
---> "Du hast eine Arbeitsstelle bei NewTec angenommen"
---> "Dein Chef hat einen neuen Auftrag der Bundesregierung übernommen, \n es geht um die neue CoronaApp" as a1
---> "Deine Aufgabe ist es die Benutzeroberfläche zu gestalten"
+(*) --> "Graduate studies" as as
+--> "... half a year passes ..."
+--> "You have accepted a job at NewTec."
+--> "Your boss has taken a new order from the federal government, \n it's about the new CoronaApp" as a1
+--> "Your task is to design the user interface."
 if "" then
---> [Du frägst deinen Mentor] "Du lernst deinen Mentor kennen, sein Name ist Robert."
---> "Du verbesserst \n deine communication Fähigkeit \n +1 communication \n decision +1" as a
+--> [You ask your mentor] "You get to know your mentor, his name is Yaggaya."
+--> "You improve \n your communication skills \n +1 communication \n 'decision +1'" as a
 else
---> [Googeln nach der Lösung] "Du verschwendest eine Menge Zeit \n aber löst das Problem \n decision 0" as b
+--> [You search for a suitable solution on HeapOverflow] "You waste a lot of time \n but solve the problem \n 'decision 0'" as b
 else
---> [Einfach loslegen] "Das war wohl nix \n -1 decision" as c
+--> [You just start, it will work out.] "You waste a lot of time without solving the problem. '-1 decision'" as c
 
 a --> "Random \n r = programming + random + decision" as r
 b --> r
@@ -19,14 +19,14 @@ c --> r
 if "" then
 --> [r >= 5] "+1 programming" as p1
 else
---> [r < 5] "keine Verbesserung"
+--> [r < 5] "no improvement"
 
---> "Aufgabe abgeschlossen" as aa
+--> "Task completed" as aa
 
 p1 --> aa
 
 
--[#blue,dotted]-> "Nach dem erledigen deiner Aufgabe musst du nun die entsprechenden Tests schreiben."
+-[#blue,dotted]-> "After completing your task, you must now write the corresponding tests."
 
 
 

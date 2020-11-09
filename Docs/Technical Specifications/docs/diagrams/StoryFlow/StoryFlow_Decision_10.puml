@@ -1,15 +1,15 @@
 @startuml
-(*) --> "Deine Firma bietet eine freiwillge Fortbildung an, nimmst du daran Teil?"
+(*) --> "Your company offers voluntary training, do you take part in it?"
 
 if "" then
---> [ja] "Du schaltest dein Sidepet frei, \ndas Pet hilft dir bei zukünftigen Entscheidungen.\n Zusätzlich erhälst du: \n+1 programming" as a1
+--> [Yes] "You unlock your sidepet, \n and the pet helps you with future decisions.\n Additionally you get \n+1 programming" as a1
 else
---> [nein] "Du arbeist an dem Projekt weiter." as a2
+--> [No] "No I already had this topic during my studies." as a2
 else 
---> [Nach ich brauche erstmal Urlaub.] "Du nimmst dir eine Woche Urlaub." as a3
+--> [No, I need a vacation first] "You take a week off." as a3
 endif
 
--[#blue,dotted]-> "Die Bundesregierung hat sich gemeldet und wünscht sich Änderungen an der Corona-App" as app
+-[#blue,dotted]-> "The German government has contacted you and would like to see changes to the Corona App" as app
 a2 -[#blue,dotted]-> app
 a1 -[#blue,dotted]-> app
 @enduml

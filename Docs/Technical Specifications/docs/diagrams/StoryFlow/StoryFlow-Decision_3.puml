@@ -1,11 +1,11 @@
 @startuml
-(*) --> "Willst du an einem Firmenpraktikum teilnehmen?"
+(*) --> "Do you want to participate in a company internship?"
 if "" then
---> [Ja, gerne] "Charakter erhält Stats: \n +1 programming \n +1 analytics \n +1 communication" as ja
+--> [Yes, gaining experience is always good!] "+1 programming \n +1 analytics \n +1 communication" as ja
 else
---> [Nein, keine Lust] "Durch viele Parties \n in deiner Freizeit \n steigt dein partying Stat:\n +3 partying " as nein
+--> [No, I have already learned everything \n I need to know during my studies.] "Through many parties in your spare \n time your partying will increase:\n +3 partying " as nein
 
-ja --> "Du hast erfolgreich dein Studium abgeschloßen." as a
+ja --> "You have successfully completed your studies." as a
 nein --> a
 
 

@@ -1,9 +1,9 @@
 @startuml
-(*) --> "Die Tests haben ein paar Bugs aufgezeigt, \n aber es steht ebenfalls die Firmen-Party zum Abschluß des Projekts an. \n Was machst du?"
+(*) --> "The tests have revealed a few bugs, \n but there is also the company party at the end of the project. \n What are you doing?"
 if "" then 
--[#blue,dotted]-> [An Firmen-Party teilnehmen] "Du bist auf der Party was willst du machen?"
+-[#blue,dotted]-> [Participate in company party] "You are at the party what do you want to do?"
 else 
---> [Bugs fixen] "Du arbeitest weiter an den Bugs, \n kannst aber keine Kontakte auf der Party knüpfen. \n Dein Charakter erhält Stats: \n +2 programming"
--[#blue,dotted]-> "Ein freiwillige Fortbildung steht an, nimmst du daran Teil?"
+--> [Bugs fixen] "You continue to work on the bugs, \n but you can't make new contacts at the party. \n +2 programming"
+-[#blue,dotted]-> "A voluntary further education is pending, will you take part in it?"
 
 @enduml

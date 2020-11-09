@@ -1,35 +1,35 @@
 @startuml
-(*) --> "Nach dem erledigen deiner Aufgabe musst du nun die entsprechenden Tests schreiben."
---> "Wie willst du vorgehen?" as wie
+(*) --> "After completing your task, you must now write the corresponding tests."
+--> "How do you want to proceed?" as wie
 if "" then
---> [Du schreibst umfangreiche Tests \n bis sie fertig sind, \nunabhängig von der Deadline.] "Decision +2" as d1
+--> [You write extensive tests \n until they are ready, \n regardless of the deadline.] "Decision +2" as d1
 if " " then 
---> [random + programming + decision >=8] "Aufgrund deiner guten Programmierkenntnisse \n wirst du trotzdem rechtzeitig fertig"
---> "Robert ist sehr zufrieden \n mit deiner Herangehensweise und deinen Tests."
---> "Charakter erhält Stats: \n +2 programming \n +2 analytics" as a1
+--> [random + programming + decision >=8] "Due to your good programming skills \n you will still be ready in time"
+--> "Yaggaya is very pleased \n with your approach and your tests."
+--> "+1 programming \n +3 analytics" as a1
 else 
---> [random + programming + decision < 8] "Du wirst leider nicht rechtzeitig fertig,  \n dafür hast du sehr umfangreiche Tests."
---> "Robert ist zufrieden mit deinen Tests \n und deiner Herangehensweise, \nobwohl du nicht rechtzeitig fertig geworden bist."
---> "Charakter erhält Stats: \n +1 programming \n +2 analytics" as a2
+--> [random + programming + decision < 8] "Unfortunately you won't be ready in time, \n but you have very extensive tests."
+--> "Yaggaya is satisfied with your tests \n and your approach, \even though you did not finish in time."
+--> "+2 programming \n +2 analytics" as a2
 endif
 else
- --> [Du planst dir die Zeit \n bis zur Deadline ein und schreibst sie \n bis die Deadline erreicht ist.] "Decision -1" as d2
+ --> [You plan the time \n until the deadline and write it \n until the deadline is reached.] "Decision -1" as d2
 if " " then 
---> [random + programming + decision >= 8] "Aufgrund sehr guten Programmierkenntnisse \n hast du trotz der kurzen Zeit umfangreiche Tests."
---> "Robert ist mit deiner Arbeit sehr zufrieden."
---> "Charakter erhält Stats: \n +2 programming" as a3
+--> [random + programming + decision >= 8] "Due to very good programming skills \n you have extensive tests despite the short time."
+--> "Yaggaya is very satisfied with your work."
+--> "+2 programming" as a3
 else 
---> [random + programming + decision < 8] "Du bist zwar fertig, aber deine \n Tests sind nicht ausreichend."
---> "Robert ist nicht zufrienden mit deiner Arbeit, \n du musst deine Tests nochmal überarbeiten \n und überschreitest die Deadline um ein paar Tage."
---> "Charakter erhält Stats: \n +1 programming" as a4
+--> [random + programming + decision < 8] "You may be finished, but your \n tests are not sufficient."
+--> "Yaggaya is not satisfied with your work, \n you have to revise your tests again \n and exceed the deadline by a few days."
+--> "+1 programming" as a4
 endif
 endif
 
-a1 --> "Tests abgeschlossen" as ta
+a1 --> "Tests completed" as ta
 a2 --> ta
 a3 --> ta
 a4 --> ta
-ta -[#blue,dotted]-> "Firmen-Party"
+ta -[#blue,dotted]-> "Company Party"
 
 
 

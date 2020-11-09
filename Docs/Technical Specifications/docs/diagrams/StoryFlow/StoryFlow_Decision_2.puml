@@ -1,21 +1,21 @@
 @startuml
-(*) --> "Für welches willst du dich entscheiden?"
+(*) --> "Which one will you choose?"
 if "" then
---> [Einführung in Bali] "Charakter erhält Stats: \n +2 programming \n +1 analytics" as bali
+--> [Introduction to Bali] "+2 programming \n +1 analytics" as bali
 else
---> [Requirements\nEngineering] "Charakter erhält Stats: \n +1 programming \n +2 analytics" as re
+--> [Requirements\nEngineering] "+1 programming \n +2 analytics" as re
 else
---> [Einführung in\nSoftware Architectures] "Charakter erhält Stats: \n +3 analytics" as esa
+--> [Introduction to \n Software Architectures] "+3 analytics" as esa
 else
---> [Usability as\nsuccess factor] "Charakter erhält Stats: \n +1 analytics \n +2 communication" as usf
+--> [Usability as\nsuccess factor] "+1 analytics \n +2 communication" as usf
 
 
-usf --> "Nach dem Abschluß des Wahlpflichfaches kannst du deine Freizeit genießen, oder nimmst du doch lieber an einem freiwilligen Firmenpraktikum teil?" as a
+usf --> "After completing the elective, you can enjoy your free time, or would you rather take part in a voluntary company internship?" as a
 re --> a
 bali --> a
 esa --> a
 
--[#blue,dotted]-> "   "
+-[#blue,dotted]-> "Do you want to participate in a company internship?"
 
 /'
 Wir stehen 1 Jahr vor Ende des Studiums

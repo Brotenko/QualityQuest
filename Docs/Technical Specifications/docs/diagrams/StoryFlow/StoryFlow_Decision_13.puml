@@ -1,23 +1,22 @@
 @startuml
-(*) --> "Der Projektkunde ruft wieder mal an \n und möchte eine ganz neues Feature eingebaut haben.\n Der Wunsch kommt dir etwas seltsam vor, \n weil er möglicherweise anderen Requirement widerspricht. Was tun?" as f 
+(*) --> "The project customer calls \n again and wants to have a completely new feature implemented. \n The wish seems a bit strange to you, \n because it might contradict other requirements.\n What to do?" as f 
 'if "" then 
 '--> [Du arbeitest einfach drauf los.] "f"
---> "Der Projektkunde ruft wieder mal an \n und möchte eine ganz neues Feature eingebaut haben. \n Der Wunsch kommt dir etwas seltsam vor, \nweil er möglicherweise anderen Requirement widerspricht.\n Was tun?"
 if " " then
---> "Wenn der Kunde es unbedingt so will... \nSchließlich bezahlt er uns dafür."
---> "Du implementierst das neue Feature alleine. \n +2 programming \n -2 communication" as c
+--> "If the customer absolutely wants it that way... \n ...he'll pay us for it."
+--> "You implement the new feature on your own. \n +2 Programming \n -2 Communication" as c
 else
---> "Ich frage nach und versuche herauszufinden, \nob er das WIRKLICH so will. \n +2 communication"
+--> "I ask and try to find out \n if he REALLY wants it that way. \n +2 communication"
 endif
 'Vorbedingung: Nur wenn zuvor gewählt wurde, mit dem Kunden nochmal darüber zu reden!
---> "Der Kunde hat sich jetzt doch dazu entschieden, \nmit seiner neuen Feature-Idee den Änderungsprozess zu durchlaufen. \nWelchen Weg wählst Du?"
+--> "The customer has now decided \n to go through the change process \n with his new feature idea. \n Which way do you choose?"
 if " " then
---> "Ich ziehe das alleine mit dem Kunden durch. \n +2 programming \n -2 analytics" as a
+--> [I do this alone with the customer.] "+2 programming \n -2 analytics" as a
 else
---> "Ich setze eine Besprechung mit Req.-Engineer, \nUsability und Testmanagerin auf. \n +1 communication \n +2 analytics" as b
---> "Das neue Feature ist umgesetzt" as fertig
+--> [I set up a meeting with Req. engineer, \nUsability and test manager.] "+1 communication \n +2 analytics" as b
+--> "The new feature is implemented" as fertig
 endif
 a --> fertig
 c --> fertig
--[#blue,dotted]-> "Dein Kollege James kommt auf dich zu.\n James benötigt dringend deine unterstützung bei seiner Aufgabe. \n Wie gehst du vor?"
+-[#blue,dotted]-> "Your colleague Trummu is approaching you.\n Trummu urgently needs your support in his task. \n How do you proceed?"
 @enduml

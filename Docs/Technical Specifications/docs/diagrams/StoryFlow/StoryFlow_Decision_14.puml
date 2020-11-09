@@ -1,20 +1,20 @@
 @startuml
-(*) --> "Dein Kollege James kommt auf dich zu.\n James benötigt dringend deine unterstützung bei seiner Aufgabe. \n Wie gehst du vor?"
+(*) --> "Your colleague Trummu is approaching you.\n Trummu urgently needs your support in his task. \n How do you proceed?"
 if "" then 
 --> [Ich helfe ihm.] "Random"
 if "" then
---> [random <= 3] "Dein Kollege ist zufrieden. \n +2 communication" as a
+--> [random <= 3] "Your colleague is satisfied. \n +2 communication" as a
 else
---> [random > 3] "Dein Kollege ist zufrieden, \n du hast aber aufgrund der Verzögerung \n nun Probleme deine Deadline einzuhalten, \n deshalb frägst du deinen anderen Kollegen Siggi um Hilfe." as b
+--> [random > 3] "Your colleague is satisfied, \n but because of the delay \n you now have problems meeting your deadline, \n so you ask your other colleague Siggi for help." as b
 if "" then 
---> [Communication-Skill > 6] "Siggi hilft dir und du kannst deine Deadline einhalten." as c
+--> [Communication-Skill > 6] "Sodani helps you and you can meet your deadline." as c
 else
---> [Communication-Skill <=6] "Siggi hilft dir nicht und deshalb verpasst du deine Deadline \n und benötigst noch zusätzlich 5 Tage."
--[#blue,dotted]-> "Das Projekt steht kurz vor dem Abschluss, \n es fehlt nur noch eine Code Review." as ende
+--> [Communication-Skill <=6] "Sodani will not help you and therefore you will miss your deadline \n and need an additional 5 days."
+-[#blue,dotted]-> "The project is nearing completion, \n only a code review is missing." as ende
 endif
 endif
 else
---> [Ich helfe ihm nicht] "Ich habe selbst genug zu tun \n und kümmere mich \n um mein eigenes Zeug!" as assi
+--> [Ich helfe ihm nicht] "I have enough to do myself \n and take care \n of my own stuff!" as assi
 endif
 a -[#blue,dotted]-> ende
 c -[#blue,dotted]-> ende
