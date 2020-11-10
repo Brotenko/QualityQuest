@@ -1,5 +1,5 @@
 @startuml
-(*) --> "Do you want to participate in a company internship?"
+(*) --> "After completing the elective, you can enjoy your free time, or would you rather take part in a voluntary company internship?"
 if "" then
 --> [Yes, gaining experience is always good!] "+1 programming \n +1 analytics \n +1 communication" as ja
 else

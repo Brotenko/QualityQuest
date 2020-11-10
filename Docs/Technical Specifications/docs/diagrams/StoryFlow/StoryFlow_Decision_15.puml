@@ -1,11 +1,11 @@
 @startuml
 (*) --> "The project is completed, \n now the best employees are rewarded with a workshop in Hawaii." as shop
 if "" then
---> [Anzahl aller Stats > 15] "Congratulations, \n you are invited to the workshop." as a
+--> [Number of all stats > 15] "Congratulations, \n you are invited to the workshop." as a
 else 
---> [Anzahl aller Stats <= 15 && > 5] "Unfortunately it was not quite enough for you, \n good luck with your next project." as b
+--> [Number of all stats <= 15 && > 5] "Unfortunately it was not quite enough for you, \n good luck with your next project." as b
 else
---> [Anzahl aller Stats < 5] "Congratulations, you got fired."
+--> [Number of all stats < 5] "You will be fired."
 -[#blue,dotted]-> "THE END" as ende
 a -[#blue,dotted]-> ende
 b -[#blue,dotted]-> ende

@@ -3,7 +3,7 @@
 'if "" then 
 '--> [Du arbeitest einfach drauf los.] "f"
 if " " then
---> "If the customer absolutely wants it that way... \n ...he'll pay us for it."
+--> "If the customer absolutely wants it that way... \n ... You want to impress the customer, whatever it takes."
 --> "You implement the new feature on your own. \n +2 Programming \n -2 Communication" as c
 else
 --> "I ask and try to find out \n if he REALLY wants it that way. \n +2 communication"

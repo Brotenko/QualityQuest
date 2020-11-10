@@ -8,12 +8,11 @@ else
 --> party
 else 
 --> "A few Tequilla shots will do it, \nafter all its for free, you should take advantage of it." as saufen
-
+if "" then 
+--> [partying + random > 8] "Due to your excellent party experience you are able to drink \n and survive the party without creating a stir: \n +3 partying" as alci
+else 
+--> [partying + random <= 8] "You bring a good atmosphere to the group, \n but your mentor and boss notice you \n negatively, because you are quite drunk.\n +3 partying \n -2 communication"
 endif
-
-saufen --> "r = partying + random" as r
-r --> [r > 8] "Due to your excellent party experience you are able to drink \n and survive the party without creating a stir: \n +3 partying" as alci
-r --> [r <= 8] "You bring a good atmosphere to the group, \n but your mentor and boss notice you \n negatively, because you are quite drunk.\n +3 partying \n -2 communication"
 --> "The party is over and you go home." as hause
 party --> hause
 alci --> hause

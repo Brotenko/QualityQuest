@@ -1,5 +1,6 @@
 @startuml
-(*) --> "The German government calls and requests changes to the Corona App" as app
+'Note: the project is not final, just a filler at the moment
+(*) --> "The aminoa government calls and requests changes to the CoronaApp" as app
 if "" then 
 --> [You don't feel like it and just hang up.] "You get stats: \n -3 communication" as a1
 else 

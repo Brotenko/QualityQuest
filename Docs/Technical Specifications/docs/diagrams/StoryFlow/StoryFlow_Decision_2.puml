@@ -10,12 +10,10 @@ else
 --> [Usability as\nsuccess factor] "+1 analytics \n +2 communication" as usf
 
 
-usf --> "After completing the elective, you can enjoy your free time, or would you rather take part in a voluntary company internship?" as a
-re --> a
-bali --> a
-esa --> a
-
--[#blue,dotted]-> "Do you want to participate in a company internship?"
+usf -[#blue,dotted]-> "After completing the elective, you can enjoy your free time, or would you rather take part in a voluntary company internship?" as a
+re -[#blue,dotted]-> a
+bali -[#blue,dotted]-> a
+esa -[#blue,dotted]-> a
 
 /'
 Wir stehen 1 Jahr vor Ende des Studiums

@@ -2,6 +2,7 @@
 (*) --> "Graduate studies" as as
 --> "... half a year passes ..."
 --> "You have accepted a job at NewTec."
+'Note: the project is not final, just a filler at the moment
 --> "Your boss has taken a new order from the federal government, \n it's about the new CoronaApp" as a1
 --> "Your task is to design the user interface."
 if "" then

@@ -1,5 +1,5 @@
 @startuml
-(*) --> "Your company offers voluntary training, do you take part in it?"
+(*) --> "A voluntary further education is pending, will you take part in it?"
 
 if "" then
 --> [Yes] "You unlock your sidepet, \n and the pet helps you with future decisions.\n Additionally you get \n+1 programming" as a1
@@ -10,8 +10,8 @@ else
 else 
 --> [Additional dialog option: \n Your boss offers you 1 week vacation \n after your voluntary training] "You get: +2 programming \n +2 analytics. \n You enjoy your vacation \n after your voluntary training."
 endif
-
--[#blue,dotted]-> "The German government has contacted you and would like to see changes to the Corona App" as app
+'Note: project not final, its just a filler.
+-[#blue,dotted]-> "The aminoa government has contacted you and would like to see changes to the CoronaApp" as app
 a2 -[#blue,dotted]-> app
 a1 -[#blue,dotted]-> app
 a3 -[#blue,dotted]-> app
