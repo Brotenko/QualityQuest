@@ -52,7 +52,7 @@ The change history is a chronologically ordered list of all changes between diff
 |   *   | **_[Used Plugins:](/usedtools#used-plugins) PlantUML:_** Fixed typo in description.                                                             |
 |   +   | **_[Glossary:](/glossary#expertise) Session:_** Added new term.                                                                                 |
 |   *   | **_[Change history:](#) Change history:_** Renamed change history versions descriptors.                                                         |
-|   *   | **_[Use-Case diagrams:](/use-case-diagramme#moderator-client) Moderator-Client:_** Updated all Moderator-Client Use-case diagrams and descriptions. |
+|   *   | **_[Use-Case diagrams:](/use-case-diagramme#moderator-client) Moderator-Client:_** Updated all Moderator-Client use-case diagrams and descriptions. |
 
 </span>
 
