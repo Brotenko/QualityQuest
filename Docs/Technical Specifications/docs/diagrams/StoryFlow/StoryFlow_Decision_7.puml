@@ -1,9 +1,15 @@
 @startuml
-(*) --> "The tests have revealed a few bugs, \n but there is also the company party at the end of the project. \n What are you doing?"
+(*) --> "You are at the party what do you want to do?"
 if "" then 
--[#blue,dotted]-> [Participate in company party] "You are at the party what do you want to do?"
+--> [You talk \n with your colleagues] "Your colleagues will give you a few tips \n and you will receive the following stats: \n +2 programming" as tipps
 else 
---> [Bugs fixen] "You continue to work on the bugs, \n but you can't make new contacts at the party. \n +2 programming"
--[#blue,dotted]-> "A voluntary further education is pending, will you take part in it?"
+--> [You talk \n with your mentor \n and your boss] "You enable additional dialog option\n for later decisions." as ent
 
+else
+-[#blue,dotted]-> [You find a seat\n and sit by yourself.] "You are thirsty and want to get something to drink, what do you take?" as alc
+tipps -[#blue,dotted]-> alc
+ent -[#blue,dotted]-> alc
+
+
+endif
 @enduml

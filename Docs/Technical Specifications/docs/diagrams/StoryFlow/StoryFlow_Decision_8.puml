@@ -1,15 +1,22 @@
 @startuml
-(*) --> "You are at the party what do you want to do?"
+(*) --> "You are thirsty and want to get something to drink, what do you take?" as alc
 if "" then 
---> [You talk \n with your colleagues] "Your colleagues will give you a few tips \n and you will receive the following stats: \n +2 programming" as tipps
+--> "One beer is enough for the evening." as genießen
+genießen --> "You got through the evening.\n +1 partying" as party
 else 
---> [You talk \n with your mentor \n and your boss] "You enable additional dialog option\n for later decisions." as ent
-
-else
--[#blue,dotted]-> [You find a seat\n and sit by yourself.] "You are thirsty and want to get something to drink, what do you take?" as alc
-tipps -[#blue,dotted]-> alc
-ent -[#blue,dotted]-> alc
-
+--> "A good old spezi is perfectly sufficient."
+--> party
+else 
+--> "A few Tequilla shots will do it, \nafter all its for free, you should take advantage of it." as saufen
 
 endif
+
+saufen --> "r = partying + random" as r
+r --> [r > 8] "Due to your excellent party experience you are able to drink \n and survive the party without creating a stir: \n +3 partying" as alci
+r --> [r <= 8] "You bring a good atmosphere to the group, \n but your mentor and boss notice you \n negatively, because you are quite drunk.\n +3 partying \n -2 communication"
+--> "The party is over and you go home." as hause
+party --> hause
+alci --> hause
+-[#blue,dotted]-> "A voluntary further education is pending, will you take part in it?"
+
 @enduml

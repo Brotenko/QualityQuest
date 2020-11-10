@@ -1,22 +1,22 @@
 @startuml
-(*) --> "The project customer calls \n again and wants to have a completely new feature implemented. \n The wish seems a bit strange to you, \n because it might contradict other requirements.\n What to do?" as f 
-'if "" then 
-'--> [Du arbeitest einfach drauf los.] "f"
-if " " then
---> "If the customer absolutely wants it that way... \n ...he'll pay us for it."
---> "You implement the new feature on your own. \n +2 Programming \n -2 Communication" as c
+(*) --> "Your colleague Trummu is approaching you.\n Trummu urgently needs your support in his task. \n How do you proceed?"
+if "" then 
+--> [I help him] "Random"
+if "" then
+--> [random <= 3] "Your colleague is satisfied. \n +2 communication" as a
 else
---> "I ask and try to find out \n if he REALLY wants it that way. \n +2 communication"
-endif
-'Vorbedingung: Nur wenn zuvor gewählt wurde, mit dem Kunden nochmal darüber zu reden!
---> "The customer has now decided \n to go through the change process \n with his new feature idea. \n Which way do you choose?"
-if " " then
---> [I do this alone with the customer.] "+2 programming \n -2 analytics" as a
+--> [random > 3] "Your colleague is satisfied, \n but because of the delay \n you now have problems meeting your deadline, \n so you ask your other colleague Sodani for help." as b
+if "" then 
+--> [Communication-Skill > 6] "Sodani helps you and you can meet your deadline." as c
 else
---> [I set up a meeting with Req. engineer, \nUsability and test manager.] "+1 communication \n +2 analytics" as b
---> "The new feature is implemented" as fertig
+--> [Communication-Skill <=6] "Sodani will not help you and therefore you will miss your deadline \n and need an additional 5 days."
+-[#blue,dotted]-> "The project is nearing completion, \n only a code review is missing." as ende
 endif
-a --> fertig
-c --> fertig
--[#blue,dotted]-> "Your colleague Trummu is approaching you.\n Trummu urgently needs your support in his task. \n How do you proceed?"
+endif
+else
+--> [I dont want to help him] "I have enough to do myself \n and take care \n of my own stuff!" as assi
+endif
+a -[#blue,dotted]-> ende
+c -[#blue,dotted]-> ende
+assi -[#blue,dotted]-> ende
 @enduml

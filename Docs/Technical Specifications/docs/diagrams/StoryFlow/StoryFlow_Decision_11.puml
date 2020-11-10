@@ -1,16 +1,19 @@
 @startuml
-(*) --> "The German government calls and requests changes to the Corona App" as app
+(*) --> "A bug has surfaced."
+--> "So far no one else has found the bug, how do you proceed?"
 if "" then 
---> [You don't feel like it and just hang up.] "You get stats: \n -3 communication" as a1
-else 
---> [You implement the \n desired change] "You get stats: \n +2 programming" as a2
+--> [You write a bug ticket. \n Sidekickpet: "Would be appropriate"] "Yaggaya sees the ticket \n and passes it on to the appropriate place. \n You get stats: \n +2 analytics" as y
 else
-if "The change is not feasible"
---> [You inform your customer] "You receive stats: \n +1 communication" as b1
-else 
---> [You simply do not implement the change \n without informing the customer] "You will receive stats: \n -1 communication"
--[#blue,dotted]-> "A bug has surfaced." as bug 
-a1 -[#blue,dotted]-> bug
-a2 -[#blue,dotted]-> bug
-b1 -[#blue,dotted]-> bug
+--> [Just ignore, \n no one will notice] "You will get the following stats: \n -3 analytics" as x
+endif
+--> "You will receive stats: \n -3 analytics"
+if "Random" then
+--> [Random > 3] "Bug is found and the department \n thinks you should have found the bug since you were the last one to work on it. \n You get stats: \n -3 communication" as p
+
+else
+--> [Random <= 3] "Bug is not found."
+-[#blue,dotted]-> "The customer contacted us again and \n spontaneously came up with a new feature." as f 
+endif
+p -[#blue,dotted]-> f
+y -[#blue,dotted]-> f
 @enduml

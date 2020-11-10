@@ -1,9 +1,12 @@
 @startuml
-(*) --> "The project is near completion, \n only the code review is missing." as ende
-if "" then 
---> [Sure. \n Sidekickpet:"A review is important"] "+2 analytics \n +2 communication." as good
+(*) --> "The project is completed, \n now the best employees are rewarded with a workshop in Hawaii." as shop
+if "" then
+--> [Anzahl aller Stats > 15] "Congratulations, \n you are invited to the workshop." as a
 else 
---> [Nah, the test runs through. \n Alles gut soweit.] "-2 analytics \n -2 communication."
--[#blue,dotted]-> "The project has been completed, now the best employees are rewarded with a workshop in Hawaii." as shop
-good -[#blue,dotted]-> shop
+--> [Anzahl aller Stats <= 15 && > 5] "Unfortunately it was not quite enough for you, \n good luck with your next project." as b
+else
+--> [Anzahl aller Stats < 5] "Congratulations, you got fired."
+-[#blue,dotted]-> "THE END" as ende
+a -[#blue,dotted]-> ende
+b -[#blue,dotted]-> ende
 @enduml

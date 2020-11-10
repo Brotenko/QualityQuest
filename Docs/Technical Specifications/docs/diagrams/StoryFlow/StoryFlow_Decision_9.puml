@@ -1,22 +1,18 @@
 @startuml
-(*) --> "You are thirsty and want to get something to drink, what do you take?" as alc
-if "" then 
---> "One beer is enough for the evening." as genießen
-genießen --> "You got through the evening.\n +1 partying" as party
-else 
---> "A good old spezi is perfectly sufficient."
---> party
-else 
---> "A few Tequilla shots will do it, \nafter all its for free, you should take advantage of it." as saufen
+(*) --> "Your company offers voluntary training, do you take part in it?"
 
+if "" then
+--> [Yes] "You unlock your sidepet, \n and the pet helps you with future decisions.\n Additionally you get \n+1 programming" as a1
+else
+--> [No] "No I already had this topic during my studies." as a2
+else 
+--> [No, I need a vacation first] "You take a week off." as a3
+else 
+--> [Additional dialog option: \n Your boss offers you 1 week vacation \n after your voluntary training] "You get: +2 programming \n +2 analytics. \n You enjoy your vacation \n after your voluntary training."
 endif
 
-saufen --> "r = partying + random" as r
-r --> [r > 8] "Due to your excellent party experience you are able to drink \n and survive the party without creating a stir: \n +3 partying" as alci
-r --> [r <= 8] "You bring a good atmosphere to the group, \n but your mentor and boss notice you \n negatively, because you are quite drunk.\n +3 partying \n -2 communication"
---> "The party is over and you go home." as hause
-party --> hause
-alci --> hause
--[#blue,dotted]-> "A voluntary further education is pending, will you take part in it?"
-
+-[#blue,dotted]-> "The German government has contacted you and would like to see changes to the Corona App" as app
+a2 -[#blue,dotted]-> app
+a1 -[#blue,dotted]-> app
+a3 -[#blue,dotted]-> app
 @enduml

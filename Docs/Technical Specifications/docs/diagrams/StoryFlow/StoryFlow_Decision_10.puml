@@ -1,15 +1,16 @@
 @startuml
-(*) --> "Your company offers voluntary training, do you take part in it?"
-
-if "" then
---> [Yes] "You unlock your sidepet, \n and the pet helps you with future decisions.\n Additionally you get \n+1 programming" as a1
-else
---> [No] "No I already had this topic during my studies." as a2
+(*) --> "The German government calls and requests changes to the Corona App" as app
+if "" then 
+--> [You don't feel like it and just hang up.] "You get stats: \n -3 communication" as a1
 else 
---> [No, I need a vacation first] "You take a week off." as a3
-endif
-
--[#blue,dotted]-> "The German government has contacted you and would like to see changes to the Corona App" as app
-a2 -[#blue,dotted]-> app
-a1 -[#blue,dotted]-> app
+--> [You implement the \n desired change] "You get stats: \n +2 programming" as a2
+else
+if "The change is not feasible"
+--> [You inform your customer] "You receive stats: \n +1 communication" as b1
+else 
+--> [You simply do not implement the change \n without informing the customer] "You will receive stats: \n -1 communication"
+-[#blue,dotted]-> "A bug has surfaced." as bug 
+a1 -[#blue,dotted]-> bug
+a2 -[#blue,dotted]-> bug
+b1 -[#blue,dotted]-> bug
 @enduml

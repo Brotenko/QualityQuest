@@ -1,22 +1,9 @@
 @startuml
-(*) --> "Your colleague Trummu is approaching you.\n Trummu urgently needs your support in his task. \n How do you proceed?"
+(*) --> "The project is near completion, \n only the code review is missing." as ende
 if "" then 
---> [Ich helfe ihm.] "Random"
-if "" then
---> [random <= 3] "Your colleague is satisfied. \n +2 communication" as a
-else
---> [random > 3] "Your colleague is satisfied, \n but because of the delay \n you now have problems meeting your deadline, \n so you ask your other colleague Siggi for help." as b
-if "" then 
---> [Communication-Skill > 6] "Sodani helps you and you can meet your deadline." as c
-else
---> [Communication-Skill <=6] "Sodani will not help you and therefore you will miss your deadline \n and need an additional 5 days."
--[#blue,dotted]-> "The project is nearing completion, \n only a code review is missing." as ende
-endif
-endif
-else
---> [Ich helfe ihm nicht] "I have enough to do myself \n and take care \n of my own stuff!" as assi
-endif
-a -[#blue,dotted]-> ende
-c -[#blue,dotted]-> ende
-assi -[#blue,dotted]-> ende
+--> [Sure. \n Sidekickpet:"A review is important"] "+2 analytics \n +2 communication." as good
+else 
+--> [Nah, the test runs through. \n Alles gut soweit.] "-2 analytics \n -2 communication."
+-[#blue,dotted]-> "The project has been completed, now the best employees are rewarded with a workshop in Hawaii." as shop
+good -[#blue,dotted]-> shop
 @enduml
