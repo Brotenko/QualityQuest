@@ -5,7 +5,7 @@ actor "Moderator" as P
 
 rectangle "Moderator-Client Online Mode" {
     usecase "Play Game" as md
-    usecase "Can Pause" as cp
+    usecase "Pause Game" as cp
 } 
 
 rectangle "Moderator-Client Offline Mode" {
