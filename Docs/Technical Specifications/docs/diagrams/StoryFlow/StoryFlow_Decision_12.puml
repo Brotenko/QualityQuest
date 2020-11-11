@@ -13,7 +13,7 @@ endif
 if " " then
 --> [You and the customer do this alone.] "+2 programming \n -2 analytics" as a
 else
---> [I set up a meeting with Req. engineer, \nUsability and test manager.] "+1 communication \n +2 analytics" as b
+--> [You set up a meeting with Req. engineer, \nUsability and test manager.] "+1 communication \n +2 analytics" as b
 --> "The new feature is implemented" as fertig
 endif
 a --> fertig
