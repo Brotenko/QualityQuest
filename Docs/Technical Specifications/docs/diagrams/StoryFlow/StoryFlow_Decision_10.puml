@@ -1,16 +1,15 @@
 @startuml
 'Note: the project is not final, just a filler at the moment
-(*) --> "WizzBook calls and requests changes to the WizzApp" as app
+(*) --> "WizzBook has contacted you and would like to see changes to the WizzaApp."
 --> "You take the call and listen to WizzBook's change requests."
---> "WizzBook tells you to implement the changes. What do you do? "
-if "" then 
+--> "WizzBook tells you to implement the changes."
+if " What do you do?" then 
 --> [You don't feel like it and just hang up.] "You just hang up.\n Your stats decrease: \n -3 communication" as a1
 else 
---> [You implement the \n desired change] "You get stats: \n +2 programming" as a2
+--> [You start implementing the \n desired change.] "The desired change is implemented. \n You get stats: \n +2 programming" as a2
 else
-if "You realize that \n the change is technically not feasible"
---> "The change cannot be implemented. \n How do you want to proceed?"
-if "" then 
+
+--> [You realize that \n the change is technically not feasible] if "How do you want \n to proceed?" then 
 --> [You inform your customer] "You call the customer and explain the situation. \n You receive stats: \n +1 communication" as b1
 else 
 --> [You simply do not implement the change \n without informing the customer] "You have no desire to inform the customer.\n You will receive stats: \n -2 communication"

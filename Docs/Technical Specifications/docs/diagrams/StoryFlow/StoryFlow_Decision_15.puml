@@ -1,5 +1,6 @@
 @startuml
-(*) --> "The project is completed, \n now the best employees are rewarded with a workshop in Hawaii." as shop
+(*) --> "The project has been completed."
+--> "The best employees are rewarded with a workshop in Hawaii."
 if "" then
 --> [Number of all stats > 15] "Congratulations, \n you are invited to the workshop." as a
 else 

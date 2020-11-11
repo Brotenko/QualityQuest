@@ -1,12 +1,12 @@
 @startuml
-(*) --> "You are at the party what is the first thing you want to do?"
-if "" then 
+(*) --> "You attend the company party." 
+if "You are at the party,\n what is the first thing you want to do?" then 
 --> [You talk \n with your colleagues] "Your colleagues will give you a few tips \n and you will receive the following stats: \n +2 programming" as tipps
 else 
 --> [You talk \n with your mentor \n and your boss] "You enable additional dialog option\n for later decisions." as ent
 
 else
--[#blue,dotted]-> [You find a seat\n and sit by yourself.] "You are thirsty and want to get something to drink, what do you take?" as alc
+-[#blue,dotted]-> [You find a seat\n and sit by yourself.] "You are thirsty and want to get something to drink." as alc
 tipps -[#blue,dotted]-> alc
 ent -[#blue,dotted]-> alc
 

@@ -1,17 +1,13 @@
 @startuml
-(*) --> "You are thirsty and want to get something to drink, what do you take?" as alc
-if "" then 
---> "One beer is enough for the evening." as genießen
-genießen --> "You got through the evening.\n Your stats increase:\n +1 partying" as party
+(*) --> "You are thirsty and want to get something to drink."
+if "What do you take?" then 
+--> [One beer is enough for the evening.] "You got through the evening.\n Your stats increase:\n +1 partying" as lightParty
 else 
---> "A good old spezi is perfectly sufficient."
---> party
+--> [A good old spezi is perfectly sufficient.] lightParty
 else 
---> "A few Tequilla shots will do it, \nafter all it's for free, you should take advantage of it."
---> "You drink two shots, do you want to drink more or do you want to stop now."
-if "" then 
---> [Yes you want more shots] "You drink a few more shots."
-if "partying + dice roll > 8" as drink then 
+-->[A few Tequilla shots will do it, \nafter all it's for free, you should take advantage of it.]"You drink two shots."
+if "Do you want to \n drink more shots?" then 
+--> [You drink a few more shots.] if "partying + dice roll > 8" as drink then 
 --> [true] "Due to your excellent party experience you are able to drink \n and survive the party without creating a stir: \n +3 partying" as goodEnd
 else 
 --> [false] "You bring a good atmosphere to the group, \n but your mentor and boss notice you \n negatively, because you are quite drunk.\n +3 partying \n -2 communication" as heavydrunk
@@ -21,8 +17,8 @@ else
 endif
 --> "The party is over and you go home." as home
 heavydrunk --> home
-party --> home
+lightParty --> home
 goodEnd --> home
--[#blue,dotted]-> "A voluntary training course is coming up, will you participate?"
+-[#blue,dotted]-> "A voluntary training course is coming up."
 
 @enduml

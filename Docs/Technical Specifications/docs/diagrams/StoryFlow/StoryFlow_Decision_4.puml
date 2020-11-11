@@ -1,42 +1,24 @@
 @startuml
-(*) --> "Graduate studies" as as
+(*) --> "Graduate studies"
 --> "... half a year passes ..."
 --> "You have accepted a job at NewTec."
 'Note: the project is not final, just a filler at the moment
---> "Your boss has taken a new order from a company called WizzBook. \n WizzBook wants to develop a new communication app." as a1
+--> "Your boss has taken a new order from a company called WizzBook. \n WizzBook wants to develop a new communication app."
 --> "Your task is to design the user interface."
---> "You want to start with your task, \n but what is the best way to proceed?"
-if "" then
+--> "You start with your task."
+if "How do you want \n to proceed?" then
 --> [You ask your mentor] "You get to know your mentor, his name is Yaggaya."
---> "You improve \n your communication skills \n +1 communication \n 'decision +1'" as mentor
+--> "You finish your task with the help of Yaggaya. \n Your stats increase: \n+1 communication \n+1 programming " as mentor
 else
---> [You search for a suitable solution\n on HeapOverflow] "You waste a lot of time \n but solve the problem \n 'decision 0'" as b
+--> [You search for a suitable solution\n on HeapOverflow] "You waste a lot of time \n but you solve the problem. \n Your stats increase: \n +1 programming" as heapFlow 
 else
---> [You just start, it will work out.] "You waste a lot of time without solving the problem \n 'decision -1'" as c
-if "programming + dice roll + decision >= 5" as random then
---> [true] "Your stats increase: \n +1 programming " as p1
-else 
---> [false] "You finish your task."
-
-/'a --> "Random \n r = programming + random + decision" as r
-b --> r
-c --> r
-
-if "" then
---> [r >= 5] "+1 programming" as p1
-else
---> [r < 5] "no improvement"
-
---> "Task completed" as aa
-
-p1 --> aa
-
-'/
+--> [You just start, it will work out.] "You waste a lot of time without solving the problem. \n You need a few days extra to get the task done. \n Your stats decrease: \n -1 analytics"
 
 -[#blue,dotted]-> "After completing your task, you must now write the corresponding tests." as newD
 
+mentor -[#blue,dotted]-> newD
+heapFlow -[#blue,dotted]-> newD
 
-p1 -[#blue,dotted]-> newD
-mentor --> random
-b --> random
+
+
 @enduml

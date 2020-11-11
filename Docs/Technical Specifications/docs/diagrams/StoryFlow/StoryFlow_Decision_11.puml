@@ -1,17 +1,15 @@
 @startuml
 (*) --> "A bug has surfaced."
---> "So far no one else has found the bug, how do you proceed?"
-if " " then 
+--> "So far no one else has found the bug."
+if "How do you proceed?" then 
 --> [You write a bug ticket.] "Yaggaya sees the ticket \n and passes it on to the appropriate place. \n You get stats: \n +2 analytics" as y
 else
---> [Just ignore, \n no one will notice] "You ignore the bug in \n the hope that no one else will find it.\n Your stats decrease: \n -3 analytics" as x
-endif
-if "dice roll > 3" then
---> [true] "The bug has been found and the \n responsible department thinks that you should \n have found the bug well in advance, \n since you worked on the code last.: \n -3 communication" as p
+--> [Just ignore it, \n no one will notice anyway.] if "dice roll > 3" then
+--> [true] "The bug has been found and the \n responsible department thinks that you should \n have found the bug well in advance, \n since you worked on the code last.: \n -3 communication \n -3 analytics" as p
 
 else
---> [false] "Bug is not found."
--[#blue,dotted]-> "The project customer calls \n again and wants to have a completely new feature implemented. \n The wish seems a bit strange to you, \n because it might contradict other features.\n What to do?" as f 
+--> [false] "Bug is not found. \n Your stats decrease: \n -3 analytics"
+-[#blue,dotted]-> "The project customer calls \n again and wants to have a completely new feature implemented." as f 
 endif
 p -[#blue,dotted]-> f
 y -[#blue,dotted]-> f
