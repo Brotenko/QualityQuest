@@ -8,7 +8,7 @@ else
 endif
 --> "You will receive stats: \n -3 analytics"
 if "Random" then
---> [Random > 3] "Bug is found and the department \n thinks you should have found the bug since you were the last one to work on it. \n You get stats: \n -3 communication" as p
+--> [Random > 3] "The bug has been found and the \n responsible department thinks that you should \n have found the bug well in advance, \n since you worked on the code last.: \n -3 communication" as p
 
 else
 --> [Random <= 3] "Bug is not found."
