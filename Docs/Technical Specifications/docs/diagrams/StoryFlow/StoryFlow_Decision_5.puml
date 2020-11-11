@@ -9,7 +9,7 @@ if " " then
 --> "+1 programming \n +3 analytics" as a1
 else 
 --> [random + programming + decision < 8] "Unfortunately you won't be ready in time, \n but you have very extensive tests."
---> "Yaggaya is satisfied with your tests \n and your approach, \even though you did not finish in time."
+--> "Yaggaya is satisfied with your tests \n and your approach, \n even though you did not finish in time."
 --> "+2 programming \n +2 analytics" as a2
 endif
 else
