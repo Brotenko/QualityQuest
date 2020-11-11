@@ -4,6 +4,6 @@ if "" then
 --> [Sure. \n Sidekickpet:"A review is important"] "+2 analytics \n +2 communication." as good
 else 
 --> [Nah, the test runs through. \n Everything will be fine.] "-2 analytics \n -2 communication."
--[#blue,dotted]-> "The project has been completed, now the best employees are rewarded with a workshop in Hawaii." as shop
+-[#blue,dotted]-> "The project has been completed, now the best employees are rewarded with a workshop on Hawaii." as shop
 good -[#blue,dotted]-> shop
 @enduml
