@@ -1,23 +1,21 @@
 @startuml
 () "Websocket" as http
-() "API" as api
 
 
-component "Server" <<component>> as server{
-    component "Logic" <<component>> as logic{
-        [Networking] <<subsystem>> as network
-        [Message Management] <<subsystem>> as message
+component "Server" <<device>> as server{
+    component "ServerLogic" <<component>> as logic{
+        [Message Management] <<subsystem>> as messMan
+        [MainLogic] <<subsystem>> as main
         () " " as empty1
     }
-    [Poll Evaluation] <<subsystem>> as pe
+    [PlayerAudience-Client] <<component>> as pe
      () " " as empty2
 }
 
 
-http )-up- network
+http )-up- messMan
 empty2 -left- pe
-network -left- empty1
-api )-up- network
-message -( empty1
-message -( empty2
+messMan -left- empty1
+main -( empty1
+main -( empty2
 @enduml

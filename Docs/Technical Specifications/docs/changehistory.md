@@ -43,6 +43,7 @@ The change history is a chronologically ordered list of all changes between diff
 |   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in NFR20 and NFR21.|  
 |   +   | **[_Glossary:_](/glossary) _ServerLogic:_** Added new term. |
 |   *   | **[_Glossary:_](/glossary) _Server:_** Changed description. |
+| * | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _All component diagrams:_** Updated diagrams and descriptions.|
 
 </span>
 

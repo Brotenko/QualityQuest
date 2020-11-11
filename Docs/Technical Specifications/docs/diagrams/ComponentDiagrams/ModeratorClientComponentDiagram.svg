@@ -8,7 +8,7 @@ entity API--><ellipse cx="312" cy="226" fill="#FEFECE" filter="url(#fiygyafu976q
 link Logic to API--><path d="M312,121.02 C312,147.431 312,184.7443 312,206.7494 " fill="none" id="Logic-to-API" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M320.4572,213.9001 A9,9 0 0 0 303.5428 213.9001" fill="none" style="stroke: #A80036; stroke-width: 1.5;"/><!--MD5=[2380713ff73145337c72eb3fa93a3ec0]
 link GUI to mi--><path d="M90,121.02 C90,147.431 90,184.7443 90,206.7494 " fill="none" id="GUI-to-mi" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M98.4572,213.9001 A9,9 0 0 0 81.5428 213.9001" fill="none" style="stroke: #A80036; stroke-width: 1.5;"/><!--MD5=[8c901afde6f5a9e77a03d89959908c28]
 link empty to Logic--><path d="M210.105,89.5 C221.781,89.5 233.456,89.5 245.132,89.5 " fill="none" id="empty-Logic" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[1617496f25424e39ef2e63148d1120b9]
-link GUI to empty--><path d="M156.773,89.5 C165.043,89.5 173.313,89.5 181.583,89.5 " fill="none" id="GUI-to-empty" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M188.5928,81.0428 A9,9 0 0 0 188.5928 97.9572" fill="none" style="stroke: #A80036; stroke-width: 1.5;"/><!--MD5=[a5974cc0d3c1850521fe00be241ff825]
+link GUI to empty--><path d="M156.773,89.5 C165.043,89.5 173.313,89.5 181.583,89.5 " fill="none" id="GUI-to-empty" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M188.5928,81.0428 A9,9 0 0 0 188.5928 97.9572" fill="none" style="stroke: #A80036; stroke-width: 1.5;"/><!--MD5=[66a63991aa2f5001347de5d8bda2e0ae]
 @startuml
 () "Moderator\nInterface" as mi
 () "Websocket" as API
@@ -25,7 +25,7 @@ empty - Logic
 GUI -( empty
 @enduml
 
-PlantUML version 1.2020.20beta7(Unknown compile time)
+PlantUML version 1.2020.20beta13(Unknown compile time)
 (GPL source distribution)
 Java Runtime: Java(TM) SE Runtime Environment
 JVM: Java HotSpot(TM) 64-Bit Server VM
