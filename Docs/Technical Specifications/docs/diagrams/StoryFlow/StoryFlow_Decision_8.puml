@@ -7,7 +7,7 @@ else
 --> "A good old spezi is perfectly sufficient."
 --> party
 else 
---> "A few Tequilla shots will do it, \nafter all its for free, you should take advantage of it." as saufen
+--> "A few Tequilla shots will do it, \nafter all it's for free, you should take advantage of it." as saufen
 if "" then 
 --> [partying + random > 8] "Due to your excellent party experience you are able to drink \n and survive the party without creating a stir: \n +3 partying" as alci
 else 
