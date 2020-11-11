@@ -3,7 +3,7 @@
 if "" then 
 -[#blue,dotted]-> [Participate in company party] "You are at the party what do you want to do?"
 else 
---> [Bugs fixen] "You continue to work on the bugs, \n but you can't make new contacts at the party. \n +2 programming"
+--> [Fix bugs] "You continue to work on the bugs, \n but you can't make new contacts at the party. \n +2 programming"
 -[#blue,dotted]-> "A voluntary further education is pending, will you take part in it?"
 
 @enduml
