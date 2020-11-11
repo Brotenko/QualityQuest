@@ -19,7 +19,11 @@ The server also acts as an actor for the Moderator-Client.
 ### Start Application
 ![Start Application](diagrams/UseCase/Moderator_Client_A.svg)
 
-The moderator is responsible for starting the application. While starting the game an intro is shown. From the main menu the moderator can change settings or close the application directly. The moderator can establish a connection to the server to play the game with online polling or the moderator can start the game in Offline-Mode.
+To start the game the moderator client has to be launched by the moderator first.
+During the start of the application a flash screen with the NewTec logo is shown after which the main menu is loaded.
+In the main menu, a connection to the server must first be established before the game can begin.
+If a connection has been established the game can be started in the main menu.
+In the main menu you can also set options like volume, resolution and language.
 
 
 ### Play Game
