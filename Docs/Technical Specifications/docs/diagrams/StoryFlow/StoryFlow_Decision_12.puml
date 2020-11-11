@@ -6,7 +6,7 @@ if " " then
 --> "If the customer absolutely wants it that way... \n ... You want to impress the customer, whatever it takes."
 --> "You implement the new feature on your own. \n +2 Programming \n -2 Communication" as c
 else
---> "I ask and try to find out \n if he REALLY wants it that way. \n +2 communication"
+--> "You ask and try to find out \n if they absolutely want it that way. \n +2 communication"
 endif
 'Vorbedingung: Nur wenn zuvor gewählt wurde, mit dem Kunden nochmal darüber zu reden!
 --> "The customer has now decided \n to go through the change process \n with his new feature idea. \n Which way do you choose?"
