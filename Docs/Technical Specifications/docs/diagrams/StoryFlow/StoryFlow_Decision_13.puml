@@ -1,7 +1,7 @@
 @startuml
 (*) --> "Your colleague Trummu is approaching you.\n Trummu urgently needs your support in his task. \n How do you proceed?"
 if "" then 
---> [I help him] "Random"
+--> [You help them] "Random"
 if "" then
 --> [random <= 3] "Your colleague is satisfied. \n +2 communication" as a
 else
