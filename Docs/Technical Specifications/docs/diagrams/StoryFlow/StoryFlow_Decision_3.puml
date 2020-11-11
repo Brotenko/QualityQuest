@@ -1,12 +1,15 @@
 @startuml
-(*) --> "After completing the elective, you can enjoy your free time, or would you rather take part in a voluntary company internship?"
+(*) --> "After completing the elective, you can enjoy your free time, or would you rather take part in a extracurricular activity?"
 if "" then
---> [Yes, gaining experience is always good!] "+1 programming \n +1 analytics \n +1 communication" as ja
+--> [You use your spare time \n to learn a programming language unknown to you.] "You get to know the csharp programming language. \n Your stats increase: \n +2 programming \n +1 analytics" as newL
 else
---> [No, I have already learned everything \n I need to know during my studies.] "Through many parties in your spare \n time your partying stat increases:\n +3 partying " as nein
+--> [No, you enjoy your free \n time and attend some parties.] "Through many parties in your spare \n time your partying stat increases, \nbut your programming skills get a bit rusty:\n +4 partying \n -1 programming" as no
+else 
+--> [You take part in a hacking contest at your university.] "You get to know many new people \n and expand your programming skills.\n Your stats increase:\n +2 programming \n +1 communication" as contest
 
-ja --> "You have successfully completed your studies." as a
-nein --> a
+newL --> "You have successfully completed your studies." as a 
+no --> a
+contest -> a
 
 
 

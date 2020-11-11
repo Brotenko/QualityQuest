@@ -1,15 +1,15 @@
 @startuml
 (*) --> "Your colleague Trummu is approaching you.\n Trummu urgently needs your support in his task. \n How do you proceed?"
 if "" then 
---> [You help them] "Random"
-if "" then
---> [random <= 3] "Your colleague is satisfied. \n +2 communication" as a
+--> [You help them] "You help Trummu, but you might miss your own Deadline."
+if "dice roll <= 3" then
+--> [true] "Your colleague is satisfied and luckily \n you dont miss your own deadline. \n +2 communication" as a
 else
---> [random > 3] "Your colleague is satisfied, \n but because of the delay \n you now have problems meeting your deadline, \n so you ask your other colleague Sodani for help." as b
-if "" then 
---> [Communication-Skill > 6] "Sodani helps you and you can meet your deadline." as c
+--> [false] "Your colleague is satisfied, \n but because of the delay \n you now have problems meeting your deadline, \n so you ask your other colleague Sodani for help. \n Your stats increase: \n +2 communication" as b
+if "communication > 6" then 
+-right-> [true] "Sodani helps you and you can meet your deadline." as c
 else
---> [Communication-Skill <=6] "Sodani will not help you and therefore you will miss your deadline \n and need an additional 5 days."
+--> [false] "Sodani will not help you and therefore you will miss your deadline \n and need an additional 5 days. \n Your stats decrease: \n-2 analytics"
 -[#blue,dotted]-> "The project is nearing completion, \n only a code review is missing." as ende
 endif
 endif

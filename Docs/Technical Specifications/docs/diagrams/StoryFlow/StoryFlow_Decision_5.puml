@@ -1,27 +1,24 @@
 @startuml
 (*) --> "After completing your task, you must now write the corresponding tests."
---> "How do you want to proceed?" as wie
+--> "You only have a few days to write the tests,\n how do you want to proceed?" as wie
 if "" then
---> [You write extensive tests \n until they are ready, \n regardless of the deadline.] "Decision +2" as d1
-if " " then 
---> [random + programming + decision >=8] "Due to your good programming skills \n you will still be ready in time"
---> "Yaggaya is very pleased \n with your approach and your tests."
---> "+1 programming \n +3 analytics" as a1
+--> [You write extensive tests \n until they are ready, \n regardless of the deadline.] "You write extensive tests although the deadline is approaching. \n 'Decision +2'" as d1
+if "dice roll + programming + decision >=8" then 
+--> [true] "Due to your good programming skills \n you will still be ready in time"
+--> "Yaggaya is very pleased \n with your approach and your tests.\nYour stats increase: \n+1 programming \n +3 analytics" as a1
 else 
---> [random + programming + decision < 8] "Unfortunately you won't be ready in time, \n but you have very extensive tests."
---> "Yaggaya is satisfied with your tests \n and your approach, \n even though you did not finish in time."
---> "+2 programming \n +2 analytics" as a2
+--> [false] "Unfortunately you won't be ready in time, \n but you have very extensive tests."
+--> "Yaggaya is satisfied with your tests \n and your approach, \n even though you did not finish in time.\nYour stats increase: \n+2 programming \n +2 analytics" as a2
 endif
 else
- --> [You plan the time \n until the deadline and write it \n until the deadline is reached.] "Decision -1" as d2
-if " " then 
---> [random + programming + decision >= 8] "Due to very good programming skills \n you have extensive tests despite the short time."
---> "Yaggaya is very satisfied with your work."
---> "+2 programming" as a3
+ --> [You write tests until the deadline is reached, \n what you don't finish by then is simply not tested.] "You start writing your tests, \n the deadline is getting closer. \nDecision -1" as d2
+if "dice roll + programming + decision >= 8 " then 
+--> [true] "Due to very good programming skills \n you have extensive tests despite the short time."
+--> "Yaggaya is very satisfied with your work. \n Your stats increase: \n +2 programming" as a3
 else 
---> [random + programming + decision < 8] "You may be finished, but your \n tests are not sufficient."
---> "Yaggaya is not satisfied with your work, \n you have to revise your tests again \n and exceed the deadline by a few days."
---> "+1 programming" as a4
+--> [false] "The deadline has been reached \n and you have not managed to test everything extensively."
+--> "Yaggaya is not satisfied with your work, \n you have to revise your tests again \n and exceed the deadline by a few days.\n Your stats increase: \n +1 programming \n -2 analytics" as a4
+
 endif
 endif
 
@@ -29,7 +26,7 @@ a1 --> "Tests completed" as ta
 a2 --> ta
 a3 --> ta
 a4 --> ta
-ta -[#blue,dotted]-> "Company Party"
+ta -[#blue,dotted]-> "There is a company party coming up."
 
 
 

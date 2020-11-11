@@ -1,9 +1,10 @@
 @startuml
 (*) --> "The project is near completion, \n only the code review is missing." as ende
 if "" then 
---> [Sure. \n Sidekickpet:"A review is important"] "+2 analytics \n +2 communication." as good
+--> [You would like to participate in the review.] "You take part in the review. You will receive many useful tips \n for your future working life. \n Your stats increase: \n+2 analytics \n +2 communication." as good
 else 
---> [Nah, the test runs through. \n Everything will be fine.] "-2 analytics \n -2 communication."
+--> [Nah, the test runs through. \n Everything will be fine.] "You don't participate in the review process,\n but your mentor and boss are very angry when they find out. \n Your stats decrease: \n-2 analytics \n -2 communication."
 -[#blue,dotted]-> "The project has been completed, now the best employees are rewarded with a workshop on Hawaii." as shop
 good -[#blue,dotted]-> shop
+
 @enduml

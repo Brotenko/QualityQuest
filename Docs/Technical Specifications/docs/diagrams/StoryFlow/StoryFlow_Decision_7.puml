@@ -1,5 +1,5 @@
 @startuml
-(*) --> "You are at the party what do you want to do?"
+(*) --> "You are at the party what is the first thing you want to do?"
 if "" then 
 --> [You talk \n with your colleagues] "Your colleagues will give you a few tips \n and you will receive the following stats: \n +2 programming" as tipps
 else 
