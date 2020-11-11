@@ -14,7 +14,7 @@ else
 endif
 endif
 else
---> [I dont want to help him] "I have enough to do myself \n and take care \n of my own stuff!" as assi
+--> [You don't want to help them] "I have enough to do on my \n own and therefore continue \n to work on my own things!" as assi
 endif
 a -[#blue,dotted]-> ende
 c -[#blue,dotted]-> ende
