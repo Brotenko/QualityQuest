@@ -16,6 +16,6 @@ endif
 --> "The party is over and you go home." as hause
 party --> hause
 alci --> hause
--[#blue,dotted]-> "A voluntary further education is pending, will you take part in it?"
+-[#blue,dotted]-> "A voluntary training course is coming up, will you participate?"
 
 @enduml
