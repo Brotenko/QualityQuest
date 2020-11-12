@@ -14,9 +14,9 @@ component "Server" <<component>> as sl{
 
 
 }
-ui )-left- GUI
+ui )-up- GUI
 empty -left- Logic
-GUI -left( empty
+GUI -left-( empty
 Logic -down-( api
 api -server
 
