@@ -6,13 +6,13 @@
 if " What do you do?" then 
 --> [You don't feel like it and just hang up.] "You just hang up.\n Your stats change: \n -3 communication" as a1
 else 
---> [You start implementing the \n desired change.] "The desired changes are implemented. \n Your stats change: \n +2 programming" as a2
+--> [You start implementing the \n desired changes.] "The desired changes are implemented. \n Your stats change: \n +2 programming" as a2
 else
 
 -right-> [You realize that \n the changes are technically not feasible] if "How do you want \n to proceed?" then 
 --> [You inform your customer] "You call the customer and explain the situation. \n Your stats change: \n +1 communication" as b1
 else 
---> [You simply do not implement the change \n without informing the customer] "You have no desire to inform the customer.\n Your stats change: \n -2 communication"
+--> [You simply do not implement the changes \n without informing the customer] "You have no desire to inform the customer.\n Your stats change: \n -2 communication"
 -[#blue,dotted]-> "A bug has surfaced." as bug 
 a1 -[#blue,dotted]-> bug
 a2 -[#blue,dotted]-> bug
