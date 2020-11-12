@@ -19,7 +19,7 @@ The server also acts as an actor for the Moderator-Client.
 ### Start Application
 ![Start Application](diagrams/UseCase/Moderator_Client_A.svg)
 
-To start the game the moderator client has to be launched by the moderator first.
+To start the game the Moderator-Client has to be launched by the moderator first.
 During the start of the application a flash screen with the NewTec logo is shown after which the main menu is loaded.
 In the main menu, a connection to the server must first be established before the game can begin.
 If a connection has been established the game can be started in the main menu.
@@ -37,4 +37,3 @@ If there is a connection to the server, the server is gathering data from the au
 ![End Application](diagrams/UseCase/Moderator_Client_C.svg)
 
 The moderator is responsible for ending the application. When the moderator ends the application, a message is sent to the server so that the server can end the current session with the PlayerAudience.
-
