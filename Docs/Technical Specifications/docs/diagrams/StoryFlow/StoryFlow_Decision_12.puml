@@ -1,8 +1,8 @@
 @startuml
 (*) --> "The project customer calls \n again and wants to have a completely new feature implemented."
 --> "The wish seems a bit strange to you, \n because it might contradict other features."
-if " " then
---> [If the customer absolutely \n wants it that way] "You implement the new feature on your own. \n +2 Programming \n -2 Communication" as c
+if "What do you do?" then
+--> [If the customer absolutely \n wants it] "You implement the new feature on your own. \n +2 Programming \n -2 Communication" as c
 else
 --> [You ask and try to find out \n if they absolutely want it that way] "You talk with the customer \nabout his desired feature. \nYour stats increase:\n +2 communication"
 endif
@@ -16,5 +16,5 @@ else
 endif
 a --> fertig
 c --> fertig
--[#blue,dotted]-> "Your colleague Trummu is approaching you.\n Trummu urgently needs your support in his task. \n How do you proceed?"
+-[#blue,dotted]-> "Your colleague Trummu is approaching you.\n Trummu urgently needs your support in his task."
 @enduml

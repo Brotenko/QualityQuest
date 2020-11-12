@@ -1,11 +1,11 @@
 @startuml
 (*) --> "There is a company party coming up."
---> "The tests have revealed a few bugs, \n but there is also the company party. \n What are you doing?"
-if " " then 
--[#blue,dotted]-> [Participate in company party] "You attend the company party."
+--> "The tests have revealed a few bugs, \n but there is also the company party. "
+if "Do you attend the company party?" then 
+-[#blue,dotted]-> [You attend the company party] "You attend the company party."
 
 else 
---> [Fix bugs] "You continue to work on the bugs, \n but you can't make new contacts at the party. \n +2 programming"
+--> [No, you continue to work on the project] "You continue to work on the project. \n +2 programming"
 -[#blue,dotted]-> "A voluntary training course is coming up."
 
 

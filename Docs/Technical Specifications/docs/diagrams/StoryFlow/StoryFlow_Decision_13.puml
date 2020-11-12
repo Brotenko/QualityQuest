@@ -4,17 +4,25 @@ if "Do you help Trummu?" then
 --> [You help Trummu, even if you\n might miss your own Deadline.] if "dice roll <= 3" then
 --> [true] "Your colleague is satisfied and luckily \n you dont miss your own deadline. \n +2 communication" as helpNoProblem
 else
---> [false] "Your colleague is satisfied, \n but because of the delay \n you now have problems meeting your deadline, \n so you ask your other colleague Sodani for help. \n Your stats increase: \n +2 communication"
-if "communication > 6" then 
+--> [false] "Your colleague is satisfied, \n but because of the delay \n you now have problems meeting your deadline.\n Your stats increase: \n +2 communication"
+if "Do you want to ask for help, \n so you can meet your own deadline?" then 
+--> [No] "You miss your own deadline. \n Your stats decrease: \n -2 analytics." as alone
+else 
+--> [Yes, you ask Sodani for help.]if "communication > 6" then 
+
 -right-> [true] "Sodani helps you and you can meet your deadline." as getHelp
+else 
 else
 --> [false] "Sodani will not help you and therefore you will miss your deadline \n and need an additional 5 days. \n Your stats decrease: \n-2 analytics"
 -[#blue,dotted]-> "The project is nearing completion, \n only a code review is missing." as ende
+else 
+
 endif
 endif
 else
 --> [You have enough to do on your \n own and therefore continue \n to work on your own things.] "Trummu is angry that you didn't help him.\n Your stats decrease: \n -2 communication" as noHelp
 endif
+alone -[#blue,dotted]-> ende
 helpNoProblem -[#blue,dotted]-> ende
 getHelp -[#blue,dotted]-> ende
 noHelp -[#blue,dotted]-> ende
