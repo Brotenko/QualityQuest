@@ -2,12 +2,12 @@
 (*) --> "The project has been completed."
 --> "The best employees are rewarded with a workshop in Hawaii."
 if "r = number of all stats" then
---> [r > 15] "Congratulations, \n you are invited to the workshop." as a
+--> [r > 15] "Congratulations, \n you are invited to the workshop." as shop
 else 
---> [r <= 15 && r > 5] "Unfortunately it was not quite enough for you, \n good luck with your next project." as b
+--> [r <= 15 && r > 5] "Unfortunately it was not quite enough for you, \n good luck with your next project." as noShop
 else
 --> [r <= 5] "You will be fired."
--[#blue,dotted]-> "THE END" as ende
-a -[#blue,dotted]-> ende
-b -[#blue,dotted]-> ende
+-[#blue,dotted]-> "THE END" as end
+shop -[#blue,dotted]-> end
+noShop -[#blue,dotted]-> end
 @enduml

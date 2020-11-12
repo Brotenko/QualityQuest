@@ -1,6 +1,6 @@
 @startuml
 (*) --> "Extracurricular Activity"
---> "After completing the elective, you can enjoy your free time, or you can take part in a extracurricular activity."
+--> "After completing the elective subject, you can enjoy your free time, \n or you can take part in a extracurricular activity."
 if "What do you want to do?" then
 --> [You use your spare time \n to learn a programming language unknown to you.] "You get to know the csharp programming language. \n Your stats change: \n +2 programming \n +1 analytics" as newL
 else
