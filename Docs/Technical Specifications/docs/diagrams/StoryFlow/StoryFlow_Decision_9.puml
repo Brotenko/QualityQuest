@@ -11,8 +11,8 @@ else
 --> [Additional dialog option: \n Your boss offers you a week vacation \n after your voluntary training] "You enjoy your vacation \n after your voluntary training. \n You don't get deadline problems \n because your boss has organized a substitute. \n Your stats change: \n+2 programming \n +2 analytics."
 endif
 'Note: project not final, its just a filler.
--[#blue,dotted]-> "WizzBook has contacted you and would like to see changes to the WizzApp." as app
-keepWorking -[#blue,dotted]-> app
-participate -[#blue,dotted]-> app
-vacation -[#blue,dotted]-> app
+-[#blue,dotted]-> "WizzBook has contacted you and would like to see changes to the WizzApp." as nextDecision
+keepWorking -[#blue,dotted]-> nextDecision
+participate -[#blue,dotted]-> nextDecision
+vacation -[#blue,dotted]-> nextDecision
 @enduml

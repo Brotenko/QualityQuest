@@ -8,16 +8,15 @@
 --> "You start with your task."
 if "How do you want \n to proceed?" then
 --> [You ask your mentor] "You get to know your mentor, his name is Yaggaya."
---> "You finish your task with the help of Yaggaya. \n Your stats change: \n+1 communication \n+1 programming " as mentor
+--> "You finish your task with the help of Yaggaya. \n Your stats change: \n+1 communication \n+1 programming " as askMentor
 else
 --> [You search for a suitable solution\n on HeapOverflow] "You waste a lot of time \n but you solve the problem. \n Your stats change: \n +1 programming" as heapFlow 
 else
 --> [You just start, it will work out.] "You waste a lot of time without solving the problem. \n You need a few days extra to get the task done. \n Your stats change: \n -1 analytics"
+-[#blue,dotted]-> "After completing your task, you must now write the corresponding tests." as nextDecision
 
--[#blue,dotted]-> "After completing your task, you must now write the corresponding tests." as newD
-
-mentor -[#blue,dotted]-> newD
-heapFlow -[#blue,dotted]-> newD
+askMentor -[#blue,dotted]-> nextDecision
+heapFlow -[#blue,dotted]-> nextDecision
 
 
 
