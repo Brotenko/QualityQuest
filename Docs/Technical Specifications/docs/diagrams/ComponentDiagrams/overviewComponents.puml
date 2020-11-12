@@ -6,9 +6,9 @@ left to right direction
 
 
 component "Server" <<device>> as s{
-    () "API" as api
+    () " " as api
     [PlayerAudience-Client] <<component>> as AuCl
-    [Server] <<component>> as SeCl
+    [ServerLogic] <<component>> as SeCl
 }
 [Moderator-Client] <<component>> as StPlCl
 
