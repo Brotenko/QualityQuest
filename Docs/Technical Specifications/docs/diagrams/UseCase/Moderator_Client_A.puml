@@ -1,7 +1,24 @@
 @startuml
 left to right direction
 
-rectangle "Start Application" {
+
+rectangle "Moderator-Client" {
+    usecase "Start Application" as start
+}
+
+actor "Moderator" as m
+actor "Server" as s
+
+m --> start
+start --> s
+
+
+
+
+
+/'
+rectangle "Moderator-Client" {
+    
     usecase "Start Application" as s
     usecase "Show Intro" as ia
     usecase "Show Mainmenu" as mm
@@ -28,5 +45,6 @@ mm ..> cs : <<include>>
 ea ..> mm : <<extend>>
 cs -left-> se
 mm ..> og : <<include>>
+'/
 
 @enduml

@@ -1,13 +1,20 @@
 @startuml
 
-rectangle "End" {
-    usecase "End Application" as a    
+rectangle "Moderator-Client" {
+    usecase "End Application" as endA    
+}
+
+rectangle "PlayerAudience-Client" {
+    usecase "End Session" as endS
 }
 
 actor "Moderator" as b
 actor "Server" as s
+actor "PlayerAudience" as pa
 
-b -right-> a
-a -> s
+b -right-> endA
+endA -> s
+s -> endS
+endS -> pa
 
 @enduml
