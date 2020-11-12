@@ -3,7 +3,7 @@
 if "What do you take?" then 
 --> [One beer is enough for the evening.] "You got through the evening.\n Your stats change:\n +1 partying" as lightParty
 else 
---> [One cola is perfectly sufficient.] lightParty
+--> [One coke is perfectly sufficient.] lightParty
 else 
 -->[A few Tequilla shots will do it, \nafter all it's for free, you should take advantage of it.] "You drink two shots."
 if "Do you want to \n drink more shots?" then 

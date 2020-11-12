@@ -9,17 +9,9 @@ else
 else
 --> [Usability as\nsuccess factor] "You have successfully completed \n your elective subject.\n Your stats change: \n+1 analytics \n +2 communication" as usf
 
-
 usf -[#blue,dotted]-> "Extracurricular Activity" as nextDecision
 re -[#blue,dotted]-> nextDecision
 bali -[#blue,dotted]-> nextDecision
 esa -[#blue,dotted]-> nextDecision
-
-/'
-Wir stehen 1 Jahr vor Ende des Studiums
-Du musst Dich für ein Wahlpflichtfach entscheiden.
-
-
-'/
 
 @enduml

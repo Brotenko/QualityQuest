@@ -2,7 +2,7 @@
 (*) --> "A voluntary training course is coming up."
 
 if "Do you want to participate?" then
---> [Yes, why not.] "You can't meet your deadline,\n but your boss is happy about your commitment to\n expand your skills. You unlock your sidepet, \n and the pet helps you with future decisions.\n Your stats change: \n+1 programming" as participate
+--> [Yes, why not.] "You can't meet your deadline,\n but your boss is happy about \n your commitment to\n expand your skills. \n Your stats change: \n+1 programming" as participate
 else
 --> [No I already had this topic during my studies, \n you just continue to work on the project.] "You continue to work on the project, \n so you can meet your deadline without any issues." as keepWorking
 else 
