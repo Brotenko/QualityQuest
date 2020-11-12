@@ -21,9 +21,11 @@ The server also acts as an actor for the Moderator-Client.
 
 To start the game the Moderator-Client has to be launched by the moderator first.
 During the start of the application a flash screen with the NewTec logo is shown after which the main menu is loaded.
-In the main menu, a connection to the server must first be established before the game can begin.
+In the main menu, a connection to the server must first be established to begin playing the game with online voting.
 If a connection has been established the game can be started in the main menu.
-In the main menu you can also set options like volume, resolution and language.
+There is also an option to start the game in Offline-Mode in case no connection to the server can be established or online voting is not needed.
+In the main menu a submenu which allows the moderator to set options like volume, resolution and language can also be accessed.
+The main menu also allows the moderator to close the game.
 
 
 ### Play Game
