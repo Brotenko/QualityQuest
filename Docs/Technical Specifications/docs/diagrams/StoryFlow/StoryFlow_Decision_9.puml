@@ -2,13 +2,13 @@
 (*) --> "A voluntary training course is coming up."
 
 if "Do you want to participate?" then
---> [Yes, why not.] "You can't meet your deadline,\n but your boss is happy about your commitment to\n expand your skills. You unlock your sidepet, \n and the pet helps you with future decisions.\n Additionally you get: \n+1 programming" as participate
+--> [Yes, why not.] "You can't meet your deadline,\n but your boss is happy about your commitment to\n expand your skills. You unlock your sidepet, \n and the pet helps you with future decisions.\n Your stats change: \n+1 programming" as participate
 else
 --> [No I already had this topic during my studies, \n you just continue to work on the project.] "You continue to work on the project, \n so you can meet your deadline without any issues." as keepWorking
 else 
---> [No, I need a vacation first] "You take a week off, but because of the vacation it\n is impossible to reach the deadline, \n your boss is angry. \n Your stats decrease: \n -2 analytics \n -2 communication" as vacation
+--> [No, I need a vacation first] "You take a week off, but because of the vacation it\n is impossible to reach the deadline, \n your boss is angry. \n Your stats change: \n -2 analytics \n -2 communication" as vacation
 else 
---> [Additional dialog option: \n Your boss offers you a week vacation \n after your voluntary training] "You enjoy your vacation \n after your voluntary training. \n You don't get deadline problems \n because your boss has organized a substitute. \n Your stats increase: \n+2 programming \n +2 analytics."
+--> [Additional dialog option: \n Your boss offers you a week vacation \n after your voluntary training] "You enjoy your vacation \n after your voluntary training. \n You don't get deadline problems \n because your boss has organized a substitute. \n Your stats change: \n+2 programming \n +2 analytics."
 endif
 'Note: project not final, its just a filler.
 -[#blue,dotted]-> "WizzBook has contacted you and would like to see changes to the WizzApp." as app

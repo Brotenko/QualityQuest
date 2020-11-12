@@ -1,13 +1,13 @@
 @startuml
 (*) --> "You are still missing an elective subject at the end of your studies."
 if "Which one will\n you choose?" then
---> [Introduction to Bali] "You have successfully completed \n  your elective subject.\n Your stats increase: \n+2 programming \n +1 analytics" as bali
+--> [Introduction to Bali] "You have successfully completed \n  your elective subject.\n Your stats change: \n+2 programming \n +1 analytics" as bali
 else
---> [Requirements\nEngineering] "You have successfully completed \n your elective subject.\n Your stats increase: \n+1 programming \n +2 analytics" as re
+--> [Requirements\nEngineering] "You have successfully completed \n your elective subject.\n Your stats change: \n+1 programming \n +2 analytics" as re
 else
---> [Introduction to \n Software Architectures] "You have successfully completed \n your elective subject.\n Your stats increase: \n+3 analytics" as esa
+--> [Introduction to \n Software Architectures] "You have successfully completed \n your elective subject.\n Your stats change: \n+3 analytics" as esa
 else
---> [Usability as\nsuccess factor] "You have successfully completed \n your elective subject.\n Your stats increase: \n+1 analytics \n +2 communication" as usf
+--> [Usability as\nsuccess factor] "You have successfully completed \n your elective subject.\n Your stats change: \n+1 analytics \n +2 communication" as usf
 
 
 usf -[#blue,dotted]-> "Extracurricular Activity" as nextDecision

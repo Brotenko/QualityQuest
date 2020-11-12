@@ -2,16 +2,16 @@
 (*) --> "The project customer calls \n again and wants to have a completely new feature implemented."
 --> "The wish seems a bit strange to you, \n because it might contradict other features."
 if "What do you do?" then
---> [If the customer absolutely \n wants it] "You implement the new feature on your own. \n +2 Programming \n -2 Communication" as c
+--> [If the customer absolutely \n wants it] "You implement the new feature on your own. \n Your stats change: \n +2 Programming \n -2 Communication" as c
 else
---> [You ask and try to find out \n if they absolutely want it that way] "You talk with the customer \nabout his desired feature. \nYour stats increase:\n +2 communication"
+--> [You ask and try to find out \n if they absolutely want it that way] "You talk with the customer \nabout his desired feature. \n Your stats change:\n +2 communication"
 endif
 'Vorbedingung: Nur wenn zuvor gewählt wurde, mit dem Kunden nochmal darüber zu reden!
 --> "The customer has now decided \n to go through the change process \n with his new feature idea."
 if "Which way do you choose?" then
---> [You and the customer do this alone.] "You implement the new feature on your own.\n Your stats increase:\n+2 programming \n -2 analytics" as a
+--> [You and the customer do this alone.] "You implement the new feature on your own.\n Your stats change: \n 2 programming \n -2 analytics" as a
 else
---> [You set up a meeting with Req. engineer, \nUsability and test manager.] "Your boss is very satisfied with your approach. \n Your stats increase: \n+1 communication \n +2 analytics" as b
+--> [You set up a meeting with Req. engineer, \nUsability and test manager.] "Your boss is very satisfied with your approach. \n Your stats change: \n+1 communication \n +2 analytics" as b
 --> "The new feature is implemented" as fertig
 endif
 a --> fertig

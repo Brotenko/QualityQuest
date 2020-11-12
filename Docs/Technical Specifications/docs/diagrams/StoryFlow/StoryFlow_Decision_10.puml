@@ -1,18 +1,18 @@
 @startuml
 'Note: the project is not final, just a filler at the moment
-(*) --> "WizzBook has contacted you and would like to see changes to the WizzaApp."
+(*) --> "WizzBook has contacted you and would like to see changes to the WizzApp."
 --> "You take the call and listen to WizzBook's change requests."
 --> "WizzBook tells you to implement the changes."
 if " What do you do?" then 
---> [You don't feel like it and just hang up.] "You just hang up.\n Your stats decrease: \n -3 communication" as a1
+--> [You don't feel like it and just hang up.] "You just hang up.\n Your stats change: \n -3 communication" as a1
 else 
---> [You start implementing the \n desired change.] "The desired change is implemented. \n You get stats: \n +2 programming" as a2
+--> [You start implementing the \n desired change.] "The desired changes are implemented. \n Your stats change: \n +2 programming" as a2
 else
 
---> [You realize that \n the change is technically not feasible] if "How do you want \n to proceed?" then 
---> [You inform your customer] "You call the customer and explain the situation. \n You receive stats: \n +1 communication" as b1
+-right-> [You realize that \n the changes are technically not feasible] if "How do you want \n to proceed?" then 
+--> [You inform your customer] "You call the customer and explain the situation. \n Your stats change: \n +1 communication" as b1
 else 
---> [You simply do not implement the change \n without informing the customer] "You have no desire to inform the customer.\n You will receive stats: \n -2 communication"
+--> [You simply do not implement the change \n without informing the customer] "You have no desire to inform the customer.\n Your stats change: \n -2 communication"
 -[#blue,dotted]-> "A bug has surfaced." as bug 
 a1 -[#blue,dotted]-> bug
 a2 -[#blue,dotted]-> bug
