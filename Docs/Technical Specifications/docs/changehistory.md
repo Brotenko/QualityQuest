@@ -60,7 +60,6 @@ The change history is a chronologically ordered list of all changes between diff
 |   +   | **_[Glossary:](/glossary#expertise) Session:_** Added new term.                                                                                 |
 |   *   | **_[Change history:](#) Change history:_** Renamed change history versions descriptors.                                                         |
 
-
 </span>
 
 ## Version 0.1.1 - First revision of the architecture design
