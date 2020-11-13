@@ -5,7 +5,7 @@ if "What do you take?" then
 else 
 --> [One coke is perfectly sufficient.] lightParty
 else 
--->[A few Tequilla shots will do it, \nafter all it's for free, you should take advantage of it.] "You drink two shots."
+-->[A few Tequila shots will do it, \nafter all it's for free, you should take advantage of it.] "You drink two shots."
 if "Do you want to \n drink more shots?" then 
 --> [You drink a few more shots] if "partying + dice roll > 8" as drink then 
 --> [true] "Due to your excellent party experience \n you are able to drink \n and survive the party \n without creating a stir. \n Your stats change \n +3 partying" as goodEnd
