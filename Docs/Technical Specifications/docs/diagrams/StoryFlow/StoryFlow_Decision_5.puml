@@ -3,7 +3,8 @@
 --> "You only have a few days to write the tests \n until the deadline for the tests is reached."
 if "How do you want to proceed?" then
 --> [You write extensive tests until \n they are ready, \n regardless of the deadline.] if "dice roll + programming + 1 >=8" then
---> [true] "Due to your good programming skills \n you will still be ready in time."
+--> [true] "Due to your good programming skills \n you still will be ready in time."
+
 --> "Yaggaya is very pleased \n with your approach and your tests.\n Your stats change: \n+1 programming \n +3 analytics" as path1
 else 
 --> [false] "Unfortunately you won't be ready in time, \n but you have very extensive tests."
