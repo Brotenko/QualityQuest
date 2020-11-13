@@ -295,6 +295,7 @@ enum ErrorTypeEnum
     UnknownGuid,
     IllegalPauseAction,
     SessionDoesNotExist,
+    NewModerator,
     IllegalMessage
 }
 ```
@@ -305,7 +306,8 @@ enum ErrorTypeEnum
     - A request to pause the game reaches the server even though the game is already paused.
     - A request to continue the game reaches the server even though the game has not been paused previously.
 - **SessionDoesNotExist:** Is triggered when an attempt is made to interact with a session that does not exist.
-- **IllegalMessage:** Triggers when an unknown message type is received, or when a message arrives at the server out of order. More precise details are to be specified in the errorMessage.
+- **NewModerator:** Is triggered and sent to the current Moderator-Client, when a new Moderator connects to the server via [RequestOpenSession](#requestopensession) message.
+- **IllegalMessage:** Is triggered when an unknown message type is received, or when a message arrives at the server out of order. More precise details are to be specified in the errorMessage.
 
 ## Detailed message definitions
 
@@ -551,4 +553,43 @@ class SessionClosed : MessageContainer
 
 ## Sequence diagrams of typical communicational processes
 
-ToDo
+The following diagrams always show typical communication processes between clients and server. Only the core contents of the communication, which are relevant for the understanding, are pointed out. For the sake of clarity, the specific message verification mechanisms of the clients and the server are not shown, as they are active at all times and check each message for correctness. 
+For example, it is not specifically stated that an [IllegalMessage](#errortypeenum) error can be thrown with every message sent or received.
+
+Also, detailed procedures that handle multiple processes and deal with errors are not listed here, as these are explicit processes, such as a [Reconnect](#reconnect).
+
+### Start online session
+
+TODO
+
+![Start online session](diagrams/NetworkDiagrams/start-online-session.svg)
+
+### Player reconnect
+
+TODO
+
+![Player reconnect](diagrams/NetworkDiagrams/player-reconnect.svg)
+
+### Pause game
+
+TODO
+
+![Pause game](diagrams/NetworkDiagrams/pause-game.svg)
+
+### Voting phase
+
+TODO
+
+![Voting phase](diagrams/NetworkDiagrams/voting-phase.svg)
+
+### New moderator
+
+TODO
+
+![New moderator](diagrams/NetworkDiagrams/new-moderator.svg)
+
+### End online session
+
+TODO
+
+![End online session](diagrams/NetworkDiagrams/end-online-session.svg)

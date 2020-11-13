@@ -1,0 +1,42 @@
+@startuml
+
+box "Network protocol relevance" #LightSteelBlue
+actor "Moderator-Client" as m order 1
+database "ServerLogic" as s order 2
+end box
+actor "PlayerAudience-Client" as p order 3
+
+
+
+activate m
+activate s
+
+m -> s: RequestOpenSession
+
+alt 
+    s --> m: OpenSession
+        loop while game \n not started yet.
+            p -> s: Connect to session
+            activate s
+            activate p
+            s --> p: Confirm connection
+            deactivate s
+            deactivate p
+        end
+    m -> s: RequestGameStart
+    s --> m: GameStarted
+    s -> p: Notify about game start
+    activate s
+    activate p
+    deactivate s
+    deactivate p
+else error: WrongPassword
+    s --> m: Error <WrongPassword>
+    m -> m: Notify about error
+else error: SessionDoesNotExist
+    s --> m: Error <SessionDoesNotExist>
+    m -> m: Notify about error
+end
+
+
+@enduml
