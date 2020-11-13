@@ -44,6 +44,7 @@ The change history is a chronologically ordered list of all changes between diff
 |   +   | **[_Glossary:_](/glossary) _ServerLogic:_** Added new term. |
 |   *   | **[_Glossary:_](/glossary) _Server:_** Changed description. |
 | * | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _All component diagrams:_** Updated diagrams and descriptions.|
+|   +   | **_[StoryFlow diagram:](#detailed-storyFlow-diagrams) Detailed StoryFlow Diagrams:_** Added detailed StoryFlow diagrams for every StoryFlowDecision. |
 
 </span>
 
