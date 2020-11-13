@@ -35,7 +35,6 @@ The change history is a chronologically ordered list of all changes between diff
 
 ## Version 0.2.0 - Component design
 
-<<<<<<< HEAD
 | Type  | Description                                                                                                                                                                               |
 | :---: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |   +   | **[_Class diagrams:_](/architectureDiagrams#server-class-diagrams) _Server class diagram:_** Added a joined class diagram for PlayerAudience-Client and Server, along with a description. |
