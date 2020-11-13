@@ -1,5 +1,5 @@
 @startuml
-(*) --> "You are still missing an elective subject at the end of your studies."
+(*) --> "Choose subject"
 if "Which one will\n you choose?" then
 --> [Introduction to Bali] "You have successfully completed \n  your elective subject.\n Your stats change: \n+2 programming \n +1 analytics" as bali
 else

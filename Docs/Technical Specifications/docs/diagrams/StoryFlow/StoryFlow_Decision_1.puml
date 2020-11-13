@@ -9,10 +9,11 @@ else
 else
 --> [Character 4] "Kirogh \n Stats:\n Programming: 1 \n Analytics: 0\n Communication 2 \n Partying: 5"
 
--[#blue,dotted]-> "You are still missing an elective subject at the end of your studies." as nextDecision
+--> "You are still missing an elective subject at the end of your studies." as subject
+-[#blue,dotted]-> "Choose subject"
 
-char1 -[#blue,dotted]-> nextDecision
-char2 -[#blue,dotted]-> nextDecision
-char3 -[#blue,dotted]-> nextDecision
+char1 --> subject
+char2 --> subject
+char3 --> subject
 
 @enduml
