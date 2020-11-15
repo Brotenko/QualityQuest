@@ -83,7 +83,7 @@ The change history is a chronologically ordered list of all changes between diff
 |   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR51:_** Added requirement "Pause menu contents".                                                                 |
 |   +   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _NFR23:_** Added requirement "Communication security".                                                     |
 |   +   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _NFR24:_** Added requirement "Postgame statistics".                                                        |
-|   +   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _NFR25:_** Added requirement "Postgame statistic contents".                                                |
+|   +   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _NFR25:_** Added requirement "Postgame statistic contents".                                                |                                                                                                         |
 |   *   | **[_Change history:_](/changehistory) _Change history:_** Fixed typos.                                                                                                                    |
 |   *   | **[_Glossary:_](/glossary) _Glossary:_** Fixed typos.                                                                                                                                     |
 |   *   | **[_Requirements:_](/requirements) __Requirements:_** Fixed typos.                                                                                                                        |
