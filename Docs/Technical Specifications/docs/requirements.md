@@ -6,7 +6,7 @@ The requirements are divided into different priorities, whose meaning should be 
 | -------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | +        | The requirement must be fulfilled in any case so that the product can be accepted.                                                                                |
 | 0        | The fulfillment of the requirement is optional and therefore not necessarily a prerequisite for acceptance, but would have a very positive effect on the product. |
-| -        | The fulfilment of the requirement is also optional and therefore not a prerequisite for the acceptance.                                                           |
+| -        | The fulfillment of the requirement is also optional and therefore not a prerequisite for the acceptance.                                                           |
 
 </span>
 
@@ -126,7 +126,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ID          | FR13                                                                                                                                                                        |
 | PRIORITY    | +                                                                                                                                                                           |
-| DESCRIPTION | If the selection of a StoryBranch after a StoryFlowDecision is generated with DiceRandomness, QualityQuest shall display a clear visualization of the randomizationprocess. |
+| DESCRIPTION | If the selection of a StoryBranch after a StoryFlowDecision is generated with DiceRandomness, QualityQuest shall display a clear visualization of the randomization process. |
 | EXPLANATION | -                                                                                                                                                                           |
 
 </span>
@@ -234,7 +234,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ID          | FR25                                                                                                                                                                                                                                                                                                                  |
 | PRIORITY    | +                                                                                                                                                                                                                                                                                                                     |
-| DESCRIPTION | If the Moderator-Client does not react within 5 seconds after recieving the ServerLogic's message, the connection from the Moderator-Client to the ServerLogic shall be interrupted. In this case the Moderator can either continue playing in Offline-Mode or try to re-establish the connection to the ServerLogic. |
+| DESCRIPTION | If the Moderator-Client does not react within 5 seconds after receiving the ServerLogic's message, the connection from the Moderator-Client to the ServerLogic shall be interrupted. In this case the Moderator can either continue playing in Offline-Mode or try to re-establish the connection to the ServerLogic. |
 | EXPLANATION | This serves as a failsafe, in case of corrupted messages or connection loss.                                                                                                                                                                                                                                          |
 
 </span>
@@ -492,7 +492,7 @@ This section specifies the non-functional requirements for the software system.
 | ----------- | :---------------------------------------------------------------------------- |
 | ID          | NFR2                                                                          |
 | PRIORITY    | +                                                                             |
-| DESCRIPTION | The source code shall be documented by means of Doxygen and in Javadoc style. |
+| DESCRIPTION | The source code shall be documented by means of Doxygen and in JavaDoc style. |
 | EXPLANATION | -                                                                             |
 
 </span>
