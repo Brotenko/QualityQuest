@@ -6,7 +6,7 @@ The requirements are divided into different priorities, whose meaning should be 
 | -------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | +        | The requirement must be fulfilled in any case so that the product can be accepted.                                                                                |
 | 0        | The fulfillment of the requirement is optional and therefore not necessarily a prerequisite for acceptance, but would have a very positive effect on the product. |
-| -        | The fulfillment of the requirement is also optional and therefore not a prerequisite for the acceptance.                                                           |
+| -        | The fulfillment of the requirement is also optional and therefore not a prerequisite for the acceptance.                                                          |
 
 </span>
 
@@ -122,12 +122,12 @@ This section contains all requirements that specify the basic actions of the sof
 
 </span>
 
-| REQUIREMENT | Visualizing the randomness                                                                                                                                                  |
-| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FR13                                                                                                                                                                        |
-| PRIORITY    | +                                                                                                                                                                           |
+| REQUIREMENT | Visualizing the randomness                                                                                                                                                   |
+| ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR13                                                                                                                                                                         |
+| PRIORITY    | +                                                                                                                                                                            |
 | DESCRIPTION | If the selection of a StoryBranch after a StoryFlowDecision is generated with DiceRandomness, QualityQuest shall display a clear visualization of the randomization process. |
-| EXPLANATION | -                                                                                                                                                                           |
+| EXPLANATION | -                                                                                                                                                                            |
 
 </span>
 
@@ -338,11 +338,11 @@ This section contains all requirements that specify the basic actions of the sof
 
 </span>
 
-| REQUIREMENT | Hashing of integral data                                                                       |
+| REQUIREMENT | Encryption of integral data                                                                    |
 | ----------- | :--------------------------------------------------------------------------------------------- |
 | ID          | FR37                                                                                           |
 | PRIORITY    | +                                                                                              |
-| DESCRIPTION | Integral data shall be hashed on the server side.                                              |
+| DESCRIPTION | Integral data shall be hashed and salted on the server side.                                   |
 | EXPLANATION | An example for integral data is, but is not limited to being, the ServerLogic access-password. |
 
 </span>

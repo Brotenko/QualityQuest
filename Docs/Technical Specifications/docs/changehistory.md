@@ -86,7 +86,7 @@ The change history is a chronologically ordered list of all changes between diff
 |   +   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _NFR25:_** Added requirement "Postgame statistic contents".                                                |
 |   *   | **[_Change history:_](/changehistory) _Change history:_** Fixed typos.                                                                                                                    |
 |   *   | **[_Glossary:_](/glossary) _Glossary:_** Fixed typos.                                                                                                                                     |
-|   *   | **[_Requirements:_](/requirements) __Requirements:_** Fixed typos.                                                                                                                        |
+|   *   | **[_Requirements:_](/requirements) _Requirements:_** Fixed typos.                                                                                                                        |
 |   *   | **[_Table of content:_](/toc) _Table of content:_** Fixed typos.                                                                                                                          |
 |   *   | **[_Used tools, plugins and libraries:_](/usedtools) _Used tools, plugins and libraries:_** Fixed typos.                                                                                  |
 
