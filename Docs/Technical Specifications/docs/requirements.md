@@ -293,21 +293,21 @@ This section contains all requirements that specify the basic actions of the sof
 
 </span>
 
-| REQUIREMENT | Unique voting option identifier                                                                                                                                                                               |
-| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| ID          | FR32                                                                                                                                                                                                          |
-| PRIORITY    | +                                                                                                                                                                                                             |
-| DESCRIPTION | Every voting option shall be assigned a unique voting option identifier by means of hashing the option.                                                                                                       |
-| EXPLANATION | The option <code>You choose to not go to work today.</code> would result in the unique voting option identifier <code>dfe177d53212181e392cadda7d3972eee21d290b180720df6c43309e0ffb5d70</code>, using SHA-256. |
+| REQUIREMENT | Unique voting option identifier                                                                              |
+| ----------- | :----------------------------------------------------------------------------------------------------------- |
+| ID          | FR32                                                                                                         |
+| PRIORITY    | +                                                                                                            |
+| DESCRIPTION | Every voting option shall be assigned a unique voting option identifier by assigning a GUID to every option. |
+| EXPLANATION | -                                                                                                            |
 
 </span>
 
-| REQUIREMENT | Game-relevant ServerLogic logging                                                                                                       |
-| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FR33                                                                                                                                    |
-| PRIORITY    | +                                                                                                                                       |
-| DESCRIPTION | Data that is needed for the general course of the game or for communication between clients and servers shall be logged by ServerLogic. |
-| EXPLANATION | Relevant data is: </br></br><ul><li>The Moderator-Client GUID</li><li>PlayerAudience-Client GUIDs</li><li>Online-Session key</li></ul>  |
+| REQUIREMENT | Game-relevant ServerLogic logging                                                                                                                           |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR33                                                                                                                                                        |
+| PRIORITY    | +                                                                                                                                                           |
+| DESCRIPTION | Data that is needed for the general course of the game or for communication between clients and servers shall be logged by ServerLogic.                     |
+| EXPLANATION | Relevant data is: </br></br><ul><li>The Moderator-Client GUID</li><li>PlayerAudience-Client GUIDs</li><li>Online-Session key</li><li>Vote results</li></ul> |
 
 </span>
 
@@ -424,7 +424,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ID          | FR46                                                                                                                                       |
 | PRIORITY    | +                                                                                                                                          |
 | DESCRIPTION | Communication between Moderator-Client and ServerLogic, and between PlayerAudience-Clients and ServerLogic shall persist during the pause. |
-| EXPLANATION |                                                                                                                                            |
+| EXPLANATION | -                                                                                                                                          |
 
 </span>
 
@@ -470,6 +470,24 @@ This section contains all requirements that specify the basic actions of the sof
 | PRIORITY    | 0                                                                                                                                                                                                                                         |
 | DESCRIPTION | The pause menu should display the following elements: </br></br><ul><li>A banner that reads "Paused"</li><li>A button to unpause the game</li><li>The PlayerAudience connection method</li><li>All PlayerAudience connection options</li> |
 | EXPLANATION | -                                                                                                                                                                                                                                         |
+
+</span>
+
+| REQUIREMENT | Vote indexing procedure                                                      |
+| ----------- | :--------------------------------------------------------------------------- |
+| ID          | FR52                                                                         |
+| PRIORITY    | +                                                                            |
+| DESCRIPTION | The procedure used for indexing the different voting options shall be GUIDs. |
+| EXPLANATION | -                                                                            |
+
+</span>
+
+| REQUIREMENT | Cryptographic hashing procedure                                         |
+| ----------- | :---------------------------------------------------------------------- |
+| ID          | FR53                                                                    |
+| PRIORITY    | +                                                                       |
+| DESCRIPTION | The hashing procedure used for cryptographic purposes shall be SHA-256. |
+| EXPLANATION | -                                                                       |
 
 </span>
 
