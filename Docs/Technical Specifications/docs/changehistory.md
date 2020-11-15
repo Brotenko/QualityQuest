@@ -35,16 +35,22 @@ The change history is a chronologically ordered list of all changes between diff
 
 ## Version 0.2.0 - Component design
 
-| Type  | Description |
-| :---: | :---------- |
-|+|**[_Class diagrams:_](/architectureDiagrams#server-class-diagrams) _Server class diagram:_** Added a joined class diagram for PlayerAudience-Client and Server, along with a description.|
-| * | **[_Class diagrams:_](/architectureDiagrams#Classdiagrams) _Class diagrams:_**  Updated class diagram with the new Server diagram         |
-|   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in FR24, FR25, FR26, FR27, FR28 and FR29.|
-|   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in NFR20 and NFR21.|  
-|   +   | **[_Glossary:_](/glossary) _ServerLogic:_** Added new term. |
-|   *   | **[_Glossary:_](/glossary) _Server:_** Changed description. |
-| * | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _All component diagrams:_** Updated diagrams and descriptions.|
-|   +   | **_[StoryFlow diagram:](#detailed-storyFlow-diagrams) Detailed StoryFlow Diagrams:_** Added detailed StoryFlow diagrams for every StoryFlowDecision. |
+| Type  | Description                                                                                                                                                                               |
+| :---: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|   +   | **[_Class diagrams:_](/architectureDiagrams#server-class-diagrams) _Server class diagram:_** Added a joined class diagram for PlayerAudience-Client and Server, along with a description. |
+|   *   | **[_Class diagrams:_](/architectureDiagrams#Classdiagrams) _Class diagrams:_**  Updated class diagram with the new Server diagram                                                         |
+|   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in FR24, FR25, FR26, FR27, FR28 and FR29.                   |
+|   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in NFR20 and NFR21.                                 |
+|   +   | **[_Glossary:_](/glossary) _ServerLogic:_** Added new term.                                                                                                                               |
+|   *   | **[_Glossary:_](/glossary) _Server:_** Changed description.                                                                                                                               |
+|   *   | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _All component diagrams:_** Updated diagrams and descriptions.                                                        |
+|   +   | **_[StoryFlow diagram:](#detailed-storyFlow-diagrams) Detailed StoryFlow Diagrams:_** Added detailed StoryFlow diagrams for every StoryFlowDecision.                                      |
+|   *   | **[_Architecture diagrams:_](/architectureDiagrams) _Architecture diagrams:_**                                                                                                            |
+|   *   | **[_Change history:_](/changehistory) _Change history:_** Fixed typos.                                                                                                                    |
+|   *   | **[_Glossary:_](/glossary) _Glossary:_** Fixed typos.                                                                                                                                     |
+|   *   | **[_Requirements:_](/requirements) __Requirements:_** Fixed typos.                                                                                                                        |
+|   *   | **[_Table of content:_](/toc) _Table of content:_** Fixed typos.                                                                                                                          |
+|   *   | **[_Used tools, plugins and libraries:_](/usedtools) _Used tools, plugins and libraries:_** Fixed typos.                                                                                  |
 
 </span>
 
@@ -101,7 +107,7 @@ This is the revised version of the Technical Specifications according to the fee
 |   *   | **[_Requirements:_](/requirements) _Functional Requirements:_** Changed Id from "FA" to "FR".                                                                                                                                                                                                                                  |
 |   *   | **[_Requirements:_](/requirements) _Non-functional Requirements:_** Changed Id from "QA" to "NFR".                                                                                                                                                                                                                             |
 |   *   | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated notation and changed inconsistent interface labels.                                                                                                                                                                        |
-|   *   | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated descripitons for all component diagrams.                                                                                                                                                                                   |
+|   *   | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated descriptions for all component diagrams.                                                                                                                                                                                   |
 |   +   | **[_Used plugins:_](/usedtools#used-plugins) _Live Share:_** Added used plugin.                                                                                                                                                                                                                                                |
 |   *   | **[_Use-case diagrams:_](/use-case-diagramme#Moderator-Client) _Moderator-Client:_** Division into "Start Application", "Play Game" and "End Application" diagrams.                                                                                                                                                            |
 |   -   | **[_StoryFlow diagram:_](/storyflow) _StoryFlow diagram:_** Removed obsolete StoryFlow diagram.                                                                                                                                                                                                                                |

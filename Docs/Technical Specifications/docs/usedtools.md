@@ -13,14 +13,14 @@ The following tools were used during the creation of Quality Quest and the docum
 | GIMP               | Editor for raster graphics. Was used for image editing.                             | 2.10.18                                 |
 | SourceTree         | GUI for git.                                                                        | 4.0.1                                   |
 | GitKraken          | GUI for git.                                                                        | 5.0.4                                   |
-| MkDocs             | Documentation tool for creating stylised documentation through markdown files.      | 1.1.2                                   |
+| MkDocs             | Documentation tool for creating stylized documentation through markdown files.      | 1.1.2                                   |
 | GitHub             | Tool for source code management and version control.                                | [link](https://github.com/)             |
 | Doxygen            | Tool to generate software reference documentation.                                  | 1.8.20                                  |
 | Aseprite           | Tool to create pixelart sprites and animations.                                     | 1.2.25                                  |
 | Planttext          | A website for converting PlantUML files into svg files.                             | [link](https://www.planttext.com/)      |
 | Docker             | Tool used to use other tools directly without the need of installing anything,      | 19.03.13                                |
 | m2r                | Markdown to reStructuredText converter used for making the docs usable for Sphinx.  | [link](https://github.com/miyakogi/m2r) |
-| Sphinx             | Documentation tool for creating stylised documentation through reStructuredText.    | 3.2.1                                   |
+| Sphinx             | Documentation tool for creating stylized documentation through reStructuredText.    | 3.2.1                                   |
 
 </span>
 
