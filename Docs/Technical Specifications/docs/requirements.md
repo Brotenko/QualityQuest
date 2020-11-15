@@ -6,7 +6,7 @@ The requirements are divided into different priorities, whose meaning should be 
 | -------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | +        | The requirement must be fulfilled in any case so that the product can be accepted.                                                                                |
 | 0        | The fulfillment of the requirement is optional and therefore not necessarily a prerequisite for acceptance, but would have a very positive effect on the product. |
-| -        | The fulfillment of the requirement is also optional and therefore not a prerequisite for the acceptance.                                                           |
+| -        | The fulfillment of the requirement is also optional and therefore not a prerequisite for the acceptance.                                                          |
 
 </span>
 
@@ -122,12 +122,12 @@ This section contains all requirements that specify the basic actions of the sof
 
 </span>
 
-| REQUIREMENT | Visualizing the randomness                                                                                                                                                  |
-| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FR13                                                                                                                                                                        |
-| PRIORITY    | +                                                                                                                                                                           |
+| REQUIREMENT | Visualizing the randomness                                                                                                                                                   |
+| ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR13                                                                                                                                                                         |
+| PRIORITY    | +                                                                                                                                                                            |
 | DESCRIPTION | If the selection of a StoryBranch after a StoryFlowDecision is generated with DiceRandomness, QualityQuest shall display a clear visualization of the randomization process. |
-| EXPLANATION | -                                                                                                                                                                           |
+| EXPLANATION | -                                                                                                                                                                            |
 
 </span>
 
@@ -221,57 +221,57 @@ This section contains all requirements that specify the basic actions of the sof
 
 </span>
 
-| REQUIREMENT | Moderator game control                                                                                                                              |
-| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FR24                                                                                                                                                |
-| PRIORITY    | +                                                                                                                                                   |
+| REQUIREMENT | Moderator game control                                                                                                                                   |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR24                                                                                                                                                     |
+| PRIORITY    | +                                                                                                                                                        |
 | DESCRIPTION | Once the Moderator-Client established the connection to the ServerLogic, the Moderator shall have the option to start or interrupt the game at any time. |
-| EXPLANATION | -                                                                                                                                                   |
+| EXPLANATION | -                                                                                                                                                        |
 
 </span>
 
-| REQUIREMENT | Connection Timeout                                                                                                                                                                                                                                                                                      |
-| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| ID          | FR25                                                                                                                                                                                                                                                                                                    |
-| PRIORITY    | +                                                                                                                                                                                                                                                                                                       |
-| DESCRIPTION | If the Moderator-Client does not react within 10 seconds after receiving the ServerLogic's message, the connection from the Moderator-Client to the ServerLogic shall be interrupted. In this case the Moderator can either continue playing in Offline-Mode or try to re-establish the connection to the ServerLogic. |
-| EXPLANATION | This serves as a failsafe, in case of corrupted messages or connection loss.                                                                                                                                                                                                                            |
+| REQUIREMENT | Connection Timeout                                                                                                                                                                                                                                                                                                    |
+| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR25                                                                                                                                                                                                                                                                                                                  |
+| PRIORITY    | +                                                                                                                                                                                                                                                                                                                     |
+| DESCRIPTION | If the Moderator-Client does not react within 5 seconds after receiving the ServerLogic's message, the connection from the Moderator-Client to the ServerLogic shall be interrupted. In this case the Moderator can either continue playing in Offline-Mode or try to re-establish the connection to the ServerLogic. |
+| EXPLANATION | This serves as a failsafe, in case of corrupted messages or connection loss.                                                                                                                                                                                                                                          |
 
 </span>
 
-| REQUIREMENT | ServerLogic connection loss                                                                                                                                                                                                                                |
-| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FR26                                                                                                                                                                                                                                                  |
-| PRIORITY    | +                                                                                                                                                                                                                                                     |
-| DESCRIPTION | If a Moderator-Client or PlayerAudience-Client loses its connection to the ServerLogic, its Unique User Identifier (UUID) shall be stored in the ServerLogic. In this case, the respective client can reconnect to the ServerLogic to participate in the game again. |
-| EXPLANATION | -                                                                                                                                                                                                                                                     |
+| REQUIREMENT | ServerLogic connection loss                                                                                                                                                                                                                 |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ID          | FR26                                                                                                                                                                                                                                        |
+| PRIORITY    | +                                                                                                                                                                                                                                           |
+| DESCRIPTION | If a Moderator-Client or PlayerAudience-Client loses its connection to the ServerLogic, its GUID shall be stored in the ServerLogic. In this case, the respective client can reconnect to the ServerLogic to participate in the game again. |
+| EXPLANATION | -                                                                                                                                                                                                                                           |
 
 </span>
 
-| REQUIREMENT | Data exchange file format                                                   |
-| ----------- | :-------------------------------------------------------------------------- |
-| ID          | FR27                                                                        |
-| PRIORITY    | +                                                                           |
+| REQUIREMENT | Data exchange file format                                                                 |
+| ----------- | :---------------------------------------------------------------------------------------- |
+| ID          | FR27                                                                                      |
+| PRIORITY    | +                                                                                         |
 | DESCRIPTION | The file format for data exchange between Moderator-Client and ServerLogic shall be JSON. |
-| EXPLANATION | -                                                                           |
+| EXPLANATION | -                                                                                         |
 
 </span>
 
-| REQUIREMENT | Unique User Identifier (UUID)                                                                                |
-| ----------- | :----------------------------------------------------------------------------------------------------------- |
-| ID          | FR28                                                                                                         |
-| PRIORITY    | +                                                                                                            |
-| DESCRIPTION | Every client shall be assigned an Unique User Identifier (UUID) in the form of a web-cookie.                 |
-| EXPLANATION | This ensures participants can rejoin the game after leaving the game or losing the connection to the Server. |
+| REQUIREMENT | PlayerAudience-Client GUID                                                                                                                                                                                                                                                                                                                |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR28                                                                                                                                                                                                                                                                                                                                      |
+| PRIORITY    | +                                                                                                                                                                                                                                                                                                                                         |
+| DESCRIPTION | Every PlayerAudience-Client shall be assigned a GUID in the form of a web-cookie.                                                                                                                                                                                                                                                         |
+| EXPLANATION | This ensures the following points: </br></br><ul><li>Participants can rejoin the game after leaving the game or losing the connection to the ServerLogic.</li><li>The ServerLogic can ensure a PlayerAudience-Client can't vote several times per vote.</li><li>The ServerLogic can count the amount of PlayerAudience-Clients connected. |
 
 </span>
 
-| REQUIREMENT | Offline-Mode                                                                                                                                                                                                                                                                  |
-| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | FR29                                                                                                                                                                                                                                                                          |
-| PRIORITY    | +                                                                                                                                                                                                                                                                             |
+| REQUIREMENT | Offline-Mode                                                                                                                                                                                                                                                                           |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR29                                                                                                                                                                                                                                                                                   |
+| PRIORITY    | +                                                                                                                                                                                                                                                                                      |
 | DESCRIPTION | If any of the following conditions apply: </br></br><ul><li>The server is not functional</li><li>The network infrastructure slows down significantly</li><li>The connection between Moderator-Client and Server is problematic</li></ul>the Moderator shall continue the game offline. |
-| EXPLANATION | -                                                                                                                                                                                                                                                                             |
+| EXPLANATION | -                                                                                                                                                                                                                                                                                      |
 
 </span>
 
@@ -288,10 +288,210 @@ This section contains all requirements that specify the basic actions of the sof
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
 | ID          | FR31                                                                                                                                         |
 | PRIORITY    | +                                                                                                                                            |
-| DESCRIPTION | If a client does not adhere to the communication protocol 3 times, the UUID of the participant should be excluded from the rest of the game. |
+| DESCRIPTION | If a client does not adhere to the communication protocol 3 times, the GUID of the participant should be excluded from the rest of the game. |
 | EXPLANATION | This ensures that it is not easily possible to tinker with the game through an altered client.                                               |
 
 </span>
+
+| REQUIREMENT | Unique voting option identifier                                                                              |
+| ----------- | :----------------------------------------------------------------------------------------------------------- |
+| ID          | FR32                                                                                                         |
+| PRIORITY    | +                                                                                                            |
+| DESCRIPTION | Every voting option shall be assigned a unique voting option identifier by assigning a GUID to every option. |
+| EXPLANATION | -                                                                                                            |
+
+</span>
+
+| REQUIREMENT | Game-relevant ServerLogic logging                                                                                                                           |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR33                                                                                                                                                        |
+| PRIORITY    | +                                                                                                                                                           |
+| DESCRIPTION | Data that is needed for the general course of the game or for communication between clients and servers shall be logged by ServerLogic.                     |
+| EXPLANATION | Relevant data is: </br></br><ul><li>The Moderator-Client GUID</li><li>PlayerAudience-Client GUIDs</li><li>Online-Session key</li><li>Vote results</li></ul> |
+
+</span>
+
+| REQUIREMENT | General ServerLogic logging                                                                                                           |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------ |
+| ID          | FR34                                                                                                                                  |
+| PRIORITY    | +                                                                                                                                     |
+| DESCRIPTION | The most important and communication relevant operations of the ServerLogic shall be logged on the server side for debugging reasons. |
+| EXPLANATION | The general data logged by the ServerLogic is neither integral nor personal user data.                                                |
+
+</span>
+
+| REQUIREMENT | ServerLogic log deletion                                                                                                                                                                                                        |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ID          | FR35                                                                                                                                                                                                                            |
+| PRIORITY    | +                                                                                                                                                                                                                               |
+| DESCRIPTION | Game-relevant logs shall be cleared under following circumstances: </br></br><ul><li>No Moderator-Client has been connected to the ServerLogic in the last 30 minutes.</li><li>A new Online-Session is being started.</li></ul> |
+| EXPLANATION | This ensures that no user-specific data is being saved on server side longer than it has to be.                                                                                                                                 |
+
+</span>
+
+| REQUIREMENT | ServerLogic access-password                                                           |
+| ----------- | :------------------------------------------------------------------------------------ |
+| ID          | FR36                                                                                  |
+| PRIORITY    | +                                                                                     |
+| DESCRIPTION | The ServerLogic shall require a password to connect to it through a Moderator-Client. |
+| EXPLANATION | -                                                                                     |
+
+</span>
+
+| REQUIREMENT | Encryption of integral data                                                                    |
+| ----------- | :--------------------------------------------------------------------------------------------- |
+| ID          | FR37                                                                                           |
+| PRIORITY    | +                                                                                              |
+| DESCRIPTION | Integral data shall be hashed and salted on the server side.                                   |
+| EXPLANATION | An example for integral data is, but is not limited to being, the ServerLogic access-password. |
+
+</span>
+
+| REQUIREMENT | Online-Mode                                                                                                                                     |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR38                                                                                                                                            |
+| PRIORITY    | +                                                                                                                                               |
+| DESCRIPTION | If the Moderator-Client is connected to a server, and the moderator is not currently playing in Offline-Mode, the game shall be in Online-Mode. |
+| EXPLANATION | -                                                                                                                                               |
+
+</span>
+
+| REQUIREMENT | Online-Mode flag                                                                                                                                                                                                     |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR39                                                                                                                                                                                                                 |
+| PRIORITY    | +                                                                                                                                                                                                                    |
+| DESCRIPTION | A flag shall be set at the initialization of the game to distinguish between a pure Offline-Session, and an Online-Session that can switch between Offline-Mode and Online-Mode.                                     |
+| EXPLANATION | For network protocol purposes, a flag is set to distinguish whether the game was initialized in Online-Mode or Offline-Mode, so that sending and receiving messages is disregarded right from the start of the game. |
+
+</span>
+
+| REQUIREMENT | Moderator-Client GUID                                                                                   |
+| ----------- | :------------------------------------------------------------------------------------------------------ |
+| ID          | FR40                                                                                                    |
+| PRIORITY    | +                                                                                                       |
+| DESCRIPTION | The Moderator-Client shall be assigned a GUID.                                                          |
+| EXPLANATION | The GUID serves to identify as the Moderator-Client during on-going communication with the ServerLogic. |
+
+</span>
+
+| REQUIREMENT | PlayerAudience-Client count                                                                                   |
+| ----------- | :------------------------------------------------------------------------------------------------------------ |
+| ID          | FR41                                                                                                          |
+| PRIORITY    | 0                                                                                                             |
+| DESCRIPTION | The ServerLogic should keep count of the number of PlayerAudience-Clients being connected to the ServerLogic. |
+| EXPLANATION | -                                                                                                             |
+
+</span>
+
+| REQUIREMENT | PlayerAudience-Client count live update                                                                                                                                                  |
+| ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR42                                                                                                                                                                                     |
+| PRIORITY    | 0                                                                                                                                                                                        |
+| DESCRIPTION | The ServerLogic should inform the Moderator-Client in 3 seconds intervals about the amount of PlayerAudience-Clients connected to the ServerLogic, as long as the game didn't start yet. |
+| EXPLANATION | -                                                                                                                                                                                        |
+
+</span>
+
+| REQUIREMENT | Online-Session permanence                                                                                                                                                                                                                                                                                        |
+| ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR43                                                                                                                                                                                                                                                                                                             |
+| PRIORITY    | +                                                                                                                                                                                                                                                                                                                |
+| DESCRIPTION | An Online-Session shall persist until one of the following conditions apply: </br></br><ul><li>A new Moderator-Client connects to the ServerLogic.</li><li>A new Online-Session is started by the moderator.</li><li>No Moderator-Client has been connected to the ServerLogic in the last 30 minutes.</li></ul> |
+| EXPLANATION | -                                                                                                                                                                                                                                                                                                                |
+
+</span>
+
+| REQUIREMENT | Switch between Moderator-Clients                                                                                                                                                                                           |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR44                                                                                                                                                                                                                       |
+| PRIORITY    | +                                                                                                                                                                                                                          |
+| DESCRIPTION | If a Moderator-Client connects to the ServerLogic while another Moderator-Client is already connected to the ServerLogic, then the old Moderator-Client shall be kicked and the new Moderator-Client shall stay connected. |
+| EXPLANATION | -                                                                                                                                                                                                                          |
+
+</span>
+
+| REQUIREMENT | Voting-Timer stop on pause                                                  |
+| ----------- | :-------------------------------------------------------------------------- |
+| ID          | FR45                                                                        |
+| PRIORITY    | +                                                                           |
+| DESCRIPTION | The Voting-Timer shall pause when the Moderator-Client initializes a pause. |
+| EXPLANATION | -                                                                           |
+
+</span>
+
+| REQUIREMENT | Communication during pauses                                                                                                                |
+| ----------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR46                                                                                                                                       |
+| PRIORITY    | +                                                                                                                                          |
+| DESCRIPTION | Communication between Moderator-Client and ServerLogic, and between PlayerAudience-Clients and ServerLogic shall persist during the pause. |
+| EXPLANATION | -                                                                                                                                          |
+
+</span>
+
+| REQUIREMENT | PlayerAudience connection method                                                                                                   |
+| ----------- | :--------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR47                                                                                                                               |
+| PRIORITY    | +                                                                                                                                  |
+| DESCRIPTION | The PlayerAudience shall be able to join an Online-Session using a dynamically generated session key, provided by the ServerLogic. |
+| EXPLANATION | -                                                                                                                                  |
+
+</span>
+
+| REQUIREMENT | PlayerAudience connection option                                                                                                |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------ |
+| ID          | FR48                                                                                                                            |
+| PRIORITY    | +                                                                                                                               |
+| DESCRIPTION | The PlayerAudience shall be provided with an URL, at the start of the Online-Session, to be able to connect to the ServerLogic. |
+| EXPLANATION | -                                                                                                                               |
+
+</span>
+
+| REQUIREMENT | Additional PlayerAudience connection options                                                                                             |
+| ----------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR49                                                                                                                                     |
+| PRIORITY    | 0                                                                                                                                        |
+| DESCRIPTION | The PlayerAudience should also be provided with a QR code, at the start of the Online-Session, to be able to connect to the ServerLogic. |
+| EXPLANATION | -                                                                                                                                        |
+
+</span>
+
+| REQUIREMENT | Pause menu                                                      |
+| ----------- | :-------------------------------------------------------------- |
+| ID          | FR50                                                            |
+| PRIORITY    | +                                                               |
+| DESCRIPTION | The pause menu shall pop-up after a pause has been initialized. |
+| EXPLANATION | -                                                               |
+
+</span>
+
+| REQUIREMENT | Pause menu contents                                                                                                                                                                                                                       |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | FR51                                                                                                                                                                                                                                      |
+| PRIORITY    | 0                                                                                                                                                                                                                                         |
+| DESCRIPTION | The pause menu should display the following elements: </br></br><ul><li>A banner that reads "Paused"</li><li>A button to unpause the game</li><li>The PlayerAudience connection method</li><li>All PlayerAudience connection options</li> |
+| EXPLANATION | -                                                                                                                                                                                                                                         |
+
+</span>
+
+| REQUIREMENT | Vote indexing procedure                                                      |
+| ----------- | :--------------------------------------------------------------------------- |
+| ID          | FR52                                                                         |
+| PRIORITY    | +                                                                            |
+| DESCRIPTION | The procedure used for indexing the different voting options shall be GUIDs. |
+| EXPLANATION | -                                                                            |
+
+</span>
+
+| REQUIREMENT | Cryptographic hashing procedure                                         |
+| ----------- | :---------------------------------------------------------------------- |
+| ID          | FR53                                                                    |
+| PRIORITY    | +                                                                       |
+| DESCRIPTION | The hashing procedure used for cryptographic purposes shall be SHA-256. |
+| EXPLANATION | -                                                                       |
+
+</span>
+
+
 
 ## Non-functional Requirements
 
@@ -459,12 +659,12 @@ This section specifies the non-functional requirements for the software system.
 
 </span>
 
-| REQUIREMENT | Usage of online voting solutions                                                                                                                                                                                                 |
-| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID          | NFR19                                                                                                                                                                                                                            |
-| PRIORITY    | -                                                                                                                                                                                                                                |
+| REQUIREMENT | Usage of online voting solutions                                                                                                                                        |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID          | NFR19                                                                                                                                                                   |
+| PRIORITY    | -                                                                                                                                                                       |
 | DESCRIPTION | A self-made online voting solution shall be created by the team in order to implement the requirements of the tool and ensure the compatibility as optimal as possible. |
-| EXPLANATION | -                                                                                                                                                                                                                                |
+| EXPLANATION | -                                                                                                                                                                       |
 
 </span>
 
@@ -477,12 +677,12 @@ This section specifies the non-functional requirements for the software system.
 
 </span>
 
-| REQUIREMENT | Exclusive Moderator-Client connection                                                             |
-| ----------- | :------------------------------------------------------------------------------------------------ |
-| ID          | NFR21                                                                                             |
-| PRIORITY    | +                                                                                                 |
+| REQUIREMENT | Exclusive Moderator-Client connection                                                                       |
+| ----------- | :---------------------------------------------------------------------------------------------------------- |
+| ID          | NFR21                                                                                                       |
+| PRIORITY    | +                                                                                                           |
 | DESCRIPTION | The ServerLogic shall only allow a single Moderator-Client to connect to the ServerLogic at any given time. |
-| EXPLANATION | -                                                                                                 |
+| EXPLANATION | -                                                                                                           |
 
 </span>
 
@@ -492,5 +692,32 @@ This section specifies the non-functional requirements for the software system.
 | PRIORITY    | +                                                                                                                                                                                                                                                                                                                           |
 | DESCRIPTION | As a game engine the project shall use Unity.                                                                                                                                                                                                                                                                               |
 | EXPLANATION | The license conditions of the game engine allow the source code of QualityQuest to be open source. The license conditions of the game engine allow the usage of the game engine without license fees. The license conditions of the game engine allow the usage of QualityQuest as intended by NewTec without license fees. |
+
+</span>
+
+| REQUIREMENT | Communication security                                                                                               |
+| ----------- | :------------------------------------------------------------------------------------------------------------------- |
+| ID          | NFR23                                                                                                                |
+| PRIORITY    | +                                                                                                                    |
+| DESCRIPTION | The safe communication between Moderator-Client and the ServerLogic shall be guaranteed through WebSocket and HTTPS. |
+| EXPLANATION | -                                                                                                                    |
+
+</span>
+
+| REQUIREMENT | Postgame statistics                                                                       |
+| ----------- | :---------------------------------------------------------------------------------------- |
+| ID          | NFR24                                                                                     |
+| PRIORITY    | 0                                                                                         |
+| DESCRIPTION | The Moderator-Client should display postgame statistics at the end of the Online-Session. |
+| EXPLANATION | -                                                                                         |
+
+</span>
+
+| REQUIREMENT | Postgame statistic contents                                              |
+| ----------- | :----------------------------------------------------------------------- |
+| ID          | NFR25                                                                    |
+| PRIORITY    | 0                                                                        |
+| DESCRIPTION | The postgame statistics should display which option was voted how often. |
+| EXPLANATION | -                                                                        |
 
 </span>

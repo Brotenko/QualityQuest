@@ -35,6 +35,7 @@ The following plugins were used during the creation of Quality Quest and the doc
 | mkdocs-with-pdf     | MkDocs plugin used for creating a PDF out of the MkDocs documents.                                                | 0.7.5                                                                      |
 | Admonition          | MkDocs extension used to create admonitions in the documentation.                                                 | [link](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) |
 | Live Share          | Visual Studio (Code) plugin used for collaboratively editing any codebase with others in real time.               | v1.0.3046                                                                  |
+| Code Spell Checker  | Visual Studio Code plugin used for spell checking source code.                                                    | 1.9.0                                                                      |
 
 
 </span>

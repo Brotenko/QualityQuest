@@ -20,6 +20,7 @@
     - [Component diagrams](architectureDiagrams.md#class-diagram)
     - [Class diagrams](architectureDiagrams.md#component-diagrams)
 - [StoryFlow](storyflow.md)
+- [Network protocol](network-protocol.md)
 - [Used tools, plugins and libraries](usedtools.md)
     - [Used tools](usedtools.md#used-tools)
     - [Used plugins](usedtools.md#used-plugins)

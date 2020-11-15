@@ -1,0 +1,25 @@
+@startuml
+
+box "Network protocol relevance" #LightSteelBlue
+actor "Moderator-Client" as m order 1
+database "ServerLogic" as s order 2
+end box
+
+
+
+activate m
+activate s
+
+loop send until answered 
+    m -> s: RequestServerStatus
+end 
+
+s --> m: ServerStatus
+
+opt 
+    m -> s: Reconnect
+    s --> m: ReconnectSuccessful
+end
+
+
+@enduml
