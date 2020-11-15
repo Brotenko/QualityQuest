@@ -14,7 +14,7 @@ activate s
 m -> s: RequestStartVoting
 s --> m: VotingStarted
 s -> p: Notify about poll
-    loop while votingTimer > 0
+    loop while Voting-Timer > 0
         p -> s: Vote
         activate s
         activate p

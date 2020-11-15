@@ -14,14 +14,20 @@ activate s
 m -> s: RequestOpenSession
 
 alt 
-    s --> m: OpenSession
+    s -> s: Clear logs
+    s --> m: SessionOpened
         loop while game \n not started yet.
-            p -> s: Connect to session
-            activate s
-            activate p
-            s --> p: Confirm connection
-            deactivate s
-            deactivate p
+            opt
+                p -> s: Connect to session
+                activate s
+                activate p
+                s --> p: Confirm connection
+                deactivate s
+                deactivate p
+            end
+            opt 
+                s -> m: AudienceStatus
+            end
         end
     m -> s: RequestGameStart
     s --> m: GameStarted
