@@ -96,7 +96,7 @@ package "Server" {
       {field} -webSocket: WebSocket
       {field} -ip: IPAddress
       {field} -port: int
-      {field} -numberOfConnectetPlayerAudienceClients: int
+      {field} -numberOfConnectedPlayerAudienceClients: int
       {field} +logger: Logger
       {field} -authentificationTokenModeratorClientHash: int
       {method} +ModeratorClientManager(): void
