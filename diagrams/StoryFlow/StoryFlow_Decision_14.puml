@@ -1,0 +1,10 @@
+@startuml
+(*) --> "The project is near completion, \n only the code review is missing."
+if "Do you participate\n in the code review?" then 
+--> [You would like to participate in the review.] "You take part in the review. You receive useful tips \n for your future life as a software engineer. \n Your stats change: \n+2 analytics \n +2 communication." as review
+else 
+--> [No, the test runs through. \n Everything will be fine.] "You don't participate in the review process,\n your boss is not amused. \n Your stats change: \n-2 analytics \n -2 communication."
+-[#blue,dotted]-> "The project has been completed." as nextDecision
+review -[#blue,dotted]-> nextDecision
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+(*) --> "You are thirsty and want to get something to drink."
+if "What do you take?" then 
+--> [One beer is enough for the evening.] "You got through the evening.\n Your stats change:\n +1 partying" as lightParty
+else 
+--> [One coke is perfectly sufficient.] lightParty
+else 
+-->[A few Tequila shots will do it, \nafter all it's for free, you should take advantage of it.] "You drink two shots."
+if "Do you want to \n drink more shots?" then 
+--> [You drink a few more shots] if "partying + dice roll > 8" as drink then 
+--> [true] "Due to your excellent party experience \n you are able to drink \n and survive the party \n without creating a stir. \n Your stats change \n +3 partying" as goodEnd
+else 
+--> [false] "You bring a good atmosphere to the party, \n but your mentor and boss notice you \n negatively, because you are quite drunk.\n Your stats change: \n +3 partying \n -2 communication" as badEnd
+endif
+else 
+--> [No, 2 are enough for today] "You bring a good atmosphere to the party. \n Your stats change:\n +2 partying"
+endif
+--> "The party is over and you go home." as home
+badEnd --> home
+lightParty --> home
+goodEnd --> home
+-[#blue,dotted]-> "A voluntary training course is coming up."
+
+@enduml

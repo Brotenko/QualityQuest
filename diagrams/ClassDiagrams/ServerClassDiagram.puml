@@ -1,0 +1,107 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package "Server" {
+   
+
+  package "ServerLogic" <<Rectangle>>{
+    class "ServerShell" as ss {
+      {field} +logger: Logger
+      {field} -port: int
+      {field} -runShell: bool
+      {field} -serverShell: ServerShell
+      {field} -streamReader: StreamReader
+      {method} +ServerShell()
+      {method} +startShell(): void
+      {method} +stopShell(): void
+      {method} +parseCommand(command: string): void
+      {method} +showHelp(): void
+      {method} +configPort(): void
+      {method} +configCapacity(): void
+      {method} +startServer(): void
+      {method} +stopServer(): void
+      {method} +main(args: string[]): void
+    }
+
+    class "ModeratorClientManager" as cm {
+      {field} -webSocket: WebSocket
+      {field} -ip: IPAddress
+      {field} -port: int
+      {field} -numberOfConnectedPlayerAudienceClients: int
+      {field} +logger: Logger
+      {field} -authentificationTokenModeratorClientHash: int
+      {method} +ModeratorClientManager(): void
+      {method} +disconnect(): void
+      {method} +recieveMessage(message: string): void
+      {method} +checkJSON(message: string): bool
+      {method} +sendMessage(message: string): void
+      {method} +sendVotingResults(results: Dictionary<Guid, int>): void
+      {method} +evalJSON(json: string): string[]
+
+    }    
+
+    class "MainServerLogic" as msl {
+      {field} -moderator: ModeratorClientManager
+      {field} -playerAudience: PlayerAudienceClientManager
+      {field} -timer: Timer
+      {field} +logger: Logger
+      {method} +MainServerLogic(capacity: int, port: int)
+      {method} +onFalseMessage(message: string): void
+      {method} +onVotingMessage(message: string): void
+      {method} +updateModeratorClientManagerPlayerAudienceClientCountAttribute(): void
+      {method} +startPollingTimer(): void
+    }
+
+    class "PlayerAudienceClientManager" as api {
+        {field} -observerCollection: ArrayList<Observer>
+        {field} -possibleDecisions: string[]
+        {field} -voteCounter: Dictionary<int, int>
+        {method} +PlayerAudienceClientManager()
+        {method} +subscribeObserver(observer: Observer, cookie: Cookie): void
+        {method} +unsubscribeObserver(observer: Observer): void
+        {method} -notifyObservers(): void
+        {method} +updatePossibleDecisions(decisions: Dictionary<Guid, string>): void
+        {method} +evaluateVotes(): Dictionary<Guid, int>
+  }
+
+    class "ServerLogger" as sl <<Singleton>> {
+      {field} +globalLogger: Logger
+      {field} -logFile: StreamWriter
+      {field} -isSetup: bool
+      {field} -consoleHandler: Handler
+      {method} -Logger()
+      {method} +createNewLogger(): Logger
+      {method} +setup(): void
+      {method} +addHandler(logger: Logger): void
+      {method} +setLevel(level: int): void
+      {method} +setConsoleOutput(val: bool): void
+    }
+  }
+  package "PlayerAudience-Client" <<Rectangle>>{  
+    class "PlayerAudienceClientExchange" as pace <<Observer>>{
+      {field} -sessionCookie: Cookie
+      {field} -votingAllowed: bool
+      {field} -selectedDecision: int
+      {field} -possibleDecisions: Dictionary<Guid, string>
+      {method} +PlayerAudienceClientExchange()
+      {method} +update(): void
+      {method} -hashifyStringToID(decision: string): int
+    }
+
+    class "PlayerAudienceView" as pav {
+      {method} +PlayerAudienceView()
+    }
+  }
+  ss -- msl
+  msl - cm
+  msl -down- api
+  sl ... cm
+  sl ... msl
+  sl ... api
+  sl ... ss
+  pace -left- pav
+  api "1" <-right- "n" pace : observes
+}
+
+@enduml

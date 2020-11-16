@@ -8,10 +8,6 @@ else
 --> [character 3] wpf
 else
 --> [character 4] wpf
-else
---> [character 5] wpf
-else
---> [character 6] wpf
 if "" then
 --> [Introduction\nto Bali] "Company internship" as fpr
 else

@@ -88,6 +88,10 @@
                     </li>
                 </ul>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../network-protocol/">Network protocol</a>
+                    </li>
+                </ul>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../storyflow/">StoryFlow</a>
                     </li>
                 </ul>
@@ -133,27 +137,29 @@
               
                 <h1 id="use-case-diagrams">Use-case diagrams</h1>
 <h2 id="playeraudience-client">PlayerAudience-Client</h2>
-<p><img alt="" src="../diagrams/UseCase/PlayerAudience_Client.svg" /></p>
+<p><img alt="PlayerAudience-Client" src="../diagrams/UseCase/PlayerAudience_Client.svg" /></p>
 <p>Via the PlayerAudience-Client, the individual participant, as part of the audience, has the possibility to vote on the decisions that occur in the game. 
 The PlayerAudience-Client also acts as an actor for the server.</p>
-<hr />
 <h2 id="server">Server</h2>
-<p><img alt="" src="../diagrams/UseCase/Server.svg" /></p>
+<p><img alt="Server" src="../diagrams/UseCase/Server.svg" /></p>
 <p>Server receives the respective decisions from the PlayerAudience-Client, collects and evaluates them in relation to the number of votes.
 The server also acts as an actor for the Moderator-Client.</p>
-<hr />
 <h2 id="moderator-client">Moderator-Client</h2>
 <h3 id="start-application">Start Application</h3>
-<p><img alt="" src="../diagrams/UseCase/Moderator_Client_A.svg" /></p>
-<p>The moderator is responsible for starting the application. From the main menu the moderator can change settings or close the application directly. The moderator can establish a connection to the server to play the game with online polling or the moderator can start the game in Offline-Mode.</p>
-<hr />
+<p><img alt="Start Application" src="../diagrams/UseCase/Moderator_Client_A.svg" /></p>
+<p>To start the game the Moderator-Client has to be launched by the moderator first.
+During the start of the application a flash screen with the NewTec logo is shown after which the main menu is loaded.
+In the main menu, a connection to the server must first be established to begin playing the game with online voting.
+If a connection has been established the game can be started in the main menu.
+There is also an option to start the game in Offline-Mode in case no connection to the server can be established or online voting is not needed.
+In the main menu a submenu which allows the moderator to set options like volume, resolution and language can also be accessed.
+The main menu also allows the moderator to close the game.</p>
 <h3 id="play-game">Play Game</h3>
-<p><img alt="" src="../diagrams/UseCase/Moderator_Client_B.svg" /></p>
-<p>If there is a connection to the server, the server is gathering data from the audience and telling the Moderator-Client what is to be done depending on the data collected and the moderator can pause the game. If there is no connection, the moderator plays the game.</p>
-<hr />
+<p><img alt="Play Game" src="../diagrams/UseCase/Moderator_Client_B.svg" /></p>
+<p>If there is a connection to the server, the server is gathering data from the audience and telling the Moderator-Client what is to be done depending on the data collected. The moderator can pause the game locally, which simultaneously sends a message to the server to stop the election process on the server side. If there is no connection, the moderator plays the game.</p>
 <h3 id="end-application">End Application</h3>
-<p><img alt="" src="../diagrams/UseCase/Moderator_Client_C.svg" /></p>
-<p>The moderator is responsible for ending the application. If the application is closed, the session with the server is also terminated.</p>
+<p><img alt="End Application" src="../diagrams/UseCase/Moderator_Client_C.svg" /></p>
+<p>The moderator is responsible for ending the application. When the moderator ends the application, a message is sent to the server so that the server can end the current session with the PlayerAudience.</p>
               
             </div>
           </div>
