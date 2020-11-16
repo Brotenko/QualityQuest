@@ -39,7 +39,7 @@ package "Moderator-Client" {
     {method} +ModeratorClientExchange()
     {method} +sendMessage(message: string): void
     {method} +evalJSON(json: string): bool
-    {method} +endCurrentPollAndGetVotingResults(): int
+    {method} +getVotingResults(): int
     {method} +makeJSON(): string
     {method} +enterPassword(pw: string): void
   }
@@ -96,6 +96,7 @@ package "Server" {
       {field} -webSocket: WebSocket
       {field} -ip: IPAddress
       {field} -port: int
+      {field} -numberOfConnectetPlayerAudienceClients: int
       {field} +logger: Logger
       {field} -authentificationTokenModeratorClientHash: int
       {method} +ModeratorClientManager(): void
@@ -103,7 +104,7 @@ package "Server" {
       {method} +recieveMessage(message: string): void
       {method} +checkJSON(message: string): bool
       {method} +sendMessage(message: string): void
-      {method} +sendVotingResults(results: Dictionary<int, int>): void
+      {method} +sendVotingResults(results: Dictionary<Guid, int>): void
       {method} +evalJSON(json: string): string[]
 
     }    
@@ -111,11 +112,13 @@ package "Server" {
     class "MainServerLogic" as msl {
       {field} -moderator: ModeratorClientManager
       {field} -playerAudience: PlayerAudienceClientManager
+      {field} -timer: Timer
       {field} +logger: Logger
       {method} +MainServerLogic(capacity: int, port: int)
       {method} +onFalseMessage(message: string): void
       {method} +onVotingMessage(message: string): void
-
+      {method} +updateModeratorClientManagerPlayerAudienceClientCountAttribute(): void
+      {method} +startPollingTimer(): void
     }
 
     class "PlayerAudienceClientManager" as api {
@@ -126,16 +129,17 @@ package "Server" {
         {method} +subscribeObserver(observer: Observer, cookie: Cookie): void
         {method} +unsubscribeObserver(observer: Observer): void
         {method} -notifyObservers(): void
-        {method} +updatePossibleDecisions(decisions: string[]): void
-        {method} +evaluateVotes(): Dictionary<int, int>
+        {method} +updatePossibleDecisions(decisions: Dictionary<Guid, string>): void
+        {method} +evaluateVotes(): Dictionary<Guid, int>
   }
 
-    class "ServerLogger" as sl {
+    class "ServerLogger" as sl <<Singleton>> {
       {field} +globalLogger: Logger
-      {field} +logFile: StreamWriter
-      {field} +isSetup: bool
-      {field} +consoleHandler: Handler
-      {method} +Logger()
+      {field} -logFile: StreamWriter
+      {field} -isSetup: bool
+      {field} -consoleHandler: Handler
+      {method} -Logger()
+      {method} +createNewLogger(): Logger
       {method} +setup(): void
       {method} +addHandler(logger: Logger): void
       {method} +setLevel(level: int): void
@@ -147,7 +151,7 @@ package "Server" {
       {field} -sessionCookie: Cookie
       {field} -votingAllowed: bool
       {field} -selectedDecision: int
-      {field} -possibleDecisions: string[]
+      {field} -possibleDecisions: Dictionary<Guid, string>
       {method} +PlayerAudienceClientExchange()
       {method} +update(): void
       {method} -hashifyStringToID(decision: string): int
