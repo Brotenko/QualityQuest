@@ -455,7 +455,7 @@ This message is sent from the Moderator-Client to the ServerLogic to request the
 class RequestStartVoting : MessageContainer 
 {
     int votingTime;
-    Dictionary<string, string> votingOptions;
+    Dictionary<Guid, string> votingOptions;
 }
 ```
 
@@ -485,7 +485,7 @@ This message is sent from the ServerLogic to the Moderator-Client in response to
 class VotingEnded : MessageContainer 
 {
     string winningOption;
-    Dictionary<string, int> votingResults;
+    Dictionary<Guid, int> votingResults;
 }
 ```
 
