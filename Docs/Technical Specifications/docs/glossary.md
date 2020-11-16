@@ -44,7 +44,7 @@ This section includes all actors involved in the system. Actors are people, but 
 
 | Term        | Moderator-Client                                                                                                                                                                                                                                                                                                                                                                                              |
 | ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| DESCRIPTION | The Moderator-Client offers a graphical interface through which Moderator and PlayerAudience can interact with the game. The Moderator-Client can establish a connection to the server, to include the PlayerAudience in the game, or play the game locally without connecting to a server. In case of a server connection the Moderator-Client visualises and logically implements the output of the server. |
+| DESCRIPTION | The Moderator-Client offers a graphical interface through which Moderator and PlayerAudience can interact with the game. The Moderator-Client can establish a connection to the server, to include the PlayerAudience in the game, or play the game locally without connecting to a server. In case of a server connection the Moderator-Client visualizes and logically implements the output of the server. |
 | IS-A        | Component                                                                                                                                                                                                                                                                                                                                                                                                     |
 | CAN-BE      | -                                                                                                                                                                                                                                                                                                                                                                                                             |
 | EXAMPLE     | -                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -69,21 +69,22 @@ This section includes all actors involved in the system. Actors are people, but 
 
 </span>
 
-| Term        | Server                                                                                                                                                    |
-| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | The server serves as an interface for the communication between the Moderator-Client and the PlayerAudience-Clients. The server contains the Voting-Tool. |
-| IS-A        | Component                                                                                                                                                 |
-| CAN-BE      | -                                                                                                                                                         |
-| EXAMPLE     | -                                                                                                                                                         |
+| Term        | ServerLogic                                                                                                                                                                                                             |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | The ServerLogic serves as an interface for the communication between the Moderator-Client and the PlayerAudience-Clients. The ServerLogic contains a logical unit responsible for setting up votes and evaluating them. |
+| IS-A        | Component                                                                                                                                                                                                               |
+| CAN-BE      | -                                                                                                                                                                                                                       |
+| EXAMPLE     | -                                                                                                                                                                                                                       |
 
 </span>
 
-| Term        | Voting-Tool                                                                                                                                                             |
-| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | The voting tool is a logical unit, and part of the server, which decides which StoryBranch of the StroyFlow is chosen based on the input of the PlayerAudience-Clients. |
-| IS-A        | -                                                                                                                                                                       |
-| CAN-BE      | -                                                                                                                                                                       |
-| EXAMPLE     | -                                                                                                                                                                       |
+
+| Term        | Server                                                                                                           |
+| ----------- | :--------------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | The server is a piece of computer hardware or software that hosts the ServerLogic and the PlayerAudience-Client. |
+| IS-A        | -                                                                                                                |
+| CAN-BE      | -                                                                                                                |
+| EXAMPLE     | -                                                                                                                |
 
 </span>
 
@@ -217,12 +218,12 @@ This section contains a collection of information regarding technical terms that
 
 </span>
 
-| Term        | OnlineVoting                                                                                                                                                    |
-| ----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | The PlayerAudience selects its decisions for a StoryFlowDecision via an online voting system. The Connection with the OnlineVoting is established by a QR-Code. |
-| IS-A        | -                                                                                                                                                               |
-| CAN-BE      | -                                                                                                                                                               |
-| EXAMPLE     | -                                                                                                                                                               |
+| Term        | Online voting                                                                                                                                                                                         |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | The PlayerAudience selects its decisions for a StoryFlowDecision via the ServerLogic. The Connection with the ServerLogic is established over the PlayerAudience-Client by entering a QR-Code or URL. |
+| IS-A        | -                                                                                                                                                                                                     |
+| CAN-BE      | -                                                                                                                                                                                                     |
+| EXAMPLE     | -                                                                                                                                                                                                     |
 
 </span>
 
@@ -262,20 +263,56 @@ This section contains a collection of information regarding technical terms that
 
 </span>
 
-| Term        | Communication protocol                                                                                                                                                                                                                                                         |
-| ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DESCRIPTION | The communication protocol shall define clearly and well-defined how clients and server shall communicate with each other in order to accept messages. If a client increasingly does not adhere to the communication protocol, a communication protocol violation is detected. |
-| IS-A        | -                                                                                                                                                                                                                                                                              |
-| CAN-BE      | -                                                                                                                                                                                                                                                                              |
-| EXAMPLE     | -                                                                                                                                                                                                                                                                              |
+| Term        | Network protocol                                                                                                                                                                                                                                                         |
+| ----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | The network protocol shall define clearly and well-defined how clients and server shall communicate with each other in order to accept messages. If a client increasingly does not adhere to the communication protocol, a communication protocol violation is detected. |
+| IS-A        | -                                                                                                                                                                                                                                                                        |
+| CAN-BE      | -                                                                                                                                                                                                                                                                        |
+| EXAMPLE     | -                                                                                                                                                                                                                                                                        |
 
 </span>
 
-| Term        | Session                                                                                                                                                                                                                                                                                           |
-| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| DESCRIPTION | The process of creating an online game, via a server, including playing the game. The moderator always creates the session and the audience joins the session via the server. A game is exclusively referred to as a session if it is played via an active connection between server and clients. |
-| IS-A        | -                                                                                                                                                                                                                                                                                                 |
-| CAN-BE      | -                                                                                                                                                                                                                                                                                                 |
-| EXAMPLE     | -                                                                                                                                                                                                                                                                                                 |
+| Term        | Online-Session                                                                                                                                                                                                       |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | The process of playing the game in Online-Mode, including a PlayerAudience. The moderator is always responsible for creating the Online-Session and the PlayerAudience joins the Online-Session via the ServerLogic. |
+| IS-A        | -                                                                                                                                                                                                                    |
+| CAN-BE      | -                                                                                                                                                                                                                    |
+| EXAMPLE     | -                                                                                                                                                                                                                    |
+
+</span>
+
+| Term        | Offline-Session                                                                                                                                                           |
+| ----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| DESCRIPTION | The process of playing the game in Offline-Mode, without a PlayerAudience. The moderator creates a local Offline-Session on their device and plays the game on their own. |
+| IS-A        | -                                                                                                                                                                         |
+| CAN-BE      | -                                                                                                                                                                         |
+| EXAMPLE     | -                                                                                                                                                                         |
+
+</span>
+
+| Term        | Globally Unique Identifier (GUID) |
+| ----------- | :--- |
+| DESCRIPTION | A globally unique identifier (GUID) is a 128-bit number used to identify information in computer systems.     |
+| IS-A        | -     |
+| CAN-BE      | -     |
+| EXAMPLE     | A random GUID could have the following form: <code>0f8fad5b-d9cb-469f-a165-70867728950e</code>     |
+
+</span>
+
+| Term        | Offline-Mode                                                                                                 |
+| ----------- | :----------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | The Moderator-Client is not connected to a server and thus also not connected to any PlayerAudience-Clients. |
+| IS-A        | -                                                                                                            |
+| CAN-BE      | -                                                                                                            |
+| EXAMPLE     | -                                                                                                            |
+
+</span>
+
+| Term        | Online-Mode                                                                                                                   |
+| ----------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| DESCRIPTION | The Moderator-Client is connected to a server which enables the option for PlayerAudience-Clients to join the Online-Session. |
+| IS-A        | -                                                                                                                             |
+| CAN-BE      | -                                                                                                                             |
+| EXAMPLE     | -                                                                                                                             |
 
 </span>

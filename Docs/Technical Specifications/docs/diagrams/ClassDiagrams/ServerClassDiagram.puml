@@ -2,74 +2,6 @@
 
 skinparam classAttributeIconSize 0
 
-package "Moderator-Client" {
-
-  class StoryEvent {
-    {field} -eventId: int
-    {field} -description: string
-    {field} -parent: StoryEvent
-    {field} -children: StoryEvent[]
-    {method} +StoryEvent(parent: StoryEvent, id: int)
-    {method} +addChild(): void
-  }
-
-  class StoryGraph {
-    {field} -character: Character
-    {field} -root: StoryEvent
-    {field} -currentEvent: StoryEvent
-    {method} +StoryGraph(id: int)
-    {method} +loadGraphFromFile(filepath: string): Graph
-    {method} +saveGraphToFile(filepath: string): void
-    {method} +getNextPossibleEvent(): StoryEvent[]
-    {method} +setCurrentEvent(newCurrentEvent: StoryEvent): void
-    {method} +getNextStoryEventById(id: int): StoryEvent
-  }
-
-  class "ModeratorView" as mf {
-    {field} -startedOnline: bool
-    {method} +ModeratorView()
-    {method} +pausePolling(val: bool): void
-    {method} +offlineMode(val: bool): void
-  }
-
-  class "ModeratorClientExchange" as mcei{
-    {field} -websocket: WebSocket
-    {field} -authentificationGuid: Guid
-    {field} -timeoutDuration: int
-    {method} +ModeratorClientExchange()
-    {method} +sendMessage(message: string): void
-    {method} +evalJSON(json: string): bool
-    {method} +getVotingResults(): int
-    {method} +makeJSON(): string
-    {method} +enterPassword(pw: string): void
-  }
-
-  class Skills {
-    {field} -communication: int
-    {field} -analytics: int
-    {field} -partying: int
-    {field} -programming: int
-    {method} + Skills(commu: int, analy: int, party: int, progr: int)
-    {method} + updateCommunicationSkill(value: int): void
-    {method} + updateAnalyticsSkill(value: int): void
-    {method} + updatePartyingSkill(value: int): void
-    {method} + updateProgrammingSkill(value: int): void
-  }
-
-  class Character {
-    {field} -abilities: Skills
-    {field} -name: string
-    {method} +Character()
-  }
-  
-  StoryEvent "n" --* "1" StoryGraph
-  StoryGraph -- mf
-  StoryGraph -- Character
-  Character -- Skills
-  mf -- mcei
-  StoryGraph --- mcei
-}
-
 package "Server" {
    
 
@@ -171,7 +103,5 @@ package "Server" {
   pace -left- pav
   api "1" <-right- "n" pace : observes
 }
-
-mcei -right- cm
 
 @enduml

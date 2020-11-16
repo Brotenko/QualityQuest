@@ -1,0 +1,28 @@
+@startuml
+
+box "Network protocol relevance" #LightSteelBlue
+actor "Moderator-Client" as m order 1
+database "ServerLogic" as s order 2
+end box
+actor "PlayerAudience-Client" as p order 3
+
+
+
+activate m
+activate s
+
+m -> s: RequestStartVoting
+s --> m: VotingStarted
+s -> p: Notify about poll
+    loop while Voting-Timer > 0
+        p -> s: Vote
+        activate s
+        activate p
+        deactivate s
+        deactivate p
+    end
+s --> m: VotingEnded
+m -> m: Evaluate vote
+
+
+@enduml

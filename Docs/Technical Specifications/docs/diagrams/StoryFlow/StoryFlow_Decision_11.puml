@@ -1,0 +1,16 @@
+@startuml
+(*) --> "A bug has surfaced."
+--> "So far no one else has found the bug."
+if "How do you proceed?" then 
+--> [You write a bug ticket.] "Yaggaya sees the ticket \n and passes it on to the appropriate place. \n Your stats change: \n +2 analytics" as bugTicket
+else
+--> [Just ignore it, \n no one will notice anyway.] if "dice roll > 3" then
+--> [true] "The bug has been found and the \n responsible department thinks that you should \n have found the bug well in advance, \n since you worked on the code last.: \n Your stats change: \n -3 communication \n -3 analytics" as badEnd
+
+else
+--> [false] "Bug is not found. \n Your stats change: \n -3 analytics"
+-[#blue,dotted]-> "The project customer calls again \n and wants to have a completely new feature implemented." as nextDecision 
+endif
+badEnd -[#blue,dotted]-> nextDecision
+bugTicket -[#blue,dotted]-> nextDecision
+@enduml
