@@ -91,7 +91,7 @@ The change history is a chronologically ordered list of all changes between diff
 |   *   | **[_Requirements:_](/requirements) _Requirements:_** Fixed typos.                                                                                                                         |
 |   *   | **[_Table of content:_](/toc) _Table of content:_** Fixed typos.                                                                                                                          |
 |   *   | **[_Used tools, plugins and libraries:_](/usedtools) _Used tools, plugins and libraries:_** Fixed typos.                                                                                  |
-|   *   | **[_Class diagrams:_](/architectureDiagrams#Classdiagrams) _Class diagrams:_**  Updated class diagrams with Guids and further Adaptions. |
+|   *   | **[_Class diagrams:_](/architectureDiagrams#class-diagrams) _Class diagrams:_**  Updated class diagrams with Guids and further Adaptions. |
 
 
 </span>
