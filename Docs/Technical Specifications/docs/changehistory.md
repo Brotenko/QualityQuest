@@ -30,84 +30,144 @@ The change history is a chronologically ordered list of all changes between diff
 | 0.1.1   | First revision of the architecture design  | 2020-10-27 | [Link](#version-011-first-revision-of-the-architecture-design)  |
 | 0.1.2   | Second revision of the architecture design | 2020-11-12 | [Link](#version-012-second-revision-of-the-architecture-design) |
 | 0.2.0   | Component design                           | 2020-11-17 | [Link](#version-020-component-design)                           |
+| 0.2.1   | First revision of the component design     | TBA        | [Link](#version-021-first-revision-of-the-component-design)     |
+
+</span>
+
+## Version 0.2.1 - First revision of the component design
+
+| Type  | Description                                                                                                                                                                                |
+| :---: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| * | **[Quality Quest:_](/index) _Quality Quest:_** Updated all texts. |
+| * | **[_Table of contents:_](/toc) _Table of contents:_** Extension and reordering of the table of contents. |
+| * | **[_Glossary:_](/glossary#actors-and-roles) _Actors and Roles:_** Updated description. |
+| * | **[_Glossary:_](/glossary-expertise) _Expertise:_** Updated description. |
+| * | **[_Glossary:_](/glossary) _Glossary:_** Updated all entries to have the new style. |
+| * | **[_Glossary:_](/glossary#moderator) _Moderator:_** Updated description. |
+| * | **[_Glossary:_](/glossary#server) _Server:_** Updated description. |
+| * | **[_Glossary:_](/glossary#moderator-client) _Moderator-Client:_** Updated description. |
+| * | **[_Glossary:_](/glossary#playeraudience-client) _PlayerAudience-Client:_** Updated description. |
+| * | **[_Glossary:_](/glossary#client) _Client:_** Updated description. |
+| * | **[_Glossary:_](/glossary#storyflowdecision) _StoryFlowDecision:_** Updated description. |
+| * | **[_Glossary:_](/glossary#network-protocol) _Network protocol:_** Updated description. |
+| * | **[_Glossary:_](/glossary#online-mode) _Online-Mode:_** Updated description. |
+| * | **[_Glossary:_](/glossary#offline-mode) _Offline-Mode:_** Updated description. |
+| * | **[_Glossary:_](/glossary#online-voting) _Online voting:_** Updated description. |
+| * | **[_Glossary:_](/glossary#pause-button) _PauseButton:_** Updated description and changed name from "Pause-Button" to "PauseButton". |
+| * | **[_Glossary:_](/glossary#storygraph) _StoryGraph:_** Added new entry. |
+| * | **[_Functional Requirements:_](/requirements#game) _FR1:_** Updated description. |
+| * | **[_Functional Requirements:_](/requirements#newtec-branding) _FR3:_** Updated description. |
+| * | **[_Functional Requirements:_](/requirements#participation-of-a-larger-playeraudience) _FR11:_** Updated description and explanation. |
+| * | **[_Functional Requirements:_](/requirements#character-status-values) _FR14:_** Updated description. |
+| * | **[_Functional Requirements:_](/requirements#selecting-a-character) _FR15:_** Updated description. |
+| * | **[_Functional Requirements:_](/requirements#presentation-of-character-status-values) _FR16:_** Updated description. |
+| * | **[_Functional Requirements:_](/requirements#character-levelling) _FR18:_** Updated description. |
+| * | **[_Functional Requirements:_](/requirements#visual-presentation-of-playercharacter-status-changes) _FR19:_** Updated description. |
+| * | **[_Functional Requirements:_](/requirements#acoustic-presentation-of-playercharacter-status-changes) _FR20:_** Updated description. |
+| * | **[_Functional Requirements:_](/requirements#pausebutton-location) _FR23:_** Updated description. |
+| * | **[_Functional Requirements:_](/requirements#network-protocol-violation) _FR31:_** Updated description and changed name from "Communication protocol violation" to "Network protocol violation". |
+| * | **[_Functional Requirements:_](/requirements#game-relevant-serverlogic-logging) _FR33:_** Updated description. |
+| * | **[_Functional Requirements:_](/requirements#serverlogic-log-deletion) _FR35:_** Updated description. |
+| * | **[_Functional Requirements:_](/requirements#moderator-client-guid) _FR40:_** Updated description. |
+| * | **[_Non-functional Requirements:_](/requirements#target-audience) _NFR8:_** Changed name from "Target PlayerAudience" to "Target audience". |
+| * | **[_Requirements:_](/requirements) _Requirements:_** Updated all entries to have the new style. |
+| * | **[_Requirements:_](/requirements) _Requirements:_** Fixed typos. |
+| * | **[_Use-case diagrams:_](/use-case-diagrams) _PlayerAudience-Client:_** Updated description. |
+| * | **[_Use-case diagrams:_](/use-case-diagrams) _ServerLogic:_** Changed name from "Server" to "ServerLogic". |
+| * | **[_Use-case diagrams:_](/use-case-diagrams) _Start application:_** Updated description and changed name from "Start Application" to "Start application". |
+| * | **[_Use-case diagrams:_](/use-case-diagrams) _Play game:_** Updated description and changed name from "Play Game" to "Play game". |
+| * | **[_Use-case diagrams:_](/use-case-diagrams) _End application:_** Updated description and changed name from "End Application" to "End application". |
+| * | **[_Architecture diagrams:_](/architecture-diagrams) _Architecture diagrams:_** Updated description. |
+| * | **[_Architecture diagrams:_](/architecture-diagrams#class-diagrams) _Class diagrams:_** Updated description. |
+| * | **[_Architecture diagrams:_](/architecture-diagrams#moderator-client) _Moderator-Client:_** Updated description. |
+| * | **[_Architecture diagrams:_](/architecture-diagrams#server-class-diagrams) _Server class diagrams:_** Updated description. |
+| * | **[_Architecture diagrams:_](/architecture-diagrams#component-overview) _Component-Overview:_** Updated description. |
+| * | **[_Architecture diagrams:_](/architecture-diagrams#playeraudience-client#playeraudience-client) _PlayerAudience-Client:_** Updated description. |
+| * | **[_Architecture diagrams:_](/architecture-diagrams#component-diagrams) _Component diagrams:_** Updated description. |
+| * | **[_Architecture diagrams:_](/architecture-diagrams#serverlogic) _ServerLogic:_** Updated description and changed name from "Server" to "ServerLogic". |
+| * | **[_StoryFlow:_](/storyflow) _StoryFlow overview:_** Added new section. |
+| * | **[_StoryFlow:_](/storyflow) _Detailed StoryFlow diagrams:_** Changed name from "Detailed-StoryFlow diagrams" to "Detailed StoryFlow diagrams". |
+| * | **[_StoryFlow:_](/storyflow) _StoryFlow overview:_** Updated description. |
+| * | **[_StoryFlow:_](/storyflow) _Detailed StoryFlow diagrams:_** Updated description. |
+| * | **[_Change history:_](/changehistory) _Change history:_** Fixed typos. |
 
 </span>
 
 ## Version 0.2.0 - Component design
 
-| Type  | Description                                                                                                                                                                               |
-| :---: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   +   | **[_Class diagrams:_](/architectureDiagrams#server-class-diagrams) _Server class diagram:_** Added a joined class diagram for PlayerAudience-Client and Server, along with a description. |
-|   *   | **[_Class diagrams:_](/architectureDiagrams#Classdiagrams) _Class diagrams:_**  Updated class diagram with the new Server diagram                                                         |
-|   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in FR24, FR25, FR26, FR27, FR28 and FR29.                   |
-|   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in NFR20 and NFR21.                                 |
-|   +   | **[_Glossary:_](/glossary) _ServerLogic:_** Added new entry.                                                                                                                              |
-|   *   | **[_Glossary:_](/glossary) _Server:_** Changed description.                                                                                                                               |
-|   *   | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _All component diagrams:_** Updated diagrams and descriptions.                                                        |
-|   +   | **_[StoryFlow diagram:](/storyflow#detailed-storyflow-diagrams) Detailed StoryFlow Diagrams:_** Added detailed StoryFlow diagrams for every StoryFlowDecision.                            |
-|   +   | **[_Network Protocol:_](/network-protocol) _Network protocol:_** Added the network protocol to the documentation.                                                                         |
-|   -   | **[_Glossary:_](/glossary#actors-and-roles) _Voting-Tool:_** Removed entry.                                                                                                               |
-|   *   | **[_Glossary:_](/glossary#actors-and-roles) _ServerLogic:_** Changed description to specify that the ServerLogic is responsible for realising voting.                                     |
-|   +   | **[_Glossary:_](/glossary#expertise) _Online-Mode:_** Added new entry.                                                                                                                    |
-|   *   | **[_Glossary:_](/glossary#expertise) _Online voting:_** Changed description and changed term from "OnlineVoting" to "Online voting".                                                      |
-|   *   | **[_Glossary:_](/glossary#expertise) _Network protocol:_** Changed term from "Communication protocol" to "Network protocol".                                                              |
-|   *   | **[_Glossary:_](/glossary#expertise) _Online-Session:_** Changed description to specify the session being online and changed term from "Session" to "Online-Session".                     |
-|   +   | **[_Glossary:_](/glossary#expertise) _Offline-Session:_** Added new entry.                                                                                                                |
-|   +   | **[_Glossary:_](/glossary#expertise) _GUID:_** Added new entry.                                                                                                                           |
-|   +   | **[_Glossary:_](/glossary#expertise) _Offline-Mode:_** Added new entry.                                                                                                                   |
-|   +   | **[_Used Plugins:_](/usedtools#used-plugins) _Code Spell Checker:_** Added used plugin.                                                                                                   |
-|   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR25:_** Changed the reaction time from "10 seconds" to "5 seconds".                                              |
-|   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR26:_** Changed "UUID" to "GUID".                                                                                |
-|   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR28:_** Changed "client" to "PlayerAudience-Client".                                                             |
-|   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR28:_** Changed name to "PlayerAudience-Client GUID" and changed the description accordingly.                    |
-|   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR31:_** Changed "UUID" to "GUID".                                                                                |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR32:_** Added requirement "Unique voting option identifier".                                                     |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR33:_** Added requirement "Game-relevant ServerLogic logging".                                                   |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR34:_** Added requirement "General ServerLogic logging".                                                         |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR35:_** Added requirement "ServerLogic log deletion".                                                            |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR36:_** Added requirement "ServerLogic access-password".                                                         |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR37:_** Added requirement "Hashing of integral data".                                                            |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR38:_** Added requirement "Online-Mode".                                                                         |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR39:_** Added requirement "Online-Mode flag".                                                                    |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR40:_** Added requirement "Moderator-Client GUID".                                                               |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR41:_** Added requirement "PlayerAudience-Client count".                                                         |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR42:_** Added requirement "PlayerAudience-Client count live update".                                             |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR43:_** Added requirement "Online-Session permanence".                                                           |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR44:_** Added requirement "Switch between Moderator-Clients".                                                    |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR45:_** Added requirement "Voting-Timer stop on pause".                                                          |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR46:_** Added requirement "Communication during pauses".                                                         |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR47:_** Added requirement "PlayerAudience connection method".                                                    |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR48:_** Added requirement "PlayerAudience connection option".                                                    |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR49:_** Added requirement "Additional PlayerAudience connection options".                                        |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR50:_** Added requirement "Pause menu".                                                                          |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR51:_** Added requirement "Pause menu contents".                                                                 |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR52:_** Added requirement "Index hashing procedure".                                                                                    |
-|   +   | **[_Functional Requirements:_](/requirements/#functional-requirements) _FR53:_** Added requirement "Cryptographic hashing procedure".                                                                                    |
-|   +   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _NFR23:_** Added requirement "Communication security".                                                     |
-|   +   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _NFR24:_** Added requirement "Postgame statistics".                                                        |
-|   +   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _NFR25:_** Added requirement "Postgame statistic contents".                                                |  |
-|   *   | **[_Change history:_](/changehistory) _Change history:_** Fixed typos.                                                                                                                    |
-|   *   | **[_Glossary:_](/glossary) _Glossary:_** Fixed typos.                                                                                                                                     |
-|   *   | **[_Requirements:_](/requirements) _Requirements:_** Fixed typos.                                                                                                                         |
-|   *   | **[_Table of content:_](/toc) _Table of content:_** Fixed typos.                                                                                                                          |
-|   *   | **[_Used tools, plugins and libraries:_](/usedtools) _Used tools, plugins and libraries:_** Fixed typos.                                                                                  |
-|   *   | **[_Class diagrams:_](/architectureDiagrams#class-diagrams) _Class diagrams:_**  Updated class diagrams with Guids and further Adaptions. |
+| Type  | Description                                                                                                                                                                                |
+| :---: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|   +   | **[_Class diagrams:_](/architecture-diagrams#server-class-diagrams) _Server class diagram:_** Added a joined class diagram for PlayerAudience-Client and Server, along with a description. |
+|   *   | **[_Class diagrams:_](/architecture-diagrams#Classdiagrams) _Class diagrams:_**  Updated class diagram with the new Server diagram                                                         |
+|   *   | **[_Functional Requirements:_](/requirements/#functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in FR24, FR25, FR26, FR27, FR28 and FR29.                    |
+|   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in NFR20 and NFR21.                                  |
+|   +   | **[_Glossary:_](/glossary#serverlogic) _ServerLogic:_** Added new entry.                                                                                                                   |
+|   *   | **[_Glossary:_](/glossary#server) _Server:_** Changed description.                                                                                                                         |
+|   *   | **[_Component diagrams:_](/architecture-diagrams#component-diagrams) _All component diagrams:_** Updated diagrams and descriptions.                                                        |
+|   +   | **_[StoryFlow diagram:](/storyflow#detailed-storyflow-diagrams) Detailed StoryFlow Diagrams:_** Added detailed StoryFlow diagrams for every StoryFlowDecision.                             |
+|   +   | **[_Network Protocol:_](/network-protocol) _Network protocol:_** Added the network protocol to the documentation.                                                                          |
+|   -   | **[_Glossary:_](/glossary#actors-and-roles) _Voting-Tool:_** Removed entry.                                                                                                                |
+|   *   | **[_Glossary:_](/glossary#serverlogic) _ServerLogic:_** Changed description to specify that the ServerLogic is responsible for realising voting.                                           |
+|   +   | **[_Glossary:_](/glossary#online-mode) _Online-Mode:_** Added new entry.                                                                                                                   |
+|   *   | **[_Glossary:_](/glossary#online-voting) _Online voting:_** Changed description and changed term from "OnlineVoting" to "Online voting".                                                   |
+|   *   | **[_Glossary:_](/glossary#network-protocol) _Network protocol:_** Changed term from "Communication protocol" to "Network protocol".                                                        |
+|   *   | **[_Glossary:_](/glossary#online-session) _Online-Session:_** Changed description to specify the session being online and changed term from "Session" to "Online-Session".                 |
+|   +   | **[_Glossary:_](/glossary#offline-session) _Offline-Session:_** Added new entry.                                                                                                           |
+|   +   | **[_Glossary:_](/glossary#globally-unique-identifier-guid) _Globally Unique Identifier (GUID):_** Added new entry.                                                                         |
+|   +   | **[_Glossary:_](/glossary#offline-mode) _Offline-Mode:_** Added new entry.                                                                                                                 |
+|   +   | **[_Used Plugins:_](/usedtools#used-plugins) _Code Spell Checker:_** Added used plugin.                                                                                                    |
+|   *   | **[_Functional Requirements:_](/requirements/#connection-timeout) _FR25:_** Changed the reaction time from "10 seconds" to "5 seconds".                                                    |
+|   *   | **[_Functional Requirements:_](/requirements/#serverlogic-connection-loss) _FR26:_** Changed "UUID" to "GUID".                                                                             |
+|   *   | **[_Functional Requirements:_](/requirements/#playeraudience-client-guid) _FR28:_** Changed "client" to "PlayerAudience-Client".                                                           |
+|   *   | **[_Functional Requirements:_](/requirements/#playeraudience-client-guid) _FR28:_** Changed name to "PlayerAudience-Client GUID" and changed the description accordingly.                  |
+|   *   | **[_Functional Requirements:_](/requirements/#network-protocol-violation) _FR31:_** Changed "UUID" to "GUID".                                                                              |
+|   +   | **[_Functional Requirements:_](/requirements/#unique-voting-option-identifier) _FR32:_** Added requirement "Unique voting option identifier".                                              |
+|   +   | **[_Functional Requirements:_](/requirements/#game-relevant-serverlogic-logging) _FR33:_** Added requirement "Game-relevant ServerLogic logging".                                          |
+|   +   | **[_Functional Requirements:_](/requirements/#general-serverlogic-logging) _FR34:_** Added requirement "General ServerLogic logging".                                                      |
+|   +   | **[_Functional Requirements:_](/requirements/#serverlogic-log-deletion) _FR35:_** Added requirement "ServerLogic log deletion".                                                            |
+|   +   | **[_Functional Requirements:_](/requirements/#serverlogic-access-password) _FR36:_** Added requirement "ServerLogic access-password".                                                      |
+|   +   | **[_Functional Requirements:_](/requirements/#encryption-of-integral-data) _FR37:_** Added requirement "Hashing of integral data".                                                         |
+|   +   | **[_Functional Requirements:_](/requirements/#online-mode) _FR38:_** Added requirement "Online-Mode".                                                                                      |
+|   +   | **[_Functional Requirements:_](/requirements/#online-mode-flag) _FR39:_** Added requirement "Online-Mode flag".                                                                            |
+|   +   | **[_Functional Requirements:_](/requirements/#moderator-client-guid) _FR40:_** Added requirement "Moderator-Client GUID".                                                                  |
+|   +   | **[_Functional Requirements:_](/requirements/#playeraudience-client-count) _FR41:_** Added requirement "PlayerAudience-Client count".                                                      |
+|   +   | **[_Functional Requirements:_](/requirements/#playeraudience-client-count-live-updates) _FR42:_** Added requirement "PlayerAudience-Client count live update".                             |
+|   +   | **[_Functional Requirements:_](/requirements/#online-session-permanence) _FR43:_** Added requirement "Online-Session permanence".                                                          |
+|   +   | **[_Functional Requirements:_](/requirements/#switch-between-moderator-clients) _FR44:_** Added requirement "Switch between Moderator-Clients".                                            |
+|   +   | **[_Functional Requirements:_](/requirements/#voting-timer-stop-on-pause) _FR45:_** Added requirement "Voting-Timer stop on pause".                                                        |
+|   +   | **[_Functional Requirements:_](/requirements/#communication-during-pauses) _FR46:_** Added requirement "Communication during pauses".                                                      |
+|   +   | **[_Functional Requirements:_](/requirements/#playeraudience-connection-method) _FR47:_** Added requirement "PlayerAudience connection method".                                            |
+|   +   | **[_Functional Requirements:_](/requirements/#playeraudience-connection-option) _FR48:_** Added requirement "PlayerAudience connection option".                                            |
+|   +   | **[_Functional Requirements:_](/requirements/#additional-playeraudience-connection-options) _FR49:_** Added requirement "Additional PlayerAudience connection options".                    |
+|   +   | **[_Functional Requirements:_](/requirements/#pause-menu) _FR50:_** Added requirement "Pause menu".                                                                                        |
+|   +   | **[_Functional Requirements:_](/requirements/#pause-menu-contentsunctional-requirements) _FR51:_** Added requirement "Pause menu contents".                                                |
+|   +   | **[_Functional Requirements:_](/requirements/#vote-indexing-procedure) _FR52:_** Added requirement "Index hashing procedure".                                                              |
+|   +   | **[_Functional Requirements:_](/requirements/#cryptographic-hashing-procedure) _FR53:_** Added requirement "Cryptographic hashing procedure".                                              |
+|   +   | **[_Non-functional Requirements:_](/requirements/#communication-security) _NFR23:_** Added requirement "Communication security".                                                           |
+|   +   | **[_Non-functional Requirements:_](/requirements/#postgame-statistics) _NFR24:_** Added requirement "Postgame statistics".                                                                 |
+|   +   | **[_Non-functional Requirements:_](/requirements/#postgame-statistics-contents) _NFR25:_** Added requirement "Postgame statistic contents".                                                |  |
+|   *   | **[_Change history:_](/changehistory) _Change history:_** Fixed typos.                                                                                                                     |
+|   *   | **[_Glossary:_](/glossary) _Glossary:_** Fixed typos.                                                                                                                                      |
+|   *   | **[_Requirements:_](/requirements) _Requirements:_** Fixed typos.                                                                                                                          |
+|   *   | **[_Table of content:_](/toc) _Table of content:_** Fixed typos.                                                                                                                           |
+|   *   | **[_Used tools, plugins and libraries:_](/usedtools) _Used tools, plugins and libraries:_** Fixed typos.                                                                                   |
+|   *   | **[_Class diagrams:_](/architecture-diagrams#class-diagrams) _Class diagrams:_**  Updated class diagrams with GUIDs and further Adaptions.                                                 |
 
 
 </span>
 
 ## Version 0.1.2 - Second revision of the architecture design
 
-| Type  | Description                                                                                                                                     |
-| :---: | :---------------------------------------------------------------------------------------------------------------------------------------------- |
-|   *   | **_[Change history:](#table-of-contents) Table of contents:_** Fixed the links to properly work when exported to HTML/CSS.                      |
-|   *   | **_[Glossary:](/glossary) DiceRandomness:_** Changed "die" to "dice" for clarification.                                                         |
-|   *   | **_[Functional Requirements:](/requirements/#functional-requirements) Offline-Mode:_** Update the description to say "shall" instead of "must". |
-|   *   | **_[Used Plugins:](/usedtools#used-plugins) Markdown All in One:_** Fixed typo in description.                                                  |
-|   *   | **_[Used Plugins:](/usedtools#used-plugins) PlantUML:_** Fixed typo in description.                                                             |
-|   +   | **_[Glossary:](/glossary#expertise) Session:_** Added new term.                                                                                 |
-|   *   | **_[Change history:](#) Change history:_** Renamed change history versions descriptors.                                                         |
-|   *   | **_[Use-Case diagrams:](/use-case-diagramme#moderator-client) Moderator-Client:_** Updated all Moderator-Client use-case diagrams and descriptions. |
+| Type  | Description                                                                                                                                        |
+| :---: | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+|   *   | **_[Change history:](#table-of-contents) Table of contents:_** Fixed the links to properly work when exported to HTML/CSS.                         |
+|   *   | **_[Glossary:](/glossary) DiceRandomness:_** Changed "die" to "dice" for clarification.                                                            |
+|   *   | **_[Functional Requirements:](/requirements/#functional-requirements) Offline-Mode:_** Update the description to say "shall" instead of "must".    |
+|   *   | **_[Used Plugins:](/usedtools#used-plugins) Markdown All in One:_** Fixed typo in description.                                                     |
+|   *   | **_[Used Plugins:](/usedtools#used-plugins) PlantUML:_** Fixed typo in description.                                                                |
+|   +   | **_[Glossary:](/glossary#expertise) Session:_** Added new term.                                                                                    |
+|   *   | **_[Change history:](#) Change history:_** Renamed change history versions descriptors.                                                            |
+|   *   | **_[Use-Case diagrams:](/use-case-diagrams#moderator-client) Moderator-Client:_** Updated all Moderator-Client use-case diagrams and descriptions. |
 
 </span>
 
@@ -149,10 +209,10 @@ This is the revised version of the Technical Specifications according to the fee
 |   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Type of delivery:_** Fixed typo in description. Changed "DOCX" to "HTML".                                                                                                                                                                      |
 |   *   | **[_Requirements:_](/requirements) _Functional Requirements:_** Changed Id from "FA" to "FR".                                                                                                                                                                                                                                  |
 |   *   | **[_Requirements:_](/requirements) _Non-functional Requirements:_** Changed Id from "QA" to "NFR".                                                                                                                                                                                                                             |
-|   *   | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated notation and changed inconsistent interface labels.                                                                                                                                                                        |
-|   *   | **[_Component diagrams:_](/architectureDiagrams#component-diagrams) _Component diagrams:_** Updated descriptions for all component diagrams.                                                                                                                                                                                   |
+|   *   | **[_Component diagrams:_](/architecture-diagrams#component-diagrams) _Component diagrams:_** Updated notation and changed inconsistent interface labels.                                                                                                                                                                       |
+|   *   | **[_Component diagrams:_](/architecture-diagrams#component-diagrams) _Component diagrams:_** Updated descriptions for all component diagrams.                                                                                                                                                                                  |
 |   +   | **[_Used plugins:_](/usedtools#used-plugins) _Live Share:_** Added used plugin.                                                                                                                                                                                                                                                |
-|   *   | **[_Use-case diagrams:_](/use-case-diagramme#Moderator-Client) _Moderator-Client:_** Division into "Start Application", "Play Game" and "End Application" diagrams.                                                                                                                                                            |
+|   *   | **[_Use-case diagrams:_](/use-case-diagrams#Moderator-Client) _Moderator-Client:_** Division into "Start Application", "Play Game" and "End Application" diagrams.                                                                                                                                                             |
 |   -   | **[_StoryFlow diagram:_](/storyflow) _StoryFlow diagram:_** Removed obsolete StoryFlow diagram.                                                                                                                                                                                                                                |
 |   *   | **[_Non-functional Requirements:_](/requirements/#non-functional-requirements) _Usage of online voting solutions:"_** Updated the description to clarify that the voting tool will be made by the team.                                                                                                                        |
 

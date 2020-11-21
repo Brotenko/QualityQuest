@@ -1,12 +1,3 @@
-<!---
-- Fix FR 25:
-  - If the ServerLogic does not react within 5 seconds after receiving the Moderator-Client's message, the connection from the Moderator-Client to the ServerLogic shall be interrupted. In this case the Moderator can either continue playing in Offline-Mode or try to re-establish the connection to the ServerLogic.
-- Add "Offline-Mode" to Glossary.
-- Add "Online-Mode" to Glossary.
-- Scan document and add new Requirements and Glossary entries.
-- Add changelog entry for "Added network protocol" (and everything else).
--->
-
 # Network protocol
 
 ## General information
