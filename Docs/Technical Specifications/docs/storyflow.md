@@ -1,46 +1,48 @@
 # StoryFlow diagram
 
-A rough overview of the decisions occurring within the story. The diagram exclusively depicts the situations in which decisions can be made and the choices to be made in these situations.
+## StoryFlow overview
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_1.svg)
+A rough overview of the decisions occurring within the StoryGraph. The diagram exclusively depicts the situations in which StoryFlowDecisions can be made and the choices to be made in these situations.
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_2.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-1.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_3.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-2.svg)
 
-## Detailed-StoryFlow diagrams
+![StoryFlow](diagrams/StoryFlow/storyflow-3.svg)
 
-A detailed overview of the individual decisions. The diagrams contain all individual situations with every possible decision and all effects of the individual decisions.
+## Detailed StoryFlow diagrams
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_1.svg)
+A detailed overview of the individual StoryFlowDecisions. The diagrams contain all individual situations with every possible StoryFlowDecision and all effects that result by choosing the respective StoryFlowDecision.
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_2.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-1.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_3.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-2.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_4.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-3.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_5.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-4.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_6.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-5.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_7.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-6.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_8.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-7.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_9.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-8.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_10.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-9.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_11.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-10.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_12.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-11.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_13.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-12.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_14.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-13.svg)
 
-![StoryFlow](diagrams/StoryFlow/StoryFlow_Decision_15.svg)
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-14.svg)
+
+![StoryFlow](diagrams/StoryFlow/storyflow-decision-15.svg)
 
 
 
