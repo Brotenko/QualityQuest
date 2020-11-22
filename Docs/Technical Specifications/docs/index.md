@@ -8,7 +8,7 @@ The image of the software developer is still strongly influenced by the cliché 
 humorous way. The decisions made in the game are intended to demonstrate the skills required for this profession and show the positive effects of good practices in software development. 
 
 ## Vision
-The game should have an appealing and clear presentation, and the audience should be able to participate easily via their smartphones and their laptops. However the moderator should be able to continue the game on his own at any given time, or to pause the game if needed. The game should be able to be played through within twenty minutes.
+The game should have an appealing and clear presentation, and the audience should be able to participate easily via their smartphones and their laptops. However, the moderator should be able to continue the game on his own at any given time, or to pause the game if needed. The game should be able to be played through within twenty minutes.
 
 ## Context of project
-QualityQuest is developed within a software project of the University of Ulm in cooperation with NewTec, represented by Dr. Axel Newe, and shall be published as open source.
+QualityQuest is developed within a software project of the University of Ulm in cooperation with NewTec GmbH, represented by Dr. Axel Newe, and shall be published as open source.
