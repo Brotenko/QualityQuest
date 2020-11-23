@@ -1,7 +1,7 @@
 @startuml
 () "User\nInterface" as ui
 
-component "Server" <<component>> as sl{
+component "Server" <<device>> as sl{
     () " " as api
 
     component "PlayerAudience-Client" <<component>> as ac{
