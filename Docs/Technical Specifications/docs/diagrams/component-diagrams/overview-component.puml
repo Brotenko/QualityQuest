@@ -1,6 +1,6 @@
 @startuml
 left to right direction
-() "Websocket" as ws
+() "WebSocket" as ws
 () "User\nInterface" as ui
 () "Moderator\nInterface" as mi
 

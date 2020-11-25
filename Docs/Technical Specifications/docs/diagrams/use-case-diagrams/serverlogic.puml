@@ -2,7 +2,7 @@
 left to right direction
 actor "PlayerAudience-Client" as AUDC
 actor "Moderator-Client" as MODC
-rectangle "Server" {
+rectangle "ServerLogic" {
 usecase "Poll Evaluation" as PE
 }
 

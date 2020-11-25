@@ -90,6 +90,14 @@ The change history is a chronologically ordered list of all changes between diff
 |   *   | **[_StoryFlow:_](/storyflow) _StoryFlow overview:_** Updated description.                                                                                                                        |
 |   *   | **[_StoryFlow:_](/storyflow) _Detailed StoryFlow diagrams:_** Updated description.                                                                                                               |
 |   *   | **[_Change history:_](/changehistory) _Change history:_** Fixed typos.                                                                                                                           |
+|   *   | **[_Architecture diagrams:_](/architecture-diagrams#serverlogic) _ServerLogic:_** Updated description and changed name from "Websocket" to "WebSocket".                                                                                                              |
+|   *   | **[_Architecture diagrams:_](/architecture-diagrams#moderator-client) _Moderator-Client:_** Updated description and changed name from "Websocket" to "WebSocket". 
+|   *   | **[_Architecture diagrams:_](/architecture-diagrams#component-overview) _Component-Overview:_** Updated description and changed name from "Websocket" to "WebSocket". 
+|   *   |**[_Use-case diagrams:_](/use-case-diagrams#playerAudience-client) _PlayerAudience-Client:_** Updated descriptions and changed name from "Server" to "ServerLogic".                                                                                                         |
+|   *   |**[_Use-case diagrams:_](/use-case-diagrams#Serverlogic) _ServerLogic:_** Updated descriptions and changed name from "Server" to "ServerLogic".                                                                                                         |
+|   *   |**[_Use-case diagrams:_](/use-case-diagrams#moderator-client) _Moderator-Client:_** Updated descriptions and changed name from "Server" to "ServerLogic".                                                                                                         |
+|   *   |**[_Use-case diagrams:_](/use-case-diagrams#play-game) _Play game:_** Updated descriptions and changed name from "Server" to "ServerLogic".                                                                                                         |
+|   *   |**[_Use-case diagrams:_](/use-case-diagrams#end-application) _End application:_** Updated descriptions and changed name from "Server" to "ServerLogic".                                                                                                         |
 
 </span>
 
