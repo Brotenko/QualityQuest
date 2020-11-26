@@ -90,6 +90,22 @@ The change history is a chronologically ordered list of all changes between diff
 |   *   | **[_StoryFlow:_](/storyflow) _StoryFlow overview:_** Updated description.                                                                                                                        |
 |   *   | **[_StoryFlow:_](/storyflow) _Detailed StoryFlow diagrams:_** Updated description.                                                                                                               |
 |   *   | **[_Change history:_](/changehistory) _Change history:_** Fixed typos.                                                                                                                           |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-1) _StoryFlowDecision 1:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-2) _StoryFlowDecision 2:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-3) _StoryFlowDecision 3:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-3) _StoryFlowDecision 3:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-4) _StoryFlowDecision 4:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-5) _StoryFlowDecision 6:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-6) _StoryFlowDecision 6:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-7) _StoryFlowDecision 7:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-8) _StoryFlowDecision 8:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-9) _StoryFlowDecision 9:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-10) _StoryFlowDecision 10:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-11) _StoryFlowDecision 11:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-12) _StoryFlowDecision 12:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-13) _StoryFlowDecision 13:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-14) _StoryFlowDecision 14:_** Added description.                                                             |
+|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-15) _StoryFlowDecision 15:_** Added description.                                                             |
 
 </span>
 
