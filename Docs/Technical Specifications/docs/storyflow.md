@@ -136,13 +136,13 @@ The customer explains on the phone what he wants to change, now the PlayerAudien
   * The PlayerCharacter informs the customer
   * The PlayerCharacter does not inform the customer
 
-The stats of the PlayerCharacter change depending on the decision made by the PlayerAudience. Since a new bug occurs, the PlayerAuditorium has to decide how the PlayerCharacters will proceed in the next StoryFlowDecision.
+The stats of the PlayerCharacter change depending on the decision made by the PlayerAudience. Since a new bug occurs, the PlayerAudience has to decide how the PlayerCharacters will proceed in the next StoryFlowDecision.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-10.svg)
 
 ### StoryFlowDecision 11
 
-A new bug has surfaced that no one has found yet. The PlayerAudience can choose from the following options: 
+A new bug has surfaced that nobody has found yet. The PlayerAudience can choose from the following options: 
 
 * The PlayerCharacter writes a bug ticket
 * The PlayerCharacter ignores the bug
