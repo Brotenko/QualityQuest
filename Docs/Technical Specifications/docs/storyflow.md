@@ -45,7 +45,7 @@ After finishing the subject, the PlayerCharacter gets additional stats, dependin
 
 The PlayerCharacter has now finished his subject, now the PlayerAudience can decide if the character takes part in a extracurricular activity. The following options are available:
 
-* The PlayerCharacter can participate in a hacking contest at the university
+* The PlayerCharacter can participate in a hackathon at the university
 * The PlayerCharacter can use the time to learn a new programming language
 * The PlayerCharacter does not participate in any extracurricular activity and enjoys his free time and goes partying
 
