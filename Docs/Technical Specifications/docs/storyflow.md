@@ -136,7 +136,7 @@ The customer explains on the phone what he wants to change, now the PlayerAudien
   * The PlayerCharacter informs the customer
   * The PlayerCharacter does not inform the customer
 
-The stats of the PlayerCharacter change depending on the decision made by the PlayerAudience. Because a new bug appears the PlayerAudience needs to decide on how the PlayerCharacters proceeds in the next StoryFlowDecision.
+The stats of the PlayerCharacter change depending on the decision made by the PlayerAudience. Since a new bug occurs, the PlayerAuditorium has to decide how the PlayerCharacters will proceed in the next StoryFlowDecision.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-10.svg)
 
