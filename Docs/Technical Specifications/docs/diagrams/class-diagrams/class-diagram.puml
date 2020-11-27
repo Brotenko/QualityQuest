@@ -33,7 +33,7 @@ package "Moderator-Client" {
   }
 
   class "ModeratorClientExchange" as mcei{
-    {field} -websocket: WebSocket
+    {field} -webSocket: WebSocket
     {field} -authentificationGuid: Guid
     {field} -timeoutDuration: int
     {method} +ModeratorClientExchange()

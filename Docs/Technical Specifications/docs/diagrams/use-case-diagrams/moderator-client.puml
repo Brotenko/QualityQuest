@@ -7,7 +7,7 @@ usecase "Select Character" as CHAR
 usecase "Make decision on Situation" as MDOCS
 usecase "Game over" as GO
 }
-actor "Server" as SC
+actor "ServerLogic" as SC
 actor "Moderator" as P
 
 SC -up--> CHAR

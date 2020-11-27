@@ -1,5 +1,5 @@
 @startuml
-() "Websocket" as http
+() "WebSocket" as http
 
 
 component "Server" <<device>> as server{
