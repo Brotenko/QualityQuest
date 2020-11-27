@@ -128,7 +128,7 @@ Depending on the decision, there may be a deadline delay and an increase or decr
 
 ### StoryFlowDecision 10
 
-The customer explains on the phone what he want to change, now the PlayerAudience can decide how the PlayerCharacter proceeds: 
+The customer explains on the phone what he wants to change, now the PlayerAudience can decide how the PlayerCharacter proceeds: 
 
 * The PlayerCharacter simply hangs up
 * The PlayerCharacter implements the change directly
@@ -198,4 +198,3 @@ A workshop in Hawaii is on the agenda. All stats of the PlayerCharacter will be 
 The game was successfully played through.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-15.svg)
-
