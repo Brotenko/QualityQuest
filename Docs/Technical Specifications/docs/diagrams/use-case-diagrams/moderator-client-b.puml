@@ -1,6 +1,6 @@
 @startuml
 
-actor "Server" as SC
+actor "ServerLogic" as SC
 actor "Moderator" as P
 
 rectangle "Moderator-Client Online Mode" {

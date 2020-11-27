@@ -7,7 +7,7 @@ rectangle "Moderator-Client" {
 }
 
 actor "Moderator" as m
-actor "Server" as s
+actor "ServerLogic" as s
 
 m --> start
 start --> s

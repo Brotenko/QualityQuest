@@ -9,7 +9,7 @@ rectangle "PlayerAudience-Client" {
 }
 
 actor "Moderator" as b
-actor "Server" as s
+actor "ServerLogic" as s
 actor "PlayerAudience" as pa
 
 b -right-> endA

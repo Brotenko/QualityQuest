@@ -1,6 +1,6 @@
 @startuml
 () "Moderator\nInterface" as mi
-() "Websocket" as API
+() "WebSocket" as API
 
 component "Moderator-Client" <<component>> as ac{
     [GUI] <<subsystem>>
