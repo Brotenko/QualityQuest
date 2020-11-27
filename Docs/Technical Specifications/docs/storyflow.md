@@ -72,7 +72,8 @@ The first task has been completed, the next decision is about the corresponding 
 * The PlayerCharacter writes the tests until they are ready, regardless of the deadline 
 * The PlayerCharacter writes the tests until the deadline is reached
 
-The outcome of the decision is also influenced by a DiceRandomness. Depending on the decision and some luck the PlayerCharacter gets stats added and/or subtracted. After the tests are done, there is a company party scheduled, the decision if the PlayerCharacter participates is part of the next StoryFlowDecision.
+The outcome of the decision is also influenced by a DiceRandomness. Depending on the decision and some luck the PlayerCharacter gets stats added and/or subtracted. After the tests are done, a company party is scheduled and the decision for the PlayerCharacter to participate is part of the next StoryFlowDecision.
+``
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-5.svg)
 
@@ -197,7 +198,6 @@ A workshop in Hawaii is on the agenda. All stats of the PlayerCharacter will be 
 The game was successfully played through.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-15.svg)
-
 
 
 
