@@ -16,14 +16,15 @@ A detailed overview of the individual StoryFlowDecisions. The diagrams contain a
 
 ### StoryFlowDecision 1
 
-In this StoryFlowDecision the PlayerAudience decides with which character it wants to play the game. The following characters are available for selection:
+In this StoryFlowDecision the PlayerAudience decides with which PlayerCharacter it wants to play the game. The following PlayerCharacters are available for selection:
+``
 
 * Noruso
 * Lumati
 * Turgal
 * Kirogh
 
-After the character selection it goes to the next decision, the selection of a missing subject.
+After the PlayerCharacter selection it goes to the next decision, the selection of a missing subject.
 
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-1.svg)
@@ -79,7 +80,7 @@ The outcome of the decision is also influenced by a DiceRandomness. Depending on
 
 ### StoryFlowDecision 6
 
-The PlayerAudience can now decide in the next StoryFlowDecision whether the PlayerCharacter will participate in the company party. The following options are available:
+The PlayerAudience can now decide in the next StoryFlowDecision whether the PlayerCharacter will participate in the company party or not. The following options are available:
 
 * The PlayerCharacter attends the company party
 * The PlayerCharacter does not take part in the party, but continues working on the project
@@ -147,7 +148,7 @@ A new bug has surfaced that nobody has found yet. The PlayerAudience can choose 
 * The PlayerCharacter writes a bug ticket
 * The PlayerCharacter ignores the bug
 
-If the PlayerAudience decides to ignore the bug, it can happen with DiceRandomness that the bug will be detected and the PlayerCharacter gets more stats deducted than if the bug remains undetected. Reporting the bug brings additional stats for the PlayerCharacter. In the next decision the customer calls again, because he wants to have an additional feature implemented.
+If the PlayerAudience decides to ignore the bug, the bug will be noticed with a certain DiceRandomness from others, and the stats decrease is more severe than if the bug remains undetected. Reporting the bug instead brings additional stats for the PlayerCharacter. In the next decision the customer calls again, because he wants to have an additional feature implemented.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-11.svg)
 
@@ -160,7 +161,7 @@ The customer explains the new feature on the phone, now the PlayerAudience must 
   * The PlayerCharacter implements the feature together with the customer
   * The PlayerCharacter sets a meeting with req. engineer, usability and test manager
 
-The feature is implemented and depending on the decision the stats of the PlayerCharacter change. In the next decision the PlayerAudience has to decide if the PlayerCharacter helps out a colleague or not.
+The feature is implemented and depending on the decision, the stats of the PlayerCharacter change. In the next decision the PlayerAudience has to decide if the PlayerCharacter helps out a colleague or not.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-12.svg)
 
@@ -183,7 +184,7 @@ The PlayerAudience must decide whether the PlayerCharacter takes part in a code 
 * The PlayerCharacter participates in the review
 * The PlayerCharacter does not participate in the review
 
-If the PlayerCharacter participates in the review, the stats of the PlayerCharacter are increased and if not, there are deductions. The Project has been completed.
+If the PlayerCharacter participates in the review, the stats of the PlayerCharacter are increased, if not, they are decreased. The project has been completed.
 
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-14.svg)
