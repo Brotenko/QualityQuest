@@ -24,7 +24,7 @@ In this StoryFlowDecision the PlayerAudience decides with which PlayerCharacter 
 * Turgal
 * Kirogh
 
-After the character selection it goes to the next decision, the selection of a missing subject.
+After the PlayerCharacter selection it goes to the next decision, the selection of a missing subject.
 
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-1.svg)
