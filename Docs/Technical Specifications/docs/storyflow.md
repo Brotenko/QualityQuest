@@ -161,7 +161,7 @@ The customer explains the new feature on the phone, now the PlayerAudience must 
   * The PlayerCharacter implements the feature together with the customer
   * The PlayerCharacter sets a meeting with req. engineer, usability and test manager
 
-The feature is implemented and depending on the decision the stats of the PlayerCharacter change. In the next decision the PlayerAudience has to decide if the PlayerCharacter helps out a colleague or not.
+The feature is implemented and depending on the decision, the stats of the PlayerCharacter change. In the next decision the PlayerAudience has to decide if the PlayerCharacter helps out a colleague or not.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-12.svg)
 
