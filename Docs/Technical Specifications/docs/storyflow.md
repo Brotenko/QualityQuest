@@ -173,7 +173,7 @@ A colleague approaches the PlayerCharacter and asks for help with a task. The Pl
   * The PlayerCharacter works alone on his task.
 * The PlayerCharacter keeps working in his own task.
 
-Depending on the decision, the stats of the PlayerCharacter change. DiceRandomness can also cause additional deadline delays. The project is nearing completion, the next decision will be how to handle a code review.
+Depending on the decision, the stats of the PlayerCharacter change. DiceRandomness can also cause additional deadline delays. The project is nearing completion, the next decision will be about how to handle a code review.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-13.svg)
 
