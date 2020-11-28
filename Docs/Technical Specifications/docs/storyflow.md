@@ -121,7 +121,7 @@ The PlayerAudience can now decide if the PlayerCharacter takes part in a volunta
 * Yes, the PlayerCharacter participates
 * The PlayerCharacter does not participate
 * The PlayerCharacter takes a vacation
-* Additional dialog option: The boss of the PlayerCharacters offers one week of vacation after the voluntary training course
+* Additional dialog option: The boss of the PlayerCharacter offers one week of vacation after the voluntary training course
 
 Depending on the StoryFlowDecision, there may be a deadline delay and an increase or decrease of the PlayerCharacterStatusValues. After the voluntary training course is over, the customer calls because they want to make changes to the product. The PlayerAudience decides how to proceed in the next StoryFlowDecision.
 
