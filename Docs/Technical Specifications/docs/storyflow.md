@@ -148,7 +148,7 @@ A new bug has surfaced that nobody has found yet. The PlayerAudience can choose 
 * The PlayerCharacter writes a bug ticket
 * The PlayerCharacter ignores the bug
 
-If the PlayerAudience decides to ignore the bug, the bug will be noticed with a certain DiceRandomness from others, and the stats decrease is more severe than if the bug remains undetected. Reporting the bug instead brings additional stats for the PlayerCharacter. In the next decision the customer calls again, because he wants to have an additional feature implemented.
+If the PlayerAudience decides to ignore the bug, the bug might be noticed by other developers with a certain DiceRandomness. In the case that the bug is detected, the PlayerCharacterStatusValues decrease drastically, but if the bug remains undetected the PlayerCharacterStatusValues only decrease slightly. Reporting the bug instead increased the PlayerCharacterStatusValues of the PlayerCharacter. In the next StoryFlowDecision the customer calls again, because they want an additional feature implemented.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-11.svg)
 
