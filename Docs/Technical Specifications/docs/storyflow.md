@@ -80,7 +80,7 @@ The outcome of the decision is also influenced by a DiceRandomness. Depending on
 
 ### StoryFlowDecision 6
 
-The PlayerAudience can now decide in the next StoryFlowDecision whether the PlayerCharacter will participate in the company party or not. The following options are available:
+The PlayerAudience can decide in the next StoryFlowDecision whether the PlayerCharacter will participate in the company party or not. The following options are available:
 
 * The PlayerCharacter attends the company party
 * The PlayerCharacter does not take part in the party, but continues working on the project
