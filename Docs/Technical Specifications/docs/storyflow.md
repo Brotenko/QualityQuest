@@ -56,7 +56,7 @@ The PlayerCharacter has successfully completed his studies.
 
 ### StoryFlowDecision 4
 
-The PlayerCharacter has successfully completed his studies and after some time he has accepted a job at NewTec GmbH. Now the PlayerCharacter has to complete a first task in a new project. The PlayerAudience decides how the PlayerCharacter will proceed:
+The PlayerCharacter has successfully completed their studies and accepted a job at NewTec GmbH some time after. Which means that the PlayerCharacter now has to complete their first task in a new project. The PlayerAudience decides how the PlayerCharacter will proceed:
 
 * The PlayerCharacter asks the mentor for advice
 * The PlayerCharacter looks for a suitable solution on HeapOverflow
