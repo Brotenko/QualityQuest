@@ -180,7 +180,8 @@ Depending on the decision, the PlayerCharacterStatusValues change, while DiceRan
 
 ### StoryFlowDecision 14
 
-The PlayerAudience must decide whether the PlayerCharacter takes part in a code review. Following options are available: 
+The PlayerAudience must decide whether the PlayerCharacter takes part in a code review. The following options are available: 
+
 * The PlayerCharacter participates in the review
 * The PlayerCharacter does not participate in the review
 
