@@ -96,7 +96,7 @@ The PlayerAudience can now decide what the PlayerCharacter does first on the par
 * The PlayerCharacter talks with the mentor and the boss
 * The PlayerCharacter sits alone on one seat
 
-Depending on the decision, the PlayerCharacter gets increased stats or the PlayerAudience enables additional dialog options for later StoryFlowDecisions. 
+Depending on the StoryFlowDecision, the PlayerCharacter increases their stats or the PlayerAudience enables additional dialog options for later StoryFlowDecisions. 
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-7.svg)
 
