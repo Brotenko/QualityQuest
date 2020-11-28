@@ -16,7 +16,7 @@ A detailed overview of the individual StoryFlowDecisions. The diagrams contain a
 
 ### StoryFlowDecision 1
 
-In this StoryFlowDecision the PlayerAudience decides with which PlayerCharacter it wants to play the game. The following PlayerCharacters are available for selection:
+In this StoryFlowDecision the PlayerAudience decides with which PlayerCharacter they want to play the game. The following PlayerCharacters are available for selection:
 ``
 
 * Noruso
