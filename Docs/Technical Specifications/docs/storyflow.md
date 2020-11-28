@@ -154,7 +154,7 @@ If the PlayerAudience decides to ignore the bug, the bug might be noticed by oth
 
 ### StoryFlowDecision 12
 
-The customer explains the new feature on the phone, now the PlayerAudience must decide how the PlayerCharacter proceeds:
+The customer explains the new feature on the phone, after which the PlayerAudience must decide how the PlayerCharacter proceeds:
 
 * The PlayerCharacter starts to implement the feature
 * The PlayerCharacter asks the customer if he really wants the feature. This decision triggers another StoryFlowDecision. The customer wants to go through the change process with his new feature idea. The PlayerAudience can choose from the following options:
