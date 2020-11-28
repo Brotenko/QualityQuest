@@ -50,7 +50,7 @@ Now that the PlayerCharacter has finished their subject, the PlayerAudience can 
 * The PlayerCharacter can use the time to learn a new programming language.
 * The PlayerCharacter does not participate in any extracurricular activity and enjoys their free time and goes partying.
 
-The PlayerCharacter has successfully completed his studies.
+The PlayerCharacter has successfully completed their studies.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-3.svg)
 
@@ -62,7 +62,7 @@ The PlayerCharacter has successfully completed their studies and accepted a job 
 * The PlayerCharacter looks for a suitable solution on HeapOverflow.
 * The PlayerCharacter simply starts working.
 
-The stats of the PlayerCharacter change according to the selected StoryFlowDecision and after the task has been completed, the next StoryFlowDecision is about the corresponding tests.
+The PlayerCharacterStatusValues of the PlayerCharacter change according to the selected StoryFlowDecision and after the task has been completed, the next StoryFlowDecision is about the corresponding tests.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-4.svg)
 
@@ -73,7 +73,7 @@ The first task has been completed, the next StoryFlowDecisions is about the corr
 * The PlayerCharacter writes the tests until they are ready, regardless of the deadline.
 * The PlayerCharacter writes the tests until the deadline is reached.
 
-The outcome of the StoryFlowDecision is also influenced by DiceRandomness. Depending on the StoryFlowDecision and some luck the PlayerCharacterStatusValues level up or down. After the tests are done, a company party is scheduled and the StoryFlowDecision for the PlayerCharacter to participate, or not, is part of the next StoryFlowDecision.
+The outcome of the StoryFlowDecision is also influenced by DiceRandomness. Depending on the StoryFlowDecision and some luck the PlayerCharacterStatusValues level up or down. After the tests are completed, a company party is scheduled and the decision whether the PlayerCharacter will participate or not is part of the next StoryFlowDecision.
 
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-5.svg)
@@ -157,7 +157,7 @@ If the PlayerAudience decides to ignore the bug, the bug might be noticed by oth
 The customer explains the new feature on the phone, after which the PlayerAudience must decide how the PlayerCharacter proceeds:
 
 * The PlayerCharacter starts to implement the feature.
-* The PlayerCharacter asks the customer if he really wants the feature. This decision triggers another.StoryFlowDecision. The customer wants to go through the change process with his new feature idea. The PlayerAudience can choose from the following options:
+* The PlayerCharacter asks the customer if he really wants the feature. This decision triggers another StoryFlowDecision. The customer wants to go through the change process with their new feature idea. The PlayerAudience can choose from the following options:
   * The PlayerCharacter implements the feature together with the customer.
   * The PlayerCharacter sets a meeting with req. engineer, usability and test manager.
 
@@ -169,10 +169,10 @@ The feature is implemented and depending on the StoryFlowDecision, the PlayerCha
 
 A colleague approaches the PlayerCharacter and asks for help with a task. The PlayerAudience can choose from the following options:
 
-* The PlayerCharacter helps the colleague. This decision triggers another StoryFlowDecision, since the PlayerCharacter cant meet his own deadline:
-  * The PlayerCharacter asks another colleague for help on his own task.
-  * The PlayerCharacter works alone on his task.
-* The PlayerCharacter keeps working in his own task.
+* The PlayerCharacter helps the colleague. This decision triggers another StoryFlowDecision, since the PlayerCharacter cant meet their own deadline:
+  * The PlayerCharacter asks another colleague for help on their own task.
+  * The PlayerCharacter works alone on their task.
+* The PlayerCharacter keeps working on their own task.
 
 Depending on the decision, the PlayerCharacterStatusValues change, while DiceRandomness may also cause additional deadline delays. The project is nearing completion, the next StoryFlowDecision will be about how to handle a code review.
 
