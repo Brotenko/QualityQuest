@@ -38,7 +38,7 @@ The PlayerAudience must choose a subject from the following selection of availab
 * Introduction to Software Architectures
 * Usability as success factor
 
-After finishing the subject, the PlayerCharacter gets additional stats, depending on which subject was voted for.
+After finishing the subject, the PlayerCharacter increases their PlayerCharacterStatusValues, depending on which subject was voted for.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-2.svg)
 
