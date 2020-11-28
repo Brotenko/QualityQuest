@@ -73,8 +73,7 @@ The first task has been completed, the next StoryFlowDecisions is about the corr
 * The PlayerCharacter writes the tests until they are ready, regardless of the deadline.
 * The PlayerCharacter writes the tests until the deadline is reached.
 
-The outcome of the StoryFlowDecision is also influenced by DiceRandomness. Depending on the StoryFlowDecision and some luck the PlayerCharacterStatusValues level up or down. After the tests are completed, a company party is scheduled and the decision whether the PlayerCharacter will participate or not is part of the next StoryFlowDecision.
-
+The outcome of the StoryFlowDecision is also influenced by DiceRandomness. Depending on the StoryFlowDecision and some luck the PlayerCharacterStatusValues level up or down. After the tests are completed, a company party is scheduled, and the decision whether the player character will participate or not is part of the next StoryFlowDecision.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-5.svg)
 
