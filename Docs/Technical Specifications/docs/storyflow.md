@@ -191,7 +191,7 @@ If the PlayerCharacter participates in the review, the PlayerCharacterStatusValu
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-14.svg)
 
 ### StoryFlowDecision 15
-A workshop in Hawaii is on the agenda. All stats of the PlayerCharacter will be summed up and depending on the sum there are following options:
+A workshop in Hawaii is on the agenda. All PlayerCharacterStatusValues will be summed up and depending on the sum there are following options:
 
 * The PlayerCharacter can participate in the workshop
 * The PlayerCharacter is not allowed to participate in the workshop
