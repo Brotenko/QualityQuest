@@ -185,7 +185,7 @@ The PlayerAudience must decide whether the PlayerCharacter takes part in a code 
 * The PlayerCharacter participates in the review
 * The PlayerCharacter does not participate in the review
 
-If the PlayerCharacter participates in the review, the stats of the PlayerCharacter are increased, if not, they are decreased. The project has been completed.
+If the PlayerCharacter participates in the review, the PlayerCharacterStatusValues increase, otherwise they decrease. The project has been completed.
 
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-14.svg)
