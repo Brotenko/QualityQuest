@@ -44,7 +44,7 @@ After finishing the subject, the PlayerCharacter gets additional stats, dependin
 
 ### StoryFlowDecision 3
 
-The PlayerCharacter has now finished his subject, now the PlayerAudience can decide if the character takes part in a extracurricular activity. The following options are available:
+Now that the PlayerCharacter has finished their subject, the PlayerAudience can decide if the PlayerCharacter should take part in an extracurricular activity, or not. The following options are available:
 
 * The PlayerCharacter can participate in a hackathon at the university
 * The PlayerCharacter can use the time to learn a new programming language
