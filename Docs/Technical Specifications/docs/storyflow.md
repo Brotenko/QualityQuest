@@ -31,7 +31,7 @@ After the PlayerCharacter selection, the next step is selecting the missing subj
 
 ### StoryFlowDecision 2
 
-The PlayerAudience must decide for a subject. The following subjects are available for selection:
+The PlayerAudience must choose a subject from the following selection of available subjects:
 
 * Introduction to Bali
 * Requirements Engineering
