@@ -85,7 +85,7 @@ The PlayerAudience can decide in the next StoryFlowDecision whether the PlayerCh
 * The PlayerCharacter attends the company party
 * The PlayerCharacter does not take part in the party, but continues working on the project
 
-If the PlayerCharacter goes to the party, the PlayerAudience must decide in the next StoryFlowDecisions how the PlayerCharacter behaves on the party. If the PlayerCharacter does not participate in the party, the next decision is about the participation in a voluntary training course.
+If the PlayerCharacter goes to the party, the PlayerAudience must decide in the next StoryFlowDecisions how the PlayerCharacter behaves on the party. If the PlayerCharacter does not attend the party, the next StoryFlowDecision is about possibly participating in a voluntary training course.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-6.svg)
 
