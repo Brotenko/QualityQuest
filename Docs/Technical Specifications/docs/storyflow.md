@@ -68,7 +68,7 @@ The stats of the PlayerCharacter change according to the selected decision and a
 
 ### StoryFlowDecision 5
 
-The first task has been completed, the next decision is about the corresponding tests. The PlayerAudience has to decide how the PlayerCharacter should proceed, since the PlayerCharacter has only a certain time until the tests have to be finished. The following options are available: 
+The first task has been completed, the next StoryFlowDecisions is about the corresponding tests. The PlayerCharacter has only a certain amount of time until the tests have to be finished, and the PlayerAudience has to decide how the PlayerCharacter should proceed. The following options are available: 
 
 * The PlayerCharacter writes the tests until they are ready, regardless of the deadline 
 * The PlayerCharacter writes the tests until the deadline is reached
