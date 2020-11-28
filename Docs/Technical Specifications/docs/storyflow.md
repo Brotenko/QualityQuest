@@ -129,7 +129,7 @@ Depending on the StoryFlowDecision, there may be a deadline delay and an increas
 
 ### StoryFlowDecision 10
 
-The customer explains on the phone what he wants to change, now the PlayerAudience can decide how the PlayerCharacter proceeds: 
+The customer explains on the phone what they want changed, after which the PlayerAudience can decide how the PlayerCharacter proceeds: 
 
 * The PlayerCharacter simply hangs up
 * The PlayerCharacter implements the change directly
