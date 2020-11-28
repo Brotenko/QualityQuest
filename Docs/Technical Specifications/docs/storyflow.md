@@ -110,7 +110,7 @@ The PlayerCharacter is still at the party and is thirsty. The PlayerAudience dec
   * The PlayerCharacters keeps drinking more shots
   * The PlayerCharacter stops after the first two shots
 
-If the PlayerAudience decides to drink beer or coke, the evening will end quietly. If the PlayerAudience decides to drink alcohol, the party can also end badly by taking away stats from the PlayerCharacter because he is too drunk. After the decision, the party is over and the PlayerCharacter goes home. The next StoryFlowDecision is about the participation in a voluntary training course.
+If the PlayerAudience decides to drink beer or coke, the evening ends quietly. If the PlayerAudience decides to drink hard liquor, the party may instead end badly, resulting in the PlayerCharacter losing PlayerCharacterStatusValues due to getting severely drunk and ruining the event. Eventually the party ends and the PlayerCharacter goes home. The next StoryFlowDecision is about the participation in a voluntary training course.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-8.svg)
 
