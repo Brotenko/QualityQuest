@@ -62,7 +62,7 @@ The PlayerCharacter has successfully completed their studies and accepted a job 
 * The PlayerCharacter looks for a suitable solution on HeapOverflow
 * The PlayerCharacter simply starts working
 
-The stats of the PlayerCharacter change according to the selected decision and after the task has been completed, the next decision is about the corresponding tests.
+The stats of the PlayerCharacter change according to the selected StoryFlowDecision and after the task has been completed, the next StoryFlowDecision is about the corresponding tests.
 
 ![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-4.svg)
 
