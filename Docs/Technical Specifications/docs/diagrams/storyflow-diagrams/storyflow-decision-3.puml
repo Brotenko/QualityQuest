@@ -6,7 +6,7 @@ if "What do you want to do?" then
 else
 --> [No, you enjoy your free \n time and attend some parties.] "Through many parties in your spare \n time your partying stat increases, \nbut your programming skills get a bit rusty. \n Your stats change: \n +4 partying \n -1 programming" as no
 else 
---> [You take part in a hacking contest at your university.] "You get to know many new people \n and expand your programming skills.\n Your stats change:\n +2 programming \n +1 communication" as contest
+--> [You take part in a hackathon at your university.] "You get to know many new people \n and expand your programming skills.\n Your stats change:\n +2 programming \n +1 communication" as contest
 
 newL --> "You have successfully completed your studies." as studyComplete 
 no --> studyComplete
