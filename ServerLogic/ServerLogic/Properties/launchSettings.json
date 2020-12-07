@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ServerLogic": {
+      "commandName": "Project",
+      "commandLineArgs": "!Password123# 7777"
+    }
+  }
+}
