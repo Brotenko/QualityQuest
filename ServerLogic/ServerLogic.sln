@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerLogic", "ServerLogic\ServerLogic.csproj", "{3779107F-8781-421F-A14D-EE7FD209504D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerLogicTest", "ServerLogicTest\ServerLogicTest.csproj", "{86119FD9-F730-4479-84A6-C16191F53BB9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3779107F-8781-421F-A14D-EE7FD209504D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3779107F-8781-421F-A14D-EE7FD209504D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3779107F-8781-421F-A14D-EE7FD209504D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3779107F-8781-421F-A14D-EE7FD209504D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86119FD9-F730-4479-84A6-C16191F53BB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86119FD9-F730-4479-84A6-C16191F53BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86119FD9-F730-4479-84A6-C16191F53BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86119FD9-F730-4479-84A6-C16191F53BB9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C47E7C6F-F610-4716-8AEE-EBD6E9E93FEE}
+	EndGlobalSection
+EndGlobal
