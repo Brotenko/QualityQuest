@@ -161,8 +161,7 @@ These are commands that can be used in various situations:
 Use '&lt;command&gt; --help' to read about a specific command.</value>
   </data>
   <data name="InvalidPasswordExceptionMessage" xml:space="preserve">
-    <value>Please make sure to set a password that is at least 8 characters in length,
-but no more than 32, and satisfies 3 out of the following 4 rules:
+    <value>Please make sure to set a password that doesn't start with a dash ("-"), is at least 8 characters in length, but no more than 32, and satisfies 3 out of the following 4 rules:
   At least one digit
   At least one lowercase character
   At least one uppercase character
