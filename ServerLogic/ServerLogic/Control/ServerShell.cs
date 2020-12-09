@@ -1,11 +1,5 @@
-﻿using ServerLogic.Model;
-using ServerLogic.Model.Messages;
-using System;
+﻿using System;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Resources;
 using System.Text.RegularExpressions;
 
 namespace ServerLogic.Control
@@ -48,7 +42,7 @@ namespace ServerLogic.Control
             get => _password;
             private set
             {
-                if (value.Length >= 8 && value.Length <= 32)
+                if (value.Length >= 8 && value.Length <= 32 && !value.StartsWith("-", StringComparison.CurrentCulture))
                 {
                     int count = 0;
 
@@ -424,59 +418,100 @@ namespace ServerLogic.Control
             return "Cleared logs.";
         }
 
-        private static string[] checkMainMethodArgs(string[] args)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        private static string[] CheckMainMethodArgs(string[] args)
         {
-            if (args.Length == 0)
-            {
-                throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
-            }
+            int port;
+            string password;
 
-            string password = args[0];
-            int port = -1;
+            
+                if (args.Length == 0)
+                {
+                    throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
+                }
+                else
+                {
+                    password = ValidateShellPassword(args[0].ToLower(CultureInfo.CurrentCulture));
 
+                    if (args.Length == 1)
+                    {
+                        port = 7777;
+                    }
+                    else
+                    {
+                        port = ValidateShellPort(args[1]);
+                    }
+
+                    return new string[] { password, port.ToString(CultureInfo.CurrentCulture) };
+                }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        private static string ValidateShellPassword(string password)
+        {
             if (password.Length == 0)
             {
                 throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
             }
-
-            if (args[0].ToLower(CultureInfo.CurrentCulture) == "--version")
+            else if (password.StartsWith("-", StringComparison.CurrentCulture))
             {
-                Console.WriteLine(Properties.Resources.CurrentVersion);
-                return Array.Empty<string>();
-            }
-            else if (args[0].ToLower(CultureInfo.CurrentCulture) == "--help")
-            {
-                Console.WriteLine(Properties.Resources.HelpHelpMessage);
-                return Array.Empty<string>();
-            }
-            else if (args[0].ToLower(CultureInfo.CurrentCulture).StartsWith("--", StringComparison.CurrentCulture))
-            {
-                throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
-            }
-
-            if (args.Length == 1)
-            {
-                port = 7777;
-            }
-
-            if (args.Length >= 2)
-            {
-                try
+                if (password == "--version")
                 {
-                    port = Convert.ToInt32(value: args[1], provider: CultureInfo.CurrentCulture);
+                    Console.WriteLine(Properties.Resources.CurrentVersion);
                 }
-                catch (Exception)
+                else if (password == "--help")
                 {
-                    throw new ArgumentException(message: Properties.Resources.InvalidPortExceptionMessage);
+                    Console.WriteLine(Properties.Resources.HelpHelpMessage);
                 }
+                else
+                {
+                    throw new ArgumentException(message: "Unknown option: '" + password + "'");
+                }
+
+                Environment.Exit(exitCode: 0);
+                return null;
+            }
+            else
+            {
+                return password;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="portString"></param>
+        /// <returns></returns>
+        private static int ValidateShellPort(string portString)
+        {
+            int port;
+
+            try
+            {
+                port = Convert.ToInt32(value: portString[1], provider: CultureInfo.CurrentCulture);
 
                 if (port <= 1023 || port > 65535)
                 {
                     throw new ArgumentException(message: Properties.Resources.InvalidPortExceptionMessage);
                 }
+                else
+                {
+                    return port;
+                }
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException(message: Properties.Resources.InvalidPortExceptionMessage);
             }
 
-            return new string[] {password, port.ToString(CultureInfo.CurrentCulture)};
         }
 
         /// <summary>
@@ -485,7 +520,7 @@ namespace ServerLogic.Control
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            string[] returnValue = checkMainMethodArgs(args);
+            string[] returnValue = CheckMainMethodArgs(args);
 
             if (returnValue == null)
             {
