@@ -14,7 +14,7 @@ The requirements are divided into different priorities, whose meaning should be 
 
 This section contains all requirements that specify the basic actions of the software system.
 
-<h4 style="margin-bottom: 0em"; id="game">Game</h4>
+<h4 style="margin-bottom: 0em"; id="game-type">Game type</h4>
 | ID          | FR1                                                                                                                                                                                                                                                                                                       |
 | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | PRIORITY    | +                                                                                                                                                                                                                                                                                                         |

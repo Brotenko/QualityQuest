@@ -579,7 +579,7 @@ This diagram illustrates a typical process from the creation of an online sessio
 
 List of MessageTypes used: [RequestOpenSessionMessage](#requestopensessionmessage), [SessionOpenedMessage](#sessionopenedmessage), [AudienceStatusMessage](#audiencestatusmessage), [RequestGameStartMessage](#requestgamestartmessage), [GameStartedMessage](#gamestartedmessage), [ErrorMessage](#errormessage)
 
-![Start online session](diagrams/network-diagrams/start-online-session.svg)
+![Start online session](../diagrams/network-diagrams/start-online-session.svg)
 
 ### Player reconnect
 
@@ -587,7 +587,7 @@ This diagram illustrates a typical process how a Moderator-Client checks if the 
 
 List of MessageTypes used: [RequestServerStatusMessage](#requestserverstatusmessage), [ServerStatusMessage](#serverstatusmessage), [ReconnectMessage](#reconnectmessage), [ReconnectSuccessfulMessage](#reconnectsuccessfulmessage)
 
-![Player reconnect](diagrams/network-diagrams/player-reconnect.svg)
+![Player reconnect](../diagrams/network-diagrams/player-reconnect.svg)
 
 ### Pause game
 
@@ -595,7 +595,7 @@ This diagram illustrates a typical process of how a Moderator-Client initializes
 
 List of MessageTypes used: [RequestGamePausedStatusChangeMessage](#requestgamepausedstatuschangemessage), [GamePauseStatusMessage](#gamepausestatusmessage), [ErrorMessage](#errormessage)
 
-![Pause game](diagrams/network-diagrams/pause-game.svg)
+![Pause game](../diagrams/network-diagrams/pause-game.svg)
 
 ### Voting phase
 
@@ -603,7 +603,7 @@ This diagram illustrates a typical process of how a Moderator-Client initialises
 
 List of MessageTypes used: [RequestStartVotingMessage](#requeststartvotingmessage), [VotingStartedMessage](#votingstartedmessage), [VotingEndedMessage](#votingendedmessage)
 
-![Voting phase](diagrams/network-diagrams/voting-phase.svg)
+![Voting phase](../diagrams/network-diagrams/voting-phase.svg)
 
 ### New moderator
 
@@ -611,7 +611,7 @@ This diagram illustrates a typical process how a Moderator-Client replaces anoth
 
 List of MessageTypes used: [RequestOpenSessionMessage](#requestopensessionmessage), [ErrorMessage](#errormessage), [SessionOpenedMessage](#sessionopenedmessage)
 
-![New moderator](diagrams/network-diagrams/new-moderator.svg)
+![New moderator](../diagrams/network-diagrams/new-moderator.svg)
 
 ### End Online-Session
 
@@ -619,4 +619,4 @@ This diagram illustrates a typical process of how a Moderator-Client ends an exi
 
 List of MessageTypes used: [RequestCloseSessionMessage](#requestclosesessionmessage), [SessionClosedMessage](#sessionclosedmessage)
 
-![End online session](diagrams/network-diagrams/end-online-session.svg)
+![End online session](../diagrams/network-diagrams/end-online-session.svg)
