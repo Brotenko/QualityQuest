@@ -8,7 +8,8 @@ using ServerLogic.Model.Messages;
 namespace ServerLogicTests.Model.Messages
 {
     /// <summary>
-    /// 
+    /// Tests the basic parsing and construction of the <c>SessionOpenedMessage</c>, 
+    /// to ensure they are able to parse valid messages.
     /// </summary>
     [TestClass]
     public class SessionOpenedMessageTest
@@ -16,7 +17,8 @@ namespace ServerLogicTests.Model.Messages
         private static readonly Random random = new Random();
 
         /// <summary>
-        /// 
+        /// Creates a random string, equal to the provided length, consisting of all
+        /// uppercase characters (in the english alphabet) and the numbers 0-9.
         /// </summary>
         private static string RandomString(int length)
         {
@@ -33,7 +35,8 @@ namespace ServerLogicTests.Model.Messages
             testKey + @", DirectURL: " + testURL + @", QrCode: \]";
 
         /// <summary>
-        /// 
+        /// Validates that the assigned test-variable is the same before and after
+        /// construction of the message.
         /// </summary>
         [TestMethod]
         public void KeyTest()
@@ -45,7 +48,8 @@ namespace ServerLogicTests.Model.Messages
         }
 
         /// <summary>
-        /// 
+        /// Validates that the assigned test-variable is the same before and after
+        /// construction of the message.
         /// </summary>
         [TestMethod]
         public void URLTest()
@@ -57,7 +61,10 @@ namespace ServerLogicTests.Model.Messages
         }
 
         /// <summary>
-        /// 
+        /// Validates that the constructed message contains all the provided
+        /// test-variables, at the correct position and with the correct value,
+        /// and also validates that the <c>ToString()</c> method of the message
+        /// returns a well-formed string, according to the expectations.
         /// </summary>
         [TestMethod]
         public void ToStringCorrectness()

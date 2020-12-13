@@ -7,38 +7,46 @@ using System.Text.RegularExpressions;
 namespace ServerLogicTests.Model.Messages
 {
     /// <summary>
-    /// 
+    /// Tests the basic parsing and construction of the 
+    /// <c>RequestGamePausedStatusChangeMessage</c>, to ensure they are able to 
+    /// parse valid messages.
     /// </summary>
     [TestClass]
-    public class RequestPauseGameStatusChangeMessageTest
+    public class RequestGamePausedStatusChangeMessageTest
     {
         private static readonly Guid testGuid = Guid.NewGuid();
-        private readonly string expectedPauseStatusTrueTestStringPattern = @"RequestPauseGameStatusChangeMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: RequestPauseGameStatusChange, Date: \d{2}\.\d{2}\.\d{4}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], GamePausedStatus: True\]";
-        private readonly string expectedPauseStatusFalseTestStringPattern = @"RequestPauseGameStatusChangeMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: RequestPauseGameStatusChange, Date: \d{2}\.\d{2}\.\d{4}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], GamePausedStatus: False\]";
+        private readonly string expectedPauseStatusTrueTestStringPattern = @"RequestGamePausedStatusChangeMessage \[<container>: MessageContainer \[ModeratorId: " +
+            testGuid + @", Type: RequestGamePausedStatusChange, Date: \d{2}\.\d{2}\.\d{4}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], GamePaused: True\]";
+        private readonly string expectedPauseStatusFalseTestStringPattern = @"RequestGamePausedStatusChangeMessage \[<container>: MessageContainer \[ModeratorId: " +
+            testGuid + @", Type: RequestGamePausedStatusChange, Date: \d{2}\.\d{2}\.\d{4}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], GamePaused: False\]";
 
         /// <summary>
-        /// 
+        /// Validates that the constructed message contains all the provided
+        /// test-variables, at the correct position and with the correct value,
+        /// and also validates that the <c>ToString()</c> method of the message
+        /// returns a well-formed string, according to the expectations.
         /// </summary>
         [TestMethod]
         public void PauseStatusTrueTest()
         {
-            RequestPauseGameStatusChangeMessage r = new RequestPauseGameStatusChangeMessage(testGuid, true);
+            RequestGamePausedStatusChangeMessage r = new RequestGamePausedStatusChangeMessage(testGuid, true);
 
-            Assert.IsTrue(r.GamePausedStatus);
+            Assert.IsTrue(r.GamePaused);
             Assert.IsTrue(Regex.IsMatch(r.ToString(), expectedPauseStatusTrueTestStringPattern));
         }
 
         /// <summary>
-        /// 
+        /// Validates that the constructed message contains all the provided
+        /// test-variables, at the correct position and with the correct value,
+        /// and also validates that the <c>ToString()</c> method of the message
+        /// returns a well-formed string, according to the expectations.
         /// </summary>
         [TestMethod]
         public void PauseStatusFalseTest()
         {
-            RequestPauseGameStatusChangeMessage r = new RequestPauseGameStatusChangeMessage(testGuid, false);
+            RequestGamePausedStatusChangeMessage r = new RequestGamePausedStatusChangeMessage(testGuid, false);
 
-            Assert.IsFalse(r.GamePausedStatus);
+            Assert.IsFalse(r.GamePaused);
             Assert.IsTrue(Regex.IsMatch(r.ToString(), expectedPauseStatusFalseTestStringPattern));
         }
     }

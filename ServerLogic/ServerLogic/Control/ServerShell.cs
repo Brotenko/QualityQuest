@@ -1,11 +1,17 @@
-﻿using System;
+﻿using ServerLogic.Model;
+using ServerLogic.Model.Messages;
+using System;
 using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Resources;
 using System.Text.RegularExpressions;
 
 namespace ServerLogic.Control
 {
     /// <summary>
-    /// 
+    /// Main class to launch, control and monitor the server.
     /// </summary>
     public class ServerShell
     {
@@ -17,14 +23,12 @@ namespace ServerLogic.Control
         private bool serverIsRunning = false;
         private bool commandRequestsHelpMessage = false;
 
-        /// <summary>
-        /// 
-        /// </summary>
         public int Port
         {
             get => _port;
             private set
             {
+                // Makes sure the port is not outside the range of settable ports.
                 if (value <= 1023 || value > 65535)
                 {
                     throw new ArgumentException(message: Properties.Resources.InvalidPortExceptionMessage);
@@ -34,15 +38,18 @@ namespace ServerLogic.Control
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public string Password
         {
             get => _password;
             private set
             {
-                if (value.Length >= 8 && value.Length <= 32 && !value.StartsWith("-", StringComparison.CurrentCulture))
+                // Makes sure to set a password that is at least 8 characters in length, but no 
+                // more than 32, and satisfies 3 out of the following 4 rules:
+                //   At least one digit
+                //   At least one lowercase character
+                //   At least one uppercase character
+                //   At least one special character
+                if (value.Length >= 8 && value.Length <= 32)
                 {
                     int count = 0;
 
@@ -78,7 +85,7 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// 
+        /// Constructs a new ServerShell with a predefined password and the standard port.
         /// </summary>
         public ServerShell()
         {
@@ -88,23 +95,27 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// 
+        /// Constructs a new ServerShell with a password and a port and starts the main-loop
+        /// that runs the actual shell application.
         /// </summary>
-        /// <param name="password"></param>
-        /// <param name="port"></param>
+        /// 
+        /// <param name="password">The password, that will be required by the Moderator-Client, 
+        /// to establish a connection with the ServerLogic.</param>
+        /// 
+        /// <param name="port">The port that will be used to set up the WebSocket of the 
+        /// ServerLogic.</param>
         public ServerShell(string password, int port)
         {
             this.serverShell = this;
             this.Password = password;
             this.Port = port;
 
-            Console.WriteLine("Password: " + password + " | Port: " + port);
-
             RunShell();
         }
 
         /// <summary>
-        /// 
+        /// The main-loop of the shell application that prompts new inputs and returns the
+        /// output of the parsed command.
         /// </summary>
         private void RunShell()
         {
@@ -118,7 +129,7 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// 
+        /// Exits the main-loop and closes the shell application.
         /// </summary>
         private void StopShell()
         {
@@ -126,20 +137,38 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// 
+        /// A debug function that is only used by the unit-tewsts to test the ServerShell
+        /// and its methods thoroughly.
         /// </summary>
-        /// <param name="debugInput"></param>
-        /// <returns></returns>
+        /// 
+        /// <param name="debugInput">Unaltered input sent from the unit-test.</param>
+        /// 
+        /// <returns>The output of the parsed command.</returns>
         public string ParseCommandDebugger(string debugInput)
         {
             return ParseCommand(debugInput);
         }
 
         /// <summary>
-        /// 
+        /// This function serves the following purposes:
+        /// <list type="bullet">
+        /// <item>Removes excess whitespaces from the input.</item>
+        /// <item>Trims the input.</item>
+        /// <item>Splits the input into an array at the whitespaces.</item>
+        /// <item>Extracts the first array entry, e.g. the actual command, transform it to 
+        /// lowercase, and save it as a seperate string.</item>
+        /// <item>Check if the user requested help regarding the command and return the
+        /// help-text regarding the command.</item>
+        /// <item>If no help was requested, the command is parsed to check which function
+        /// should be executed next</item>
+        /// <item>Return the outcome of the function.</item>
+        /// </list>
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+        /// 
+        /// <param name="input">Unaltered input from the user.</param>
+        /// 
+        /// <returns>The output of the other functions called by ParseCommand. Alternatively
+        /// it might also return an error message if the input command is unknown.</returns>
         private string ParseCommand(string input)
         {
             input = Regex.Replace(input, @"\s+", " ");
@@ -149,6 +178,9 @@ namespace ServerLogic.Control
             string[] commandParameters = new string[splitInput.Length - 1];
             string ret = "";
 
+            // Checks if the entered command has at least one parameter. In case there is at
+            // least one, it checks if that first parameter is "--help" specifically, and 
+            // returns the help-text for the specific command.
             if (commandParameters.Length != 0)
             {
                 Array.Copy(splitInput, 1, commandParameters, 0, commandParameters.Length);
@@ -202,14 +234,71 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// 
+        /// Parses the paramters the "port" command was called with. Depending on the
+        /// number of arguments and type of argument, the following services are provided.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>
+        /// Empty parameter list
+        /// </term>
+        /// <description>
+        /// Returns the currently set port.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>
+        /// Numeric first parameter inside settable range
+        /// </term>
+        /// <description>
+        /// Sets the port equal to the numeric value and returns a confirmation message.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>
+        /// Numeric first parameter inside settable range
+        /// </term>
+        /// <description>
+        /// Returns an error message in form of a 
+        /// <see cref="Properties.Resources.InvalidPortExceptionMessage"/>.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>
+        /// Non-numeric first parameter
+        /// </term>
+        /// <description>
+        /// Returns an error message in form of a 
+        /// <see cref="Properties.Resources.InvalidPortExceptionMessage"/>.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>
+        /// Server is running
+        /// </term>
+        /// <description>
+        /// While the server is running, the port can't be changed.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>
+        /// Parameter 2...n
+        /// </term>
+        /// <description>
+        /// Any kind of parameter, after the first one, will be ignored.
+        /// </description>
+        /// </item>
+        /// </list>
         /// </summary>
-        /// <param name="commandList"></param>
-        /// <returns></returns>
-        private string ParsePort(string[] commandList)
+        /// 
+        /// <param name="paramterList">List of all paramters the command has been called 
+        /// with.</param>
+        /// 
+        /// <returns>Which port is currently set or has been set, if no errors occured.
+        /// </returns>
+        private string ParsePort(string[] paramterList)
         {
             // command: port -> Returns the currently set port.
-            if (commandList.Length == 0)
+            if (paramterList.Length == 0)
             {
                 return Port.ToString(CultureInfo.CurrentCulture);
             }
@@ -227,7 +316,7 @@ namespace ServerLogic.Control
                     // port-input is not a numeral.
                     try
                     {
-                        tempPort = Convert.ToInt32(commandList[0], CultureInfo.CurrentCulture);
+                        tempPort = Convert.ToInt32(paramterList[0], CultureInfo.CurrentCulture);
                     }
                     catch (FormatException)
                     {
@@ -255,14 +344,62 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// 
+        /// Parses the paramters the "password" command was called with. Depending on the
+        /// number of arguments and type of argument, the following services are provided.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>
+        /// Empty parameter list
+        /// </term>
+        /// <description>
+        /// Returns the currently set password.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>
+        /// String that does not violate the password rules
+        /// </term>
+        /// <description>
+        /// Sets the port equal to the numeric value and returns a confirmation message.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>
+        /// String that violates the password rules
+        /// </term>
+        /// <description>
+        /// Returns an error message in form of a 
+        /// <see cref="Properties.Resources.InvalidPasswordExceptionMessage"/>.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>
+        /// Server is running
+        /// </term>
+        /// <description>
+        /// While the server is running, the password can't be changed.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>
+        /// Parameter 2...n
+        /// </term>
+        /// <description>
+        /// Any kind of parameter, after the first one, will be ignored.
+        /// </description>
+        /// </item>
+        /// </list>
         /// </summary>
-        /// <param name="commandList"></param>
-        /// <returns></returns>
-        private string ParsePassword(string[] commandList)
+        /// 
+        /// <param name="paramterList">List of all paramters the command has been called 
+        /// with</param>
+        /// 
+        /// <returns>Which password is currently set or has been set, if no errors 
+        /// occured.</returns>
+        private string ParsePassword(string[] paramterList)
         {
             // command: password -> Returns the currently set password.
-            if (commandList.Length == 0)
+            if (paramterList.Length == 0)
             {
                 return Password;
             }
@@ -278,7 +415,7 @@ namespace ServerLogic.Control
                     // test if password string is of adequate length and characters.
                     try
                     {
-                        Password = commandList[0];
+                        Password = paramterList[0];
                     }
                     // password string violates the password rules.
                     catch (ArgumentException)
@@ -286,19 +423,29 @@ namespace ServerLogic.Control
                         return Properties.Resources.InvalidPasswordExceptionMessage;
                     }
 
-                    return "The password has been set to " + commandList[0] + " successfully.";
+                    return "The password has been set to " + paramterList[0] + " successfully.";
                 }
             }
         }
 
         /// <summary>
-        /// 
+        /// This function serves the following purposes:
+        /// <list type="bullet">
+        /// <item>Start the server with the currently set port and password.</item>
+        /// <item>Start the server with the currently set port and a new password.</item>
+        /// <item>Start the server with the currently set password and a new port.</item>
+        /// <item>Start the server with a new port and password.</item>
+        /// </list>
         /// </summary>
-        /// <param name="commandList"></param>
-        /// <returns></returns>
-        private string StartServer(string[] commandList)
+        /// 
+        /// <param name="paramterList">List of all paramters the command has been called 
+        /// with</param>
+        /// 
+        /// <returns>Confirmation that the server has been started and with which port it 
+        /// has been started, if no errors occured.</returns>
+        private string StartServer(string[] paramterList)
         {
-            foreach (string item in commandList)
+            foreach (string item in paramterList)
             {
                 if (Regex.IsMatch(item, @"--port\=(\d*)"))
                 {
@@ -326,17 +473,17 @@ namespace ServerLogic.Control
                 }
             }
 
-            Console.WriteLine("Password: " + Password + "; Port: " + Port);
-
             // Need MainServerLogic first
             serverIsRunning = true;
             return "The server has been started successfully with port: " + Port;
         }
 
         /// <summary>
-        /// 
+        /// This function stops the server and thus terminates any kind of communication
+        /// with the Moderator-Client or any PlayerAudience-Client.
         /// </summary>
-        /// <returns></returns>
+        /// 
+        /// <returns>Confirmation hat the server has been stopped successfully.</returns>
         private string StopServer()
         {
             // Need MainServerLogic first
@@ -345,13 +492,16 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// 
+        /// This function loads and returns the help-text for the specified command, or
+        /// returns an error message that the specified command is unknown.
         /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
+        /// 
+        /// <param name="command">The command that the user needs help with.</param>
+        /// 
+        /// <returns>The help-text for the specified command if no error occured.</returns>
         private string ShowHelp(string command)
         {
-            string ret = "";
+            string ret;
 
             switch (command)
             {
@@ -390,17 +540,19 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// 
+        /// This function returns the current version of the ServerLogic.
         /// </summary>
-        /// <returns></returns>
+        /// 
+        /// <returns>The current version of the ServerLogic.</returns>
         private string ShowVersion()
         {
             return Properties.Resources.CurrentVersion;
         }
 
         /// <summary>
-        /// 
+        /// TODO
         /// </summary>
+        /// 
         /// <returns></returns>
         private string ShowLogs()
         {
@@ -409,8 +561,9 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// 
+        /// TODO
         /// </summary>
+        /// 
         /// <returns></returns>
         private string ClearLogs()
         {
@@ -419,42 +572,54 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// 
+        /// Wrapper-Function to check if the command-line arguments are valid and can be
+        /// transmitted forward to set password and/or port of the server.
         /// </summary>
-        /// <param name="args"></param>
-        /// <returns></returns>
+        /// 
+        /// <param name="args">Command-line parameters that need to checked.</param>
+        /// 
+        /// <returns>To be used password and port, if no errors occured.</returns>
+        /// 
+        /// <exception cref="System.ArgumentException">Thrown when either the supposed 
+        /// password or port violate the rules for setting them.</exception>
         private static string[] CheckMainMethodArgs(string[] args)
         {
             int port;
             string password;
 
-            
-                if (args.Length == 0)
+            if (args.Length == 0)
+            {
+                throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
+            }
+            else
+            {
+                password = ValidateShellPassword(args[0].ToLower(CultureInfo.CurrentCulture));
+
+                if (args.Length == 1)
                 {
-                    throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
+                    port = 7777;
                 }
                 else
                 {
-                    password = ValidateShellPassword(args[0].ToLower(CultureInfo.CurrentCulture));
-
-                    if (args.Length == 1)
-                    {
-                        port = 7777;
-                    }
-                    else
-                    {
-                        port = ValidateShellPort(args[1]);
-                    }
-
-                    return new string[] { password, port.ToString(CultureInfo.CurrentCulture) };
+                    port = ValidateShellPort(args[1]);
                 }
+
+                return new string[] { password, port.ToString(CultureInfo.CurrentCulture) };
+            }
         }
 
         /// <summary>
-        /// 
+        /// Checks if the supposed password is an actual password and if it complies with
+        /// the password rules. Alternatively, if the supposed password starts with a dash,
+        /// it's instead checked if a known option is being called.
         /// </summary>
-        /// <param name="password"></param>
-        /// <returns></returns>
+        /// 
+        /// <param name="password">The supposed password that needs to be checked.</param>
+        /// 
+        /// <returns>The entered password, if no errors occured.</returns>
+        /// 
+        /// <exception cref="System.ArgumentException">Thrown when the supposed password 
+        /// violates the rules.</exception>
         private static string ValidateShellPassword(string password)
         {
             if (password.Length == 0)
@@ -486,17 +651,23 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// 
+        /// Checks if the supposed port is an actual password and if it complies with
+        /// the port rules.
         /// </summary>
-        /// <param name="portString"></param>
-        /// <returns></returns>
+        /// 
+        /// <param name="portString">The supposed port that needs to be checked.</param>
+        /// 
+        /// <returns>The entered port, if no errors occured.</returns>
+        /// 
+        /// <exception cref="System.ArgumentException">Thrown when the supposed port
+        /// violates the rules.</exception>
         private static int ValidateShellPort(string portString)
         {
             int port;
 
             try
             {
-                port = Convert.ToInt32(value: portString[1], provider: CultureInfo.CurrentCulture);
+                port = Convert.ToInt32(value: portString, provider: CultureInfo.CurrentCulture);
 
                 if (port <= 1023 || port > 65535)
                 {
@@ -515,9 +686,13 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// 
+        /// The Main method of the SevrerShell.
         /// </summary>
-        /// <param name="args"></param>
+        /// 
+        /// <param name="args">Command-line parameters.</param>
+        /// 
+        /// <exception cref="System.ArgumentException">Thrown when either the supposed 
+        /// password or port violate the rules for setting them.</exception>
         public static void Main(string[] args)
         {
             string[] returnValue = CheckMainMethodArgs(args);

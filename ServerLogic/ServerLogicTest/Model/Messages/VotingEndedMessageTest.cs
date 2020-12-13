@@ -8,7 +8,8 @@ using System.Text.RegularExpressions;
 namespace ServerLogicTests.Model.Messages
 {
     /// <summary>
-    /// 
+    /// Tests the basic parsing and construction of the <c>VotingEndedMessage</c>, 
+    /// to ensure they are able to parse valid messages.
     /// </summary>
     [TestClass]
     public class VotingEndedMessageTest
@@ -26,7 +27,8 @@ namespace ServerLogicTests.Model.Messages
             testWinningOption + @", VotingResults:" + dictToString + @"\]";
 
         /// <summary>
-        /// 
+        /// Validates that the assigned test-variable is the same before and after
+        /// construction of the message.
         /// </summary>
         [TestMethod]
         public void WinningOptionTest()
@@ -38,7 +40,8 @@ namespace ServerLogicTests.Model.Messages
         }
 
         /// <summary>
-        /// 
+        /// Validates that the assigned test-variable is the same before and after
+        /// construction of the message.
         /// </summary>
         [TestMethod]
         public void VotingResultsTest()
@@ -50,7 +53,10 @@ namespace ServerLogicTests.Model.Messages
         }
 
         /// <summary>
-        /// 
+        /// Validates that the constructed message contains all the provided
+        /// test-variables, at the correct position and with the correct value,
+        /// and also validates that the <c>ToString()</c> method of the message
+        /// returns a well-formed string, according to the expectations.
         /// </summary>
         [TestMethod]
         public void ToStringCorrectness()
