@@ -109,7 +109,7 @@ namespace ServerLogic.Model
         /// <see cref="Messages.RequestGamePausedStatusChangeMessage"/>, to confirm that the game is now either 
         /// continuing or being paused.
         /// </summary>
-        GamePauseStatus,
+        GamePausedStatus,
         // Postgame
         /// <summary>
         /// This message is sent from the Moderator-Client to the ServerLogic to tell the ServerLogic to close the 

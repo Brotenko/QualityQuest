@@ -8,10 +8,10 @@ namespace ServerLogic.Model.Messages
 {
     /// <summary>
     /// This message is sent from the ServerLogic to the Moderator-Client in response 
-    /// to a <see cref="Messages.RequestPauseGameStatusChangeMessage"/>, to confirm that the 
+    /// to a <see cref="Messages.RequestGamePasuedStatusChangeMessage"/>, to confirm that the 
     /// game is now either continuing or being paused.
     /// </summary>
-    public class GamePauseStatusMessage : MessageContainer
+    public class GamePausedStatusMessage : MessageContainer
     {
         public bool GamePaused { get; private set; }
 
@@ -26,7 +26,7 @@ namespace ServerLogic.Model.Messages
         /// <param name="gamePaused">Specifies whether the game is being paused or whether 
         /// the already paused game is being continued. With true indicating that the game has 
         /// been paused, and false indicating that the game is continuing.</param>
-        public GamePauseStatusMessage(Guid moderatorId, bool gamePaused) : this(moderatorId, gamePaused, "")
+        public GamePausedStatusMessage(Guid moderatorId, bool gamePaused) : this(moderatorId, gamePaused, "")
         {
             /* FALL THROUGH */
         }
@@ -47,14 +47,14 @@ namespace ServerLogic.Model.Messages
         /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
         /// or an error occurring, information can be carried to the Moderator-Client directly for 
         /// quick access, without the need to search through the logs.</param>
-        public GamePauseStatusMessage(Guid moderatorId, bool gamePaused, string debugMessage) : base(moderatorId, MessageType.GamePauseStatus, debugMessage)
+        public GamePausedStatusMessage(Guid moderatorId, bool gamePaused, string debugMessage) : base(moderatorId, MessageType.GamePausedStatus, debugMessage)
         {
             GamePaused = gamePaused;
         }
 
         public override string ToString()
         {
-            return "GamePauseStatusMessage [<container>: " + base.ToString() + ", GamePaused: " + GamePaused + "]";
+            return "GamePausedStatusMessage [<container>: " + base.ToString() + ", GamePaused: " + GamePaused + "]";
         }
     }
 }
