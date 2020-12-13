@@ -1,4 +1,0 @@
-G:\QualityQuest Server\ServerLogic\ServerLogic\ServerLogicTest\obj\Debug\netcoreapp3.1\ServerLogicTest.csprojAssemblyReference.cache
-G:\QualityQuest Server\ServerLogic\ServerLogic\ServerLogicTest\obj\Debug\netcoreapp3.1\ServerLogicTest.AssemblyInfoInputs.cache
-G:\QualityQuest Server\ServerLogic\ServerLogic\ServerLogicTest\obj\Debug\netcoreapp3.1\ServerLogicTest.AssemblyInfo.cs
-G:\QualityQuest Server\ServerLogic\ServerLogic\ServerLogicTest\obj\Debug\netcoreapp3.1\ServerLogicTest.csproj.CoreCompileInputs.cache
