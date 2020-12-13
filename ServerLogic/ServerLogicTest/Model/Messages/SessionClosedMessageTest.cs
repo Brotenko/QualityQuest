@@ -8,7 +8,8 @@ using System.Text.RegularExpressions;
 namespace ServerLogicTests.Model.Messages
 {
     /// <summary>
-    /// 
+    /// Tests the basic parsing and construction of the <c>SessionClosedMessage</c>, 
+    /// to ensure they are able to parse valid messages.
     /// </summary>
     [TestClass]
     public class SessionClosedMessageTest
@@ -24,7 +25,8 @@ namespace ServerLogicTests.Model.Messages
             testGuid + @", Type: SessionClosed, Date: \d{2}\.\d{2}\.\d{4}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], Statistics: " + dictToString + @"\]";
 
         /// <summary>
-        /// 
+        /// Validates that the assigned test-variable is the same before and after
+        /// construction of the message.
         /// </summary>
         [TestMethod]
         public void StatisticsTest()
@@ -36,7 +38,10 @@ namespace ServerLogicTests.Model.Messages
         }
 
         /// <summary>
-        /// 
+        /// Validates that the constructed message contains all the provided
+        /// test-variables, at the correct position and with the correct value,
+        /// and also validates that the <c>ToString()</c> method of the message
+        /// returns a well-formed string, according to the expectations.
         /// </summary>
         [TestMethod]
         public void ToStringCorrectness()

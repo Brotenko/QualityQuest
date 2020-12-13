@@ -7,7 +7,8 @@ using System.Text.RegularExpressions;
 namespace ServerLogicTests.Model.Messages
 {
     /// <summary>
-    /// 
+    /// Tests the basic parsing and construction of the <c>ErrorMessage</c>, to 
+    /// ensure they are able to parse valid messages.
     /// </summary>
     [TestClass]
     public class ErrorMessageTest
@@ -42,22 +43,25 @@ namespace ServerLogicTests.Model.Messages
             IllegalMessageError + @", ErrorMessageText: " + ErrorMessageText + @"\]";
 
         /// <summary>
-        /// 
+        /// Validates that the constructed message contains all the provided
+        /// test-variables, at the correct position and with the correct value,
+        /// and also validates that the <c>ToString()</c> method of the message
+        /// returns a well-formed string, according to the expectations.
         /// </summary>
         [TestMethod]
         public void WrongPasswordErrorTest()
         {
             ErrorMessage e = new ErrorMessage(testGuid, WrongPasswordError, ErrorMessageText);
 
-            Console.WriteLine(e.ToString());
-            Console.WriteLine(expectedWrongPasswordErrorStringPattern);
-
             Assert.AreEqual(e.ErrorMessageType, WrongPasswordError);
             Assert.IsTrue(Regex.IsMatch(e.ToString(), expectedWrongPasswordErrorStringPattern));
         }
 
         /// <summary>
-        /// 
+        /// Validates that the constructed message contains all the provided
+        /// test-variables, at the correct position and with the correct value,
+        /// and also validates that the <c>ToString()</c> method of the message
+        /// returns a well-formed string, according to the expectations.
         /// </summary>
         [TestMethod]
         public void UnknownGuidErrorTest()
@@ -69,7 +73,10 @@ namespace ServerLogicTests.Model.Messages
         }
 
         /// <summary>
-        /// 
+        /// Validates that the constructed message contains all the provided
+        /// test-variables, at the correct position and with the correct value,
+        /// and also validates that the <c>ToString()</c> method of the message
+        /// returns a well-formed string, according to the expectations.
         /// </summary>
         [TestMethod]
         public void IllegalPauseActionErrorTest()
@@ -81,7 +88,10 @@ namespace ServerLogicTests.Model.Messages
         }
 
         /// <summary>
-        /// 
+        /// Validates that the constructed message contains all the provided
+        /// test-variables, at the correct position and with the correct value,
+        /// and also validates that the <c>ToString()</c> method of the message
+        /// returns a well-formed string, according to the expectations.
         /// </summary>
         [TestMethod]
         public void SessionDoesNotExistErrorTest()
@@ -93,7 +103,10 @@ namespace ServerLogicTests.Model.Messages
         }
 
         /// <summary>
-        /// 
+        /// Validates that the constructed message contains all the provided
+        /// test-variables, at the correct position and with the correct value,
+        /// and also validates that the <c>ToString()</c> method of the message
+        /// returns a well-formed string, according to the expectations.
         /// </summary>
         [TestMethod]
         public void NewModeratorErrorTest()
@@ -105,7 +118,10 @@ namespace ServerLogicTests.Model.Messages
         }
 
         /// <summary>
-        /// 
+        /// Validates that the constructed message contains all the provided
+        /// test-variables, at the correct position and with the correct value,
+        /// and also validates that the <c>ToString()</c> method of the message
+        /// returns a well-formed string, according to the expectations.
         /// </summary>
         [TestMethod]
         public void IllegalMessageErrorTest()

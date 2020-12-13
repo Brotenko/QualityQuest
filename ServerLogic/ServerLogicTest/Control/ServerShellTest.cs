@@ -40,7 +40,8 @@ namespace ServerLogicTests.Control
         private const int testPort_3 = 8888;
 
         /// <summary>
-        /// 
+        /// Validates that an <c>ArgumentException</c> is thrown when a password is
+        /// transmitted that violates the password rules.
         /// </summary>
         [TestMethod]
         public void IllegalPasswordTest()
@@ -74,7 +75,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that an <c>ArgumentException</c> is thrown when a port is
+        /// transmitted that violates the port rules.
         /// </summary>
         [TestMethod]
         public void IllegalPortTest()
@@ -90,7 +92,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <c>ParseCommand</c> method acts like inteded, when 
+        /// commands and options are entered.
         /// </summary>
         [TestMethod]
         public void ParseCommandTest()
@@ -132,7 +135,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that <the c>ParsePort</c> method acts like inteded, when certain 
+        /// arguments are transmitted.
         /// </summary>
         [TestMethod]
         public void ParsePortTest()
@@ -219,7 +223,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <c>ParsePassword</c> method acts like inteded, 
+        /// when certain arguments are transmitted.
         /// </summary>
         [TestMethod]
         public void ParsePasswordTest()
@@ -295,7 +300,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <c>StartServer</c> method acts like inteded, 
+        /// when certain options are transmitted.
         /// </summary>
         [TestMethod]
         public void StartServerTest()
@@ -403,7 +409,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <c>StopServer</c> method acts like inteded, 
+        /// when certain options are transmitted.
         /// </summary>
         [TestMethod]
         public void StopServerTest()
@@ -431,6 +438,10 @@ namespace ServerLogicTests.Control
             Assert.IsTrue(Regex.IsMatch(t, serverHasStoppedPattern));
         }
 
+        /// <summary>
+        /// Validates that the <c>ShowHelp</c> method acts like inteded, when 
+        /// certain options are transmitted.
+        /// </summary>
         [TestMethod]
         public void ShowHelpTest()
         {
@@ -584,7 +595,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <c>ShowVersion</c> method acts like inteded, when 
+        /// certain options are transmitted.
         /// </summary>
         [TestMethod]
         public void ShowVersionTest()
@@ -614,7 +626,7 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// TODO
         /// </summary>
         [TestMethod]
         public void ShowLogsTest()
@@ -623,7 +635,7 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// TODO
         /// </summary>
         [TestMethod]
         public void ClearLogsTest()
@@ -632,7 +644,9 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that an <c>ArgumentException</c> is thrown when a password or 
+        /// port is transmitted as an option for the <c>Main</c> method, that violates
+        /// the respective rules.
         /// </summary>
         [TestMethod]
         public void MainMethodTest()
