@@ -64,11 +64,11 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../use-case-diagramme/">Use-Cases</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../use-case-diagrams/">Use-Cases</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../architectureDiagrams/">Architecture diagrams</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../architecture-diagrams/">Architecture diagrams</a>
                     </li>
                 </ul>
                 <ul>
@@ -91,6 +91,10 @@
     <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#table-of-contents">Table of contents</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#version-022-second-revision-of-the-component-design">Version 0.2.2 - Second revision of the component design</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#version-021-first-revision-of-the-component-design">Version 0.2.1 - First revision of the component design</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#version-020-component-design">Version 0.2.0 - Component design</a>
     </li>
@@ -220,6 +224,450 @@
 <td align="left">2020-11-17</td>
 <td><a href="#version-020-component-design">Link</a></td>
 </tr>
+<tr>
+<td>0.2.1</td>
+<td align="left">First revision of the component design</td>
+<td align="left">2020-11-26</td>
+<td><a href="#version-021-first-revision-of-the-component-design">Link</a></td>
+</tr>
+<tr>
+<td>0.2.2</td>
+<td align="left">Second revision of the component design</td>
+<td align="left">TBA</td>
+<td><a href="#version-022-second-revision-of-the-component-design">Link</a></td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h2 id="version-022-second-revision-of-the-component-design">Version 0.2.2 - Second revision of the component design</h2>
+<table>
+<thead>
+<tr>
+<th align="center">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/usedtools#used-tools"><em>Used Tools:</em></a> <em>Visual Studio 2019:</em></strong> Added used tool.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/usedtools#used-tools"><em>Used Tools:</em></a> <em>Adobe XD:</em></strong> Added used tool.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/usedtools#used-libraries"><em>Used Libraries:</em></a> <em>Microsoft.NET.Test.Sdk:</em></strong> Added used library.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/usedtools#used-libraries"><em>Used Libraries:</em></a> <em>MSTest.TestAdapter:</em></strong> Added used library.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/usedtools#used-libraries"><em>Used Libraries:</em></a> <em>MSTest.TestFramework:</em></strong> Added used library.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/usedtools#used-libraries"><em>Used Libraries:</em></a> <em>System.Drawing.Common:</em></strong> Added used library.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/usedtools#used-libraries"><em>Used Libraries:</em></a> <em>QRCoder:</em></strong> Added used library.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/usedtools#used-libraries"><em>Used Libraries:</em></a> <em>coverlet.collector:</em></strong> Added used library.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#in-code-documentation-style"><em>Non-functional Requirements:</em></a> <em>NFR2:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#adherence-to-project-coding-styleguide"><em>Non-functional Requirements:</em></a> <em>NFR6:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#development-environment"><em>Non-functional Requirements:</em></a> <em>NFR18:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/requirements#sessionkey-length"><em>Functional Requirements:</em></a> <em>FR54:</em></strong> Added requirement "SessionKey length".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/network-protocol#messagetype-enum"><em>Network Protocol:</em></a> <em>MessageType Enum:</em></strong> Renamed from "MessageTypeEnum" to "MessageType Enum".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/network-protocol#errortype-enum"><em>Network Protocol:</em></a> <em>ErrorType Enum:</em></strong> Renamed from "ErrorTypeEnum" to "ErrorType Enum".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/network-protocol"><em>Network Protocol:</em></a> <em>Network protocol:</em></strong> Renamed occurrences of "MessageTypeEnum" to "MessageType".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/network-protocol"><em>Network Protocol:</em></a> <em>Network protocol:</em></strong> Renamed occurrences of "ErrorTypeEnum" to "ErrorType".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/network-protocol"><em>Network Protocol:</em></a> <em>Network protocol:</em></strong> All messages now end on "[...]Message".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/network-protocol"><em>Network Protocol:</em></a> <em>Network protocol:</em></strong> All fields and methods are now uppercase.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/network-protocol#requestopensessionmessage"><em>Network Protocol:</em></a> <em>RequestOpenSessionMessage:</em></strong> Added description for the field "Password".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/network-protocol#messagecontainer"><em>Network Protocol:</em></a> <em>MessageContainer:</em></strong> Updated type of "CreationDate" to "DateTime".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/network-protocol#sessionopenedmessage"><em>Network Protocol:</em></a> <em>SessionOpenedMessage:</em></strong> Updated type of "DirectURL" to "Uri".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/network-protocol#votingendedmessage"><em>Network Protocol:</em></a> <em>VotingEndedMessage:</em></strong> Updated type of "WinningOption" to "Guid".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/network-protocol#errormessage"><em>Network Protocol:</em></a> <em>ErrorMessage:</em></strong> Renamed field "ErrorType" to "ErrorMessageType".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/network-protocol#errormessage"><em>Network Protocol:</em></a> <em>ErrorMessage:</em></strong> Renamed field "ErrorMessage" to "ErrorMessageText".</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h2 id="version-021-first-revision-of-the-component-design">Version 0.2.1 - First revision of the component design</h2>
+<table>
+<thead>
+<tr>
+<th align="center">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/index">Quality Quest:_</a> <em>Quality Quest:</em></strong> Updated all texts.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/toc"><em>Table of contents:</em></a> <em>Table of contents:</em></strong> Extension and reordering of the table of contents.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary#actors-and-roles"><em>Glossary:</em></a> <em>Actors and Roles:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary-expertise"><em>Glossary:</em></a> <em>Expertise:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary"><em>Glossary:</em></a> <em>Glossary:</em></strong> Updated all entries to have the new style.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary#moderator"><em>Glossary:</em></a> <em>Moderator:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary#server"><em>Glossary:</em></a> <em>Server:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary#moderator-client"><em>Glossary:</em></a> <em>Moderator-Client:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary#playeraudience-client"><em>Glossary:</em></a> <em>PlayerAudience-Client:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary#client"><em>Glossary:</em></a> <em>Client:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary#storyflowdecision"><em>Glossary:</em></a> <em>StoryFlowDecision:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary#network-protocol"><em>Glossary:</em></a> <em>Network protocol:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary#online-mode"><em>Glossary:</em></a> <em>Online-Mode:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary#offline-mode"><em>Glossary:</em></a> <em>Offline-Mode:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary#online-voting"><em>Glossary:</em></a> <em>Online voting:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/glossary#pause-button"><em>Glossary:</em></a> <em>PauseButton:</em></strong> Updated description and changed name from "Pause-Button" to "PauseButton".</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/glossary#storygraph"><em>Glossary:</em></a> <em>StoryGraph:</em></strong> Added new entry.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#game"><em>Functional Requirements:</em></a> <em>FR1:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#newtec-branding"><em>Functional Requirements:</em></a> <em>FR3:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#participation-of-a-larger-playeraudience"><em>Functional Requirements:</em></a> <em>FR11:</em></strong> Updated description and explanation.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#character-status-values"><em>Functional Requirements:</em></a> <em>FR14:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#selecting-a-character"><em>Functional Requirements:</em></a> <em>FR15:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#presentation-of-character-status-values"><em>Functional Requirements:</em></a> <em>FR16:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#character-levelling"><em>Functional Requirements:</em></a> <em>FR18:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#visual-presentation-of-playercharacter-status-changes"><em>Functional Requirements:</em></a> <em>FR19:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#acoustic-presentation-of-playercharacter-status-changes"><em>Functional Requirements:</em></a> <em>FR20:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#pausebutton-location"><em>Functional Requirements:</em></a> <em>FR23:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#network-protocol-violation"><em>Functional Requirements:</em></a> <em>FR31:</em></strong> Updated description and changed name from "Communication protocol violation" to "Network protocol violation".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#game-relevant-serverlogic-logging"><em>Functional Requirements:</em></a> <em>FR33:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#serverlogic-log-deletion"><em>Functional Requirements:</em></a> <em>FR35:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#moderator-client-guid"><em>Functional Requirements:</em></a> <em>FR40:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements#target-audience"><em>Non-functional Requirements:</em></a> <em>NFR8:</em></strong> Changed name from "Target PlayerAudience" to "Target audience".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements"><em>Requirements:</em></a> <em>Requirements:</em></strong> Updated all entries to have the new style.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/requirements"><em>Requirements:</em></a> <em>Requirements:</em></strong> Fixed typos.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/use-case-diagrams"><em>Use-case diagrams:</em></a> <em>PlayerAudience-Client:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/use-case-diagrams"><em>Use-case diagrams:</em></a> <em>ServerLogic:</em></strong> Changed name from "Server" to "ServerLogic".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/use-case-diagrams"><em>Use-case diagrams:</em></a> <em>Start application:</em></strong> Updated description and changed name from "Start Application" to "Start application".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/use-case-diagrams"><em>Use-case diagrams:</em></a> <em>Play game:</em></strong> Updated description and changed name from "Play Game" to "Play game".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/use-case-diagrams"><em>Use-case diagrams:</em></a> <em>End application:</em></strong> Updated description and changed name from "End Application" to "End application".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/architecture-diagrams"><em>Architecture diagrams:</em></a> <em>Architecture diagrams:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/architecture-diagrams#class-diagrams"><em>Architecture diagrams:</em></a> <em>Class diagrams:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/architecture-diagrams#moderator-client"><em>Architecture diagrams:</em></a> <em>Moderator-Client:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/architecture-diagrams#server-class-diagrams"><em>Architecture diagrams:</em></a> <em>Server class diagrams:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/architecture-diagrams#component-overview"><em>Architecture diagrams:</em></a> <em>Component-Overview:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/architecture-diagrams#playeraudience-client#playeraudience-client"><em>Architecture diagrams:</em></a> <em>PlayerAudience-Client:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/architecture-diagrams#component-diagrams"><em>Architecture diagrams:</em></a> <em>Component diagrams:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/architecture-diagrams#serverlogic"><em>Architecture diagrams:</em></a> <em>ServerLogic:</em></strong> Updated description and changed name from "Server" to "ServerLogic".</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow"><em>StoryFlow:</em></a> <em>StoryFlow overview:</em></strong> Added new section.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/storyflow"><em>StoryFlow:</em></a> <em>Detailed StoryFlow diagrams:</em></strong> Changed name from "Detailed-StoryFlow diagrams" to "Detailed StoryFlow diagrams".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/storyflow"><em>StoryFlow:</em></a> <em>StoryFlow overview:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/storyflow"><em>StoryFlow:</em></a> <em>Detailed StoryFlow diagrams:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/changehistory"><em>Change history:</em></a> <em>Change history:</em></strong> Fixed typos.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-1"><em>StoryFlow:</em></a> <em>StoryFlowDecision 1:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-2"><em>StoryFlow:</em></a> <em>StoryFlowDecision 2:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-3"><em>StoryFlow:</em></a> <em>StoryFlowDecision 3:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-3"><em>StoryFlow:</em></a> <em>StoryFlowDecision 3:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-4"><em>StoryFlow:</em></a> <em>StoryFlowDecision 4:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-5"><em>StoryFlow:</em></a> <em>StoryFlowDecision 6:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-6"><em>StoryFlow:</em></a> <em>StoryFlowDecision 6:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-7"><em>StoryFlow:</em></a> <em>StoryFlowDecision 7:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-8"><em>StoryFlow:</em></a> <em>StoryFlowDecision 8:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-9"><em>StoryFlow:</em></a> <em>StoryFlowDecision 9:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-10"><em>StoryFlow:</em></a> <em>StoryFlowDecision 10:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-11"><em>StoryFlow:</em></a> <em>StoryFlowDecision 11:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-12"><em>StoryFlow:</em></a> <em>StoryFlowDecision 12:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-13"><em>StoryFlow:</em></a> <em>StoryFlowDecision 13:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-14"><em>StoryFlow:</em></a> <em>StoryFlowDecision 14:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="/storyflow#storyflowdecision-15"><em>StoryFlow:</em></a> <em>StoryFlowDecision 15:</em></strong> Added description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/architecture-diagrams#serverlogic"><em>Architecture diagrams:</em></a> <em>ServerLogic:</em></strong> Updated diagram: Changed</td>
+</tr>
+<tr>
+<td align="center">"Websocket" to "WebSocket".</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/architecture-diagrams#moderator-client"><em>Architecture diagrams:</em></a> <em>Moderator-Client:</em></strong> Updated diagram: Changed "Websocket" to "WebSocket".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/architecture-diagrams#component-overview"><em>Architecture diagrams:</em></a> <em>Component-Overview:</em></strong> Updated diagram: Changed "Websocket" to "WebSocket".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/architecture-diagrams#class-diagrams"><em>Architecture diagrams:</em></a> <em>Class diagrams:</em></strong> Updated diagram: Changed "websocket" to "webSocket".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/use-case-diagrams#playerAudience-client"><em>Use-case diagrams:</em></a> <em>PlayerAudience-Client:</em></strong> Updated diagram: Changed "Server" to "ServerLogic".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/use-case-diagrams#Serverlogic"><em>Use-case diagrams:</em></a> <em>ServerLogic:</em></strong> Updated diagram: Changed "Server" to "ServerLogic".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/use-case-diagrams#moderator-client"><em>Use-case diagrams:</em></a> <em>Moderator-Client:</em></strong> Updated diagram: Changed "Server" to "ServerLogic".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/use-case-diagrams#play-game"><em>Use-case diagrams:</em></a> <em>Play game:</em></strong> Updated diagram: Changed "Server" to "ServerLogic".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="/use-case-diagrams#end-application"><em>Use-case diagrams:</em></a> <em>End application:</em></strong> Updated diagram: Changed "Server" to "ServerLogic".</td>
+</tr>
 </tbody>
 </table>
 <p></span></p>
@@ -234,11 +682,11 @@
 <tbody>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/architectureDiagrams#server-class-diagrams"><em>Class diagrams:</em></a> <em>Server class diagram:</em></strong> Added a joined class diagram for PlayerAudience-Client and Server, along with a description.</td>
+<td align="left"><strong><a href="/architecture-diagrams#server-class-diagrams"><em>Class diagrams:</em></a> <em>Server class diagram:</em></strong> Added a joined class diagram for PlayerAudience-Client and Server, along with a description.</td>
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/architectureDiagrams#Classdiagrams"><em>Class diagrams:</em></a> <em>Class diagrams:</em></strong>  Updated class diagram with the new Server diagram</td>
+<td align="left"><strong><a href="/architecture-diagrams#Classdiagrams"><em>Class diagrams:</em></a> <em>Class diagrams:</em></strong>  Updated class diagram with the new Server diagram</td>
 </tr>
 <tr>
 <td align="center">*</td>
@@ -250,15 +698,15 @@
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/glossary"><em>Glossary:</em></a> <em>ServerLogic:</em></strong> Added new entry.</td>
+<td align="left"><strong><a href="/glossary#serverlogic"><em>Glossary:</em></a> <em>ServerLogic:</em></strong> Added new entry.</td>
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/glossary"><em>Glossary:</em></a> <em>Server:</em></strong> Changed description.</td>
+<td align="left"><strong><a href="/glossary#server"><em>Glossary:</em></a> <em>Server:</em></strong> Changed description.</td>
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/architectureDiagrams#component-diagrams"><em>Component diagrams:</em></a> <em>All component diagrams:</em></strong> Updated diagrams and descriptions.</td>
+<td align="left"><strong><a href="/architecture-diagrams#component-diagrams"><em>Component diagrams:</em></a> <em>All component diagrams:</em></strong> Updated diagrams and descriptions.</td>
 </tr>
 <tr>
 <td align="center">+</td>
@@ -274,35 +722,35 @@
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/glossary#actors-and-roles"><em>Glossary:</em></a> <em>ServerLogic:</em></strong> Changed description to specify that the ServerLogic is responsible for realising voting.</td>
+<td align="left"><strong><a href="/glossary#serverlogic"><em>Glossary:</em></a> <em>ServerLogic:</em></strong> Changed description to specify that the ServerLogic is responsible for realising voting.</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/glossary#expertise"><em>Glossary:</em></a> <em>Online-Mode:</em></strong> Added new entry.</td>
+<td align="left"><strong><a href="/glossary#online-mode"><em>Glossary:</em></a> <em>Online-Mode:</em></strong> Added new entry.</td>
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/glossary#expertise"><em>Glossary:</em></a> <em>Online voting:</em></strong> Changed description and changed term from "OnlineVoting" to "Online voting".</td>
+<td align="left"><strong><a href="/glossary#online-voting"><em>Glossary:</em></a> <em>Online voting:</em></strong> Changed description and changed term from "OnlineVoting" to "Online voting".</td>
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/glossary#expertise"><em>Glossary:</em></a> <em>Network protocol:</em></strong> Changed term from "Communication protocol" to "Network protocol".</td>
+<td align="left"><strong><a href="/glossary#network-protocol"><em>Glossary:</em></a> <em>Network protocol:</em></strong> Changed term from "Communication protocol" to "Network protocol".</td>
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/glossary#expertise"><em>Glossary:</em></a> <em>Online-Session:</em></strong> Changed description to specify the session being online and changed term from "Session" to "Online-Session".</td>
+<td align="left"><strong><a href="/glossary#online-session"><em>Glossary:</em></a> <em>Online-Session:</em></strong> Changed description to specify the session being online and changed term from "Session" to "Online-Session".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/glossary#expertise"><em>Glossary:</em></a> <em>Offline-Session:</em></strong> Added new entry.</td>
+<td align="left"><strong><a href="/glossary#offline-session"><em>Glossary:</em></a> <em>Offline-Session:</em></strong> Added new entry.</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/glossary#expertise"><em>Glossary:</em></a> <em>GUID:</em></strong> Added new entry.</td>
+<td align="left"><strong><a href="/glossary#globally-unique-identifier-guid"><em>Glossary:</em></a> <em>Globally Unique Identifier (GUID):</em></strong> Added new entry.</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/glossary#expertise"><em>Glossary:</em></a> <em>Offline-Mode:</em></strong> Added new entry.</td>
+<td align="left"><strong><a href="/glossary#offline-mode"><em>Glossary:</em></a> <em>Offline-Mode:</em></strong> Added new entry.</td>
 </tr>
 <tr>
 <td align="center">+</td>
@@ -310,123 +758,123 @@
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR25:</em></strong> Changed the reaction time from "10 seconds" to "5 seconds".</td>
+<td align="left"><strong><a href="/requirements/#connection-timeout"><em>Functional Requirements:</em></a> <em>FR25:</em></strong> Changed the reaction time from "10 seconds" to "5 seconds".</td>
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR26:</em></strong> Changed "UUID" to "GUID".</td>
+<td align="left"><strong><a href="/requirements/#serverlogic-connection-loss"><em>Functional Requirements:</em></a> <em>FR26:</em></strong> Changed "UUID" to "GUID".</td>
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR28:</em></strong> Changed "client" to "PlayerAudience-Client".</td>
+<td align="left"><strong><a href="/requirements/#playeraudience-client-guid"><em>Functional Requirements:</em></a> <em>FR28:</em></strong> Changed "client" to "PlayerAudience-Client".</td>
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR28:</em></strong> Changed name to "PlayerAudience-Client GUID" and changed the description accordingly.</td>
+<td align="left"><strong><a href="/requirements/#playeraudience-client-guid"><em>Functional Requirements:</em></a> <em>FR28:</em></strong> Changed name to "PlayerAudience-Client GUID" and changed the description accordingly.</td>
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR31:</em></strong> Changed "UUID" to "GUID".</td>
+<td align="left"><strong><a href="/requirements/#network-protocol-violation"><em>Functional Requirements:</em></a> <em>FR31:</em></strong> Changed "UUID" to "GUID".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR32:</em></strong> Added requirement "Unique voting option identifier".</td>
+<td align="left"><strong><a href="/requirements/#unique-voting-option-identifier"><em>Functional Requirements:</em></a> <em>FR32:</em></strong> Added requirement "Unique voting option identifier".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR33:</em></strong> Added requirement "Game-relevant ServerLogic logging".</td>
+<td align="left"><strong><a href="/requirements/#game-relevant-serverlogic-logging"><em>Functional Requirements:</em></a> <em>FR33:</em></strong> Added requirement "Game-relevant ServerLogic logging".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR34:</em></strong> Added requirement "General ServerLogic logging".</td>
+<td align="left"><strong><a href="/requirements/#general-serverlogic-logging"><em>Functional Requirements:</em></a> <em>FR34:</em></strong> Added requirement "General ServerLogic logging".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR35:</em></strong> Added requirement "ServerLogic log deletion".</td>
+<td align="left"><strong><a href="/requirements/#serverlogic-log-deletion"><em>Functional Requirements:</em></a> <em>FR35:</em></strong> Added requirement "ServerLogic log deletion".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR36:</em></strong> Added requirement "ServerLogic access-password".</td>
+<td align="left"><strong><a href="/requirements/#serverlogic-access-password"><em>Functional Requirements:</em></a> <em>FR36:</em></strong> Added requirement "ServerLogic access-password".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR37:</em></strong> Added requirement "Hashing of integral data".</td>
+<td align="left"><strong><a href="/requirements/#encryption-of-integral-data"><em>Functional Requirements:</em></a> <em>FR37:</em></strong> Added requirement "Hashing of integral data".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR38:</em></strong> Added requirement "Online-Mode".</td>
+<td align="left"><strong><a href="/requirements/#online-mode"><em>Functional Requirements:</em></a> <em>FR38:</em></strong> Added requirement "Online-Mode".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR39:</em></strong> Added requirement "Online-Mode flag".</td>
+<td align="left"><strong><a href="/requirements/#online-mode-flag"><em>Functional Requirements:</em></a> <em>FR39:</em></strong> Added requirement "Online-Mode flag".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR40:</em></strong> Added requirement "Moderator-Client GUID".</td>
+<td align="left"><strong><a href="/requirements/#moderator-client-guid"><em>Functional Requirements:</em></a> <em>FR40:</em></strong> Added requirement "Moderator-Client GUID".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR41:</em></strong> Added requirement "PlayerAudience-Client count".</td>
+<td align="left"><strong><a href="/requirements/#playeraudience-client-count"><em>Functional Requirements:</em></a> <em>FR41:</em></strong> Added requirement "PlayerAudience-Client count".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR42:</em></strong> Added requirement "PlayerAudience-Client count live update".</td>
+<td align="left"><strong><a href="/requirements/#playeraudience-client-count-live-updates"><em>Functional Requirements:</em></a> <em>FR42:</em></strong> Added requirement "PlayerAudience-Client count live update".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR43:</em></strong> Added requirement "Online-Session permanence".</td>
+<td align="left"><strong><a href="/requirements/#online-session-permanence"><em>Functional Requirements:</em></a> <em>FR43:</em></strong> Added requirement "Online-Session permanence".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR44:</em></strong> Added requirement "Switch between Moderator-Clients".</td>
+<td align="left"><strong><a href="/requirements/#switch-between-moderator-clients"><em>Functional Requirements:</em></a> <em>FR44:</em></strong> Added requirement "Switch between Moderator-Clients".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR45:</em></strong> Added requirement "Voting-Timer stop on pause".</td>
+<td align="left"><strong><a href="/requirements/#voting-timer-stop-on-pause"><em>Functional Requirements:</em></a> <em>FR45:</em></strong> Added requirement "Voting-Timer stop on pause".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR46:</em></strong> Added requirement "Communication during pauses".</td>
+<td align="left"><strong><a href="/requirements/#communication-during-pauses"><em>Functional Requirements:</em></a> <em>FR46:</em></strong> Added requirement "Communication during pauses".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR47:</em></strong> Added requirement "PlayerAudience connection method".</td>
+<td align="left"><strong><a href="/requirements/#playeraudience-connection-method"><em>Functional Requirements:</em></a> <em>FR47:</em></strong> Added requirement "PlayerAudience connection method".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR48:</em></strong> Added requirement "PlayerAudience connection option".</td>
+<td align="left"><strong><a href="/requirements/#playeraudience-connection-option"><em>Functional Requirements:</em></a> <em>FR48:</em></strong> Added requirement "PlayerAudience connection option".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR49:</em></strong> Added requirement "Additional PlayerAudience connection options".</td>
+<td align="left"><strong><a href="/requirements/#additional-playeraudience-connection-options"><em>Functional Requirements:</em></a> <em>FR49:</em></strong> Added requirement "Additional PlayerAudience connection options".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR50:</em></strong> Added requirement "Pause menu".</td>
+<td align="left"><strong><a href="/requirements/#pause-menu"><em>Functional Requirements:</em></a> <em>FR50:</em></strong> Added requirement "Pause menu".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR51:</em></strong> Added requirement "Pause menu contents".</td>
+<td align="left"><strong><a href="/requirements/#pause-menu-contentsunctional-requirements"><em>Functional Requirements:</em></a> <em>FR51:</em></strong> Added requirement "Pause menu contents".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR52:</em></strong> Added requirement "Index hashing procedure".</td>
+<td align="left"><strong><a href="/requirements/#vote-indexing-procedure"><em>Functional Requirements:</em></a> <em>FR52:</em></strong> Added requirement "Index hashing procedure".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#functional-requirements"><em>Functional Requirements:</em></a> <em>FR53:</em></strong> Added requirement "Cryptographic hashing procedure".</td>
+<td align="left"><strong><a href="/requirements/#cryptographic-hashing-procedure"><em>Functional Requirements:</em></a> <em>FR53:</em></strong> Added requirement "Cryptographic hashing procedure".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#non-functional-requirements"><em>Non-functional Requirements:</em></a> <em>NFR23:</em></strong> Added requirement "Communication security".</td>
+<td align="left"><strong><a href="/requirements/#communication-security"><em>Non-functional Requirements:</em></a> <em>NFR23:</em></strong> Added requirement "Communication security".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#non-functional-requirements"><em>Non-functional Requirements:</em></a> <em>NFR24:</em></strong> Added requirement "Postgame statistics".</td>
+<td align="left"><strong><a href="/requirements/#postgame-statistics"><em>Non-functional Requirements:</em></a> <em>NFR24:</em></strong> Added requirement "Postgame statistics".</td>
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="/requirements/#non-functional-requirements"><em>Non-functional Requirements:</em></a> <em>NFR25:</em></strong> Added requirement "Postgame statistic contents".</td>
+<td align="left"><strong><a href="/requirements/#postgame-statistics-contents"><em>Non-functional Requirements:</em></a> <em>NFR25:</em></strong> Added requirement "Postgame statistic contents".</td>
 </tr>
 <tr>
 <td align="center">*</td>
@@ -450,7 +898,7 @@
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/architectureDiagrams#class-diagrams"><em>Class diagrams:</em></a> <em>Class diagrams:</em></strong>  Updated class diagrams with Guids and further Adaptions.</td>
+<td align="left"><strong><a href="/architecture-diagrams#class-diagrams"><em>Class diagrams:</em></a> <em>Class diagrams:</em></strong>  Updated class diagrams with GUIDs and further Adaptions.</td>
 </tr>
 </tbody>
 </table>
@@ -494,7 +942,7 @@
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><em><a href="/use-case-diagramme#moderator-client">Use-Case diagrams:</a> Moderator-Client:</em></strong> Updated all Moderator-Client use-case diagrams and descriptions.</td>
+<td align="left"><strong><em><a href="/use-case-diagrams#moderator-client">Use-Case diagrams:</a> Moderator-Client:</em></strong> Updated all Moderator-Client use-case diagrams and descriptions.</td>
 </tr>
 </tbody>
 </table>
@@ -639,11 +1087,11 @@
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/architectureDiagrams#component-diagrams"><em>Component diagrams:</em></a> <em>Component diagrams:</em></strong> Updated notation and changed inconsistent interface labels.</td>
+<td align="left"><strong><a href="/architecture-diagrams#component-diagrams"><em>Component diagrams:</em></a> <em>Component diagrams:</em></strong> Updated notation and changed inconsistent interface labels.</td>
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/architectureDiagrams#component-diagrams"><em>Component diagrams:</em></a> <em>Component diagrams:</em></strong> Updated descriptions for all component diagrams.</td>
+<td align="left"><strong><a href="/architecture-diagrams#component-diagrams"><em>Component diagrams:</em></a> <em>Component diagrams:</em></strong> Updated descriptions for all component diagrams.</td>
 </tr>
 <tr>
 <td align="center">+</td>
@@ -651,7 +1099,7 @@
 </tr>
 <tr>
 <td align="center">*</td>
-<td align="left"><strong><a href="/use-case-diagramme#Moderator-Client"><em>Use-case diagrams:</em></a> <em>Moderator-Client:</em></strong> Division into "Start Application", "Play Game" and "End Application" diagrams.</td>
+<td align="left"><strong><a href="/use-case-diagrams#Moderator-Client"><em>Use-case diagrams:</em></a> <em>Moderator-Client:</em></strong> Division into "Start Application", "Play Game" and "End Application" diagrams.</td>
 </tr>
 <tr>
 <td align="center">-</td>

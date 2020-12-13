@@ -1,0 +1,21 @@
+@startuml
+() "WebSocket" as http
+
+
+component "Server" <<device>> as server{
+    component "ServerLogic" <<component>> as logic{
+        [Message Management] <<subsystem>> as messMan
+        [MainLogic] <<subsystem>> as main
+        () " " as empty1
+    }
+    [PlayerAudience-Client] <<component>> as pe
+     () " " as empty2
+}
+
+
+http )-up- messMan
+empty2 -left- pe
+messMan -left- empty1
+main -( empty1
+main -( empty2
+@enduml

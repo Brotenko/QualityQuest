@@ -1,0 +1,17 @@
+@startuml
+(*) --> "Extracurricular Activity"
+--> "After completing the elective subject, you can enjoy your free time, \n or you can take part in a extracurricular activity."
+if "What do you want to do?" then
+--> [You use your spare time \n to learn a programming language unknown to you.] "You get to know the csharp programming language. \n Your stats change: \n +2 programming \n +1 analytics" as newL
+else
+--> [No, you enjoy your free \n time and attend some parties.] "Through many parties in your spare \n time your partying stat increases, \nbut your programming skills get a bit rusty. \n Your stats change: \n +4 partying \n -1 programming" as no
+else 
+--> [You take part in a hackathon at your university.] "You get to know many new people \n and expand your programming skills.\n Your stats change:\n +2 programming \n +1 communication" as contest
+
+newL --> "You have successfully completed your studies." as studyComplete 
+no --> studyComplete
+contest -> studyComplete
+
+-[#blue,dotted]-> "Graduate studies"
+
+@enduml

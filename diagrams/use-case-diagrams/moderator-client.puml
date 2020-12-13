@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+
+rectangle "Moderator-Client" {
+usecase "Start Application" as START
+usecase "Select Character" as CHAR
+usecase "Make decision on Situation" as MDOCS
+usecase "Game over" as GO
+}
+actor "ServerLogic" as SC
+actor "Moderator" as P
+
+SC -up--> CHAR
+SC -up--> MDOCS
+START --> CHAR
+CHAR --> MDOCS
+P -down--> START
+P -down--> (MDOCS) : Can pause 
+MDOCS -left--> (MDOCS) : Continue
+MDOCS --> GO
+
+@enduml
