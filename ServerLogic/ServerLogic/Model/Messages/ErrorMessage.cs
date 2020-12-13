@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace ServerLogic.Model.Messages
 {
     /// <summary>
-    /// 
+    /// This message is sent from the ServerLogic to the Moderator-Client in case of a 
+    /// disconnection initiated by the ServerLogic and explains the reason for the 
+    /// disconnection.
     /// </summary>
     public class ErrorMessage : MessageContainer
     {
@@ -15,33 +17,45 @@ namespace ServerLogic.Model.Messages
         public string ErrorMessageText { get; private set; }
 
         /// <summary>
-        /// 
+        /// Constructs a new ErrorMessage with an empty debugMessage.
         /// </summary>
-        /// <param name="moderatorId"></param>
-        /// <param name="errorMessageType"></param>
-        /// <param name="errorMessageText"></param>
+        /// 
+        /// <param name="moderatorId">The individual identifier assigned to the Moderator-Client. 
+        /// Only the Moderator-Client sends this id to the ServerLogic to identify itself. The 
+        /// ServerLogic leaves this field empty.</param>
+        /// 
+        /// <param name="errorMessageType">Specifies the reason for the occurred error.</param>
+        /// 
+        /// <param name="errorMessageText">Optional, more detailed description of the occurred 
+        /// error.</param>
         public ErrorMessage(Guid moderatorId, ErrorType errorMessageType, string errorMessageText) : this(moderatorId, errorMessageType, errorMessageText, "")
         {
             /* FALL THROUGH */
         }
 
         /// <summary>
-        /// 
+        /// Constructs a new ErrorMessage.
         /// </summary>
-        /// <param name="moderatorId"></param>
-        /// <param name="errorMessageType"></param>
-        /// <param name="errorMessageText"></param>
-        /// <param name="debugMessage"></param>
+        /// 
+        /// <param name="moderatorId">The individual identifier assigned to the Moderator-Client. 
+        /// Only the Moderator-Client sends this id to the ServerLogic to identify itself. The 
+        /// ServerLogic leaves this field empty.</param>
+        /// 
+        /// <param name="errorMessageType">Specifies the reason for the occurred error.</param>
+        /// 
+        /// <param name="errorMessageText">Optional, more detailed description of the occurred 
+        /// error.</param>
+        /// 
+        /// <param name="debugMessage">Can be used during development to transport additional data 
+        /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
+        /// or an error occurring, information can be carried to the Moderator-Client directly for 
+        /// quick access, without the need to search through the logs.</param>
         public ErrorMessage(Guid moderatorId, ErrorType errorMessageType, string errorMessageText, string debugMessage) : base(moderatorId, MessageType.Error, debugMessage)
         {
             ErrorMessageType = errorMessageType;
             ErrorMessageText = errorMessageText;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return "ErrorMessage [<container>: " + base.ToString() + ", ErrorMessageType: " + ErrorMessageType + ", ErrorMessageText: " + ErrorMessageText + "]";
