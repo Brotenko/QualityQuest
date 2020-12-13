@@ -131,8 +131,8 @@ enum MessageType
     VotingEnded,
     // Control messages
     Error,
-    RequestPauseGameStatusChange,
-    GamePauseStatus,
+    RequestGamePausedStatusChange,
+    GamePausedStatus,
     // Postgame
     RequestCloseSession,
     SessionClosed
@@ -248,12 +248,12 @@ Listing which participant may send which message, the order of the listing is ba
                     <th style="width:12%">✓</th>
                 </tr>
                 <tr>
-                    <th style="font-weight: normal"><a href="#requestpausegamestatuschangemessage">RequestPauseGameStatusChange</a></th>
+                    <th style="font-weight: normal"><a href="#requestgamepausedstatuschangemessage">RequestGamePausedStatusChange</a></th>
                     <th>✓</th>
                     <th></th>
                 </tr>
                 <tr>
-                    <th style="font-weight: normal"><a href="#gamepausestatusmessage">GamePauseStatus</a></th>
+                    <th style="font-weight: normal"><a href="#gamepausedstatusmessage">GamePausedStatus</a></th>
                     <th></th>
                     <th>✓</th>
                 </tr>
@@ -504,35 +504,35 @@ class ErrorMessage : MessageContainer
 - **ErrorMessageType:** Specifies the reason for the occurred error.
 - **ErrorMessageText:** Optional, more detailed description of the occurred error.
 
-#### RequestPauseGameStatusChangeMessage
+#### RequestGamePausedStatusChangeMessage
 
-Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageType](#messagetype-enum)::RequestPauseGameStatusChange**. </br>
+Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageType](#messagetype-enum)::RequestGamePausedStatusChange**. </br>
 This message is sent from the Moderator-Client to the ServerLogic to switch the game between running and being paused.
 
 ``` csharp
-class RequestPauseGameStatusChangeMessage : MessageContainer 
+class RequestGamePausedStatusChangeMessage : MessageContainer 
 {
-    bool GamePausedStatus;
+    bool GamePaused;
 }
 ```
 
-- **GamePausedStatus:** Specifies whether the game is to be paused or whether the already paused game is to be continued. With _true_ indicating that the game is to be paused, and _false_ indicating that the game is to be continued.
+- **GamePaused:** Specifies whether the game is to be paused or whether the already paused game is to be continued. With _true_ indicating that the game is to be paused, and _false_ indicating that the game is to be continued.
 
 The ServerLogic responds with a **[GamePauseStatusMessage](#gamepausestatusmessage)**.
 
 #### GamePauseStatusMessage
 
-Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageType](#messagetype-enum)::GamePauseStatus**. </br>
-This message is sent from the ServerLogic to the Moderator-Client in response to a **[RequestPauseGameStatusChangeMessage](#requestpausegamestatuschangemessage)**, to confirm that the game is now either continuing or being paused.
+Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageType](#messagetype-enum)::GamePausedStatus**. </br>
+This message is sent from the ServerLogic to the Moderator-Client in response to a **[RequestGamePausedStatusChangeMessage](#requestgamepausedstatuschangemessage)**, to confirm that the game is now either continuing or being paused.
 
 ``` csharp
 class GamePauseStatusMessage : MessageContainer 
 {
-    bool GamePausedStatus;
+    bool GamePaused;
 }
 ```
 
-- **GamePausedStatus:** Specifies whether the game is being paused or whether the already paused game is being continued. With _true_ indicating that the game has been paused, and _false_ indicating that the game is continuing.
+- **GamePaused:** Specifies whether the game is being paused or whether the already paused game is being continued. With _true_ indicating that the game has been paused, and _false_ indicating that the game is continuing.
 
 ### Postgame
 
@@ -593,7 +593,7 @@ List of MessageTypes used: [RequestServerStatusMessage](#requestserverstatusmess
 
 This diagram illustrates a typical process of how a Moderator-Client initializes a global pause via the ServerLogic. It also describes what happens in the case of an ongoing vote and what typical errors can occur.
 
-List of MessageTypes used: [RequestPauseGameStatusChangeMessage](#requestpausegamestatuschangemessage), [GamePauseStatusMessage](#gamepausestatusmessage), [ErrorMessage](#errormessage)
+List of MessageTypes used: [RequestGamePausedStatusChangeMessage](#requestgamepausedstatuschangemessage), [GamePauseStatusMessage](#gamepausestatusmessage), [ErrorMessage](#errormessage)
 
 ![Pause game](diagrams/network-diagrams/pause-game.svg)
 
