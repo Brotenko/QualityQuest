@@ -4,8 +4,8 @@ nav:
   - Table of content: toc.md
   - Glossary: glossary.md
   - Requirements: requirements.md
-  - Use-Cases: use-case-diagramme.md
-  - Architecture diagrams: architectureDiagrams.md
+  - Use-Cases: use-case-diagrams.md
+  - Architecture diagrams: architecture-diagrams.md
   - Network protocol: network-protocol.md
   - StoryFlow: storyflow.md
   - Used tools, plugins and libraries: usedtools.md
