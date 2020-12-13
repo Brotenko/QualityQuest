@@ -30,92 +30,124 @@ The change history is a chronologically ordered list of all changes between diff
 | 0.1.1   | First revision of the architecture design  | 2020-10-27 | [Link](#version-011-first-revision-of-the-architecture-design)  |
 | 0.1.2   | Second revision of the architecture design | 2020-11-12 | [Link](#version-012-second-revision-of-the-architecture-design) |
 | 0.2.0   | Component design                           | 2020-11-17 | [Link](#version-020-component-design)                           |
-| 0.2.1   | First revision of the component design     | TBA        | [Link](#version-021-first-revision-of-the-component-design)     |
+| 0.2.1   | First revision of the component design     | 2020-11-26 | [Link](#version-021-first-revision-of-the-component-design)     |
+| 0.2.2   | Second revision of the component design    | TBA        | [Link](#version-022-second-revision-of-the-component-design)    |
+
+</span>
+
+## Version 0.2.2 - Second revision of the component design
+
+| Type  | Description                                                                                                                                     |
+| :---: | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+|   +   | **[_Used Tools:_](/usedtools#used-tools) _Visual Studio 2019:_** Added used tool.                                                               |
+|   +   | **[_Used Tools:_](/usedtools#used-tools) _Adobe XD:_** Added used tool.                                                                         |
+|   +   | **[_Used Libraries:_](/usedtools#used-libraries) _Microsoft.NET.Test.Sdk:_** Added used library.                                                |
+|   +   | **[_Used Libraries:_](/usedtools#used-libraries) _MSTest.TestAdapter:_** Added used library.                                                    |
+|   +   | **[_Used Libraries:_](/usedtools#used-libraries) _MSTest.TestFramework:_** Added used library.                                                  |
+|   +   | **[_Used Libraries:_](/usedtools#used-libraries) _System.Drawing.Common:_** Added used library.                                                 |
+|   +   | **[_Used Libraries:_](/usedtools#used-libraries) _QRCoder:_** Added used library.                                                               |
+|   +   | **[_Used Libraries:_](/usedtools#used-libraries) _coverlet.collector:_** Added used library.                                                    |
+|   *   | **[_Non-functional Requirements:_](/requirements#in-code-documentation-style) _NFR2:_** Updated description.                                    |
+|   *   | **[_Non-functional Requirements:_](/requirements#adherence-to-project-coding-styleguide) _NFR6:_** Updated description.                         |
+|   *   | **[_Non-functional Requirements:_](/requirements#development-environment) _NFR18:_** Updated description.                                       |
+|   +   | **[_Functional Requirements:_](/requirements#sessionkey-length) _FR54:_** Added requirement "SessionKey length".                                |
+|   *   | **[_Network Protocol:_](/network-protocol#messagetype-enum) _MessageType Enum:_** Renamed from "MessageTypeEnum" to "MessageType Enum".         |
+|   *   | **[_Network Protocol:_](/network-protocol#errortype-enum) _ErrorType Enum:_** Renamed from "ErrorTypeEnum" to "ErrorType Enum".                 |
+|   *   | **[_Network Protocol:_](/network-protocol) _Network protocol:_** Renamed occurrences of "MessageTypeEnum" to "MessageType".                     |
+|   *   | **[_Network Protocol:_](/network-protocol) _Network protocol:_** Renamed occurrences of "ErrorTypeEnum" to "ErrorType".                         |
+|   *   | **[_Network Protocol:_](/network-protocol) _Network protocol:_** All messages now end on "[...]Message".                                        |
+|   *   | **[_Network Protocol:_](/network-protocol) _Network protocol:_** All fields and methods are now uppercase.                                      |
+|   +   | **[_Network Protocol:_](/network-protocol#requestopensessionmessage) _RequestOpenSessionMessage:_** Added description for the field "Password". |
+|   *   | **[_Network Protocol:_](/network-protocol#messagecontainer) _MessageContainer:_** Updated type of "CreationDate" to "DateTime".                 |
+|   *   | **[_Network Protocol:_](/network-protocol#sessionopenedmessage) _SessionOpenedMessage:_** Updated type of "DirectURL" to "Uri".                 |
+|   *   | **[_Network Protocol:_](/network-protocol#votingendedmessage) _VotingEndedMessage:_** Updated type of "WinningOption" to "Guid".                |
+|   *   | **[_Network Protocol:_](/network-protocol#errormessage) _ErrorMessage:_** Renamed field "ErrorType" to "ErrorMessageType".                      |
+|   *   | **[_Network Protocol:_](/network-protocol#errormessage) _ErrorMessage:_** Renamed field "ErrorMessage" to "ErrorMessageText".                   |
 
 </span>
 
 ## Version 0.2.1 - First revision of the component design
 
-| Type  | Description                                                                                                                                                                                      |
-| :---: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   *   | **[Quality Quest:_](/index) _Quality Quest:_** Updated all texts.                                                                                                                                |
-|   *   | **[_Table of contents:_](/toc) _Table of contents:_** Extension and reordering of the table of contents.                                                                                         |
-|   *   | **[_Glossary:_](/glossary#actors-and-roles) _Actors and Roles:_** Updated description.                                                                                                           |
-|   *   | **[_Glossary:_](/glossary-expertise) _Expertise:_** Updated description.                                                                                                                         |
-|   *   | **[_Glossary:_](/glossary) _Glossary:_** Updated all entries to have the new style.                                                                                                              |
-|   *   | **[_Glossary:_](/glossary#moderator) _Moderator:_** Updated description.                                                                                                                         |
-|   *   | **[_Glossary:_](/glossary#server) _Server:_** Updated description.                                                                                                                               |
-|   *   | **[_Glossary:_](/glossary#moderator-client) _Moderator-Client:_** Updated description.                                                                                                           |
-|   *   | **[_Glossary:_](/glossary#playeraudience-client) _PlayerAudience-Client:_** Updated description.                                                                                                 |
-|   *   | **[_Glossary:_](/glossary#client) _Client:_** Updated description.                                                                                                                               |
-|   *   | **[_Glossary:_](/glossary#storyflowdecision) _StoryFlowDecision:_** Updated description.                                                                                                         |
-|   *   | **[_Glossary:_](/glossary#network-protocol) _Network protocol:_** Updated description.                                                                                                           |
-|   *   | **[_Glossary:_](/glossary#online-mode) _Online-Mode:_** Updated description.                                                                                                                     |
-|   *   | **[_Glossary:_](/glossary#offline-mode) _Offline-Mode:_** Updated description.                                                                                                                   |
-|   *   | **[_Glossary:_](/glossary#online-voting) _Online voting:_** Updated description.                                                                                                                 |
-|   *   | **[_Glossary:_](/glossary#pause-button) _PauseButton:_** Updated description and changed name from "Pause-Button" to "PauseButton".                                                              |
-|   +   | **[_Glossary:_](/glossary#storygraph) _StoryGraph:_** Added new entry.                                                                                                                           |
-|   *   | **[_Functional Requirements:_](/requirements#game) _FR1:_** Updated description.                                                                                                                 |
-|   *   | **[_Functional Requirements:_](/requirements#newtec-branding) _FR3:_** Updated description.                                                                                                      |
-|   *   | **[_Functional Requirements:_](/requirements#participation-of-a-larger-playeraudience) _FR11:_** Updated description and explanation.                                                            |
-|   *   | **[_Functional Requirements:_](/requirements#character-status-values) _FR14:_** Updated description.                                                                                             |
-|   *   | **[_Functional Requirements:_](/requirements#selecting-a-character) _FR15:_** Updated description.                                                                                               |
-|   *   | **[_Functional Requirements:_](/requirements#presentation-of-character-status-values) _FR16:_** Updated description.                                                                             |
-|   *   | **[_Functional Requirements:_](/requirements#character-levelling) _FR18:_** Updated description.                                                                                                 |
-|   *   | **[_Functional Requirements:_](/requirements#visual-presentation-of-playercharacter-status-changes) _FR19:_** Updated description.                                                               |
-|   *   | **[_Functional Requirements:_](/requirements#acoustic-presentation-of-playercharacter-status-changes) _FR20:_** Updated description.                                                             |
-|   *   | **[_Functional Requirements:_](/requirements#pausebutton-location) _FR23:_** Updated description.                                                                                                |
-|   *   | **[_Functional Requirements:_](/requirements#network-protocol-violation) _FR31:_** Updated description and changed name from "Communication protocol violation" to "Network protocol violation". |
-|   *   | **[_Functional Requirements:_](/requirements#game-relevant-serverlogic-logging) _FR33:_** Updated description.                                                                                   |
-|   *   | **[_Functional Requirements:_](/requirements#serverlogic-log-deletion) _FR35:_** Updated description.                                                                                            |
-|   *   | **[_Functional Requirements:_](/requirements#moderator-client-guid) _FR40:_** Updated description.                                                                                               |
-|   *   | **[_Non-functional Requirements:_](/requirements#target-audience) _NFR8:_** Changed name from "Target PlayerAudience" to "Target audience".                                                      |
-|   *   | **[_Requirements:_](/requirements) _Requirements:_** Updated all entries to have the new style.                                                                                                  |
-|   *   | **[_Requirements:_](/requirements) _Requirements:_** Fixed typos.                                                                                                                                |
-|   *   | **[_Use-case diagrams:_](/use-case-diagrams) _PlayerAudience-Client:_** Updated description.                                                                                                     |
-|   *   | **[_Use-case diagrams:_](/use-case-diagrams) _ServerLogic:_** Changed name from "Server" to "ServerLogic".                                                                                       |
-|   *   | **[_Use-case diagrams:_](/use-case-diagrams) _Start application:_** Updated description and changed name from "Start Application" to "Start application".                                        |
-|   *   | **[_Use-case diagrams:_](/use-case-diagrams) _Play game:_** Updated description and changed name from "Play Game" to "Play game".                                                                |
-|   *   | **[_Use-case diagrams:_](/use-case-diagrams) _End application:_** Updated description and changed name from "End Application" to "End application".                                              |
-|   *   | **[_Architecture diagrams:_](/architecture-diagrams) _Architecture diagrams:_** Updated description.                                                                                             |
-|   *   | **[_Architecture diagrams:_](/architecture-diagrams#class-diagrams) _Class diagrams:_** Updated description.                                                                                     |
-|   *   | **[_Architecture diagrams:_](/architecture-diagrams#moderator-client) _Moderator-Client:_** Updated description.                                                                                 |
-|   *   | **[_Architecture diagrams:_](/architecture-diagrams#server-class-diagrams) _Server class diagrams:_** Updated description.                                                                       |
-|   *   | **[_Architecture diagrams:_](/architecture-diagrams#component-overview) _Component-Overview:_** Updated description.                                                                             |
-|   *   | **[_Architecture diagrams:_](/architecture-diagrams#playeraudience-client#playeraudience-client) _PlayerAudience-Client:_** Updated description.                                                 |
-|   *   | **[_Architecture diagrams:_](/architecture-diagrams#component-diagrams) _Component diagrams:_** Updated description.                                                                             |
-|   *   | **[_Architecture diagrams:_](/architecture-diagrams#serverlogic) _ServerLogic:_** Updated description and changed name from "Server" to "ServerLogic".                                           |
-|   +   | **[_StoryFlow:_](/storyflow) _StoryFlow overview:_** Added new section.                                                                                                                          |
-|   *   | **[_StoryFlow:_](/storyflow) _Detailed StoryFlow diagrams:_** Changed name from "Detailed-StoryFlow diagrams" to "Detailed StoryFlow diagrams".                                                  |
-|   *   | **[_StoryFlow:_](/storyflow) _StoryFlow overview:_** Updated description.                                                                                                                        |
-|   *   | **[_StoryFlow:_](/storyflow) _Detailed StoryFlow diagrams:_** Updated description.                                                                                                               |
-|   *   | **[_Change history:_](/changehistory) _Change history:_** Fixed typos.                                                                                                                           |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-1) _StoryFlowDecision 1:_** Added description.                                                                                                     |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-2) _StoryFlowDecision 2:_** Added description.                                                                                                     |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-3) _StoryFlowDecision 3:_** Added description.                                                                                                     |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-3) _StoryFlowDecision 3:_** Added description.                                                                                                     |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-4) _StoryFlowDecision 4:_** Added description.                                                                                                     |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-5) _StoryFlowDecision 6:_** Added description.                                                                                                     |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-6) _StoryFlowDecision 6:_** Added description.                                                                                                     |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-7) _StoryFlowDecision 7:_** Added description.                                                                                                     |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-8) _StoryFlowDecision 8:_** Added description.                                                                                                     |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-9) _StoryFlowDecision 9:_** Added description.                                                                                                     |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-10) _StoryFlowDecision 10:_** Added description.                                                                                                   |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-11) _StoryFlowDecision 11:_** Added description.                                                                                                   |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-12) _StoryFlowDecision 12:_** Added description.                                                                                                   |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-13) _StoryFlowDecision 13:_** Added description.                                                                                                   |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-14) _StoryFlowDecision 14:_** Added description.                                                                                                   |
-|   +   | **[_StoryFlow:_](/storyflow#storyflowdecision-15) _StoryFlowDecision 15:_** Added description.                                                                                                   |
-|   *   | **[_Architecture diagrams:_](/architecture-diagrams#serverlogic) _ServerLogic:_** Updated diagram: Changed
-"Websocket" to "WebSocket".                                          |
-|   *   | **[_Architecture diagrams:_](/architecture-diagrams#moderator-client) _Moderator-Client:_** Updated diagram: Changed "Websocket" to "WebSocket".                                |
-|   *   | **[_Architecture diagrams:_](/architecture-diagrams#component-overview) _Component-Overview:_** Updated diagram: Changed "Websocket" to "WebSocket".                            |
-|   *   | **[_Architecture diagrams:_](/architecture-diagrams#class-diagrams) _Class diagrams:_** Updated diagram: Changed "websocket" to "webSocket".                                    |
-|   *   |**[_Use-case diagrams:_](/use-case-diagrams#playerAudience-client) _PlayerAudience-Client:_** Updated diagram: Changed "Server" to "ServerLogic".                               |
-|   *   |**[_Use-case diagrams:_](/use-case-diagrams#Serverlogic) _ServerLogic:_** Updated diagram: Changed "Server" to "ServerLogic".                                                   |
-|   *   |**[_Use-case diagrams:_](/use-case-diagrams#moderator-client) _Moderator-Client:_** Updated diagram: Changed "Server" to "ServerLogic".                                         |
-|   *   |**[_Use-case diagrams:_](/use-case-diagrams#play-game) _Play game:_** Updated diagram: Changed "Server" to "ServerLogic".                                                       |
-|   *   |**[_Use-case diagrams:_](/use-case-diagrams#end-application) _End application:_** Updated diagram: Changed "Server" to "ServerLogic".                                           |
+|            Type             | Description                                                                                                                                                                                      |
+| :-------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|              *              | **[Quality Quest:_](/index) _Quality Quest:_** Updated all texts.                                                                                                                                |
+|              *              | **[_Table of contents:_](/toc) _Table of contents:_** Extension and reordering of the table of contents.                                                                                         |
+|              *              | **[_Glossary:_](/glossary#actors-and-roles) _Actors and Roles:_** Updated description.                                                                                                           |
+|              *              | **[_Glossary:_](/glossary-expertise) _Expertise:_** Updated description.                                                                                                                         |
+|              *              | **[_Glossary:_](/glossary) _Glossary:_** Updated all entries to have the new style.                                                                                                              |
+|              *              | **[_Glossary:_](/glossary#moderator) _Moderator:_** Updated description.                                                                                                                         |
+|              *              | **[_Glossary:_](/glossary#server) _Server:_** Updated description.                                                                                                                               |
+|              *              | **[_Glossary:_](/glossary#moderator-client) _Moderator-Client:_** Updated description.                                                                                                           |
+|              *              | **[_Glossary:_](/glossary#playeraudience-client) _PlayerAudience-Client:_** Updated description.                                                                                                 |
+|              *              | **[_Glossary:_](/glossary#client) _Client:_** Updated description.                                                                                                                               |
+|              *              | **[_Glossary:_](/glossary#storyflowdecision) _StoryFlowDecision:_** Updated description.                                                                                                         |
+|              *              | **[_Glossary:_](/glossary#network-protocol) _Network protocol:_** Updated description.                                                                                                           |
+|              *              | **[_Glossary:_](/glossary#online-mode) _Online-Mode:_** Updated description.                                                                                                                     |
+|              *              | **[_Glossary:_](/glossary#offline-mode) _Offline-Mode:_** Updated description.                                                                                                                   |
+|              *              | **[_Glossary:_](/glossary#online-voting) _Online voting:_** Updated description.                                                                                                                 |
+|              *              | **[_Glossary:_](/glossary#pause-button) _PauseButton:_** Updated description and changed name from "Pause-Button" to "PauseButton".                                                              |
+|              +              | **[_Glossary:_](/glossary#storygraph) _StoryGraph:_** Added new entry.                                                                                                                           |
+|              *              | **[_Functional Requirements:_](/requirements#game) _FR1:_** Updated description.                                                                                                                 |
+|              *              | **[_Functional Requirements:_](/requirements#newtec-branding) _FR3:_** Updated description.                                                                                                      |
+|              *              | **[_Functional Requirements:_](/requirements#participation-of-a-larger-playeraudience) _FR11:_** Updated description and explanation.                                                            |
+|              *              | **[_Functional Requirements:_](/requirements#character-status-values) _FR14:_** Updated description.                                                                                             |
+|              *              | **[_Functional Requirements:_](/requirements#selecting-a-character) _FR15:_** Updated description.                                                                                               |
+|              *              | **[_Functional Requirements:_](/requirements#presentation-of-character-status-values) _FR16:_** Updated description.                                                                             |
+|              *              | **[_Functional Requirements:_](/requirements#character-levelling) _FR18:_** Updated description.                                                                                                 |
+|              *              | **[_Functional Requirements:_](/requirements#visual-presentation-of-playercharacter-status-changes) _FR19:_** Updated description.                                                               |
+|              *              | **[_Functional Requirements:_](/requirements#acoustic-presentation-of-playercharacter-status-changes) _FR20:_** Updated description.                                                             |
+|              *              | **[_Functional Requirements:_](/requirements#pausebutton-location) _FR23:_** Updated description.                                                                                                |
+|              *              | **[_Functional Requirements:_](/requirements#network-protocol-violation) _FR31:_** Updated description and changed name from "Communication protocol violation" to "Network protocol violation". |
+|              *              | **[_Functional Requirements:_](/requirements#game-relevant-serverlogic-logging) _FR33:_** Updated description.                                                                                   |
+|              *              | **[_Functional Requirements:_](/requirements#serverlogic-log-deletion) _FR35:_** Updated description.                                                                                            |
+|              *              | **[_Functional Requirements:_](/requirements#moderator-client-guid) _FR40:_** Updated description.                                                                                               |
+|              *              | **[_Non-functional Requirements:_](/requirements#target-audience) _NFR8:_** Changed name from "Target PlayerAudience" to "Target audience".                                                      |
+|              *              | **[_Requirements:_](/requirements) _Requirements:_** Updated all entries to have the new style.                                                                                                  |
+|              *              | **[_Requirements:_](/requirements) _Requirements:_** Fixed typos.                                                                                                                                |
+|              *              | **[_Use-case diagrams:_](/use-case-diagrams) _PlayerAudience-Client:_** Updated description.                                                                                                     |
+|              *              | **[_Use-case diagrams:_](/use-case-diagrams) _ServerLogic:_** Changed name from "Server" to "ServerLogic".                                                                                       |
+|              *              | **[_Use-case diagrams:_](/use-case-diagrams) _Start application:_** Updated description and changed name from "Start Application" to "Start application".                                        |
+|              *              | **[_Use-case diagrams:_](/use-case-diagrams) _Play game:_** Updated description and changed name from "Play Game" to "Play game".                                                                |
+|              *              | **[_Use-case diagrams:_](/use-case-diagrams) _End application:_** Updated description and changed name from "End Application" to "End application".                                              |
+|              *              | **[_Architecture diagrams:_](/architecture-diagrams) _Architecture diagrams:_** Updated description.                                                                                             |
+|              *              | **[_Architecture diagrams:_](/architecture-diagrams#class-diagrams) _Class diagrams:_** Updated description.                                                                                     |
+|              *              | **[_Architecture diagrams:_](/architecture-diagrams#moderator-client) _Moderator-Client:_** Updated description.                                                                                 |
+|              *              | **[_Architecture diagrams:_](/architecture-diagrams#server-class-diagrams) _Server class diagrams:_** Updated description.                                                                       |
+|              *              | **[_Architecture diagrams:_](/architecture-diagrams#component-overview) _Component-Overview:_** Updated description.                                                                             |
+|              *              | **[_Architecture diagrams:_](/architecture-diagrams#playeraudience-client#playeraudience-client) _PlayerAudience-Client:_** Updated description.                                                 |
+|              *              | **[_Architecture diagrams:_](/architecture-diagrams#component-diagrams) _Component diagrams:_** Updated description.                                                                             |
+|              *              | **[_Architecture diagrams:_](/architecture-diagrams#serverlogic) _ServerLogic:_** Updated description and changed name from "Server" to "ServerLogic".                                           |
+|              +              | **[_StoryFlow:_](/storyflow) _StoryFlow overview:_** Added new section.                                                                                                                          |
+|              *              | **[_StoryFlow:_](/storyflow) _Detailed StoryFlow diagrams:_** Changed name from "Detailed-StoryFlow diagrams" to "Detailed StoryFlow diagrams".                                                  |
+|              *              | **[_StoryFlow:_](/storyflow) _StoryFlow overview:_** Updated description.                                                                                                                        |
+|              *              | **[_StoryFlow:_](/storyflow) _Detailed StoryFlow diagrams:_** Updated description.                                                                                                               |
+|              *              | **[_Change history:_](/changehistory) _Change history:_** Fixed typos.                                                                                                                           |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-1) _StoryFlowDecision 1:_** Added description.                                                                                                     |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-2) _StoryFlowDecision 2:_** Added description.                                                                                                     |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-3) _StoryFlowDecision 3:_** Added description.                                                                                                     |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-3) _StoryFlowDecision 3:_** Added description.                                                                                                     |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-4) _StoryFlowDecision 4:_** Added description.                                                                                                     |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-5) _StoryFlowDecision 6:_** Added description.                                                                                                     |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-6) _StoryFlowDecision 6:_** Added description.                                                                                                     |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-7) _StoryFlowDecision 7:_** Added description.                                                                                                     |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-8) _StoryFlowDecision 8:_** Added description.                                                                                                     |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-9) _StoryFlowDecision 9:_** Added description.                                                                                                     |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-10) _StoryFlowDecision 10:_** Added description.                                                                                                   |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-11) _StoryFlowDecision 11:_** Added description.                                                                                                   |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-12) _StoryFlowDecision 12:_** Added description.                                                                                                   |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-13) _StoryFlowDecision 13:_** Added description.                                                                                                   |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-14) _StoryFlowDecision 14:_** Added description.                                                                                                   |
+|              +              | **[_StoryFlow:_](/storyflow#storyflowdecision-15) _StoryFlowDecision 15:_** Added description.                                                                                                   |
+|              *              | **[_Architecture diagrams:_](/architecture-diagrams#serverlogic) _ServerLogic:_** Updated diagram: Changed                                                                                       |
+| "Websocket" to "WebSocket". |
+|              *              | **[_Architecture diagrams:_](/architecture-diagrams#moderator-client) _Moderator-Client:_** Updated diagram: Changed "Websocket" to "WebSocket".                                                 |
+|              *              | **[_Architecture diagrams:_](/architecture-diagrams#component-overview) _Component-Overview:_** Updated diagram: Changed "Websocket" to "WebSocket".                                             |
+|              *              | **[_Architecture diagrams:_](/architecture-diagrams#class-diagrams) _Class diagrams:_** Updated diagram: Changed "websocket" to "webSocket".                                                     |
+|              *              | **[_Use-case diagrams:_](/use-case-diagrams#playerAudience-client) _PlayerAudience-Client:_** Updated diagram: Changed "Server" to "ServerLogic".                                                |
+|              *              | **[_Use-case diagrams:_](/use-case-diagrams#Serverlogic) _ServerLogic:_** Updated diagram: Changed "Server" to "ServerLogic".                                                                    |
+|              *              | **[_Use-case diagrams:_](/use-case-diagrams#moderator-client) _Moderator-Client:_** Updated diagram: Changed "Server" to "ServerLogic".                                                          |
+|              *              | **[_Use-case diagrams:_](/use-case-diagrams#play-game) _Play game:_** Updated diagram: Changed "Server" to "ServerLogic".                                                                        |
+|              *              | **[_Use-case diagrams:_](/use-case-diagrams#end-application) _End application:_** Updated diagram: Changed "Server" to "ServerLogic".                                                            |
 
 </span>
 
