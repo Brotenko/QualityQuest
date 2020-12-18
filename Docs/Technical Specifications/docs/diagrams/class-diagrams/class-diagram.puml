@@ -10,7 +10,7 @@ package "Moderator-Client" {
     {field} -parent: StoryEvent
     {field} -children: StoryEvent[]
     {method} +StoryEvent(parent: StoryEvent, id: int)
-    {method} +addChild(): void
+    {method} +AddChild(): void
   }
 
   class StoryGraph {
@@ -18,18 +18,18 @@ package "Moderator-Client" {
     {field} -root: StoryEvent
     {field} -currentEvent: StoryEvent
     {method} +StoryGraph(id: int)
-    {method} +loadGraphFromFile(filepath: string): Graph
-    {method} +saveGraphToFile(filepath: string): void
-    {method} +getNextPossibleEvent(): StoryEvent[]
-    {method} +setCurrentEvent(newCurrentEvent: StoryEvent): void
-    {method} +getNextStoryEventById(id: int): StoryEvent
+    {method} +LoadGraphFromFile(filepath: string): Graph
+    {method} +SaveGraphToFile(filepath: string): void
+    {method} +GetNextPossibleEvent(): StoryEvent[]
+    {method} +SetCurrentEvent(newCurrentEvent: StoryEvent): void
+    {method} +GetNextStoryEventById(id: int): StoryEvent
   }
 
   class "ModeratorView" as mf {
     {field} -startedOnline: bool
     {method} +ModeratorView()
-    {method} +pausePolling(val: bool): void
-    {method} +offlineMode(val: bool): void
+    {method} +PausePolling(val: bool): void
+    {method} +OfflineMode(val: bool): void
   }
 
   class "ModeratorClientExchange" as mcei{
@@ -37,11 +37,11 @@ package "Moderator-Client" {
     {field} -authentificationGuid: Guid
     {field} -timeoutDuration: int
     {method} +ModeratorClientExchange()
-    {method} +sendMessage(message: string): void
-    {method} +evalJSON(json: string): bool
-    {method} +getVotingResults(): int
-    {method} +makeJSON(): string
-    {method} +enterPassword(pw: string): void
+    {method} +SendMessage(message: string): void
+    {method} +EvalJSON(json: string): bool
+    {method} +GetVotingResults(): int
+    {method} +MakeJSON(): string
+    {method} +EnterPassword(pw: string): void
   }
 
   class Skills {
@@ -50,10 +50,10 @@ package "Moderator-Client" {
     {field} -partying: int
     {field} -programming: int
     {method} + Skills(commu: int, analy: int, party: int, progr: int)
-    {method} + updateCommunicationSkill(value: int): void
-    {method} + updateAnalyticsSkill(value: int): void
-    {method} + updatePartyingSkill(value: int): void
-    {method} + updateProgrammingSkill(value: int): void
+    {method} + UpdateCommunicationSkill(value: int): void
+    {method} + UpdateAnalyticsSkill(value: int): void
+    {method} + UpdatePartyingSkill(value: int): void
+    {method} + UpdateProgrammingSkill(value: int): void
   }
 
   class Character {
@@ -76,21 +76,90 @@ package "Server" {
   package "ServerLogic" <<Rectangle>>{
     class "ServerShell" as ss {
       {field} +logger: Logger
-      {field} -port: int
-      {field} -runShell: bool
+      {field} -_port: int
+      {field} -_password: string
       {field} -serverShell: ServerShell
-      {field} -streamReader: StreamReader
+      {field} -serverIsRunning: bool
+      {field} -commandRequestsHelpMessage: bool
       {method} +ServerShell()
-      {method} +startShell(): void
-      {method} +stopShell(): void
-      {method} +parseCommand(command: string): void
-      {method} +showHelp(): void
-      {method} +configPort(): void
-      {method} +configCapacity(): void
-      {method} +startServer(): void
-      {method} +stopServer(): void
-      {method} +main(args: string[]): void
+      {method} -RunShell(): void
+      {method} -StopShell(): void
+      {method} +ParseCommandDebugger(command: string): string
+      {method} -ParseCommand(input: string): string
+      {method} -ParsePort(paramterList: string[]): string
+      {method} -ParsePassword(paramterList: string[]): string
+      {method} -StartServer(parameterList): string
+      {method} -StopServer(): string
+      {method} -ShowHelp(command: string): string
+      {method} -ShowVersion(): string
+      {method} -ClearLogs(): string
+      {static} -CheckMainMethodArgs(args: string[]): string[]
+      {static} -ValidateShellPassword(password: string): string
+      {static} -ValidateShellPort(portString: string): int
+      {static} +Main(args: string[])
     }
+
+    class "MessageContainer" as messCont {
+      {field} +ModeratorID: Guid
+      {field} +Type: MessageType
+      {field} +CreationDate: DateTime
+      {field} +DebugMessage: string
+      {method} +MessageContainer(moderatorId: Guid, type: MessageType, creationDate: DateTime, debugMessage: string): void
+      {method} +MessageContainer(moderatorId: Guid, type: MessageType, debugMessage: string): void
+      {method} +MessageContainer(moderatorId: Guid, type: MessageType): void
+      {method} +ToString(): string
+    }
+
+    class "AudienceStatusMessage" as audStatMess {
+      {field} +AudienceCount: int
+      {method} +AudienceStatusMessage(moderatorId: Guid, audienceCount: int)
+      {method} +AudienceStatusMessage(moderatorId: Guid, audienceCount: int, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "ErrorMessage" as errMess{
+      {field} +ErrorMessageType: ErrorType
+      {field} +ErrorMessageText: string
+      {method} +ErrorMessage(moderatorId: Guid, errorMessageType: ErrorType, errorMessageText: string)
+      {method} +ErrorMessage(moderatorId: Guid, errorMessageType: ErrorType, errorMessageText: string, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    skinparam enum{
+      BackgroundColor Wheat
+      BorderColor Wheat
+    }
+
+    enum "ErrorType" as errorType {
+      ..
+      WrongPassword
+      UnknownGuid
+      IllegalPauseAction
+      SessionDoesNotExist
+      NewModerator
+      IllegalMessage
+    }
+
+    enum "MessageType" as messType{
+      ..
+      RequestOpenSession
+      SessionOpened
+      AudienceStatus
+      RequestServerStatus
+      Reconnect
+      ReconnectSuccessful
+      RequestGameStart
+      GameStarted
+      RequestStartVoting
+      VotingStarted
+      VotingEnded
+      ErrorType
+      RequestGamePausedStatusChange
+      GamePausedStatus
+      RequestCloseSession
+      SessionClosed
+    }
+
 
     class "ModeratorClientManager" as cm {
       {field} -webSocket: WebSocket
@@ -100,12 +169,12 @@ package "Server" {
       {field} +logger: Logger
       {field} -authentificationTokenModeratorClientHash: int
       {method} +ModeratorClientManager(): void
-      {method} +disconnect(): void
-      {method} +recieveMessage(message: string): void
-      {method} +checkJSON(message: string): bool
-      {method} +sendMessage(message: string): void
-      {method} +sendVotingResults(results: Dictionary<Guid, int>): void
-      {method} +evalJSON(json: string): string[]
+      {method} +Disconnect(): void
+      {method} +RecieveMessage(message: string): void
+      {method} +CheckJSON(message: string): bool
+      {method} +SendMessage(message: string): void
+      {method} +SendVotingResults(results: Dictionary<Guid, int>): void
+      {method} +EvalJSON(json: string): string[]
 
     }    
 
@@ -115,10 +184,10 @@ package "Server" {
       {field} -timer: Timer
       {field} +logger: Logger
       {method} +MainServerLogic(capacity: int, port: int)
-      {method} +onFalseMessage(message: string): void
-      {method} +onVotingMessage(message: string): void
-      {method} +updateModeratorClientManagerPlayerAudienceClientCountAttribute(): void
-      {method} +startPollingTimer(): void
+      {method} +OnFalseMessage(message: string): void
+      {method} +OnVotingMessage(message: string): void
+      {method} +UpdateModeratorClientManagerPlayerAudienceClientCountAttribute(): void
+      {method} +StartPollingTimer(): void
     }
 
     class "PlayerAudienceClientManager" as api {
@@ -126,11 +195,11 @@ package "Server" {
         {field} -possibleDecisions: string[]
         {field} -voteCounter: Dictionary<int, int>
         {method} +PlayerAudienceClientManager()
-        {method} +subscribeObserver(observer: Observer, cookie: Cookie): void
-        {method} +unsubscribeObserver(observer: Observer): void
-        {method} -notifyObservers(): void
-        {method} +updatePossibleDecisions(decisions: Dictionary<Guid, string>): void
-        {method} +evaluateVotes(): Dictionary<Guid, int>
+        {method} +SubscribeObserver(observer: Observer, cookie: Cookie): void
+        {method} +UnsubscribeObserver(observer: Observer): void
+        {method} -NotifyObservers(): void
+        {method} +UpdatePossibleDecisions(decisions: Dictionary<Guid, string>): void
+        {method} +EvaluateVotes(): Dictionary<Guid, int>
   }
 
     class "ServerLogger" as sl <<Singleton>> {
@@ -139,11 +208,11 @@ package "Server" {
       {field} -isSetup: bool
       {field} -consoleHandler: Handler
       {method} -Logger()
-      {method} +createNewLogger(): Logger
-      {method} +setup(): void
-      {method} +addHandler(logger: Logger): void
-      {method} +setLevel(level: int): void
-      {method} +setConsoleOutput(val: bool): void
+      {method} +CreateNewLogger(): Logger
+      {method} +Setup(): void
+      {method} +AddHandler(logger: Logger): void
+      {method} +SetLevel(level: int): void
+      {method} +SetConsoleOutput(val: bool): void
     }
   }
   package "PlayerAudience-Client" <<Rectangle>>{  
@@ -153,8 +222,8 @@ package "Server" {
       {field} -selectedDecision: int
       {field} -possibleDecisions: Dictionary<Guid, string>
       {method} +PlayerAudienceClientExchange()
-      {method} +update(): void
-      {method} -hashifyStringToID(decision: string): int
+      {method} +Update(): void
+      {method} -HashifyStringToID(decision: string): int
     }
 
     class "PlayerAudienceView" as pav {
@@ -170,6 +239,8 @@ package "Server" {
   sl ... ss
   pace -left- pav
   api "1" <-right- "n" pace : observes
+  messCont <|- audStatMess
+  errMess - errorType
 }
 
 mcei -right- cm
