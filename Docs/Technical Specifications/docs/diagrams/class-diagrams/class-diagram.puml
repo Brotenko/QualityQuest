@@ -125,6 +125,106 @@ package "Server" {
       {method} +ToString(): string
     }
 
+    class "GamePausedStatusMessage" as gaPaStatMess{
+      {field} +GamePaused: bool
+      {method} +GamePausedStatusMessage(moderatorID: Guid, gamePaused: bool)
+      {method} +GamePausedStatusMessage(moderatorID: Guid, gamePaused: bool, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "GameStartedMessage" as gaStartMess{
+      {method} +GameStartedMessage(moderatorId: Guid)
+      {method} +GameStartedMessage(moderatorId: Guid, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "ReconnectMessage" as reconnMess{
+      {method} +ReconnectMessage(moderatorId: Guid)
+      {method} +ReconnectMessage(moderatorId: Guid, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "RecconnectSuccessfulMessage" as reconnSuccMess{
+      {method} +ReconnectSuccessfulMessage(moderatorId: Guid)
+      {method} +ReconnectSuccessfulMessage(moderatorId: Guid, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "RequestCloseSessionMessage" as reqCloseSessMess{
+      {field} +SessionKey: string
+      {method} +RequestCloseSessionMessage(moderatorId: Guid, sessionKey: string)
+      {method} +RequestCloseSessionMessage(moderatorId: Guid, sessionKey: string, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "RequestGamePausedStatusChangeMessage" as reqGaPaStatMess{
+      {field} +GamePaused: bool
+      {method} +RequestGamePausedStatusChangeMessage(moderatorId: Guid, gamePaused: bool)
+      {method} +RequestGamePausedStatusChangeMessage(moderatorId: Guid, gamePaused: bool, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "RequestGameStartMessage" as reqGaStartMess{
+      {method} +RequestGameStartedMessage(moderatorId: Guid)
+      {method} +RequestGameStartedMessage(moderatorId: Guid, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "RequestOpenSessionMessage" as reqOpSessMess{
+      {field} +Password: string
+      {method} +RequestOpenSessionMessage(moderatorId: Guid, password: string)
+      {method} +RequestOpenSessionMessage(moderatorId: Guid, password: string, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "RequestServerStatusMessage" as reqServStatMess{
+      {method} +RequestServerStatusMessage(moderatorId: Guid)
+      {method} +RequestServerStatusMessage(moderatorId: Guid, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "RequestStartVotingMessage" as reqStartVotMess{
+      {field} +VotingTime: int
+      {field} +VotingOptions: Dictionary<Guid, string>
+      {method} +RequestStartVotingMessage(moderatorId: Guid, votingTime: int, votingOptions: Dictionary<Guid, string>)
+      {method} +RequestStartVotingMessage(moderatorId: Guid, votingTime: int, votingOptions: Dictionary<Guid, string>, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "ServerStatusMessage" as servStatMess{
+      {method} +ServerStatusMessage(moderatorId: Guid)
+      {method} +ServerStatusMessage(moderatorId: Guid, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "SessionClosedMessage" as sessClosedMess{
+      {method} +SessionClosedMessage(moderatorId: Guid, statistics: Dictionary<string, int>)
+      {method} +SessionClosedMessage(moderatorId: Guid, statistics: Dictionary<string, int>, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "SessionOpenedMessage" as sessOpMess{
+      {field} +SessionKey: string
+      {field} +DirectURL: Uri
+      {field} +QrCode: Bitmap
+      {method} +SessionOpenedMessage(moderatorId: Guid, sessionKey: string, directURL: Uri, qrCode: Bitmap)
+      {method} +SessionOpenedMessage(moderatorId: Guid, sessionKey: string, directURL: Uri, qrCode: Bitmap, debugMessage: string)
+      {method} +ToString(): string
+    }
+
+    class "VotingEndedMessage" as votEndMess{
+      {field} +WinningOption: Guid
+      {field} +VotingResults: Dictionary<Guid, int>
+      {method} +VotingEndedMessage(moderatorId: Guid, winningOption: Guid, votingResults: Dictionary<Guid, int>)
+      {method} +ToString(): string
+    }
+
+    class "VotingStartedMessage" as votStartMess{
+      {method} +VotingStartedMessage(moderator: Guid)
+      {method} +VotingStartedMessage(moderator: Guid, debugMessage: string)
+      {method} +ToString(): string
+    }
+
     skinparam enum{
       BackgroundColor Wheat
       BorderColor Wheat
@@ -240,6 +340,22 @@ package "Server" {
   pace -left- pav
   api "1" <-right- "n" pace : observes
   messCont <|- audStatMess
+  messCont <|- gaPaStatMess
+  messCont <|- gaStartMess
+  messCont <|- reconnMess
+  messCont <|- reconnSuccMess
+  messCont <|- reqCloseSessMess
+  messCont <|- reqGaPaStatMess
+  messCont <|- reqGaStartMess
+  messCont <|- reqOpSessMess
+  messCont <|- reqServStatMess
+  messCont <|- reqStartVotMess
+  messCont <|- servStatMess
+  messCont <|- sessClosedMess
+  messCont <|- sessOpMess
+  messCont <|- votEndMess
+  messCont <|- votStartMess
+  messCont - messType
   errMess - errorType
 }
 
