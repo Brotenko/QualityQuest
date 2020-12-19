@@ -98,6 +98,7 @@ package "Server" {
       {static} -ValidateShellPort(portString: string): int
       {static} +Main(args: string[])
     }
+    
 
     class "MessageContainer" as messCont {
       {field} +ModeratorID: Guid
@@ -355,8 +356,25 @@ package "Server" {
   messCont <|- sessOpMess
   messCont <|- votEndMess
   messCont <|- votStartMess
-  messCont - messType
+  messCont -left- messType
   errMess - errorType
+
+  votStartMess -[hidden]- votEndMess
+  votEndMess -[hidden]- sessOpMess
+  sessOpMess -[hidden]- sessClosedMess
+  sessClosedMess -[hidden]- reqGaPaStatMess
+  reqCloseSessMess -[hidden]- reconnSuccMess
+  reconnSuccMess -[hidden]- reconnMess
+  servStatMess -[hidden]- reqStartVotMess
+  reqStartVotMess -[hidden]-reqServStatMess
+  reqServStatMess -[hidden]- gaStartMess
+  gaStartMess -[hidden]-gaPaStatMess
+  reconnMess -[hidden]- audStatMess
+  reqStartVotMess -[hidden]- servStatMess
+  servStatMess -[hidden]- votStartMess
+  votStartMess -[hidden]-reqCloseSessMess
+
+  
 }
 
 mcei -right- cm
