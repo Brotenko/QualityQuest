@@ -63,6 +63,7 @@ The change history is a chronologically ordered list of all changes between diff
 |   *   | **[_Network Protocol:_](../network-protocol#votingendedmessage) _VotingEndedMessage:_** Updated type of "WinningOption" to "Guid".                |
 |   *   | **[_Network Protocol:_](../network-protocol#errormessage) _ErrorMessage:_** Renamed field "ErrorType" to "ErrorMessageType".                      |
 |   *   | **[_Network Protocol:_](../network-protocol#errormessage) _ErrorMessage:_** Renamed field "ErrorMessage" to "ErrorMessageText".                   |
+|   *   | **[_Architecture diagrams:_](../architecture-diagrams) _Architecture diagrams:_** Updated methods in diagram according to current implementation.
 
 </span>
 
