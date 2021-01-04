@@ -15,7 +15,7 @@ namespace ServerLogic.Model.Messages
     public class RequestStartVotingMessage : MessageContainer
     {
         public int VotingTime { get; }
-        public Dictionary<Guid, string> VotingOptions { get; private set; }
+        public Dictionary<Guid, string> VotingOptions { get; }
 
         /// <summary>
         /// Constructs a new RequestStartVotingMessage with an empty debugMessage.
