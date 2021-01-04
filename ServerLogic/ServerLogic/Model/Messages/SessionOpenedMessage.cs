@@ -14,9 +14,9 @@ namespace ServerLogic.Model.Messages
     /// </summary>
     public class SessionOpenedMessage : MessageContainer
     {
-        public string SessionKey { get; private set; }
-        public Uri DirectURL { get; private set; }
-        public Bitmap QrCode { get; private set; }
+        public string SessionKey { get; }
+        public Uri DirectURL { get; }
+        public Bitmap QrCode { get; }
 
         /// <summary>
         /// Constructs a new SessionOpenedMessage with an empty debugMessage.

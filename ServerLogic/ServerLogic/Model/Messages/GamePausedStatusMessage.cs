@@ -8,12 +8,12 @@ namespace ServerLogic.Model.Messages
 {
     /// <summary>
     /// This message is sent from the ServerLogic to the Moderator-Client in response 
-    /// to a <see cref="Messages.RequestGamePasuedStatusChangeMessage"/>, to confirm that the 
+    /// to a <see cref="Messages.RequestGamePausedStatusChangeMessage"/>, to confirm that the 
     /// game is now either continuing or being paused.
     /// </summary>
     public class GamePausedStatusMessage : MessageContainer
     {
-        public bool GamePaused { get; private set; }
+        public bool GamePaused { get; }
 
         /// <summary>
         /// Constructs a new GamePauseStatusMessage with an empty debugMessage.

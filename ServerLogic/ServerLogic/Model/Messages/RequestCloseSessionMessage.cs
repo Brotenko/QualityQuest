@@ -13,7 +13,7 @@ namespace ServerLogic.Model.Messages
     /// </summary>
     public class RequestCloseSessionMessage : MessageContainer
     {
-        public string SessionKey { get; private set; }
+        public string SessionKey { get; }
 
         /// <summary>
         /// Constructs a new RequestCloseSessionMessage with an empty debugMessage.

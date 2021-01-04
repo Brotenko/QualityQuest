@@ -15,7 +15,7 @@ namespace ServerLogic.Model.Messages
     /// </summary>
     public class AudienceStatusMessage : MessageContainer
     {
-        public int AudienceCount { get; private set; }
+        public int AudienceCount { get; }
 
         /// <summary>
         /// Constructs a new AudienceStatusMessage with an empty debugMessage.
@@ -44,7 +44,7 @@ namespace ServerLogic.Model.Messages
         /// current session.></param>
         /// 
         /// <param name="debugMessage">Can be used during development to transport additional data 
-        /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
+        /// between ServerLogic and Moderator-Client. This way, in case of a non parseable message, 
         /// or an error occurring, information can be carried to the Moderator-Client directly for 
         /// quick access, without the need to search through the logs.</param>
         public AudienceStatusMessage(Guid moderatorId, int audienceCount, string debugMessage) : base(moderatorId, MessageType.AudienceStatus, debugMessage)
