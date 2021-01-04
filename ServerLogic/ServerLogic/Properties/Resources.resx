@@ -117,18 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClearHelpMessage" xml:space="preserve">
-    <value>usage: clear [--help]
-
-DESCRIPTON
-
-TODO
-
-OPTIONS
-
---help
-  Shows this.</value>
-  </data>
   <data name="CurrentVersion" xml:space="preserve">
     <value>v0.0.1</value>
   </data>
@@ -150,13 +138,13 @@ OPTIONS
 
 These are commands that can be used in various situations:
 
-   password   Show or set the server-access password
-   port       Show or set the port
-   start      Start the server
-   stop       Stop the server
-   log        Show the logs
-   clear      Clear the logs
-   exit       Exit the shell
+  password   Show or set the server-access password
+  port       Show or set the port
+  start      Start the server
+  stop       Stop the server
+  log        Show the logs
+  clear      Clear the logs
+  exit       Exit the shell
 
 Use '&lt;command&gt; --help' to read about a specific command.</value>
   </data>
@@ -171,13 +159,16 @@ Use '&lt;command&gt; --help' to read about a specific command.</value>
     <value>Please make sure the port is an integer between 1024 and 65535.</value>
   </data>
   <data name="LogHelpMessage" xml:space="preserve">
-    <value>usage: log [--help]
+    <value>usage: log [--clear] [--help]
 
 DESCRIPTON
 
 TODO
 
 OPTIONS
+
+--clear
+  Clears the log file(s).
 
 --help
   Shows this.</value>
@@ -199,11 +190,11 @@ will be set according to the string provided.
 OPTIONS
 
 &lt;string&gt;
-   The string that will be set as the new password used to
-   access the ServerLogic through the Moderator-Client.
+  The string that will be set as the new password used to
+  access the ServerLogic through the Moderator-Client.
 
 --help
-   Shows this.</value>
+  Shows this.</value>
   </data>
   <data name="PortHelpMessage" xml:space="preserve">
     <value>usage: port [--help] &lt;integer&gt;
@@ -222,11 +213,11 @@ set according to the integer provided.
 OPTIONS
 
 &lt;integer&gt;
-   The integer that will be set as the new port of the WebSocket
-   of the ServerLogic.
+  The integer that will be set as the new port of the WebSocket
+  of the ServerLogic.
 
 --help
-   Shows this.</value>
+  Shows this.</value>
   </data>
   <data name="StartHelpMessage" xml:space="preserve">
     <value>usage: start [--help] [--password=&lt;string&gt;] [--port=&lt;integer&gt;]
@@ -243,13 +234,13 @@ and started with the currently set password and port.
 OPTIONS
 
 --help
-   Shows this.
+  Shows this.
 
 --password=&lt;string&gt;
-   Sets a new password used to access the ServerLogic through
+  Sets a new password used to access the ServerLogic through
 
 --port=&lt;integer&gt;
-   Sets a new port for the WebSocket of the ServerLogic.</value>
+  Sets a new port for the WebSocket of the ServerLogic.</value>
   </data>
   <data name="StopHelpMessage" xml:space="preserve">
     <value>usage: stop [--help]
@@ -261,7 +252,7 @@ Stops the ServerLogic.
 OPTIONS
 
 --help
-   Shows this.</value>
+  Shows this.</value>
   </data>
   <data name="VersionHelpMessage" xml:space="preserve">
     <value>usage: version [--help]
