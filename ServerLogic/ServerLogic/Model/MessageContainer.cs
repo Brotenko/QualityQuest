@@ -14,10 +14,10 @@ namespace ServerLogic.Model
     /// </summary>
     public class MessageContainer
     {
-        public Guid ModeratorID { get; private set; }
-        public MessageType Type { get; private set; }
-        public DateTime CreationDate { get; private set; }
-        public string DebugMessage { get; private set; }
+        public Guid ModeratorID { get; }
+        public MessageType Type { get; }
+        public DateTime CreationDate { get; }
+        public string DebugMessage { get; }
 
         /// <summary>
         /// Constructs a new MessageContainer.
