@@ -15,7 +15,7 @@ namespace ServerLogic.Model.Messages
     /// </summary>
     public class SessionClosedMessage : MessageContainer
     {
-        public Dictionary<string, int> Statistics { get; private set; }
+        public Dictionary<string, int> Statistics { get; }
 
         /// <summary>
         /// Constructs a new SessionClosedMessage with an empty debugMessage.

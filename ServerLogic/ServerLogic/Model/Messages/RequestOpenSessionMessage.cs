@@ -15,7 +15,7 @@ namespace ServerLogic.Model.Messages
     /// </summary>
     public class RequestOpenSessionMessage : MessageContainer
     {
-        public string Password { get; private set; }
+        public string Password { get; }
 
         /// <summary>
         /// Constructs a new RequestOpenSessionMessage with an empty debugMessage.

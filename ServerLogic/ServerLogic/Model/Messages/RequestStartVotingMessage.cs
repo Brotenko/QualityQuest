@@ -14,7 +14,7 @@ namespace ServerLogic.Model.Messages
     /// </summary>
     public class RequestStartVotingMessage : MessageContainer
     {
-        public int VotingTime { get; private set; }
+        public int VotingTime { get; }
         public Dictionary<Guid, string> VotingOptions { get; private set; }
 
         /// <summary>

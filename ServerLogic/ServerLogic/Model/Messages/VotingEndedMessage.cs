@@ -14,8 +14,8 @@ namespace ServerLogic.Model.Messages
     /// </summary>
     public class VotingEndedMessage : MessageContainer
     {
-        public Guid WinningOption { get; private set; }
-        public Dictionary<Guid, int> VotingResults { get; private set; }
+        public Guid WinningOption { get; }
+        public Dictionary<Guid, int> VotingResults { get; }
 
         /// <summary>
         /// Constructs a new VotingEndedMessage with an empty debugMessage.

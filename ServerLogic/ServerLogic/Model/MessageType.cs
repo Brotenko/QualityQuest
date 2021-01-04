@@ -40,7 +40,7 @@ namespace ServerLogic.Model
         /// returns a response in form of a <see cref="Messages.ServerStatusMessage"/>. If a 
         /// <see cref="Messages.ServerStatusMessage"/> is received by the Moderator-Client at any given time, 
         /// the moderator is notified that a connection to the ServerLogic is possible, and at the same time, 
-        /// <see cref="Messages.RequestServerStatus"/> messages are stopped being sent to the ServerLogic.
+        /// <see cref="Messages.RequestServerStatusMessage"/> messages are stopped being sent to the ServerLogic.
         /// </summary>
         RequestServerStatus,
         /// <summary>

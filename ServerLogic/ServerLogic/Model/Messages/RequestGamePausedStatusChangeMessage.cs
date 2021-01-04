@@ -12,7 +12,7 @@ namespace ServerLogic.Model.Messages
     /// </summary>
     public class RequestGamePausedStatusChangeMessage : MessageContainer
     {
-        public bool GamePaused { get; private set; }
+        public bool GamePaused { get; }
 
         /// <summary>
         /// Constructs a new RequestPauseGameStatusChangeMessage with an empty debugMessage.
