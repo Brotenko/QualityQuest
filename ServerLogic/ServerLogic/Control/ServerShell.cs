@@ -216,10 +216,7 @@ namespace ServerLogic.Control
                     ret = ShowHelp("help");
                     break;
                 case "log":
-                    ret = ShowLogs();
-                    break;
-                case "clear":
-                    ret = ClearLogs();
+                    ret = ShowLogs(commandParameters);
                     break;
                 case "exit":
                     StopShell();
@@ -527,9 +524,6 @@ namespace ServerLogic.Control
             case "log":
                 ret = Properties.Resources.LogHelpMessage;
                 break;
-            case "clear":
-                ret = Properties.Resources.ClearHelpMessage;
-                break;
             case "exit":
                 ret = Properties.Resources.ExitHelpMessage;
                 break;
@@ -555,21 +549,25 @@ namespace ServerLogic.Control
         /// </summary>
         /// 
         /// <returns></returns>
-        private string ShowLogs()
+        private string ShowLogs(string[] parameterList)
         {
-            // Need logger first
-            return "";
-        }
-
-        /// <summary>
-        /// TODO
-        /// </summary>
-        /// 
-        /// <returns></returns>
-        private string ClearLogs()
-        {
-            // Need logger first
-            return "Cleared logs.";
+            if (parameterList.Length == 0)
+            {
+                return "These will be the logs later on.";
+            }
+            else
+            {
+                // Only checking for '--clear' since that is the only valid option
+                if (parameterList[0] == "--clear")
+                {
+                    return "This will clear the logs later on.";
+                }
+                // Everything else should just show the logs, disregarding everything
+                else
+                {
+                    return "These will be the logs later on.";
+                }
+            }
         }
 
         /// <summary>
