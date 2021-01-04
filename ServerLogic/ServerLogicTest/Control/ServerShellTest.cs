@@ -72,6 +72,9 @@ namespace ServerLogicTests.Control
 
             // Missing Rules: lowercase characters, numeric character
             Assert.ThrowsException<ArgumentException>(() => new ServerShell("!&/$YDFGSDAFGHSDFG", 7777));
+
+            // Missing Rule: Leading dash
+            Assert.ThrowsException<ArgumentException>(() => new ServerShell("-12fUZdnm&f5$", 7777));
         }
 
         /// <summary>
@@ -116,7 +119,7 @@ namespace ServerLogicTests.Control
              * - commandParameters[0] != "--help"
              * 
              * What it does:
-             * Return the help message for "help" with the commandParamter
+             * Return the help message for "help" with the commandParameter
              * "5m%3mEt9#", which will be discarded by the function.
              */
             t = s.ParseCommandDebugger("help 5m%3mEt9#");

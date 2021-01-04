@@ -13,8 +13,8 @@ namespace ServerLogic.Model.Messages
     /// </summary>
     public class ErrorMessage : MessageContainer
     {
-        public ErrorType ErrorMessageType { get; private set; }
-        public string ErrorMessageText { get; private set; }
+        public ErrorType ErrorMessageType { get; }
+        public string ErrorMessageText { get; }
 
         /// <summary>
         /// Constructs a new ErrorMessage with an empty debugMessage.
