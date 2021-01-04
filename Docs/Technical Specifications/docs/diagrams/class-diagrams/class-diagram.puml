@@ -76,23 +76,25 @@ package "Server" {
   package "ServerLogic" <<Rectangle>>{
     class "ServerShell" as ss {
       {field} +logger: Logger
-      {field} -_port: int
-      {field} -_password: string
+      {field} <<Property>> +Port: int
+      {field} <<Property>> +Password: string
       {field} -serverShell: ServerShell
       {field} -serverIsRunning: bool
       {field} -commandRequestsHelpMessage: bool
+      {field} -mainServerLogic: MainServerLogic
       {method} +ServerShell()
       {method} -RunShell(): void
       {method} -StopShell(): void
-      {method} +ParseCommandDebugger(command: string): string
+      {method} +ParseCommandDebugger(debugInput: string): string
       {method} -ParseCommand(input: string): string
-      {method} -ParsePort(paramterList: string[]): string
-      {method} -ParsePassword(paramterList: string[]): string
-      {method} -StartServer(parameterList): string
+      {method} -ParsePort(parameterList: string[]): string
+      {method} -ParsePassword(parameterList: string[]): string
+      {method} +ServerShell(password: string, port: int)
+      {method} -StartServer(parameterList: string[]): string
       {method} -StopServer(): string
       {method} -ShowHelp(command: string): string
       {method} -ShowVersion(): string
-      {method} -ClearLogs(): string
+      {method} -ShowLogs(parameterList: string[]): string 
       {static} -CheckMainMethodArgs(args: string[]): string[]
       {static} -ValidateShellPassword(password: string): string
       {static} -ValidateShellPort(portString: string): int
@@ -105,9 +107,9 @@ package "Server" {
       {field} +Type: MessageType
       {field} +CreationDate: DateTime
       {field} +DebugMessage: string
-      {method} +MessageContainer(moderatorId: Guid, type: MessageType, creationDate: DateTime, debugMessage: string): void
-      {method} +MessageContainer(moderatorId: Guid, type: MessageType, debugMessage: string): void
-      {method} +MessageContainer(moderatorId: Guid, type: MessageType): void
+      {method} +MessageContainer(moderatorId: Guid, type: MessageType, creationDate: DateTime, debugMessage: string)
+      {method} +MessageContainer(moderatorId: Guid, type: MessageType, debugMessage: string)
+      {method} +MessageContainer(moderatorId: Guid, type: MessageType)
       {method} +ToString(): string
     }
 
@@ -128,8 +130,8 @@ package "Server" {
 
     class "GamePausedStatusMessage" as gaPaStatMess{
       {field} +GamePaused: bool
-      {method} +GamePausedStatusMessage(moderatorID: Guid, gamePaused: bool)
-      {method} +GamePausedStatusMessage(moderatorID: Guid, gamePaused: bool, debugMessage: string)
+      {method} +GamePausedStatusMessage(moderatorId: Guid, gamePaused: bool)
+      {method} +GamePausedStatusMessage(moderatorId: Guid, gamePaused: bool, debugMessage: string)
       {method} +ToString(): string
     }
 
@@ -356,6 +358,7 @@ package "Server" {
   messCont <|- sessOpMess
   messCont <|- votEndMess
   messCont <|- votStartMess
+  messCont <|- errMess
   messCont -left- messType
   errMess - errorType
 
