@@ -1,14 +1,14 @@
 ﻿using ServerLogic.Model;
 using ServerLogic.Model.Messages;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Resources;
 using System.Text.RegularExpressions;
-
-using Website;
+using System.Threading;
 
 namespace ServerLogic.Control
 {
@@ -18,7 +18,7 @@ namespace ServerLogic.Control
     public class ServerShell
     {
         //public Logger logger = [...];
-        //private MainServerLogic mainServerLogic = new MainServerLogic();
+        private MainServerLogic mainServerLogic = new MainServerLogic();
         private int _port;
         private string _password; //Passwort des Servers 
         private readonly ServerShell serverShell;
@@ -473,6 +473,8 @@ namespace ServerLogic.Control
                 }
             }
 
+            mainServerLogic.StartServer(Port);
+
             // Need MainServerLogic first
             serverIsRunning = true;
             return "The server has been started successfully with port: " + Port;
@@ -486,6 +488,10 @@ namespace ServerLogic.Control
         /// <returns>Confirmation hat the server has been stopped successfully.</returns>
         private string StopServer()
         {
+            
+
+            //server.Dispose();
+
             // Need MainServerLogic first
             serverIsRunning = false;
             return "The server has been shut down successfully.";
