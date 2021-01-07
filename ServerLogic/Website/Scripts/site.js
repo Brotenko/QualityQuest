@@ -1,4 +1,4 @@
-﻿document.getElementById("SessionKey").addEventListener("keypress", forceKeyPressUppercase, false);
+﻿document.getElementById("sessionkey").addEventListener("keypress", forceKeyPressUppercase, false);
 
 function forceKeyPressUppercase(e) {
     var charInput = e.keyCode;
@@ -18,7 +18,7 @@ function forceKeyPressUppercase(e) {
         }
     }
     else if (charInput === 13) {
-        if (document.getElementById("SessionKey").value.length === 6) {
+        if (document.getElementById("sessionkey").value.length === 6) {
             /* FALL THROUGH */
         }
         else {
@@ -27,7 +27,7 @@ function forceKeyPressUppercase(e) {
         }
     }
     else {
-        e.target.value = document.getElementById("SessionKey").value;
+        e.target.value = document.getElementById("sessionkey").value;
         e.preventDefault();
     }
 }
