@@ -18,7 +18,7 @@ The change history is a chronologically ordered list of all changes between diff
 | :---: | :--------------------------------------------------------------------------------------------------------- |
 |   +   | **[_Section that has the change in it:_](#examples) _What has been changed:_** What exactly has been done. |
 |   -   | **[_Change History:_](#examples) _Example:_** Removed an example.                                          |
-|   *   | **[_Glossary:_](../glossary) _Moderator-Client:_** Clarification regarding server backup.                    |
+|   *   | **[_Glossary:_](../glossary) _Moderator-Client:_** Clarification regarding server backup.                  |
 
 </span>
 
@@ -31,45 +31,56 @@ The change history is a chronologically ordered list of all changes between diff
 | 0.1.2   | Second revision of the architecture design | 2020-11-12 | [Link](#version-012-second-revision-of-the-architecture-design) |
 | 0.2.0   | Component design                           | 2020-11-17 | [Link](#version-020-component-design)                           |
 | 0.2.1   | First revision of the component design     | 2020-11-26 | [Link](#version-021-first-revision-of-the-component-design)     |
-| 0.2.2   | Second revision of the component design    | TBA        | [Link](#version-022-second-revision-of-the-component-design)    |
+| 0.2.2   | Second revision of the component design    | 2021-01-08 | [Link](#version-022-second-revision-of-the-component-design)    |
+| 0.3.0   | TBN                                        | TBA        | [Link](#version-030---tbn)                                      |
+
+</span>
+
+## Version 0.3.0 - TBN
+| Type  | Description |
+| :---: | :---------- |
+|       |             |
 
 </span>
 
 ## Version 0.2.2 - Second revision of the component design
 
-| Type  | Description                                                                                                                                     |
-| :---: | :---------------------------------------------------------------------------------------------------------------------------------------------- |
-|   +   | **[_Used Tools:_](../usedtools#used-tools) _Visual Studio 2019:_** Added used tool.                                                               |
-|   +   | **[_Used Tools:_](../usedtools#used-tools) _Adobe XD:_** Added used tool.                                                                         |
-|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _Microsoft.NET.Test.Sdk:_** Added used library.                                                |
-|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _MSTest.TestAdapter:_** Added used library.                                                    |
-|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _MSTest.TestFramework:_** Added used library.                                                  |
-|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _System.Drawing.Common:_** Added used library.                                                 |
-|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _QRCoder:_** Added used library.                                                               |
-|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _coverlet.collector:_** Added used library.                                                    |
-|   *   | **[_Non-functional Requirements:_](../requirements#in-code-documentation-style) _NFR2:_** Updated description.                                    |
-|   *   | **[_Non-functional Requirements:_](../requirements#adherence-to-project-coding-styleguide) _NFR6:_** Updated description.                         |
-|   *   | **[_Non-functional Requirements:_](../requirements#development-environment) _NFR18:_** Updated description.                                       |
-|   +   | **[_Functional Requirements:_](../requirements#sessionkey-length) _FR54:_** Added requirement "SessionKey length".                                |
-|   *   | **[_Network Protocol:_](../network-protocol#messagetype-enum) _MessageType Enum:_** Renamed from "MessageTypeEnum" to "MessageType Enum".         |
-|   *   | **[_Network Protocol:_](../network-protocol#errortype-enum) _ErrorType Enum:_** Renamed from "ErrorTypeEnum" to "ErrorType Enum".                 |
-|   *   | **[_Network Protocol:_](../network-protocol) _Network protocol:_** Renamed occurrences of "MessageTypeEnum" to "MessageType".                     |
-|   *   | **[_Network Protocol:_](../network-protocol) _Network protocol:_** Renamed occurrences of "ErrorTypeEnum" to "ErrorType".                         |
-|   *   | **[_Network Protocol:_](../network-protocol) _Network protocol:_** All messages now end on "[...]Message".                                        |
-|   *   | **[_Network Protocol:_](../network-protocol) _Network protocol:_** All fields and methods are now uppercase.                                      |
-|   +   | **[_Network Protocol:_](../network-protocol#requestopensessionmessage) _RequestOpenSessionMessage:_** Added description for the field "Password". |
-|   *   | **[_Network Protocol:_](../network-protocol#messagecontainer) _MessageContainer:_** Updated type of "CreationDate" to "DateTime".                 |
-|   *   | **[_Network Protocol:_](../network-protocol#sessionopenedmessage) _SessionOpenedMessage:_** Updated type of "DirectURL" to "Uri".                 |
-|   *   | **[_Network Protocol:_](../network-protocol#votingendedmessage) _VotingEndedMessage:_** Updated type of "WinningOption" to "Guid".                |
-|   *   | **[_Network Protocol:_](../network-protocol#errormessage) _ErrorMessage:_** Renamed field "ErrorType" to "ErrorMessageType".                      |
-|   *   | **[_Network Protocol:_](../network-protocol#errormessage) _ErrorMessage:_** Renamed field "ErrorMessage" to "ErrorMessageText".                   |
+| Type  | Description                                                                                                                                            |
+| :---: | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
+|   +   | **[_Used Tools:_](../usedtools#used-tools) _Visual Studio 2019:_** Added used tool.                                                                    |
+|   +   | **[_Used Tools:_](../usedtools#used-tools) _Adobe XD:_** Added used tool.                                                                              |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _Microsoft.NET.Test.Sdk:_** Added used library.                                                     |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _MSTest.TestAdapter:_** Added used library.                                                         |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _MSTest.TestFramework:_** Added used library.                                                       |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _System.Drawing.Common:_** Added used library.                                                      |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _QRCoder:_** Added used library.                                                                    |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _coverlet.collector:_** Added used library.                                                         |
+|   *   | **[_Non-functional Requirements:_](../requirements#in-code-documentation-style) _NFR2:_** Updated description.                                         |
+|   *   | **[_Non-functional Requirements:_](../requirements#adherence-to-project-coding-styleguide) _NFR6:_** Updated description.                              |
+|   *   | **[_Non-functional Requirements:_](../requirements#development-environment) _NFR18:_** Updated description.                                            |
+|   +   | **[_Functional Requirements:_](../requirements#sessionkey-length) _FR54:_** Added requirement "SessionKey length".                                     |
+|   *   | **[_Network Protocol:_](../network-protocol#messagetype-enum) _MessageType Enum:_** Renamed from "MessageTypeEnum" to "MessageType Enum".              |
+|   *   | **[_Network Protocol:_](../network-protocol#errortype-enum) _ErrorType Enum:_** Renamed from "ErrorTypeEnum" to "ErrorType Enum".                      |
+|   *   | **[_Network Protocol:_](../network-protocol) _Network protocol:_** Renamed occurrences of "MessageTypeEnum" to "MessageType".                          |
+|   *   | **[_Network Protocol:_](../network-protocol) _Network protocol:_** Renamed occurrences of "ErrorTypeEnum" to "ErrorType".                              |
+|   *   | **[_Network Protocol:_](../network-protocol) _Network protocol:_** All messages now end on "[...]Message".                                             |
+|   *   | **[_Network Protocol:_](../network-protocol) _Network protocol:_** All fields and methods are now uppercase.                                           |
+|   +   | **[_Network Protocol:_](../network-protocol#requestopensessionmessage) _RequestOpenSessionMessage:_** Added description for the field "Password".      |
+|   *   | **[_Network Protocol:_](../network-protocol#messagecontainer) _MessageContainer:_** Updated type of "CreationDate" to "DateTime".                      |
+|   *   | **[_Network Protocol:_](../network-protocol#sessionopenedmessage) _SessionOpenedMessage:_** Updated type of "DirectURL" to "Uri".                      |
+|   *   | **[_Network Protocol:_](../network-protocol#votingendedmessage) _VotingEndedMessage:_** Updated type of "WinningOption" to "Guid".                     |
+|   *   | **[_Network Protocol:_](../network-protocol#errormessage) _ErrorMessage:_** Renamed field "ErrorType" to "ErrorMessageType".                           |
+|   *   | **[_Network Protocol:_](../network-protocol#errormessage) _ErrorMessage:_** Renamed field "ErrorMessage" to "ErrorMessageText".                        |
+|   *   | **[_Functional Requirements:_](../requirements#game-type) _FR1:_** Changed game type to "2D Visual-Novel-RPG".                                         |
+|   *   | **[_Functional Requirements:_](../requirements#pause-menu-contents) _FR51:_** Changed "Paused" to "Pause".                                             |
+|   +   | **[_Functional Requirements:_](../requirements#playeraudience-client-count-display) _FR55:_** Added requirement "PlayerAudience-Client count display". |
 
 </span>
 
 ## Version 0.2.1 - First revision of the component design
 
-| Type  | Description                                                                                                                                                                                      |
-| :---: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Type  | Description                                                                                                                                                                                        |
+| :---: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |   *   | **[Quality Quest:_](../index) _Quality Quest:_** Updated all texts.                                                                                                                                |
 |   *   | **[_Table of contents:_](../toc) _Table of contents:_** Extension and reordering of the table of contents.                                                                                         |
 |   *   | **[_Glossary:_](../glossary#actors-and-roles) _Actors and Roles:_** Updated description.                                                                                                           |
@@ -152,8 +163,8 @@ The change history is a chronologically ordered list of all changes between diff
 
 ## Version 0.2.0 - Component design
 
-| Type  | Description                                                                                                                                                                                |
-| :---: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Type  | Description                                                                                                                                                                                  |
+| :---: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |   +   | **[_Class diagrams:_](../architecture-diagrams#server-class-diagrams) _Server class diagram:_** Added a joined class diagram for PlayerAudience-Client and Server, along with a description. |
 |   *   | **[_Class diagrams:_](../architecture-diagrams#Classdiagrams) _Class diagrams:_**  Updated class diagram with the new Server diagram                                                         |
 |   *   | **[_Functional Requirements:_](../requirements/#functional-requirements) _Edited term "Server" to "ServerLogic":_** Was changed in FR24, FR25, FR26, FR27, FR28 and FR29.                    |
@@ -215,15 +226,15 @@ The change history is a chronologically ordered list of all changes between diff
 
 ## Version 0.1.2 - Second revision of the architecture design
 
-| Type  | Description                                                                                                                                        |
-| :---: | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   *   | **_[Change history:](#table-of-contents) Table of contents:_** Fixed the links to properly work when exported to HTML/CSS.                         |
+| Type  | Description                                                                                                                                          |
+| :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
+|   *   | **_[Change history:](#table-of-contents) Table of contents:_** Fixed the links to properly work when exported to HTML/CSS.                           |
 |   *   | **_[Glossary:](../glossary) DiceRandomness:_** Changed "die" to "dice" for clarification.                                                            |
 |   *   | **_[Functional Requirements:](../requirements/#functional-requirements) Offline-Mode:_** Update the description to say "shall" instead of "must".    |
 |   *   | **_[Used Plugins:](../usedtools#used-plugins) Markdown All in One:_** Fixed typo in description.                                                     |
 |   *   | **_[Used Plugins:](../usedtools#used-plugins) PlantUML:_** Fixed typo in description.                                                                |
 |   +   | **_[Glossary:](../glossary#expertise) Session:_** Added new term.                                                                                    |
-|   *   | **_[Change history:](#) Change history:_** Renamed change history versions descriptors.                                                            |
+|   *   | **_[Change history:](#) Change history:_** Renamed change history versions descriptors.                                                              |
 |   *   | **_[Use-Case diagrams:](../use-case-diagrams#moderator-client) Moderator-Client:_** Updated all Moderator-Client use-case diagrams and descriptions. |
 
 </span>
@@ -232,8 +243,8 @@ The change history is a chronologically ordered list of all changes between diff
 
 This is the revised version of the Technical Specifications according to the feedback provided by the customer.
 
-| Type  | Description                                                                                                                                                                                                                                                                                                                    |
-| :---: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Type  | Description                                                                                                                                                                                                                                                                                                                      |
+| :---: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |   *   | **[_Glossary:_](../glossary) _Moderator-Client:_** Clarification regarding server backup.                                                                                                                                                                                                                                        |
 |   *   | **[_Glossary:_](../glossary) _StoryFlowDecision:_** Clarification regarding server backup.                                                                                                                                                                                                                                       |
 |   *   | **[_Glossary:_](../glossary) _DiceRandomness:_** Clarified that the die is six-sided.                                                                                                                                                                                                                                            |
