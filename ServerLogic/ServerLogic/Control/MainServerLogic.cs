@@ -7,9 +7,9 @@ using Website;
 
 namespace ServerLogic.Control
 {
-    class MainServerLogic
+    public class MainServerLogic
     {
-        HttpServer server;
+        private HttpServer server;
 
         public List<string> ValidSessionKeys
         {
