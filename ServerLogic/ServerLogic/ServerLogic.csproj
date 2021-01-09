@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Website\Website.csproj" />
+    <ProjectReference Include="..\PlayerAudienceClient\PlayerAudienceClient.csproj" />
   </ItemGroup>
 
 </Project>

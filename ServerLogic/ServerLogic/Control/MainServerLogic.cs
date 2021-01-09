@@ -3,39 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Website;
 
 namespace ServerLogic.Control
 {
     public class MainServerLogic
     {
-        private HttpServer server;
-
-        public List<string> ValidSessionKeys
-        {
-            get; private set;
-        }
-
-        public void UpdateSessionKeys(string key)
-        {
-            if (ValidSessionKeys.Contains(key))
-            {
-                ValidSessionKeys.Remove(key);
-            }
-            else
-            {
-                ValidSessionKeys.Add(key);
-            }
-        }
-
-        public void StartServer(int port)
-        {
-            server = new HttpServer("F:/QualityQuest/ServerLogic/Website/", port);
-        }
+        public PlayerAudienceClientLogicHandler playerAudienceClientLogicHandler;
 
         public MainServerLogic()
         {
-        
+            playerAudienceClientLogicHandler = new PlayerAudienceClientLogicHandler();
         }
     }
 }

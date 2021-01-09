@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerLogic", "ServerLogic\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerLogicTest", "ServerLogicTest\ServerLogicTest.csproj", "{86119FD9-F730-4479-84A6-C16191F53BB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{62843B3A-2B3C-48D4-BAE6-5D8003C89119}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerAudienceClient", "PlayerAudienceClient\PlayerAudienceClient.csproj", "{62843B3A-2B3C-48D4-BAE6-5D8003C89119}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

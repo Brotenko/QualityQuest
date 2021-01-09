@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Collections;
 
-namespace Website
+namespace PlayerAudienceClient
 {
     public class HttpServer : IDisposable
     {

@@ -473,7 +473,7 @@ namespace ServerLogic.Control
                 }
             }
 
-            mainServerLogic.StartServer(Port);
+            mainServerLogic.playerAudienceClientLogicHandler.StartServer(Port);
 
             // Need MainServerLogic first
             serverIsRunning = true;
