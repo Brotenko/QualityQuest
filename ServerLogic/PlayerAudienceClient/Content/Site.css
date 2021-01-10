@@ -128,6 +128,7 @@ body {
     position: fixed !important;
     top: 0 !important;
     width: 100%;
+    background-color: #0C2C40;
 }
 
 .content-container {

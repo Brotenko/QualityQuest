@@ -20,12 +20,13 @@
     <script src="Scripts/jquery-3.4.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/modernizr-2.8.3.js"></script>
+    <script src="Scripts/site.js"></script>
 
     <div>
         <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-navbar">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3 fixed-navbar">
                 <div class="container">
-                    <a class="navbar-brand" runat="server" href="../">Quality Quest</a>
+                    <a class="navbar-brand" href="../">Quality Quest</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -33,19 +34,19 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="../">Home</a>
+                                <a class="nav-link text-light" href="../">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" target="_blank" rel="noopener noreferrer" href="https://www.newtec.de/">NewTec</a>
+                                <a class="nav-link text-light" target="_blank" rel="noopener noreferrer" href="https://www.newtec.de/">NewTec</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" target="_blank" rel="noopener noreferrer" href="https://github.com/Brotenko/QualityQuest">Github</a>
+                                <a class="nav-link text-light" target="_blank" rel="noopener noreferrer" href="https://github.com/Brotenko/QualityQuest">Github</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="../Privacy.html">Privacy</a>
+                                <a class="nav-link text-light" href="../Privacy.html">Privacy</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="../About.html">About</a>
+                                <a class="nav-link text-light" href="../About.html">About</a>
                             </li>
                         </ul>
                     </div>
@@ -59,7 +60,7 @@
             </div>
             <div class="text-center-input">
                 <h5 style="text-align: left; margin-left: 5%">Room Code:</h5>
-                <form method="GET">
+                <form id="sessionsubmit">
                     <input type="text" id="sessionkey" name="key" class="input-group-text newtec-input-box" maxlength="6" minlength="6"
                            placeholder="Please enter the 6-figure Room Code" pattern="\w{6}" title="6-figure Room Code" required />
                     <input type="submit" value="Play game" class="input-button" />
@@ -72,11 +73,19 @@
                     <img src="newtec_logo.png" alt="NewTec logo" class="logo" />
                 </a>
             </div>
+            <div id="currentData">
+                <p>Empty?</p>
+            </div>
         </div>
         <footer class="border-top footer text-muted">
             <div class="container">
                 2021 - <a target="_blank" rel="noopener noreferrer" href="https://github.com/Brotenko/QualityQuest" style="color: inherit">Quality Quest</a> - <a runat="server" href="../Privacy.html">Privacy</a>
-                <span class="footer-logo">Made in cooperation with: &nbsp;<a target="_blank" rel="noopener noreferrer" href="https://www.newtec.de/"><img src="newtec_logo.png" alt="NewTec logo" href="https://www.newtec.de/" style="height: 40px; float: right; margin-top: 10px; margin-bottom: 10px" /></a></span>
+                <span class="footer-logo">
+                    Made in cooperation with: &nbsp;
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.newtec.de/">
+                        <img src="newtec_logo.png" alt="NewTec logo" href="https://www.newtec.de/" style="height: 40px; float: right; margin-top: 10px; margin-bottom: 10px" />
+                    </a>
+                </span>
             </div>
         </footer>
     </div>

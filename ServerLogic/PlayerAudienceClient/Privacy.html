@@ -9,16 +9,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link href="../favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
     <link rel="stylesheet" type="text/css" href="../Content/Site.css" />
     <link rel="stylesheet" type="text/css" href="../Content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../Content/bootstrap.css" />
 
-    <script src="../Scripts/site.js"></script>
+
 </head>
 <body>
+    <script src="Scripts/jquery-3.4.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/modernizr-2.8.3.js"></script>
+
     <div>
         <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-navbar">
                 <div class="container">
                     <a class="navbar-brand" runat="server" href="../">Quality Quest</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -47,10 +52,14 @@
                 </div>
             </nav>
         </header>
-        <div>
+        <div class="container content-container">
             <!--
-                PAGE CONTENT HERE    
+                PAGE CONTENT HERE
             -->
+            <div class="text-center">
+                <h2>About</h2>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+            </div>
         </div>
         <footer class="border-top footer text-muted">
             <div class="container">
