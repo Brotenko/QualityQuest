@@ -4,7 +4,6 @@
 /**
  * 
  * 1) Get HTTPS to work (SSL or X.509 certificate???) - Elias will do it
- * 2) Fix JS 
  * 3) Create dynmaic HTTP/JS site for the votes
  * 4) Server can send JSON to website which then reads/displays it
  * 5) Website can send JSON to the server for validation 

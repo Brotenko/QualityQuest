@@ -445,39 +445,50 @@ namespace ServerLogic.Control
         /// has been started, if no errors occurred.</returns>
         private string StartServer(string[] parameterList)
         {
-            foreach (string item in parameterList)
+            if (!serverIsRunning)
             {
-                if (Regex.IsMatch(item, @"--port\=(\d*)"))
+                foreach (string item in parameterList)
                 {
-                    try
+                    if (Regex.IsMatch(item, @"--port\=(\d*)"))
                     {
-                        Match m = Regex.Match(item, @"--port\=(\d*)");
-                        Port = Convert.ToInt32(m.Groups[1].Value, CultureInfo.CurrentCulture);
+                        try
+                        {
+                            Match m = Regex.Match(item, @"--port\=(\d*)");
+                            Port = Convert.ToInt32(m.Groups[1].Value, CultureInfo.CurrentCulture);
+                        }
+                        catch (ArgumentException)
+                        {
+                            return Properties.Resources.InvalidPortExceptionMessage;
+                        }
                     }
-                    catch (ArgumentException)
+                    else if (Regex.IsMatch(item, @"--password\=(\S*)"))
                     {
-                        return Properties.Resources.InvalidPortExceptionMessage;
+                        try
+                        {
+                            Match m = Regex.Match(item, @"--password\=(\S*)");
+                            Password = m.Groups[1].Value;
+                        }
+                        catch (ArgumentException)
+                        {
+                            return Properties.Resources.InvalidPasswordExceptionMessage;
+                        }
                     }
                 }
-                else if (Regex.IsMatch(item, @"--password\=(\S*)"))
+                try
                 {
-                    try
-                    {
-                        Match m = Regex.Match(item, @"--password\=(\S*)");
-                        Password = m.Groups[1].Value;
-                    }
-                    catch (ArgumentException)
-                    {
-                        return Properties.Resources.InvalidPasswordExceptionMessage;
-                    }
+                    mainServerLogic.playerAudienceClientLogicHandler.StartServer(Port);
                 }
+                catch (Exception e)
+                {
+                    return "The server could not be started due to following Exception: \n"
+                        + e.StackTrace;
+                }
+
+                serverIsRunning = true;
+                return "The server has been started successfully with port: " + Port;
             }
 
-            mainServerLogic.playerAudienceClientLogicHandler.StartServer(Port);
-
-            // Need MainServerLogic first
-            serverIsRunning = true;
-            return "The server has been started successfully with port: " + Port;
+            return "The server is already running with port: " + Port;
         }
 
         /// <summary>
@@ -488,11 +499,8 @@ namespace ServerLogic.Control
         /// <returns>Confirmation hat the server has been stopped successfully.</returns>
         private string StopServer()
         {
-            
+            mainServerLogic.playerAudienceClientLogicHandler.StopServer();
 
-            //server.Dispose();
-
-            // Need MainServerLogic first
             serverIsRunning = false;
             return "The server has been shut down successfully.";
         }
