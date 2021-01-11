@@ -125,7 +125,7 @@ body {
 }
 
 .fixed-navbar {
-    position: fixed !important;
+    position: sticky !important;
     top: 0 !important;
     width: 100%;
     background-color: #0C2C40;
@@ -140,4 +140,16 @@ body {
 
 .in {
     display: unset !important;
+}
+
+.consent-textbox {
+    position: relative;
+    width: 85%;
+    height: 45%;
+    overflow-y: auto;
+    background-color: whitesmoke;
+    color: black;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    margin: auto
 }

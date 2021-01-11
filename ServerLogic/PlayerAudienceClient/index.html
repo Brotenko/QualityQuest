@@ -21,8 +21,47 @@
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/modernizr-2.8.3.js"></script>
     <script src="Scripts/site.js"></script>
-
+    <script>
+        $(function () {
+            $("#consent-text").load("ConsentText.html");
+        });
+        $(function () { //shorthand document.ready function
+            $('#consent-form').on('submit', function (e) {
+                e.preventDefault();  //prevent form from submitting
+                $('#landing-page').css("visibility", "hidden");
+            });
+        });
+    </script>
+    
     <div>
+        <aside>
+            <div id="landing-page" style="background-color: rgba(60, 60, 60, 0.6); height: 100%; width: 100%; position: fixed; z-index: 1; top: 0px">
+                <div style="position: fixed; background-color: #eeeeee; height: 600px; width: 30%; min-width:350px;  margin: auto; left: 0; right: 0; top: 0; bottom: 0; border-radius: 12px; overflow: auto">
+                    <div class="display-4 text-center" style="position: relative; width: 80%; margin: auto; margin-top: 4%; font-size: 26px; font-weight: bold; color: #5e5e5e; margin-bottom: 2%">
+                        Cookies and Terms of Service
+                    </div>
+                    <div class="text-center" style="width: 80%; margin: auto; font-size: 14px; margin-bottom: 4%">
+                        Please read the following Privacy Policy and Terms of Service, and the check the boxes below to continue.
+                    </div>
+                    <div id="consent-text" style="position: relative; width:85%;height:45%;overflow-y: auto;background-color: whitesmoke;color: black; border: 2px solid #e0e0e0; border-radius: 12px; margin: auto"></div>
+                    <form id="consent-form" style="position: relative; width: 85%; height: auto; ; margin: auto; margin-top: 3%">
+                        <div style="background-color: whitesmoke; width: 100%; border: 2px solid #e0e0e0; border-radius: 12px; height: auto; margin-top: 1%; height: 40px">
+                            <div style="margin-left: 2%; padding-top: 5px">
+                                <input id="cookie-checkbox" name="cookie-checkbox" type="checkbox" required />
+                                <label style="margin: unset" for="cookie-checkbox">I accept the usage of required Cookies</label>
+                            </div>
+                        </div>
+                        <div style="background-color: whitesmoke; width: 100%; border: 2px solid #e0e0e0; border-radius: 12px; margin-top: 1%; height: 40px">
+                            <div style="margin-left: 2%; padding-top: 5px">
+                                <input id="tos-checkbox" name="tos-checkbox" type="checkbox" required />
+                                <label for="tos-checkbox">I accept the Terms of Service</label>
+                            </div>
+                        </div>
+                        <input type="submit" style="background-color: whitesmoke; width: 100%; border: 2px solid #e0e0e0; border-radius: 12px; border-top: 0px; margin-top: 4%; height: 50px; margin-bottom: 5%" value="Submit & Continue" />
+                    </form>
+                </div>
+            </div>
+        </aside>
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3 fixed-navbar">
                 <div class="container">
@@ -72,9 +111,6 @@
                 <a target="_blank" rel="noopener noreferrer" href="https://www.newtec.de/">
                     <img src="newtec_logo.png" alt="NewTec logo" class="logo" />
                 </a>
-            </div>
-            <div id="currentData">
-                <p>Empty?</p>
             </div>
         </div>
         <footer class="border-top footer text-muted">
