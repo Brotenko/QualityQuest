@@ -1,8 +1,7 @@
-﻿<!DOCTYPE>
-
-<html lang="en">
+﻿<!DOCTYPE html>
+<html>
 <head>
-    <title>Home - Quality Quest</title>
+    <title>Game Lobby - Quality Quest</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
@@ -13,15 +12,14 @@
     <link rel="stylesheet" type="text/css" href="../Content/Site.css" />
     <link rel="stylesheet" type="text/css" href="../Content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../Content/bootstrap.css" />
-
-
 </head>
 <body>
     <script src="Scripts/jquery-3.4.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/modernizr-2.8.3.js"></script>
     <script src="Scripts/site.js"></script>
-    
+    <script src="Scripts/voting.js"></script>
+
     <div>
         <aside>
             <div id="landing-page" style="background-color: rgba(60, 60, 60, 0.6); height: 100%; width: 100%; position: fixed; z-index: 1; top: 0px; visibility: hidden">
@@ -82,25 +80,17 @@
             </nav>
         </header>
         <div id="site-content" class="container content-container">
-            <div class="text-center">
-                <h1 class="display-4">Welcome to Quality Quest</h1>
-                <p>Please enter a Room Code in the field below to start playing!</p>
+
+            <div id="voting-prompt" class="voting-prompt text-center">
+                How many coins are needed to buy a Mushroom at the shop in Koopa Village?
             </div>
-            <div class="text-center-input">
-                <h5 style="text-align: left; margin-left: 5%">Room Code:</h5>
-                <form id="sessionsubmit">
-                    <input type="text" id="sessionkey" name="key" class="input-group-text newtec-input-box" maxlength="6" minlength="6"
-                           placeholder="Please enter the 6-figure Room Code" pattern="\w{6}" title="6-figure Room Code" required />
-                    <input type="submit" value="Play game" class="input-button submit-button" />
-                </form>
-                <p style="font-weight: bold; font-size: 12px">
-                    By playing the game, you agree to the
-                    <a target="_blank" rel="noopener noreferrer" href="../TermsOfService.html">Terms of Service.</a>
-                </p>
-                <a target="_blank" rel="noopener noreferrer" href="https://www.newtec.de/">
-                    <img src="newtec_logo.png" alt="NewTec logo" class="logo" />
-                </a>
+            <div id="voting-container" class="voting-container">
+                <input type="button" id="choice-1" class="input-button voting-container-4items-1" value="3 coins"/>
+                <input type="button" id="choice-2" class="input-button voting-container-4items-2" value="4 coins"/>
+                <input type="button" id="choice-3" class="input-button voting-container-4items-3" value="5 coins"/>
+                <input type="button" id="choice-3" class="input-button voting-container-4items-4" value="6 coins"/>
             </div>
+
         </div>
         <footer class="border-top footer text-muted">
             <div class="container">
@@ -114,5 +104,6 @@
             </div>
         </footer>
     </div>
+
 </body>
 </html>

@@ -75,16 +75,27 @@ body {
 }
 
 .input-button {
-    height: 60px;
-    border-radius: 12px;
-    font-size: 18px;
-    transition: color 1s,background-position 1s,box-shadow 1s;
-    background-color: #f5f5f5;
+    font-size: 1.3rem;
+    background-color: #f3f3f3;
     border-width: 0;
+    box-shadow: 0 5px 0 0 #dcdcdc;
+    transition: 0.2s all;
+    border-radius: 12px;
     min-width: 100%;
     max-width: 100%;
-    box-shadow: 0 5px 0 0 #e0e0e0;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.input-button:active {
+    background-color: #dcdcdc;
+    box-shadow: 0 2px 0 0 #adadad;
+    transform: translateY(3px);
+}
+
+.submit-button {
     font-weight: bold;
+    height: 60px;
     margin-top: 2%;
     margin-bottom: 1%;
     outline: none !important;
@@ -134,7 +145,6 @@ body {
 .content-container {
     padding-top: 1%;
     padding-bottom: 1%;
-    margin-top: 60px;
     margin-bottom: 80px;
 }
 
@@ -153,3 +163,178 @@ body {
     border-radius: 12px;
     margin: auto
 }
+
+.voting-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: 2fr 1fr 2fr;
+    position: relative;
+    width: 80%;
+    margin: auto;
+    height: 50vh;
+    margin-top: 5%;
+    margin-bottom: 5%
+}
+
+.voting-button {
+    border-style: solid;
+    border-radius: 12px;
+    font-size: 18px;
+    transition: color 1s, background-position 1s ,box-shadow 1s;
+    background-color: #f5f5f5;
+    border-width: 0 0 5px 0;
+    border-color: #e0e0e0;
+    font-weight: bold;
+}
+
+/* VOTING CONTAINER ITEM LAYOUT FOR 4 CHOICES */
+
+.voting-container-4items-1 {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+.voting-container-4items-2 {
+    grid-column-start: 7;
+    grid-column-end: 11;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+.voting-container-4items-3 {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 3;
+    grid-row-end: 3;
+}
+
+.voting-container-4items-4 {
+    grid-column-start: 7;
+    grid-column-end: 11;
+    grid-row-start: 3;
+    grid-row-end: 3;
+}
+
+/* VOTING CONTAINER ITEM LAYOUT FOR 3 CHOICES */
+
+.voting-container-3items-1 {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+.voting-container-3items-2 {
+    grid-column-start: 7;
+    grid-column-end: 11;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+.voting-container-3items-3 {
+    grid-column-start: 4;
+    grid-column-end: 8;
+    grid-row-start: 3;
+    grid-row-end: 3;
+}
+
+/* VOTING CONTAINER ITEM LAYOUT FOR 2 CHOICES */
+
+.voting-container-2items-1 {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+.voting-container-2items-2 {
+    grid-column-start: 7;
+    grid-column-end: 11;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="voting-container"] {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-row-gap: 10px;
+    }
+
+    [class*="voting-container-4items-1"] {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 1;
+        grid-row-end: 1;
+    }
+
+    [class*="voting-container-4items-2"] {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 2;
+        grid-row-end: 2;
+    }
+
+    [class*="voting-container-4items-3"] {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 3;
+        grid-row-end: 3;
+    }
+
+    [class*="voting-container-4items-4"] {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 4;
+        grid-row-end: 4;
+    }
+
+    [class*="voting-container-3items-1"] {
+        grid-column-start: 1;
+        grid-column-end: 5;
+        grid-row-start: 1;
+        grid-row-end: 1;
+    }
+
+    [class*="voting-container-3items-2"] {
+        grid-column-start: 1;
+        grid-column-end: 5;
+        grid-row-start: 1;
+        grid-row-end: 1;
+    }
+
+    [class*="voting-container-3items-3"] {
+        grid-column-start: 1;
+        grid-column-end: 5;
+        grid-row-start: 1;
+        grid-row-end: 1;
+    }
+
+    [class*="voting-container-2items-1"] {
+        grid-column-start: 1;
+        grid-column-end: 5;
+        grid-row-start: 1;
+        grid-row-end: 1;
+    }
+
+    [class*="voting-container-2items-2"] {
+        grid-column-start: 1;
+        grid-column-end: 5;
+        grid-row-start: 1;
+        grid-row-end: 1;
+    }
+}
+
+
+
+.voting-prompt {
+    font-weight: 300;
+    font-size: 2.5rem;
+    margin-bottom: 5vh;
+    line-height: 1.2;
+}
+
