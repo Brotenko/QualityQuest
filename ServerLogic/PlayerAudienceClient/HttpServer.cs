@@ -113,13 +113,13 @@ namespace PlayerAudienceClient
 
         public HttpServer(string directoryPath, int port, bool allowCors = true, Action<Exception> handleException = null)
         {
-            DirectoryInfo di = new DirectoryInfo(@"F:\QualityQuest\ServerLogic\PlayerAudienceClient\rooms");
+            /*DirectoryInfo di = new DirectoryInfo(@"F:\QualityQuest\ServerLogic\PlayerAudienceClient\rooms");
             foreach (FileInfo file in di.GetFiles())
             {
                 file.Delete();
             }
             File.Copy(@"F:\QualityQuest\ServerLogic\PlayerAudienceClient\RoomTemplate.html", @"F:\QualityQuest\ServerLogic\PlayerAudienceClient\rooms\dfdfdf.html");
-
+            */
             RootDirectory = directoryPath;
             Port = port;
             _allowCors = allowCors;

@@ -1,6 +1,6 @@
 ﻿function validateKey(e)
 {
-    document.write(JSON.stringify($('#sessionsubmit').serializeArray()));
+    document.write(JSON.stringify($('#voting-container').serializeArray()));
 }
 
 function getCookie(cname) {
@@ -19,7 +19,7 @@ function getCookie(cname) {
     return "";
 }
 
-$(document).ready(function () {
+$(function () {
     var myCookie = getCookie("CookieConsent");
     if (myCookie == "") {
         $('#landing-page').css("visibility", "unset");
@@ -40,5 +40,5 @@ $(function () { //shorthand document.ready function
 
 window.onload = function () {
     /* FALL THROUGH */
-    document.getElementById("sessionsubmit").addEventListener("submit", validateKey, false);
+    //document.getElementById("voting-container").addEventListener("submit", validateKey, false);
 }

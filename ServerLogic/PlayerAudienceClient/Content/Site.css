@@ -85,6 +85,7 @@ body {
     max-width: 100%;
     word-wrap: break-word;
     white-space: normal;
+    outline: none !important;
 }
 
 .input-button:active {
@@ -98,7 +99,6 @@ body {
     height: 60px;
     margin-top: 2%;
     margin-bottom: 1%;
-    outline: none !important;
 }
 
 .logo {
@@ -338,3 +338,87 @@ body {
     line-height: 1.2;
 }
 
+.landing-page-popup-checkbox-label {
+    font-size: 0.8rem;
+}
+
+.landing-page-popup {
+    position: fixed;
+    background-color: #eeeeee;
+    height: 600px;
+    width: 30%;
+    min-width: 350px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 12px;
+    overflow: auto
+}
+
+.landing-page-popup-title {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    margin-top: 4%;
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 1.2;
+    color: #5e5e5e;
+    margin-bottom: 2%
+}
+
+.landing-page-popup-subtitle {
+    width: 80%;
+    margin: auto;
+    font-size: 14px;
+    margin-bottom: 4%
+}
+
+.landing-page-popup-text {
+    position: relative;
+    width: 85%;
+    height: 45%;
+    overflow-y: auto;
+    background-color: whitesmoke;
+    color: black;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    margin: auto
+}
+
+.landing-page-popup-form {
+    position: relative;
+    width: 85%;
+    height: auto;
+    margin: auto;
+    margin-top: 3%
+}
+
+.landing-page-popup-checkbox-container {
+    background-color: whitesmoke;
+    width: 100%;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    height: auto;
+    margin-top: 1%;
+    height: 40px
+}
+
+.landing-page-popup-checkbox-content {
+    margin-left: 2%;
+    padding-top: 8px
+}
+
+@media only screen and (max-width: 350px) {
+    [class*="landing-page-popup"] {
+        min-width: 98vw
+    }
+}
+
+@media only screen and (max-height: 600px) {
+    [class*="landing-page-popup"] {
+        height: 90vh
+    }
+}
