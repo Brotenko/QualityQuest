@@ -3,10 +3,7 @@ $(function () {
         $("input:button").click(function (event) {
             
             $("input:button").prop("disabled", true);
-            $(this).css('background-color', "rgba(0, 74, 130, 0.5)")
-            $(this).css('box-shadow', "0 5px 0 0 rgba(0, 45, 79, 0.5)")
-
-            document.cookie = $("voting-prompt").attr('name') + "=true";
+            $(this).addClass("voting-button-selected");
 
             //document.write($(this).attr("id")); // Future output to the server
 
