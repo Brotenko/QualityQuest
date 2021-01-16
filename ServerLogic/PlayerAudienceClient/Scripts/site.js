@@ -20,6 +20,36 @@ function getCookie(cname) {
 }
 
 $(function () {
+    $('#consent-form').on('submit', function (e) {
+        e.preventDefault();  //prevent form from submitting
+        document.cookie = "CookieConsent=true";
+        $('#dynamic-header-navbar').css("visibility", "hidden");
+    });
+
+    $(function () {
+        $('#dynamic-header-navbar').load('../DataPage.html #header-navbar');
+        $('#dynamic-footer').load('../DataPage.html #footer');
+    });
+
+    /*
+    $('#dynamic-header-navbar').load('../DataPage.html #header-navbar');
+    $('#dynamic-footer').load('../DataPage.html #footer');
+
+    $("#consent-text").load("ConsentText.html");
+    */
+
+    var myCookie = getCookie("CookieConsent");
+    if (myCookie == "") {
+        //document.write($('#test').html());
+        $('#dynamic-header-navbar').css("visibility", "unset");
+    }
+})
+
+/*
+$.when($(function () {
+    $('#dynamic-header-navbar').load('../DataPage.html #header-navbar');
+    $('#dynamic-footer').load('../DataPage.html #footer');
+})).then(function () {
     var myCookie = getCookie("CookieConsent");
     if (myCookie == "") {
         $('#landing-page').css("visibility", "unset");
@@ -39,6 +69,6 @@ $(function () { //shorthand document.ready function
 });
 
 window.onload = function () {
-    /* FALL THROUGH */
-    //document.getElementById("voting-container").addEventListener("submit", validateKey, false);
+    loadCookieConsent();
 }
+*/

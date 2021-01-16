@@ -1,4 +1,4 @@
-﻿<!DOCTYPE>
+﻿<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -13,60 +13,22 @@
     <link rel="stylesheet" type="text/css" href="../Content/Site.css" />
     <link rel="stylesheet" type="text/css" href="../Content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../Content/bootstrap.css" />
-
-
 </head>
 <body>
     <script src="Scripts/jquery-3.4.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/modernizr-2.8.3.js"></script>
+    <script src="Scripts/site.js"></script>
 
     <div>
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-navbar">
-                <div class="container">
-                    <a class="navbar-brand" runat="server" href="../">Quality Quest</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="../">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" target="_blank" rel="noopener noreferrer" href="https://www.newtec.de/">NewTec</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" target="_blank" rel="noopener noreferrer" href="https://github.com/Brotenko/QualityQuest">Github</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="../Privacy.html">Privacy</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="../About.html">About</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <div class="container content-container">
-            <!--
-                PAGE CONTENT HERE
-            -->
+        <div id="dynamic-header-navbar"></div>
+        <div id="site-content" class="container content-container">
             <div class="text-center">
                 <h2>About</h2>
                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
             </div>
         </div>
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                2021 - <a target="_blank" rel="noopener noreferrer" href="https://github.com/Brotenko/QualityQuest" style="color: inherit">Quality Quest</a> - <a runat="server" href="../Privacy.html">Privacy</a>
-                <span class="footer-logo">Made in cooperation with: &nbsp;<a target="_blank" rel="noopener noreferrer" href="https://www.newtec.de/"><img src="newtec_logo.png" alt="NewTec logo" href="https://www.newtec.de/" style="height: 40px; float: right; margin-top: 10px; margin-bottom: 10px" /></a></span>
-            </div>
-        </footer>
+        <div id="dynamic-footer"></div>
     </div>
 </body>
 </html>
