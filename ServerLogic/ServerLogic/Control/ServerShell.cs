@@ -22,6 +22,7 @@ namespace ServerLogic.Control
         private readonly ServerShell serverShell;
         private bool serverIsRunning = false;
         private bool commandRequestsHelpMessage = false;
+        private ServerLogger logger = ServerLogger.CreateServerLogger();
 
         public int Port
         {
@@ -530,7 +531,7 @@ namespace ServerLogic.Control
             default:
                 return "'" + command + "' is not a valid command. See 'help'.";
             }
-
+            
             return ret;
         }
 
