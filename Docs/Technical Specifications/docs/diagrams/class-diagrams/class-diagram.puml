@@ -76,8 +76,8 @@ package "Server" {
   package "ServerLogic" <<Rectangle>>{
     class "ServerShell" as ss {
       {field} +logger: Logger
-      {field} <<Property>> +Port: int
-      {field} <<Property>> +Password: string
+      {field} <<Property>> +Port: int <<+get; -set>>
+      {field} <<Property>> +Password: string <<+get; -set>>
       {field} -serverShell: ServerShell
       {field} -serverIsRunning: bool
       {field} -commandRequestsHelpMessage: bool
@@ -103,10 +103,10 @@ package "Server" {
     
 
     class "MessageContainer" as messCont {
-      {field} +ModeratorID: Guid
-      {field} +Type: MessageType
-      {field} +CreationDate: DateTime
-      {field} +DebugMessage: string
+      {field} <<Property>> +ModeratorID: Guid <<+get; -set>>
+      {field} <<Property>> +Type: MessageType <<+get; -set>>
+      {field} <<Property>> +CreationDate: DateTime <<+get; -set>>
+      {field} <<Property>> +DebugMessage: string <<+get; -set>>
       {method} +MessageContainer(moderatorId: Guid, type: MessageType, creationDate: DateTime, debugMessage: string)
       {method} +MessageContainer(moderatorId: Guid, type: MessageType, debugMessage: string)
       {method} +MessageContainer(moderatorId: Guid, type: MessageType)
@@ -114,22 +114,22 @@ package "Server" {
     }
 
     class "AudienceStatusMessage" as audStatMess {
-      {field} +AudienceCount: int
+      {field} <<Property>> +AudienceCount: int <<+get>>
       {method} +AudienceStatusMessage(moderatorId: Guid, audienceCount: int)
       {method} +AudienceStatusMessage(moderatorId: Guid, audienceCount: int, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "ErrorMessage" as errMess{
-      {field} +ErrorMessageType: ErrorType
-      {field} +ErrorMessageText: string
+      {field} <<Property>> +ErrorMessageType: ErrorType <<+get>>
+      {field} <<Property>> +ErrorMessageText: string <<+get>>
       {method} +ErrorMessage(moderatorId: Guid, errorMessageType: ErrorType, errorMessageText: string)
       {method} +ErrorMessage(moderatorId: Guid, errorMessageType: ErrorType, errorMessageText: string, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "GamePausedStatusMessage" as gaPaStatMess{
-      {field} +GamePaused: bool
+      {field} <<Property>> +GamePaused: bool <<+get>>
       {method} +GamePausedStatusMessage(moderatorId: Guid, gamePaused: bool)
       {method} +GamePausedStatusMessage(moderatorId: Guid, gamePaused: bool, debugMessage: string)
       {method} +ToString(): string
@@ -154,14 +154,14 @@ package "Server" {
     }
 
     class "RequestCloseSessionMessage" as reqCloseSessMess{
-      {field} +SessionKey: string
+      {field} <<Property>> +SessionKey: string <<+get>>
       {method} +RequestCloseSessionMessage(moderatorId: Guid, sessionKey: string)
       {method} +RequestCloseSessionMessage(moderatorId: Guid, sessionKey: string, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "RequestGamePausedStatusChangeMessage" as reqGaPaStatMess{
-      {field} +GamePaused: bool
+      {field} <<Property>> +GamePaused: bool <<+get>>
       {method} +RequestGamePausedStatusChangeMessage(moderatorId: Guid, gamePaused: bool)
       {method} +RequestGamePausedStatusChangeMessage(moderatorId: Guid, gamePaused: bool, debugMessage: string)
       {method} +ToString(): string
@@ -174,7 +174,7 @@ package "Server" {
     }
 
     class "RequestOpenSessionMessage" as reqOpSessMess{
-      {field} +Password: string
+      {field} <<Property>> +Password: string <<+get>>
       {method} +RequestOpenSessionMessage(moderatorId: Guid, password: string)
       {method} +RequestOpenSessionMessage(moderatorId: Guid, password: string, debugMessage: string)
       {method} +ToString(): string
@@ -187,8 +187,8 @@ package "Server" {
     }
 
     class "RequestStartVotingMessage" as reqStartVotMess{
-      {field} +VotingTime: int
-      {field} +VotingOptions: Dictionary<Guid, string>
+      {field} <<Property>> +VotingTime: int <<+get>>
+      {field} <<Property>> +VotingOptions: Dictionary<Guid, string> <<+get; -set>>
       {method} +RequestStartVotingMessage(moderatorId: Guid, votingTime: int, votingOptions: Dictionary<Guid, string>)
       {method} +RequestStartVotingMessage(moderatorId: Guid, votingTime: int, votingOptions: Dictionary<Guid, string>, debugMessage: string)
       {method} +ToString(): string
@@ -207,17 +207,17 @@ package "Server" {
     }
 
     class "SessionOpenedMessage" as sessOpMess{
-      {field} +SessionKey: string
-      {field} +DirectURL: Uri
-      {field} +QrCode: Bitmap
+      {field} <<Property>> +SessionKey: string <<+get>>
+      {field} <<Property>> +DirectURL: Uri <<+get>>
+      {field} <<Property>> +QrCode: Bitmap <<+get>>
       {method} +SessionOpenedMessage(moderatorId: Guid, sessionKey: string, directURL: Uri, qrCode: Bitmap)
       {method} +SessionOpenedMessage(moderatorId: Guid, sessionKey: string, directURL: Uri, qrCode: Bitmap, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "VotingEndedMessage" as votEndMess{
-      {field} +WinningOption: Guid
-      {field} +VotingResults: Dictionary<Guid, int>
+      {field} <<Property>> +WinningOption: Guid <<+get>>
+      {field} <<Property>> +VotingResults: Dictionary<Guid, int> <<+get>>
       {method} +VotingEndedMessage(moderatorId: Guid, winningOption: Guid, votingResults: Dictionary<Guid, int>)
       {method} +ToString(): string
     }
