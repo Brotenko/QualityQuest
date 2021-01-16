@@ -15,11 +15,11 @@ The requirements are divided into different priorities, whose meaning should be 
 This section contains all requirements that specify the basic actions of the software system.
 
 <h4 style="margin-bottom: 0em"; id="game-type">Game type</h4>
-| ID          | FR1                                                                                                                                                                                                                                                                                                       |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                                                                                                                                                                                                                                                         |
-| DESCRIPTION | QualityQuest shall be a 2D RPG.                                                                                                                                                                                                                                                                           |
-| EXPLANATION | The PlayerAudience makes decisions over the PlayerCharacter in a fictional, high-fantasy world of a software engineer. The PlayerAudience plays the game only through StoryFlowDecisions, comparable to an interactive film in which the PlayerAudience can actively decide on certain parts of the film. |
+| ID          | FR1                                                                                                                                                                                                                                                                                                   |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                                                                                                                                                                                     |
+| DESCRIPTION | QualityQuest shall be a 2D Visual-Novel-RPG.                                                                                                                                                                                                                                                          |
+| EXPLANATION | The PlayerAudience makes decisions over the PlayerCharacter in a fictional, high-fantasy world of a software engineer. The PlayerAudience plays the game only through StoryFlowDecisions, comparable to a Visual Novel in which the PlayerAudience can actively decide on certain parts of the story. |
 
 </span>
 
@@ -468,7 +468,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ID          | FR51                                                                                                                                                                                                                                      |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | PRIORITY    | 0                                                                                                                                                                                                                                         |
-| DESCRIPTION | The pause menu should display the following elements: </br></br><ul><li>A banner that reads "Paused"</li><li>A button to unpause the game</li><li>The PlayerAudience connection method</li><li>All PlayerAudience connection options</li> |
+| DESCRIPTION | The pause menu should display the following elements: </br></br><ul><li>A banner that reads "Pause"</li><li>A button to unpause the game</li><li>The PlayerAudience connection method</li><li>All PlayerAudience connection options</li> |
 | EXPLANATION | -                                                                                                                                                                                                                                         |
 
 </span>
@@ -497,6 +497,16 @@ This section contains all requirements that specify the basic actions of the sof
 | PRIORITY    | +                                                       |
 | DESCRIPTION | The SessionKey shall have a size/length of six.         |
 | EXPLANATION | For example: <code>F8G21Z</code> or <code>8IB2P4</code> |
+
+</span>
+
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-count-display">PlayerAudience-Client count display</h4>
+| ID          | FR55                                                                                                                                                           |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                                              |
+| DESCRIPTION | The PlayerAudience-Client count shall be displayed in the Moderator-Client, as long as the PlayerAudience-Client count is transmitted to the Moderator-Client. |
+| EXPLANATION | For example: <code>F8G21Z</code> or <code>8IB2P4</code>                                                                                                        |
 
 </span>
 
