@@ -562,12 +562,19 @@ namespace ServerLogic.Control
                 // Only checking for '--clear' since that is the only valid option
                 if (parameterList[0] == "--clear")
                 {
-                    return "This will clear the logs later on.";
+                    logger.wipeLogFile();
+                    return "Logs were cleared.";
+                }
+                else if (parameterList[0] == "--setLevel")
+                {
+                    //todo add entry in help menu
+                    logger.setLogLevel(Int16.Parse(parameterList[1]));
+                    return "LogLevel was set to " + parameterList[1];
                 }
                 // Everything else should just show the logs, disregarding everything
                 else
                 {
-                    return "These will be the logs later ono.";
+                    return logger.logFileToString();
                 }
             }
         }
