@@ -45,6 +45,7 @@ The change history is a chronologically ordered list of all changes between diff
 
 ## Version 0.2.2 - Second revision of the component design
 
+
 | Type  | Description                                                                                                                                            |
 | :---: | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
 |   +   | **[_Used Tools:_](../usedtools#used-tools) _Visual Studio 2019:_** Added used tool.                                                                    |
@@ -74,6 +75,7 @@ The change history is a chronologically ordered list of all changes between diff
 |   *   | **[_Functional Requirements:_](../requirements#game-type) _FR1:_** Changed game type to "2D Visual-Novel-RPG".                                         |
 |   *   | **[_Functional Requirements:_](../requirements#pause-menu-contents) _FR51:_** Changed "Paused" to "Pause".                                             |
 |   +   | **[_Functional Requirements:_](../requirements#playeraudience-client-count-display) _FR55:_** Added requirement "PlayerAudience-Client count display". |
+|   *   | **[_Architecture diagrams:_](../architecture-diagrams) _Architecture diagrams:_** Updated diagram according to current implementation.
 
 </span>
 
