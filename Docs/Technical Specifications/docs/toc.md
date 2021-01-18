@@ -1,10 +1,10 @@
 # Table of contents
 
-- [Quality Quest](../index)
-    - [Introduction](../index#indroduction)
-    - [Motivation](../index#motivation)
-    - [Vision](../index#vision)
-    - [Context of project](../index#context-of-project)
+- [Quality Quest](../)
+    - [Introduction](../#indroduction)
+    - [Motivation](../#motivation)
+    - [Vision](../#vision)
+    - [Context of project](../#context-of-project)
 - [Table of contents](../toc) 
 - [Glossary](../glossary)
     - [Actors and roles](../glossary#actors-and-roles)
