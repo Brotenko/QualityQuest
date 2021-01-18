@@ -555,14 +555,14 @@ namespace ServerLogic.Control
         {
             if (parameterList.Length == 0)
             {
-                return logger.logFileToString();
+                return logger.LogFileToString();
             }
             else
             {
                 // Only checking for '--clear' since that is the only valid option
                 if (parameterList[0] == "--clear")
                 {
-                    logger.wipeLogFile();
+                    logger.WipeLogFile();
                     return "Logs were cleared.";
                 }
                 else if (parameterList[0] == "--setLevel")
@@ -574,7 +574,7 @@ namespace ServerLogic.Control
                 // Everything else should just show the logs, disregarding everything
                 else
                 {
-                    return logger.logFileToString();
+                    return logger.LogFileToString();
                 }
             }
         }

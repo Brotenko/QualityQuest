@@ -1,1 +1,3 @@
-[2021-01-18 10:49:27+00:00] [2] logLevel is changed from 2 to 2.
+[2021-01-18 11:00:19+00:00] [0] INFO: LogLevel was set to 0.
+[2021-01-18 11:02:00+00:00] [0] INFO: New Session started. Default LogLevel is 0.
+[2021-01-18 11:03:22+00:00] [0] INFO: New Session started. Default LogLevel is 0.
