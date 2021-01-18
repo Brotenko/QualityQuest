@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 
 namespace ServerLogic.Control
 {
@@ -13,6 +14,7 @@ namespace ServerLogic.Control
     {
         private static ServerLogger _serverLogger;
         private int logLevel; //todo evtl. als property umsetzen
+        //todo replace strings with resource where possible
 
         /// <summary>
         /// ServerLogger implements the Singleton-Pattern to ensure there is only one Logger active.
@@ -50,13 +52,19 @@ namespace ServerLogic.Control
         /// <param name="level"></param>
         public void setLogLevel(int level)
         {
-            writeToFile("logLevel is changed from "+logLevel+" to "+level+".");
-            logLevel = level;
+            if (logLevel >= 0 && logLevel <= 4)
+            {
+                writeToFile("logLevel is changed from " + logLevel + " to " + level + ".");
+                logLevel = level;
+            }
+            else
+            {
+                Console.WriteLine("LogLevel needs to be 0-4");
+            }
         }
 
         private void writeToFile(string logMessage)
         {
-            
             var logRecord = string.Format("{0} [{1}] {2}", "[" + DateTimeOffset.UtcNow.ToString("yyyy-MM-dd HH:mm:ss+00:00") + "]", logLevel.ToString(), logMessage);
 
             //todo: it should be clarified whether there is one general log-file or several, session-wise or date-wise.
@@ -67,33 +75,25 @@ namespace ServerLogic.Control
 
         public string logFileToString()
         {
-            using var streamReader = new StreamReader(Properties.Resources.LogFilePath, true);
-            string fileToString = streamReader.ReadToEnd();
+            string fileToString = "";
+            try
+            {
+
+                using var streamReader = new StreamReader(Properties.Resources.LogFilePath, true);
+                fileToString = streamReader.ReadToEnd();
+            }
+            catch (FileNotFoundException e)
+            {
+                //Do nothing
+            }
             return fileToString;
         }
 
         public void wipeLogFile()
         {
-
+            File.Delete(Properties.Resources.LogFilePath);
         }
-
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
-        {
-           
-            /*
-            if (!Directory.Exists(logFilePath))
-            {
-                Directory.CreateDirectory(logFilePath);
-            }
-            var fullFilePath = _loggerProvider.logFilePath;
-            var logRecord = string.Format("{0} [{1}] {2} {3}", "[" + DateTimeOffset.UtcNow.ToString("yyyy-MM-dd HH:mm:ss+00:00") + "]", logLevel.ToString(), formatter(state, exception), exception != null ? exception.StackTrace : "");
-
-            using (var streamWriter = new StreamWriter(fullFilePath, true))
-            {
-                streamWriter.WriteLine(logRecord);
-            }*/
-        }
-
+        
      
     }
 }
