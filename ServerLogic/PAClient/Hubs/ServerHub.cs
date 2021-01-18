@@ -12,5 +12,10 @@ namespace PAClient.Hubs
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
+
+        public async Task SendMessageToCaller(string user, string message)
+        {
+            await Clients.Caller.SendAsync("ReceiveMessage", user, message);
+        }
     }
 }
