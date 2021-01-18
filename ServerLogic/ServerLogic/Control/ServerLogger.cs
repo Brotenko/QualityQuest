@@ -23,8 +23,8 @@ namespace ServerLogic.Control
         private ServerLogger()
         {
             //default Logging-Level
-            logLevel = 2;
-            writeToFile("New Session started. Default LogLevel is "+logLevel+".");
+            logLevel = 0;
+            LogInformation("New Session started. Default LogLevel is "+logLevel+".");
         }
 
         /// <summary>
@@ -52,10 +52,10 @@ namespace ServerLogic.Control
         /// <param name="level"></param>
         public void setLogLevel(int level)
         {
-            if (logLevel >= 0 && logLevel <= 4)
+            if (level >= 0 && level <= 4)
             {
-                writeToFile("logLevel is changed from " + logLevel + " to " + level + ".");
                 logLevel = level;
+                LogInformation("LogLevel was set to " + level + ".");
             }
             else
             {
@@ -63,7 +63,7 @@ namespace ServerLogic.Control
             }
         }
 
-        private void writeToFile(string logMessage)
+        private void WriteToFile(string logMessage)
         {
             var logRecord = string.Format("{0} [{1}] {2}", "[" + DateTimeOffset.UtcNow.ToString("yyyy-MM-dd HH:mm:ss+00:00") + "]", logLevel.ToString(), logMessage);
 
@@ -73,7 +73,7 @@ namespace ServerLogic.Control
             streamWriter.Close();
         }
 
-        public string logFileToString()
+        public string LogFileToString()
         {
             string fileToString = "";
             try
@@ -84,16 +84,46 @@ namespace ServerLogic.Control
             }
             catch (FileNotFoundException e)
             {
-                //Do nothing
+                //If Log.txt was deleted before, this will occur. Not so serious, as a new file is created during the next writing process.
             }
             return fileToString;
         }
 
-        public void wipeLogFile()
+        public void WipeLogFile()
         {
             File.Delete(Properties.Resources.LogFilePath);
         }
-        
-     
+
+        public void LogDebug(string record)
+        {
+            if (logLevel == 0)
+            {
+                WriteToFile("DEBUG: " + record);
+            }
+        }
+
+        public void LogInformation(string record)
+        {
+            if (logLevel <= 1)
+            {
+                WriteToFile("INFO: " + record);
+            }
+        }
+
+        public void LogWarning(string record)
+        {
+            if (logLevel <= 2)
+            {
+                WriteToFile("WARNING: " + record);
+            }
+        }
+
+        public void LogError(string record)
+        {
+            if (logLevel <= 3)
+            {
+                WriteToFile("ERROR: " + record);
+            }
+        }
     }
 }
