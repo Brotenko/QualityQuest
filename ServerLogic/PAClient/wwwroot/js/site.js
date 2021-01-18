@@ -22,12 +22,12 @@ $(function () {
     var myCookie = getCookie("CookieConsent");
     if (myCookie == "") {
         //document.write($('#test').html());
-        $('#dynamic-header-navbar').css("visibility", "unset");
+        $('#landing-page').css("visibility", "unset");
     }
 })
 
 $('#consent-form').on('submit', function (e) {
     e.preventDefault();  //prevent form from submitting
     document.cookie = "CookieConsent=true";
-    $('#dynamic-header-navbar').css("visibility", "hidden");
+    $('#landing-page').css("visibility", "hidden");
 });

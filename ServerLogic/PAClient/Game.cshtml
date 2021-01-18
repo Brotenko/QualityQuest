@@ -1,0 +1,52 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Game";
+}
+
+<!--
+    1) Eine feste Datei für alle keys in "Game.cshtml"
+    2) Die Datei ist stets für alle sichtbar (wenn man die URL eingibt) und sagt standardmäßig "Please enter a sessionkey on the main page"
+    3) Die Datei wechselt die Beschreibung, wenn man über die Eingabe auf dem Mainscreen reinkommt
+        3.1) Dazu muss man einen valid Sessionkey eingeben, welcher an den Server gesendet wird
+        3.2) Der Server überprüft ob ein Raum mit dem Key existiert und nimmt dem Nutzer alle SignalR Gruppen ab und teilt ihm den sessionkey als neue Gruppe zu
+    4) Der Server schickt an spezifische Gruppen, Nachrichten, welche das HTML/CSS/JS der Seite verändert (Gruppenspezifische Prompts)
+    5) Die Webseite wird bei den spezifischen Clients geupdated und der Spieler kann eine Auswahl treffen
+    6) Trifft der Spieler eine Auswahl (oder ist zu langsam [interner Timer auf Serverseite]) wird die Seite "geleert" und entweder die angegebene Lösung angezeigt,
+       oder gesagt, dass man zu langsam war.
+        6.1) Der Server soll überprüfen ob der jeweilige Spieler für die Runde schon eine Antwort gesendet hatte, und dementsprechend keine weiteren Angaben
+             mehr zulassen (Cookies? Oder doch Serverseitig per Liste?)
+    7) Der Server wertet die Daten der Gruppe nun aus und sendet diesen an die MSL weiter
+    8) Wiederhole 4-7 bis das Spiel zuende ist, woraufhin die Seite entweder geleert wird, oder sonst was
+-->
+
+<div class="container">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-2">User</div>
+        <div class="col-4"><input type="text" id="userInput" /></div>
+    </div>
+    <div class="row">
+        <div class="col-2">Message</div>
+        <div class="col-4"><input type="text" id="messageInput" /></div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">
+            <input type="button" id="sendButton" value="Send Message" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <ul id="messagesList"></ul>
+    </div>
+</div>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
+

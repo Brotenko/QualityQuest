@@ -17,5 +17,10 @@ namespace PAClient.Hubs
         {
             await Clients.Caller.SendAsync("ReceiveMessage", user, message);
         }
+
+        public async Task SendMessageToGroup(string user, string message, string sessionkey)
+        {
+            await Clients.Group(sessionkey).SendAsync("ReceiveMessage", user, message);
+        }
     }
 }

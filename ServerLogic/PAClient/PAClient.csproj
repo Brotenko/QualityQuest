@@ -48,6 +48,18 @@
     <Content Update="wwwroot\lib\jquery\dist\jquery.min.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\lib\microsoft\signalr\dist\browser\signalr.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\microsoft\signalr\dist\browser\signalr.js.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\microsoft\signalr\dist\browser\signalr.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\microsoft\signalr\dist\browser\signalr.min.js.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\newtec_logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

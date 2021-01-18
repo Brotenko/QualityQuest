@@ -12,6 +12,7 @@ namespace ServerLogic.Control
     public class PlayerAudienceClientLogicHandler
     {
         //private HttpServer server;
+        private PABackend p;
 
         public List<string> ValidSessionKeys
         {
@@ -33,7 +34,8 @@ namespace ServerLogic.Control
         public void StartServer(int port)
         {
             //server = new HttpServer("F:/QualityQuest/ServerLogic/PlayerAudienceClient/", port);
-            PABackend p = new PABackend(port);
+            ValidSessionKeys = new List<string> { "asdasd" };
+            p = new PABackend(port);
         }
 
         public void StopServer()
