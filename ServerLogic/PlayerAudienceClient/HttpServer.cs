@@ -1,17 +1,6 @@
 ﻿// MIT License - Copyright (c) 2016 Can Güney Aksakalli
 // https://aksakalli.github.io/2014/02/24/simple-http-server-with-csparp.html
 
-/**
- * 
- * 1) Get HTTPS to work (SSL or X.509 certificate???) - Elias will do it
- * 3) Create dynmaic HTTP/JS site for the votes
- * 4) Server can send JSON to website which then reads/displays it
- * 5) Website can send JSON to the server for validation 
- * 6) Cookies ????
- * 
- **/
-
-
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -26,6 +15,7 @@ namespace PlayerAudienceClient
 {
     public class HttpServer : IDisposable
     {
+        private PABackend p;
         private object _lockObjectDispose = new object();
         private CancellationTokenSource _cancellationTokenSourceDisposed = new CancellationTokenSource();
         private readonly string[] _indexFiles = {
@@ -126,10 +116,13 @@ namespace PlayerAudienceClient
             _handleException = handleException;
             _serverThread = new Thread(Listen);
             _serverThread.Start();
+
+            //p = new PABackend();
         }
 
         public void Dispose()
         {
+            
             lock (_lockObjectDispose)
             {
                 if (_cancellationTokenSourceDisposed.IsCancellationRequested)

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PAClient\PAClient.csproj" />
     <ProjectReference Include="..\PlayerAudienceClient\PlayerAudienceClient.csproj" />
   </ItemGroup>
 

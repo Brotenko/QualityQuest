@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerLogicTest", "ServerLo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerAudienceClient", "PlayerAudienceClient\PlayerAudienceClient.csproj", "{62843B3A-2B3C-48D4-BAE6-5D8003C89119}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PAClient", "PAClient\PAClient.csproj", "{68815C8C-5FFD-4148-BDF7-2A6B5B3D917D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{62843B3A-2B3C-48D4-BAE6-5D8003C89119}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62843B3A-2B3C-48D4-BAE6-5D8003C89119}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62843B3A-2B3C-48D4-BAE6-5D8003C89119}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68815C8C-5FFD-4148-BDF7-2A6B5B3D917D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68815C8C-5FFD-4148-BDF7-2A6B5B3D917D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68815C8C-5FFD-4148-BDF7-2A6B5B3D917D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68815C8C-5FFD-4148-BDF7-2A6B5B3D917D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

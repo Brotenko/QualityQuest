@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PlayerAudienceClient;
+using PAClient;
 
 namespace ServerLogic.Control
 {
@@ -31,7 +32,8 @@ namespace ServerLogic.Control
 
         public void StartServer(int port)
         {
-            server = new HttpServer("F:/QualityQuest/ServerLogic/PlayerAudienceClient/", port);
+            //server = new HttpServer("F:/QualityQuest/ServerLogic/PlayerAudienceClient/", port);
+            Program.Main(new string[0]);
         }
 
         public void StopServer()
