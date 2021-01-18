@@ -94,6 +94,7 @@ namespace ServerLogic.Control
             this.serverShell = this;
             this.Password = "!Password123";
             this.Port = 7777;
+            this.logger = ServerLogger.CreateServerLogger();
         }
 
         /// <summary>
@@ -111,6 +112,7 @@ namespace ServerLogic.Control
             this.serverShell = this;
             this.Password = password;
             this.Port = port;
+            this.logger = ServerLogger.CreateServerLogger();
 
             RunShell();
         }
@@ -501,7 +503,6 @@ namespace ServerLogic.Control
         private string ShowHelp(string command)
         {
             string ret;
-
             switch (command)
             {
             case "port":
@@ -554,7 +555,7 @@ namespace ServerLogic.Control
         {
             if (parameterList.Length == 0)
             {
-                return "These will be the logs later on.";
+                return logger.logFileToString();
             }
             else
             {
@@ -566,7 +567,7 @@ namespace ServerLogic.Control
                 // Everything else should just show the logs, disregarding everything
                 else
                 {
-                    return "These will be the logs later on.";
+                    return "These will be the logs later ono.";
                 }
             }
         }

@@ -149,6 +149,13 @@ namespace ServerLogic.Properties {
                 return ResourceManager.GetString("InvalidPortExceptionMessage", resourceCulture);
             }
         }
+
+        internal static string LogFilePath {
+            get
+            {
+                return ResourceManager.GetString("LogFilePath", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to usage: log [--help]
