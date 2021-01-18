@@ -103,10 +103,10 @@ package "Server" {
     
 
     class "MessageContainer" as messCont {
-      {field} <<Property>> +ModeratorID: Guid <<+get; -set>>
-      {field} <<Property>> +Type: MessageType <<+get; -set>>
-      {field} <<Property>> +CreationDate: DateTime <<+get; -set>>
-      {field} <<Property>> +DebugMessage: string <<+get; -set>>
+      {field} <<Property>> +ModeratorID: Guid <<+get>>
+      {field} <<Property>> +Type: MessageType <<+get>>
+      {field} <<Property>> +CreationDate: DateTime <<+get>>
+      {field} <<Property>> +DebugMessage: string <<+get>>
       {method} +MessageContainer(moderatorId: Guid, type: MessageType, creationDate: DateTime, debugMessage: string)
       {method} +MessageContainer(moderatorId: Guid, type: MessageType, debugMessage: string)
       {method} +MessageContainer(moderatorId: Guid, type: MessageType)
@@ -188,7 +188,7 @@ package "Server" {
 
     class "RequestStartVotingMessage" as reqStartVotMess{
       {field} <<Property>> +VotingTime: int <<+get>>
-      {field} <<Property>> +VotingOptions: Dictionary<Guid, string> <<+get; -set>>
+      {field} <<Property>> +VotingOptions: Dictionary<Guid, string> <<+get>>
       {method} +RequestStartVotingMessage(moderatorId: Guid, votingTime: int, votingOptions: Dictionary<Guid, string>)
       {method} +RequestStartVotingMessage(moderatorId: Guid, votingTime: int, votingOptions: Dictionary<Guid, string>, debugMessage: string)
       {method} +ToString(): string
