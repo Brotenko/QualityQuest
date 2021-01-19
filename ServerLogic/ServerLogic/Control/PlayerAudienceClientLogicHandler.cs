@@ -13,7 +13,6 @@ namespace ServerLogic.Control
     public class PlayerAudienceClientLogicHandler
     {
         //private HttpServer server;
-        public Thread t;
         private PABackend p;
 
         public List<string> ValidSessionKeys
@@ -39,12 +38,16 @@ namespace ServerLogic.Control
             
 
             ValidSessionKeys = new List<string> { "asdasd" };
+            //t = Task.Run(() => p = new PABackend(port));
             p = new PABackend(port);
         }
 
         public void StopServer()
         {
             //server.Dispose();
+            //t.Dispose();
+            p.StopServer();
+            
         }
 
         public void SendSessionKeys()
