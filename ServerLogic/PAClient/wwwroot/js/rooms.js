@@ -7,7 +7,14 @@ document.getElementById("enter-room").disabled = true;
 
 connection.on("KeyValidation", function (sessionkey) {
     if (sessionkey == true) {
-        window.location.href = window.location + "Game";
+        document.getElementById("starting-page").innerHTML = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
+            "Thank you for playing Quality Quest! The next vote will start shortly!" +
+            "<button id=\"test-button\" />" +
+            "</div>";
+        document.getElementById("test-button").addEventListener("click", function (event) {
+            document.write("hi :)");
+            event.preventDefault();
+        });
     }
 });
 
@@ -24,3 +31,38 @@ document.getElementById("enter-room").addEventListener("click", function (event)
     });
     event.preventDefault();
 });
+
+
+
+
+
+
+
+/*
+
+
+document.getElementById("sendButton").disabled = true;
+
+connection.on("ReceiveMessage", function (user, message) {
+    var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    var encodedMsg = user + " says " + msg;
+    var li = document.createElement("li");
+    li.textContent = encodedMsg;
+    document.getElementById("messagesList").appendChild(li);
+});
+
+connection.start().then(function () {
+    document.getElementById("sendButton").disabled = false;
+}).catch(function (err) {
+    return console.error(err.toString());
+});
+
+document.getElementById("sendButton").addEventListener("click", function (event) {
+    var user = document.getElementById("userInput").value;
+    var message = document.getElementById("messageInput").value;
+    connection.invoke("SendMessage", user, message).catch(function (err) {
+        return console.error(err.toString());
+    });
+    event.preventDefault();
+});
+*/

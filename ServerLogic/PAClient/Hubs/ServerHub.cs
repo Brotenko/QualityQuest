@@ -22,8 +22,23 @@ namespace PAClient.Hubs
 
             if (isValid)
             {
+                PABackend.AddConnection(sessionkey, Context.ConnectionId);
+                Console.WriteLine(string.Join(", ", PABackend.ConnectionList.Select(kv => kv.Key + " = " + "[" + string.Join(", ", kv.Value.ToArray()) + "]").ToArray()));
                 await Groups.AddToGroupAsync(Context.ConnectionId, sessionkey);
             }
+        }
+
+        public override async Task OnConnectedAsync()
+        {
+            Console.WriteLine("Connected: " + Context.ConnectionId);
+            await base.OnConnectedAsync();
+        }
+
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {
+            Console.WriteLine("Disconnected: " + Context.ConnectionId + " ; " + exception);
+            PABackend.RemoveConnections(Context.ConnectionId);
+            await base.OnDisconnectedAsync(exception);
         }
 
         /*

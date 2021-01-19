@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 //using PlayerAudienceClient;
 using PAClient;
@@ -12,6 +13,7 @@ namespace ServerLogic.Control
     public class PlayerAudienceClientLogicHandler
     {
         //private HttpServer server;
+        public Thread t;
         private PABackend p;
 
         public List<string> ValidSessionKeys
@@ -34,6 +36,8 @@ namespace ServerLogic.Control
         public void StartServer(int port)
         {
             //server = new HttpServer("F:/QualityQuest/ServerLogic/PlayerAudienceClient/", port);
+            
+
             ValidSessionKeys = new List<string> { "asdasd" };
             p = new PABackend(port);
         }

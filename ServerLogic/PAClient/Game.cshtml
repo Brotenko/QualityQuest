@@ -5,12 +5,14 @@
 }
 
 <!--
+    
+    --- Spielablauf ---
     ✓ 1) Eine feste Datei für alle keys in "Game.cshtml"
     ✓ 2) Die Datei ist stets für alle sichtbar (wenn man die URL eingibt) und sagt standardmäßig "Please enter a sessionkey on the main page"
-    3) Die Datei wechselt die Beschreibung, wenn man über die Sessionkey-Eingabe auf dem Mainscreen reinkommt
+    ✓ 3) Die Datei wechselt die Beschreibung, wenn man über die Sessionkey-Eingabe auf dem Mainscreen reinkommt
         ✓ 3.1) Dazu muss man einen valid Sessionkey eingeben, welcher an den Server gesendet wird
         ✓ 3.2) Der Server überprüft ob ein Raum mit dem Key existiert und nimmt dem Nutzer alle SignalR Gruppen ab und teilt ihm den sessionkey als neue Gruppe zu
-        3.3) Der Client checkt mit dem Server ab ob der Client, Teil einer Gruppe ist, und ändert demensprechend den Standardtext ab zu "Please wait for poll"
+        ✓ 3.3) Der Client checkt mit dem Server ab ob der Client, Teil einer Gruppe ist, und ändert demensprechend den Standardtext ab zu "Please wait for poll"
     4) Der Server schickt an spezifische Gruppen, Nachrichten, welche das HTML/CSS/JS der Seite verändert (Gruppenspezifische Prompts)
     5) Die Webseite wird bei den spezifischen Clients geupdated und der Spieler kann eine Auswahl treffen
     6) Trifft der Spieler eine Auswahl (oder ist zu langsam [interner Timer auf Serverseite]) wird die Seite "geleert" und entweder die angegebene Lösung angezeigt,
@@ -21,9 +23,16 @@
     8) Wiederhole 4-7 bis das Spiel zuende ist, woraufhin die Seite entweder geleert wird, oder sonst was
 
 
+    --- Datenbank ---
     ✓ 1) Immer wenn die ValidSessionKeys Liste geupdated wird, wird diese an das PABackend gesendet (Muss Elias umsetzen, ich kann nur die Schnittstelle bieten)
         ✓ 1.1) Die Daten werden in eine Liste geschrieben.
         ✓ 1.2) Außerdem wird eine Liste von Dictionaries gehalten die alle bisherigen Abstimmungsergebnisse hält.
+
+    --- Wichtige Hürden ---
+    1) Server läuft seperat auf einem Thread.
+    2) Push Nachrichten können von außerhalb des Hubs gesendet werden.
+    ✓ 3) Dynamisches JS-binding an neu erstellte Objekte
+
 -->
 
 <div id="voting-prompt" name="future-guid" class="voting-prompt text-center">
@@ -64,5 +73,5 @@
     </div>
 </div>
 <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/chat.js"></script>
+<script src="~/js/rooms.js"></script>
 
