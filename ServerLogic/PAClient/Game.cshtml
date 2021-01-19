@@ -13,13 +13,14 @@
         ✓ 3.1) Dazu muss man einen valid Sessionkey eingeben, welcher an den Server gesendet wird
         ✓ 3.2) Der Server überprüft ob ein Raum mit dem Key existiert und nimmt dem Nutzer alle SignalR Gruppen ab und teilt ihm den sessionkey als neue Gruppe zu
         ✓ 3.3) Der Client checkt mit dem Server ab ob der Client, Teil einer Gruppe ist, und ändert demensprechend den Standardtext ab zu "Please wait for poll"
-    4) Der Server schickt an spezifische Gruppen, Nachrichten, welche das HTML/CSS/JS der Seite verändert (Gruppenspezifische Prompts)
-    5) Die Webseite wird bei den spezifischen Clients geupdated und der Spieler kann eine Auswahl treffen
-    6) Trifft der Spieler eine Auswahl (oder ist zu langsam [interner Timer auf Serverseite]) wird die Seite "geleert" und entweder die angegebene Lösung angezeigt,
+    ✓ 4) Der Server schickt an spezifische Gruppen, Nachrichten, welche das HTML/CSS/JS der Seite verändert (Gruppenspezifische Prompts)
+        ✓ 4.1) Der Server sendet diese Nachricht nur EIN MAL pro Prompt, weshalb beim neuladen der oder Sonstigem die Seite leer bleibt bis zum nächsten Prompt
+    ✓ 5) Die Webseite wird bei den spezifischen Clients geupdated und der Spieler kann eine Auswahl treffen
+    ✓ 6) Trifft der Spieler eine Auswahl (oder ist zu langsam [interner Timer auf Serverseite]) wird die Seite "geleert" und entweder die angegebene Lösung angezeigt,
        oder gesagt, dass man zu langsam war.
-        6.1) Der Server soll überprüfen ob der jeweilige Spieler für die Runde schon eine Antwort gesendet hatte, und dementsprechend keine weiteren Angaben
-             mehr zulassen (Cookies? Oder doch Serverseitig per Liste?)
-    7) Der Server wertet die Daten der Gruppe nun aus und sendet diesen an die MSL weiter
+        ✓ 6.1) Der Server soll überprüfen ob der jeweilige Spieler für die Runde schon eine Antwort gesendet hatte, und dementsprechend keine weiteren Angaben
+             mehr zulassen (Cookies? Oder doch Serverseitig per Liste?) => Durch die Tatsache gelöst, dass 4.1) existiert.
+    ✓ 7) Der Server wertet die Daten der Gruppe nun aus und sendet diesen an die MSL weiter
     8) Wiederhole 4-7 bis das Spiel zuende ist, woraufhin die Seite entweder geleert wird, oder sonst was
 
 
@@ -30,8 +31,10 @@
 
     --- Wichtige Hürden ---
     ✓ 1) Server läuft seperat auf einem Thread.
-    2) Push Nachrichten können von außerhalb des Hubs gesendet werden.
+    ✓ 2) Push Nachrichten können von außerhalb des Hubs gesendet werden.
     ✓ 3) Dynamisches JS-binding an neu erstellte Objekte
+    4) Alle Datenbank-Angelegenheit an das NP anpassen und von strings zu Dictionary<Guid,String> wechseln.
+    5) Server umschreiben sodass er mehrere Sessions handeln kann
 
 -->
 

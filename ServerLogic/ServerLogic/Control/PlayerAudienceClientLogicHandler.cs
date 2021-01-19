@@ -50,6 +50,11 @@ namespace ServerLogic.Control
             
         }
 
+        public void SendDebugMessage(string[] list)
+        {
+            p.SendPushMessage(list[0], list[1], list[2..]);
+        }
+
         public void SendSessionKeys()
         {
             PABackend.ValidSessionKeys = ValidSessionKeys;

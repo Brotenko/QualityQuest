@@ -28,6 +28,12 @@ namespace PAClient.Hubs
             }
         }
 
+        public async Task SendVote(string id)
+        {
+            Console.WriteLine(id);
+            PABackend.CountNewVote(id);
+        }
+
         public override async Task OnConnectedAsync()
         {
             Console.WriteLine("Connected: " + Context.ConnectionId);

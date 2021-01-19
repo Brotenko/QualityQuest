@@ -199,6 +199,9 @@ namespace ServerLogic.Control
             {
                 switch (command)
                 {
+                case "debug":
+                    ret = SendDebugMessage(commandParameters);
+                    break;
                 case "port":
                     ret = ParsePort(commandParameters);
                     break;
@@ -231,6 +234,13 @@ namespace ServerLogic.Control
 
             commandRequestsHelpMessage = false;
             return ret;
+        }
+
+        private string SendDebugMessage(string[] parameterList)
+        {
+            mainServerLogic.playerAudienceClientLogicHandler.SendDebugMessage(parameterList);
+
+            return "Oops";
         }
 
         /// <summary>

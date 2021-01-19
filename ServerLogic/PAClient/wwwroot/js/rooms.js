@@ -5,17 +5,37 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/serverhub").build(
 //Disable send button until connection is established
 document.getElementById("enter-room").disabled = true;
 
-connection.on("KeyValidation", function (sessionkey) {
-    if (sessionkey == true) {
+connection.on("KeyValidation", function (existingSessionkey) {
+    if (existingSessionkey == true) {
         document.getElementById("starting-page").innerHTML = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
             "Thank you for playing Quality Quest! The next vote will start shortly!" +
-            "<button id=\"test-button\" />" +
             "</div>";
-        document.getElementById("test-button").addEventListener("click", function (event) {
-            document.write("hi :)");
-            event.preventDefault();
-        });
     }
+});
+
+connection.on("NewPrompt", function (newPageContent) {
+    document.getElementById("starting-page").innerHTML = newPageContent;
+
+    $(function () {
+        $("input:button").click(function (event) {
+            var vote = $(this).val();
+
+            connection.invoke("SendVote", vote).catch(function (err) {
+                return console.error(err.toString());
+            });
+            event.preventDefault();
+
+            document.getElementById("starting-page").innerHTML = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
+                "You voted for: " + vote + "!" +
+                "</div>";
+        });
+    });
+});
+
+connection.on("ClearPrompt", function () {
+    document.getElementById("starting-page").innerHTML = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
+        "Thank you for playing Quality Quest! The next vote will start shortly!" +
+        "</div>";
 });
 
 connection.start().then(function () {
