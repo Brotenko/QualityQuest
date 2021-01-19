@@ -43,6 +43,11 @@ namespace ServerLogic.Control
             //server.Dispose();
         }
 
+        public void SendSessionKeys()
+        {
+            PABackend.ValidSessionKeys = ValidSessionKeys;
+        }
+
         public PlayerAudienceClientLogicHandler()
         {
             
