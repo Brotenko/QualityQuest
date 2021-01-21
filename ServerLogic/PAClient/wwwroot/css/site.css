@@ -12,16 +12,10 @@ a {
     border-color: #1861ac;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
 html {
     font-size: 14px;
-}
-
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
+    position: relative;
+    min-height: 100%;
 }
 
 .border-top {
@@ -41,39 +35,20 @@ button.accept-policy {
     line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
-}
-
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    white-space: nowrap;
-    background: white;
-    line-height: 60px; /* Vertically center the text there */
-}
-
-.text-center-input {
+/* Centers the main page content and aligns the text to the center */
+.content-center {
     text-align: center !important;
     margin-left: 25% !important;
     margin-right: 25% !important;
     margin-top: 7% !important;
 }
 
-.footer-logo {
-    float: right !important;
-    margin-right: 10px !important;
-}
-
+/* Gives every button its general design */
 .input-button {
     font-size: 1.3rem;
     background-color: #f3f3f3;
@@ -87,39 +62,29 @@ body {
     white-space: normal;
     outline: none !important;
 }
-
+    /* Gives every button its general design when it is pressed */
     .input-button:active {
         background-color: #dcdcdc;
         box-shadow: 0 2px 0 0 #adadad;
         transform: translateY(3px);
     }
 
-.submit-button {
+/* Gives the submit button on the home page additional styles */
+.sessionkey-submit-button {
     font-weight: bold;
     height: 60px;
     margin-top: 2%;
     margin-bottom: 1%;
 }
 
-.voting-button-selected {
-    color: white;
-    background-color: #79a1ff;
-    box-shadow: #5b73aa 0px 5px 0px 0px;
-}
-
-    .voting-button-selected:active {
-        color: white;
-        background-color: #5b73aa;
-        box-shadow: 0 2px 0 0 #343944;
-        transform: translateY(3px);
-    }
-
+/* Gives the big logo on the home page its design */
 .logo {
     margin-top: 15%;
     max-width: 50%;
 }
 
-.newtec-input-box {
+/* Gives the sessionkey input-box on the home page its design */
+.sessionkey-input-box {
     background-color: #f5f5f5;
     border: 1px solid #e0e0e0;
     min-width: 100%;
@@ -131,16 +96,24 @@ body {
     text-transform: uppercase;
 }
 
+/* Assures that there is always at least 80px of whitespace
+   between the footer and the page content                  */
+.content-container {
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 80px;
+}
+
+/* For mobile devices */
 @media only screen and (max-width: 768px) {
-    /* For mobile phones: */
-    [class="text-center-input"] {
+    [class="content-center"] {
         margin-left: auto !important;
         margin-right: auto !important;
         margin-top: 10% !important;
     }
 
-    [class="footer-logo"] {
-        display: none !important;
+    html {
+        font-size: 16px;
     }
 
     [class="logo"] {
@@ -148,6 +121,17 @@ body {
     }
 }
 
+
+
+
+
+
+
+
+
+/************************** HEADER RELATED CSS *******************************/
+
+/* Assures that the navbar is always at the top of the screen */
 .fixed-navbar {
     position: sticky !important;
     top: 0 !important;
@@ -155,17 +139,128 @@ body {
     background-color: #0C2C40;
 }
 
-.content-container {
-    padding-top: 1%;
-    padding-bottom: 1%;
-    margin-bottom: 80px;
-}
-
+/* Fixes the navbar not showing up correctly sometimes */
 .in {
     display: unset !important;
 }
 
-.consent-textbox {
+
+
+
+
+
+
+/************************** FOOTER RELATED CSS *******************************/
+
+/*  */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    background: white;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+/*  */
+.footer-logo {
+    height: 40px;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+
+/*  */
+.footer-logo-container {
+    float: right !important;
+    margin-right: 10px !important;
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 768px) {
+    [class="footer-logo"] {
+        display: none !important;
+    }
+}
+
+
+
+
+
+
+
+
+
+/*************************** LANDING PAGE CSS ********************************/
+
+/*  */
+.landing-page {
+    background-color: rgba(60, 60, 60, 0.6);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    visibility: hidden;
+    top: 0px
+}
+
+/*  */
+.landing-page-submit-button {
+    background-color: whitesmoke;
+    width: 100%;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    border-top: 0px;
+    margin-top: 4%;
+    height: 50px;
+    margin-bottom: 5%;
+    outline: none
+}
+
+/*  */
+.landing-page-popup-checkbox-label {
+    font-size: 0.8rem;
+}
+
+/*  */
+.landing-page-popup {
+    position: fixed;
+    background-color: #eeeeee;
+    height: 600px;
+    width: 30%;
+    min-width: 350px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 12px;
+    overflow: auto
+}
+
+/*  */
+.landing-page-popup-title {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    margin-top: 4%;
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 1.2;
+    color: #5e5e5e;
+    margin-bottom: 2%
+}
+
+/*  */
+.landing-page-popup-subtitle {
+    width: 80%;
+    margin: auto;
+    font-size: 14px;
+    margin-bottom: 4%
+}
+
+/*  */
+.landing-page-popup-text {
     position: relative;
     width: 85%;
     height: 45%;
@@ -174,9 +269,65 @@ body {
     color: black;
     border: 2px solid #e0e0e0;
     border-radius: 12px;
-    margin: auto
+    margin: auto;
+    padding-left: 5px;
+    padding-right: 5px
 }
 
+/*  */
+.landing-page-popup-form {
+    position: relative;
+    width: 85%;
+    height: auto;
+    margin: auto;
+    margin-top: 3%
+}
+
+/*  */
+.landing-page-popup-checkbox-container {
+    position: relative;
+    background-color: whitesmoke;
+    width: 100%;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    height: auto;
+    margin-top: 1%;
+    height: 40px
+}
+
+/*  */
+.landing-page-popup-checkbox-content {
+    padding-top: 8px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    margin-left: 2%;
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 350px) {
+    [class="landing-page-popup"] {
+        min-width: 98vw
+    }
+}
+
+/* For mobile devices */
+@media only screen and (max-height: 600px) {
+    [class="landing-page-popup"] {
+        height: 90vh
+    }
+}
+
+
+
+
+
+
+
+/************************ VOTING GRID RELATED CSS ****************************/
+
+/*  */
 .voting-container {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -189,19 +340,9 @@ body {
     margin-bottom: 5%
 }
 
-.voting-button {
-    border-style: solid;
-    border-radius: 12px;
-    font-size: 18px;
-    transition: color 1s, background-position 1s,box-shadow 1s;
-    background-color: #f5f5f5;
-    border-width: 0 0 5px 0;
-    border-color: #e0e0e0;
-    font-weight: bold;
-}
+/***** VOTING CONTAINER ITEM LAYOUT FOR 4 CHOICES *****/
 
-/* VOTING CONTAINER ITEM LAYOUT FOR 4 CHOICES */
-
+/*  */
 .voting-container-4items-1 {
     grid-column-start: 1;
     grid-column-end: 5;
@@ -209,6 +350,7 @@ body {
     grid-row-end: 1;
 }
 
+/*  */
 .voting-container-4items-2 {
     grid-column-start: 7;
     grid-column-end: 11;
@@ -216,6 +358,7 @@ body {
     grid-row-end: 1;
 }
 
+/*  */
 .voting-container-4items-3 {
     grid-column-start: 1;
     grid-column-end: 5;
@@ -223,6 +366,7 @@ body {
     grid-row-end: 3;
 }
 
+/*  */
 .voting-container-4items-4 {
     grid-column-start: 7;
     grid-column-end: 11;
@@ -230,8 +374,9 @@ body {
     grid-row-end: 3;
 }
 
-/* VOTING CONTAINER ITEM LAYOUT FOR 3 CHOICES */
+/***** VOTING CONTAINER ITEM LAYOUT FOR 3 CHOICES *****/
 
+/*  */
 .voting-container-3items-1 {
     grid-column-start: 1;
     grid-column-end: 5;
@@ -239,6 +384,7 @@ body {
     grid-row-end: 1;
 }
 
+/*  */
 .voting-container-3items-2 {
     grid-column-start: 7;
     grid-column-end: 11;
@@ -246,6 +392,7 @@ body {
     grid-row-end: 1;
 }
 
+/*  */
 .voting-container-3items-3 {
     grid-column-start: 4;
     grid-column-end: 8;
@@ -253,8 +400,9 @@ body {
     grid-row-end: 3;
 }
 
-/* VOTING CONTAINER ITEM LAYOUT FOR 2 CHOICES */
+/***** VOTING CONTAINER ITEM LAYOUT FOR 2 CHOICES *****/
 
+/*  */
 .voting-container-2items-1 {
     grid-column-start: 1;
     grid-column-end: 5;
@@ -262,6 +410,7 @@ body {
     grid-row-end: 1;
 }
 
+/*  */
 .voting-container-2items-2 {
     grid-column-start: 7;
     grid-column-end: 11;
@@ -269,9 +418,10 @@ body {
     grid-row-end: 1;
 }
 
+/****** VOTING CONTAINER ITEM LAYOUTS FOR MOBILE ******/
 
+/* For mobile devices */
 @media only screen and (max-width: 768px) {
-    /* For mobile phones: */
     [class="voting-container"] {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -344,6 +494,28 @@ body {
 
 
 
+
+
+
+
+
+/*********************** OTHER VOTING RELATED CSS ****************************/
+
+/*  */
+.voting-button-selected {
+    color: white;
+    background-color: #79a1ff;
+    box-shadow: #5b73aa 0px 5px 0px 0px;
+}
+    /*  */
+    .voting-button-selected:active {
+        color: white;
+        background-color: #5b73aa;
+        box-shadow: 0 2px 0 0 #343944;
+        transform: translateY(3px);
+    }
+
+/*  */
 .voting-prompt {
     font-weight: 300;
     font-size: 2.5rem;
@@ -351,104 +523,14 @@ body {
     line-height: 1.2;
 }
 
-.landing-page {
-    background-color: rgba(60, 60, 60, 0.6);
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    z-index: 1;
-    visibility: hidden;
-    top: 0px
-}
-
-.landing-page-popup-checkbox-label {
-    font-size: 0.8rem;
-}
-
-.landing-page-popup {
-    position: fixed;
-    background-color: #eeeeee;
-    height: 600px;
-    width: 30%;
-    min-width: 350px;
-    margin: auto;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+/*  */
+.voting-button {
+    border-style: solid;
     border-radius: 12px;
-    overflow: auto
-}
-
-.landing-page-popup-title {
-    position: relative;
-    width: 80%;
-    margin: auto;
-    margin-top: 4%;
-    font-size: 26px;
+    font-size: 18px;
+    transition: color 1s, background-position 1s,box-shadow 1s;
+    background-color: #f5f5f5;
+    border-width: 0 0 5px 0;
+    border-color: #e0e0e0;
     font-weight: bold;
-    line-height: 1.2;
-    color: #5e5e5e;
-    margin-bottom: 2%
-}
-
-.landing-page-popup-subtitle {
-    width: 80%;
-    margin: auto;
-    font-size: 14px;
-    margin-bottom: 4%
-}
-
-.landing-page-popup-text {
-    position: relative;
-    width: 85%;
-    height: 45%;
-    overflow-y: auto;
-    background-color: whitesmoke;
-    color: black;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    margin: auto;
-    padding-left: 5px;
-    padding-right: 5px
-}
-
-.landing-page-popup-form {
-    position: relative;
-    width: 85%;
-    height: auto;
-    margin: auto;
-    margin-top: 3%
-}
-
-.landing-page-popup-checkbox-container {
-    position: relative;
-    background-color: whitesmoke;
-    width: 100%;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    height: auto;
-    margin-top: 1%;
-    height: 40px
-}
-
-.landing-page-popup-checkbox-content {
-    padding-top: 8px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    margin-left: 2%;
-}
-
-@media only screen and (max-width: 350px) {
-    [class="landing-page-popup"] {
-        min-width: 98vw
-    }
-}
-
-@media only screen and (max-height: 600px) {
-    [class="landing-page-popup"] {
-        height: 90vh
-    }
 }
