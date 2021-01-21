@@ -22,8 +22,7 @@ namespace ServerLogic.Control
         private readonly ServerShell serverShell;
         private bool serverIsRunning = false;
         private bool commandRequestsHelpMessage = false;
-        private ServerLogger logger = ServerLogger.CreateServerLogger();
-
+        
         public int Port
         {
             get => _port;
@@ -94,7 +93,7 @@ namespace ServerLogic.Control
             this.serverShell = this;
             this.Password = "!Password123";
             this.Port = 7777;
-            this.logger = ServerLogger.CreateServerLogger();
+            ServerLogger.CreateServerLogger();
         }
 
         /// <summary>
@@ -112,7 +111,7 @@ namespace ServerLogic.Control
             this.serverShell = this;
             this.Password = password;
             this.Port = port;
-            this.logger = ServerLogger.CreateServerLogger();
+            ServerLogger.CreateServerLogger();
 
             RunShell();
         }
@@ -555,26 +554,32 @@ namespace ServerLogic.Control
         {
             if (parameterList.Length == 0)
             {
-                return logger.LogFileToString();
+                return ServerLogger.LogFileToString();
             }
             else
             {
                 // Only checking for '--clear' since that is the only valid option
                 if (parameterList[0] == "--clear")
                 {
-                    logger.WipeLogFile();
+                    ServerLogger.WipeLogFile();
                     return "Logs were cleared.";
                 }
                 else if (parameterList[0] == "--setLevel")
                 {
-                    //todo add entry in help menu
-                    logger.setLogLevel(Int16.Parse(parameterList[1]));
-                    return "LogLevel was set to " + parameterList[1];
+                    ServerLogger.SetLogLevel(Int16.Parse(parameterList[1]));
+                    //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
+                    return "";
+                }
+                else if (parameterList[0]== "--setLogOutput")
+                {
+                    ServerLogger.ChangeLoggingOutputType(Int16.Parse(parameterList[1]));
+                    //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
+                    return "";
                 }
                 // Everything else should just show the logs, disregarding everything
                 else
                 {
-                    return logger.LogFileToString();
+                    return ServerLogger.LogFileToString();
                 }
             }
         }

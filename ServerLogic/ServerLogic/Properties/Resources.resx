@@ -148,6 +148,20 @@ These are commands that can be used in various situations:
 
 Use '&lt;command&gt; --help' to read about a specific command.</value>
   </data>
+  <data name="InvalidLoggingOutputType" xml:space="preserve">
+    <value>OutputType needs to be
+   0 to write logs into a file
+   1 to print logs into the console
+   2 to do both</value>
+  </data>
+  <data name="InvalidLogLevelMessage" xml:space="preserve">
+    <value>LogLevel needs to be 
+   0 to display Debug Logs, or
+   1 to display Information Logs, or 
+   2 to display Warning Logs, or
+   3 to display Error Log, or
+   4 to disable any Logging.</value>
+  </data>
   <data name="InvalidPasswordExceptionMessage" xml:space="preserve">
     <value>Please make sure to set a password that doesn't start with a dash ("-"), is at least 8 characters in length, but no more than 32, and satisfies 3 out of the following 4 rules:
   At least one digit
@@ -162,19 +176,31 @@ Use '&lt;command&gt; --help' to read about a specific command.</value>
     <value>..//..//..//Properties//Log.txt</value>
   </data>
   <data name="LogHelpMessage" xml:space="preserve">
-    <value>usage: log [--clear] [--help]
+    <value>usage: log [--clear] [--setLevel 0-4] [--setLogOutput] [--help]
 
 DESCRIPTON
 
-TODO
+log is used to configure the output of the ServerLogger.
 
 OPTIONS
 
 --clear
   Clears the log file(s).
 
+--setLevel 0-4
+  Set the logging level, with 0 for Debug to 4 for None.
+
+--setLogOutput 0-2
+   0 sets LogOutput to File, 1 to Console, and 2 to both.
+
 --help
   Shows this.</value>
+  </data>
+  <data name="LogLevel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LogOutputType" xml:space="preserve">
+    <value />
   </data>
   <data name="PasswordHelpMessage" xml:space="preserve">
     <value>usage: password [--help] &lt;string&gt;
