@@ -151,12 +151,23 @@ namespace ServerLogic.Properties {
         }
 
         internal static string LogFilePath {
-            get
-            {
+            get {
                 return ResourceManager.GetString("LogFilePath", resourceCulture);
             }
         }
-        
+
+        internal static string InvalidLogLevelMessage {
+            get {
+                return ResourceManager.GetString("InvalidLogLevelMessage", resourceCulture);
+            }
+        }
+
+        internal static string InvalidLoggingOutputType {
+            get
+            {
+                return ResourceManager.GetString("InvalidLoggingOutputType", resourceCulture);
+            }
+        }
         /// <summary>
         ///   Looks up a localized string similar to usage: log [--help]
         ///
@@ -174,7 +185,7 @@ namespace ServerLogic.Properties {
                 return ResourceManager.GetString("LogHelpMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to usage: password [--help] &lt;string&gt;
         ///

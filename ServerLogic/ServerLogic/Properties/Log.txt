@@ -1,3 +1,8 @@
-[2021-01-18 11:00:19+00:00] [0] INFO: LogLevel was set to 0.
-[2021-01-18 11:02:00+00:00] [0] INFO: New Session started. Default LogLevel is 0.
-[2021-01-18 11:03:22+00:00] [0] INFO: New Session started. Default LogLevel is 0.
+[2021-01-18 13:48:49+00:00] [0] INFO: LogLevel was set to 0.
+[2021-01-21 14:21:01+00:00] [0] INFO: New Session started. LogLevel is 0.
+[2021-01-21 14:26:47+00:00] [0] INFO: New Session started. LogLevel is 0.
+[2021-01-21 14:31:24+00:00] [0] INFO: LogLevel was set to 0.
+[2021-01-21 14:32:46+00:00] [0] INFO: New Session started. LogLevel is 0.
+[2021-01-21 14:32:56+00:00] [0] INFO: LogLevel was set to 0.
+[2021-01-21 14:42:23+00:00] [0] INFO: New Session started. LogLevel is 0.
+[2021-01-21 14:42:29+00:00] [0] INFO: LogLevel was set to 0.
