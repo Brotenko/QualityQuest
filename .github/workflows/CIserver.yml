@@ -27,3 +27,6 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
       working-directory: ./ServerLogic
+    - name: Test
+      run: dotnet test --verbosity n
+      working-directory: ./ServerLogic
