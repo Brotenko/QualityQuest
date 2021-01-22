@@ -37,7 +37,7 @@ namespace ServerLogic.Control
             //server = new HttpServer("F:/QualityQuest/ServerLogic/PlayerAudienceClient/", port);
             
 
-            ValidSessionKeys = new List<string> { "asdasd" };
+            ValidSessionKeys = new List<string> { "asdasd", "qweqwe" };
             //t = Task.Run(() => p = new PABackend(port));
             p = new PABackend(port);
         }

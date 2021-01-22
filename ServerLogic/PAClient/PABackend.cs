@@ -21,7 +21,10 @@ namespace PAClient
             get; set;
         }
 
-        private int Port { set; get; }
+        private int Port
+        {
+            set; get;
+        }
         private IHost host;
         private static IHubContext<ServerHub> _hubContext;
 
@@ -31,7 +34,7 @@ namespace PAClient
         public static List<string> ValidSessionKeys
         {
             get; set;
-        } 
+        }
 
         // A list of all voting results, sorted by the GUID of the "voting prompt/questions" 
         /*
@@ -52,7 +55,7 @@ namespace PAClient
         public static Dictionary<string, List<string>> ConnectionList
         {
             get; private set;
-        } 
+        }
 
         private void AddNewPoll(string prompt, string[] choices)
         {
@@ -73,7 +76,7 @@ namespace PAClient
             Console.WriteLine(tempDict.GetValueOrDefault(choice));
             tempDict[choice] = 1 + tempDict.GetValueOrDefault(choice);
             Console.WriteLine(tempDict.GetValueOrDefault(choice));
-        } 
+        }
 
 
         public static void UpdateSessions(string session)
@@ -117,13 +120,13 @@ namespace PAClient
             }
         }
 
-        
+
         public Dictionary<string, int> getVotingResult(string group, string prompt)
         {
             SendPushClear(group);
             return VotingResults.GetValueOrDefault(prompt);
         }
-        
+
 
         public async void SendPushMessage(string group, string prompt, string[] choices)
         {
@@ -198,8 +201,9 @@ namespace PAClient
             ValidSessionKeys = new List<string>();
             VotingResults = new Dictionary<string, Dictionary<string, int>>();
             ConnectionList = new Dictionary<string, List<string>>();
-            ValidSessionKeys = new List<string> { "asdasd" };
+            ValidSessionKeys = new List<string> { "asdasd", "qweqwe" };
             UpdateSessions("asdasd");
+            UpdateSessions("qweqwe");
 
             _serverThread = new Thread(this.ServerStart);
             _serverThread.Start();

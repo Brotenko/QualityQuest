@@ -46,17 +46,5 @@ namespace PAClient.Hubs
             PABackend.RemoveConnections(Context.ConnectionId);
             await base.OnDisconnectedAsync(exception);
         }
-
-        /*
-        public async Task SendMessageToCaller(string user, string message)
-        {
-            await Clients.Caller.SendAsync("ReceiveMessage", user, message);
-        }
-
-        public async Task SendMessageToGroup(string user, string message, string sessionkey)
-        {
-            await Clients.Group(sessionkey).SendAsync("ReceiveMessage", user, message);
-        }
-        */
     }
 }
