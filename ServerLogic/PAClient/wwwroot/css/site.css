@@ -152,17 +152,17 @@ body {
 
 /************************** FOOTER RELATED CSS *******************************/
 
-/*  */
+/* Assures that the footer is always at the bottom of the screen */
 .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
     background: white;
-    line-height: 60px; /* Vertically center the text there */
+    line-height: 60px;
 }
 
-/*  */
+/* Gives the logo in the footer its design */
 .footer-logo {
     height: 40px;
     float: right;
@@ -170,7 +170,7 @@ body {
     margin-bottom: 10px
 }
 
-/*  */
+/* Assures that the logo is floating at the right part of the footer */
 .footer-logo-container {
     float: right !important;
     margin-right: 10px !important;
@@ -178,6 +178,9 @@ body {
 
 /* For mobile devices */
 @media only screen and (max-width: 768px) {
+
+    /* Removes the logo in the footer for mobile devices to
+       make sure that the footer isn't twice as high than normally */
     [class="footer-logo"] {
         display: none !important;
     }
@@ -193,7 +196,8 @@ body {
 
 /*************************** LANDING PAGE CSS ********************************/
 
-/*  */
+/* Sets the semi-transparent grey background infront of everything
+   as long as the Cookie/ToS-Popup is still active. */
 .landing-page {
     background-color: rgba(60, 60, 60, 0.6);
     height: 100%;
@@ -204,8 +208,8 @@ body {
     top: 0px
 }
 
-/*  */
-.landing-page-submit-button {
+/* Gives the submit button of the Cookie/ToS-Popup its design */
+.landing-page-popup-submit-button {
     background-color: whitesmoke;
     width: 100%;
     border: 2px solid #e0e0e0;
@@ -217,12 +221,12 @@ body {
     outline: none
 }
 
-/*  */
+/* Dynamic font size for the checkboxes of the Cookie/ToS-Popup */
 .landing-page-popup-checkbox-label {
     font-size: 0.8rem;
 }
 
-/*  */
+/* Gives the Cookie/ToS-Popup itself its design */
 .landing-page-popup {
     position: fixed;
     background-color: #eeeeee;
@@ -238,7 +242,7 @@ body {
     overflow: auto
 }
 
-/*  */
+/* Gives the Cookie/ToS-Popup title its design */
 .landing-page-popup-title {
     position: relative;
     width: 80%;
@@ -251,7 +255,7 @@ body {
     margin-bottom: 2%
 }
 
-/*  */
+/* Gives the Cookie/ToS-Popup subtitle its design */
 .landing-page-popup-subtitle {
     width: 80%;
     margin: auto;
@@ -259,7 +263,7 @@ body {
     margin-bottom: 4%
 }
 
-/*  */
+/* Gives the Cookie/ToS-Popup text-field its design */
 .landing-page-popup-text {
     position: relative;
     width: 85%;
@@ -274,7 +278,8 @@ body {
     padding-right: 5px
 }
 
-/*  */
+/* Gives the checkboxes and the submit-button of the
+   Cookie/ToS-Popup its layout. */
 .landing-page-popup-form {
     position: relative;
     width: 85%;
@@ -283,7 +288,8 @@ body {
     margin-top: 3%
 }
 
-/*  */
+/* Gives the button-like containers around the checkboxes 
+   of the Cookie/ToS-Popup its layout. */
 .landing-page-popup-checkbox-container {
     position: relative;
     background-color: whitesmoke;
@@ -295,7 +301,7 @@ body {
     height: 40px
 }
 
-/*  */
+/* Gives the checkboxes of the Cookie/ToS-Popup its layout. */
 .landing-page-popup-checkbox-content {
     padding-top: 8px;
     position: absolute;
@@ -306,18 +312,20 @@ body {
 }
 
 /* For mobile devices */
+@media only screen and (max-height: 600px) {
+    [class="landing-page-popup"] {
+        height: 90vh
+    }
+}
+
+/* For very slim mobile devices */
 @media only screen and (max-width: 350px) {
     [class="landing-page-popup"] {
         min-width: 98vw
     }
 }
 
-/* For mobile devices */
-@media only screen and (max-height: 600px) {
-    [class="landing-page-popup"] {
-        height: 90vh
-    }
-}
+
 
 
 
@@ -327,7 +335,60 @@ body {
 
 /************************ VOTING GRID RELATED CSS ****************************/
 
-/*  */
+/* 
+    Overall layout of the CSS grid used for non-mobile devices:
+
+    <     11 Columns      >
+
+    #######################  ^
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #  3 Rows
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################  v
+
+
+    Layout for a 4-question-prompt:
+
+    #######################
+    #o|o|o|o|o| |o|o|o|o|o#
+    #o|o|o|o|o| |o|o|o|o|o#
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    #o|o|o|o|o| |o|o|o|o|o#
+    #o|o|o|o|o| |o|o|o|o|o#
+    #######################
+
+
+    Layout for a 3-question-prompt:
+
+    #######################
+    #o|o|o|o|o| |o|o|o|o|o#
+    #o|o|o|o|o| |o|o|o|o|o#
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | |o|o|o|o|o| | | #
+    # | | |o|o|o|o|o| | | #
+    #######################
+
+
+    Layout for a 2-question-prompt:
+
+    #######################
+    #o|o|o|o|o| |o|o|o|o|o#
+    #o|o|o|o|o| |o|o|o|o|o#
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
 .voting-container {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -342,7 +403,17 @@ body {
 
 /***** VOTING CONTAINER ITEM LAYOUT FOR 4 CHOICES *****/
 
-/*  */
+/*
+    #######################
+    #o|o|o|o|o| | | | | | #
+    #o|o|o|o|o| | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
 .voting-container-4items-1 {
     grid-column-start: 1;
     grid-column-end: 5;
@@ -350,7 +421,17 @@ body {
     grid-row-end: 1;
 }
 
-/*  */
+/*
+    #######################
+    # | | | | | |o|o|o|o|o#
+    # | | | | | |o|o|o|o|o#
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
 .voting-container-4items-2 {
     grid-column-start: 7;
     grid-column-end: 11;
@@ -358,7 +439,17 @@ body {
     grid-row-end: 1;
 }
 
-/*  */
+/*
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    #o|o|o|o|o| | | | | | #
+    #o|o|o|o|o| | | | | | #
+    #######################
+*/
 .voting-container-4items-3 {
     grid-column-start: 1;
     grid-column-end: 5;
@@ -366,7 +457,17 @@ body {
     grid-row-end: 3;
 }
 
-/*  */
+/*
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | |o|o|o|o|o#
+    # | | | | | |o|o|o|o|o#
+    #######################
+*/
 .voting-container-4items-4 {
     grid-column-start: 7;
     grid-column-end: 11;
@@ -376,7 +477,17 @@ body {
 
 /***** VOTING CONTAINER ITEM LAYOUT FOR 3 CHOICES *****/
 
-/*  */
+/*
+    #######################
+    #o|o|o|o|o| | | | | | #
+    #o|o|o|o|o| | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
 .voting-container-3items-1 {
     grid-column-start: 1;
     grid-column-end: 5;
@@ -384,7 +495,17 @@ body {
     grid-row-end: 1;
 }
 
-/*  */
+/*
+    #######################
+    # | | | | | |o|o|o|o|o#
+    # | | | | | |o|o|o|o|o#
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
 .voting-container-3items-2 {
     grid-column-start: 7;
     grid-column-end: 11;
@@ -392,7 +513,17 @@ body {
     grid-row-end: 1;
 }
 
-/*  */
+/*
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | |o|o|o|o|o| | | #
+    # | | |o|o|o|o|o| | | #
+    #######################
+*/
 .voting-container-3items-3 {
     grid-column-start: 4;
     grid-column-end: 8;
@@ -402,7 +533,17 @@ body {
 
 /***** VOTING CONTAINER ITEM LAYOUT FOR 2 CHOICES *****/
 
-/*  */
+/*
+    #######################
+    #o|o|o|o|o| | | | | | #
+    #o|o|o|o|o| | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
 .voting-container-2items-1 {
     grid-column-start: 1;
     grid-column-end: 5;
@@ -410,7 +551,17 @@ body {
     grid-row-end: 1;
 }
 
-/*  */
+/*
+    #######################
+    # | | | | | |o|o|o|o|o#
+    # | | | | | |o|o|o|o|o#
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
 .voting-container-2items-2 {
     grid-column-start: 7;
     grid-column-end: 11;
@@ -422,12 +573,77 @@ body {
 
 /* For mobile devices */
 @media only screen and (max-width: 768px) {
+    /*
+        Overall layout of the CSS grid used for mobile devices:
+
+        < 1 Column >
+
+        ############  ^
+        #          #
+        ############
+        #          #
+        ############  4 Rows
+        #          #
+        ############
+        #          #
+        ############  v
+
+
+        Layout for a 4-question prompt:
+
+        ############
+        #oooooooooo#
+        ############
+        #oooooooooo#
+        ############
+        #oooooooooo#
+        ############
+        #oooooooooo#
+        ############
+
+
+        Layout for a 3-question prompt:
+
+        ############
+        #oooooooooo#
+        ############
+        #oooooooooo#
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+
+
+        Layout for a 2-question prompt:
+
+        ############
+        #oooooooooo#
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
     [class="voting-container"] {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr 1fr 1fr;
         grid-row-gap: 10px;
     }
 
+    /*
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
     [class="voting-container-4items-1"] {
         grid-column-start: 1;
         grid-column-end: 1;
@@ -435,6 +651,17 @@ body {
         grid-row-end: 1;
     }
 
+    /*
+        ############
+        #          #
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
     [class="voting-container-4items-2"] {
         grid-column-start: 1;
         grid-column-end: 1;
@@ -442,6 +669,17 @@ body {
         grid-row-end: 2;
     }
 
+    /*
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+    */
     [class="voting-container-4items-3"] {
         grid-column-start: 1;
         grid-column-end: 1;
@@ -449,6 +687,17 @@ body {
         grid-row-end: 3;
     }
 
+    /*
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #oooooooooo#
+        ############
+    */
     [class="voting-container-4items-4"] {
         grid-column-start: 1;
         grid-column-end: 1;
@@ -456,39 +705,94 @@ body {
         grid-row-end: 4;
     }
 
+    /*
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
     [class="voting-container-3items-1"] {
         grid-column-start: 1;
-        grid-column-end: 5;
+        grid-column-end: 1;
         grid-row-start: 1;
         grid-row-end: 1;
     }
 
+    /*
+        ############
+        #          #
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
     [class="voting-container-3items-2"] {
         grid-column-start: 1;
-        grid-column-end: 5;
-        grid-row-start: 1;
-        grid-row-end: 1;
+        grid-column-end: 1;
+        grid-row-start: 2;
+        grid-row-end: 2;
     }
 
+    /*
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+    */
     [class="voting-container-3items-3"] {
         grid-column-start: 1;
-        grid-column-end: 5;
-        grid-row-start: 1;
-        grid-row-end: 1;
+        grid-column-end: 1;
+        grid-row-start: 3;
+        grid-row-end: 3;
     }
 
+    /*
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
     [class="voting-container-2items-1"] {
         grid-column-start: 1;
-        grid-column-end: 5;
+        grid-column-end: 1;
         grid-row-start: 1;
         grid-row-end: 1;
     }
 
+    /*
+        ############
+        #          #
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
     [class="voting-container-2items-2"] {
         grid-column-start: 1;
-        grid-column-end: 5;
-        grid-row-start: 1;
-        grid-row-end: 1;
+        grid-column-end: 1;
+        grid-row-start: 2;
+        grid-row-end: 2;
     }
 }
 
@@ -501,29 +805,7 @@ body {
 
 /*********************** OTHER VOTING RELATED CSS ****************************/
 
-/*  */
-.voting-button-selected {
-    color: white;
-    background-color: #79a1ff;
-    box-shadow: #5b73aa 0px 5px 0px 0px;
-}
-    /*  */
-    .voting-button-selected:active {
-        color: white;
-        background-color: #5b73aa;
-        box-shadow: 0 2px 0 0 #343944;
-        transform: translateY(3px);
-    }
-
-/*  */
-.voting-prompt {
-    font-weight: 300;
-    font-size: 2.5rem;
-    margin-bottom: 5vh;
-    line-height: 1.2;
-}
-
-/*  */
+/* Gives the voting buttons on the voting page additional styles */
 .voting-button {
     border-style: solid;
     border-radius: 12px;
@@ -533,4 +815,28 @@ body {
     border-width: 0 0 5px 0;
     border-color: #e0e0e0;
     font-weight: bold;
+}
+
+/* Gives the voting buttons on the voting page additional 
+   styles when pressed */
+.voting-button-selected {
+    color: white;
+    background-color: #79a1ff;
+    box-shadow: #5b73aa 0px 5px 0px 0px;
+}
+    /* Gives the voting buttons on the voting page additional 
+       styles while being pressed */
+    .voting-button-selected:active {
+        color: white;
+        background-color: #5b73aa;
+        box-shadow: 0 2px 0 0 #343944;
+        transform: translateY(3px);
+    }
+
+/* Gives the question/title of the voting prompt its design */
+.voting-prompt {
+    font-weight: 300;
+    font-size: 2.5rem;
+    margin-bottom: 5vh;
+    line-height: 1.2;
 }
