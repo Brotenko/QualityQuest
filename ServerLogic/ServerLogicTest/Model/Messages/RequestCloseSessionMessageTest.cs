@@ -28,7 +28,7 @@ namespace ServerLogicTests.Model.Messages
         private static readonly Guid testGuid = Guid.NewGuid();
         private static readonly string sessionKey = RandomString(6);
         private readonly string expectedStringPattern = @"RequestCloseSessionMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: RequestCloseSession, Date: \d{2}\.\d{2}\.\d{4}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], SessionKey: " + sessionKey + @"\]";
+            testGuid + @", Type: RequestCloseSession, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], SessionKey: " + sessionKey + @"\]";
 
         /// <summary>
         /// Validates that the assigned test-variable is the same before and after

@@ -23,7 +23,7 @@ namespace ServerLogicTests.Model.Messages
         "{" + string.Join(",", testVotingResults.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";
 
         private readonly string expectedStringPattern = @"VotingEndedMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: VotingEnded, Date: \d{2}\.\d{2}\.\d{4}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], WinningOption: " + 
+            testGuid + @", Type: VotingEnded, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], WinningOption: " + 
             testWinningOption + @", VotingResults:" + dictToString + @"\]";
 
         /// <summary>

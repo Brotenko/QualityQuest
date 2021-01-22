@@ -567,16 +567,6 @@ namespace ServerLogicTests.Control
 
             /*
              * Tests for the following conditions:
-             * - the "--help" option for the command "clear" is transmitted
-             * 
-             * What it does:
-             * Returns the help message for the "clear" command.
-             */
-            t = s.ParseCommandDebugger("clear --help");
-            Assert.IsTrue(Regex.IsMatch(t, clearCommandPattern));
-
-            /*
-             * Tests for the following conditions:
              * - the "--help" option for the command "exit" is transmitted
              * 
              * What it does:
