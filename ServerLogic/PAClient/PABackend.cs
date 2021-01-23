@@ -16,7 +16,9 @@ namespace PAClient
 {
     public class PABackend
     {
-        public static string CurrentPrompt
+        // Current prompt depending on the session
+        //                 sessionkey             prompt
+        public static Dictionary<string, Dictionary<Guid, string>> CurrentPrompt
         {
             get; set;
         }
@@ -25,6 +27,7 @@ namespace PAClient
         {
             set; get;
         }
+
         private IHost host;
         private static IHubContext<ServerHub> _hubContext;
 
@@ -45,8 +48,7 @@ namespace PAClient
          *  - Prompt 2:
          *     - ...
          */
-        //                       prompt            choices #votes
-        public static Dictionary<string, Dictionary<string, int>> VotingResults
+        public static VotingResults PAVotingResults
         {
             get; private set;
         }
@@ -57,26 +59,16 @@ namespace PAClient
             get; private set;
         }
 
-        private void AddNewPoll(string prompt, string[] choices)
-        {
-            Dictionary<string, int> tempDict = new Dictionary<string, int>();
-
-            foreach (string c in choices)
-            {
-                tempDict.Add(c, 0);
-            }
-
-            VotingResults.Add(prompt, tempDict);
-        }
-
+        
         public static void CountNewVote(string choice)
         {
-            Dictionary<string, int> tempDict = VotingResults.GetValueOrDefault(CurrentPrompt);
+            Dictionary<string, int> tempDict = PAVotingResults.GetValueOrDefault(CurrentPrompt);
 
             Console.WriteLine(tempDict.GetValueOrDefault(choice));
             tempDict[choice] = 1 + tempDict.GetValueOrDefault(choice);
             Console.WriteLine(tempDict.GetValueOrDefault(choice));
         }
+        
 
 
         public static void UpdateSessions(string session)
@@ -121,20 +113,20 @@ namespace PAClient
         }
 
 
-        public Dictionary<string, int> getVotingResult(string group, string prompt)
+        public Dictionary<Dictionary<Guid, string>, int> getVotingResult(string sessionkey, string prompt)
         {
-            SendPushClear(group);
-            return VotingResults.GetValueOrDefault(prompt);
+            SendPushClear(sessionkey);
+            return PAVotingResults.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
         }
 
 
-        public async void SendPushMessage(string group, string prompt, string[] choices)
+        public async void SendPushMessage(string sessionkey, Dictionary<Guid,string> prompt, Dictionary<Guid, string>[] options)
         {
-            string pageContent = CreatePageContent(prompt, choices);
-            CurrentPrompt = prompt;
-            AddNewPoll(prompt, choices);
+            string pageContent = CreatePageContent(prompt, options);
+            CurrentPrompt[sessionkey] = prompt;
+            PAVotingResults.AddNewPoll(sessionkey, prompt, options);
 
-            await _hubContext.Clients.Group(group).SendAsync("NewPrompt", pageContent);
+            await _hubContext.Clients.Group(sessionkey).SendAsync("NewPrompt", pageContent);
         }
 
         public async void SendPushClear(string group)
@@ -142,19 +134,22 @@ namespace PAClient
             await _hubContext.Clients.Group(group).SendAsync("ClearPrompt");
         }
 
-        private string CreatePageContent(string prompt, string[] choices)
+        private string CreatePageContent(Dictionary<Guid, string> prompt, Dictionary<Guid, string>[] options)
         {
             string ret = "";
 
-            switch (choices.Length)
+            string promptString = prompt.First().Value;
+            string[] optionsStrings = options.SelectMany(keyValuePair => keyValuePair.Values.Select(key => key)).Distinct().ToArray();
+
+            switch (options.Length)
             {
             case 2:
                 ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
                         prompt +
                       "</div>" +
                       "<div id=\"voting-container\" class=\"voting-container\">" +
-                        "<input type=\"button\" id=\"choice-1\" class=\"input-button voting-container-2items-1\" value=\"" + choices[0] + "\" />" +
-                        "<input type=\"button\" id=\"choice-2\" class=\"input-button voting-container-2items-2\" value=\"" + choices[1] + "\" />" +
+                        "<input type=\"button\" id=\"choice-1\" class=\"input-button voting-container-2items-1\" value=\"" + optionsStrings[0] + "\" />" +
+                        "<input type=\"button\" id=\"choice-2\" class=\"input-button voting-container-2items-2\" value=\"" + optionsStrings[1] + "\" />" +
                       "</div>";
                 break;
             case 3:
@@ -162,9 +157,9 @@ namespace PAClient
                         prompt +
                       "</div>" +
                       "<div id=\"voting-container\" class=\"voting-container\">" +
-                        "<input type=\"button\" id=\"choice-1\" class=\"input-button voting-container-3items-1\" value=\"" + choices[0] + "\" />" +
-                        "<input type=\"button\" id=\"choice-2\" class=\"input-button voting-container-3items-2\" value=\"" + choices[1] + "\" />" +
-                        "<input type=\"button\" id=\"choice-3\" class=\"input-button voting-container-3items-3\" value=\"" + choices[2] + "\" />" +
+                        "<input type=\"button\" id=\"choice-1\" class=\"input-button voting-container-3items-1\" value=\"" + optionsStrings[0] + "\" />" +
+                        "<input type=\"button\" id=\"choice-2\" class=\"input-button voting-container-3items-2\" value=\"" + optionsStrings[1] + "\" />" +
+                        "<input type=\"button\" id=\"choice-3\" class=\"input-button voting-container-3items-3\" value=\"" + optionsStrings[2] + "\" />" +
                       "</div>";
                 break;
             case 4:
@@ -172,10 +167,10 @@ namespace PAClient
                         prompt +
                       "</div>" +
                       "<div id=\"voting-container\" class=\"voting-container\">" +
-                        "<input type=\"button\" id=\"choice-1\" class=\"input-button voting-container-4items-1\" value=\"" + choices[0] + "\" />" +
-                        "<input type=\"button\" id=\"choice-2\" class=\"input-button voting-container-4items-2\" value=\"" + choices[1] + "\" />" +
-                        "<input type=\"button\" id=\"choice-3\" class=\"input-button voting-container-4items-3\" value=\"" + choices[2] + "\" />" +
-                        "<input type=\"button\" id=\"choice-4\" class=\"input-button voting-container-4items-4\" value=\"" + choices[3] + "\" />" +
+                        "<input type=\"button\" id=\"choice-1\" class=\"input-button voting-container-4items-1\" value=\"" + optionsStrings[0] + "\" />" +
+                        "<input type=\"button\" id=\"choice-2\" class=\"input-button voting-container-4items-2\" value=\"" + optionsStrings[1] + "\" />" +
+                        "<input type=\"button\" id=\"choice-3\" class=\"input-button voting-container-4items-3\" value=\"" + optionsStrings[2] + "\" />" +
+                        "<input type=\"button\" id=\"choice-4\" class=\"input-button voting-container-4items-4\" value=\"" + optionsStrings[3] + "\" />" +
                       "</div>";
                 break;
             default:
@@ -199,7 +194,7 @@ namespace PAClient
         {
             Port = port;
             ValidSessionKeys = new List<string>();
-            VotingResults = new Dictionary<string, Dictionary<string, int>>();
+            PAVotingResults = new VotingResults();
             ConnectionList = new Dictionary<string, List<string>>();
             ValidSessionKeys = new List<string> { "asdasd", "qweqwe" };
             UpdateSessions("asdasd");

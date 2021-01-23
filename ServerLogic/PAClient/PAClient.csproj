@@ -21,15 +21,6 @@
     <Content Update="wwwroot\js\site.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.css">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
@@ -75,6 +66,10 @@
     <Content Update="wwwroot\newtec_logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\bootstrap\dist\css\" />
   </ItemGroup>
 
 </Project>
