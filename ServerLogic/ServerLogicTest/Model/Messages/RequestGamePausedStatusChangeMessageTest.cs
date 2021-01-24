@@ -18,7 +18,7 @@ namespace ServerLogicTests.Model.Messages
         private readonly string expectedPauseStatusTrueTestStringPattern = @"RequestGamePausedStatusChangeMessage \[<container>: MessageContainer \[ModeratorId: " +
             testGuid + @", Type: RequestGamePausedStatusChange, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], GamePaused: True\]";
         private readonly string expectedPauseStatusFalseTestStringPattern = @"RequestGamePausedStatusChangeMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: RequestGamePause\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], GamePaused: False\]";
+            testGuid + @", Type: RequestGamePausedStatusChange, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], GamePaused: False\]";
 
         /// <summary>
         /// Validates that the constructed message contains all the provided
