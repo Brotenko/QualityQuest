@@ -6,6 +6,8 @@
  */
 var connection = new signalR.HubConnectionBuilder().withUrl("/serverhub").build();
 
+var sessionkey;
+
 
 // Disable send button until connection is established
 document.getElementById("enter-room").disabled = true;
@@ -24,8 +26,8 @@ connection.start().then(function () {
  * that the key belongs to a valid/active session.
  */
 document.getElementById("enter-room").addEventListener("click", function (event) {
-    var key = document.getElementById("sessionkey").value;
-    connection.invoke("ValidateKey", key).catch(function (err) {
+    sessionkey = document.getElementById("sessionkey").value;
+    connection.invoke("ValidateKey", sessionkey).catch(function (err) {
         return console.error(err.toString());
     });
     event.preventDefault();
@@ -63,7 +65,7 @@ connection.on("NewPrompt", function (newPageContent) {
         $("input:button").click(function (event) {
             var vote = $(this).val();
 
-            connection.invoke("SendVote", vote).catch(function (err) {
+            connection.invoke("SendVote", sessionkey, vote).catch(function (err) {
                 return console.error(err.toString());
             });
             event.preventDefault();

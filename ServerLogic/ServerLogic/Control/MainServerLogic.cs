@@ -8,11 +8,11 @@ namespace ServerLogic.Control
 {
     public class MainServerLogic
     {
-        public PlayerAudienceClientLogicHandler playerAudienceClientLogicHandler;
+        public PlayerAudienceClientAPI playerAudienceClientLogicHandler;
 
         public MainServerLogic()
         {
-            playerAudienceClientLogicHandler = new PlayerAudienceClientLogicHandler();
+            playerAudienceClientLogicHandler = new PlayerAudienceClientAPI();
         }
     }
 }

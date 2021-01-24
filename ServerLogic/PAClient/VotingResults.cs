@@ -7,7 +7,19 @@ namespace PAClient
 {
     public struct VotingResults
     {
-        //       sessionkeys                        prompts                        choies/options    votes
+        /*
+         *                                             All Voting Results
+         *    |------------------------------------------------------------------------------------------------------|
+         *                                                 Session-related votes
+         *               |-------------------------------------------------------------------------------------------| 
+         *               
+         *                                                       Prompt-related voting-options
+         *                                  |-----------------------------------------------------------------------|
+         *                                                                               Option-related votes
+         *                                                                         |-------------------------------|
+         *              sessionkeys                  prompts                                 options           votes
+         *               |------|           |-------------------------|            |-------------------------| |---|
+         */
         public Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> data;
 
         public void AddSessionKey(string sessionkey)
@@ -17,6 +29,11 @@ namespace PAClient
 
         public void AddNewPoll(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
+            if (!GetSessionKeys().Contains(sessionkey))
+            {
+                throw new SessionNotFoundException();
+            }
+
             Dictionary<KeyValuePair<Guid, string>, int> tempDict = new Dictionary<KeyValuePair<Guid, string>, int>();
             foreach (KeyValuePair<Guid, string> o in options)
             {
@@ -24,6 +41,68 @@ namespace PAClient
             }
 
             data.GetValueOrDefault(sessionkey).Add(prompt, tempDict);
+        }
+
+        public void AddVote(string sessionkey, string prompt, string option)
+        {
+            Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+            foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
+            {
+                if (option == options.Value)
+                {
+                    possibleChoices[options] += 1;
+                }
+            }
+        }
+
+        public void AddVote(string sessionkey, string prompt, Guid option)
+        {
+            Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+            foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
+            {
+                if (option == options.Key)
+                {
+                    possibleChoices[options] += 1;
+                }
+            }
+        }
+
+        public void AddVote(string sessionkey, Guid prompt, string option)
+        {
+            Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+            foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
+            {
+                if (option == options.Value)
+                {
+                    possibleChoices[options] += 1;
+                }
+            }
+        }
+
+        public void AddVote(string sessionkey, Guid prompt, Guid option)
+        {
+            Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+            foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
+            {
+                if (option == options.Key)
+                {
+                    possibleChoices[options] += 1;
+                }
+            }
+        }
+
+        public void RemoveSession(string sessionkey)
+        {
+            if (!GetSessionKeys().Contains(sessionkey))
+            {
+                throw new SessionNotFoundException();
+            }
+
+            data.Remove(sessionkey);
         }
 
         public string[] GetSessionKeys()
@@ -304,11 +383,11 @@ namespace PAClient
 
                 foreach (string prompt in this.GetPromptStringsBySession(key))
                 {
-                    ret += "   - " + prompt + ":\n";
+                    ret += "   - " + prompt + " (" + GetPromptGuidsBySession(key)[0].ToString() + "):\n";
 
                     foreach (string option in this.GetOptionStringsByPrompt(key, prompt))
                     {
-                        ret += "     - " + option + ": " + this.GetVotesByOption(key, prompt, option) + "\n";
+                        ret += "     - " + option + " (" + GetOptionGuidsByPrompt(key, prompt)[0].ToString() + "): " + this.GetVotesByOption(key, prompt, option) + "\n";
                     }
                 }
             }

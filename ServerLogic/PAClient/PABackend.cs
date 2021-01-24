@@ -16,13 +16,6 @@ namespace PAClient
 {
     public class PABackend
     {
-        // Current prompt depending on the session
-        //                 sessionkey             prompt
-        public static Dictionary<string, Dictionary<Guid, string>> CurrentPrompt
-        {
-            get; set;
-        }
-
         private int Port
         {
             set; get;
@@ -34,7 +27,9 @@ namespace PAClient
         private Thread _serverThread;
 
 
-        public static List<string> ValidSessionKeys
+        // Current prompt depending on the session
+        //                 sessionkey             prompt
+        public static Dictionary<string, KeyValuePair<Guid, string>> CurrentPrompt
         {
             get; set;
         }
@@ -59,49 +54,39 @@ namespace PAClient
             get; private set;
         }
 
-        
-        public static void CountNewVote(string choice)
+        public static void CountNewVote(string sessionkey, string option)
         {
-            Dictionary<string, int> tempDict = PAVotingResults.GetValueOrDefault(CurrentPrompt);
+            Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
 
-            Console.WriteLine(tempDict.GetValueOrDefault(choice));
-            tempDict[choice] = 1 + tempDict.GetValueOrDefault(choice);
-            Console.WriteLine(tempDict.GetValueOrDefault(choice));
+            PAVotingResults.AddVote(sessionkey, clientPrompt, option);
         }
-        
 
-
-        public static void UpdateSessions(string session)
+        public static void CountNewVote(string sessionkey, Guid option)
         {
-            try
+            Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
+
+            PAVotingResults.AddVote(sessionkey, clientPrompt, option);
+        }
+
+        public static void AddNewSession(string sessionkey)
+        {
+            PAVotingResults.AddSessionKey(sessionkey);
+        }
+
+        public static void RemoveSession(string sessionkey)
+        {
+            PAVotingResults.RemoveSession(sessionkey);
+        }
+
+        public static void AddConnection(string sessionkey, string connectionId)
+        {
+            if (!ConnectionList.GetValueOrDefault(sessionkey).Contains(connectionId))
             {
-                foreach (KeyValuePair<string, List<string>> entry in ConnectionList)
-                {
-                    if (entry.Key == session)
-                    {
-                        ConnectionList.Remove(entry.Key);
-                    }
-                }
-            }
-            catch (NullReferenceException)
-            {
-                ConnectionList.Add(session, new List<string>());
-            }
-            finally
-            {
-                ConnectionList.Add(session, new List<string>());
+                ConnectionList.GetValueOrDefault(sessionkey).Add(connectionId);
             }
         }
 
-        public static void AddConnection(string session, string connectionId)
-        {
-            if (!ConnectionList.GetValueOrDefault(session).Contains(connectionId))
-            {
-                ConnectionList.GetValueOrDefault(session).Add(connectionId);
-            }
-        }
-
-        public static void RemoveConnections(string connectionId)
+        public static void RemoveConnection(string connectionId)
         {
             foreach (KeyValuePair<string, List<string>> entry in ConnectionList)
             {
@@ -112,15 +97,13 @@ namespace PAClient
             }
         }
 
-
-        public Dictionary<Dictionary<Guid, string>, int> getVotingResult(string sessionkey, string prompt)
+        public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResult(string sessionkey, string prompt)
         {
             SendPushClear(sessionkey);
             return PAVotingResults.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
         }
 
-
-        public async void SendPushMessage(string sessionkey, Dictionary<Guid,string> prompt, Dictionary<Guid, string>[] options)
+        public async void SendPushMessage(string sessionkey, KeyValuePair<Guid,string> prompt, KeyValuePair<Guid, string>[] options)
         {
             string pageContent = CreatePageContent(prompt, options);
             CurrentPrompt[sessionkey] = prompt;
@@ -134,12 +117,13 @@ namespace PAClient
             await _hubContext.Clients.Group(group).SendAsync("ClearPrompt");
         }
 
-        private string CreatePageContent(Dictionary<Guid, string> prompt, Dictionary<Guid, string>[] options)
+        private string CreatePageContent(KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
             string ret = "";
 
-            string promptString = prompt.First().Value;
-            string[] optionsStrings = options.SelectMany(keyValuePair => keyValuePair.Values.Select(key => key)).Distinct().ToArray();
+            string promptString = prompt.Value;
+            //string[] optionsStrings = options.SelectMany(keyValuePair => keyValuePair.Values.Select(key => key)).Distinct().ToArray();
+            string[] optionsStrings = options.Select(kvp => kvp.Value).ToArray();
 
             switch (options.Length)
             {
@@ -193,12 +177,10 @@ namespace PAClient
         public PABackend(int port)
         {
             Port = port;
-            ValidSessionKeys = new List<string>();
-            PAVotingResults = new VotingResults();
+            PAVotingResults = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
             ConnectionList = new Dictionary<string, List<string>>();
-            ValidSessionKeys = new List<string> { "asdasd", "qweqwe" };
-            UpdateSessions("asdasd");
-            UpdateSessions("qweqwe");
+            PAVotingResults.AddSessionKey("asdasd");
+            PAVotingResults.AddSessionKey("qweqwe");
 
             _serverThread = new Thread(this.ServerStart);
             _serverThread.Start();

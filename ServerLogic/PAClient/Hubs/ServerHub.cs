@@ -16,7 +16,7 @@ namespace PAClient.Hubs
 
         public async Task ValidateKey(string sessionkey)
         {
-            bool isValid = PABackend.ValidSessionKeys.Contains(sessionkey);
+            bool isValid = PABackend.PAVotingResults.GetSessionKeys().Contains(sessionkey);
 
             await Clients.Caller.SendAsync("KeyValidation", isValid);
 
@@ -28,10 +28,10 @@ namespace PAClient.Hubs
             }
         }
 
-        public async Task SendVote(string id)
+        public async Task SendVote(string sessionkey, string option)
         {
-            Console.WriteLine(id);
-            PABackend.CountNewVote(id);
+            Console.WriteLine(sessionkey, option);
+            PABackend.CountNewVote(sessionkey, option);
         }
 
         public override async Task OnConnectedAsync()
@@ -43,7 +43,7 @@ namespace PAClient.Hubs
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             Console.WriteLine("Disconnected: " + Context.ConnectionId + " ; " + exception);
-            PABackend.RemoveConnections(Context.ConnectionId);
+            PABackend.RemoveConnection(Context.ConnectionId);
             await base.OnDisconnectedAsync(exception);
         }
     }
