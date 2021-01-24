@@ -14,35 +14,12 @@ using System.Threading.Tasks;
 
 namespace PAClient
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PABackend
     {
-        private int Port
-        {
-            set; get;
-        }
-
-        private IHost host;
-        private static IHubContext<ServerHub> _hubContext;
-
-        private Thread _serverThread;
-
-
-        // Current prompt depending on the session
-        //                 sessionkey             prompt
-        public static Dictionary<string, KeyValuePair<Guid, string>> CurrentPrompt
-        {
-            get; set;
-        }
-
         // A list of all voting results, sorted by the GUID of the "voting prompt/questions" 
-        /*
-         * List:
-         *  - Prompt 1:
-         *     - Option 1 => Number of votes
-         *     - Option 2 => Number of votes
-         *  - Prompt 2:
-         *     - ...
-         */
         public static VotingResults PAVotingResults
         {
             get; private set;
@@ -54,6 +31,27 @@ namespace PAClient
             get; private set;
         }
 
+        private IHost host;
+        private static IHubContext<ServerHub> _hubContext;
+
+        private Thread _serverThread;
+
+        // Current prompt depending on the session
+        //                 sessionkey             prompt
+        private static Dictionary<string, KeyValuePair<Guid, string>> CurrentPrompt
+        {
+            get; set;
+        }
+        private int Port
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="option"></param>
         public static void CountNewVote(string sessionkey, string option)
         {
             Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
@@ -61,6 +59,11 @@ namespace PAClient
             PAVotingResults.AddVote(sessionkey, clientPrompt, option);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="option"></param>
         public static void CountNewVote(string sessionkey, Guid option)
         {
             Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
@@ -68,16 +71,47 @@ namespace PAClient
             PAVotingResults.AddVote(sessionkey, clientPrompt, option);
         }
 
-        public static void AddNewSession(string sessionkey)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        public void StartNewSession(string sessionkey)
+        {
+            AddNewSession(sessionkey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        private static void AddNewSession(string sessionkey)
         {
             PAVotingResults.AddSessionKey(sessionkey);
         }
 
-        public static void RemoveSession(string sessionkey)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        public void EndSession(string sessionkey)
+        {
+            RemoveSession(sessionkey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        private static void RemoveSession(string sessionkey)
         {
             PAVotingResults.RemoveSession(sessionkey);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="connectionId"></param>
         public static void AddConnection(string sessionkey, string connectionId)
         {
             if (!ConnectionList.GetValueOrDefault(sessionkey).Contains(connectionId))
@@ -86,6 +120,10 @@ namespace PAClient
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connectionId"></param>
         public static void RemoveConnection(string connectionId)
         {
             foreach (KeyValuePair<string, List<string>> entry in ConnectionList)
@@ -97,12 +135,24 @@ namespace PAClient
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResult(string sessionkey, string prompt)
         {
             SendPushClear(sessionkey);
             return PAVotingResults.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <param name="options"></param>
         public async void SendPushMessage(string sessionkey, KeyValuePair<Guid,string> prompt, KeyValuePair<Guid, string>[] options)
         {
             string pageContent = CreatePageContent(prompt, options);
@@ -112,11 +162,21 @@ namespace PAClient
             await _hubContext.Clients.Group(sessionkey).SendAsync("NewPrompt", pageContent);
         }
 
-        public async void SendPushClear(string group)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="group"></param>
+        private async void SendPushClear(string group)
         {
             await _hubContext.Clients.Group(group).SendAsync("ClearPrompt");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         private string CreatePageContent(KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
             string ret = "";
@@ -164,6 +224,10 @@ namespace PAClient
             return ret;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             if (args.Length == 0)
@@ -174,6 +238,10 @@ namespace PAClient
             CreateHostBuilder(Convert.ToInt32(args[0], CultureInfo.CurrentCulture)).Build().Run();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="port"></param>
         public PABackend(int port)
         {
             Port = port;
@@ -186,6 +254,9 @@ namespace PAClient
             _serverThread.Start();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void ServerStart()
         {
             host = CreateHostBuilder(Port).Build();
@@ -193,12 +264,20 @@ namespace PAClient
             host.Run();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void StopServer()
         {
             host.StopAsync();
             _serverThread.Join();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="port"></param>
+        /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(int port) =>
             Host.CreateDefaultBuilder()
                 .ConfigureWebHostDefaults(webBuilder =>

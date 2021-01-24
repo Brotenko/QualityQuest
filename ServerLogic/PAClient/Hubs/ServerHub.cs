@@ -6,14 +6,28 @@ using System.Threading.Tasks;
 
 namespace PAClient.Hubs
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ServerHub : Hub
     {
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public async Task SendMessage(string user, string message)
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <returns></returns>
         public async Task ValidateKey(string sessionkey)
         {
             bool isValid = PABackend.PAVotingResults.GetSessionKeys().Contains(sessionkey);
@@ -28,18 +42,33 @@ namespace PAClient.Hubs
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
         public async Task SendVote(string sessionkey, string option)
         {
             Console.WriteLine(sessionkey, option);
             PABackend.CountNewVote(sessionkey, option);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override async Task OnConnectedAsync()
         {
             Console.WriteLine("Connected: " + Context.ConnectionId);
             await base.OnConnectedAsync();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <returns></returns>
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             Console.WriteLine("Disconnected: " + Context.ConnectionId + " ; " + exception);

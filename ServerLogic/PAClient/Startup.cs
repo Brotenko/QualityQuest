@@ -12,16 +12,23 @@ using PAClient.Hubs;
 
 namespace PAClient
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
         public IConfiguration Configuration
         {
             get;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -55,6 +62,7 @@ namespace PAClient
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                // 
                 endpoints.MapHub<ServerHub>("/serverhub");
             });
         }

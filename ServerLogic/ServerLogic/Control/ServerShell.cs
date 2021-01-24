@@ -238,7 +238,7 @@ namespace ServerLogic.Control
 
         private string SendDebugMessage(string[] parameterList)
         {
-            mainServerLogic.playerAudienceClientLogicHandler.SendDebugMessage(parameterList);
+            //mainServerLogic.playerAudienceClientLogicHandler.SendDebugMessage(parameterList);
 
             return "Oops";
         }

@@ -22,11 +22,21 @@ namespace PAClient
          */
         public Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> data;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
         public void AddSessionKey(string sessionkey)
         {
             data.Add(sessionkey, new Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <param name="options"></param>
         public void AddNewPoll(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
             if (!GetSessionKeys().Contains(sessionkey))
@@ -43,6 +53,12 @@ namespace PAClient
             data.GetValueOrDefault(sessionkey).Add(prompt, tempDict);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <param name="option"></param>
         public void AddVote(string sessionkey, string prompt, string option)
         {
             Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
@@ -56,6 +72,12 @@ namespace PAClient
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <param name="option"></param>
         public void AddVote(string sessionkey, string prompt, Guid option)
         {
             Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
@@ -69,6 +91,12 @@ namespace PAClient
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <param name="option"></param>
         public void AddVote(string sessionkey, Guid prompt, string option)
         {
             Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
@@ -82,6 +110,12 @@ namespace PAClient
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <param name="option"></param>
         public void AddVote(string sessionkey, Guid prompt, Guid option)
         {
             Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
@@ -95,6 +129,10 @@ namespace PAClient
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
         public void RemoveSession(string sessionkey)
         {
             if (!GetSessionKeys().Contains(sessionkey))
@@ -105,11 +143,20 @@ namespace PAClient
             data.Remove(sessionkey);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string[] GetSessionKeys()
         {
             return data.Keys.ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <returns></returns>
         public KeyValuePair<Guid, string>[] GetPromptsBySession(string sessionkey)
         {
             foreach (KeyValuePair<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> entry in data)
@@ -123,6 +170,11 @@ namespace PAClient
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <returns></returns>
         public Guid[] GetPromptGuidsBySession(string sessionkey)
         {
             List<Guid> prompts = new List<Guid>();
@@ -142,6 +194,11 @@ namespace PAClient
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <returns></returns>
         public string[] GetPromptStringsBySession(string sessionkey)
         {
             List<string> prompts = new List<string>();
@@ -161,6 +218,12 @@ namespace PAClient
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetOptionsVotesPairsByPrompt(string sessionkey, string prompt)
         {
             foreach (KeyValuePair<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> session in data)
@@ -183,6 +246,12 @@ namespace PAClient
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetOptionsVotesPairsByPrompt(string sessionkey, Guid prompt)
         {
             foreach (KeyValuePair<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> session in data)
@@ -205,6 +274,12 @@ namespace PAClient
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         public KeyValuePair<Guid, string>[] GetOptionsByPrompt(string sessionkey, string prompt)
         {
             List<KeyValuePair<Guid, string>> options = new List<KeyValuePair<Guid, string>>();
@@ -221,6 +296,12 @@ namespace PAClient
             return options.ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         public KeyValuePair<Guid, string>[] GetOptionsByPrompt(string sessionkey, Guid prompt)
         {
             List<KeyValuePair<Guid, string>> options = new List<KeyValuePair<Guid, string>>();
@@ -237,6 +318,12 @@ namespace PAClient
             return options.ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         public string[] GetOptionStringsByPrompt(string sessionkey, string prompt)
         {
             List<string> options = new List<string>();
@@ -253,6 +340,12 @@ namespace PAClient
             return options.ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         public string[] GetOptionStringsByPrompt(string sessionkey, Guid prompt)
         {
             List<string> options = new List<string>();
@@ -269,6 +362,12 @@ namespace PAClient
             return options.ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         public Guid[] GetOptionGuidsByPrompt(string sessionkey, Guid prompt)
         {
             List<Guid> options = new List<Guid>();
@@ -285,6 +384,12 @@ namespace PAClient
             return options.ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         public Guid[] GetOptionGuidsByPrompt(string sessionkey, string prompt)
         {
             List<Guid> options = new List<Guid>();
@@ -301,6 +406,13 @@ namespace PAClient
             return options.ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
         public int GetVotesByOption(string sessionkey, string prompt, string option)
         {
             Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
@@ -319,6 +431,13 @@ namespace PAClient
             return -1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
         public int GetVotesByOption(string sessionkey, Guid prompt, string option)
         {
             Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
@@ -337,6 +456,13 @@ namespace PAClient
             return -1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
         public int GetVotesByOption(string sessionkey, string prompt, Guid option)
         {
             Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
@@ -355,6 +481,13 @@ namespace PAClient
             return -1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
         public int GetVotesByOption(string sessionkey, Guid prompt, Guid option)
         {
             Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
@@ -373,6 +506,10 @@ namespace PAClient
             return -1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string ret = "VotingResults:\n";
@@ -395,6 +532,10 @@ namespace PAClient
             return ret;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
         public VotingResults(Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> x)
         {
             data = x;

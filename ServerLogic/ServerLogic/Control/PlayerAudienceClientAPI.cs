@@ -5,48 +5,73 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-//using PlayerAudienceClient;
 using PAClient;
 
 namespace ServerLogic.Control
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PlayerAudienceClientAPI
     {
-        //private HttpServer server;
         private PABackend pABackend;
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="port"></param>
         public void StartServer(int port)
         {
             pABackend = new PABackend(port);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void StopServer()
         {
             pABackend.StopServer();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <param name="options"></param>
         public void StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
             pABackend.SendPushMessage(sessionkey, prompt, options);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
         public void StartNewSession(string sessionkey)
         {
-            
+            pABackend.StartNewSession(sessionkey);
         }
 
-        public void RemoveSession(string sessionkey)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        public void EndSession(string sessionkey)
         {
-        
+            pABackend.EndSession(sessionkey);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResults(string sessionkey, string prompt)
         {
-            
+            return pABackend.GetVotingResult(sessionkey, prompt);
         }
-
-
 
         public PlayerAudienceClientAPI()
         {
