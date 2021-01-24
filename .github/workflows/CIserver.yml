@@ -13,10 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup timezone
-      uses: zcong1993/setup-timezone@master
-      with:
-        timezone: Europe/Berlin
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
