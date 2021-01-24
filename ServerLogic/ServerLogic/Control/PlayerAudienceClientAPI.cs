@@ -10,57 +10,45 @@ using PAClient;
 
 namespace ServerLogic.Control
 {
-    public class PlayerAudienceClientLogicHandler
+    public class PlayerAudienceClientAPI
     {
         //private HttpServer server;
-        private PABackend p;
+        private PABackend pABackend;
 
-        public List<string> ValidSessionKeys
-        {
-            get; private set;
-        }
-
-        public void UpdateSessionKeys(string key)
-        {
-            if (ValidSessionKeys.Contains(key))
-            {
-                ValidSessionKeys.Remove(key);
-            }
-            else
-            {
-                ValidSessionKeys.Add(key);
-            }
-        }
 
         public void StartServer(int port)
         {
-            //server = new HttpServer("F:/QualityQuest/ServerLogic/PlayerAudienceClient/", port);
-            
-
-            ValidSessionKeys = new List<string> { "asdasd", "qweqwe" };
-            //t = Task.Run(() => p = new PABackend(port));
-            p = new PABackend(port);
+            pABackend = new PABackend(port);
         }
 
         public void StopServer()
         {
-            //server.Dispose();
-            //t.Dispose();
-            p.StopServer();
+            pABackend.StopServer();
+        }
+
+        public void StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
+        {
+            pABackend.SendPushMessage(sessionkey, prompt, options);
+        }
+
+        public void StartNewSession(string sessionkey)
+        {
             
         }
 
-        public void SendDebugMessage(string[] list)
+        public void RemoveSession(string sessionkey)
         {
-            p.SendPushMessage(list[0], list[1], list[2..]);
+        
         }
 
-        public void SendSessionKeys()
+        public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResults(string sessionkey, string prompt)
         {
-            PABackend.ValidSessionKeys = ValidSessionKeys;
+            
         }
 
-        public PlayerAudienceClientLogicHandler()
+
+
+        public PlayerAudienceClientAPI()
         {
             
         }
