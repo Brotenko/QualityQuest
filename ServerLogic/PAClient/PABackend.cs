@@ -93,9 +93,11 @@ namespace PAClient
         /// 
         /// </summary>
         /// <param name="sessionkey"></param>
-        public void EndSession(string sessionkey)
+        /// <returns></returns>
+        public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> EndSession(string sessionkey)
         {
             RemoveSession(sessionkey);
+            return PAVotingResults.getStatistics(sessionkey);
         }
 
         /// <summary>

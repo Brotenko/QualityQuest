@@ -175,6 +175,16 @@ namespace PAClient
         /// </summary>
         /// <param name="sessionkey"></param>
         /// <returns></returns>
+        public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> getStatistics(string sessionkey)
+        {
+            return data.GetValueOrDefault(sessionkey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <returns></returns>
         public Guid[] GetPromptGuidsBySession(string sessionkey)
         {
             List<Guid> prompts = new List<Guid>();

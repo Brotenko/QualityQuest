@@ -57,9 +57,9 @@ namespace ServerLogic.Control
         /// 
         /// </summary>
         /// <param name="sessionkey"></param>
-        public void EndSession(string sessionkey)
+        public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> EndSession(string sessionkey)
         {
-            pABackend.EndSession(sessionkey);
+            return pABackend.EndSession(sessionkey);
         }
 
         /// <summary>

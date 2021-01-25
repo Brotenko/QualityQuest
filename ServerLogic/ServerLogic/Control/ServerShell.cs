@@ -486,7 +486,7 @@ namespace ServerLogic.Control
                 }
                 try
                 {
-                    mainServerLogic.playerAudienceClientLogicHandler.StartServer(Port);
+                    mainServerLogic.playerAudienceClientAPI.StartServer(Port);
                 }
                 catch (Exception e)
                 {
@@ -509,7 +509,7 @@ namespace ServerLogic.Control
         /// <returns>Confirmation hat the server has been stopped successfully.</returns>
         private string StopServer()
         {
-            mainServerLogic.playerAudienceClientLogicHandler.StopServer();
+            mainServerLogic.playerAudienceClientAPI.StopServer();
 
             serverIsRunning = false;
             return "The server has been shut down successfully.";
