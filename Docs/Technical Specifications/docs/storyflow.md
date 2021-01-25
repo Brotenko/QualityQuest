@@ -4,11 +4,11 @@
 
 A rough overview of the decisions occurring within the StoryGraph. The diagram exclusively depicts the situations in which StoryFlowDecisions can be made and the choices to be made in these situations.
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-1.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-1.svg)
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-2.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-2.svg)
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-3.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-3.svg)
 
 ## Detailed StoryFlow diagrams
 
@@ -27,7 +27,7 @@ In this StoryFlowDecision the PlayerAudience decides with which PlayerCharacter 
 After the PlayerCharacter selection, the next step is selecting the missing subject.
 
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-1.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-1.svg)
 
 ### StoryFlowDecision 2
 
@@ -40,7 +40,7 @@ The PlayerAudience must choose a subject from the following selection of availab
 
 After finishing the subject, the PlayerCharacter increases their PlayerCharacterStatusValues, depending on which subject was voted for.
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-2.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-2.svg)
 
 ### StoryFlowDecision 3
 
@@ -52,7 +52,7 @@ Now that the PlayerCharacter has finished their subject, the PlayerAudience can 
 
 The PlayerCharacter has successfully completed their studies.
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-3.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-3.svg)
 
 ### StoryFlowDecision 4
 
@@ -64,7 +64,7 @@ The PlayerCharacter has successfully completed their studies and accepted a job 
 
 The PlayerCharacterStatusValues of the PlayerCharacter change according to the selected StoryFlowDecision and after the task has been completed, the next StoryFlowDecision is about the corresponding tests.
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-4.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-4.svg)
 
 ### StoryFlowDecision 5
 
@@ -75,7 +75,7 @@ The first task has been completed, the next StoryFlowDecisions is about the corr
 
 The outcome of the StoryFlowDecision is also influenced by DiceRandomness. Depending on the StoryFlowDecision and some luck the PlayerCharacterStatusValues level up or down. After the tests are completed, a company party is scheduled, and the decision whether the player character will participate or not is part of the next StoryFlowDecision.
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-5.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-5.svg)
 
 ### StoryFlowDecision 6
 
@@ -86,7 +86,7 @@ The PlayerAudience can decide in the next StoryFlowDecision whether the PlayerCh
 
 If the PlayerCharacter goes to the party, the PlayerAudience must decide in the next StoryFlowDecisions how the PlayerCharacter behaves on the party. If the PlayerCharacter does not attend the party, the next StoryFlowDecision is about possibly participating in a voluntary training course.
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-6.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-6.svg)
 
 ### StoryFlowDecision 7
 The PlayerAudience can now decide what the PlayerCharacter does first on the party:
@@ -97,7 +97,7 @@ The PlayerAudience can now decide what the PlayerCharacter does first on the par
 
 Depending on the StoryFlowDecision, the PlayerCharacter increases their PlayerCharacterStatusValues or the PlayerAudience enables additional dialog options for later StoryFlowDecisions. 
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-7.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-7.svg)
 
 ### StoryFlowDecision 8
 
@@ -111,7 +111,7 @@ The PlayerCharacter is still at the party and is thirsty. The PlayerAudience dec
 
 If the PlayerAudience decides to drink beer or coke, the evening ends quietly. If the PlayerAudience decides to drink hard liquor, the party may instead end badly, resulting in the PlayerCharacter losing PlayerCharacterStatusValues due to getting severely drunk and ruining the event. Eventually the party ends and the PlayerCharacter goes home. The next StoryFlowDecision is about the participation in a voluntary training course.
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-8.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-8.svg)
 
 ### StoryFlowDecision 9
 
@@ -124,7 +124,7 @@ The PlayerAudience can now decide if the PlayerCharacter takes part in a volunta
 
 Depending on the StoryFlowDecision, there may be a deadline delay and an increase or decrease of the PlayerCharacterStatusValues. After the voluntary training course is over, the customer calls because they want to make changes to the product. The PlayerAudience decides how to proceed in the next StoryFlowDecision.
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-9.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-9.svg)
 
 ### StoryFlowDecision 10
 
@@ -138,7 +138,7 @@ The customer explains on the phone what they want changed, after which the Playe
 
 The PlayerCharacterStatusValues change depending on the StoryFlowDecision made by the PlayerAudience. With the occurrence of a new bug, the PlayerAudience has to decide how the PlayerCharacter will handle the issue in the next StoryFlowDecision.
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-10.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-10.svg)
 
 ### StoryFlowDecision 11
 
@@ -149,7 +149,7 @@ A new bug has surfaced that nobody has found yet. The PlayerAudience can choose 
 
 If the PlayerAudience decides to ignore the bug, the bug might be noticed by other developers with a certain DiceRandomness. In the case that the bug is detected, the PlayerCharacterStatusValues decrease drastically, but if the bug remains undetected the PlayerCharacterStatusValues only decrease slightly. Reporting the bug instead increased the PlayerCharacterStatusValues of the PlayerCharacter. In the next StoryFlowDecision the customer calls again, because they want an additional feature implemented.
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-11.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-11.svg)
 
 ### StoryFlowDecision 12
 
@@ -162,7 +162,7 @@ The customer explains the new feature on the phone, after which the PlayerAudien
 
 The feature is implemented and depending on the StoryFlowDecision, the PlayerCharacterStatusValues change. In the next StoryFlowDecision the PlayerAudience has to decide if the PlayerCharacter helps out a colleague or not.
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-12.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-12.svg)
 
 ### StoryFlowDecision 13
 
@@ -175,7 +175,7 @@ A colleague approaches the PlayerCharacter and asks for help with a task. The Pl
 
 Depending on the decision, the PlayerCharacterStatusValues change, while DiceRandomness may also cause additional deadline delays. The project is nearing completion, the next StoryFlowDecision will be about how to handle a code review.
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-13.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-13.svg)
 
 ### StoryFlowDecision 14
 
@@ -187,7 +187,7 @@ The PlayerAudience must decide whether the PlayerCharacter takes part in a code 
 If the PlayerCharacter participates in the review, the PlayerCharacterStatusValues increase, otherwise they decrease. The project has been completed.
 
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-14.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-14.svg)
 
 ### StoryFlowDecision 15
 A workshop in Hawaii is on the agenda. All PlayerCharacterStatusValues will be summed up and depending on the sum there are following options:
@@ -198,4 +198,4 @@ A workshop in Hawaii is on the agenda. All PlayerCharacterStatusValues will be s
   
 The game was successfully played through.
 
-![StoryFlow](diagrams/storyflow-diagrams/storyflow-decision-15.svg)
+![StoryFlow](../diagrams/storyflow-diagrams/storyflow-decision-15.svg)

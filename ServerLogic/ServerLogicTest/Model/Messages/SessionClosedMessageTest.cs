@@ -22,7 +22,7 @@ namespace ServerLogicTests.Model.Messages
             "{" + string.Join(",", testStatistics.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";
 
         private readonly string expectedStringPattern = @"SessionClosedMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: SessionClosed, Date: \d{2}\.\d{2}\.\d{4}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], Statistics: " + dictToString + @"\]";
+            testGuid + @", Type: SessionClosed, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], Statistics: " + dictToString + @"\]";
 
         /// <summary>
         /// Validates that the assigned test-variable is the same before and after

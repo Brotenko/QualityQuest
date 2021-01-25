@@ -32,7 +32,7 @@ namespace ServerLogicTests.Model.Messages
             "{" + string.Join(",", votingOptions_1.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";
 
         private readonly string expectedStringPattern = @"RequestStartVotingMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: RequestStartVoting, Date: \d{2}\.\d{2}\.\d{4}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], VotingTime: " +
+            testGuid + @", Type: RequestStartVoting, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], VotingTime: " +
             votingTime_1 + @", VotingOptions: " + dictToString + @"\]";
 
         /// <summary>

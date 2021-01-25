@@ -1,0 +1,28 @@
+name: Server Continuous Integration
+
+on:
+  push:
+    branches: [ server ]
+  pull_request:
+    branches: [ server ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.101
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: ./ServerLogic
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+      working-directory: ./ServerLogic
+    - name: Test
+      run: dotnet test --verbosity n
+      working-directory: ./ServerLogic

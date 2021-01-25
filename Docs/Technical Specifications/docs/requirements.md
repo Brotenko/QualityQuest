@@ -14,7 +14,7 @@ The requirements are divided into different priorities, whose meaning should be 
 
 This section contains all requirements that specify the basic actions of the software system.
 
-<h4 style="margin-bottom: 0em"; id="game">Game</h4>
+<h4 style="margin-bottom: 0em"; id="game-type">Game type</h4>
 | ID          | FR1                                                                                                                                                                                                                                                                                                       |
 | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | PRIORITY    | +                                                                                                                                                                                                                                                                                                         |
@@ -491,6 +491,15 @@ This section contains all requirements that specify the basic actions of the sof
 
 </span>
 
+<h4 style="margin-bottom: 0em"; id="sessionkey-length">SessionKey length</h4>
+| ID          | FR54                                                    |
+| ----------- | ------------------------------------------------------- |
+| PRIORITY    | +                                                       |
+| DESCRIPTION | The SessionKey shall have a size/length of six.         |
+| EXPLANATION | For example: <code>F8G21Z</code> or <code>8IB2P4</code> |
+
+</span>
+
 
 
 ## Non-functional Requirements
@@ -507,11 +516,11 @@ This section specifies the non-functional requirements for the software system.
 </span>
 
 <h4 style="margin-bottom: 0em"; id="in-code-documentation-style">In-code documentation style</h4>
-| ID          | NFR2                                                                          |
-| ----------- | ----------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                             |
-| DESCRIPTION | The source code shall be documented by means of Doxygen and in JavaDoc style. |
-| EXPLANATION | -                                                                             |
+| ID          | NFR2                                                                                                                 |
+| ----------- | -------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                    |
+| DESCRIPTION | The source code shall be documented by means of XML comment documentation generation provided by Visual Studio 2019. |
+| EXPLANATION | -                                                                                                                    |
 
 </span>
 
@@ -543,11 +552,11 @@ This section specifies the non-functional requirements for the software system.
 </span>
 
 <h4 style="margin-bottom: 0em"; id="adherence-to-project-coding-styleguide">Adherence to project Coding Styleguide</h4>
-| ID          | NFR6                                                              |
-| ----------- | ----------------------------------------------------------------- |
-| PRIORITY    | 0                                                                 |
-| DESCRIPTION | The software code should adhere to the Project Coding Styleguide. |
-| EXPLANATION | -                                                                 |
+| ID          | NFR6                                                                                                     |
+| ----------- | -------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | 0                                                                                                        |
+| DESCRIPTION | The software code should adhere to the code quality rules and .NET API usage rules Microsoft recommends. |
+| EXPLANATION | -                                                                                                        |
 
 </span>
 
@@ -651,11 +660,11 @@ This section specifies the non-functional requirements for the software system.
 </span>
 
 <h4 style="margin-bottom: 0em"; id="development-environment">Development environment</h4>
-| ID          | NFR18                                                                                                                                                                                   |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                                                                                                                                       |
-| DESCRIPTION | Both the source code and the build solution of QualityQuest shall be buildable in one of the following development environments: Microsoft Visual Studio, Microsoft Visual Studio Code. |
-| EXPLANATION | -                                                                                                                                                                                       |
+| ID          | NFR18                                                                                                                                                                                        |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                                                                            |
+| DESCRIPTION | Both the source code and the build solution of QualityQuest shall be buildable in one of the following development environments: Microsoft Visual Studio 2019, Microsoft Visual Studio Code. |
+| EXPLANATION | -                                                                                                                                                                                            |
 
 </span>
 

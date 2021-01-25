@@ -17,7 +17,7 @@ namespace ServerLogicTests.Model.Messages
         private static readonly DateTime testDate = DateTime.Now;
         private static readonly string testMessage = "This is a debug test 123456 =";
         private readonly string expectedStringPattern = @"MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: " + testType + @", Date: " + testDate + @", Debug: " + testMessage + @"\]";
+            testGuid + @", Type: " + testType + @", Date: " + testDate.ToString("yyyy.MM.dd HH:mm:ss") + @", Debug: " + testMessage + @"\]";
 
         /// <summary>
         /// Validates that the assigned test-variable is the same before and after

@@ -86,7 +86,7 @@ namespace ServerLogic.Model
         {
             return "MessageContainer [ModeratorId: " + Convert.ToString(ModeratorID, CultureInfo.CurrentCulture) + 
                 ", Type: " + Convert.ToString(Type, CultureInfo.CurrentCulture) + 
-                ", Date: " + Convert.ToString(CreationDate, CultureInfo.CurrentCulture) + 
+                ", Date: " + CreationDate.ToString("yyyy.MM.dd HH:mm:ss") + 
                 ", Debug: " + DebugMessage + "]";
         }
     }

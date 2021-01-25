@@ -11,13 +11,13 @@ If the ServerLogic can no longer be reached by the Moderator-Client, then this w
 
 In Offline-Mode, the Voting-Timer is deactivated and the moderator can select StoryFlowDecisions directly, while status checks are still performed in the background to inform the moderator in case the ServerLogic becomes available again.
 
-![Class diagram](diagrams/class-diagrams/class-diagram.svg)
+![Class diagram](../diagrams/class-diagrams/class-diagram.svg)
 
 ### Server class diagrams
 The software components PlayerAudience-Client and ServerLogic are located on the same physical device, which is called Server. Since a separate cookie is created for each PlayerAudience-Client when connecting to the Online-Session, the communication between PlayerAudience-Clients and ServerLogic is managed by the PlayerAudienceClientManager class, which implements the Observer-pattern.
 The communication between ServerLogic and Moderator-Client is realized via a WebSocket connection over HTTPS, which is established after successful authentication.
 
-![Class diagram](diagrams/class-diagrams/server-class-diagram.svg)
+![Class diagram](../diagrams/class-diagrams/server-class-diagram.svg)
 
 ## Component diagrams
 
@@ -27,25 +27,25 @@ The class diagrams show the architectural structure of the individual components
 
 An overview of all components of QualityQuest and which interfaces exist between the individual components, or the user interfaces of the participants. The physical device Server contains the software component ServerLogic as the backend, while the PlayerAudience-Client component corresponds to the frontend. Since there are several instances of the PlayerAudience-Client, the communication between front-and backend is done via the Observer-pattern. The exchange between ServerLogic and Moderator-Client is realized via a WebSocket connection.
 
-![Component-Overview](diagrams/component-diagrams/overview-components.svg)
+![Component-Overview](../diagrams/component-diagrams/overview-components.svg)
 
 ### PlayerAudience-Client
 
 The PlayerAudience-Client component consists of a subsystem GUI, which will allow the participant to interact with the game via the user interface, using HTML and JavaScript, and the subsystem Logic, which is responsible for interpreting inputs and exchanging data with the ServerLogic.
 
-![PlayerAudience-Client](diagrams/component-diagrams/playeraudience-client-component-diagram.svg)
+![PlayerAudience-Client](../diagrams/component-diagrams/playeraudience-client-component-diagram.svg)
 
 ### ServerLogic
 
 The ServerLogic component consists of a subsystem for the Message Management, which interprets the determined results, and a MainLogic subsystem. The MainLogic subsystem interacts with the PlayerAudience-Client, providing the voting options for it and evaluating the submitted votes. Connected to this is the subsystem Message Management, which prepares the received data and converts the results into a JSON for further communication.
 
 
-![ServerLogic](diagrams/component-diagrams/serverlogic-component-diagram.svg)
+![ServerLogic](../diagrams/component-diagrams/serverlogic-component-diagram.svg)
 
 ### Moderator-Client
 
 The component Moderator-Client consists of a subsystem GUI, which, based on Unity, provides a user interface to the moderator for interacting and presenting the game. The subsystem Logic manages the progress in the StoryGraph, the influence of PlayerCharacterStatusValues on StoryFlowDecisions as well as the communication to the component ServerLogic via the WebSocket.
 
-![Moderator-Client](diagrams/component-diagrams/moderator-client-component-diagram.svg)
+![Moderator-Client](../diagrams/component-diagrams/moderator-client-component-diagram.svg)
 
 
