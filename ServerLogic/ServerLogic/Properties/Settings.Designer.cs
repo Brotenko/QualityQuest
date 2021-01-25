@@ -46,5 +46,29 @@ namespace ServerLogic.Properties {
                 this["LogLevel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("..//..//..//Properties//Log.txt")]
+        public string LogFilePath {
+            get {
+                return ((string)(this["LogFilePath"]));
+            }
+            set {
+                this["LogFilePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("..//..//..//Properties//ServerLogicLogs")]
+        public string ServerLogicLogFilePath {
+            get {
+                return ((string)(this["ServerLogicLogFilePath"]));
+            }
+            set {
+                this["ServerLogicLogFilePath"] = value;
+            }
+        }
     }
 }

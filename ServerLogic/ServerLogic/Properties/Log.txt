@@ -6,3 +6,6 @@
 [2021-01-21 14:32:56+00:00] [0] INFO: LogLevel was set to 0.
 [2021-01-21 14:42:23+00:00] [0] INFO: New Session started. LogLevel is 0.
 [2021-01-21 14:42:29+00:00] [0] INFO: LogLevel was set to 0.
+[2021-01-25 09:32:45] [0] INFO: LogLevel was set to 0.
+[2021-01-25 09:33:09] [0] INFO: LogLevel was set to 0.
+[2021-01-25 09:33:26] [0] INFO: New Session started. LogLevel is 0, LogOutputType is 2.
