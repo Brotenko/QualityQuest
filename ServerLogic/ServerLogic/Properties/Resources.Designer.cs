@@ -287,5 +287,16 @@ namespace ServerLogic.Properties {
                 return ResourceManager.GetString("VersionHelpMessage", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///    Looks up a localized string similar to usage: Welcome to Quality Quest [version 1.0.0], please use the command 'help' for further information. 
+        ///  Shows this..
+        /// </summary>
+        internal static string StartupMessage {
+            get
+            {
+                return ResourceManager.GetString("StartupMessage", resourceCulture);
+            }
+        }
     }
 }

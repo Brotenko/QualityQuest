@@ -20,7 +20,6 @@ namespace ServerLogicTests.Control
         private const string versionCommandPattern = @"(usage: version)";
         private const string helpCommandPattern = @"(usage: qq)";
         private const string logCommandPattern = @"(usage: log)";
-        private const string clearCommandPattern = @"(usage: clear)";
         private const string exitCommandPattern = @"(usage: exit)";
         private const string passwordExceptionPattern = @"(Please make sure to set a password)";
         private const string portExceptionPattern = @"(Please make sure the port)";

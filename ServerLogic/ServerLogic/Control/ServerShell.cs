@@ -1,6 +1,7 @@
 ﻿using ServerLogic.Model;
 using ServerLogic.Model.Messages;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -122,6 +123,8 @@ namespace ServerLogic.Control
         /// </summary>
         private void RunShell()
         {
+            Console.WriteLine(Properties.Resources.StartupMessage);
+
             while (true)
             {
                 Console.Write(value: "qq >> ");
@@ -238,10 +241,32 @@ namespace ServerLogic.Control
 
         private string SendDebugMessage(string[] parameterList)
         {
-            //mainServerLogic.playerAudienceClientLogicHandler.SendDebugMessage(parameterList);
+            if (Convert.ToInt32(parameterList[0]) == 0)
+            {
+                KeyValuePair<Guid, string>[] options1 = new KeyValuePair<Guid, string>[]
+                {
+                    KeyValuePair.Create(Guid.NewGuid(), "Nothing"),
+                    KeyValuePair.Create(Guid.NewGuid(), "Quite a lot"),
+                    KeyValuePair.Create(Guid.NewGuid(), "Perhaps a little something"),
+                    KeyValuePair.Create(Guid.NewGuid(), "Everything")
+                };
+
+                mainServerLogic.playerAudienceClientAPI.StartNewVote("ASDASD", KeyValuePair.Create(Guid.NewGuid(), "What is happening here?"), options1);
+            }
+            else
+            {
+                KeyValuePair<Guid, string>[] options2 = new KeyValuePair<Guid, string>[]
+                {
+                    KeyValuePair.Create(Guid.NewGuid(), "Hell yeah"),
+                    KeyValuePair.Create(Guid.NewGuid(), "What am I doing with my life"),
+                };
+
+                mainServerLogic.playerAudienceClientAPI.StartNewVote("QWEQWE", KeyValuePair.Create(Guid.NewGuid(), "Another prompt?"), options2);
+            }
 
             return "Oops";
         }
+
 
         /// <summary>
         /// Parses the parameters the "port" command was called with. Depending on the

@@ -36,6 +36,15 @@ namespace ServerLogic.Control
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public bool IsServerActive()
+        {
+            return pABackend is not null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="sessionkey"></param>
         /// <param name="prompt"></param>
         /// <param name="options"></param>
@@ -75,7 +84,7 @@ namespace ServerLogic.Control
 
         public PlayerAudienceClientAPI()
         {
-            
+            /* FALL THROUGH */
         }
     }
 }

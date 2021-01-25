@@ -175,7 +175,7 @@ namespace PAClient
         /// </summary>
         /// <param name="sessionkey"></param>
         /// <returns></returns>
-        public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> getStatistics(string sessionkey)
+        public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> GetStatistics(string sessionkey)
         {
             return data.GetValueOrDefault(sessionkey);
         }

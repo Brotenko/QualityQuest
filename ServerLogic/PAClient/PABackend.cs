@@ -12,6 +12,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+/*
+ * 3) Error Pop-Up when connecting to non-existant session 
+ */
+
+
 namespace PAClient
 {
     /// <summary>
@@ -57,6 +62,7 @@ namespace PAClient
             Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
 
             PAVotingResults.AddVote(sessionkey, clientPrompt, option);
+            Console.WriteLine(PAVotingResults.ToString());
         }
 
         /// <summary>
@@ -69,6 +75,7 @@ namespace PAClient
             Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
 
             PAVotingResults.AddVote(sessionkey, clientPrompt, option);
+            Console.WriteLine(PAVotingResults.ToString());
         }
 
         /// <summary>
@@ -87,6 +94,8 @@ namespace PAClient
         private static void AddNewSession(string sessionkey)
         {
             PAVotingResults.AddSessionKey(sessionkey);
+            ConnectionList.Add(sessionkey, new List<string>());
+            CurrentPrompt.Add(sessionkey, new KeyValuePair<Guid, string>());
         }
 
         /// <summary>
@@ -97,7 +106,7 @@ namespace PAClient
         public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> EndSession(string sessionkey)
         {
             RemoveSession(sessionkey);
-            return PAVotingResults.getStatistics(sessionkey);
+            return PAVotingResults.GetStatistics(sessionkey);
         }
 
         /// <summary>
@@ -191,7 +200,7 @@ namespace PAClient
             {
             case 2:
                 ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
-                        prompt +
+                        promptString +
                       "</div>" +
                       "<div id=\"voting-container\" class=\"voting-container\">" +
                         "<input type=\"button\" id=\"choice-1\" class=\"input-button voting-container-2items-1\" value=\"" + optionsStrings[0] + "\" />" +
@@ -200,7 +209,7 @@ namespace PAClient
                 break;
             case 3:
                 ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
-                        prompt +
+                        promptString +
                       "</div>" +
                       "<div id=\"voting-container\" class=\"voting-container\">" +
                         "<input type=\"button\" id=\"choice-1\" class=\"input-button voting-container-3items-1\" value=\"" + optionsStrings[0] + "\" />" +
@@ -210,7 +219,7 @@ namespace PAClient
                 break;
             case 4:
                 ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
-                        prompt +
+                        promptString +
                       "</div>" +
                       "<div id=\"voting-container\" class=\"voting-container\">" +
                         "<input type=\"button\" id=\"choice-1\" class=\"input-button voting-container-4items-1\" value=\"" + optionsStrings[0] + "\" />" +
@@ -249,8 +258,9 @@ namespace PAClient
             Port = port;
             PAVotingResults = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
             ConnectionList = new Dictionary<string, List<string>>();
-            PAVotingResults.AddSessionKey("asdasd");
-            PAVotingResults.AddSessionKey("qweqwe");
+            CurrentPrompt = new Dictionary<string, KeyValuePair<Guid, string>>();
+            AddNewSession("ASDASD");
+            AddNewSession("QWEQWE");
 
             _serverThread = new Thread(this.ServerStart);
             _serverThread.Start();

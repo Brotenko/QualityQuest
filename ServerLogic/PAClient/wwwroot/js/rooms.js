@@ -26,7 +26,7 @@ connection.start().then(function () {
  * that the key belongs to a valid/active session.
  */
 document.getElementById("enter-room").addEventListener("click", function (event) {
-    sessionkey = document.getElementById("sessionkey").value;
+    sessionkey = document.getElementById("sessionkey").value.toUpperCase();
     connection.invoke("ValidateKey", sessionkey).catch(function (err) {
         return console.error(err.toString());
     });
