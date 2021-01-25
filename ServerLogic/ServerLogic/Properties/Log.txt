@@ -9,3 +9,4 @@
 [2021-01-25 09:32:45] [0] INFO: LogLevel was set to 0.
 [2021-01-25 09:33:09] [0] INFO: LogLevel was set to 0.
 [2021-01-25 09:33:26] [0] INFO: New Session started. LogLevel is 0, LogOutputType is 2.
+[2021-01-25 12:39:51] [0] INFO: New Session started. LogLevel is 0, LogOutputType is 2.

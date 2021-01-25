@@ -77,16 +77,31 @@ namespace ServerLogic.Control
             }
             else if(Properties.Settings.Default.LogOutPutType==0)
             {
-                using var streamWriter = new StreamWriter(Properties.Settings.Default.LogFilePath, true);
-                streamWriter.WriteLine(logRecord);
-                streamWriter.Close();
+                try
+                {
+                    using var streamWriter = new StreamWriter(Properties.Settings.Default.LogFilePath, true);
+                    streamWriter.WriteLine(logRecord);
+                    streamWriter.Close();
+                }
+                catch (System.IO.DirectoryNotFoundException)
+                {
+                    //todo relevant in testing case
+                }
+                
             }
             else
             {
-                using var streamWriter = new StreamWriter(Properties.Settings.Default.LogFilePath, true);
-                streamWriter.WriteLine(logRecord);
-                streamWriter.Close();
-                Console.WriteLine(logRecord);
+                try
+                {
+                    using var streamWriter = new StreamWriter(Properties.Settings.Default.LogFilePath, true);
+                    streamWriter.WriteLine(logRecord);
+                    streamWriter.Close();
+                    Console.WriteLine(logRecord);
+                }
+                catch (System.IO.DirectoryNotFoundException)
+                {
+                    //todo relevant in testing case
+                }
             }
         }
 
