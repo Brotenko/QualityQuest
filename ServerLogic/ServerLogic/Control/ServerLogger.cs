@@ -4,6 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic;
@@ -29,7 +31,7 @@ namespace ServerLogic.Control
         /// </summary>
         public static void CreateServerLogger()
         {
-            //"return _serverLogger == NULL ? new ServerLogger() : _serverLogger;" would be the Java-Equivalent
+            //"if (_severLogger == NULL) _serverLogger = new ServerLogger();" is the same
             _serverLogger ??= new ServerLogger();
         }
 
@@ -73,11 +75,18 @@ namespace ServerLogic.Control
             {
                 Console.WriteLine(logRecord);
             }
-            else
+            else if(Properties.Settings.Default.LogOutPutType==0)
             {
-                using var streamWriter = new StreamWriter(Properties.Resources.LogFilePath, true);
+                using var streamWriter = new StreamWriter(Properties.Settings.Default.LogFilePath, true);
                 streamWriter.WriteLine(logRecord);
                 streamWriter.Close();
+            }
+            else
+            {
+                using var streamWriter = new StreamWriter(Properties.Settings.Default.LogFilePath, true);
+                streamWriter.WriteLine(logRecord);
+                streamWriter.Close();
+                Console.WriteLine(logRecord);
             }
         }
 
@@ -90,13 +99,13 @@ namespace ServerLogic.Control
             string fileToString = "";
             try
             {
-                using var streamReader = new StreamReader(Properties.Resources.LogFilePath, true);
+                using var streamReader = new StreamReader(Properties.Settings.Default.LogFilePath, true);
                 fileToString = streamReader.ReadToEnd();
                 streamReader.Close();
             }
             catch (FileNotFoundException)
             {
-                //If Log.txt was deleted before, this will occur. Not so serious, as a new file is created during the next writing process.
+                //If Log.txt was deleted before, this will occur. No need for Exception-Handling, as a new file is created during the next writing process.
             }
 
             return fileToString;
@@ -132,6 +141,71 @@ namespace ServerLogic.Control
                 Console.WriteLine(Properties.Resources.InvalidLoggingOutputType);
             }
         }
+
+        private class ServerLogicLog
+        {
+            public string SessionKey;
+            public Guid ModeratorId;
+            public Guid[] audienceClients;
+            public Dictionary<Guid, int> VotingResults;
+        }
+        public static void CreateServerSessionLog(string sessionKey, Guid moderatorId)
+        {
+            //todo this method is a draft right now, as it heavily relies on information provided by the yet-not-finished AudienceClient
+            ServerLogicLog log = new ServerLogicLog();
+            log.SessionKey = sessionKey;
+            log.ModeratorId = moderatorId;
+            string jsonString = JsonSerializer.Serialize<ServerLogicLog>(log);
+            File.WriteAllText(Properties.Settings.Default.ServerLogicLogFilePath+"Session_"+sessionKey+".txt",jsonString);
+        }
+
+        public static Guid GetModeratorIdFromSessionLog(string sessionKey)
+        {
+            string jsonString = File.ReadAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
+                                                       sessionKey + ".txt");
+            ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
+            return logicLog.ModeratorId;
+        }
+
+        public static void AddStatsToSession(string sessionKey, Dictionary<Guid,int> votingResults)
+        {
+            string jsonString = File.ReadAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
+                                                 sessionKey + ".txt");
+            ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
+            if (logicLog.VotingResults != null)
+            {
+                foreach (KeyValuePair<Guid, int> entry in votingResults)
+                {
+                    logicLog.VotingResults.Add(entry.Key, entry.Value);
+                }
+            }
+            else
+            {
+                logicLog.VotingResults = votingResults;
+            }
+            jsonString = JsonSerializer.Serialize<ServerLogicLog>(logicLog);
+            File.WriteAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" + sessionKey + ".txt", jsonString);
+        }
+
+        public static Dictionary<Guid, int> GetStatsFromSession(string sessionKey)
+        {
+            string jsonString = File.ReadAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
+                                                 sessionKey + ".txt");
+            ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
+            return logicLog.VotingResults;
+        }
+
+        public static void ClearSessionLog(string sessionKey)
+        {
+            File.Delete(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
+                        sessionKey + ".txt");
+        }
+
+        public static void DeleteAllSessionLogs()
+        {
+            //Directory.Delete(Properties.Settings.Default.ServerLogicLogFilePath, true);
+        }
+
 
         /// <summary>
         /// Saves the passed string as a "debug" log.
