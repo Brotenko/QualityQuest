@@ -28,7 +28,19 @@ namespace PAClient
         /// <param name="sessionkey"></param>
         public void AddSessionKey(string sessionkey)
         {
-            data.Add(sessionkey, new Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>());
+            if (!IsSessionActive(sessionkey))
+            {
+                data.Add(sessionkey, new Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>());
+            }
+            else
+            {
+                throw new InvalidOperationException(message: "The requested session is either already active, or the transferred sessionkey is invalid.");
+            }
+        }
+
+        private bool IsSessionActive(string sessionkey)
+        {
+            return GetSessionKeys().Contains(sessionkey);
         }
 
         /// <summary>
@@ -39,18 +51,28 @@ namespace PAClient
         /// <param name="options"></param>
         public void AddNewPoll(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
-            if (!GetSessionKeys().Contains(sessionkey))
+            if (IsSessionActive(sessionkey))
             {
-                throw new SessionNotFoundException();
-            }
+                if ()
+                {
 
-            Dictionary<KeyValuePair<Guid, string>, int> tempDict = new Dictionary<KeyValuePair<Guid, string>, int>();
-            foreach (KeyValuePair<Guid, string> o in options)
+                }
+                else
+                {
+                    throw new InvalidOperationException(message: "A poll with the given Guid has already been held.");
+                }
+                Dictionary<KeyValuePair<Guid, string>, int> tempDict = new Dictionary<KeyValuePair<Guid, string>, int>();
+                foreach (KeyValuePair<Guid, string> o in options)
+                {
+                    tempDict.Add(o, 0);
+                }
+
+                data.GetValueOrDefault(sessionkey).Add(prompt, tempDict);
+            }
+            else
             {
-                tempDict.Add(o, 0);
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
-
-            data.GetValueOrDefault(sessionkey).Add(prompt, tempDict);
         }
 
         /// <summary>
@@ -61,14 +83,21 @@ namespace PAClient
         /// <param name="option"></param>
         public void AddVote(string sessionkey, string prompt, string option)
         {
-            Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-            foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
+            if (IsSessionActive(sessionkey))
             {
-                if (option == options.Value)
+                Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+                foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
                 {
-                    possibleChoices[options] += 1;
+                    if (option == options.Value)
+                    {
+                        possibleChoices[options] += 1;
+                    }
                 }
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
         }
 
@@ -80,14 +109,21 @@ namespace PAClient
         /// <param name="option"></param>
         public void AddVote(string sessionkey, string prompt, Guid option)
         {
-            Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-            foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
+            if (IsSessionActive(sessionkey))
             {
-                if (option == options.Key)
+                Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+                foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
                 {
-                    possibleChoices[options] += 1;
+                    if (option == options.Key)
+                    {
+                        possibleChoices[options] += 1;
+                    }
                 }
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
         }
 
@@ -99,14 +135,21 @@ namespace PAClient
         /// <param name="option"></param>
         public void AddVote(string sessionkey, Guid prompt, string option)
         {
-            Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-            foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
+            if (IsSessionActive(sessionkey))
             {
-                if (option == options.Value)
+                Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+                foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
                 {
-                    possibleChoices[options] += 1;
+                    if (option == options.Value)
+                    {
+                        possibleChoices[options] += 1;
+                    }
                 }
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
         }
 
@@ -118,14 +161,21 @@ namespace PAClient
         /// <param name="option"></param>
         public void AddVote(string sessionkey, Guid prompt, Guid option)
         {
-            Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-            foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
+            if (IsSessionActive(sessionkey))
             {
-                if (option == options.Key)
+                Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+                foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
                 {
-                    possibleChoices[options] += 1;
+                    if (option == options.Key)
+                    {
+                        possibleChoices[options] += 1;
+                    }
                 }
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
         }
 
@@ -135,12 +185,14 @@ namespace PAClient
         /// <param name="sessionkey"></param>
         public void RemoveSession(string sessionkey)
         {
-            if (!GetSessionKeys().Contains(sessionkey))
+            if (IsSessionActive(sessionkey))
             {
-                throw new SessionNotFoundException();
+                data.Remove(sessionkey);
             }
-
-            data.Remove(sessionkey);
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -159,15 +211,22 @@ namespace PAClient
         /// <returns></returns>
         public KeyValuePair<Guid, string>[] GetPromptsBySession(string sessionkey)
         {
-            foreach (KeyValuePair<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> entry in data)
+            if (IsSessionActive(sessionkey))
             {
-                if (sessionkey == entry.Key)
+                foreach (KeyValuePair<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> entry in data)
                 {
-                    return entry.Value.Keys.ToArray();
+                    if (sessionkey == entry.Key)
+                    {
+                        return entry.Value.Keys.ToArray();
+                    }
                 }
-            }
 
-            return null;
+                return null;
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -177,7 +236,14 @@ namespace PAClient
         /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> GetStatistics(string sessionkey)
         {
-            return data.GetValueOrDefault(sessionkey);
+            if (IsSessionActive(sessionkey))
+            {
+                return data.GetValueOrDefault(sessionkey);
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -187,20 +253,27 @@ namespace PAClient
         /// <returns></returns>
         public Guid[] GetPromptGuidsBySession(string sessionkey)
         {
-            List<Guid> prompts = new List<Guid>();
-            KeyValuePair<Guid, string>[] tempPrompts = GetPromptsBySession(sessionkey);
-
-            if (tempPrompts != null)
+            if (IsSessionActive(sessionkey))
             {
-                foreach (KeyValuePair<Guid, string> prompt in tempPrompts)
+                List<Guid> prompts = new List<Guid>();
+                KeyValuePair<Guid, string>[] tempPrompts = GetPromptsBySession(sessionkey);
+
+                if (tempPrompts != null)
                 {
-                    prompts.Add(prompt.Key);
+                    foreach (KeyValuePair<Guid, string> prompt in tempPrompts)
+                    {
+                        prompts.Add(prompt.Key);
+                    }
+                    return prompts.ToArray();
                 }
-                return prompts.ToArray();
+                else
+                {
+                    return null;
+                }
             }
             else
             {
-                return null;
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
         }
 
@@ -211,20 +284,27 @@ namespace PAClient
         /// <returns></returns>
         public string[] GetPromptStringsBySession(string sessionkey)
         {
-            List<string> prompts = new List<string>();
-            KeyValuePair<Guid, string>[] tempPrompts = GetPromptsBySession(sessionkey);
-
-            if (tempPrompts != null)
+            if (IsSessionActive(sessionkey))
             {
-                foreach (KeyValuePair<Guid, string> prompt in tempPrompts)
+                List<string> prompts = new List<string>();
+                KeyValuePair<Guid, string>[] tempPrompts = GetPromptsBySession(sessionkey);
+
+                if (tempPrompts != null)
                 {
-                    prompts.Add(prompt.Value);
+                    foreach (KeyValuePair<Guid, string> prompt in tempPrompts)
+                    {
+                        prompts.Add(prompt.Value);
+                    }
+                    return prompts.ToArray();
                 }
-                return prompts.ToArray();
+                else
+                {
+                    return null;
+                }
             }
             else
             {
-                return null;
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
         }
 
@@ -236,24 +316,31 @@ namespace PAClient
         /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetOptionsVotesPairsByPrompt(string sessionkey, string prompt)
         {
-            foreach (KeyValuePair<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> session in data)
+            if (IsSessionActive(sessionkey))
             {
-                if (sessionkey == session.Key)
+                foreach (KeyValuePair<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> session in data)
                 {
-                    foreach (KeyValuePair<Guid, string> tempPrompt in session.Value.Keys)
+                    if (sessionkey == session.Key)
                     {
-                        if (prompt == tempPrompt.Value)
+                        foreach (KeyValuePair<Guid, string> tempPrompt in session.Value.Keys)
                         {
-                            foreach (Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs in session.Value.Values)
+                            if (prompt == tempPrompt.Value)
                             {
-                                return optionsVotesPairs;
+                                foreach (Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs in session.Value.Values)
+                                {
+                                    return optionsVotesPairs;
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            return null;
+                return null;
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -264,24 +351,31 @@ namespace PAClient
         /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetOptionsVotesPairsByPrompt(string sessionkey, Guid prompt)
         {
-            foreach (KeyValuePair<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> session in data)
+            if (IsSessionActive(sessionkey))
             {
-                if (sessionkey == session.Key)
+                foreach (KeyValuePair<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> session in data)
                 {
-                    foreach (KeyValuePair<Guid, string> tempPrompt in session.Value.Keys)
+                    if (sessionkey == session.Key)
                     {
-                        if (prompt == tempPrompt.Key)
+                        foreach (KeyValuePair<Guid, string> tempPrompt in session.Value.Keys)
                         {
-                            foreach (Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs in session.Value.Values)
+                            if (prompt == tempPrompt.Key)
                             {
-                                return optionsVotesPairs;
+                                foreach (Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs in session.Value.Values)
+                                {
+                                    return optionsVotesPairs;
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            return null;
+                return null;
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -292,18 +386,25 @@ namespace PAClient
         /// <returns></returns>
         public KeyValuePair<Guid, string>[] GetOptionsByPrompt(string sessionkey, string prompt)
         {
-            List<KeyValuePair<Guid, string>> options = new List<KeyValuePair<Guid, string>>();
-            Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-            if (optionsVotesPairs != null)
+            if (IsSessionActive(sessionkey))
             {
-                foreach (KeyValuePair<Guid, string> option in optionsVotesPairs.Keys)
-                {
-                    options.Add(option);
-                }
-            }
+                List<KeyValuePair<Guid, string>> options = new List<KeyValuePair<Guid, string>>();
+                Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
 
-            return options.ToArray();
+                if (optionsVotesPairs != null)
+                {
+                    foreach (KeyValuePair<Guid, string> option in optionsVotesPairs.Keys)
+                    {
+                        options.Add(option);
+                    }
+                }
+
+                return options.ToArray();
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -314,18 +415,25 @@ namespace PAClient
         /// <returns></returns>
         public KeyValuePair<Guid, string>[] GetOptionsByPrompt(string sessionkey, Guid prompt)
         {
-            List<KeyValuePair<Guid, string>> options = new List<KeyValuePair<Guid, string>>();
-            Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-            if (optionsVotesPairs != null)
+            if (IsSessionActive(sessionkey))
             {
-                foreach (KeyValuePair<Guid, string> option in optionsVotesPairs.Keys)
-                {
-                    options.Add(option);
-                }
-            }
+                List<KeyValuePair<Guid, string>> options = new List<KeyValuePair<Guid, string>>();
+                Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
 
-            return options.ToArray();
+                if (optionsVotesPairs != null)
+                {
+                    foreach (KeyValuePair<Guid, string> option in optionsVotesPairs.Keys)
+                    {
+                        options.Add(option);
+                    }
+                }
+
+                return options.ToArray();
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -336,18 +444,25 @@ namespace PAClient
         /// <returns></returns>
         public string[] GetOptionStringsByPrompt(string sessionkey, string prompt)
         {
-            List<string> options = new List<string>();
-            KeyValuePair<Guid, string>[] tempOptions = GetOptionsByPrompt(sessionkey, prompt);
-
-            if (tempOptions != null)
+            if (IsSessionActive(sessionkey))
             {
-                foreach (KeyValuePair<Guid, string> option in tempOptions)
-                {
-                    options.Add(option.Value);
-                }
-            }
+                List<string> options = new List<string>();
+                KeyValuePair<Guid, string>[] tempOptions = GetOptionsByPrompt(sessionkey, prompt);
 
-            return options.ToArray();
+                if (tempOptions != null)
+                {
+                    foreach (KeyValuePair<Guid, string> option in tempOptions)
+                    {
+                        options.Add(option.Value);
+                    }
+                }
+
+                return options.ToArray();
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -358,18 +473,25 @@ namespace PAClient
         /// <returns></returns>
         public string[] GetOptionStringsByPrompt(string sessionkey, Guid prompt)
         {
-            List<string> options = new List<string>();
-            KeyValuePair<Guid, string>[] tempOptions = GetOptionsByPrompt(sessionkey, prompt);
-
-            if (tempOptions != null)
+            if (IsSessionActive(sessionkey))
             {
-                foreach (KeyValuePair<Guid, string> option in tempOptions)
-                {
-                    options.Add(option.Value);
-                }
-            }
+                List<string> options = new List<string>();
+                KeyValuePair<Guid, string>[] tempOptions = GetOptionsByPrompt(sessionkey, prompt);
 
-            return options.ToArray();
+                if (tempOptions != null)
+                {
+                    foreach (KeyValuePair<Guid, string> option in tempOptions)
+                    {
+                        options.Add(option.Value);
+                    }
+                }
+
+                return options.ToArray();
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -380,18 +502,25 @@ namespace PAClient
         /// <returns></returns>
         public Guid[] GetOptionGuidsByPrompt(string sessionkey, Guid prompt)
         {
-            List<Guid> options = new List<Guid>();
-            KeyValuePair<Guid, string>[] tempOptions = GetOptionsByPrompt(sessionkey, prompt);
-
-            if (tempOptions != null)
+            if (IsSessionActive(sessionkey))
             {
-                foreach (KeyValuePair<Guid, string> option in tempOptions)
-                {
-                    options.Add(option.Key);
-                }
-            }
+                List<Guid> options = new List<Guid>();
+                KeyValuePair<Guid, string>[] tempOptions = GetOptionsByPrompt(sessionkey, prompt);
 
-            return options.ToArray();
+                if (tempOptions != null)
+                {
+                    foreach (KeyValuePair<Guid, string> option in tempOptions)
+                    {
+                        options.Add(option.Key);
+                    }
+                }
+
+                return options.ToArray();
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -402,18 +531,25 @@ namespace PAClient
         /// <returns></returns>
         public Guid[] GetOptionGuidsByPrompt(string sessionkey, string prompt)
         {
-            List<Guid> options = new List<Guid>();
-            KeyValuePair<Guid, string>[] tempOptions = GetOptionsByPrompt(sessionkey, prompt);
-
-            if (tempOptions != null)
+            if (IsSessionActive(sessionkey))
             {
-                foreach (KeyValuePair<Guid, string> option in tempOptions)
-                {
-                    options.Add(option.Key);
-                }
-            }
+                List<Guid> options = new List<Guid>();
+                KeyValuePair<Guid, string>[] tempOptions = GetOptionsByPrompt(sessionkey, prompt);
 
-            return options.ToArray();
+                if (tempOptions != null)
+                {
+                    foreach (KeyValuePair<Guid, string> option in tempOptions)
+                    {
+                        options.Add(option.Key);
+                    }
+                }
+
+                return options.ToArray();
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -425,20 +561,27 @@ namespace PAClient
         /// <returns></returns>
         public int GetVotesByOption(string sessionkey, string prompt, string option)
         {
-            Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-            if (optionsVotesPairs != null)
+            if (IsSessionActive(sessionkey))
             {
-                foreach (KeyValuePair<Guid, string> options in optionsVotesPairs.Keys)
+                Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+                if (optionsVotesPairs != null)
                 {
-                    if (option == options.Value)
+                    foreach (KeyValuePair<Guid, string> options in optionsVotesPairs.Keys)
                     {
-                        return optionsVotesPairs.GetValueOrDefault(options);
+                        if (option == options.Value)
+                        {
+                            return optionsVotesPairs.GetValueOrDefault(options);
+                        }
                     }
                 }
-            }
 
-            return -1;
+                return -1;
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -450,20 +593,27 @@ namespace PAClient
         /// <returns></returns>
         public int GetVotesByOption(string sessionkey, Guid prompt, string option)
         {
-            Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-            if (optionsVotesPairs != null)
+            if (IsSessionActive(sessionkey))
             {
-                foreach (KeyValuePair<Guid, string> options in optionsVotesPairs.Keys)
+                Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+                if (optionsVotesPairs != null)
                 {
-                    if (option == options.Value)
+                    foreach (KeyValuePair<Guid, string> options in optionsVotesPairs.Keys)
                     {
-                        return optionsVotesPairs.GetValueOrDefault(options);
+                        if (option == options.Value)
+                        {
+                            return optionsVotesPairs.GetValueOrDefault(options);
+                        }
                     }
                 }
-            }
 
-            return -1;
+                return -1;
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -475,20 +625,27 @@ namespace PAClient
         /// <returns></returns>
         public int GetVotesByOption(string sessionkey, string prompt, Guid option)
         {
-            Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-            if (optionsVotesPairs != null)
+            if (IsSessionActive(sessionkey))
             {
-                foreach (KeyValuePair<Guid, string> options in optionsVotesPairs.Keys)
+                Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+                if (optionsVotesPairs != null)
                 {
-                    if (option == options.Key)
+                    foreach (KeyValuePair<Guid, string> options in optionsVotesPairs.Keys)
                     {
-                        return optionsVotesPairs.GetValueOrDefault(options);
+                        if (option == options.Key)
+                        {
+                            return optionsVotesPairs.GetValueOrDefault(options);
+                        }
                     }
                 }
-            }
 
-            return -1;
+                return -1;
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -500,20 +657,27 @@ namespace PAClient
         /// <returns></returns>
         public int GetVotesByOption(string sessionkey, Guid prompt, Guid option)
         {
-            Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-            if (optionsVotesPairs != null)
+            if (IsSessionActive(sessionkey))
             {
-                foreach (KeyValuePair<Guid, string> options in optionsVotesPairs.Keys)
+                Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+                if (optionsVotesPairs != null)
                 {
-                    if (option == options.Key)
+                    foreach (KeyValuePair<Guid, string> options in optionsVotesPairs.Keys)
                     {
-                        return optionsVotesPairs.GetValueOrDefault(options);
+                        if (option == options.Key)
+                        {
+                            return optionsVotesPairs.GetValueOrDefault(options);
+                        }
                     }
                 }
-            }
 
-            return -1;
+                return -1;
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>

@@ -13,7 +13,10 @@ using System.Threading;
 using System.Threading.Tasks;
 
 /*
- * 3) Error Pop-Up when connecting to non-existant session 
+ * 1) Add more security levels to methods with Exceptions and return values and shit
+ * 2) Add tests and comments
+ * 3) Error Pop-Up when connecting to non-existent session 
+ * 4) Update documentation
  */
 
 
@@ -47,9 +50,24 @@ namespace PAClient
         {
             get; set;
         }
+
         private int Port
         {
             get; set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string[] GetSessionKeys()
+        {
+            return PAVotingResults.GetSessionKeys();
+        }
+
+        private static bool IsSessionActive(string sessionkey)
+        {
+            return PAVotingResults.GetSessionKeys().Contains(sessionkey);
         }
 
         /// <summary>
@@ -59,10 +77,16 @@ namespace PAClient
         /// <param name="option"></param>
         public static void CountNewVote(string sessionkey, string option)
         {
-            Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
+            if (IsSessionActive(sessionkey))
+            {
+                Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
 
-            PAVotingResults.AddVote(sessionkey, clientPrompt, option);
-            Console.WriteLine(PAVotingResults.ToString());
+                PAVotingResults.AddVote(sessionkey, clientPrompt, option);
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -72,10 +96,17 @@ namespace PAClient
         /// <param name="option"></param>
         public static void CountNewVote(string sessionkey, Guid option)
         {
-            Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
+            if (IsSessionActive(sessionkey))
+            {
+                Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
 
-            PAVotingResults.AddVote(sessionkey, clientPrompt, option);
-            Console.WriteLine(PAVotingResults.ToString());
+                PAVotingResults.AddVote(sessionkey, clientPrompt, option);
+                Console.WriteLine(PAVotingResults.ToString());
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -84,7 +115,14 @@ namespace PAClient
         /// <param name="sessionkey"></param>
         public void StartNewSession(string sessionkey)
         {
-            AddNewSession(sessionkey);
+            if (!IsSessionActive(sessionkey))
+            {
+                AddNewSession(sessionkey);
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is already active!");
+            }
         }
 
         /// <summary>
@@ -105,8 +143,16 @@ namespace PAClient
         /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> EndSession(string sessionkey)
         {
-            RemoveSession(sessionkey);
-            return PAVotingResults.GetStatistics(sessionkey);
+            if (IsSessionActive(sessionkey))
+            {
+                Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> temp = PAVotingResults.GetStatistics(sessionkey);
+                RemoveSession(sessionkey);
+                return temp;
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -125,9 +171,13 @@ namespace PAClient
         /// <param name="connectionId"></param>
         public static void AddConnection(string sessionkey, string connectionId)
         {
-            if (!ConnectionList.GetValueOrDefault(sessionkey).Contains(connectionId))
+            if (IsSessionActive(sessionkey))
             {
                 ConnectionList.GetValueOrDefault(sessionkey).Add(connectionId);
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
         }
 
@@ -154,8 +204,15 @@ namespace PAClient
         /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResult(string sessionkey, string prompt)
         {
-            SendPushClear(sessionkey);
-            return PAVotingResults.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+            if (IsSessionActive(sessionkey))
+            {
+                SendPushClear(sessionkey);
+                return PAVotingResults.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
@@ -164,22 +221,29 @@ namespace PAClient
         /// <param name="sessionkey"></param>
         /// <param name="prompt"></param>
         /// <param name="options"></param>
-        public async void SendPushMessage(string sessionkey, KeyValuePair<Guid,string> prompt, KeyValuePair<Guid, string>[] options)
+        public async void SendPushMessage(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
-            string pageContent = CreatePageContent(prompt, options);
-            CurrentPrompt[sessionkey] = prompt;
-            PAVotingResults.AddNewPoll(sessionkey, prompt, options);
+            if (IsSessionActive(sessionkey))
+            {
+                string pageContent = CreatePageContent(prompt, options);
+                CurrentPrompt[sessionkey] = prompt;
+                PAVotingResults.AddNewPoll(sessionkey, prompt, options);
 
-            await _hubContext.Clients.Group(sessionkey).SendAsync("NewPrompt", pageContent);
+                await _hubContext.Clients.Group(sessionkey).SendAsync("NewPrompt", pageContent);
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="group"></param>
-        private async void SendPushClear(string group)
+        private async void SendPushClear(string sessionkey)
         {
-            await _hubContext.Clients.Group(group).SendAsync("ClearPrompt");
+            await _hubContext.Clients.Group(sessionkey).SendAsync("ClearPrompt");
         }
 
         /// <summary>

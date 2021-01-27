@@ -16,6 +16,9 @@ namespace ServerLogicTests.Control
     public class PlayerAudienceClientAPITest
     {
         private const int testPort = 7777;
+        private const string testKey_1 = "TU7ROU";
+        private const string testKey_2 = "d5er0b";
+        private const string testKey_3 = "GH&b_Z";
 
         /// <summary>
         /// 
@@ -33,19 +36,25 @@ namespace ServerLogicTests.Control
         /// 
         /// </summary>
         [TestMethod]
-        public void StartNewVoteTest()
+        public void StartNewSessionTest()
         {
-
+            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            //Assert.IsTrue(p.StartNewSession(testKey_1));
+            //Assert.IsFalse(p.StartNewSession(testKey_2));
+            //Assert.IsFalse(p.StartNewSession(testKey_3));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        public void StartNewSessionTest()
+        public void StartNewVoteTest()
         {
-
+            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p.StartNewSession(testKey_1);
         }
+
+        
 
         /// <summary>
         /// 

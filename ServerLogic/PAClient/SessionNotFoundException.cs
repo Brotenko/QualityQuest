@@ -7,7 +7,7 @@ namespace PAClient
     /// <summary>
     /// 
     /// </summary>
-    class SessionNotFoundException : Exception
+    public class SessionNotFoundException : Exception
     {
         /// <summary>
         /// 
