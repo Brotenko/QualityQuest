@@ -16,7 +16,7 @@ namespace ServerLogic.Control
     public class PlayerAudienceClientAPI
     {
         private PABackend pABackend;
-        private bool serverIsActive = false;
+        private bool serverIsActive;
 
         /// <summary>
         /// 
@@ -64,16 +64,23 @@ namespace ServerLogic.Control
         /// 
         /// </summary>
         /// <param name="sessionkey"></param>
-        /// <returns></returns>
-        public void StartNewSession(string sessionkey)
+        /// <returns>If a new session has been started successfully.</returns>
+        public bool StartNewSession(string sessionkey)
         {
-            if (Regex.IsMatch(sessionkey, @"\[A-Z0-9]{6}"))
+            if (serverIsActive)
             {
-                pABackend.StartNewSession(sessionkey);
+                if (Regex.IsMatch(sessionkey, @"[A-Z0-9]{6}"))
+                {
+                    return pABackend.StartNewSession(sessionkey);
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                throw new InvalidOperationException(message: "The requested session is either already active, or the transferred sessionkey is invalid.");
+                throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
             }
         }
 
@@ -84,15 +91,24 @@ namespace ServerLogic.Control
         /// <param name="prompt"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public void StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
+        public bool StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
-            if (IsSessionActive(sessionkey))
+            if (serverIsActive)
             {
-                pABackend.SendPushMessage(sessionkey, prompt, options);
+                try
+                {
+                    pABackend.SendPushMessage(sessionkey, prompt, options);
+                    return true;
+                }
+                catch (InvalidOperationException e)
+                {
+                    /* LOG ERROR HERE */
+                    return false;
+                }
             }
             else
             {
-                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
             }
         }
 
@@ -112,13 +128,20 @@ namespace ServerLogic.Control
         /// <param name="sessionkey"></param>
         public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> EndSession(string sessionkey)
         {
-            if (IsSessionActive(sessionkey))
+            if (serverIsActive)
             {
-                return pABackend.EndSession(sessionkey);
+                if (IsSessionActive(sessionkey))
+                {
+                    return pABackend.EndSession(sessionkey);
+                }
+                else
+                {
+                    throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                }
             }
             else
             {
-                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
             }
         }
 
@@ -128,15 +151,22 @@ namespace ServerLogic.Control
         /// <param name="sessionkey"></param>
         /// <param name="prompt"></param>
         /// <returns></returns>
-        public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResults(string sessionkey, string prompt)
+        public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResults(string sessionkey, KeyValuePair<Guid, string> prompt)
         {
-            if (IsSessionActive(sessionkey))
+            if (serverIsActive)
             {
-                return pABackend.GetVotingResult(sessionkey, prompt);
+                if (IsSessionActive(sessionkey))
+                {
+                    return pABackend.GetVotingResult(sessionkey, prompt);
+                }
+                else
+                {
+                    throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                }
             }
             else
             {
-                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
             }
         }
 

@@ -53,21 +53,20 @@ namespace PAClient
         {
             if (IsSessionActive(sessionkey))
             {
-                if ()
+                if (!this.GetPromptsBySession(sessionkey).Contains(prompt))
                 {
+                    Dictionary<KeyValuePair<Guid, string>, int> tempDict = new Dictionary<KeyValuePair<Guid, string>, int>();
+                    foreach (KeyValuePair<Guid, string> o in options)
+                    {
+                        tempDict.Add(o, 0);
+                    }
 
+                    data.GetValueOrDefault(sessionkey).Add(prompt, tempDict);
                 }
                 else
                 {
                     throw new InvalidOperationException(message: "A poll with the given Guid has already been held.");
                 }
-                Dictionary<KeyValuePair<Guid, string>, int> tempDict = new Dictionary<KeyValuePair<Guid, string>, int>();
-                foreach (KeyValuePair<Guid, string> o in options)
-                {
-                    tempDict.Add(o, 0);
-                }
-
-                data.GetValueOrDefault(sessionkey).Add(prompt, tempDict);
             }
             else
             {
@@ -85,14 +84,21 @@ namespace PAClient
         {
             if (IsSessionActive(sessionkey))
             {
-                Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-                foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
+                if (!this.GetPromptStringsBySession(sessionkey).Contains(prompt))
                 {
-                    if (option == options.Value)
+                    Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+                    foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
                     {
-                        possibleChoices[options] += 1;
+                        if (option == options.Value)
+                        {
+                            possibleChoices[options] += 1;
+                        }
                     }
+                }
+                else
+                {
+                    throw new InvalidOperationException(message: "The requested prompt is either invalid or belongs to another session.");
                 }
             }
             else
@@ -111,14 +117,21 @@ namespace PAClient
         {
             if (IsSessionActive(sessionkey))
             {
-                Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-                foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
+                if (!this.GetPromptStringsBySession(sessionkey).Contains(prompt))
                 {
-                    if (option == options.Key)
+                    Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+                    foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
                     {
-                        possibleChoices[options] += 1;
+                        if (option == options.Key)
+                        {
+                            possibleChoices[options] += 1;
+                        }
                     }
+                }
+                else
+                {
+                    throw new InvalidOperationException(message: "The requested prompt is either invalid or belongs to another session.");
                 }
             }
             else
@@ -137,14 +150,21 @@ namespace PAClient
         {
             if (IsSessionActive(sessionkey))
             {
-                Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-                foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
+                if (!this.GetPromptGuidsBySession(sessionkey).Contains(prompt))
                 {
-                    if (option == options.Value)
+                    Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+                    foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
                     {
-                        possibleChoices[options] += 1;
+                        if (option == options.Value)
+                        {
+                            possibleChoices[options] += 1;
+                        }
                     }
+                }
+                else
+                {
+                    throw new InvalidOperationException(message: "The requested prompt is either invalid or belongs to another session.");
                 }
             }
             else
@@ -163,14 +183,21 @@ namespace PAClient
         {
             if (IsSessionActive(sessionkey))
             {
-                Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
-
-                foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
+                if (!this.GetPromptGuidsBySession(sessionkey).Contains(prompt))
                 {
-                    if (option == options.Key)
+                    Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+
+                    foreach (KeyValuePair<Guid, string> options in possibleChoices.Keys)
                     {
-                        possibleChoices[options] += 1;
+                        if (option == options.Key)
+                        {
+                            possibleChoices[options] += 1;
+                        }
                     }
+                }
+                else
+                {
+                    throw new InvalidOperationException(message: "The requested prompt is either invalid or belongs to another session.");
                 }
             }
             else

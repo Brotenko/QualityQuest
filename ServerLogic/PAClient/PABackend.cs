@@ -77,15 +77,19 @@ namespace PAClient
         /// <param name="option"></param>
         public static void CountNewVote(string sessionkey, string option)
         {
-            if (IsSessionActive(sessionkey))
+            try
             {
                 Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
 
                 PAVotingResults.AddVote(sessionkey, clientPrompt, option);
             }
-            else
+            catch (InvalidOperationException e)
             {
-                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                /* LOG ERROR HERE */
+            }
+            catch (SessionNotFoundException e)
+            {
+                /* LOG ERROR HERE */
             }
         }
 
@@ -96,16 +100,19 @@ namespace PAClient
         /// <param name="option"></param>
         public static void CountNewVote(string sessionkey, Guid option)
         {
-            if (IsSessionActive(sessionkey))
+            try
             {
                 Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
 
                 PAVotingResults.AddVote(sessionkey, clientPrompt, option);
-                Console.WriteLine(PAVotingResults.ToString());
             }
-            else
+            catch (InvalidOperationException e)
             {
-                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                /* LOG ERROR HERE */
+            }
+            catch (SessionNotFoundException e)
+            {
+                /* LOG ERROR HERE */
             }
         }
 
@@ -113,15 +120,17 @@ namespace PAClient
         /// 
         /// </summary>
         /// <param name="sessionkey"></param>
-        public void StartNewSession(string sessionkey)
+        public bool StartNewSession(string sessionkey)
         {
             if (!IsSessionActive(sessionkey))
             {
                 AddNewSession(sessionkey);
+                return true;
             }
             else
             {
-                throw new SessionNotFoundException(message: "The requested session is already active!");
+                /* LOG ERROR HERE */
+                return false;
             }
         }
 
@@ -151,7 +160,7 @@ namespace PAClient
             }
             else
             {
-                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                return null;
             }
         }
 
@@ -177,7 +186,7 @@ namespace PAClient
             }
             else
             {
-                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                /* LOG ERROR HERE */
             }
         }
 
@@ -202,16 +211,17 @@ namespace PAClient
         /// <param name="sessionkey"></param>
         /// <param name="prompt"></param>
         /// <returns></returns>
-        public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResult(string sessionkey, string prompt)
+        public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResult(string sessionkey, KeyValuePair<Guid, string> prompt)
         {
-            if (IsSessionActive(sessionkey))
+            try
             {
                 SendPushClear(sessionkey);
-                return PAVotingResults.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
+                return PAVotingResults.GetOptionsVotesPairsByPrompt(sessionkey, prompt.Key);
             }
-            else
+            catch (SessionNotFoundException e)
             {
-                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                /* LOG ERROR HERE */
+                return null;
             }
         }
 
@@ -223,18 +233,11 @@ namespace PAClient
         /// <param name="options"></param>
         public async void SendPushMessage(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
-            if (IsSessionActive(sessionkey))
-            {
-                string pageContent = CreatePageContent(prompt, options);
-                CurrentPrompt[sessionkey] = prompt;
-                PAVotingResults.AddNewPoll(sessionkey, prompt, options);
+            string pageContent = CreatePageContent(prompt, options);
+            CurrentPrompt[sessionkey] = prompt;
+            PAVotingResults.AddNewPoll(sessionkey, prompt, options);
 
-                await _hubContext.Clients.Group(sessionkey).SendAsync("NewPrompt", pageContent);
-            }
-            else
-            {
-                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
-            }
+            await _hubContext.Clients.Group(sessionkey).SendAsync("NewPrompt", pageContent);
         }
 
         /// <summary>
