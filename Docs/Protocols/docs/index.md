@@ -10,7 +10,7 @@ The document is split up in three different sections for easier viewing and read
 |:----------------:|:---------:|
 |**Sprint-Reviews**|_Protocols of the conducted sprint-reviews held with the Scrum-Master and the customer._|
 |**Scrum-Meetings**|_Protocols of the conducted scrum-meetings held with the Scrum-Master and the team._|
-|**Miscellaneous** |_Protocols of miscellaneous mettings conducted with people that are not directly involved with the project._|
+|**Miscellaneous** |_Protocols of miscellaneous meetings conducted with people that are not directly involved with the project._|
 
 <br/>
 

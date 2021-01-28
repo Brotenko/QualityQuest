@@ -7,12 +7,22 @@ The security and persistence of communication is guaranteed by the use of WebSoc
 
 ## ServerLogic logs
 
-The ServerLogic log stores the Moderator-Client's GUID, the PlayerAudience-Client GUIDs, the voting results, and the sessionKey. If the ServerLogic should at any time lose the connection to the internet or have to close the current Online-Session, this will provide the following advantages:
+The ServerLogic log stores the Moderator-Client's GUID and the sessionkey as a pair. If the ServerLogic should at any time lose the connection to the internet or have to close the current Online-Session, this will provide the following advantages:
 
 - The logged Moderator-Client's GUID can still be used to send a [ReconnectMessage](#reconnectmessage) to the ServerLogic without requiring the password to be re-entered. This allows the Online-Session to resume easily without having to change sessionKey or re-entering the password.
-- The logged PlayerAudience-Client GUIDs can be used for keeping track of the PlayerAudience-Clients connected to the ServerLogic.
-- The logged sessionKey allows the PlayerAudience-Clients to quickly and easily reconnect to the Online-Session without having to enter a new sessionKey.
+- The logged sessionKey allows the PlayerAudience-Clients to quickly and easily reconnect to the Online-Session without the need to enter a new sessionKey.
+
+## PlayerAudience-Client logs
+
+The backend of the PlayerAudience-Clients stores the the list of active sessions, the respective sessionkeys, a list of all clients connected to the respective session and the voting results for the respective session. This provides the following advantages:
+
+- Multi-Game is supported by the PlayerAudience-Client backend.
+- The logged PlayerAudience-Client IDs can be used for keeping track of the PlayerAudience-Clients connected to the ServerLogic.
 - The logged voting results realize postgame statistics.
+
+## Moderator-Client GUID-Sessionkey-Pair
+
+The ServerLogic stores each Moderator-Client GUID with which it communicates and assigns it a sessionkey accordingly. This tuple of GUID and sessionkey is logged by the ServerLogic and is used for any ServerLogic internal communication to translate the GUID into the respective sessionkey required by the PlayerAudience-Client backend.
 
 ## Differences between starting in Online-Mode and Offline-Mode
 
@@ -86,8 +96,8 @@ Breaks are always initiated by the Moderator-Client and cannot be initiated by t
 
 ## What about the communication between PlayerAudience-Clients and ServerLogic?
 
-Communication between the ServerLogic and the PlayerAudience-Clients is not specified as part of the network protocol because the back-end of the PlayerAudience-Clients and the general ServerLogic logic are on the same physical server and can thus communicate directly with each other. This communication happens locally, through different functions, and does not need pre-defined message types, like the communication between Moderator-Client and ServerLogic. Since the front-end of the PlayerAudience-Clients is a web page, nothing more specific needs to be defined here either, as pre-implemented solutions of HTML and JavaScript can be used to implement the communication between PlayerAudience-Clients and ServerLogic. </br>
-Apart from that, the Observer-pattern is used to make the communication simple and efficient. Here the PlayerAudience-Clients subscribe to the ServerLogic to observe it.
+Communication between the ServerLogic and the PlayerAudience-Clients is not specified as part of the network protocol because the back-end of the PlayerAudience-Clients and the general ServerLogic logic are on the same physical server and can thus communicate directly with each other. This communication happens locally, through different functions, and does not need pre-defined message types, like the communication between Moderator-Client and ServerLogic. Since the front-end of the PlayerAudience-Clients is a web page, nothing more specific needs to be defined here either, as pre-implemented solutions of ASP.NET, SignalR and JQuery can be used to implement the communication between PlayerAudience-Clients and ServerLogic. </br>
+Apart from that, the Observer-pattern is used, in form of SignalR Hubs, to make the communication simple and efficient. Here the PlayerAudience-Clients subscribe to the ServerLogic to observe it.
 
 ## MessageContainer
 
@@ -449,11 +459,13 @@ This message is sent from the Moderator-Client to the ServerLogic to request the
 class RequestStartVotingMessage : MessageContainer 
 {
     int VotingTime;
-    Dictionary<Guid, string> VotingOptions;
+    KeyValuePair<Guid, string> VotingPrompt;
+    KeyValuePair<Guid, string>[] VotingOptions;
 }
 ```
 
 - **VotingTime:** The time in seconds that PlayerAudience-Clients have to cast their vote.
+- **VotingPrompt:** Contains the GUID of the voting prompt as the key and textual description of the voting prompt as the value.
 - **VotingOptions:** Contains the GUIDs of the respective voting option as the key and textual description of the voting option as the value.
 
 The ServerLogic responds with a [VotingStartedMessage](#votingstartedmessage) and some time after with a [VotingEndedMessage](#votingendedmessage).
@@ -478,13 +490,13 @@ This message is sent from the ServerLogic to the Moderator-Client in response to
 ``` csharp
 class VotingEndedMessage : MessageContainer 
 {
-    Guid WinningOption;
-    Dictionary<Guid, int> VotingResults;
+    KeyValuePair<Guid, string> WinningOption;
+    Dictionary<KeyValuePair<Guid, string>, int> VotingResults;
 }
 ```
 
-- **WinningOption:** The GUID of the option that got the most votes from the PlayerAudience.
-- **VotingResults:** Contains the GUIDs of the option as the key and the respective amount of received votes as the value.
+- **WinningOption:** The GUID and textual description of the option that got the most votes from the PlayerAudience.
+- **VotingResults:** Contains the GUID and textual description of the option as the key and the respective amount of received votes as the value.
 
 ### Control messages
 
@@ -560,11 +572,11 @@ This message is sent from the ServerLogic to the Moderator-Client in response to
 ``` csharp
 class SessionClosedMessage : MessageContainer 
 {
-    Dictionary<string, int> Statistics;
+    Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> Statistics;
 }
 ```
 
-- **Statistics:** Contains the id of the option as the key and the respective amount of received votes as the value.
+- **Statistics:** Contains the prompts as the keys, and poll results of the respective prompt as the values.
 
 ## Sequence diagrams of typical communicational processes
 
