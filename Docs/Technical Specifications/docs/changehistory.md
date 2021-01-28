@@ -37,14 +37,22 @@ The change history is a chronologically ordered list of all changes between diff
 </span>
 
 ## Version 0.3.0 - TBN
+
 | Type  | Description |
 | :---: | :---------- |
-|       |             |
+|   *   | **[_Network Protocol:_](../network-protocol#sessionclosedmessage) _SessionClosedMessage:_** Changed datatype of Statistics field and updated the description accordingly.    
+|   *   | **[_Network Protocol:_](../network-protocol#votingendedmessage) _VotingEndedMessage:_** Changed datatype of WinningOption and VotingResults fields and updated the descriptions accordingly. 
+|   *   | **[_Network Protocol:_](../network-protocol#requeststartvotingmessage) RequestStartVotingMessage:_** Changed datatype of VotingPrompt and VotingOptions fields and updated the descriptions accordingly. 
+|   *   | **[_Network Protocol:_](../network-protocol#what-about-the-communication-between-playeraudience-clients-and-serverlogic) _What about the communication between PlayerAudience-Clients and ServerLogic?:_** Updated text to reflect the current architecture. 
+|   +   | **[_Network Protocol:_](../network-protocol#moderator-client-guid-sessionkey-pair) _Moderator-Client GUID-Sessionkey-Pair:_** Added new paragraph. 
+|   +   | **[_Network Protocol:_](../network-protocol#playeraudience-client-logs) _PlayerAudience-Client logs:_** Added new paragraph. 
+|   *   | **[_Network Protocol:_](../network-protocol#serverlogic-logs) _ServerLogic logs:_** Updated text to reflect the current architecture.  
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _Microsoft.NET.Test.Sdk:_** Added used library. 
+|  |  |
 
 </span>
 
 ## Version 0.2.2 - Second revision of the component design
-
 
 | Type  | Description                                                                                                                                            |
 | :---: | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
