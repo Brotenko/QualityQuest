@@ -38,17 +38,22 @@ The change history is a chronologically ordered list of all changes between diff
 
 ## Version 0.3.0 - TBN
 
-| Type  | Description |
-| :---: | :---------- |
-|   *   | **[_Network Protocol:_](../network-protocol#sessionclosedmessage) _SessionClosedMessage:_** Changed datatype of Statistics field and updated the description accordingly.    
-|   *   | **[_Network Protocol:_](../network-protocol#votingendedmessage) _VotingEndedMessage:_** Changed datatype of WinningOption and VotingResults fields and updated the descriptions accordingly. 
-|   *   | **[_Network Protocol:_](../network-protocol#requeststartvotingmessage) RequestStartVotingMessage:_** Changed datatype of VotingPrompt and VotingOptions fields and updated the descriptions accordingly. 
-|   *   | **[_Network Protocol:_](../network-protocol#what-about-the-communication-between-playeraudience-clients-and-serverlogic) _What about the communication between PlayerAudience-Clients and ServerLogic?:_** Updated text to reflect the current architecture. 
-|   +   | **[_Network Protocol:_](../network-protocol#moderator-client-guid-sessionkey-pair) _Moderator-Client GUID-Sessionkey-Pair:_** Added new paragraph. 
-|   +   | **[_Network Protocol:_](../network-protocol#playeraudience-client-logs) _PlayerAudience-Client logs:_** Added new paragraph. 
-|   *   | **[_Network Protocol:_](../network-protocol#serverlogic-logs) _ServerLogic logs:_** Updated text to reflect the current architecture.  
-|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _Microsoft.NET.Test.Sdk:_** Added used library. 
-|  |  |
+| Type  | Description                                                                                                                                                                                                                                                   |
+| :---: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|   *   | **[_Network Protocol:_](../network-protocol#sessionclosedmessage) _SessionClosedMessage:_** Changed datatype of Statistics field and updated the description accordingly.                                                                                     |
+|   *   | **[_Network Protocol:_](../network-protocol#votingendedmessage) _VotingEndedMessage:_** Changed datatype of WinningOption and VotingResults fields and updated the descriptions accordingly.                                                                  |
+|   *   | **[_Network Protocol:_](../network-protocol#requeststartvotingmessage) RequestStartVotingMessage:_** Changed datatype of VotingPrompt and VotingOptions fields and updated the descriptions accordingly.                                                      |
+|   *   | **[_Network Protocol:_](../network-protocol#what-about-the-communication-between-playeraudience-clients-and-serverlogic?) _What about the communication between PlayerAudience-Clients and ServerLogic?:_** Updated text to reflect the current architecture. |
+|   +   | **[_Network Protocol:_](../network-protocol#moderator-client-guid-sessionkey-pair) _Moderator-Client GUID-Sessionkey-Pair:_** Added new paragraph.                                                                                                            |
+|   +   | **[_Network Protocol:_](../network-protocol#playeraudience-client-logs) _PlayerAudience-Client logs:_** Added new paragraph.                                                                                                                                  |
+|   *   | **[_Network Protocol:_](../network-protocol#serverlogic-logs) _ServerLogic logs:_** Updated text to reflect the current architecture.                                                                                                                         |
+|   -   | **[_Used Libraries:_](../usedtools#used-libraries) _coverlet.collector:_** Removed used library.                                                                                                                                                              |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _jQuery:_** Added used library.                                                                                                                                                                            |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _Bootstrap:_** Added used library.                                                                                                                                                                         |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _SignalR:_** Added used library.                                                                                                                                                                           |
+|   *   | **[_Used Libraries:_](../usedtools#used-libraries) _Microsoft.NET.Test.Sdk:_** Updated library version.                                                                                                                                                       |
+|   *   | **[_Used Libraries:_](../usedtools#used-libraries) _MSTest.TestAdapter:_** Updated library version.                                                                                                                                                           |
+|   *   | **[_Used Libraries:_](../usedtools#used-libraries) _MSTest.TestFramework:_** Updated library version.                                                                                                                                                         |
 
 </span>
 
@@ -83,7 +88,7 @@ The change history is a chronologically ordered list of all changes between diff
 |   *   | **[_Functional Requirements:_](../requirements#game-type) _FR1:_** Changed game type to "2D Visual-Novel-RPG".                                         |
 |   *   | **[_Functional Requirements:_](../requirements#pause-menu-contents) _FR51:_** Changed "Paused" to "Pause".                                             |
 |   +   | **[_Functional Requirements:_](../requirements#playeraudience-client-count-display) _FR55:_** Added requirement "PlayerAudience-Client count display". |
-|   *   | **[_Architecture diagrams:_](../architecture-diagrams) _Architecture diagrams:_** Updated diagram according to current implementation.
+|   *   | **[_Architecture diagrams:_](../architecture-diagrams) _Architecture diagrams:_** Updated diagram according to current implementation.                 |
 
 </span>
 

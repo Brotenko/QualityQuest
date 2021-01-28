@@ -453,7 +453,7 @@ class GameStartedMessage : MessageContainer
 #### RequestStartVotingMessage
 
 Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageType](#messagetype-enum)::RequestStartVoting**. </br>
-This message is sent from the Moderator-Client to the ServerLogic to request the start of a voting phase. For this purpose the Moderator-Client provides the ServerLogic with a prompt and different options for the PlayerAudience to choose from. It also provides the ServerLogic with a time-limit on how long the PlayerAudience-Clients may vote on the topic.
+This message is sent from the Moderator-Client to the ServerLogic to request the start of a voting phase. For this purpose the Moderator-Client provides the ServerLogic with different options for the audience to choose from. It also provides the ServerLogic with a time-limit on how long the PlayerAudience-Clients may vote on the topic.
 
 ``` csharp
 class RequestStartVotingMessage : MessageContainer 
