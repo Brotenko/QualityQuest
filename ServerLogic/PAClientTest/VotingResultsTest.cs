@@ -17,6 +17,7 @@ namespace PAClientTest
         private const string testKey_1 = "TU7ROU";
         private const string testKey_2 = "G9EL40";
         private const string testKey_3 = "GHOU80";
+        private const string getSessionKeysComparison = testKey_1 + ", " + testKey_2 + ", " + testKey_3;
         private KeyValuePair<Guid, string> testPrompt_1 = KeyValuePair.Create(Guid.NewGuid(), "This is a test prompt!");
         private KeyValuePair<Guid, string> testPrompt_2 = new KeyValuePair<Guid, string>(Guid.NewGuid(), null);
         private KeyValuePair<Guid, string> testPrompt_3 = new KeyValuePair<Guid, string>(Guid.NewGuid(), "Another very valid prompt!");
@@ -385,8 +386,12 @@ namespace PAClientTest
         public void GetSessionKeysTest()
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddSessionKey(testKey_2);
+            v.AddSessionKey(testKey_3);
 
-
+            string keys = string.Join(", ", v.GetSessionKeys());
+            Assert.IsTrue(Equals(getSessionKeysComparison, keys.ToString()));
         }
 
         /// <summary>

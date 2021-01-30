@@ -411,6 +411,7 @@ namespace PAClient
             }
         }
 
+        /*
         /// <summary>
         /// 
         /// </summary>
@@ -445,6 +446,7 @@ namespace PAClient
                 throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
         }
+        */
 
         /// <summary>
         /// 
@@ -481,6 +483,7 @@ namespace PAClient
             }
         }
 
+        /*
         /// <summary>
         /// 
         /// </summary>
@@ -509,6 +512,7 @@ namespace PAClient
                 throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
         }
+        */
 
         /// <summary>
         /// 
@@ -539,6 +543,7 @@ namespace PAClient
             }
         }
 
+        /*
         /// <summary>
         /// 
         /// </summary>
@@ -567,6 +572,7 @@ namespace PAClient
                 throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
         }
+        */
 
         /// <summary>
         /// 
@@ -626,6 +632,7 @@ namespace PAClient
             }
         }
 
+        /*
         /// <summary>
         /// 
         /// </summary>
@@ -654,7 +661,9 @@ namespace PAClient
                 throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
         }
+        */
 
+        /*
         /// <summary>
         /// 
         /// </summary>
@@ -750,6 +759,7 @@ namespace PAClient
                 throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
         }
+        */
 
         /// <summary>
         /// 
@@ -799,9 +809,9 @@ namespace PAClient
                 {
                     ret += "   - " + prompt + " (" + GetPromptGuidsBySession(key)[0].ToString() + "):\n";
 
-                    foreach (string option in this.GetOptionStringsByPrompt(key, prompt))
+                    foreach (string option in this.GetOptionStringsByPrompt(key, GetPromptGuidsBySession(key)[0]))
                     {
-                        ret += "     - " + option + " (" + GetOptionGuidsByPrompt(key, prompt)[0].ToString() + "): " + this.GetVotesByOption(key, prompt, option) + "\n";
+                        ret += "     - " + option + " (" + GetOptionGuidsByPrompt(key, GetPromptGuidsBySession(key)[0])[0].ToString() + "): " + this.GetVotesByOption(key, GetPromptGuidsBySession(key)[0], GetOptionGuidsByPrompt(key, GetPromptGuidsBySession(key)[0])[0]) + "\n";
                     }
                 }
             }
