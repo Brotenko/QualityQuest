@@ -259,6 +259,18 @@ namespace PAClientTest
         /// 
         /// </summary>
         [TestMethod]
+        public void AddVote_MissingPromptTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+
+            Assert.ThrowsException<ArgumentException>(() => v.AddVote(testKey_1, testPrompt_1.Key, testPair_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
         public void AddVote_NullSessionkeyTest()
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
@@ -394,104 +406,669 @@ namespace PAClientTest
             Assert.IsTrue(Equals(getSessionKeysComparison, keys.ToString()));
         }
 
+
+
+
+
+
+
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        public void GetPromptsBySessionTest()
+        public void GetPromptsBySession_ValidInputTest()
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
 
-
+            Assert.IsNotNull(v.GetPromptsBySession(testKey_1));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        public void GetStatisticsTest()
+        public void GetPromptsBySession_InvalidSessionkeyTest()
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
 
-
+            Assert.ThrowsException<SessionNotFoundException>(() => v.GetPromptsBySession(testKey_2));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        public void GetPromptGuidsBySessionTest()
+        public void GetPromptsBySession_NullSessionkeyTest()
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
 
-
+            Assert.ThrowsException<ArgumentNullException>(() => v.GetPromptsBySession(null));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        public void GetPromptStringsBySessionTest()
+        public void GetPromptsBySession_MissingPromptTest()
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
 
-
+            Assert.AreEqual(0, v.GetPromptsBySession(testKey_1).Length);
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        public void GetOptionsVotesPairsByPromptTest()
+        public void GetPromptsBySession_ToStringCorrectness()
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            //TODO
+        }
 
 
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetStatistics_ValidInputTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.IsNotNull(v.GetStatistics(testKey_1));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        public void GetOptionsByPromptTest()
+        public void GetStatistics_InvalidSessionkeyTest()
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
 
-
+            Assert.ThrowsException<SessionNotFoundException>(() => v.GetStatistics(testKey_2));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        public void GetOptionStringsByPromptTest()
+        public void GetStatistics_NullSessionkeyTest()
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
 
-
+            Assert.ThrowsException<ArgumentNullException>(() => v.GetStatistics(null));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        public void GetOptionGuidsByPromptTest()
+        public void GetStatistics_MissingPromptTest()
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
 
-
+            Assert.AreEqual(0, v.GetStatistics(testKey_1).Count);
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        public void GetVotesByOptionTest()
+        public void GetStatistics_ToStringCorrectness()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            //TODO
+        }
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetPromptGuidsBySession_ValidInputTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.IsNotNull(v.GetPromptGuidsBySession(testKey_1));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetPromptGuidsBySession_InvalidSessionkeyTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.ThrowsException<SessionNotFoundException>(() => v.GetPromptGuidsBySession(testKey_2));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetPromptGuidsBySession_NullSessionkeyTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.ThrowsException<ArgumentNullException>(() => v.GetPromptGuidsBySession(null));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetPromptGuidsBySession_MissingPromptTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+
+            Assert.AreEqual(0, v.GetPromptGuidsBySession(testKey_1).Length);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetPromptGuidsBySession_ToStringCorrectness()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            // TODO
+        }
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetPromptStringsBySession_ValidInputTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.IsNotNull(v.GetPromptStringsBySession(testKey_1));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetPromptStringsBySession_ÍnvalidSessionkeyTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.ThrowsException<SessionNotFoundException>(() => v.GetPromptStringsBySession(testKey_2));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetPromptStringsBySession_NullSessionkeyTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.ThrowsException<ArgumentNullException>(() => v.GetPromptStringsBySession(null));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetPromptStringsBySession_MissingPromptTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+
+            Assert.AreEqual(0, v.GetPromptStringsBySession(testKey_1).Length);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetPromptStringsBySession_ToStringCorrectness()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            // TODO
+        }
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionsVotesPairsByPrompt_ValidInputTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.IsNotNull(v.GetOptionsVotesPairsByPrompt(testKey_1, testPrompt_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionsVotesPairsByPrompt_InvalidSessionkeyTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.ThrowsException<SessionNotFoundException>(() => v.GetOptionsVotesPairsByPrompt(testKey_2, testPrompt_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionsVotesPairsByPrompt_NullSessionkeyTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.ThrowsException<ArgumentNullException>(() => v.GetOptionsVotesPairsByPrompt(null, testPrompt_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionsVotesPairsByPrompt_InvalidPromptTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.IsNull(v.GetOptionsVotesPairsByPrompt(testKey_1, testPrompt_3.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionsVotesPairsByPrompt_ToStringCorrectness()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            // TODO
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionsByPrompt_ValidInputTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.IsNotNull(v.GetOptionsByPrompt(testKey_1, testPrompt_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionsByPrompt_InvalidSessionkeyTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.ThrowsException<SessionNotFoundException>(() => v.GetOptionsByPrompt(testKey_2, testPrompt_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionsByPrompt_NullSessionkeyTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.ThrowsException<ArgumentNullException>(() => v.GetOptionsByPrompt(null, testPrompt_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionsByPrompt_InvalidPromptTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.AreEqual(0, v.GetOptionsByPrompt(testKey_1, testPrompt_3.Key).Length);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionsByPrompt_ToStringCorrectness()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            // TODO
+        }
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionStringsByPrompt_ValidInputTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.IsNotNull(v.GetOptionStringsByPrompt(testKey_1, testPrompt_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionStringsByPrompt_InvalidSessionkeyTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.ThrowsException<SessionNotFoundException>(() => v.GetOptionStringsByPrompt(testKey_2, testPrompt_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionStringsByPrompt_NullSessionkeyTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.ThrowsException<ArgumentNullException>(() => v.GetOptionStringsByPrompt(null, testPrompt_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionStringsByPrompt_InvalidPromptTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.IsNull(v.GetOptionStringsByPrompt(testKey_1, testPrompt_3.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionStringsByPrompt_ToStringCorrectness()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            // TODO
+        }
+
+
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionGuidsByPrompt_ValidInputTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.IsNotNull(v.GetOptionGuidsByPrompt(testKey_1, testPrompt_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionGuidsByPrompt_InvalidSessionkeyTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.ThrowsException<SessionNotFoundException>(() => v.GetOptionGuidsByPrompt(testKey_2, testPrompt_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionGuidsByPrompt_NullSessionkeyTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.ThrowsException<ArgumentNullException>(() => v.GetOptionGuidsByPrompt(null, testPrompt_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionGuidsByPrompt_InvalidPromptTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.IsNull(v.GetOptionGuidsByPrompt(testKey_1, testPrompt_3.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetOptionGuidsByPrompt_ToStringCorrectness()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            // TODO
+        }
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetVotesByOption_ValidInputTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_1, testOptions_1);
+
+            Assert.IsNotNull(v.GetVotesByOption(testKey_1, testPrompt_1.Key, testPair_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetVotesByOption_InvalidSessionkeyTest()
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
 
-
+            Assert.ThrowsException<SessionNotFoundException>(() => v.GetVotesByOption(testKey_2, testPrompt_1.Key, testPair_1.Key));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetVotesByOption_NullSessionkeyTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+
+            Assert.ThrowsException<ArgumentNullException>(() => v.GetVotesByOption(null, testPrompt_1.Key, testPair_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetVotesByOption_InvalidPromptTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+
+            Assert.ThrowsException<ArgumentException>(() => v.GetVotesByOption(testKey_2, testPrompt_2.Key, testPair_1.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetVotesByOption_InvalidOptionTest()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+
+            Assert.ThrowsException<ArgumentException>(() => v.GetVotesByOption(testKey_2, testPrompt_1.Key, testPair_5.Key));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void GetVotesByOptionT_ToStringCorrectness()
+        {
+            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+
+            // TODO
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// 

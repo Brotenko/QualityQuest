@@ -314,9 +314,14 @@ namespace PAClient
         /// <returns></returns>
         public KeyValuePair<Guid, string>[] GetPromptsBySession(string sessionkey)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
-                foreach (KeyValuePair<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> entry in data)
+                foreach (KeyValuePair<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> entry in this.data)
                 {
                     if (sessionkey == entry.Key)
                     {
@@ -324,7 +329,7 @@ namespace PAClient
                     }
                 }
 
-                return null;
+                throw new ArgumentException(message: "This statement should be unreachable!");
             }
             else
             {
@@ -339,6 +344,11 @@ namespace PAClient
         /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> GetStatistics(string sessionkey)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
                 return data.GetValueOrDefault(sessionkey);
@@ -356,6 +366,11 @@ namespace PAClient
         /// <returns></returns>
         public Guid[] GetPromptGuidsBySession(string sessionkey)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
                 List<Guid> prompts = new List<Guid>();
@@ -387,6 +402,11 @@ namespace PAClient
         /// <returns></returns>
         public string[] GetPromptStringsBySession(string sessionkey)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
                 List<string> prompts = new List<string>();
@@ -456,6 +476,11 @@ namespace PAClient
         /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetOptionsVotesPairsByPrompt(string sessionkey, Guid prompt)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
                 foreach (KeyValuePair<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> session in data)
@@ -522,6 +547,11 @@ namespace PAClient
         /// <returns></returns>
         public KeyValuePair<Guid, string>[] GetOptionsByPrompt(string sessionkey, Guid prompt)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
                 List<KeyValuePair<Guid, string>> options = new List<KeyValuePair<Guid, string>>();
@@ -582,20 +612,26 @@ namespace PAClient
         /// <returns></returns>
         public string[] GetOptionStringsByPrompt(string sessionkey, Guid prompt)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
                 List<string> options = new List<string>();
                 KeyValuePair<Guid, string>[] tempOptions = GetOptionsByPrompt(sessionkey, prompt);
 
-                if (tempOptions != null)
+                if (tempOptions.Count() != 0)
                 {
                     foreach (KeyValuePair<Guid, string> option in tempOptions)
                     {
                         options.Add(option.Value);
                     }
+                    return options.ToArray();
                 }
 
-                return options.ToArray();
+                return null;
             }
             else
             {
@@ -611,20 +647,26 @@ namespace PAClient
         /// <returns></returns>
         public Guid[] GetOptionGuidsByPrompt(string sessionkey, Guid prompt)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
                 List<Guid> options = new List<Guid>();
                 KeyValuePair<Guid, string>[] tempOptions = GetOptionsByPrompt(sessionkey, prompt);
 
-                if (tempOptions != null)
+                if (tempOptions.Count() != 0)
                 {
                     foreach (KeyValuePair<Guid, string> option in tempOptions)
                     {
                         options.Add(option.Key);
                     }
+                    return options.ToArray();
                 }
 
-                return options.ToArray();
+                return null;
             }
             else
             {
@@ -770,6 +812,11 @@ namespace PAClient
         /// <returns></returns>
         public int GetVotesByOption(string sessionkey, Guid prompt, Guid option)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
                 Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs = GetOptionsVotesPairsByPrompt(sessionkey, prompt);
@@ -783,9 +830,10 @@ namespace PAClient
                             return optionsVotesPairs.GetValueOrDefault(options);
                         }
                     }
+                    throw new ArgumentException(message: "The requested option is not part of this prompt.");
                 }
 
-                return -1;
+                throw new ArgumentException(message: "The requested prompt is not part of this session.");
             }
             else
             {
