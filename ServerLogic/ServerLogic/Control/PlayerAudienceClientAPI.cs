@@ -95,14 +95,21 @@ namespace ServerLogic.Control
         {
             if (serverIsActive)
             {
-                try
+                if (IsSessionActive(sessionkey))
                 {
-                    pABackend.SendPushMessage(sessionkey, prompt, options);
-                    return true;
+                    try
+                    {
+                        pABackend.SendPushMessage(sessionkey, prompt, options);
+                        return true;
+                    }
+                    catch (InvalidOperationException e)
+                    {
+                        /* LOG ERROR HERE */
+                        return false;
+                    }
                 }
-                catch (InvalidOperationException e)
+                else
                 {
-                    /* LOG ERROR HERE */
                     return false;
                 }
             }

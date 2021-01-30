@@ -28,13 +28,18 @@ namespace PAClient
         /// <param name="sessionkey"></param>
         public void AddSessionKey(string sessionkey)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
             if (!IsSessionActive(sessionkey))
             {
                 data.Add(sessionkey, new Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>());
             }
             else
             {
-                throw new InvalidOperationException(message: "The requested session is either already active, or the transferred sessionkey is invalid.");
+                throw new ArgumentException(message: "A session with that key is already registered.");
             }
         }
 
@@ -51,6 +56,26 @@ namespace PAClient
         /// <param name="options"></param>
         public void AddNewPoll(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+            if (prompt.Value == null)
+            {
+                throw new ArgumentNullException("The prompt's description can not be null.");
+            }
+            if (options == null)
+            {
+                throw new ArgumentNullException("The options can not be null.");
+            }
+            foreach (KeyValuePair<Guid, string> pair in options)
+            {
+                if (pair.Value == null)
+                {
+                    throw new ArgumentNullException("The option's description can not be null.");
+                }
+            }
+
             if (IsSessionActive(sessionkey))
             {
                 if (!this.GetPromptsBySession(sessionkey).Contains(prompt))
@@ -65,7 +90,7 @@ namespace PAClient
                 }
                 else
                 {
-                    throw new InvalidOperationException(message: "A poll with the given Guid has already been held.");
+                    throw new ArgumentException(message: "A poll with the given Guid has already been held.");
                 }
             }
             else
@@ -74,6 +99,7 @@ namespace PAClient
             }
         }
 
+        /*
         /// <summary>
         /// 
         /// </summary>
@@ -82,9 +108,22 @@ namespace PAClient
         /// <param name="option"></param>
         public void AddVote(string sessionkey, string prompt, string option)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+            if (prompt == null)
+            {
+                throw new ArgumentNullException("The prompt can not be null.");
+            }
+            if (option == null)
+            {
+                throw new ArgumentNullException("The option can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
-                if (!this.GetPromptStringsBySession(sessionkey).Contains(prompt))
+                if (this.GetPromptStringsBySession(sessionkey).Contains(prompt))
                 {
                     Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
 
@@ -93,17 +132,19 @@ namespace PAClient
                         if (option == options.Value)
                         {
                             possibleChoices[options] += 1;
+                            return;
                         }
                     }
+                    throw new ArgumentException(message: "The transmitted option is invalid.");
                 }
                 else
                 {
-                    throw new InvalidOperationException(message: "The requested prompt is either invalid or belongs to another session.");
+                    throw new ArgumentException(message: "The requested prompt is invalid.");
                 }
             }
             else
             {
-                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                throw new SessionNotFoundException(message: "The requested session is inactive or invalid!");
             }
         }
 
@@ -115,9 +156,18 @@ namespace PAClient
         /// <param name="option"></param>
         public void AddVote(string sessionkey, string prompt, Guid option)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+            if (prompt == null)
+            {
+                throw new ArgumentNullException("The prompt can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
-                if (!this.GetPromptStringsBySession(sessionkey).Contains(prompt))
+                if (this.GetPromptStringsBySession(sessionkey).Contains(prompt))
                 {
                     Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
 
@@ -126,12 +176,14 @@ namespace PAClient
                         if (option == options.Key)
                         {
                             possibleChoices[options] += 1;
+                            return;
                         }
                     }
+                    throw new ArgumentException(message: "The transmitted option is invalid.");
                 }
                 else
                 {
-                    throw new InvalidOperationException(message: "The requested prompt is either invalid or belongs to another session.");
+                    throw new ArgumentException(message: "The requested prompt is either invalid or belongs to another session.");
                 }
             }
             else
@@ -148,9 +200,18 @@ namespace PAClient
         /// <param name="option"></param>
         public void AddVote(string sessionkey, Guid prompt, string option)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+            if (option == null)
+            {
+                throw new ArgumentNullException("The option can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
-                if (!this.GetPromptGuidsBySession(sessionkey).Contains(prompt))
+                if (this.GetPromptGuidsBySession(sessionkey).Contains(prompt))
                 {
                     Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
 
@@ -159,12 +220,14 @@ namespace PAClient
                         if (option == options.Value)
                         {
                             possibleChoices[options] += 1;
+                            return;
                         }
                     }
+                    throw new ArgumentException(message: "The transmitted option is invalid.");
                 }
                 else
                 {
-                    throw new InvalidOperationException(message: "The requested prompt is either invalid or belongs to another session.");
+                    throw new ArgumentException(message: "The requested prompt is either invalid or belongs to another session.");
                 }
             }
             else
@@ -172,6 +235,7 @@ namespace PAClient
                 throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
         }
+        */
 
         /// <summary>
         /// 
@@ -181,9 +245,14 @@ namespace PAClient
         /// <param name="option"></param>
         public void AddVote(string sessionkey, Guid prompt, Guid option)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
-                if (!this.GetPromptGuidsBySession(sessionkey).Contains(prompt))
+                if (this.GetPromptGuidsBySession(sessionkey).Contains(prompt))
                 {
                     Dictionary<KeyValuePair<Guid, string>, int> possibleChoices = this.GetOptionsVotesPairsByPrompt(sessionkey, prompt);
 
@@ -192,12 +261,14 @@ namespace PAClient
                         if (option == options.Key)
                         {
                             possibleChoices[options] += 1;
+                            return;
                         }
                     }
+                    throw new ArgumentException(message: "The transmitted option is invalid.");
                 }
                 else
                 {
-                    throw new InvalidOperationException(message: "The requested prompt is either invalid or belongs to another session.");
+                    throw new ArgumentException(message: "The requested prompt is either invalid or belongs to another session.");
                 }
             }
             else
@@ -212,6 +283,11 @@ namespace PAClient
         /// <param name="sessionkey"></param>
         public void RemoveSession(string sessionkey)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
                 data.Remove(sessionkey);

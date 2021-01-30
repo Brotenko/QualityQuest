@@ -48,7 +48,7 @@ namespace PAClient.Hubs
         /// <param name="sessionkey"></param>
         /// <param name="option"></param>
         /// <returns></returns>
-        public async Task SendVote(string sessionkey, string option)
+        public async Task SendVote(string sessionkey, Guid option)
         {
             Console.WriteLine(sessionkey, option);
             PABackend.CountNewVote(sessionkey, option);

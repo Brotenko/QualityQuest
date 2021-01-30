@@ -63,7 +63,7 @@ connection.on("NewPrompt", function (newPageContent) {
 
     $(function () {
         $("input:button").click(function (event) {
-            var vote = $(this).val();
+            var vote = this.attributes["name"].value;
 
             connection.invoke("SendVote", sessionkey, vote).catch(function (err) {
                 return console.error(err.toString());

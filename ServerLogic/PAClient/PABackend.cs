@@ -75,29 +75,6 @@ namespace PAClient
         /// </summary>
         /// <param name="sessionkey"></param>
         /// <param name="option"></param>
-        public static void CountNewVote(string sessionkey, string option)
-        {
-            try
-            {
-                Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
-
-                PAVotingResults.AddVote(sessionkey, clientPrompt, option);
-            }
-            catch (InvalidOperationException e)
-            {
-                /* LOG ERROR HERE */
-            }
-            catch (SessionNotFoundException e)
-            {
-                /* LOG ERROR HERE */
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sessionkey"></param>
-        /// <param name="option"></param>
         public static void CountNewVote(string sessionkey, Guid option)
         {
             try
@@ -233,11 +210,25 @@ namespace PAClient
         /// <param name="options"></param>
         public async void SendPushMessage(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
-            string pageContent = CreatePageContent(prompt, options);
-            CurrentPrompt[sessionkey] = prompt;
-            PAVotingResults.AddNewPoll(sessionkey, prompt, options);
+            if (!PAVotingResults.GetPromptsBySession(sessionkey).Contains(prompt))
+            {
+                string pageContent = CreatePageContent(prompt, options);
+                PAVotingResults.AddNewPoll(sessionkey, prompt, options);
+                CurrentPrompt[sessionkey] = prompt;
 
-            await _hubContext.Clients.Group(sessionkey).SendAsync("NewPrompt", pageContent);
+                try
+                {
+                    await _hubContext.Clients.Group(sessionkey).SendAsync("NewPrompt", pageContent);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("The requested prompt has already been sent to this session.");
+            }
         }
 
         /// <summary>
@@ -262,6 +253,7 @@ namespace PAClient
             string promptString = prompt.Value;
             //string[] optionsStrings = options.SelectMany(keyValuePair => keyValuePair.Values.Select(key => key)).Distinct().ToArray();
             string[] optionsStrings = options.Select(kvp => kvp.Value).ToArray();
+            Guid[] optionsGuids = options.Select(kvp => kvp.Key).ToArray();
 
             switch (options.Length)
             {
@@ -270,8 +262,8 @@ namespace PAClient
                         promptString +
                       "</div>" +
                       "<div id=\"voting-container\" class=\"voting-container\">" +
-                        "<input type=\"button\" id=\"choice-1\" class=\"input-button voting-container-2items-1\" value=\"" + optionsStrings[0] + "\" />" +
-                        "<input type=\"button\" id=\"choice-2\" class=\"input-button voting-container-2items-2\" value=\"" + optionsStrings[1] + "\" />" +
+                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-2items-1\" value=\"" + optionsStrings[0] + "\" />" +
+                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-2items-2\" value=\"" + optionsStrings[1] + "\" />" +
                       "</div>";
                 break;
             case 3:
@@ -279,9 +271,9 @@ namespace PAClient
                         promptString +
                       "</div>" +
                       "<div id=\"voting-container\" class=\"voting-container\">" +
-                        "<input type=\"button\" id=\"choice-1\" class=\"input-button voting-container-3items-1\" value=\"" + optionsStrings[0] + "\" />" +
-                        "<input type=\"button\" id=\"choice-2\" class=\"input-button voting-container-3items-2\" value=\"" + optionsStrings[1] + "\" />" +
-                        "<input type=\"button\" id=\"choice-3\" class=\"input-button voting-container-3items-3\" value=\"" + optionsStrings[2] + "\" />" +
+                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-3items-1\" value=\"" + optionsStrings[0] + "\" />" +
+                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-3items-2\" value=\"" + optionsStrings[1] + "\" />" +
+                        "<input type=\"button\" id=\"choice-3\" name=\"" + optionsGuids[2] + "\" class=\"input-button voting-container-3items-3\" value=\"" + optionsStrings[2] + "\" />" +
                       "</div>";
                 break;
             case 4:
@@ -289,10 +281,10 @@ namespace PAClient
                         promptString +
                       "</div>" +
                       "<div id=\"voting-container\" class=\"voting-container\">" +
-                        "<input type=\"button\" id=\"choice-1\" class=\"input-button voting-container-4items-1\" value=\"" + optionsStrings[0] + "\" />" +
-                        "<input type=\"button\" id=\"choice-2\" class=\"input-button voting-container-4items-2\" value=\"" + optionsStrings[1] + "\" />" +
-                        "<input type=\"button\" id=\"choice-3\" class=\"input-button voting-container-4items-3\" value=\"" + optionsStrings[2] + "\" />" +
-                        "<input type=\"button\" id=\"choice-4\" class=\"input-button voting-container-4items-4\" value=\"" + optionsStrings[3] + "\" />" +
+                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-4items-1\" value=\"" + optionsStrings[0] + "\" />" +
+                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-4items-2\" value=\"" + optionsStrings[1] + "\" />" +
+                        "<input type=\"button\" id=\"choice-3\" name=\"" + optionsGuids[2] + "\" class=\"input-button voting-container-4items-3\" value=\"" + optionsStrings[2] + "\" />" +
+                        "<input type=\"button\" id=\"choice-4\" name=\"" + optionsGuids[3] + "\" class=\"input-button voting-container-4items-4\" value=\"" + optionsStrings[3] + "\" />" +
                       "</div>";
                 break;
             default:
