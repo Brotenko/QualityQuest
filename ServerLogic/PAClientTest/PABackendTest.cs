@@ -20,6 +20,9 @@ namespace PAClientTest
         private const string testKey_2 = "G9EL40";
         private const string testKey_3 = "GHOU80";
         private const string testKey_Invalid_1 = "7g/vﬂ`";
+        private const string testId_Valid_1 = "sQxPVXaPUuoSV_2epIFMkw";
+        private const string testId_Valid_2 = "7fJem-hO8gPE8v_4rZUg5a";
+        private const string testId_Invalid_1 = "u?oS‰V_2epI7.=4gZUs%";
         private const string getSessionKeysComparison = testKey_1 + ", " + testKey_2 + ", " + testKey_3;
         private KeyValuePair<Guid, string> testPrompt_Valid_1 = KeyValuePair.Create(Guid.NewGuid(), "This is a test prompt!");
         private KeyValuePair<Guid, string> testPrompt_NullString = new KeyValuePair<Guid, string>(Guid.NewGuid(), null);
@@ -55,6 +58,7 @@ namespace PAClientTest
             // Re-init PABackend after every TestMethod to clear the PAVotingResults.
             // _ = new PABackend(testPort);
         }
+
 
 
 
@@ -478,7 +482,9 @@ namespace PAClientTest
             PABackend p = new PABackend(testPort);
             p.StartNewSession(testKey_1);
 
-            PABackend.AddConnection(testKey_1, "sQxPVXaPUuoSV_2epIFMkw");
+            Assert.IsFalse(PABackend.ConnectionList.GetValueOrDefault(testKey_1).Contains(testId_Valid_1));
+            Assert.AreEqual(0, PABackend.AddConnection(testKey_1, testId_Valid_1));
+            Assert.IsTrue(PABackend.ConnectionList.GetValueOrDefault(testKey_1).Contains(testId_Valid_1));
         }
 
         /// <summary>
@@ -491,7 +497,7 @@ namespace PAClientTest
             PABackend p = new PABackend(testPort);
             p.StartNewSession(testKey_1);
 
-
+            Assert.AreEqual(-3, PABackend.AddConnection(testKey_2, testId_Valid_1));
         }
 
         /// <summary>
@@ -504,9 +510,21 @@ namespace PAClientTest
             PABackend p = new PABackend(testPort);
             p.StartNewSession(testKey_1);
 
-
+            Assert.AreEqual(-1, PABackend.AddConnection(null, testId_Valid_1));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [TestCategory("AddConnection")]
+        public void AddConnection_InvalidConnectionIdTest()
+        {
+            PABackend p = new PABackend(testPort);
+            p.StartNewSession(testKey_1);
+
+            Assert.AreEqual(-4, PABackend.AddConnection(testKey_1, testId_Invalid_1));
+        }
 
         /// <summary>
         /// 
@@ -518,7 +536,7 @@ namespace PAClientTest
             PABackend p = new PABackend(testPort);
             p.StartNewSession(testKey_1);
 
-
+            Assert.AreEqual(-2, PABackend.AddConnection(testKey_1, null));
         }
 
         /// <summary>
@@ -547,11 +565,58 @@ namespace PAClientTest
         /// 
         /// </summary>
         [TestMethod]
-        [TestCategory("")]
-        public void RemoveConnectionTest()
+        [TestCategory("RemoveConnection")]
+        public void RemoveConnection_ValidInputTest()
         {
+            PABackend p = new PABackend(testPort);
+            PABackend.AddConnection(testKey_1, testId_Valid_1);
 
+            Assert.IsTrue(PABackend.ConnectionList.GetValueOrDefault(testKey_1).Contains(testId_Valid_1));
+            Assert.AreEqual(0, PABackend.RemoveConnection(testId_Valid_1));
+            Assert.IsFalse(PABackend.ConnectionList.GetValueOrDefault(testKey_1).Contains(testId_Valid_1));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [TestCategory("RemoveConnection")]
+        public void RemoveConnection_InvalidConnectionIdTest()
+        {
+            PABackend p = new PABackend(testPort);
+
+            Assert.AreEqual(0, PABackend.RemoveConnection(testId_Valid_2));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [TestCategory("RemoveConnection")]
+        public void RemoveConnection_NullConnectionIdTest()
+        {
+            PABackend p = new PABackend(testPort);
+
+            Assert.AreEqual(0, PABackend.RemoveConnection(null));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [TestCategory("RemoveConnection")]
+        public void RemoveConnection_ToString()
+        {
+            PABackend p = new PABackend(testPort);
+
+            // TODO
+        }
+
+
+
+
+
+
 
         /// <summary>
         /// 
@@ -571,6 +636,17 @@ namespace PAClientTest
         [TestMethod]
         [TestCategory("")]
         public void StopServerTest()
+        {
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [TestCategory("")]
+        public void CreatePageContentTest()
         {
 
         }

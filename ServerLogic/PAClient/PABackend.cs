@@ -115,6 +115,71 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="prompt"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public string DebugCreatePageContent(KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
+        {
+            return CreatePageContent(prompt, options);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        private string CreatePageContent(KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
+        {
+            string ret = "";
+
+            string promptString = prompt.Value;
+            //string[] optionsStrings = options.SelectMany(keyValuePair => keyValuePair.Values.Select(key => key)).Distinct().ToArray();
+            string[] optionsStrings = options.Select(kvp => kvp.Value).ToArray();
+            Guid[] optionsGuids = options.Select(kvp => kvp.Key).ToArray();
+
+            switch (options.Length)
+            {
+            case 2:
+                ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
+                        promptString +
+                      "</div>" +
+                      "<div id=\"voting-container\" class=\"voting-container\">" +
+                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-2items-1\" value=\"" + optionsStrings[0] + "\" />" +
+                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-2items-2\" value=\"" + optionsStrings[1] + "\" />" +
+                      "</div>";
+                break;
+            case 3:
+                ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
+                        promptString +
+                      "</div>" +
+                      "<div id=\"voting-container\" class=\"voting-container\">" +
+                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-3items-1\" value=\"" + optionsStrings[0] + "\" />" +
+                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-3items-2\" value=\"" + optionsStrings[1] + "\" />" +
+                        "<input type=\"button\" id=\"choice-3\" name=\"" + optionsGuids[2] + "\" class=\"input-button voting-container-3items-3\" value=\"" + optionsStrings[2] + "\" />" +
+                      "</div>";
+                break;
+            case 4:
+                ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
+                        promptString +
+                      "</div>" +
+                      "<div id=\"voting-container\" class=\"voting-container\">" +
+                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-4items-1\" value=\"" + optionsStrings[0] + "\" />" +
+                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-4items-2\" value=\"" + optionsStrings[1] + "\" />" +
+                        "<input type=\"button\" id=\"choice-3\" name=\"" + optionsGuids[2] + "\" class=\"input-button voting-container-4items-3\" value=\"" + optionsStrings[2] + "\" />" +
+                        "<input type=\"button\" id=\"choice-4\" name=\"" + optionsGuids[3] + "\" class=\"input-button voting-container-4items-4\" value=\"" + optionsStrings[3] + "\" />" +
+                      "</div>";
+                break;
+            default:
+                break;
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="sessionkey"></param>
         /// <param name="prompt"></param>
         /// <param name="options"></param>
@@ -265,8 +330,16 @@ namespace PAClient
 
             if (IsSessionActive(sessionkey))
             {
-                ConnectionList.GetValueOrDefault(sessionkey).Add(connectionId);
-                return -4;
+                if (Regex.IsMatch(connectionId, @"[a-zA-Z0-9\-_]{22}"))
+                {
+                    ConnectionList.GetValueOrDefault(sessionkey).Add(connectionId);
+                    return 0;
+                }
+                else
+                {
+                    /* LOG ERROR HERE */
+                    return -4;
+                }
             }
             else
             {
@@ -279,15 +352,23 @@ namespace PAClient
         /// 
         /// </summary>
         /// <param name="connectionId"></param>
-        public static void RemoveConnection(string connectionId)
+        public static int RemoveConnection(string connectionId)
         {
+            if (connectionId == null)
+            {
+                /* LOG ERROR HERE */
+                return -2;
+            }
+
             foreach (KeyValuePair<string, List<string>> entry in ConnectionList)
             {
                 if (entry.Value.Contains(connectionId))
                 {
                     entry.Value.Remove(connectionId);
+                    return 0;
                 }
             }
+            return -4;
         }
 
         /// <summary>
@@ -321,59 +402,7 @@ namespace PAClient
             await _hubContext.Clients.Group(sessionkey).SendAsync("ClearPrompt");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="prompt"></param>
-        /// <param name="options"></param>
-        /// <returns></returns>
-        private string CreatePageContent(KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
-        {
-            string ret = "";
-
-            string promptString = prompt.Value;
-            //string[] optionsStrings = options.SelectMany(keyValuePair => keyValuePair.Values.Select(key => key)).Distinct().ToArray();
-            string[] optionsStrings = options.Select(kvp => kvp.Value).ToArray();
-            Guid[] optionsGuids = options.Select(kvp => kvp.Key).ToArray();
-
-            switch (options.Length)
-            {
-            case 2:
-                ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
-                        promptString +
-                      "</div>" +
-                      "<div id=\"voting-container\" class=\"voting-container\">" +
-                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-2items-1\" value=\"" + optionsStrings[0] + "\" />" +
-                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-2items-2\" value=\"" + optionsStrings[1] + "\" />" +
-                      "</div>";
-                break;
-            case 3:
-                ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
-                        promptString +
-                      "</div>" +
-                      "<div id=\"voting-container\" class=\"voting-container\">" +
-                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-3items-1\" value=\"" + optionsStrings[0] + "\" />" +
-                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-3items-2\" value=\"" + optionsStrings[1] + "\" />" +
-                        "<input type=\"button\" id=\"choice-3\" name=\"" + optionsGuids[2] + "\" class=\"input-button voting-container-3items-3\" value=\"" + optionsStrings[2] + "\" />" +
-                      "</div>";
-                break;
-            case 4:
-                ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
-                        promptString +
-                      "</div>" +
-                      "<div id=\"voting-container\" class=\"voting-container\">" +
-                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-4items-1\" value=\"" + optionsStrings[0] + "\" />" +
-                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-4items-2\" value=\"" + optionsStrings[1] + "\" />" +
-                        "<input type=\"button\" id=\"choice-3\" name=\"" + optionsGuids[2] + "\" class=\"input-button voting-container-4items-3\" value=\"" + optionsStrings[2] + "\" />" +
-                        "<input type=\"button\" id=\"choice-4\" name=\"" + optionsGuids[3] + "\" class=\"input-button voting-container-4items-4\" value=\"" + optionsStrings[3] + "\" />" +
-                      "</div>";
-                break;
-            default:
-                break;
-            }
-
-            return ret;
-        }
+        
 
         
 
