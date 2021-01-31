@@ -13,7 +13,7 @@ namespace ServerLogicTests.Control
     /// 
     /// </summary>
     [TestClass]
-    public class PlayerAudienceClientAPITest
+    public sealed class PlayerAudienceClientAPITest
     {
         private const int testPort = 7777;
         private const string testKey_1 = "TU7ROU";
@@ -94,20 +94,7 @@ namespace ServerLogicTests.Control
         {
             PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
 
-            // Start a new vote when the server is not running
-            Assert.ThrowsException<InvalidOperationException>(() => p.StartNewVote(testKey_1, testPrompt_1, testOptions_1));
-
-            p.StartServer(testPort);
-            p.StartNewSession(testKey_1);
-
-            // Start a new vote when the server is running
-            Assert.IsTrue(p.StartNewVote(testKey_1, testPrompt_1, testOptions_1));
-
-            // Start a new vote with an invalid sessionkey
-            Assert.IsFalse(p.StartNewVote(testKey_2, testPrompt_1, testOptions_1));
-
-            // Start a new vote with the same valid sessionkey again
-            Assert.IsFalse(p.StartNewVote(testKey_1, testPrompt_1, testOptions_1)); // ????
+            
         }
 
         /// <summary>

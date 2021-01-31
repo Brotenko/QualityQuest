@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -44,6 +45,8 @@ namespace PAClient
 
         private Thread _serverThread;
 
+        private static bool isDebug;
+
         // Current prompt depending on the session
         //                 sessionkey             prompt
         private static Dictionary<string, KeyValuePair<Guid, string>> CurrentPrompt
@@ -74,40 +77,27 @@ namespace PAClient
         /// 
         /// </summary>
         /// <param name="sessionkey"></param>
-        /// <param name="option"></param>
-        public static void CountNewVote(string sessionkey, Guid option)
+        public void StartNewSession(string sessionkey)
         {
-            try
+            if (sessionkey == null)
             {
-                Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
 
-                PAVotingResults.AddVote(sessionkey, clientPrompt, option);
-            }
-            catch (InvalidOperationException e)
+            if (Regex.IsMatch(sessionkey, @"[A-Z0-9]{6}"))
             {
-                /* LOG ERROR HERE */
-            }
-            catch (SessionNotFoundException e)
-            {
-                /* LOG ERROR HERE */
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sessionkey"></param>
-        public bool StartNewSession(string sessionkey)
-        {
-            if (!IsSessionActive(sessionkey))
-            {
-                AddNewSession(sessionkey);
-                return true;
+                if (!IsSessionActive(sessionkey))
+                {
+                    AddNewSession(sessionkey);
+                }
+                else
+                {
+                    throw new ArgumentException("A session with that key is already registered.");
+                }
             }
             else
             {
-                /* LOG ERROR HERE */
-                return false;
+                throw new ArgumentException("The sessionkey has to be six alphanumerical uppercase characters.");
             }
         }
 
@@ -126,9 +116,114 @@ namespace PAClient
         /// 
         /// </summary>
         /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <param name="options"></param>
+        public async Task SendPushMessage(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
+        {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+            if (prompt.Value == null)
+            {
+                throw new ArgumentNullException("The prompt's description can not be null.");
+            }
+            if (options == null)
+            {
+                throw new ArgumentNullException("The options can not be null.");
+            }
+            foreach (KeyValuePair<Guid, string> pair in options)
+            {
+                if (pair.Value == null)
+                {
+                    throw new ArgumentNullException("The option's description can not be null.");
+                }
+            }
+
+            if (IsSessionActive(sessionkey))
+            {
+                if (!PAVotingResults.GetPromptsBySession(sessionkey).Contains(prompt))
+                {
+                    string pageContent = CreatePageContent(prompt, options);
+                    PAVotingResults.AddNewPoll(sessionkey, prompt, options);
+                    CurrentPrompt[sessionkey] = prompt;
+
+                    // Can't test for hubContext/Host related stuff, since the test framework
+                    // can not (at least to my knowledge) start/host the server to test these.
+                    // It would go beyond any reason to test these, even if it is somehow possible.
+                    if (!isDebug)
+                    {
+                        await _hubContext.Clients.Group(sessionkey).SendAsync("NewPrompt", pageContent);
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("The transmitted prompt has already been sent to this session.");
+                }
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        /// <param name="option"></param>
+        public static int CountNewVote(string sessionkey, Guid option)
+        {
+            try
+            {
+                if (sessionkey == null)
+                {
+                    throw new ArgumentNullException("The sessionkey can not be null.");
+                }
+
+                if (IsSessionActive(sessionkey))
+                {
+                    Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
+
+                    PAVotingResults.AddVote(sessionkey, clientPrompt, option);
+                    return 0;
+                }
+                else
+                {
+                    throw new SessionNotFoundException("The requested session is either inactive or invalid!");
+                }
+            }
+            catch (ArgumentNullException e)
+            {
+                /* LOG ERROR HERE */
+                return -1;
+            }
+            catch (ArgumentException e)
+            {
+                /* LOG ERROR HERE */
+                return -2;
+            }
+            catch (SessionNotFoundException e)
+            {
+                /* LOG ERROR HERE */
+                return -3;
+            }
+        }
+
+        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
         /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> EndSession(string sessionkey)
         {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
             if (IsSessionActive(sessionkey))
             {
                 Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> temp = PAVotingResults.GetStatistics(sessionkey);
@@ -137,7 +232,7 @@ namespace PAClient
             }
             else
             {
-                return null;
+                throw new ArgumentException("The transmitted sessionkey does not belong to an active session.");
             }
         }
 
@@ -155,15 +250,28 @@ namespace PAClient
         /// </summary>
         /// <param name="sessionkey"></param>
         /// <param name="connectionId"></param>
-        public static void AddConnection(string sessionkey, string connectionId)
+        public static int AddConnection(string sessionkey, string connectionId)
         {
+            if (sessionkey == null)
+            {
+                /* LOG ERROR HERE */
+                return -1;
+            }
+            if (connectionId == null)
+            {
+                /* LOG ERROR HERE */
+                return -2;
+            }
+
             if (IsSessionActive(sessionkey))
             {
                 ConnectionList.GetValueOrDefault(sessionkey).Add(connectionId);
+                return -4;
             }
             else
             {
                 /* LOG ERROR HERE */
+                return -3;
             }
         }
 
@@ -202,34 +310,7 @@ namespace PAClient
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sessionkey"></param>
-        /// <param name="prompt"></param>
-        /// <param name="options"></param>
-        public async void SendPushMessage(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
-        {
-            if (!PAVotingResults.GetPromptsBySession(sessionkey).Contains(prompt))
-            {
-                string pageContent = CreatePageContent(prompt, options);
-                PAVotingResults.AddNewPoll(sessionkey, prompt, options);
-                CurrentPrompt[sessionkey] = prompt;
-
-                try
-                {
-                    await _hubContext.Clients.Group(sessionkey).SendAsync("NewPrompt", pageContent);
-                }
-                catch (Exception e)
-                {
-
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException("The requested prompt has already been sent to this session.");
-            }
-        }
+        
 
         /// <summary>
         /// 
@@ -294,41 +375,14 @@ namespace PAClient
             return ret;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="args"></param>
-        public static void Main(string[] args)
-        {
-            if (args.Length == 0)
-            {
-                CreateHostBuilder(7777).Build().Run();
-            }
+        
 
-            CreateHostBuilder(Convert.ToInt32(args[0], CultureInfo.CurrentCulture)).Build().Run();
-        }
+        
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="port"></param>
-        public PABackend(int port)
-        {
-            Port = port;
-            PAVotingResults = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
-            ConnectionList = new Dictionary<string, List<string>>();
-            CurrentPrompt = new Dictionary<string, KeyValuePair<Guid, string>>();
-            AddNewSession("ASDASD");
-            AddNewSession("QWEQWE");
-
-            _serverThread = new Thread(this.ServerStart);
-            _serverThread.Start();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void ServerStart()
+        private void StartServer()
         {
             host = CreateHostBuilder(Port).Build();
             _hubContext = (IHubContext<ServerHub>)host.Services.GetService(typeof(IHubContext<ServerHub>));
@@ -344,6 +398,7 @@ namespace PAClient
             _serverThread.Join();
         }
 
+
         /// <summary>
         /// 
         /// </summary>
@@ -356,5 +411,44 @@ namespace PAClient
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseUrls("https://localhost:" + port + "/");
                 });
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="port"></param>
+        public PABackend(int port)
+        {
+            Port = port;
+            PAVotingResults = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            ConnectionList = new Dictionary<string, List<string>>();
+            CurrentPrompt = new Dictionary<string, KeyValuePair<Guid, string>>();
+
+            _serverThread = new Thread(this.StartServer);
+            _serverThread.Start();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="port"></param>
+        public static PABackend DebugPABackend(int port)
+        {
+            isDebug = true;
+            return new PABackend(port);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        public static void Main(string[] args)
+        {
+            if (args.Length == 0)
+            {
+                CreateHostBuilder(7777).Build().Run();
+            }
+
+            CreateHostBuilder(Convert.ToInt32(args[0], CultureInfo.CurrentCulture)).Build().Run();
+        }
     }
 }

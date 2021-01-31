@@ -11,7 +11,7 @@ namespace ServerLogicTests.Control
     /// 
     /// </summary>
     [TestClass]
-    public class ServerShellTest
+    public sealed class ServerShellTest
     {
         private const string portCommandPattern = @"(usage: port)";
         private const string passwordCommandPattern = @"(usage: password)";

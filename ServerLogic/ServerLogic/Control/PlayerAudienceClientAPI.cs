@@ -71,7 +71,8 @@ namespace ServerLogic.Control
             {
                 if (Regex.IsMatch(sessionkey, @"[A-Z0-9]{6}"))
                 {
-                    return pABackend.StartNewSession(sessionkey);
+                    //return pABackend.StartNewSession(sessionkey);
+                    return true;
                 }
                 else
                 {
@@ -91,32 +92,9 @@ namespace ServerLogic.Control
         /// <param name="prompt"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public bool StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
+        public async void StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
-            if (serverIsActive)
-            {
-                if (IsSessionActive(sessionkey))
-                {
-                    try
-                    {
-                        pABackend.SendPushMessage(sessionkey, prompt, options);
-                        return true;
-                    }
-                    catch (InvalidOperationException e)
-                    {
-                        /* LOG ERROR HERE */
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
-            }
+            await pABackend.SendPushMessage(sessionkey, prompt, options);
         }
 
         /// <summary>

@@ -243,6 +243,10 @@ namespace ServerLogic.Control
         {
             if (Convert.ToInt32(parameterList[0]) == 0)
             {
+                mainServerLogic.playerAudienceClientAPI.StartNewSession("ASDASD");
+            }
+            else
+            {
                 KeyValuePair<Guid, string>[] options1 = new KeyValuePair<Guid, string>[]
                 {
                     KeyValuePair.Create(Guid.NewGuid(), "Nothing"),
@@ -252,16 +256,6 @@ namespace ServerLogic.Control
                 };
 
                 mainServerLogic.playerAudienceClientAPI.StartNewVote("ASDASD", KeyValuePair.Create(Guid.NewGuid(), "What is happening here?"), options1);
-            }
-            else
-            {
-                KeyValuePair<Guid, string>[] options2 = new KeyValuePair<Guid, string>[]
-                {
-                    KeyValuePair.Create(Guid.NewGuid(), "Hell yeah"),
-                    KeyValuePair.Create(Guid.NewGuid(), "What am I doing with my life"),
-                };
-
-                mainServerLogic.playerAudienceClientAPI.StartNewVote("QWEQWE", KeyValuePair.Create(Guid.NewGuid(), "Another prompt?"), options2);
             }
 
             return "Oops";
