@@ -131,6 +131,22 @@ namespace PAClient
         /// <returns></returns>
         private string CreatePageContent(KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
+            if (prompt.Value == null)
+            {
+                throw new ArgumentNullException("The prompt's description can not be null.");
+            }
+            if (options == null)
+            {
+                throw new ArgumentNullException("The options can not be null.");
+            }
+            foreach (KeyValuePair<Guid, string> pair in options)
+            {
+                if (pair.Value == null)
+                {
+                    throw new ArgumentNullException("The option's description can not be null.");
+                }
+            }
+
             string ret = "";
 
             string promptString = prompt.Value;
@@ -251,7 +267,7 @@ namespace PAClient
                     Guid clientPrompt = CurrentPrompt.GetValueOrDefault(sessionkey).Key;
 
                     PAVotingResults.AddVote(sessionkey, clientPrompt, option);
-                    return 0;
+                    return (int) PABackendErrorType.NoError;
                 }
                 else
                 {
@@ -261,21 +277,21 @@ namespace PAClient
             catch (ArgumentNullException e)
             {
                 /* LOG ERROR HERE */
-                return -1;
+                return (int) PABackendErrorType.NullSessionkeyError;
             }
             catch (ArgumentException e)
             {
                 /* LOG ERROR HERE */
-                return -2;
+                return (int) PABackendErrorType.InvalidArgumentError;
             }
             catch (SessionNotFoundException e)
             {
                 /* LOG ERROR HERE */
-                return -3;
+                return (int) PABackendErrorType.InvalidSessionkeyError;
             }
         }
 
-        
+
 
         /// <summary>
         /// 
@@ -320,12 +336,12 @@ namespace PAClient
             if (sessionkey == null)
             {
                 /* LOG ERROR HERE */
-                return -1;
+                return (int) PABackendErrorType.NullSessionkeyError;
             }
             if (connectionId == null)
             {
                 /* LOG ERROR HERE */
-                return -2;
+                return (int) PABackendErrorType.NullConnectionIdError;
             }
 
             if (IsSessionActive(sessionkey))
@@ -333,18 +349,18 @@ namespace PAClient
                 if (Regex.IsMatch(connectionId, @"[a-zA-Z0-9\-_]{22}"))
                 {
                     ConnectionList.GetValueOrDefault(sessionkey).Add(connectionId);
-                    return 0;
+                    return (int) PABackendErrorType.NoError;
                 }
                 else
                 {
                     /* LOG ERROR HERE */
-                    return -4;
+                    return (int) PABackendErrorType.InvalidConnectionIdError;
                 }
             }
             else
             {
                 /* LOG ERROR HERE */
-                return -3;
+                return (int) PABackendErrorType.InvalidSessionkeyError;
             }
         }
 
@@ -357,7 +373,7 @@ namespace PAClient
             if (connectionId == null)
             {
                 /* LOG ERROR HERE */
-                return -2;
+                return (int) PABackendErrorType.NullConnectionIdError;
             }
 
             foreach (KeyValuePair<string, List<string>> entry in ConnectionList)
@@ -365,11 +381,12 @@ namespace PAClient
                 if (entry.Value.Contains(connectionId))
                 {
                     entry.Value.Remove(connectionId);
-                    return 0;
+                    return (int) PABackendErrorType.NoError;
                 }
             }
-            return -4;
+            return (int) PABackendErrorType.InvalidConnectionIdError;
         }
+
 
         /// <summary>
         /// 
@@ -379,19 +396,33 @@ namespace PAClient
         /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResult(string sessionkey, KeyValuePair<Guid, string> prompt)
         {
-            try
+            if (sessionkey == null)
             {
-                SendPushClear(sessionkey);
-                return PAVotingResults.GetOptionsVotesPairsByPrompt(sessionkey, prompt.Key);
+                throw new ArgumentNullException("The sessionkey can not be null.");
             }
-            catch (SessionNotFoundException e)
+            if (prompt.Value == null)
             {
-                /* LOG ERROR HERE */
-                return null;
+                throw new ArgumentNullException("The prompt's description can not be null.");
+            }
+
+            if (IsSessionActive(sessionkey))
+            {
+                if (PAVotingResults.GetPromptsBySession(sessionkey).Contains(prompt)) {
+                    SendPushClear(sessionkey);
+                    return PAVotingResults.GetOptionsVotesPairsByPrompt(sessionkey, prompt.Key);
+                }
+                else
+                {
+                    throw new ArgumentException("The transmitted prompt is not part of this session.");
+                }
+            }
+            else
+            {
+                throw new SessionNotFoundException("The requested session is either inactive or invalid!");
             }
         }
 
-        
+
 
         /// <summary>
         /// 
@@ -402,11 +433,11 @@ namespace PAClient
             await _hubContext.Clients.Group(sessionkey).SendAsync("ClearPrompt");
         }
 
-        
 
-        
 
-        
+
+
+
 
         /// <summary>
         /// 
@@ -433,7 +464,7 @@ namespace PAClient
         /// </summary>
         /// <param name="port"></param>
         /// <returns></returns>
-        public static IHostBuilder CreateHostBuilder(int port) =>
+        private static IHostBuilder CreateHostBuilder(int port) =>
             Host.CreateDefaultBuilder()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

@@ -684,7 +684,7 @@ namespace PAClientTest
         /// </summary>
         [TestMethod]
         [TestCategory("GetPromptStringsBySession")]
-        public void GetPromptStringsBySession_ÍnvalidSessionkeyTest()
+        public void GetPromptStringsBySession_InvalidSessionkeyTest()
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
             v.AddSessionKey(testKey_1);

@@ -16,7 +16,7 @@ namespace ServerLogic.Control
     public class PlayerAudienceClientAPI
     {
         private PABackend pABackend;
-        private bool serverIsActive;
+        public bool serverIsActive { get; private set; }
 
         /// <summary>
         /// 
@@ -35,30 +35,7 @@ namespace ServerLogic.Control
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void StopServer()
-        {
-            if (serverIsActive)
-            {
-                serverIsActive = false;
-                pABackend.StopServer();
-            }
-            else
-            {
-                throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool IsServerActive()
-        {
-            return serverIsActive;
-        }
+        
 
         /// <summary>
         /// 
@@ -111,6 +88,31 @@ namespace ServerLogic.Control
         /// 
         /// </summary>
         /// <param name="sessionkey"></param>
+        /// <param name="prompt"></param>
+        /// <returns></returns>
+        public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResults(string sessionkey, KeyValuePair<Guid, string> prompt)
+        {
+            if (serverIsActive)
+            {
+                if (IsSessionActive(sessionkey))
+                {
+                    return pABackend.GetVotingResult(sessionkey, prompt);
+                }
+                else
+                {
+                    throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
         public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> EndSession(string sessionkey)
         {
             if (serverIsActive)
@@ -133,21 +135,12 @@ namespace ServerLogic.Control
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sessionkey"></param>
-        /// <param name="prompt"></param>
-        /// <returns></returns>
-        public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResults(string sessionkey, KeyValuePair<Guid, string> prompt)
+        public void StopServer()
         {
             if (serverIsActive)
             {
-                if (IsSessionActive(sessionkey))
-                {
-                    return pABackend.GetVotingResult(sessionkey, prompt);
-                }
-                else
-                {
-                    throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
-                }
+                serverIsActive = false;
+                pABackend.StopServer();
             }
             else
             {
@@ -155,6 +148,9 @@ namespace ServerLogic.Control
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public PlayerAudienceClientAPI()
         {
             /* FALL THROUGH */
