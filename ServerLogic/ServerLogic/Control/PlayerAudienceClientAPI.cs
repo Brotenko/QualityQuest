@@ -41,15 +41,26 @@ namespace ServerLogic.Control
         /// 
         /// </summary>
         /// <param name="sessionkey"></param>
-        /// <returns>If a new session has been started successfully.</returns>
+        /// <returns></returns>
         public bool StartNewSession(string sessionkey)
         {
             if (serverIsActive)
             {
                 if (Regex.IsMatch(sessionkey, @"[A-Z0-9]{6}"))
                 {
-                    //return pABackend.StartNewSession(sessionkey);
-                    return true;
+                    try
+                    {
+                        pABackend.StartNewSession(sessionkey);
+                        return true;
+                    }
+                    catch (ArgumentNullException e)
+                    {
+                        return false;
+                    }
+                    catch (ArgumentException e)
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -58,7 +69,7 @@ namespace ServerLogic.Control
             }
             else
             {
-                throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
+                return false;
             }
         }
 
@@ -71,7 +82,22 @@ namespace ServerLogic.Control
         /// <returns></returns>
         public async void StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
-            await pABackend.SendPushMessage(sessionkey, prompt, options);
+            try
+            {
+                await pABackend.SendPushMessage(sessionkey, prompt, options);
+            }
+            catch (ArgumentNullException e)
+            {
+                
+            }
+            catch (ArgumentException e)
+            {
+                
+            }
+            catch (SessionNotFoundException e)
+            {
+
+            }
         }
 
         /// <summary>
@@ -94,13 +120,21 @@ namespace ServerLogic.Control
         {
             if (serverIsActive)
             {
-                if (IsSessionActive(sessionkey))
+                try
                 {
                     return pABackend.GetVotingResult(sessionkey, prompt);
                 }
-                else
+                catch (ArgumentNullException e)
                 {
-                    throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                    return null;
+                }
+                catch (ArgumentException e)
+                {
+                    return null;
+                }
+                catch (SessionNotFoundException e)
+                {
+                    return null;
                 }
             }
             else
@@ -117,13 +151,21 @@ namespace ServerLogic.Control
         {
             if (serverIsActive)
             {
-                if (IsSessionActive(sessionkey))
+                try
                 {
                     return pABackend.EndSession(sessionkey);
                 }
-                else
+                catch (ArgumentNullException e)
                 {
-                    throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+                    return null;
+                }
+                catch (ArgumentException e)
+                {
+                    return null;
+                }
+                catch (SessionNotFoundException e)
+                {
+                    return null;
                 }
             }
             else
