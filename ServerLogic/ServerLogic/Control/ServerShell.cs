@@ -118,6 +118,39 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
+        /// The Main method of the ServerShell.
+        /// </summary>
+        /// 
+        /// <param name="args">Command-line parameters.</param>
+        /// 
+        /// <exception cref="System.ArgumentException">Thrown when either the supposed 
+        /// password or port violate the rules for setting them.</exception>
+        public static void Main(string[] args)
+        {
+            string[] returnValue = CheckMainMethodArgs(args);
+
+            if (returnValue == null)
+            {
+                return;
+            }
+
+            ServerShell serverShell = new ServerShell(password: returnValue[0], port: Convert.ToInt32(returnValue[1], CultureInfo.CurrentCulture));
+        }
+
+        /// <summary>
+        /// A debug function that is only used by the unit-tests to test the ServerShell
+        /// and its methods thoroughly.
+        /// </summary>
+        /// 
+        /// <param name="debugInput">Unaltered input sent from the unit-test.</param>
+        /// 
+        /// <returns>The output of the parsed command.</returns>
+        public string ParseCommandDebugger(string debugInput)
+        {
+            return ParseCommand(debugInput);
+        }
+
+        /// <summary>
         /// The main-loop of the shell application that prompts new inputs and returns the
         /// output of the parsed command.
         /// </summary>
@@ -140,19 +173,6 @@ namespace ServerLogic.Control
         private void StopShell()
         {
             Environment.Exit(exitCode: 0);
-        }
-
-        /// <summary>
-        /// A debug function that is only used by the unit-tests to test the ServerShell
-        /// and its methods thoroughly.
-        /// </summary>
-        /// 
-        /// <param name="debugInput">Unaltered input sent from the unit-test.</param>
-        /// 
-        /// <returns>The output of the parsed command.</returns>
-        public string ParseCommandDebugger(string debugInput)
-        {
-            return ParseCommand(debugInput);
         }
 
         /// <summary>
@@ -202,9 +222,6 @@ namespace ServerLogic.Control
             {
                 switch (command)
                 {
-                case "debug":
-                    ret = SendDebugMessage(commandParameters);
-                    break;
                 case "port":
                     ret = ParsePort(commandParameters);
                     break;
@@ -238,29 +255,6 @@ namespace ServerLogic.Control
             commandRequestsHelpMessage = false;
             return ret;
         }
-
-        private string SendDebugMessage(string[] parameterList)
-        {
-            if (Convert.ToInt32(parameterList[0]) == 0)
-            {
-                mainServerLogic.playerAudienceClientAPI.StartNewSession("ASDASD");
-            }
-            else
-            {
-                KeyValuePair<Guid, string>[] options1 = new KeyValuePair<Guid, string>[]
-                {
-                    KeyValuePair.Create(Guid.NewGuid(), "Nothing"),
-                    KeyValuePair.Create(Guid.NewGuid(), "Quite a lot"),
-                    KeyValuePair.Create(Guid.NewGuid(), "Perhaps a little something"),
-                    KeyValuePair.Create(Guid.NewGuid(), "Everything")
-                };
-
-                mainServerLogic.playerAudienceClientAPI.StartNewVote("ASDASD", KeyValuePair.Create(Guid.NewGuid(), "What is happening here?"), options1);
-            }
-
-            return "Oops";
-        }
-
 
         /// <summary>
         /// Parses the parameters the "port" command was called with. Depending on the
@@ -727,26 +721,6 @@ namespace ServerLogic.Control
                 throw new ArgumentException(message: Properties.Resources.InvalidPortExceptionMessage);
             }
 
-        }
-
-        /// <summary>
-        /// The Main method of the ServerShell.
-        /// </summary>
-        /// 
-        /// <param name="args">Command-line parameters.</param>
-        /// 
-        /// <exception cref="System.ArgumentException">Thrown when either the supposed 
-        /// password or port violate the rules for setting them.</exception>
-        public static void Main(string[] args)
-        {
-            string[] returnValue = CheckMainMethodArgs(args);
-
-            if (returnValue == null)
-            {
-                return;
-            }
-
-            ServerShell serverShell = new ServerShell(password: returnValue[0], port: Convert.ToInt32(returnValue[1], CultureInfo.CurrentCulture));
         }
     }
 }

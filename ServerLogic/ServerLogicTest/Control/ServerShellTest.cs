@@ -306,7 +306,8 @@ namespace ServerLogicTests.Control
         /// when certain options are transmitted.
         /// </summary>
         [TestMethod]
-        public void StartServerTest()
+        [TestCategory("StartServer")]
+        public void StartServer_ParameterlessTest()
         {
             ServerShell s = new ServerShell();
 
@@ -319,6 +320,16 @@ namespace ServerLogicTests.Control
              */
             string t = s.ParseCommandDebugger("start");
             Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [TestCategory("StartServer")]
+        public void StartServer_ValidPortTest()
+        {
+            ServerShell s = new ServerShell();
 
             /*
              * Tests for the following conditions:
@@ -328,9 +339,19 @@ namespace ServerLogicTests.Control
              * Starts the ServerLogic with previously set password and
              * the newly set port.
              */
-            t = s.ParseCommandDebugger("start --port=" + testPort_1);
+            string t = s.ParseCommandDebugger("start --port=" + testPort_1);
             Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
             Assert.AreEqual(testPort_1, s.Port);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [TestCategory("StartServer")]
+        public void StartServer_InvalidPortTest()
+        {
+            ServerShell s = new ServerShell();
 
             /*
              * Tests for the following conditions:
@@ -341,8 +362,18 @@ namespace ServerLogicTests.Control
              * an "InvalidPortExceptionMessage" to inform the user that
              * the port was not in adequate form.
              */
-            t = s.ParseCommandDebugger("start --port=4g%gL#1");
+            string t = s.ParseCommandDebugger("start --port=4g%gL#1");
             Assert.IsTrue(Regex.IsMatch(t, portExceptionPattern));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [TestCategory("StartServer")]
+        public void StartServer_ValidPasswordTest()
+        {
+            ServerShell s = new ServerShell();
 
             /*
              * Tests for the following conditions:
@@ -352,9 +383,19 @@ namespace ServerLogicTests.Control
              * Starts the ServerLogic with previously set port and the
              * newly set password.
              */
-            t = s.ParseCommandDebugger("start --password=" + testPassword_1);
+            string t = s.ParseCommandDebugger("start --password=" + testPassword_1);
             Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
             Assert.AreEqual(testPassword_1, s.Password);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [TestCategory("StartServer")]
+        public void StartServer_InvalidPasswordTest()
+        {
+            ServerShell s = new ServerShell();
 
             /*
              * Tests for the following conditions:
@@ -365,8 +406,18 @@ namespace ServerLogicTests.Control
              * an "InvalidPasswordExceptionMessage" to inform the user that
              * the password was not in adequate form.
              */
-            t = s.ParseCommandDebugger("start --password=123");
+            string t = s.ParseCommandDebugger("start --password=123");
             Assert.IsTrue(Regex.IsMatch(t, passwordExceptionPattern));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [TestCategory("StartServer")]
+        public void StartServer_InvalidOptionTest()
+        {
+            ServerShell s = new ServerShell();
 
             /*
              * Tests for the following conditions:
@@ -376,8 +427,18 @@ namespace ServerLogicTests.Control
              * Starts the ServerLogic with previously set port and password,
              * disregarding the unknown options.
              */
-            t = s.ParseCommandDebugger("start --h#4tH2&5=h78/tj/)");
+            string t = s.ParseCommandDebugger("start --h#4tH2&5=h78/tj/)");
             Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [TestCategory("StartServer")]
+        public void StartServer_ValidPasswordAndPortTest()
+        {
+            ServerShell s = new ServerShell();
 
             /*
              * Tests for the following conditions:
@@ -389,10 +450,20 @@ namespace ServerLogicTests.Control
              * Starts the ServerLogic with newly set port and password,
              * disregarding the order of the options provided.
              */
-            t = s.ParseCommandDebugger("start --password=" + testPassword_2 + " --port=" + testPort_2);
+            string t = s.ParseCommandDebugger("start --password=" + testPassword_2 + " --port=" + testPort_2);
             Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
             Assert.AreEqual(testPort_2, s.Port);
             Assert.AreEqual(testPassword_2, s.Password);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [TestCategory("StartServer")]
+        public void StartServer_ValidPortAndPasswordTest()
+        {
+            ServerShell s = new ServerShell();
 
             /*
              * Tests for the following conditions:
@@ -404,7 +475,7 @@ namespace ServerLogicTests.Control
              * Starts the ServerLogic with newly set port and password,
              * disregarding the order of the options provided.
              */
-            t = s.ParseCommandDebugger("start --port=" + testPort_3 + " --password=" + testPassword_3);
+            string t = s.ParseCommandDebugger("start --port=" + testPort_3 + " --password=" + testPassword_3);
             Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
             Assert.AreEqual(testPort_3, s.Port);
             Assert.AreEqual(testPassword_3, s.Password);
@@ -424,20 +495,10 @@ namespace ServerLogicTests.Control
              * - the command "stop" is entered without any additional options
              * 
              * What it does:
-             * Stops the ServerLogic.
+             * Throws an InvalidOperationException because the Server is not
+             * running and thus can not be stopped.
              */
-            string t = s.ParseCommandDebugger("stop");
-            Assert.IsTrue(Regex.IsMatch(t, serverHasStoppedPattern));
-
-            /*
-             * Tests for the following conditions:
-             * -the command "stop" is entered with additional options
-             * 
-             * What it does:
-             * Stops the ServerLogic without regarding the additional options
-             */
-            t = s.ParseCommandDebugger("stop t&dk4#g8");
-            Assert.IsTrue(Regex.IsMatch(t, serverHasStoppedPattern));
+            Assert.ThrowsException<InvalidOperationException>(() => s.ParseCommandDebugger("stop"));
         }
 
         /// <summary>

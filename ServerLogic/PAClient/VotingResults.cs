@@ -25,20 +25,19 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        public string[] GetSessionKeys()
+        /// <param name="x"></param>
+        public VotingResults(Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> x)
         {
-            return data.Keys.ToArray();
+            data = x;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sessionkey"></param>
         /// <returns></returns>
-        private bool IsSessionActive(string sessionkey)
+        public string[] GetSessionKeys()
         {
-            return GetSessionKeys().Contains(sessionkey);
+            return data.Keys.ToArray();
         }
 
         /// <summary>
@@ -509,10 +508,11 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="x"></param>
-        public VotingResults(Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> x)
+        /// <param name="sessionkey"></param>
+        /// <returns></returns>
+        private bool IsSessionActive(string sessionkey)
         {
-            data = x;
+            return GetSessionKeys().Contains(sessionkey);
         }
     }
 }

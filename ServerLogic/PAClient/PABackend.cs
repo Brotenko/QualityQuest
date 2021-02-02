@@ -13,14 +13,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-/*
- * 1) Add more security levels to methods with Exceptions and return values and shit
- * 2) Add tests and comments
- * 3) Error Pop-Up when connecting to non-existent session 
- * 4) Update documentation
- */
-
-
 namespace PAClient
 {
     /// <summary>
@@ -28,6 +20,11 @@ namespace PAClient
     /// </summary>
     public class PABackend
     {
+        private IHost host;
+        private static IHubContext<ServerHub> _hubContext;
+        private Thread _serverThread;
+        private static bool isDebug;
+
         // A list of all voting results, sorted by the GUID of the "voting prompt/questions" 
         public static VotingResults PAVotingResults
         {
@@ -39,13 +36,6 @@ namespace PAClient
         {
             get; private set;
         }
-
-        private IHost host;
-        private static IHubContext<ServerHub> _hubContext;
-
-        private Thread _serverThread;
-
-        private static bool isDebug;
 
         // Current prompt depending on the session
         //                 sessionkey             prompt
@@ -62,15 +52,35 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="port"></param>
+        public PABackend(int port)
+        {
+            Port = port;
+            PAVotingResults = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            ConnectionList = new Dictionary<string, List<string>>();
+            CurrentPrompt = new Dictionary<string, KeyValuePair<Guid, string>>();
+
+            _serverThread = new Thread(this.StartServer);
+            _serverThread.Start();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="port"></param>
+        public static PABackend DebugPABackend(int port)
+        {
+            isDebug = true;
+            return new PABackend(port);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public string[] GetSessionKeys()
         {
             return PAVotingResults.GetSessionKeys();
-        }
-
-        private static bool IsSessionActive(string sessionkey)
-        {
-            return PAVotingResults.GetSessionKeys().Contains(sessionkey);
         }
 
         /// <summary>
@@ -104,93 +114,12 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sessionkey"></param>
-        private static void AddNewSession(string sessionkey)
-        {
-            PAVotingResults.AddSessionKey(sessionkey);
-            ConnectionList.Add(sessionkey, new List<string>());
-            CurrentPrompt.Add(sessionkey, new KeyValuePair<Guid, string>());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="prompt"></param>
         /// <param name="options"></param>
         /// <returns></returns>
         public string DebugCreatePageContent(KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
             return CreatePageContent(prompt, options);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="prompt"></param>
-        /// <param name="options"></param>
-        /// <returns></returns>
-        private string CreatePageContent(KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
-        {
-            if (prompt.Value == null)
-            {
-                throw new ArgumentNullException("The prompt's description can not be null.");
-            }
-            if (options == null)
-            {
-                throw new ArgumentNullException("The options can not be null.");
-            }
-            foreach (KeyValuePair<Guid, string> pair in options)
-            {
-                if (pair.Value == null)
-                {
-                    throw new ArgumentNullException("The option's description can not be null.");
-                }
-            }
-
-            string ret = "";
-
-            string promptString = prompt.Value;
-            //string[] optionsStrings = options.SelectMany(keyValuePair => keyValuePair.Values.Select(key => key)).Distinct().ToArray();
-            string[] optionsStrings = options.Select(kvp => kvp.Value).ToArray();
-            Guid[] optionsGuids = options.Select(kvp => kvp.Key).ToArray();
-
-            switch (options.Length)
-            {
-            case 2:
-                ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
-                        promptString +
-                      "</div>" +
-                      "<div id=\"voting-container\" class=\"voting-container\">" +
-                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-2items-1\" value=\"" + optionsStrings[0] + "\" />" +
-                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-2items-2\" value=\"" + optionsStrings[1] + "\" />" +
-                      "</div>";
-                break;
-            case 3:
-                ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
-                        promptString +
-                      "</div>" +
-                      "<div id=\"voting-container\" class=\"voting-container\">" +
-                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-3items-1\" value=\"" + optionsStrings[0] + "\" />" +
-                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-3items-2\" value=\"" + optionsStrings[1] + "\" />" +
-                        "<input type=\"button\" id=\"choice-3\" name=\"" + optionsGuids[2] + "\" class=\"input-button voting-container-3items-3\" value=\"" + optionsStrings[2] + "\" />" +
-                      "</div>";
-                break;
-            case 4:
-                ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
-                        promptString +
-                      "</div>" +
-                      "<div id=\"voting-container\" class=\"voting-container\">" +
-                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-4items-1\" value=\"" + optionsStrings[0] + "\" />" +
-                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-4items-2\" value=\"" + optionsStrings[1] + "\" />" +
-                        "<input type=\"button\" id=\"choice-3\" name=\"" + optionsGuids[2] + "\" class=\"input-button voting-container-4items-3\" value=\"" + optionsStrings[2] + "\" />" +
-                        "<input type=\"button\" id=\"choice-4\" name=\"" + optionsGuids[3] + "\" class=\"input-button voting-container-4items-4\" value=\"" + optionsStrings[3] + "\" />" +
-                      "</div>";
-                break;
-            default:
-                break;
-            }
-
-            return ret;
         }
 
         /// <summary>
@@ -291,8 +220,6 @@ namespace PAClient
             }
         }
 
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -315,15 +242,6 @@ namespace PAClient
             {
                 throw new ArgumentException("The transmitted sessionkey does not belong to an active session.");
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sessionkey"></param>
-        private static void RemoveSession(string sessionkey)
-        {
-            PAVotingResults.RemoveSession(sessionkey);
         }
 
         /// <summary>
@@ -422,33 +340,6 @@ namespace PAClient
             }
         }
 
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="group"></param>
-        private async void SendPushClear(string sessionkey)
-        {
-            await _hubContext.Clients.Group(sessionkey).SendAsync("ClearPrompt");
-        }
-
-
-
-
-
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void StartServer()
-        {
-            host = CreateHostBuilder(Port).Build();
-            _hubContext = (IHubContext<ServerHub>)host.Services.GetService(typeof(IHubContext<ServerHub>));
-            host.Run();
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -456,45 +347,6 @@ namespace PAClient
         {
             host.StopAsync();
             _serverThread.Join();
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="port"></param>
-        /// <returns></returns>
-        private static IHostBuilder CreateHostBuilder(int port) =>
-            Host.CreateDefaultBuilder()
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("https://localhost:" + port + "/");
-                });
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="port"></param>
-        public PABackend(int port)
-        {
-            Port = port;
-            PAVotingResults = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
-            ConnectionList = new Dictionary<string, List<string>>();
-            CurrentPrompt = new Dictionary<string, KeyValuePair<Guid, string>>();
-
-            _serverThread = new Thread(this.StartServer);
-            _serverThread.Start();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="port"></param>
-        public static PABackend DebugPABackend(int port)
-        {
-            isDebug = true;
-            return new PABackend(port);
         }
 
         /// <summary>
@@ -510,5 +362,132 @@ namespace PAClient
 
             CreateHostBuilder(Convert.ToInt32(args[0], CultureInfo.CurrentCulture)).Build().Run();
         }
+
+        private static bool IsSessionActive(string sessionkey)
+        {
+            return PAVotingResults.GetSessionKeys().Contains(sessionkey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        private static void AddNewSession(string sessionkey)
+        {
+            PAVotingResults.AddSessionKey(sessionkey);
+            ConnectionList.Add(sessionkey, new List<string>());
+            CurrentPrompt.Add(sessionkey, new KeyValuePair<Guid, string>());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        private string CreatePageContent(KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
+        {
+            if (prompt.Value == null)
+            {
+                throw new ArgumentNullException("The prompt's description can not be null.");
+            }
+            if (options == null)
+            {
+                throw new ArgumentNullException("The options can not be null.");
+            }
+            foreach (KeyValuePair<Guid, string> pair in options)
+            {
+                if (pair.Value == null)
+                {
+                    throw new ArgumentNullException("The option's description can not be null.");
+                }
+            }
+
+            string ret = "";
+
+            string promptString = prompt.Value;
+            //string[] optionsStrings = options.SelectMany(keyValuePair => keyValuePair.Values.Select(key => key)).Distinct().ToArray();
+            string[] optionsStrings = options.Select(kvp => kvp.Value).ToArray();
+            Guid[] optionsGuids = options.Select(kvp => kvp.Key).ToArray();
+
+            switch (options.Length)
+            {
+            case 2:
+                ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
+                        promptString +
+                      "</div>" +
+                      "<div id=\"voting-container\" class=\"voting-container\">" +
+                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-2items-1\" value=\"" + optionsStrings[0] + "\" />" +
+                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-2items-2\" value=\"" + optionsStrings[1] + "\" />" +
+                      "</div>";
+                break;
+            case 3:
+                ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
+                        promptString +
+                      "</div>" +
+                      "<div id=\"voting-container\" class=\"voting-container\">" +
+                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-3items-1\" value=\"" + optionsStrings[0] + "\" />" +
+                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-3items-2\" value=\"" + optionsStrings[1] + "\" />" +
+                        "<input type=\"button\" id=\"choice-3\" name=\"" + optionsGuids[2] + "\" class=\"input-button voting-container-3items-3\" value=\"" + optionsStrings[2] + "\" />" +
+                      "</div>";
+                break;
+            case 4:
+                ret = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
+                        promptString +
+                      "</div>" +
+                      "<div id=\"voting-container\" class=\"voting-container\">" +
+                        "<input type=\"button\" id=\"choice-1\" name=\"" + optionsGuids[0] + "\" class=\"input-button voting-container-4items-1\" value=\"" + optionsStrings[0] + "\" />" +
+                        "<input type=\"button\" id=\"choice-2\" name=\"" + optionsGuids[1] + "\" class=\"input-button voting-container-4items-2\" value=\"" + optionsStrings[1] + "\" />" +
+                        "<input type=\"button\" id=\"choice-3\" name=\"" + optionsGuids[2] + "\" class=\"input-button voting-container-4items-3\" value=\"" + optionsStrings[2] + "\" />" +
+                        "<input type=\"button\" id=\"choice-4\" name=\"" + optionsGuids[3] + "\" class=\"input-button voting-container-4items-4\" value=\"" + optionsStrings[3] + "\" />" +
+                      "</div>";
+                break;
+            default:
+                break;
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionkey"></param>
+        private static void RemoveSession(string sessionkey)
+        {
+            PAVotingResults.RemoveSession(sessionkey);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="group"></param>
+        private async void SendPushClear(string sessionkey)
+        {
+            await _hubContext.Clients.Group(sessionkey).SendAsync("ClearPrompt");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void StartServer()
+        {
+            host = CreateHostBuilder(Port).Build();
+            _hubContext = (IHubContext<ServerHub>)host.Services.GetService(typeof(IHubContext<ServerHub>));
+            host.Run();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="port"></param>
+        /// <returns></returns>
+        private static IHostBuilder CreateHostBuilder(int port) =>
+            Host.CreateDefaultBuilder()
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("https://localhost:" + port + "/");
+                });
     }
 }

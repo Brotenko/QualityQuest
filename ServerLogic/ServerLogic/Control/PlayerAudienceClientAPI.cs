@@ -16,7 +16,16 @@ namespace ServerLogic.Control
     public class PlayerAudienceClientAPI
     {
         private PABackend pABackend;
+
         public bool serverIsActive { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PlayerAudienceClientAPI()
+        {
+            /* FALL THROUGH */
+        }
 
         /// <summary>
         /// 
@@ -35,107 +44,68 @@ namespace ServerLogic.Control
             }
         }
 
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="port"></param>
+        public void DebugStartServer(int port)
+        {
+            if (serverIsActive == false)
+            {
+                serverIsActive = true;
+                pABackend = PABackend.DebugPABackend(port);
+            }
+            else
+            {
+                throw new InvalidOperationException(message: "The server is already running and can't be started right now!");
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sessionkey"></param>
         /// <returns></returns>
-        public bool StartNewSession(string sessionkey)
+        public void StartNewSession(string sessionkey)
         {
             if (serverIsActive)
             {
                 if (Regex.IsMatch(sessionkey, @"[A-Z0-9]{6}"))
                 {
-                    try
-                    {
-                        pABackend.StartNewSession(sessionkey);
-                        return true;
-                    }
-                    catch (ArgumentNullException e)
-                    {
-                        return false;
-                    }
-                    catch (ArgumentException e)
-                    {
-                        return false;
-                    }
+                    pABackend.StartNewSession(sessionkey);
                 }
                 else
                 {
-                    return false;
+                    throw new ArgumentException(message: "Sessionkey needs to be 6 uppercase, alphanumerical characters.");
                 }
             }
             else
             {
-                return false;
+                throw new InvalidOperationException(message: "The server is already running and can't be started right now!");
             }
         }
 
         /// <summary>
         /// 
+        /// 
         /// </summary>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <param name="prompt"></param>
+        /// 
         /// <param name="options"></param>
-        /// <returns></returns>
-        public async void StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
-        {
-            try
-            {
-                await pABackend.SendPushMessage(sessionkey, prompt, options);
-            }
-            catch (ArgumentNullException e)
-            {
-                
-            }
-            catch (ArgumentException e)
-            {
-                
-            }
-            catch (SessionNotFoundException e)
-            {
-
-            }
-        }
-
-        /// <summary>
         /// 
-        /// </summary>
-        /// <param name="sessionkey"></param>
-        /// <returns></returns>
-        private bool IsSessionActive(string sessionkey)
-        {
-            return pABackend.GetSessionKeys().Contains(sessionkey);
-        }
-
-        /// <summary>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
         /// 
-        /// </summary>
-        /// <param name="sessionkey"></param>
-        /// <param name="prompt"></param>
         /// <returns></returns>
-        public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResults(string sessionkey, KeyValuePair<Guid, string> prompt)
+        public async Task StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
             if (serverIsActive)
             {
-                try
-                {
-                    return pABackend.GetVotingResult(sessionkey, prompt);
-                }
-                catch (ArgumentNullException e)
-                {
-                    return null;
-                }
-                catch (ArgumentException e)
-                {
-                    return null;
-                }
-                catch (SessionNotFoundException e)
-                {
-                    return null;
-                }
+                await pABackend.SendPushMessage(sessionkey, prompt, options);
             }
             else
             {
@@ -146,27 +116,42 @@ namespace ServerLogic.Control
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <param name="sessionkey"></param>
+        /// 
+        /// <param name="prompt"></param>
+        ///
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
+        /// <returns></returns>
+        public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResult(string sessionkey, KeyValuePair<Guid, string> prompt)
+        {
+            if (serverIsActive)
+            {
+                return pABackend.GetVotingResult(sessionkey, prompt);
+            }
+            else
+            {
+                throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        ///
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
         public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> EndSession(string sessionkey)
         {
             if (serverIsActive)
             {
-                try
-                {
-                    return pABackend.EndSession(sessionkey);
-                }
-                catch (ArgumentNullException e)
-                {
-                    return null;
-                }
-                catch (ArgumentException e)
-                {
-                    return null;
-                }
-                catch (SessionNotFoundException e)
-                {
-                    return null;
-                }
+                return pABackend.EndSession(sessionkey);
             }
             else
             {
@@ -188,14 +173,6 @@ namespace ServerLogic.Control
             {
                 throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public PlayerAudienceClientAPI()
-        {
-            /* FALL THROUGH */
         }
     }
 }

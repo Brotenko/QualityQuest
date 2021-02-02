@@ -23,7 +23,6 @@ namespace PAClientTest
         private const string testId_Valid_1 = "sQxPVXaPUuoSV_2epIFMkw";
         private const string testId_Valid_2 = "7fJem-hO8gPE8v_4rZUg5a";
         private const string testId_Invalid_1 = "u?oS‰V_2epI7.=4gZUs%";
-        private const string getSessionKeysComparison = testKey_1 + ", " + testKey_2 + ", " + testKey_3;
         private KeyValuePair<Guid, string> testPrompt_Valid_1 = KeyValuePair.Create(Guid.NewGuid(), "This is a test prompt!");
         private KeyValuePair<Guid, string> testPrompt_NullString = new KeyValuePair<Guid, string>(Guid.NewGuid(), null);
         private KeyValuePair<Guid, string> testPrompt_Valid_2 = new KeyValuePair<Guid, string>(Guid.NewGuid(), "Another very valid prompt!");
@@ -685,7 +684,7 @@ namespace PAClientTest
         {
             PABackend p = new PABackend(testPort);
 
-
+            // TODO
         }
 
         /// <summary>
