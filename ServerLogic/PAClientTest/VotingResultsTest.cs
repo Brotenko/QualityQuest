@@ -1,8 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PAClient;
 using System;
-using System.Text.RegularExpressions;
-using System.Globalization;
 using System.Collections.Generic;
 
 namespace PAClientTest
@@ -44,6 +42,8 @@ namespace PAClientTest
 
 
 
+        /*********************** GetSessionKeys Tests *****************************/
+
         /// <summary>
         /// 
         /// </summary>
@@ -60,10 +60,7 @@ namespace PAClientTest
             Assert.IsTrue(Equals(getSessionKeysComparison, keys.ToString()));
         }
 
-
-
-
-
+        /*********************** AddSessionKey Tests *****************************/
 
         /// <summary>
         /// 
@@ -111,18 +108,20 @@ namespace PAClientTest
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
 
-            // TODO
+            string toCompare =
+                "VotingResults:\n" +
+                " - " + testKey_1 + ":\n" +
+                " - " + testKey_2 + ":\n" +
+                " - " + testKey_3 + ":\n";
+
+            v.AddSessionKey(testKey_1);
+            v.AddSessionKey(testKey_2);
+            v.AddSessionKey(testKey_3);
+
+            Assert.AreEqual(toCompare, v.ToString());
         }
 
-
-
-
-
-
-
-
-
-
+        /************************** AddNewPoll Tests *****************************/
 
         /// <summary>
         /// 
@@ -253,15 +252,21 @@ namespace PAClientTest
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
             v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
 
-            // TODO
+            string toCompare =
+                "VotingResults:\n" +
+                " - " + testKey_1 + ":\n" +
+                "   - " + testPrompt_Valid_1.Value + " (" + testPrompt_Valid_1.Key + "):\n" +
+                "     - " + testPair_Valid_1.Value + " (" + testPair_Valid_1.Key + "): 0\n" +
+                "     - " + testPair_Valid_2.Value + " (" + testPair_Valid_2.Key + "): 0\n" +
+                "     - " + testPair_Valid_3.Value + " (" + testPair_Valid_3.Key + "): 0\n" +
+                "     - " + testPair_Valid_4.Value + " (" + testPair_Valid_4.Key + "): 0\n";
+
+            Assert.AreEqual(toCompare, v.ToString());
         }
 
-
-
-
-
-
+        /*************************** AddVote Tests *****************************/
 
         /// <summary>
         /// 
@@ -356,15 +361,21 @@ namespace PAClientTest
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
             v.AddSessionKey(testKey_1);
             v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
+            v.AddVote(testKey_1, testPrompt_Valid_1.Key, testPair_Valid_1.Key);
 
-            // TODO
+            string toCompare =
+                "VotingResults:\n" +
+                " - " + testKey_1 + ":\n" +
+                "   - " + testPrompt_Valid_1.Value + " (" + testPrompt_Valid_1.Key + "):\n" +
+                "     - " + testPair_Valid_1.Value + " (" + testPair_Valid_1.Key + "): 1\n" +
+                "     - " + testPair_Valid_2.Value + " (" + testPair_Valid_2.Key + "): 0\n" +
+                "     - " + testPair_Valid_3.Value + " (" + testPair_Valid_3.Key + "): 0\n" +
+                "     - " + testPair_Valid_4.Value + " (" + testPair_Valid_4.Key + "): 0\n";
+
+            Assert.AreEqual(toCompare, v.ToString());
         }
 
-
-
-
-
-
+        /************************ RemoveSession Tests ****************************/
 
         /// <summary>
         /// 
@@ -428,14 +439,17 @@ namespace PAClientTest
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
             v.AddSessionKey(testKey_1);
+            v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
+            v.AddVote(testKey_1, testPrompt_Valid_1.Key, testPair_Valid_1.Key);
+            v.RemoveSession(testKey_1);
 
-            // TODO
+            string toCompare =
+                "VotingResults:\n";
+
+            Assert.AreEqual(toCompare, v.ToString());
         }
 
-
-
-
-
+        /************************ GetPromptsBySession Tests ****************************/
 
         /// <summary>
         /// 
@@ -492,25 +506,7 @@ namespace PAClientTest
             Assert.AreEqual(0, v.GetPromptsBySession(testKey_1).Length);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("GetPromptsBySession")]
-        public void GetPromptsBySession_ToStringCorrectness()
-        {
-            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
-            v.AddSessionKey(testKey_1);
-            v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
-
-            //TODO
-        }
-
-
-
-
-
-
+        /************************ GetStatistics Tests ****************************/
 
         /// <summary>
         /// 
@@ -567,27 +563,7 @@ namespace PAClientTest
             Assert.AreEqual(0, v.GetStatistics(testKey_1).Count);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("GetStatistics")]
-        public void GetStatistics_ToStringCorrectness()
-        {
-            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
-            v.AddSessionKey(testKey_1);
-            v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
-
-            //TODO
-        }
-
-
-
-
-
-
-
-
+        /************************ GetPromptGuidsBySession Tests ****************************/
 
         /// <summary>
         /// 
@@ -644,26 +620,7 @@ namespace PAClientTest
             Assert.AreEqual(0, v.GetPromptGuidsBySession(testKey_1).Length);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("GetPromptGuidsBySession")]
-        public void GetPromptGuidsBySession_ToStringCorrectness()
-        {
-            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
-            v.AddSessionKey(testKey_1);
-            v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
-
-            // TODO
-        }
-
-
-
-
-
-
-
+        /************************ GetPromptStringsBySession Tests ****************************/
 
         /// <summary>
         /// 
@@ -720,28 +677,7 @@ namespace PAClientTest
             Assert.AreEqual(0, v.GetPromptStringsBySession(testKey_1).Length);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("GetPromptStringsBySession")]
-        public void GetPromptStringsBySession_ToStringCorrectness()
-        {
-            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
-            v.AddSessionKey(testKey_1);
-            v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
-
-            // TODO
-        }
-
-
-
-
-
-
-
-
-
+        /************************ GetOptionsVotesPairsByPrompt Tests ****************************/
 
         /// <summary>
         /// 
@@ -799,29 +735,7 @@ namespace PAClientTest
             Assert.IsNull(v.GetOptionsVotesPairsByPrompt(testKey_1, testPrompt_Valid_2.Key));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("GetOptionsVotesPairsByPrompt")]
-        public void GetOptionsVotesPairsByPrompt_ToStringCorrectness()
-        {
-            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
-            v.AddSessionKey(testKey_1);
-            v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
-
-            // TODO
-        }
-
-
-
-
-
-
-
-
-
-
+        /************************ GetOptionsByPrompt Tests ****************************/
 
         /// <summary>
         /// 
@@ -879,26 +793,7 @@ namespace PAClientTest
             Assert.AreEqual(0, v.GetOptionsByPrompt(testKey_1, testPrompt_Valid_2.Key).Length);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("GetOptionsByPrompt")]
-        public void GetOptionsByPrompt_ToStringCorrectness()
-        {
-            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
-            v.AddSessionKey(testKey_1);
-            v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
-
-            // TODO
-        }
-
-
-
-
-
-
-
+        /************************ GetOptionStringsByPrompt Tests ****************************/
 
         /// <summary>
         /// 
@@ -956,25 +851,7 @@ namespace PAClientTest
             Assert.IsNull(v.GetOptionStringsByPrompt(testKey_1, testPrompt_Valid_2.Key));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("GetOptionStringsByPrompt")]
-        public void GetOptionStringsByPrompt_ToStringCorrectness()
-        {
-            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
-            v.AddSessionKey(testKey_1);
-            v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
-
-            // TODO
-        }
-
-
-
-
-
-
+        /************************ GetOptionGuidsByPrompt Tests ****************************/
 
         /// <summary>
         /// 
@@ -1032,28 +909,7 @@ namespace PAClientTest
             Assert.IsNull(v.GetOptionGuidsByPrompt(testKey_1, testPrompt_Valid_2.Key));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("GetOptionGuidsByPrompt")]
-        public void GetOptionGuidsByPrompt_ToStringCorrectness()
-        {
-            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
-            v.AddSessionKey(testKey_1);
-            v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
-
-            // TODO
-        }
-
-
-
-
-
-
-
-
-
+        /************************ GetVotesByOption Tests ****************************/
 
         /// <summary>
         /// 
@@ -1125,31 +981,7 @@ namespace PAClientTest
             Assert.ThrowsException<ArgumentException>(() => v.GetVotesByOption(testKey_1, testPrompt_Valid_1.Key, testPair_Valid_5.Key));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("GetVotesByOption")]
-        public void GetVotesByOptionT_ToStringCorrectness()
-        {
-            VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
-            v.AddSessionKey(testKey_1);
-            v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
-
-            // TODO
-        }
-
-
-
-
-
-
-
-
-
-
-
-
+        /************************ ToString Test ****************************/
 
         /// <summary>
         /// 
@@ -1159,8 +991,24 @@ namespace PAClientTest
         public void ToStringTest()
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
+            v.AddSessionKey(testKey_1);
+            v.AddSessionKey(testKey_2);
+            v.AddSessionKey(testKey_3);
+            v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
+            v.AddVote(testKey_1, testPrompt_Valid_1.Key, testPair_Valid_1.Key);
 
+            string toCompare =
+                "VotingResults:\n" +
+                " - " + testKey_1 + ":\n" +
+                "   - " + testPrompt_Valid_1.Value + " (" + testPrompt_Valid_1.Key + "):\n" +
+                "     - " + testPair_Valid_1.Value + " (" + testPair_Valid_1.Key + "): 1\n" +
+                "     - " + testPair_Valid_2.Value + " (" + testPair_Valid_2.Key + "): 0\n" +
+                "     - " + testPair_Valid_3.Value + " (" + testPair_Valid_3.Key + "): 0\n" +
+                "     - " + testPair_Valid_4.Value + " (" + testPair_Valid_4.Key + "): 0\n" +
+                " - " + testKey_2 + ":\n" +
+                " - " + testKey_3 + ":\n";
 
+            Assert.AreEqual(toCompare, v.ToString());
         }
     }
 }

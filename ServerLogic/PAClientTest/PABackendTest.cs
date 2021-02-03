@@ -1,11 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Text.RegularExpressions;
-using System.Globalization;
 using System.Collections.Generic;
 using PAClient;
 using System.Threading.Tasks;
-using System.Threading;
 
 namespace PAClientTest
 {
@@ -18,7 +15,6 @@ namespace PAClientTest
         private const int testPort = 7777;
         private const string testKey_1 = "TU7ROU";
         private const string testKey_2 = "G9EL40";
-        private const string testKey_3 = "GHOU80";
         private const string testKey_Invalid_1 = "7g/vﬂ`";
         private const string testId_Valid_1 = "sQxPVXaPUuoSV_2epIFMkw";
         private const string testId_Valid_2 = "7fJem-hO8gPE8v_4rZUg5a";

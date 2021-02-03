@@ -1,10 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ServerLogic.Model.Messages;
 using ServerLogic.Control;
 using PAClient;
 using System;
-using System.Text.RegularExpressions;
-using System.Globalization;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,11 +16,7 @@ namespace ServerLogicTests.Control
         private const int testPort = 7777;
         private const string testKey_1 = "TU7ROU";
         private const string testKey_2 = "G9EL40";
-        private const string testKey_3 = "GHOU80";
         private const string testKey_Invalid_1 = "7g/vß`";
-        private const string testId_Valid_1 = "sQxPVXaPUuoSV_2epIFMkw";
-        private const string testId_Valid_2 = "7fJem-hO8gPE8v_4rZUg5a";
-        private const string testId_Invalid_1 = "u?oSäV_2epI7.=4gZUs%";
         private KeyValuePair<Guid, string> testPrompt_Valid_1 = KeyValuePair.Create(Guid.NewGuid(), "This is a test prompt!");
         private KeyValuePair<Guid, string> testPrompt_NullString = new KeyValuePair<Guid, string>(Guid.NewGuid(), null);
         private KeyValuePair<Guid, string> testPrompt_Valid_2 = new KeyValuePair<Guid, string>(Guid.NewGuid(), "Another very valid prompt!");

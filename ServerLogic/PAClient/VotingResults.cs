@@ -490,15 +490,20 @@ namespace PAClient
             foreach (string key in this.GetSessionKeys())
             {
                 ret += " - " + key + ":\n";
+                int i = 0;
 
                 foreach (string prompt in this.GetPromptStringsBySession(key))
                 {
-                    ret += "   - " + prompt + " (" + GetPromptGuidsBySession(key)[0].ToString() + "):\n";
+                    ret += "   - " + prompt + " (" + GetPromptGuidsBySession(key)[i].ToString() + "):\n";
+                    int j = 0;
 
-                    foreach (string option in this.GetOptionStringsByPrompt(key, GetPromptGuidsBySession(key)[0]))
+                    foreach (string option in this.GetOptionStringsByPrompt(key, GetPromptGuidsBySession(key)[i]))
                     {
-                        ret += "     - " + option + " (" + GetOptionGuidsByPrompt(key, GetPromptGuidsBySession(key)[0])[0].ToString() + "): " + this.GetVotesByOption(key, GetPromptGuidsBySession(key)[0], GetOptionGuidsByPrompt(key, GetPromptGuidsBySession(key)[0])[0]) + "\n";
+                        ret += "     - " + option + " (" + GetOptionGuidsByPrompt(key, GetPromptGuidsBySession(key)[i])[j].ToString() + "): " + this.GetVotesByOption(key, GetPromptGuidsBySession(key)[i], GetOptionGuidsByPrompt(key, GetPromptGuidsBySession(key)[i])[j]) + "\n";
+                        j++;
                     }
+
+                    i++;
                 }
             }
 
