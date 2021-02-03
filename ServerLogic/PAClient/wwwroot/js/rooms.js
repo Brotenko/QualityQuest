@@ -39,13 +39,17 @@ document.getElementById("enter-room").addEventListener("click", function (event)
  * beforehand.
  * 
  * Afterwards this function is being called by the server to tell the
- * client if the key was valid or not, and to update the page accordingly.
+ * client if the key was valid or not, and to update the page accordingly,
+ * or to show a Popup that informs the user that the key is invalid.
  */
 connection.on("KeyValidation", function (existingSessionkey) {
     if (existingSessionkey == true) {
         document.getElementById("starting-page").innerHTML = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
             "Thank you for playing Quality Quest! The next vote will start shortly!" +
             "</div>";
+    }
+    else {
+        alert("The submitted sessionkey is invalid. Please check your input and try again!");
     }
 });
 
