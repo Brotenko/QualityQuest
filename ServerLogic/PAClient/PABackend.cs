@@ -23,28 +23,25 @@ namespace PAClient
         private Thread _serverThread;
         private static bool isDebug;
 
-        // A list of all voting results, sorted by the GUID of the "voting prompt/questions" 
         /// <summary>
-        /// 
+        /// A complex datatype acting as a database for the PABackend, holding sessions,
+        /// prompts, voting options and respective votes.
         /// </summary>
         public static VotingResults PAVotingResults
         {
             get; private set;
         }
 
-        // A list of all groups, each having their own list of connected clients
         /// <summary>
-        /// 
+        /// A dictionary of lists of all SignalR Hub-Groups, ordered by sessionkey.
         /// </summary>
         public static Dictionary<string, List<string>> ConnectionList
         {
             get; private set;
         }
 
-        // Current prompt depending on the session
-        //                 sessionkey             prompt
         /// <summary>
-        /// 
+        /// The currently active prompt of every active session.
         /// </summary>
         private static Dictionary<string, KeyValuePair<Guid, string>> CurrentPrompt
         {
@@ -52,7 +49,7 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// The port of the PlayerAudience-Client host.
         /// </summary>
         private int Port
         {
@@ -60,10 +57,10 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PABackend"/> class.
         /// </summary>
         /// 
-        /// <param name="port"></param>
+        /// <param name="port">The port of the PlayerAudience-Client host.</param>
         public PABackend(int port)
         {
             Port = port;
@@ -76,12 +73,13 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Starts a debug version of the PABackend without actually starting the server and SignalR hub
+        /// for the PlayerAudience-Clients.
         /// </summary>
         /// 
-        /// <param name="port"></param>
+        /// <param name="port">The port of the PlayerAudience-Client host.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>A new instance of the <see cref="PABackend"/> class.</returns>
         public static PABackend DebugPABackend(int port)
         {
             isDebug = true;
@@ -89,23 +87,23 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all sessionkeys that correspond to currently active sessions.
         /// </summary>
         /// 
-        /// <returns></returns>
+        /// <returns>all sessionkeys that correspond to currently active sessions.</returns>
         public string[] GetSessionKeys()
         {
             return PAVotingResults.GetSessionKeys();
         }
 
         /// <summary>
-        /// 
+        /// Starts a new session for the PlayerAudience to connect to.
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The sessionkey of the to be started session.</param>
         public void StartNewSession(string sessionkey)
         {
             if (sessionkey == null)
@@ -131,33 +129,37 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// A debug method for testing purposes. Creates an HTML string that holds information
+        /// regarding the prompt and voting options of the to be created poll. Also adapts to
+        /// the amount of provided options, so that the output can be directly injected into
+        /// the website.
         /// </summary>
         /// 
-        /// <param name="prompt"></param>
+        /// <param name="prompt">The prompt of the debug vote.</param>
         /// 
-        /// <param name="options"></param>
+        /// <param name="options">The voting options of the debug prompt.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>An HTML string that holds information regarding the prompt and voting 
+        /// options of the to be created poll.</returns>
         public string DebugCreatePageContent(KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
             return CreatePageContent(prompt, options);
         }
 
         /// <summary>
-        /// 
+        /// Starts a new vote for a specific session, with the given prompt and voting options.
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The session which begins a new vote.</param>
         /// 
-        /// <param name="prompt"></param>
+        /// <param name="prompt">>The prompt of the vote.</param>
         /// 
-        /// <param name="options"></param>
-        public async Task SendPushMessage(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
+        /// <param name="options">The voting options of the prompt.</param>
+        public async Task StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
             if (sessionkey == null)
             {
@@ -207,18 +209,19 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Allows PlayerAudience members to vote on the current prompt through a SignalR-Hub.
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The session which the PlayerAudience member, that currently votes,
+        /// belongs to.</param>
         /// 
-        /// <param name="option"></param>
+        /// <param name="option">The voting option the PlayerAudience member voted for.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>If the vote was successful or if some kind of error occured.</returns>
         public static int CountNewVote(string sessionkey, Guid option)
         {
             try
@@ -258,15 +261,16 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Terminates an active session, returns the statistics of the session, and removes every trace of it 
+        /// from the internal data.
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The to be terminated session.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>The statistics of the terminated session.</returns>
         public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> EndSession(string sessionkey)
         {
             if (sessionkey == null)
@@ -282,19 +286,21 @@ namespace PAClient
             }
             else
             {
-                throw new ArgumentException("The transmitted sessionkey does not belong to an active session.");
+                throw new SessionNotFoundException("The transmitted sessionkey does not belong to an active session.");
             }
         }
 
         /// <summary>
-        /// 
+        /// Adds a new connection to the list of currently connected PlayerAudience-Clients. The 
+        /// connectionId is provided by the SignalR-Hub calling this method.
         /// </summary>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The session which the PlayerAudience-Client belongs to.</param>
         /// 
-        /// <param name="connectionId"></param>
+        /// <param name="connectionId">The unique connectionId of the PlayerAudience-Client.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>If the connection was established successfully or if some kind of error 
+        /// occured.</returns>
         public static int AddConnection(string sessionkey, string connectionId)
         {
             if (sessionkey == null)
@@ -329,12 +335,14 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Removes a connectionId from every list of currently connected PlayerAudience-Clients. The 
+        /// connectionId is provided by the SignalR-Hub calling this method.
         /// </summary>
         /// 
-        /// <param name="connectionId"></param>
+        /// <param name="connectionId">The unique connectionId of the PlayerAudience-Client.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>If the connection was terminated successfully or if some kind of error 
+        /// occured.</returns>
         public static int RemoveConnection(string connectionId)
         {
             if (connectionId == null)
@@ -356,18 +364,18 @@ namespace PAClient
 
 
         /// <summary>
-        /// 
+        /// Retrieves the voting results for a specfic session and prompt.
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The session from which the result is requested.</param>
         /// 
-        /// <param name="prompt"></param>
+        /// <param name="prompt">The prompt from which the results is requested.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>The voting result of the given session and prompt.</returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResult(string sessionkey, KeyValuePair<Guid, string> prompt)
         {
             if (sessionkey == null)
@@ -397,7 +405,7 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Stops the server that hosts the PlayerAudience-Client.
         /// </summary>
         public void StopServer()
         {
@@ -406,10 +414,12 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// The Main method of the PABackend.
         /// </summary>
         /// 
-        /// <param name="args"></param>
+        /// <param name="args">Command-line parameters.</param>
+        /// 
+        /// <exception cref="ArgumentException"></exception>
         public static void Main(string[] args)
         {
             if (args.Length == 0)
@@ -421,22 +431,24 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Checks if a given session is active.
         /// </summary>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The sessionkey of the to be checked session.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>If the session is currently active.</returns>
         private static bool IsSessionActive(string sessionkey)
         {
             return PAVotingResults.GetSessionKeys().Contains(sessionkey);
         }
 
         /// <summary>
-        /// 
+        /// Adds a new session to the PABackend and sets up the fields of the class to
+        /// be used for communication purposes between SignalR-Hub, PABackend and the
+        /// MainServerLogic.
         /// </summary>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The sessionkey of the to be added session.</param>
         private static void AddNewSession(string sessionkey)
         {
             PAVotingResults.AddSessionKey(sessionkey);
@@ -445,16 +457,20 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Creates an HTML string that holds information
+        /// regarding the prompt and voting options of the to be created poll. Also adapts to
+        /// the amount of provided options, so that the output can be directly injected into
+        /// the website.
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// 
-        /// <param name="prompt"></param>
+        /// <param name="prompt">The prompt of the debug vote.</param>
         /// 
-        /// <param name="options"></param>
+        /// <param name="options">The voting options of the debug prompt.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>An HTML string that holds information regarding the prompt and voting 
+        /// options of the to be created poll.</returns>
         private string CreatePageContent(KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
             if (prompt.Value == null)
@@ -520,27 +536,30 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Removes a session from the PABackend.
         /// </summary>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The sessionkey of the to be removed session.</param>
         private static void RemoveSession(string sessionkey)
         {
             PAVotingResults.RemoveSession(sessionkey);
+            ConnectionList.Remove(sessionkey);
+            CurrentPrompt.Remove(sessionkey);
         }
 
         /// <summary>
-        /// 
+        /// Sends a prompt to the SignalR-Hub to clear the voting-page of a specific
+        /// Hub-Group.
         /// </summary>
         /// 
-        /// <param name="group"></param>
+        /// <param name="sessionkey">The sessionkey of the Hub-Group.</param>
         private async void SendPushClear(string sessionkey)
         {
             await _hubContext.Clients.Group(sessionkey).SendAsync("ClearPrompt");
         }
 
         /// <summary>
-        /// 
+        /// Starts the server and SignalR-Hub for the PlayerAudience-Clients.
         /// </summary>
         private void StartServer()
         {
@@ -550,12 +569,13 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// An autogenerated method responsible for starting up the Server-Host that
+        /// hosts the PlayerAudience-Client website and sets the URL.
         /// </summary>
         /// 
-        /// <param name="port"></param>
+        /// <param name="port">The port of the PlayerAudience-Client host.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>The program initialization.</returns>
         private static IHostBuilder CreateHostBuilder(int port) =>
             Host.CreateDefaultBuilder()
                 .ConfigureWebHostDefaults(webBuilder =>

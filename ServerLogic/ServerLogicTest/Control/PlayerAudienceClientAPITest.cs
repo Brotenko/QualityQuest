@@ -407,7 +407,7 @@ namespace ServerLogicTests.Control
             PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
             p.StartServer(testPort);
 
-            Assert.ThrowsException<ArgumentException>(() => p.EndSession(testKey_2));
+            Assert.ThrowsException<SessionNotFoundException>(() => p.EndSession(testKey_2));
         }
 
         /// <summary>

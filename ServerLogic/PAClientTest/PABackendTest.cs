@@ -236,13 +236,13 @@ namespace PAClientTest
         /// 
         /// </summary>
         [TestMethod]
-        [TestCategory("SendPushMessage")]
+        [TestCategory("StartNewVote")]
         public async Task SendPushMessage_ValidInputTest()
         {
             PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
-            await p.SendPushMessage(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
+            await p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
         }
 
         
@@ -250,114 +250,114 @@ namespace PAClientTest
         /// 
         /// </summary>
         [TestMethod]
-        [TestCategory("SendPushMessage")]
+        [TestCategory("StartNewVote")]
         public async Task SendPushMessage_InvalidSessionkeyTest()
         {
             PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
             
-            await Assert.ThrowsExceptionAsync<SessionNotFoundException>(() => p.SendPushMessage(testKey_2, testPrompt_Valid_1, testOptions_Valid_1));
+            await Assert.ThrowsExceptionAsync<SessionNotFoundException>(() => p.StartNewVote(testKey_2, testPrompt_Valid_1, testOptions_Valid_1));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        [TestCategory("SendPushMessage")]
+        [TestCategory("StartNewVote")]
         public async Task SendPushMessage_NullSessionkeyTest()
         {
             PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => p.SendPushMessage(null, testPrompt_Valid_1, testOptions_Valid_1));
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => p.StartNewVote(null, testPrompt_Valid_1, testOptions_Valid_1));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        [TestCategory("SendPushMessage")]
+        [TestCategory("StartNewVote")]
         public async Task SendPushMessage_SameValidPromptTest()
         {
             PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
-            await p.SendPushMessage(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
-            await Assert.ThrowsExceptionAsync<ArgumentException>(() => p.SendPushMessage(testKey_1, testPrompt_Valid_1, testOptions_Valid_1));
+            await p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
+            await Assert.ThrowsExceptionAsync<ArgumentException>(() => p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_1));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        [TestCategory("SendPushMessage")]
+        [TestCategory("StartNewVote")]
         public async Task SendPushMessage_DoubleAssignPromptTest()
         {
             PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
-            await p.SendPushMessage(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
-            await Assert.ThrowsExceptionAsync<ArgumentException>(() => p.SendPushMessage(testKey_1, testPrompt_Valid_1, testOptions_Valid_2));
+            await p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
+            await Assert.ThrowsExceptionAsync<ArgumentException>(() => p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_2));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        [TestCategory("SendPushMessage")]
+        [TestCategory("StartNewVote")]
         public async Task SendPushMessage_NullStringPromptTest()
         {
             PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => p.SendPushMessage(testKey_1, testPrompt_NullString, testOptions_Valid_1));
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => p.StartNewVote(testKey_1, testPrompt_NullString, testOptions_Valid_1));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        [TestCategory("SendPushMessage")]
+        [TestCategory("StartNewVote")]
         public async Task SendPushMessage_SameValidOptionsTest()
         {
             PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
-            await p.SendPushMessage(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
-            await p.SendPushMessage(testKey_1, testPrompt_Valid_2, testOptions_Valid_1);
+            await p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
+            await p.StartNewVote(testKey_1, testPrompt_Valid_2, testOptions_Valid_1);
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        [TestCategory("SendPushMessage")]
+        [TestCategory("StartNewVote")]
         public async Task SendPushMessage_NullOptionsTest()
         {
             PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => p.SendPushMessage(testKey_1, testPrompt_Valid_1, null));
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => p.StartNewVote(testKey_1, testPrompt_Valid_1, null));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        [TestCategory("SendPushMessage")]
+        [TestCategory("StartNewVote")]
         public async Task SendPushMessage_NullStringOptionTest()
         {
             PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => p.SendPushMessage(testKey_1, testPrompt_Valid_1, testOptions_Invalid));
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Invalid));
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]
-        [TestCategory("SendPushMessage")]
+        [TestCategory("StartNewVote")]
         public async Task SendPushMessage_ToStringCorrectness()
         {
             PABackend p = PABackend.DebugPABackend(testPort);
@@ -386,7 +386,7 @@ namespace PAClientTest
         {
             PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
-            await p.SendPushMessage(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
+            await p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
 
             Assert.AreEqual((int) PABackendErrorType.NoError, PABackend.CountNewVote(testKey_1, testPair_Valid_1.Key));
         }
@@ -487,7 +487,7 @@ namespace PAClientTest
         {
             PABackend p = new PABackend(testPort);
 
-            Assert.ThrowsException<ArgumentException>(() => p.EndSession(testKey_2));
+            Assert.ThrowsException<SessionNotFoundException>(() => p.EndSession(testKey_2));
         }
 
         /// <summary>

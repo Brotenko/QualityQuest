@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using PAClient;
 
 namespace ServerLogic.Control
 {
     /// <summary>
-    /// 
+    /// Responsible for providing a communication interface between the
+    /// PlayerAudience-Client, the MainServerLogic and the ServerShell.
     /// </summary>
     public class PlayerAudienceClientAPI
     {
         private PABackend pABackend;
 
-        public bool serverIsActive { get; private set; }
+        /// <summary>
+        /// A flag that determines if the server is currently running or not.
+        /// </summary>
+        public bool ServerIsActive { 
+            get; private set; 
+        }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PlayerAudienceClientAPI"/> class.
         /// </summary>
         public PlayerAudienceClientAPI()
         {
@@ -28,47 +30,74 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// 
+        /// Starts the server and SignalR-Hub for the PlayerAudience-Clients.
         /// </summary>
-        /// <param name="port"></param>
+        /// 
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
+        /// <exception cref="InvalidOperationException">The server is already in a running state.</exception>
+        /// 
+        /// <param name="port">The port of the PlayerAudience-Client host.</param>
         public void StartServer(int port)
         {
-            if (serverIsActive == false)
+            if (port >= 1024 && port <= 65535)
             {
-                serverIsActive = true;
-                pABackend = new PABackend(port);
+                if (ServerIsActive == false)
+                {
+                    ServerIsActive = true;
+                    pABackend = new PABackend(port);
+                }
+                else
+                {
+                    throw new InvalidOperationException(message: "The server is already running and can't be started right now!");
+                }
             }
             else
             {
-                throw new InvalidOperationException(message: "The server is already running and can't be started right now!");
+                throw new ArgumentException(message: "The given port is not in the valid range (1024-65535).");
             }
         }
 
         /// <summary>
-        /// 
+        /// Starts a debug version of the PABackend without actually starting the server and SignalR hub
+        /// for the PlayerAudience-Clients.
         /// </summary>
-        /// <param name="port"></param>
+        /// 
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
+        /// <exception cref="InvalidOperationException">The server is already in a running state.</exception>
+        /// 
+        /// <param name="port">The port of the PlayerAudience-Client host.</param>
         public void DebugStartServer(int port)
         {
-            if (serverIsActive == false)
+            if (port >= 1024 && port <= 65535)
             {
-                serverIsActive = true;
-                pABackend = PABackend.DebugPABackend(port);
+                if (ServerIsActive == false)
+                {
+                    ServerIsActive = true;
+                    pABackend = PABackend.DebugPABackend(port);
+                }
+                else
+                {
+                    throw new InvalidOperationException(message: "The server is already running and can't be started right now!");
+                }
             }
             else
             {
-                throw new InvalidOperationException(message: "The server is already running and can't be started right now!");
+                throw new ArgumentException(message: "The given port is not in the valid range (1024-65535).");
             }
         }
 
         /// <summary>
-        /// 
+        /// Starts a new session for the PlayerAudience to connect to.
         /// </summary>
-        /// <param name="sessionkey"></param>
-        /// <returns></returns>
+        /// 
+        /// <param name="sessionkey">The sessionkey of the to be started session.</param>
+        /// 
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
+        /// <exception cref="InvalidOperationException">The server is curenntly not in a running state.</exception>
         public void StartNewSession(string sessionkey)
         {
-            if (serverIsActive)
+            if (ServerIsActive)
             {
                 if (Regex.IsMatch(sessionkey, @"[A-Z0-9]{6}"))
                 {
@@ -81,92 +110,96 @@ namespace ServerLogic.Control
             }
             else
             {
-                throw new InvalidOperationException(message: "The server is already running and can't be started right now!");
+                throw new InvalidOperationException(message: "The server is currently not running and thus can't start a new session!");
             }
         }
 
         /// <summary>
-        /// 
-        /// 
+        /// Starts a new vote for a specific session, with the given prompt and voting options.
         /// </summary>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The session which begins a new vote.</param>
         /// 
-        /// <param name="prompt"></param>
+        /// <param name="prompt">The prompt of the vote.</param>
         /// 
-        /// <param name="options"></param>
+        /// <param name="options">The voting options of the prompt.</param>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
-        /// 
-        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
+        /// <exception cref="InvalidOperationException">The server is curenntly not in a running state.</exception>
         public async Task StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
-            if (serverIsActive)
+            if (ServerIsActive)
             {
-                await pABackend.SendPushMessage(sessionkey, prompt, options);
+                await pABackend.StartNewVote(sessionkey, prompt, options);
             }
             else
             {
-                throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
+                throw new InvalidOperationException(message: "The server is currently not running and thus can't start a new vote!");
             }
         }
 
         /// <summary>
-        /// 
+        /// Retrieves the voting results for a specfic session and prompt.
         /// </summary>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The session from which the result is requested.</param>
         /// 
-        /// <param name="prompt"></param>
+        /// <param name="prompt">The prompt from which the results is requested.</param>
         ///
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
+        /// <exception cref="InvalidOperationException">The server is curenntly not in a running state.</exception>
         /// 
-        /// <returns></returns>
+        /// <returns>The voting result of the given session and prompt.</returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResult(string sessionkey, KeyValuePair<Guid, string> prompt)
         {
-            if (serverIsActive)
+            if (ServerIsActive)
             {
                 return pABackend.GetVotingResult(sessionkey, prompt);
             }
             else
             {
-                throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
+                throw new InvalidOperationException(message: "The server is currently not running and thus can't retrieve any results!");
             }
         }
 
         /// <summary>
-        /// 
+        /// Terminates an active session, returns the statistics of the session, and removes every trace of it 
+        /// from the internal data.
         /// </summary>
-        ///
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The to be terminated session.</param>
+        ///
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
+        /// <exception cref="InvalidOperationException">The server is curenntly not in a running state.</exception>
+        /// 
+        /// <returns>The statistics of the terminated session.</returns>
         public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> EndSession(string sessionkey)
         {
-            if (serverIsActive)
+            if (ServerIsActive)
             {
                 return pABackend.EndSession(sessionkey);
             }
             else
             {
-                throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
+                throw new InvalidOperationException(message: "The server is currently not running and thus no session can be terminated!");
             }
         }
 
         /// <summary>
-        /// 
+        /// Stops the server that hosts the PlayerAudience-Client.
         /// </summary>
+        /// 
+        /// <exception cref="InvalidOperationException">The server is curenntly not in a running state.</exception>
         public void StopServer()
         {
-            if (serverIsActive)
+            if (ServerIsActive)
             {
-                serverIsActive = false;
+                ServerIsActive = false;
                 pABackend.StopServer();
             }
             else

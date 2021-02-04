@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ServerLogic.Model
+﻿namespace ServerLogic.Model
 {
     /// <summary>
     /// All possible causes for an <see cref="Messages.ErrorMessage"/>, which can occur in the context of 

@@ -45,7 +45,7 @@ namespace PAClient
         /// 
         /// </summary>
         /// 
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
         /// 
         /// <param name="sessionkey"></param>
         public void AddSessionKey(string sessionkey)
@@ -69,9 +69,9 @@ namespace PAClient
         /// 
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
         /// <param name="sessionkey"></param>
         /// 
@@ -127,9 +127,9 @@ namespace PAClient
         /// 
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
         /// <param name="sessionkey"></param>
         /// 
@@ -174,8 +174,8 @@ namespace PAClient
         /// 
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
         /// <param name="sessionkey"></param>
         public void RemoveSession(string sessionkey)
@@ -199,9 +199,9 @@ namespace PAClient
         /// 
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
         /// <param name="sessionkey"></param>
         /// 
@@ -235,8 +235,8 @@ namespace PAClient
         /// 
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
         /// <param name="sessionkey"></param>
         /// 
@@ -262,8 +262,8 @@ namespace PAClient
         /// 
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
         /// <param name="sessionkey"></param>
         /// 
@@ -303,8 +303,8 @@ namespace PAClient
         /// 
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
         /// <param name="sessionkey"></param>
         /// 
@@ -344,8 +344,8 @@ namespace PAClient
         /// 
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
         /// <param name="sessionkey"></param>
         /// 
@@ -390,8 +390,8 @@ namespace PAClient
         /// 
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
         /// <param name="sessionkey"></param>
         /// 
@@ -430,8 +430,8 @@ namespace PAClient
         /// 
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
         /// <param name="sessionkey"></param>
         /// 
@@ -471,8 +471,8 @@ namespace PAClient
         /// 
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
         /// <param name="sessionkey"></param>
         /// 
@@ -512,9 +512,9 @@ namespace PAClient
         /// 
         /// </summary>
         /// 
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="SessionNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
         /// <param name="sessionkey"></param>
         /// 

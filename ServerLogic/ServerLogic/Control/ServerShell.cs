@@ -1,15 +1,6 @@
-﻿using ServerLogic.Model;
-using ServerLogic.Model.Messages;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Resources;
 using System.Text.RegularExpressions;
-using System.Threading;
 
 namespace ServerLogic.Control
 {
@@ -22,7 +13,6 @@ namespace ServerLogic.Control
         private MainServerLogic mainServerLogic = new MainServerLogic();
         private int _port;
         private string _password; //Passwort des Servers 
-        private readonly ServerShell serverShell;
         private bool serverIsRunning = false;
         private bool commandRequestsHelpMessage = false;
 
@@ -93,7 +83,6 @@ namespace ServerLogic.Control
         /// </summary>
         public ServerShell()
         {
-            this.serverShell = this;
             this.Password = "!Password123";
             this.Port = 7777;
         }
@@ -110,7 +99,6 @@ namespace ServerLogic.Control
         /// ServerLogic.</param>
         public ServerShell(string password, int port)
         {
-            this.serverShell = this;
             this.Password = password;
             this.Port = port;
 
@@ -123,7 +111,7 @@ namespace ServerLogic.Control
         /// 
         /// <param name="args">Command-line parameters.</param>
         /// 
-        /// <exception cref="System.ArgumentException">Thrown when either the supposed 
+        /// <exception cref="ArgumentException">Thrown when either the supposed 
         /// password or port violate the rules for setting them.</exception>
         public static void Main(string[] args)
         {
@@ -134,7 +122,7 @@ namespace ServerLogic.Control
                 return;
             }
 
-            ServerShell serverShell = new ServerShell(password: returnValue[0], port: Convert.ToInt32(returnValue[1], CultureInfo.CurrentCulture));
+            _ = new ServerShell(password: returnValue[0], port: Convert.ToInt32(returnValue[1], CultureInfo.CurrentCulture));
         }
 
         /// <summary>
