@@ -22,32 +22,32 @@ namespace PAClient
         public Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> data;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="VotingResults"/> class.
         /// </summary>
         /// 
-        /// <param name="x"></param>
+        /// <param name="x">The internal datatype.</param>
         public VotingResults(Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> x)
         {
             data = x;
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all sessionkeys that correspond to currently active sessions.
         /// </summary>
         /// 
-        /// <returns></returns>
+        /// <returns>All sessionkeys that correspond to currently active sessions.</returns>
         public string[] GetSessionKeys()
         {
             return data.Keys.ToArray();
         }
 
         /// <summary>
-        /// 
+        /// Adds a new sessionkey to the VotingResults.
         /// </summary>
         /// 
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The to be added sessionkey.</param>
         public void AddSessionKey(string sessionkey)
         {
             if (sessionkey == null)
@@ -66,18 +66,18 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Adds a new poll for a specific session, with the given prompt and voting options.
         /// </summary>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The session which the poll belongs to.</param>
         /// 
-        /// <param name="prompt"></param>
+        /// <param name="prompt">The prompt of the vote.</param>
         /// 
-        /// <param name="options"></param>
+        /// <param name="options">The voting options of the prompt.</param>
         public void AddNewPoll(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
             if (sessionkey == null)
@@ -124,18 +124,18 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Adds a new poll for a specific session, with the given prompt and voting options.
         /// </summary>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The session which the poll belongs to.</param>
         /// 
-        /// <param name="prompt"></param>
+        /// <param name="prompt">The prompt of the vote.</param>
         /// 
-        /// <param name="option"></param>
+        /// <param name="options">The voting options of the prompt.</param>
         public void AddVote(string sessionkey, Guid prompt, Guid option)
         {
             if (sessionkey == null)
@@ -171,13 +171,13 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Removes a sessionkey and all related data from the VotingResults.
         /// </summary>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The to be removed sessionkey.</param>
         public void RemoveSession(string sessionkey)
         {
             if (sessionkey == null)
@@ -196,16 +196,16 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all prompts related to the given sessionkey.
         /// </summary>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The sessionkey for which the prompts are to be retrieved.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>All prompts related to the given sessionkey.</returns>
         public KeyValuePair<Guid, string>[] GetPromptsBySession(string sessionkey)
         {
             if (sessionkey == null)
@@ -232,42 +232,15 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all prompt's GUIDs related to the given sessionkey.
         /// </summary>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The sessionkey for which the prompt's GUIDs are to be retrieved.</param>
         /// 
-        /// <returns></returns>
-        public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> GetStatistics(string sessionkey)
-        {
-            if (sessionkey == null)
-            {
-                throw new ArgumentNullException("The sessionkey can not be null.");
-            }
-
-            if (IsSessionActive(sessionkey))
-            {
-                return data.GetValueOrDefault(sessionkey);
-            }
-            else
-            {
-                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// 
-        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
-        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
-        /// 
-        /// <param name="sessionkey"></param>
-        /// 
-        /// <returns></returns>
+        /// <returns>All prompt's GUIDs related to the given sessionkey.</returns>
         public Guid[] GetPromptGuidsBySession(string sessionkey)
         {
             if (sessionkey == null)
@@ -300,15 +273,15 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all prompt's strings related to the given sessionkey.
         /// </summary>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The sessionkey for which the prompt's strings are to be retrieved.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>All prompt's strings related to the given sessionkey.</returns>
         public string[] GetPromptStringsBySession(string sessionkey)
         {
             if (sessionkey == null)
@@ -341,17 +314,17 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all options-votes pairs related to the given sessionkey and prompt.
         /// </summary>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The sessionkey for which the options-votes pairs are to be retrieved.</param>
         /// 
-        /// <param name="prompt"></param>
+        /// <param name="prompt">The prompt for which the options-votes pairs are to be retrieved.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>All options-votes pairs related to the given sessionkey and prompt.</returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetOptionsVotesPairsByPrompt(string sessionkey, Guid prompt)
         {
             if (sessionkey == null)
@@ -387,17 +360,17 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all voting options related to the given sessionkey and prompt.
         /// </summary>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The sessionkey for which the voting options are to be retrieved.</param>
         /// 
-        /// <param name="prompt"></param>
+        /// <param name="prompt">The prompt for which the voting options are to be retrieved.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>All voting options related to the given sessionkey and prompt.</returns>
         public KeyValuePair<Guid, string>[] GetOptionsByPrompt(string sessionkey, Guid prompt)
         {
             if (sessionkey == null)
@@ -427,17 +400,17 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all voting option's strings related to the given sessionkey and prompt.
         /// </summary>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The sessionkey for which the voting option's strings are to be retrieved.</param>
         /// 
-        /// <param name="prompt"></param>
+        /// <param name="prompt">The prompt for which the voting option's strings are to be retrieved.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>All voting option's strings related to the given sessionkey and prompt.</returns>
         public string[] GetOptionStringsByPrompt(string sessionkey, Guid prompt)
         {
             if (sessionkey == null)
@@ -468,17 +441,17 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all voting option's GUIDs related to the given sessionkey and prompt.
         /// </summary>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The sessionkey for which the voting option's GUIDs are to be retrieved.</param>
         /// 
-        /// <param name="prompt"></param>
+        /// <param name="prompt">The prompt for which the voting option's GUIDs are to be retrieved.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>All voting option's GUIDs related to the given sessionkey and prompt.</returns>
         public Guid[] GetOptionGuidsByPrompt(string sessionkey, Guid prompt)
         {
             if (sessionkey == null)
@@ -509,20 +482,20 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all voting option specific votes related to the given sessionkey and prompt.
         /// </summary>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The sessionkey for which the votes are to be retrieved.</param>
         /// 
-        /// <param name="prompt"></param>
+        /// <param name="prompt">The prompt for which the votes are to be retrieved.</param>
         /// 
-        /// <param name="option"></param>
+        /// <param name="option">The voting option for which the votes are to be retrieved.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>All voting option specific votes related to the given sessionkey and prompt.</returns>
         public int GetVotesByOption(string sessionkey, Guid prompt, Guid option)
         {
             if (sessionkey == null)
@@ -555,10 +528,38 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Retrieves the statistics, containing prompts, voting options and number of votes, for a specific
+        /// sessionkey.
         /// </summary>
         /// 
-        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
+        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
+        /// 
+        /// <param name="sessionkey">The sessionkey for which the statistics is to be retrieved.</param>
+        /// 
+        /// <returns>The statistics, containing prompts, voting options and number of votes.</returns>
+        public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> GetStatistics(string sessionkey)
+        {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("The sessionkey can not be null.");
+            }
+
+            if (IsSessionActive(sessionkey))
+            {
+                return data.GetValueOrDefault(sessionkey);
+            }
+            else
+            {
+                throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
+            }
+        }
+
+        /// <summary>
+        /// ToString-Method of the VotingResults class.
+        /// </summary>
+        /// 
+        /// <returns>String-based visualisation of the VotingResults.</returns>
         public override string ToString()
         {
             string ret = "VotingResults:\n";
@@ -587,12 +588,12 @@ namespace PAClient
         }
 
         /// <summary>
-        /// 
+        /// Checks if a specific sessionkey is part of the VotingResults.
         /// </summary>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">The sessionkey which is to be checked.</param>
         /// 
-        /// <returns></returns>
+        /// <returns>If the sessionkey is part of the VotingResults.</returns>
         private bool IsSessionActive(string sessionkey)
         {
             return GetSessionKeys().Contains(sessionkey);
