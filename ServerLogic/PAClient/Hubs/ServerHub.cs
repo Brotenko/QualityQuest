@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,8 +14,11 @@ namespace PAClient.Hubs
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="user"></param>
+        /// 
         /// <param name="message"></param>
+        /// 
         /// <returns></returns>
         public async Task SendMessage(string user, string message)
         {
@@ -26,7 +28,9 @@ namespace PAClient.Hubs
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <returns></returns>
         public async Task ValidateKey(string sessionkey)
         {
@@ -45,8 +49,11 @@ namespace PAClient.Hubs
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <param name="option"></param>
+        /// 
         /// <returns></returns>
         public async Task SendVote(string sessionkey, Guid option)
         {
@@ -57,6 +64,7 @@ namespace PAClient.Hubs
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <returns></returns>
         public override async Task OnConnectedAsync()
         {
@@ -67,7 +75,9 @@ namespace PAClient.Hubs
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="exception"></param>
+        /// 
         /// <returns></returns>
         public override async Task OnDisconnectedAsync(Exception exception)
         {

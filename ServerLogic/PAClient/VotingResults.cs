@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PAClient
 {
@@ -25,6 +24,7 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="x"></param>
         public VotingResults(Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> x)
         {
@@ -34,6 +34,7 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <returns></returns>
         public string[] GetSessionKeys()
         {
@@ -43,6 +44,9 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
         public void AddSessionKey(string sessionkey)
         {
@@ -64,8 +68,15 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <param name="prompt"></param>
+        /// 
         /// <param name="options"></param>
         public void AddNewPoll(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
@@ -115,8 +126,15 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <param name="prompt"></param>
+        /// 
         /// <param name="option"></param>
         public void AddVote(string sessionkey, Guid prompt, Guid option)
         {
@@ -155,6 +173,10 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
         public void RemoveSession(string sessionkey)
         {
@@ -176,7 +198,13 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <returns></returns>
         public KeyValuePair<Guid, string>[] GetPromptsBySession(string sessionkey)
         {
@@ -206,7 +234,12 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> GetStatistics(string sessionkey)
         {
@@ -228,7 +261,12 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <returns></returns>
         public Guid[] GetPromptGuidsBySession(string sessionkey)
         {
@@ -264,7 +302,12 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <returns></returns>
         public string[] GetPromptStringsBySession(string sessionkey)
         {
@@ -300,8 +343,14 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <param name="prompt"></param>
+        /// 
         /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetOptionsVotesPairsByPrompt(string sessionkey, Guid prompt)
         {
@@ -340,8 +389,14 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <param name="prompt"></param>
+        /// 
         /// <returns></returns>
         public KeyValuePair<Guid, string>[] GetOptionsByPrompt(string sessionkey, Guid prompt)
         {
@@ -374,8 +429,14 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <param name="prompt"></param>
+        /// 
         /// <returns></returns>
         public string[] GetOptionStringsByPrompt(string sessionkey, Guid prompt)
         {
@@ -409,8 +470,14 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <param name="prompt"></param>
+        /// 
         /// <returns></returns>
         public Guid[] GetOptionGuidsByPrompt(string sessionkey, Guid prompt)
         {
@@ -444,9 +511,17 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <param name="prompt"></param>
+        /// 
         /// <param name="option"></param>
+        /// 
         /// <returns></returns>
         public int GetVotesByOption(string sessionkey, Guid prompt, Guid option)
         {
@@ -482,6 +557,7 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <returns></returns>
         public override string ToString()
         {
@@ -513,7 +589,9 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <returns></returns>
         private bool IsSessionActive(string sessionkey)
         {

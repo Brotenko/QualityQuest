@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using PAClient.Hubs;
 using System;
 using System.Collections.Generic;
@@ -26,12 +24,18 @@ namespace PAClient
         private static bool isDebug;
 
         // A list of all voting results, sorted by the GUID of the "voting prompt/questions" 
+        /// <summary>
+        /// 
+        /// </summary>
         public static VotingResults PAVotingResults
         {
             get; private set;
         }
 
         // A list of all groups, each having their own list of connected clients
+        /// <summary>
+        /// 
+        /// </summary>
         public static Dictionary<string, List<string>> ConnectionList
         {
             get; private set;
@@ -39,11 +43,17 @@ namespace PAClient
 
         // Current prompt depending on the session
         //                 sessionkey             prompt
+        /// <summary>
+        /// 
+        /// </summary>
         private static Dictionary<string, KeyValuePair<Guid, string>> CurrentPrompt
         {
             get; set;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private int Port
         {
             get; set;
@@ -52,6 +62,7 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="port"></param>
         public PABackend(int port)
         {
@@ -67,7 +78,10 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="port"></param>
+        /// 
+        /// <returns></returns>
         public static PABackend DebugPABackend(int port)
         {
             isDebug = true;
@@ -77,6 +91,7 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <returns></returns>
         public string[] GetSessionKeys()
         {
@@ -86,6 +101,10 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
         public void StartNewSession(string sessionkey)
         {
@@ -114,8 +133,11 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="prompt"></param>
+        /// 
         /// <param name="options"></param>
+        /// 
         /// <returns></returns>
         public string DebugCreatePageContent(KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
@@ -125,8 +147,15 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <param name="prompt"></param>
+        /// 
         /// <param name="options"></param>
         public async Task SendPushMessage(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
@@ -180,8 +209,16 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <param name="option"></param>
+        /// 
+        /// <returns></returns>
         public static int CountNewVote(string sessionkey, Guid option)
         {
             try
@@ -223,7 +260,12 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> EndSession(string sessionkey)
         {
@@ -247,8 +289,12 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <param name="connectionId"></param>
+        /// 
+        /// <returns></returns>
         public static int AddConnection(string sessionkey, string connectionId)
         {
             if (sessionkey == null)
@@ -285,7 +331,10 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="connectionId"></param>
+        /// 
+        /// <returns></returns>
         public static int RemoveConnection(string connectionId)
         {
             if (connectionId == null)
@@ -309,8 +358,15 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="SessionNotFoundException"></exception>
+        /// 
         /// <param name="sessionkey"></param>
+        /// 
         /// <param name="prompt"></param>
+        /// 
         /// <returns></returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResult(string sessionkey, KeyValuePair<Guid, string> prompt)
         {
@@ -352,6 +408,7 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
@@ -363,6 +420,13 @@ namespace PAClient
             CreateHostBuilder(Convert.ToInt32(args[0], CultureInfo.CurrentCulture)).Build().Run();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// 
+        /// <param name="sessionkey"></param>
+        /// 
+        /// <returns></returns>
         private static bool IsSessionActive(string sessionkey)
         {
             return PAVotingResults.GetSessionKeys().Contains(sessionkey);
@@ -371,6 +435,7 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="sessionkey"></param>
         private static void AddNewSession(string sessionkey)
         {
@@ -382,8 +447,13 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// 
         /// <param name="prompt"></param>
+        /// 
         /// <param name="options"></param>
+        /// 
         /// <returns></returns>
         private string CreatePageContent(KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
@@ -452,6 +522,7 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="sessionkey"></param>
         private static void RemoveSession(string sessionkey)
         {
@@ -461,6 +532,7 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="group"></param>
         private async void SendPushClear(string sessionkey)
         {
@@ -480,7 +552,9 @@ namespace PAClient
         /// <summary>
         /// 
         /// </summary>
+        /// 
         /// <param name="port"></param>
+        /// 
         /// <returns></returns>
         private static IHostBuilder CreateHostBuilder(int port) =>
             Host.CreateDefaultBuilder()
