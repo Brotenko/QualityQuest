@@ -205,7 +205,8 @@ namespace PAClient
         /// 
         /// <param name="sessionkey">The sessionkey for which the prompts are to be retrieved.</param>
         /// 
-        /// <returns>All prompts related to the given sessionkey.</returns>
+        /// <returns>All prompts related to the given sessionkey. If a given sessionkey
+        /// has no prompts associated with it, an empty array is returned.</returns>
         public KeyValuePair<Guid, string>[] GetPromptsBySession(string sessionkey)
         {
             if (sessionkey == null)
@@ -240,7 +241,8 @@ namespace PAClient
         /// 
         /// <param name="sessionkey">The sessionkey for which the prompt's GUIDs are to be retrieved.</param>
         /// 
-        /// <returns>All prompt's GUIDs related to the given sessionkey.</returns>
+        /// <returns>All prompt's GUIDs related to the given sessionkey. If a given sessionkey
+        /// has no prompts associated with it, null is returned.</returns>
         public Guid[] GetPromptGuidsBySession(string sessionkey)
         {
             if (sessionkey == null)
@@ -281,7 +283,8 @@ namespace PAClient
         /// 
         /// <param name="sessionkey">The sessionkey for which the prompt's strings are to be retrieved.</param>
         /// 
-        /// <returns>All prompt's strings related to the given sessionkey.</returns>
+        /// <returns>All prompt's strings related to the given sessionkey. If a given sessionkey
+        /// has no prompts associated with it, null is returned.</returns>
         public string[] GetPromptStringsBySession(string sessionkey)
         {
             if (sessionkey == null)
@@ -324,7 +327,8 @@ namespace PAClient
         /// 
         /// <param name="prompt">The prompt for which the options-votes pairs are to be retrieved.</param>
         /// 
-        /// <returns>All options-votes pairs related to the given sessionkey and prompt.</returns>
+        /// <returns>All options-votes pairs related to the given sessionkey and prompt. If a given prompt
+        /// has no options-votes pairs associated with it, null is returned.</returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetOptionsVotesPairsByPrompt(string sessionkey, Guid prompt)
         {
             if (sessionkey == null)
@@ -370,7 +374,8 @@ namespace PAClient
         /// 
         /// <param name="prompt">The prompt for which the voting options are to be retrieved.</param>
         /// 
-        /// <returns>All voting options related to the given sessionkey and prompt.</returns>
+        /// <returns>All voting options related to the given sessionkey and prompt. If a given prompt
+        /// has no options associated with it, an empty array is returned.</returns>
         public KeyValuePair<Guid, string>[] GetOptionsByPrompt(string sessionkey, Guid prompt)
         {
             if (sessionkey == null)
@@ -410,7 +415,8 @@ namespace PAClient
         /// 
         /// <param name="prompt">The prompt for which the voting option's strings are to be retrieved.</param>
         /// 
-        /// <returns>All voting option's strings related to the given sessionkey and prompt.</returns>
+        /// <returns>All voting option's strings related to the given sessionkey and prompt. If a given prompt
+        /// has no options associated with it, null is returned.</returns>
         public string[] GetOptionStringsByPrompt(string sessionkey, Guid prompt)
         {
             if (sessionkey == null)
@@ -451,7 +457,8 @@ namespace PAClient
         /// 
         /// <param name="prompt">The prompt for which the voting option's GUIDs are to be retrieved.</param>
         /// 
-        /// <returns>All voting option's GUIDs related to the given sessionkey and prompt.</returns>
+        /// <returns>All voting option's GUIDs related to the given sessionkey and prompt. If a given prompt
+        /// has no options associated with it, null is returned.</returns>
         public Guid[] GetOptionGuidsByPrompt(string sessionkey, Guid prompt)
         {
             if (sessionkey == null)
