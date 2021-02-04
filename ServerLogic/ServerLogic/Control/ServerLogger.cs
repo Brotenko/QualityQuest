@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -9,21 +10,40 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic;
+using System.Runtime.CompilerServices;
+using ServerLogic.Properties;
+using FileSystem = Microsoft.VisualBasic.FileSystem;
+
+[assembly: InternalsVisibleTo("ServerLogicTest")]
 
 namespace ServerLogic.Control
 {
     class ServerLogger
     {
+        //Necessary for Singleton pattern
         private static ServerLogger _serverLogger;
+        //Necessary to be able to change the writing of files for the unit tests.
+        private readonly IFileSystem fileSystem;
 
         /// <summary>
         /// ServerLogger implements the Singleton-Pattern to ensure there is only one Logger active.
         /// Therefore, there is no need for a ServerLogger object.
         /// </summary>
-        private ServerLogger()
+        private ServerLogger() : this(
+            // The FileSystem set here equals the default one.
+            fileSystem: new System.IO.Abstractions.FileSystem())
         {
             //default Logging-Level
             LogInformation("New Session started. LogLevel is " + Properties.Settings.Default.LogLevel + ", LogOutputType is "+ Properties.Settings.Default.LogOutPutType+".");
+        }
+
+        /// <summary>
+        /// This constructor exists solely to allow testing of File.IO operations.
+        /// </summary>
+        /// <param name="fileSystem"> A Mockup File-System.</param>
+        private ServerLogger(IFileSystem fileSystem)
+        {
+            this.fileSystem = fileSystem;
         }
 
         /// <summary>
@@ -33,6 +53,16 @@ namespace ServerLogic.Control
         {
             //"if (_severLogger == NULL) _serverLogger = new ServerLogger();" is the same
             _serverLogger ??= new ServerLogger();
+        }
+
+        /// <summary>
+        /// DONT'T USE THIS!
+        /// 
+        /// </summary>
+        /// <param name="fileSystem"></param>
+        internal static void CreateServerLogger(IFileSystem fileSystem)
+        {
+            _serverLogger ??= new ServerLogger(fileSystem);
         }
 
         /// <summary>
@@ -64,7 +94,7 @@ namespace ServerLogic.Control
         /// Writes the received string, according to the set Logging Output, either in a File or prints it on the Console. Adds the date and the current logging level to the message.
         /// </summary>
         /// <param name="logMessage">What should be logged.</param>
-        private static void WriteLog(string logMessage)
+        internal static void WriteLog(string logMessage)
         {
             string logRecord = string.Format("{0} [{1}] {2}",
                 "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "]",
@@ -131,7 +161,7 @@ namespace ServerLogic.Control
         /// </summary>
         public static void WipeLogFile()
         {
-            File.Delete(Properties.Resources.LogFilePath);
+            File.Delete(Settings.Default.LogFilePath);
         }
 
         /// <summary>
@@ -156,71 +186,6 @@ namespace ServerLogic.Control
                 Console.WriteLine(Properties.Resources.InvalidLoggingOutputType);
             }
         }
-
-        private class ServerLogicLog
-        {
-            public string SessionKey;
-            public Guid ModeratorId;
-            public Guid[] audienceClients;
-            public Dictionary<Guid, int> VotingResults;
-        }
-        public static void CreateServerSessionLog(string sessionKey, Guid moderatorId)
-        {
-            //todo this method is a draft right now, as it heavily relies on information provided by the yet-not-finished AudienceClient
-            ServerLogicLog log = new ServerLogicLog();
-            log.SessionKey = sessionKey;
-            log.ModeratorId = moderatorId;
-            string jsonString = JsonSerializer.Serialize<ServerLogicLog>(log);
-            File.WriteAllText(Properties.Settings.Default.ServerLogicLogFilePath+"Session_"+sessionKey+".txt",jsonString);
-        }
-
-        public static Guid GetModeratorIdFromSessionLog(string sessionKey)
-        {
-            string jsonString = File.ReadAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
-                                                       sessionKey + ".txt");
-            ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
-            return logicLog.ModeratorId;
-        }
-
-        public static void AddStatsToSession(string sessionKey, Dictionary<Guid,int> votingResults)
-        {
-            string jsonString = File.ReadAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
-                                                 sessionKey + ".txt");
-            ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
-            if (logicLog.VotingResults != null)
-            {
-                foreach (KeyValuePair<Guid, int> entry in votingResults)
-                {
-                    logicLog.VotingResults.Add(entry.Key, entry.Value);
-                }
-            }
-            else
-            {
-                logicLog.VotingResults = votingResults;
-            }
-            jsonString = JsonSerializer.Serialize<ServerLogicLog>(logicLog);
-            File.WriteAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" + sessionKey + ".txt", jsonString);
-        }
-
-        public static Dictionary<Guid, int> GetStatsFromSession(string sessionKey)
-        {
-            string jsonString = File.ReadAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
-                                                 sessionKey + ".txt");
-            ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
-            return logicLog.VotingResults;
-        }
-
-        public static void ClearSessionLog(string sessionKey)
-        {
-            File.Delete(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
-                        sessionKey + ".txt");
-        }
-
-        public static void DeleteAllSessionLogs()
-        {
-            //Directory.Delete(Properties.Settings.Default.ServerLogicLogFilePath, true);
-        }
-
 
         /// <summary>
         /// Saves the passed string as a "debug" log.
@@ -268,6 +233,124 @@ namespace ServerLogic.Control
             {
                 WriteLog("ERROR: " + record);
             }
+        }
+
+
+
+
+
+        /*
+        I8,        8        ,8I                      88           88                88888888ba                                                                                
+        `8b       d8b       d8'                      88           ""                88      "8b                                                                               
+         "8,     ,8"8,     ,8"                       88                             88      ,8P                                                                               
+          Y8     8P Y8     8P  ,adPPYba,  8b,dPPYba, 88   ,d8     88 8b,dPPYba,     88aaaaaa8P' 8b,dPPYba,  ,adPPYba,   ,adPPYb,d8 8b,dPPYba,  ,adPPYba, ,adPPYba, ,adPPYba,  
+          `8b   d8' `8b   d8' a8"     "8a 88P'   "Y8 88 ,a8"      88 88P'   `"8a    88""""""'   88P'   "Y8 a8"     "8a a8"    `Y88 88P'   "Y8 a8P_____88 I8[    "" I8[    ""  
+           `8a a8'   `8a a8'  8b       d8 88         8888[        88 88       88    88          88         8b       d8 8b       88 88         8PP"""""""  `"Y8ba,   `"Y8ba,   
+            `8a8'     `8a8'   "8a,   ,a8" 88         88`"Yba,     88 88       88    88          88         "8a,   ,a8" "8a,   ,d88 88         "8b,   ,aa aa    ]8I aa    ]8I  
+             `8'       `8'     `"YbbdP"'  88         88   `Y8a    88 88       88    88          88          `"YbbdP"'   `"YbbdP"Y8 88          `"Ybbd8"' `"YbbdP"' `"YbbdP"'  
+                                                                                                                        aa,    ,88                                            
+                                                                                                                         "Y8bbdP"                                             
+        
+        The following methods are not yet fully implemented, as the classes and methods required for them are currently still being implemented and tested. 
+        A review is welcome, but will most likely be obsolete as soon as work continues and is therefore not necessary at the moment. 
+        For the same reason, there are no unit tests. 
+        Have a good day and come back later!
+        */
+
+
+        /// <summary>
+        /// Class for JSON
+        /// </summary>
+        private class ServerLogicLog
+        {
+            public string SessionKey;
+            public Guid ModeratorId;
+            public Guid[] audienceClients;
+            public Dictionary<Guid, int> VotingResults;
+        }
+
+        /// <summary>
+        /// Creates a SessionLog File.
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <param name="moderatorId"></param>
+        public static void CreateServerSessionLog(string sessionKey, Guid moderatorId)
+        {
+            //todo this method is a draft right now, as it heavily relies on information provided by the yet-not-finished AudienceClient
+            ServerLogicLog log = new ServerLogicLog();
+            log.SessionKey = sessionKey;
+            log.ModeratorId = moderatorId;
+            string jsonString = JsonSerializer.Serialize<ServerLogicLog>(log);
+            File.WriteAllText(Properties.Settings.Default.ServerLogicLogFilePath+"Session_"+sessionKey+".txt",jsonString);
+        }
+
+        /// <summary>
+        /// Gets the ModeratorId from the specified Session-File.
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <returns></returns>
+        public static Guid GetModeratorIdFromSessionLog(string sessionKey)
+        {
+            string jsonString = File.ReadAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
+                                                       sessionKey + ".txt");
+            ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
+            return logicLog.ModeratorId;
+        }
+
+        /// <summary>
+        /// Adds the survey statistics to an existing Session-File.
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <param name="votingResults"></param>
+        public static void AddStatsToSession(string sessionKey, Dictionary<Guid,int> votingResults)
+        {
+            string jsonString = File.ReadAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
+                                                 sessionKey + ".txt");
+            ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
+            if (logicLog.VotingResults != null)
+            {
+                foreach (KeyValuePair<Guid, int> entry in votingResults)
+                {
+                    logicLog.VotingResults.Add(entry.Key, entry.Value);
+                }
+            }
+            else
+            {
+                logicLog.VotingResults = votingResults;
+            }
+            jsonString = JsonSerializer.Serialize<ServerLogicLog>(logicLog);
+            File.WriteAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" + sessionKey + ".txt", jsonString);
+        }
+
+        /// <summary>
+        ///  Returns the survey statistics from an existing Session-File.
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <returns></returns>
+        public static Dictionary<Guid, int> GetStatsFromSession(string sessionKey)
+        {
+            string jsonString = File.ReadAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
+                                                 sessionKey + ".txt");
+            ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
+            return logicLog.VotingResults;
+        }
+
+        /// <summary>
+        /// Deletes the corresponding Session-File.
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        public static void ClearSessionLog(string sessionKey)
+        {
+            File.Delete(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
+                        sessionKey + ".txt");
+        }
+
+        /// <summary>
+        /// Deletes all Session-Files of the server.
+        /// </summary>
+        public static void DeleteAllSessionLogs()
+        {
+            //Directory.Delete(Properties.Settings.Default.ServerLogicLogFilePath, true);
         }
     }
 }

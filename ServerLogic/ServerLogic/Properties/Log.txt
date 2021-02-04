@@ -1,12 +1,6 @@
-[2021-01-18 13:48:49+00:00] [0] INFO: LogLevel was set to 0.
-[2021-01-21 14:21:01+00:00] [0] INFO: New Session started. LogLevel is 0.
-[2021-01-21 14:26:47+00:00] [0] INFO: New Session started. LogLevel is 0.
-[2021-01-21 14:31:24+00:00] [0] INFO: LogLevel was set to 0.
-[2021-01-21 14:32:46+00:00] [0] INFO: New Session started. LogLevel is 0.
-[2021-01-21 14:32:56+00:00] [0] INFO: LogLevel was set to 0.
-[2021-01-21 14:42:23+00:00] [0] INFO: New Session started. LogLevel is 0.
-[2021-01-21 14:42:29+00:00] [0] INFO: LogLevel was set to 0.
-[2021-01-25 09:32:45] [0] INFO: LogLevel was set to 0.
-[2021-01-25 09:33:09] [0] INFO: LogLevel was set to 0.
-[2021-01-25 09:33:26] [0] INFO: New Session started. LogLevel is 0, LogOutputType is 2.
-[2021-01-25 12:39:51] [0] INFO: New Session started. LogLevel is 0, LogOutputType is 2.
+[2021-02-04 15:46:50] [0] INFO: New Session started. LogLevel is 0, LogOutputType is 0.
+[2021-02-04 16:49:00] [0] INFO: New Session started. LogLevel is 0, LogOutputType is 0.
+[2021-02-04 16:50:51] [0] INFO: LogLevel was set to 0.
+[2021-02-04 16:51:50] [0] INFO: New Session started. LogLevel is 0, LogOutputType is 2.
+[2021-02-04 16:52:35] [0] INFO: New Session started. LogLevel is 0, LogOutputType is 2.
+[2021-02-04 19:31:54] [0] INFO: New Session started. LogLevel is 0, LogOutputType is 2.

@@ -2,8 +2,10 @@
 using ServerLogic.Model.Messages;
 using ServerLogic.Control;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using System.IO.Abstractions.TestingHelpers;
 
 namespace ServerLogicTests.Control
 {
@@ -38,6 +40,36 @@ namespace ServerLogicTests.Control
         private const int testPort_1 = 5555;
         private const int testPort_2 = 6666;
         private const int testPort_3 = 8888;
+
+
+        /// <summary>
+        /// Sets the path variable for the log file from the settings to a test log
+        /// file to prevent changes to the actual log file by the tests.
+        /// Since the changed value is not saved, the actual settings value is only
+        /// temporarily overwritten and has the original value again the next time the application is started.
+        /// </summary>
+        [TestInitialize]
+        public void Initialize()
+        {
+            var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>()
+            {
+                {@"c:\TestLog.txt", new MockFileData("") }
+            });
+            ServerLogger.CreateServerLogger(fileSystem);
+            ServerLogic.Properties.Settings.Default.LogFilePath = "TestLog.txt";
+        }
+
+        /// <summary>
+        /// Deletes any log files that may have been created after the tests have been executed.
+        /// As a precaution, a ServerLogger instance is created to avoid a corresponding exception should none have been created by the tests. 
+        /// </summary>
+        [TestCleanup]
+        public void CleanUp()
+        {
+            ServerLogger.CreateServerLogger();
+            ServerLogger.WipeLogFile();
+        }
+
 
         /// <summary>
         /// Validates that an <c>ArgumentException</c> is thrown when a password is
@@ -624,7 +656,7 @@ namespace ServerLogicTests.Control
         [TestMethod]
         public void ShowLogsTest()
         {
-            // TODO when the actual Function is implemented.
+            // Underlying functionality is covered in ServerLoggerTest-Class
         }
 
         /// <summary>
@@ -633,7 +665,7 @@ namespace ServerLogicTests.Control
         [TestMethod]
         public void ClearLogsTest()
         {
-            // TODO when the actual Function is implemented.
+            // Underlying functionality is covered in ServerLoggerTest-Class
         }
 
         /// <summary>
