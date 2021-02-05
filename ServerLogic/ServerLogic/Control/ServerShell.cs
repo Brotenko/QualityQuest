@@ -15,6 +15,7 @@ namespace ServerLogic.Control
         private string _password; //Passwort des Servers 
         private bool serverIsRunning = false;
         private bool commandRequestsHelpMessage = false;
+        private static bool isDebug;
 
         public int Port
         {
@@ -85,6 +86,12 @@ namespace ServerLogic.Control
         {
             this.Password = "!Password123";
             this.Port = 7777;
+        }
+
+        public static ServerShell DebugServerShell()
+        {
+            isDebug = true;
+            return new ServerShell();
         }
 
         /// <summary>
@@ -487,7 +494,10 @@ namespace ServerLogic.Control
                 }
                 try
                 {
-                    mainServerLogic.playerAudienceClientAPI.StartServer(Port);
+                    if (!isDebug)
+                    {
+                        mainServerLogic.playerAudienceClientAPI.StartServer(Port);
+                    }
                 }
                 catch (Exception e)
                 {

@@ -99,7 +99,7 @@ namespace ServerLogicTests.Control
         [TestMethod]
         public void ParseCommandTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             /*
              * Tests for the following conditions:
@@ -142,7 +142,7 @@ namespace ServerLogicTests.Control
         [TestMethod]
         public void ParsePortTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             /*
              * Tests for the following conditions:
@@ -230,7 +230,7 @@ namespace ServerLogicTests.Control
         [TestMethod]
         public void ParsePasswordTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             /*
              * Tests for the following conditions:
@@ -308,7 +308,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartServer")]
         public void StartServer_ParameterlessTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             /*
              * Tests for the following conditions:
@@ -328,7 +328,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartServer")]
         public void StartServer_ValidPortTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             /*
              * Tests for the following conditions:
@@ -350,7 +350,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartServer")]
         public void StartServer_InvalidPortTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             /*
              * Tests for the following conditions:
@@ -372,7 +372,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartServer")]
         public void StartServer_ValidPasswordTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             /*
              * Tests for the following conditions:
@@ -394,7 +394,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartServer")]
         public void StartServer_InvalidPasswordTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             /*
              * Tests for the following conditions:
@@ -416,7 +416,8 @@ namespace ServerLogicTests.Control
         [TestCategory("StartServer")]
         public void StartServer_InvalidOptionTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
+
 
             /*
              * Tests for the following conditions:
@@ -437,7 +438,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartServer")]
         public void StartServer_ValidPasswordAndPortTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             /*
              * Tests for the following conditions:
@@ -462,7 +463,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartServer")]
         public void StartServer_ValidPortAndPasswordTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             /*
              * Tests for the following conditions:
@@ -487,7 +488,7 @@ namespace ServerLogicTests.Control
         [TestMethod]
         public void StopServerTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             /*
              * Tests for the following conditions:
@@ -507,7 +508,7 @@ namespace ServerLogicTests.Control
         [TestMethod]
         public void ShowHelpTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             /*
              * Tests for the following conditions:
@@ -653,7 +654,7 @@ namespace ServerLogicTests.Control
         [TestMethod]
         public void ShowVersionTest()
         {
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             /*
              * Tests for the following conditions:
