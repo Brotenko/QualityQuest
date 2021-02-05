@@ -88,6 +88,10 @@ namespace ServerLogic.Control
             this.Port = 7777;
         }
 
+        /// <summary>
+        /// Constructs a new debug version of ServerShell with a predefined password and 
+        /// the standard port.
+        /// </summary>
         public static ServerShell DebugServerShell()
         {
             isDebug = true;

@@ -48,7 +48,7 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.GetSessionKeys"/> method
-        /// 
+        /// returns an empty array when no sessionkeys have been set yet.
         /// </summary>
         [TestMethod]
         [TestCategory("GetSessionKeys")]
@@ -61,7 +61,7 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.GetSessionKeys"/> method
-        /// 
+        /// returns an array of all currently active sessionkeys.
         /// </summary>
         [TestMethod]
         [TestCategory("GetSessionKeys")]
@@ -124,7 +124,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.StartNewSession"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when the same
+        /// valid sessionkey is given twice.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -241,7 +242,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.StartNewVote"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when the same
+        /// valid prompt is given twice.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -256,7 +258,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.StartNewVote"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when the same
+        /// valid prompt is assigned a poll twice.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -348,7 +351,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.CountNewVote"/> method
-        /// 
+        /// returns <see cref="PABackendErrorType.InvalidSessionkeyError"/>
+        /// when an invalid sessionkey is given.
         /// </summary>
         [TestMethod]
         [TestCategory("CountNewVote")]
@@ -362,7 +366,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.CountNewVote"/> method
-        /// 
+        /// returns <see cref="PABackendErrorType.NullSessionkeyError"/>
+        /// when a null-value is given.
         /// </summary>
         [TestMethod]
         [TestCategory("CountNewVote")]
@@ -376,7 +381,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.CountNewVote"/> method
-        /// 
+        /// returns <see cref="PABackendErrorType.InvalidSessionkeyError"/>
+        /// when the given sessionkey does not belong to an active session.
         /// </summary>
         [TestMethod]
         [TestCategory("CountNewVote")]
@@ -389,7 +395,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.CountNewVote"/> method
-        /// 
+        /// returns <see cref="PABackendErrorType.InvalidArgumentError"/>
+        /// when a given prompt does not belong to a valid sessionkey.
         /// </summary>
         [TestMethod]
         [TestCategory("CountNewVote")]
@@ -467,7 +474,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.AddConnection"/> method
-        /// 
+        /// returns <see cref="PABackendErrorType.InvalidSessionkeyError"/>
+        /// when an invalid sessionkey is given.
         /// </summary>
         [TestMethod]
         [TestCategory("AddConnection")]
@@ -481,7 +489,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.AddConnection"/> method
-        /// 
+        /// returns <see cref="PABackendErrorType.NullSessionkeyError"/>
+        /// when a null-value is given.
         /// </summary>
         [TestMethod]
         [TestCategory("AddConnection")]
@@ -495,7 +504,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.AddConnection"/> method
-        /// 
+        /// returns <see cref="PABackendErrorType.InvalidConnectionIdError"/>
+        /// when the given connectionId does not belong to an active connection.
         /// </summary>
         [TestMethod]
         [TestCategory("AddConnection")]
@@ -509,7 +519,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.AddConnection"/> method
-        /// 
+        /// returns <see cref="PABackendErrorType.NullConnectionIdError"/>
+        /// when a null-value is given.
         /// </summary>
         [TestMethod]
         [TestCategory("AddConnection")]
@@ -542,7 +553,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.RemoveConnection"/> method
-        /// 
+        /// returns <see cref="PABackendErrorType.InvalidConnectionIdError"/>
+        /// when the given connectionId does not belong to an active connection.
         /// </summary>
         [TestMethod]
         [TestCategory("RemoveConnection")]
@@ -555,7 +567,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.RemoveConnection"/> method
-        /// 
+        /// returns <see cref="PABackendErrorType.NullConnectionIdError"/>
+        /// when a null-value is given.
         /// </summary>
         [TestMethod]
         [TestCategory("RemoveConnection")]
@@ -611,7 +624,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.GetVotingResult"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when the given
+        /// prompt is invalid.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]

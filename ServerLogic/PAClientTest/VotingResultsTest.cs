@@ -46,7 +46,7 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetSessionKeys"/> method
-        /// 
+        /// returns all sessionkeys in the correct format.
         /// </summary>
         [TestMethod]
         [TestCategory("GetSessionKeys")]
@@ -78,7 +78,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddSessionKey"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when the same sessionkey
+        /// is given twice.
         /// </summary>
         [TestMethod]
         [TestCategory("AddSessionKey")]
@@ -106,7 +107,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddSessionKey"/> method
-        /// 
+        /// functions correctly and assigns everything in the right order and at
+        /// the right position.
         /// </summary>
         [TestMethod]
         [TestCategory("AddSessionKey")]
@@ -175,7 +177,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddNewPoll"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when the same
+        /// valid prompt is given twice.
         /// </summary>
         [TestMethod]
         [TestCategory("AddNewPoll")]
@@ -190,7 +193,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddNewPoll"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when the same valid prompt
+        /// is assigned a poll twice.
         /// </summary>
         [TestMethod]
         [TestCategory("AddNewPoll")]
@@ -265,7 +269,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddNewPoll"/> method
-        /// 
+        /// functions correctly and assigns everything in the right order and at
+        /// the right position.
         /// </summary>
         [TestMethod]
         [TestCategory("AddNewPoll")]
@@ -322,7 +327,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddVote"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when a vote
+        /// is added to a given prompt thast is not part of the given session.
         /// </summary>
         [TestMethod]
         [TestCategory("AddVote")]
@@ -352,7 +358,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddVote"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when an invalid prompt is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("AddVote")]
@@ -367,7 +374,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddVote"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when an invalid option is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("AddVote")]
@@ -382,7 +390,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddVote"/> method
-        /// 
+        /// functions correctly and assigns everything in the right order and at
+        /// the right position.
         /// </summary>
         [TestMethod]
         [TestCategory("AddVote")]
@@ -423,7 +432,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.RemoveSession"/> method
-        /// throws an <see cref="SessionNotFoundException"/> exception when
+        /// throws an <see cref="SessionNotFoundException"/> exception when the same
+        /// valid sessionkey is given twice.
         /// </summary>
         [TestMethod]
         [TestCategory("RemoveSession")]
@@ -468,7 +478,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.RemoveSession"/> method
-        /// 
+        /// functions correctly and assigns everything in the right order and at
+        /// the right position.
         /// </summary>
         [TestMethod]
         [TestCategory("RemoveSession")]
@@ -537,7 +548,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetPromptsBySession"/> method
-        /// 
+        /// returns an empty array when no prompts have been added to the session
+        /// beforehand.
         /// </summary>
         [TestMethod]
         [TestCategory("GetPromptsBySession")]
@@ -600,7 +612,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetStatistics"/> method
-        /// 
+        /// returns an empty Dictionary when nothing has been assigned to the
+        /// session beforehand.
         /// </summary>
         [TestMethod]
         [TestCategory("GetStatistics")]
@@ -663,7 +676,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetPromptGuidsBySession"/> method
-        /// 
+        /// returns an empty array when no prompts have been added to the session
+        /// beforehand.
         /// </summary>
         [TestMethod]
         [TestCategory("GetPromptGuidsBySession")]
@@ -726,7 +740,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetPromptStringsBySession"/> method
-        /// 
+        /// returns an empty array when no prompts have been added to the session
+        /// beforehand.
         /// </summary>
         [TestMethod]
         [TestCategory("GetPromptStringsBySession")]
@@ -789,7 +804,7 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetOptionsVotesPairsByPrompt"/> method
-        /// 
+        /// returns a null-value when a prompt is given that is not part of the given session.
         /// </summary>
         [TestMethod]
         [TestCategory("GetOptionsVotesPairsByPrompt")]
@@ -853,7 +868,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetOptionsByPrompt"/> method
-        /// 
+        /// returns an empty array when no prompts have been added to the session
+        /// beforehand.
         /// </summary>
         [TestMethod]
         [TestCategory("GetOptionsByPrompt")]
@@ -917,7 +933,7 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetOptionStringsByPrompt"/> method
-        /// 
+        /// returns a null-value when a prompt is given that is not part of the given session.
         /// </summary>
         [TestMethod]
         [TestCategory("GetOptionStringsByPrompt")]
@@ -981,7 +997,7 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetOptionGuidsByPrompt"/> method
-        /// 
+        /// returns a null-value when a prompt is given that is not part of the given session.
         /// </summary>
         [TestMethod]
         [TestCategory("GetOptionGuidsByPrompt")]
@@ -1045,7 +1061,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetVotesByOption"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when the given prompt
+        /// is not part of the given session.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotesByOption")]
@@ -1055,12 +1072,13 @@ namespace PAClientTest
             v.AddSessionKey(testKey_1);
             v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
 
-            Assert.ThrowsException<ArgumentException>(() => v.GetVotesByOption(testKey_1, testPrompt_NullString.Key, testPair_Valid_1.Key));
+            Assert.ThrowsException<ArgumentException>(() => v.GetVotesByOption(testKey_1, testPrompt_Valid_2.Key, testPair_Valid_1.Key));
         }
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetVotesByOption"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when the given option
+        /// is not part of the given session.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotesByOption")]
@@ -1077,7 +1095,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.ToString"/> method
-        /// 
+        /// functions correctly and returns everything in the right order and at
+        /// the right position.
         /// </summary>
         [TestMethod]
         [TestCategory("ToString")]

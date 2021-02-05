@@ -304,7 +304,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
-        /// throws an <see cref="InvalidOperationException"/> exception when
+        /// throws an <see cref="InvalidOperationException"/> exception when a new vote is
+        /// started while the server is inactive.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -363,7 +364,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.GetVotingResult"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when an invalid prompt is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -393,7 +395,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.GetVotingResult"/> method
-        /// throws an <see cref="InvalidOperationException"/> exception when
+        /// throws an <see cref="InvalidOperationException"/> exception when voting results
+        /// are requested while the server is inactive.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -453,7 +456,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.EndSession"/> method
-        /// throws an <see cref="InvalidOperationException"/> exception when
+        /// throws an <see cref="InvalidOperationException"/> exception when the given
+        /// sessionkey does not belong to an active session.
         /// </summary>
         [TestMethod]
         [TestCategory("EndSession")]
@@ -468,7 +472,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StopServer"/> method
-        /// throws an <see cref="InvalidOperationException"/> exception when
+        /// throws an <see cref="InvalidOperationException"/> exception when the server
+        /// is not active when being stopped.
         /// </summary>
         [TestMethod]
         [TestCategory("StopServer")]
