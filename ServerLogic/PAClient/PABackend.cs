@@ -68,7 +68,7 @@ namespace PAClient
             ConnectionList = new Dictionary<string, List<string>>();
             CurrentPrompt = new Dictionary<string, KeyValuePair<Guid, string>>();
 
-            if (isDebug)
+            if (!isDebug)
             {
                 _serverThread = new Thread(this.StartServer);
                 _serverThread.Start();

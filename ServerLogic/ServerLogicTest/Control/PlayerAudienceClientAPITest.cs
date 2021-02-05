@@ -43,13 +43,11 @@ namespace ServerLogicTests.Control
                 testPair_NullString
             };
 
-
-
-
-
+        /************************ StartServer Tests ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartServer"/> method
+        /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
         [TestCategory("StartServer")]
@@ -61,7 +59,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartServer"/> method
+        /// throws an <see cref="InvalidOperationException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartServer")]
@@ -73,13 +72,11 @@ namespace ServerLogicTests.Control
             Assert.ThrowsException<InvalidOperationException>(() => p.DebugStartServer(testPort));
         }
 
-
-
-
-
+        /************************ StartNewSession Tests ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewSession"/> method
+        /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -97,7 +94,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewSession"/> method
+        /// throws an <see cref="ArgumentException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -110,7 +108,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewSession"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -123,7 +122,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewSession"/> method
+        /// throws an <see cref="ArgumentException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -137,7 +137,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewSession"/> method
+        /// throws an <see cref="InvalidOperationException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -148,14 +149,11 @@ namespace ServerLogicTests.Control
             Assert.ThrowsException<InvalidOperationException>(() => p.StartNewSession(testKey_1));
         }
 
-
-
-
-
-
+        /************************ StartNewVote Tests ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
+        /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -170,7 +168,8 @@ namespace ServerLogicTests.Control
 
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
+        /// throws a <see cref="SessionNotFoundException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -184,7 +183,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -198,7 +198,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
+        /// throws an <see cref="ArgumentException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -213,7 +214,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
+        /// throws an <see cref="ArgumentException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -228,7 +230,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -242,6 +245,7 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -257,7 +261,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -271,7 +276,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -285,7 +291,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
+        /// throws an <see cref="InvalidOperationException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -296,18 +303,11 @@ namespace ServerLogicTests.Control
             await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_1));
         }
 
-
-
-
-
-
-
-
-
-
+        /************************ GetVotingResult Tests ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.GetVotingResult"/> method
+        /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -320,7 +320,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.GetVotingResult"/> method
+        /// throws a <see cref="SessionNotFoundException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -333,7 +334,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.GetVotingResult"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -346,7 +348,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.GetVotingResult"/> method
+        /// throws an <see cref="ArgumentException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -360,7 +363,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.GetVotingResult"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -373,7 +377,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.GetVotingResult"/> method
+        /// throws an <see cref="InvalidOperationException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -384,13 +389,11 @@ namespace ServerLogicTests.Control
             Assert.ThrowsException<InvalidOperationException>(() => p.GetVotingResult(testKey_1, testPrompt_Valid_1));
         }
 
-
-
-
-
+        /************************ EndSession Tests ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.EndSession"/> method
+        /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
         [TestCategory("EndSession")]
@@ -404,7 +407,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.EndSession"/> method
+        /// throws a <see cref="SessionNotFoundException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("EndSession")]
@@ -417,7 +421,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.EndSession"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("EndSession")]
@@ -430,7 +435,8 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.EndSession"/> method
+        /// throws an <see cref="InvalidOperationException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("EndSession")]
@@ -441,14 +447,11 @@ namespace ServerLogicTests.Control
             Assert.ThrowsException<InvalidOperationException>(() => p.EndSession(testKey_1));
         }
 
-
-
-
-
-
+        /************************ StopServer Test ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PlayerAudienceClientAPI.StopServer"/> method
+        /// throws an <see cref="InvalidOperationException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StopServer")]

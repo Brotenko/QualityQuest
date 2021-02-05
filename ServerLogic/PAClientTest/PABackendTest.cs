@@ -44,23 +44,10 @@ namespace PAClientTest
                 testPair_NullString
             };
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestCleanup]
-        public void ClearPAVotingResults()
-        {
-            // Re-init PABackend after every TestMethod to clear the PAVotingResults.
-            // _ = new PABackend(testPort);
-        }
-
-
-
-
-
-
+        /************************ GetSessionKeys Tests ****************************/
 
         /// <summary>
+        /// Validates that the <see cref="PABackend.GetSessionKeys"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -73,6 +60,7 @@ namespace PAClientTest
         }
 
         /// <summary>
+        /// Validates that the <see cref="PABackend.GetSessionKeys"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -86,13 +74,11 @@ namespace PAClientTest
             Assert.AreEqual(testKey_1, p.GetSessionKeys()[0]);
         }
 
-
-
-
-
+        /************************ StartNewSession Test ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.GetSessionKeys"/> method
+        /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -109,7 +95,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.StartNewSession"/> method
+        /// throws an <see cref="ArgumentException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -121,7 +108,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.StartNewSession"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -133,7 +121,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.StartNewSession"/> method
+        /// throws an <see cref="ArgumentException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -145,27 +134,11 @@ namespace PAClientTest
             Assert.ThrowsException<ArgumentException>(() => p.StartNewSession(testKey_1));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("StartNewSession")]
-        public void StartNewSession_ToStringCorrectness()
-        {
-            PABackend p = new PABackend(testPort);
-
-            // TODO
-        }
-
-
-
-
-
-
-
+        /************************ CreatePageContent Tests ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.CreatePageContent"/> method
+        /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
         [TestCategory("CreatePageContent")]
@@ -177,7 +150,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.CreatePageContent"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("CreatePageContent")]
@@ -189,7 +163,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.CreatePageContent"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("CreatePageContent")]
@@ -201,7 +176,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.CreatePageContent"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("CreatePageContent")]
@@ -212,28 +188,11 @@ namespace PAClientTest
             Assert.ThrowsException<ArgumentNullException>(() => p.DebugCreatePageContent(testPrompt_Valid_1, testOptions_Invalid));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("CreatePageContent")]
-        public void CreatePageContent_ToStringCorrectness()
-        {
-            PABackend p = new PABackend(testPort);
-
-            // TODO
-        }
-
-
-
-
-
-
-
-
+        /************************ StartNewVote Tests ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.StartNewVote"/> method
+        /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -245,9 +204,9 @@ namespace PAClientTest
             await p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
         }
 
-        
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.StartNewVote"/> method
+        /// throws a <see cref="SessionNotFoundException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -260,7 +219,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.StartNewVote"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -273,7 +233,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.StartNewVote"/> method
+        /// throws an <see cref="ArgumentException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -287,7 +248,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.StartNewVote"/> method
+        /// throws an <see cref="ArgumentException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -301,7 +263,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.StartNewVote"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -314,6 +277,7 @@ namespace PAClientTest
         }
 
         /// <summary>
+        /// Validates that the <see cref="PABackend.StartNewVote"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -328,7 +292,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.StartNewVote"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -341,7 +306,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.StartNewVote"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -353,32 +319,11 @@ namespace PAClientTest
             await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Invalid));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("StartNewVote")]
-        public async Task SendPushMessage_ToStringCorrectness()
-        {
-            PABackend p = PABackend.DebugPABackend(testPort);
-            p.StartNewSession(testKey_1);
-
-            // TODO
-        }
-        
-
-
-
-
-
-
-
-
-
-
+        /************************ CountNewVote Tests ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.CountNewVote"/> method
+        /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
         [TestCategory("CountNewVote")]
@@ -392,6 +337,7 @@ namespace PAClientTest
         }
 
         /// <summary>
+        /// Validates that the <see cref="PABackend.CountNewVote"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -405,6 +351,7 @@ namespace PAClientTest
         }
 
         /// <summary>
+        /// Validates that the <see cref="PABackend.CountNewVote"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -418,6 +365,7 @@ namespace PAClientTest
         }
 
         /// <summary>
+        /// Validates that the <see cref="PABackend.CountNewVote"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -430,6 +378,7 @@ namespace PAClientTest
         }
 
         /// <summary>
+        /// Validates that the <see cref="PABackend.CountNewVote"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -442,29 +391,11 @@ namespace PAClientTest
             Assert.AreEqual((int) PABackendErrorType.InvalidArgumentError, PABackend.CountNewVote(testKey_1, testPair_Valid_1.Key));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("CountNewVote")]
-        public void CountNewVote_ToStringCorrectness()
-        {
-            PABackend p = new PABackend(testPort);
-
-            // TODO
-        }
-
-
-
-
-
-
-
-
-        
+        /************************ EndSession Tests ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.EndSession"/> method
+        /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
         [TestCategory("EndSession")]
@@ -479,7 +410,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.EndSession"/> method
+        /// throws a <see cref="SessionNotFoundException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("EndSession")]
@@ -491,7 +423,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.EndSession"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("EndSession")]
@@ -502,30 +435,11 @@ namespace PAClientTest
             Assert.ThrowsException<ArgumentNullException>(() => p.EndSession(null));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("EndSession")]
-        public void EndSession_ToStringCorrectness()
-        {
-            PABackend p = new PABackend(testPort);
-            p.StartNewSession(testKey_1);
-
-
-        }
-
-
-
-
-
-
-
-
-
+        /************************ AddConnection Tests ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.AddConnection"/> method
+        /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
         [TestCategory("AddConnection")]
@@ -540,6 +454,7 @@ namespace PAClientTest
         }
 
         /// <summary>
+        /// Validates that the <see cref="PABackend.AddConnection"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -553,6 +468,7 @@ namespace PAClientTest
         }
 
         /// <summary>
+        /// Validates that the <see cref="PABackend.AddConnection"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -566,6 +482,7 @@ namespace PAClientTest
         }
 
         /// <summary>
+        /// Validates that the <see cref="PABackend.AddConnection"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -579,6 +496,7 @@ namespace PAClientTest
         }
 
         /// <summary>
+        /// Validates that the <see cref="PABackend.AddConnection"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -591,30 +509,11 @@ namespace PAClientTest
             Assert.AreEqual((int) PABackendErrorType.NullConnectionIdError, PABackend.AddConnection(testKey_1, null));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("AddConnection")]
-        public void AddConnection_ToStringCorrectness()
-        {
-            PABackend p = new PABackend(testPort);
-            p.StartNewSession(testKey_1);
-
-            // TODO
-        }
-
-
-
-
-
-
-
-
-
+        /************************ RemoveConnection Tests ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.RemoveConnection"/> method
+        /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
         [TestCategory("RemoveConnection")]
@@ -630,6 +529,7 @@ namespace PAClientTest
         }
 
         /// <summary>
+        /// Validates that the <see cref="PABackend.RemoveConnection"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -642,6 +542,7 @@ namespace PAClientTest
         }
 
         /// <summary>
+        /// Validates that the <see cref="PABackend.RemoveConnection"/> method
         /// 
         /// </summary>
         [TestMethod]
@@ -653,26 +554,11 @@ namespace PAClientTest
             Assert.AreEqual((int) PABackendErrorType.NullConnectionIdError, PABackend.RemoveConnection(null));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("RemoveConnection")]
-        public void RemoveConnection_ToString()
-        {
-            PABackend p = new PABackend(testPort);
-
-            // TODO
-        }
-
-
-
-
-
-
+        /************************ GetVotingResult Tests ****************************/
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.GetVotingResult"/> method
+        /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -684,7 +570,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.GetVotingResult"/> method
+        /// throws a <see cref="SessionNotFoundException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -696,7 +583,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.GetVotingResult"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -708,7 +596,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.GetVotingResult"/> method
+        /// throws an <see cref="ArgumentException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -721,7 +610,8 @@ namespace PAClientTest
         }
 
         /// <summary>
-        /// 
+        /// Validates that the <see cref="PABackend.GetVotingResult"/> method
+        /// throws an <see cref="ArgumentNullException"/> exception when
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -730,18 +620,6 @@ namespace PAClientTest
             PABackend p = new PABackend(testPort);
 
             Assert.ThrowsException<ArgumentNullException>(() => p.GetVotingResult(testKey_1, testPrompt_NullString));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("GetVotingResult")]
-        public void GetVotingResult_ToStringCorrectness()
-        {
-            PABackend p = new PABackend(testPort);
-
-            // TODO
         }
     }
 }
