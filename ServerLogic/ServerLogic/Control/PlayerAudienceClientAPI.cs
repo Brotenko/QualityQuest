@@ -44,7 +44,7 @@ namespace ServerLogic.Control
                 if (ServerIsActive == false)
                 {
                     ServerIsActive = true;
-                    pABackend = new PABackend(port);
+                    pABackend = PABackend.DebugPABackend(port);
                 }
                 else
                 {
@@ -94,7 +94,7 @@ namespace ServerLogic.Control
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
-        /// <exception cref="InvalidOperationException">The server is curenntly not in a running state.</exception>
+        /// <exception cref="InvalidOperationException">The server is currently not in a running state.</exception>
         public void StartNewSession(string sessionkey)
         {
             if (ServerIsActive)
@@ -127,7 +127,7 @@ namespace ServerLogic.Control
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
-        /// <exception cref="InvalidOperationException">The server is curenntly not in a running state.</exception>
+        /// <exception cref="InvalidOperationException">The server is currently not in a running state.</exception>
         public async Task StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
             if (ServerIsActive)
@@ -151,7 +151,7 @@ namespace ServerLogic.Control
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
-        /// <exception cref="InvalidOperationException">The server is curenntly not in a running state.</exception>
+        /// <exception cref="InvalidOperationException">The server is currently not in a running state.</exception>
         /// 
         /// <returns>The voting result of the given session and prompt.</returns>
         public Dictionary<KeyValuePair<Guid, string>, int> GetVotingResult(string sessionkey, KeyValuePair<Guid, string> prompt)
@@ -175,7 +175,7 @@ namespace ServerLogic.Control
         ///
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
-        /// <exception cref="InvalidOperationException">The server is curenntly not in a running state.</exception>
+        /// <exception cref="InvalidOperationException">The server is currently not in a running state.</exception>
         /// 
         /// <returns>The statistics of the terminated session.</returns>
         public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> EndSession(string sessionkey)
@@ -194,7 +194,7 @@ namespace ServerLogic.Control
         /// Stops the server that hosts the PlayerAudience-Client.
         /// </summary>
         /// 
-        /// <exception cref="InvalidOperationException">The server is curenntly not in a running state.</exception>
+        /// <exception cref="InvalidOperationException">The server is currently not in a running state.</exception>
         public void StopServer()
         {
             if (ServerIsActive)

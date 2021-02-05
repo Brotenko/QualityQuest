@@ -13,6 +13,7 @@ namespace ServerLogicTests.Control
     [TestClass]
     public sealed class PlayerAudienceClientAPITest
     {
+        private PlayerAudienceClientAPI p;
         private const int testPort = 7777;
         private const string testKey_1 = "TU7ROU";
         private const string testKey_2 = "G9EL40";
@@ -42,6 +43,17 @@ namespace ServerLogicTests.Control
                 testPair_NullString
             };
 
+
+        [TestCleanup]
+        public void Cleanup_Server()
+        {
+            
+        }
+
+
+
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -49,9 +61,9 @@ namespace ServerLogicTests.Control
         [TestCategory("StartServer")]
         public void StartServer_ValidInputTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
 
-            p.StartServer(testPort);
+            p.DebugStartServer(testPort);
         }
 
         /// <summary>
@@ -61,10 +73,10 @@ namespace ServerLogicTests.Control
         [TestCategory("StartServer")]
         public void StartServer_ServerActiveTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
 
-            p.StartServer(testPort);
-            Assert.ThrowsException<InvalidOperationException>(() => p.StartServer(testPort));
+            p.DebugStartServer(testPort);
+            Assert.ThrowsException<InvalidOperationException>(() => p.DebugStartServer(testPort));
         }
 
 
@@ -79,8 +91,8 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewSession")]
         public void StartNewSession_ValidInputTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
-            p.StartServer(testPort);
+            p = new PlayerAudienceClientAPI();
+            p.DebugStartServer(testPort);
 
             p.StartNewSession(testKey_1);
 
@@ -97,8 +109,8 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewSession")]
         public void StartNewSession_InvalidSessionkeyTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
-            p.StartServer(testPort);
+            p = new PlayerAudienceClientAPI();
+            p.DebugStartServer(testPort);
 
             Assert.ThrowsException<ArgumentException>(() => p.StartNewSession(testKey_Invalid_1));
         }
@@ -110,8 +122,8 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewSession")]
         public void StartNewSession_NullSessionkeyTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
-            p.StartServer(testPort);
+            p = new PlayerAudienceClientAPI();
+            p.DebugStartServer(testPort);
 
             Assert.ThrowsException<ArgumentNullException>(() => p.StartNewSession(null));
         }
@@ -123,8 +135,8 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewSession")]
         public void StartNewSession_SameSessionkeyTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
-            p.StartServer(testPort);
+            p = new PlayerAudienceClientAPI();
+            p.DebugStartServer(testPort);
 
             p.StartNewSession(testKey_1);
             Assert.ThrowsException<ArgumentException>(() => p.StartNewSession(testKey_1));
@@ -137,7 +149,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewSession")]
         public void StartNewSession_ServerInactiveTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
 
             Assert.ThrowsException<InvalidOperationException>(() => p.StartNewSession(testKey_1));
         }
@@ -155,7 +167,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewVote")]
         public async Task StartNewVote_ValidInputTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
             p.DebugStartServer(testPort);
             p.StartNewSession(testKey_1);
 
@@ -170,7 +182,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewVote")]
         public async Task StartNewVote_InvalidSessionkeyTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
             p.DebugStartServer(testPort);
             p.StartNewSession(testKey_1);
 
@@ -184,7 +196,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewVote")]
         public async Task StartNewVote_NullSessionkeyTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
             p.DebugStartServer(testPort);
             p.StartNewSession(testKey_1);
 
@@ -198,7 +210,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewVote")]
         public async Task StartNewVote_SameValidPromptTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
             p.DebugStartServer(testPort);
             p.StartNewSession(testKey_1);
 
@@ -213,7 +225,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewVote")]
         public async Task StartNewVote_DoubleAssignPromptTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
             p.DebugStartServer(testPort);
             p.StartNewSession(testKey_1);
 
@@ -228,7 +240,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewVote")]
         public async Task StartNewVote_NullStringPromptTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
             p.DebugStartServer(testPort);
             p.StartNewSession(testKey_1);
 
@@ -242,7 +254,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewVote")]
         public async Task StartNewVote_SameValidOptionsTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
             p.DebugStartServer(testPort);
             p.StartNewSession(testKey_1);
 
@@ -257,7 +269,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewVote")]
         public async Task StartNewVote_NullOptionsTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
             p.DebugStartServer(testPort);
             p.StartNewSession(testKey_1);
 
@@ -271,7 +283,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewVote")]
         public async Task StartNewVote_NullStringOptionTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
             p.DebugStartServer(testPort);
             p.StartNewSession(testKey_1);
 
@@ -285,7 +297,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StartNewVote")]
         public async Task StartNewVote_InactiveServerTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
 
             await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_1));
         }
@@ -307,8 +319,8 @@ namespace ServerLogicTests.Control
         [TestCategory("GetVotingResult")]
         public void GetVotingResult_ValidInputTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
-            p.StartServer(testPort);
+            p = new PlayerAudienceClientAPI();
+            p.DebugStartServer(testPort);
 
             // TODO
         }
@@ -320,8 +332,8 @@ namespace ServerLogicTests.Control
         [TestCategory("GetVotingResult")]
         public void GetVotingResult_InvalidSessionkeyTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
-            p.StartServer(testPort);
+            p = new PlayerAudienceClientAPI();
+            p.DebugStartServer(testPort);
 
             Assert.ThrowsException<SessionNotFoundException>(() => p.GetVotingResult(testKey_1, testPrompt_Valid_1));
         }
@@ -333,8 +345,8 @@ namespace ServerLogicTests.Control
         [TestCategory("GetVotingResult")]
         public void GetVotingResult_NullSessionkeyTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
-            p.StartServer(testPort);
+            p = new PlayerAudienceClientAPI();
+            p.DebugStartServer(testPort);
 
             Assert.ThrowsException<ArgumentNullException>(() => p.GetVotingResult(null, testPrompt_Valid_1));
         }
@@ -346,8 +358,8 @@ namespace ServerLogicTests.Control
         [TestCategory("GetVotingResult")]
         public void GetVotingResult_InvalidPromptTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
-            p.StartServer(testPort);
+            p = new PlayerAudienceClientAPI();
+            p.DebugStartServer(testPort);
             p.StartNewSession(testKey_1);
 
             Assert.ThrowsException<ArgumentException>(() => p.GetVotingResult(testKey_1, testPrompt_Valid_1));
@@ -360,8 +372,8 @@ namespace ServerLogicTests.Control
         [TestCategory("GetVotingResult")]
         public void GetVotingResult_NullPromptDescriptionTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
-            p.StartServer(testPort);
+            p = new PlayerAudienceClientAPI();
+            p.DebugStartServer(testPort);
 
             Assert.ThrowsException<ArgumentNullException>(() => p.GetVotingResult(testKey_1, testPrompt_NullString));
         }
@@ -373,7 +385,7 @@ namespace ServerLogicTests.Control
         [TestCategory("GetVotingResult")]
         public void GetVotingResult_InactiveServerTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
 
             Assert.ThrowsException<InvalidOperationException>(() => p.GetVotingResult(testKey_1, testPrompt_Valid_1));
         }
@@ -390,8 +402,8 @@ namespace ServerLogicTests.Control
         [TestCategory("EndSession")]
         public void EndSession_ValidInputTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
-            p.StartServer(testPort);
+            p = new PlayerAudienceClientAPI();
+            p.DebugStartServer(testPort);
             p.StartNewSession(testKey_1);
 
             Assert.IsNotNull(p.EndSession(testKey_1));
@@ -404,8 +416,8 @@ namespace ServerLogicTests.Control
         [TestCategory("EndSession")]
         public void EndSession_InvalidSessionkeyTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
-            p.StartServer(testPort);
+            p = new PlayerAudienceClientAPI();
+            p.DebugStartServer(testPort);
 
             Assert.ThrowsException<SessionNotFoundException>(() => p.EndSession(testKey_2));
         }
@@ -417,8 +429,8 @@ namespace ServerLogicTests.Control
         [TestCategory("EndSession")]
         public void EndSession_NullSessionkeyTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
-            p.StartServer(testPort);
+            p = new PlayerAudienceClientAPI();
+            p.DebugStartServer(testPort);
 
             Assert.ThrowsException<ArgumentNullException>(() => p.EndSession(null));
         }
@@ -430,7 +442,7 @@ namespace ServerLogicTests.Control
         [TestCategory("EndSession")]
         public void EndSession_InactiveTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
 
             Assert.ThrowsException<InvalidOperationException>(() => p.EndSession(testKey_1));
         }
@@ -448,7 +460,7 @@ namespace ServerLogicTests.Control
         [TestCategory("StopServer")]
         public void StopServer_InactiveServerTest()
         {
-            PlayerAudienceClientAPI p = new PlayerAudienceClientAPI();
+            p = new PlayerAudienceClientAPI();
 
             Assert.ThrowsException<InvalidOperationException>(() => p.StopServer());
         }
