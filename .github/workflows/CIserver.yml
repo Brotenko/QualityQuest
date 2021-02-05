@@ -1,4 +1,4 @@
-name: Server Continuous Integration
+name: CI / Codecov for Server
 
 on:
   push:
@@ -20,9 +20,15 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
       working-directory: ./ServerLogic
+    - name: Install CodecovTool
+      run: dotnet tool install --global Codecov.Tool
     - name: Build with dotnet
       run: dotnet build --configuration Release
       working-directory: ./ServerLogic
     - name: Test
-      run: dotnet test --verbosity n
+      run: dotnet test --collect:"XPlat Code Coverage"
       working-directory: ./ServerLogic
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{secrets.CODECOV_TOKEN}} 
