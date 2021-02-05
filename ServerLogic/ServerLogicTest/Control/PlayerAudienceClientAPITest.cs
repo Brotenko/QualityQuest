@@ -126,7 +126,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewSession"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when the same sessionkey
+        /// is given twice.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -141,7 +142,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewSession"/> method
-        /// throws an <see cref="InvalidOperationException"/> exception when
+        /// throws an <see cref="InvalidOperationException"/> exception when a new session
+        /// is being started while the server is not active.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -204,7 +206,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when the same valid prompt
+        /// is given twice.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -220,7 +223,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when the same valid prompt
+        /// is assigned a poll twice.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -252,7 +256,7 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
-        /// 
+        /// works correctly when given the same valid input twice.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]

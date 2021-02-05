@@ -220,7 +220,7 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddNewPoll"/> method
-        /// 
+        /// works correctly when given the same valid input twice.
         /// </summary>
         [TestMethod]
         [TestCategory("AddNewPoll")]

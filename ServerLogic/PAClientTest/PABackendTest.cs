@@ -54,7 +54,7 @@ namespace PAClientTest
         [TestCategory("GetSessionKeys")]
         public void GetSessionKeys_EmptyArrayTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.AreEqual(0, p.GetSessionKeys().Length);
         }
@@ -67,7 +67,7 @@ namespace PAClientTest
         [TestCategory("GetSessionKeys")]
         public void GetSessionKeys_FilledArrayTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             PABackend.PAVotingResults.AddSessionKey(testKey_1);
             Assert.AreNotEqual(0, p.GetSessionKeys().Length);
@@ -84,7 +84,7 @@ namespace PAClientTest
         [TestCategory("StartNewSession")]
         public void StartNewSession_ValidInputTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             p.StartNewSession(testKey_1);
 
@@ -103,7 +103,7 @@ namespace PAClientTest
         [TestCategory("StartNewSession")]
         public void StartNewSession_InvalidSessionkeyTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.ThrowsException<ArgumentException>(() => p.StartNewSession(testKey_Invalid_1));
         }
@@ -117,7 +117,7 @@ namespace PAClientTest
         [TestCategory("StartNewSession")]
         public void StartNewSession_NullSessionkeyTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.ThrowsException<ArgumentNullException>(() => p.StartNewSession(null));
         }
@@ -130,7 +130,7 @@ namespace PAClientTest
         [TestCategory("StartNewSession")]
         public void StartNewSession_SameSessionkeyTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             p.StartNewSession(testKey_1);
             Assert.ThrowsException<ArgumentException>(() => p.StartNewSession(testKey_1));
@@ -146,7 +146,7 @@ namespace PAClientTest
         [TestCategory("CreatePageContent")]
         public void CreatePageContent_ValidInputTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             p.DebugCreatePageContent(testPrompt_Valid_1, testOptions_Valid_1);
         }
@@ -160,7 +160,7 @@ namespace PAClientTest
         [TestCategory("CreatePageContent")]
         public void CreatePageContent_NullPromptDescriptionTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.ThrowsException<ArgumentNullException>(() => p.DebugCreatePageContent(testPrompt_NullString, testOptions_Valid_1));
         }
@@ -174,7 +174,7 @@ namespace PAClientTest
         [TestCategory("CreatePageContent")]
         public void CreatePageContent_NullOptionsTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.ThrowsException<ArgumentNullException>(() => p.DebugCreatePageContent(testPrompt_Valid_1, null));
         }
@@ -188,7 +188,7 @@ namespace PAClientTest
         [TestCategory("CreatePageContent")]
         public void CreatePageContent_NullOptionDescriptionTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.ThrowsException<ArgumentNullException>(() => p.DebugCreatePageContent(testPrompt_Valid_1, testOptions_Invalid));
         }
@@ -286,7 +286,7 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.StartNewVote"/> method
-        /// 
+        /// works correctly when given the same valid input twice.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -354,7 +354,7 @@ namespace PAClientTest
         [TestCategory("CountNewVote")]
         public void CountNewVote_InvalidSessionkeyTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
             Assert.AreEqual((int) PABackendErrorType.InvalidSessionkeyError, PABackend.CountNewVote(testKey_2, testPair_Valid_1.Key));
@@ -368,7 +368,7 @@ namespace PAClientTest
         [TestCategory("CountNewVote")]
         public void CountNewVote_NullSessionkeyTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
             Assert.AreEqual((int) PABackendErrorType.NullSessionkeyError, PABackend.CountNewVote(null, testPair_Valid_1.Key));
@@ -382,7 +382,7 @@ namespace PAClientTest
         [TestCategory("CountNewVote")]
         public void CountNewVote_NoSessionStartedTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.AreEqual((int) PABackendErrorType.InvalidSessionkeyError, PABackend.CountNewVote(testKey_1, testPair_Valid_1.Key));
         }
@@ -395,7 +395,7 @@ namespace PAClientTest
         [TestCategory("CountNewVote")]
         public void CountNewVote_MissingPromptTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
             Assert.AreEqual((int) PABackendErrorType.InvalidArgumentError, PABackend.CountNewVote(testKey_1, testPair_Valid_1.Key));
@@ -411,7 +411,7 @@ namespace PAClientTest
         [TestCategory("EndSession")]
         public void EndSession_ValidInputTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
             Assert.IsTrue(Array.Exists(p.GetSessionKeys(), element => element == testKey_1));
@@ -428,7 +428,7 @@ namespace PAClientTest
         [TestCategory("EndSession")]
         public void EndSession_InvalidSessionkeyTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.ThrowsException<SessionNotFoundException>(() => p.EndSession(testKey_2));
         }
@@ -442,7 +442,7 @@ namespace PAClientTest
         [TestCategory("EndSession")]
         public void EndSession_NullSessionkeyTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.ThrowsException<ArgumentNullException>(() => p.EndSession(null));
         }
@@ -457,7 +457,7 @@ namespace PAClientTest
         [TestCategory("AddConnection")]
         public void AddConnection_ValidInputTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
             Assert.IsFalse(PABackend.ConnectionList.GetValueOrDefault(testKey_1).Contains(testId_Valid_1));
@@ -473,7 +473,7 @@ namespace PAClientTest
         [TestCategory("AddConnection")]
         public void AddConnection_InvalidSessionkeyTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
             Assert.AreEqual((int) PABackendErrorType.InvalidSessionkeyError, PABackend.AddConnection(testKey_2, testId_Valid_1));
@@ -487,7 +487,7 @@ namespace PAClientTest
         [TestCategory("AddConnection")]
         public void AddConnection_NullSessionkeyTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
             Assert.AreEqual((int) PABackendErrorType.NullSessionkeyError, PABackend.AddConnection(null, testId_Valid_1));
@@ -501,7 +501,7 @@ namespace PAClientTest
         [TestCategory("AddConnection")]
         public void AddConnection_InvalidConnectionIdTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
             Assert.AreEqual((int) PABackendErrorType.InvalidConnectionIdError, PABackend.AddConnection(testKey_1, testId_Invalid_1));
@@ -515,7 +515,7 @@ namespace PAClientTest
         [TestCategory("AddConnection")]
         public void AddConnection_NullConnectionIdTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
             Assert.AreEqual((int) PABackendErrorType.NullConnectionIdError, PABackend.AddConnection(testKey_1, null));
@@ -531,7 +531,7 @@ namespace PAClientTest
         [TestCategory("RemoveConnection")]
         public void RemoveConnection_ValidInputTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
             PABackend.AddConnection(testKey_1, testId_Valid_1);
 
@@ -548,7 +548,7 @@ namespace PAClientTest
         [TestCategory("RemoveConnection")]
         public void RemoveConnection_InvalidConnectionIdTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.AreEqual((int) PABackendErrorType.InvalidConnectionIdError, PABackend.RemoveConnection(testId_Valid_2));
         }
@@ -561,7 +561,7 @@ namespace PAClientTest
         [TestCategory("RemoveConnection")]
         public void RemoveConnection_NullConnectionIdTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.AreEqual((int) PABackendErrorType.NullConnectionIdError, PABackend.RemoveConnection(null));
         }
@@ -576,7 +576,7 @@ namespace PAClientTest
         [TestCategory("GetVotingResult")]
         public void GetVotingResult_ValidInputTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             // TODO
         }
@@ -590,7 +590,7 @@ namespace PAClientTest
         [TestCategory("GetVotingResult")]
         public void GetVotingResult_InvalidSessionkeyTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.ThrowsException<SessionNotFoundException>(() => p.GetVotingResult(testKey_1, testPrompt_Valid_1));
         }
@@ -604,7 +604,7 @@ namespace PAClientTest
         [TestCategory("GetVotingResult")]
         public void GetVotingResult_NullSessionkeyTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.ThrowsException<ArgumentNullException>(() => p.GetVotingResult(null, testPrompt_Valid_1));
         }
@@ -617,7 +617,7 @@ namespace PAClientTest
         [TestCategory("GetVotingResult")]
         public void GetVotingResult_InvalidPromptTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
 
             Assert.ThrowsException<ArgumentException>(() => p.GetVotingResult(testKey_1, testPrompt_Valid_1));
@@ -632,7 +632,7 @@ namespace PAClientTest
         [TestCategory("GetVotingResult")]
         public void GetVotingResult_NullPromptDescriptionTest()
         {
-            PABackend p = new PABackend(testPort);
+            PABackend p = PABackend.DebugPABackend(testPort);
 
             Assert.ThrowsException<ArgumentNullException>(() => p.GetVotingResult(testKey_1, testPrompt_NullString));
         }
