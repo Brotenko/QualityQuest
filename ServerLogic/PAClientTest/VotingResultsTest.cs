@@ -92,7 +92,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddSessionKey"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("AddSessionKey")]
@@ -144,7 +145,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddNewPoll"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("AddNewPoll")]
@@ -158,7 +160,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddNewPoll"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("AddNewPoll")]
@@ -202,7 +205,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddNewPoll"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("AddNewPoll")]
@@ -231,7 +235,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddNewPoll"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("AddNewPoll")]
@@ -245,7 +250,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddNewPoll"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("AddNewPoll")]
@@ -300,7 +306,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddVote"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("AddVote")]
@@ -329,7 +336,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.AddVote"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("AddVote")]
@@ -430,7 +438,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.RemoveSession"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("RemoveSession")]
@@ -444,7 +453,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.RemoveSession"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("RemoveSession")]
@@ -495,7 +505,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetPromptsBySession"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetPromptsBySession")]
@@ -510,7 +521,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetPromptsBySession"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetPromptsBySession")]
@@ -556,7 +568,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetStatistics"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetStatistics")]
@@ -571,7 +584,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetStatistics"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetStatistics")]
@@ -617,7 +631,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetPromptGuidsBySession"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetPromptGuidsBySession")]
@@ -632,7 +647,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetPromptGuidsBySession"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetPromptGuidsBySession")]
@@ -678,7 +694,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetPromptStringsBySession"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetPromptStringsBySession")]
@@ -693,7 +710,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetPromptStringsBySession"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetPromptStringsBySession")]
@@ -739,7 +757,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetOptionsVotesPairsByPrompt"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetOptionsVotesPairsByPrompt")]
@@ -754,7 +773,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetOptionsVotesPairsByPrompt"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetOptionsVotesPairsByPrompt")]
@@ -801,7 +821,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetOptionsByPrompt"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetOptionsByPrompt")]
@@ -816,7 +837,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetOptionsByPrompt"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetOptionsByPrompt")]
@@ -863,7 +885,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetOptionStringsByPrompt"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetOptionStringsByPrompt")]
@@ -878,7 +901,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetOptionStringsByPrompt"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetOptionStringsByPrompt")]
@@ -925,7 +949,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetOptionGuidsByPrompt"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetOptionGuidsByPrompt")]
@@ -940,7 +965,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetOptionGuidsByPrompt"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetOptionGuidsByPrompt")]
@@ -987,7 +1013,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetVotesByOption"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotesByOption")]
@@ -1002,7 +1029,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="VotingResults.GetVotesByOption"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotesByOption")]

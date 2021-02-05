@@ -96,7 +96,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.StartNewSession"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -109,7 +110,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.StartNewSession"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -151,7 +153,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.CreatePageContent"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("CreatePageContent")]
@@ -164,7 +167,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.CreatePageContent"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("CreatePageContent")]
@@ -177,7 +181,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.CreatePageContent"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("CreatePageContent")]
@@ -206,7 +211,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.StartNewVote"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -220,7 +226,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.StartNewVote"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -264,7 +271,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.StartNewVote"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -293,7 +301,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.StartNewVote"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -307,7 +316,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.StartNewVote"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -411,7 +421,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.EndSession"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("EndSession")]
@@ -424,7 +435,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.EndSession"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("EndSession")]
@@ -571,7 +583,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.GetVotingResult"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -584,7 +597,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.GetVotingResult"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -611,7 +625,8 @@ namespace PAClientTest
 
         /// <summary>
         /// Validates that the <see cref="PABackend.GetVotingResult"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]

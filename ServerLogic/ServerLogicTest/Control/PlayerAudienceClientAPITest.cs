@@ -60,7 +60,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartServer"/> method
-        /// throws an <see cref="InvalidOperationException"/> exception when
+        /// throws an <see cref="InvalidOperationException"/> exception when the server
+        /// is already active.
         /// </summary>
         [TestMethod]
         [TestCategory("StartServer")]
@@ -95,7 +96,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewSession"/> method
-        /// throws an <see cref="ArgumentException"/> exception when
+        /// throws an <see cref="ArgumentException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -109,7 +111,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewSession"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewSession")]
@@ -169,7 +172,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -184,7 +188,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -231,7 +236,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -262,7 +268,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -277,7 +284,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("StartNewVote")]
@@ -321,7 +329,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.GetVotingResult"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -335,7 +344,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.GetVotingResult"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -364,7 +374,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.GetVotingResult"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
@@ -408,7 +419,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.EndSession"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// is given.
         /// </summary>
         [TestMethod]
         [TestCategory("EndSession")]
@@ -422,7 +434,8 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.EndSession"/> method
-        /// throws an <see cref="ArgumentNullException"/> exception when
+        /// throws an <see cref="ArgumentNullException"/> exception when a null-value is
+        /// given.
         /// </summary>
         [TestMethod]
         [TestCategory("EndSession")]

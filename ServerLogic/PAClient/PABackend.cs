@@ -412,8 +412,11 @@ namespace PAClient
         /// </summary>
         public void StopServer()
         {
-            host.StopAsync();
-            _serverThread.Join();
+            if (!isDebug)
+            {
+                host.StopAsync();
+                _serverThread.Join();
+            }
         }
 
         /// <summary>
@@ -425,12 +428,15 @@ namespace PAClient
         /// <exception cref="ArgumentException"></exception>
         public static void Main(string[] args)
         {
-            if (args.Length == 0)
+            if (!isDebug)
             {
-                CreateHostBuilder(7777).Build().Run();
-            }
+                if (args.Length == 0)
+                {
+                    CreateHostBuilder(7777).Build().Run();
+                }
 
-            CreateHostBuilder(Convert.ToInt32(args[0], CultureInfo.CurrentCulture)).Build().Run();
+                CreateHostBuilder(Convert.ToInt32(args[0], CultureInfo.CurrentCulture)).Build().Run();
+            }
         }
 
         /// <summary>
@@ -558,7 +564,10 @@ namespace PAClient
         /// <param name="sessionkey">The sessionkey of the Hub-Group.</param>
         private async void SendPushClear(string sessionkey)
         {
-            await _hubContext.Clients.Group(sessionkey).SendAsync("ClearPrompt");
+            if (!isDebug)
+            {
+                await _hubContext.Clients.Group(sessionkey).SendAsync("ClearPrompt");
+            }
         }
 
         /// <summary>
@@ -566,9 +575,12 @@ namespace PAClient
         /// </summary>
         private void StartServer()
         {
-            host = CreateHostBuilder(Port).Build();
-            _hubContext = (IHubContext<ServerHub>)host.Services.GetService(typeof(IHubContext<ServerHub>));
-            host.Run();
+            if (!isDebug)
+            {
+                host = CreateHostBuilder(Port).Build();
+                _hubContext = (IHubContext<ServerHub>)host.Services.GetService(typeof(IHubContext<ServerHub>));
+                host.Run();
+            }
         }
 
         /// <summary>
