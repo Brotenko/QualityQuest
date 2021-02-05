@@ -51,12 +51,8 @@ namespace ServerLogicTests.Control
         [TestInitialize]
         public void Initialize()
         {
-            var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>()
-            {
-                {@"c:\TestLog.txt", new MockFileData("") }
-            });
-            ServerLogger.CreateServerLogger(fileSystem);
             ServerLogic.Properties.Settings.Default.LogFilePath = "TestLog.txt";
+            ServerLogger.CreateServerLogger();
         }
 
         /// <summary>

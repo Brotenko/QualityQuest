@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.IO.Abstractions.TestingHelpers;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ServerLogic.Control;
 using ServerLogic.Properties;
@@ -30,12 +25,8 @@ namespace ServerLogicTest.Control
         [TestInitialize]
         public void Initialize()
         {
-            var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>()
-            {
-                {@"c:\\TestLog.txt", new MockFileData("") }
-            });
             Settings.Default.LogFilePath = "TestLog.txt";
-            ServerLogger.CreateServerLogger(fileSystem);
+            ServerLogger.CreateServerLogger();
         }
 
         /// <summary>
@@ -48,7 +39,7 @@ namespace ServerLogicTest.Control
         }
 
         /// <summary>
-        /// 
+        /// Checks if the SetLogLevel() handles input correctly.
         /// </summary>
         [TestMethod]
         public void LogLevelInputTest()
@@ -74,7 +65,6 @@ namespace ServerLogicTest.Control
             //Legitimate value
             ServerLogger.SetLogLevel(1);
             Assert.AreEqual(1, Settings.Default.LogLevel);
-            //TODO: Bullshit-Eingaben
         }
 
         /// <summary>

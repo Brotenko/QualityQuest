@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.IO.Abstractions;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic;
 using System.Runtime.CompilerServices;
 using ServerLogic.Properties;
-using FileSystem = Microsoft.VisualBasic.FileSystem;
+
 
 [assembly: InternalsVisibleTo("ServerLogicTest")]
 
@@ -22,29 +14,20 @@ namespace ServerLogic.Control
     {
         //Necessary for Singleton pattern
         private static ServerLogger _serverLogger;
+
         //Necessary to be able to change the writing of files for the unit tests.
-        private readonly IFileSystem fileSystem;
 
         /// <summary>
         /// ServerLogger implements the Singleton-Pattern to ensure there is only one Logger active.
         /// Therefore, there is no need for a ServerLogger object.
         /// </summary>
-        private ServerLogger() : this(
-            // The FileSystem set here equals the default one.
-            fileSystem: new System.IO.Abstractions.FileSystem())
+        private ServerLogger()
         {
             //default Logging-Level
-            LogInformation("New Session started. LogLevel is " + Properties.Settings.Default.LogLevel + ", LogOutputType is "+ Properties.Settings.Default.LogOutPutType+".");
+            LogInformation("New Session started. LogLevel is " + Settings.Default.LogLevel +
+                           ", LogOutputType is " + Settings.Default.LogOutPutType + ".");
         }
 
-        /// <summary>
-        /// This constructor exists solely to allow testing of File.IO operations.
-        /// </summary>
-        /// <param name="fileSystem"> A Mockup File-System.</param>
-        private ServerLogger(IFileSystem fileSystem)
-        {
-            this.fileSystem = fileSystem;
-        }
 
         /// <summary>
         /// Checks whether there is already an instance of the ServerLogger and creates one if necessary. Should be called at least once before using the ServerLogger.
@@ -55,15 +38,6 @@ namespace ServerLogic.Control
             _serverLogger ??= new ServerLogger();
         }
 
-        /// <summary>
-        /// DONT'T USE THIS!
-        /// 
-        /// </summary>
-        /// <param name="fileSystem"></param>
-        internal static void CreateServerLogger(IFileSystem fileSystem)
-        {
-            _serverLogger ??= new ServerLogger(fileSystem);
-        }
 
         /// <summary>
         /// Sets to which grade information gets logged. Every Level includes the Information of the Levels below it, e.g. Warning Level also logs Error-Logs.
@@ -80,13 +54,13 @@ namespace ServerLogic.Control
         {
             if (level >= 0 && level <= 4)
             {
-                Properties.Settings.Default.LogLevel = level;
-                Properties.Settings.Default.Save();
+                Settings.Default.LogLevel = level;
+                Settings.Default.Save();
                 LogInformation("LogLevel was set to " + level + ".");
             }
             else
             {
-                Console.WriteLine(Properties.Resources.InvalidLogLevelMessage);
+                Console.WriteLine(Resources.InvalidLogLevelMessage);
             }
         }
 
@@ -98,53 +72,38 @@ namespace ServerLogic.Control
         {
             string logRecord = string.Format("{0} [{1}] {2}",
                 "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "]",
-                Properties.Settings.Default.LogLevel.ToString(),
+                Settings.Default.LogLevel.ToString(),
                 logMessage);
 
-            if (Properties.Settings.Default.LogOutPutType == 1)
+            if (Settings.Default.LogOutPutType == 1)
             {
                 Console.WriteLine(logRecord);
             }
-            else if(Properties.Settings.Default.LogOutPutType==0)
+            else if (Settings.Default.LogOutPutType == 0)
             {
-                try
-                {
-                    using var streamWriter = new StreamWriter(Properties.Settings.Default.LogFilePath, true);
-                    streamWriter.WriteLine(logRecord);
-                    streamWriter.Close();
-                }
-                catch (System.IO.DirectoryNotFoundException)
-                {
-                    //todo relevant in testing case
-                }
-                
+                using var streamWriter = new StreamWriter(Settings.Default.LogFilePath, true);
+                streamWriter.WriteLine(logRecord);
+                streamWriter.Close();
             }
             else
             {
-                try
-                {
-                    using var streamWriter = new StreamWriter(Properties.Settings.Default.LogFilePath, true);
-                    streamWriter.WriteLine(logRecord);
-                    streamWriter.Close();
-                    Console.WriteLine(logRecord);
-                }
-                catch (System.IO.DirectoryNotFoundException)
-                {
-                    //todo relevant in testing case
-                }
+                using var streamWriter = new StreamWriter(Settings.Default.LogFilePath, true);
+                streamWriter.WriteLine(logRecord);
+                streamWriter.Close();
+                Console.WriteLine(logRecord);
             }
         }
 
         /// <summary>
         /// Reads the created log file and returns the content as a string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns the Log-File as a string.</returns>
         public static string LogFileToString()
         {
             string fileToString = "";
             try
             {
-                using var streamReader = new StreamReader(Properties.Settings.Default.LogFilePath, true);
+                using var streamReader = new StreamReader(Settings.Default.LogFilePath, true);
                 fileToString = streamReader.ReadToEnd();
                 streamReader.Close();
             }
@@ -178,22 +137,22 @@ namespace ServerLogic.Control
         {
             if (val <= 2 && val >= 0)
             {
-                Properties.Settings.Default.LogOutPutType = val;
-                Properties.Settings.Default.Save();
+                Settings.Default.LogOutPutType = val;
+                Settings.Default.Save();
             }
             else
             {
-                Console.WriteLine(Properties.Resources.InvalidLoggingOutputType);
+                Console.WriteLine(Resources.InvalidLoggingOutputType);
             }
         }
 
         /// <summary>
         /// Saves the passed string as a "debug" log.
         /// </summary>
-        /// <param name="record">What should be logged.</param>
+        /// <param name="record">Debug-Infos which should be logged.</param>
         public static void LogDebug(string record)
         {
-            if (Properties.Settings.Default.LogLevel == 0)
+            if (Settings.Default.LogLevel == 0)
             {
                 WriteLog("DEBUG: " + record);
             }
@@ -202,10 +161,10 @@ namespace ServerLogic.Control
         /// <summary>
         /// Saves the passed string as a Information.
         /// </summary>
-        /// <param name="record">What should be logged.</param>
+        /// <param name="record">Informations which should be logged.</param>
         public static void LogInformation(string record)
         {
-            if (Properties.Settings.Default.LogLevel <= 1)
+            if (Settings.Default.LogLevel <= 1)
             {
                 WriteLog("INFO: " + record);
             }
@@ -214,10 +173,10 @@ namespace ServerLogic.Control
         /// <summary>
         /// Saves the passed string as a Warning.
         /// </summary>
-        /// <param name="record">What should be logged.</param>
+        /// <param name="record">Warnings which should be logged.</param>
         public static void LogWarning(string record)
         {
-            if (Properties.Settings.Default.LogLevel <= 2)
+            if (Settings.Default.LogLevel <= 2)
             {
                 WriteLog("WARNING: " + record);
             }
@@ -226,17 +185,14 @@ namespace ServerLogic.Control
         /// <summary>
         /// Saves the passed string as an Error.
         /// </summary>
-        /// <param name="record">What should be logged.</param>
+        /// <param name="record">Errors which should be logged.</param>
         public static void LogError(string record)
         {
-            if (Properties.Settings.Default.LogLevel <= 3)
+            if (Settings.Default.LogLevel <= 3)
             {
                 WriteLog("ERROR: " + record);
             }
         }
-
-
-
 
 
         /*
@@ -281,7 +237,8 @@ namespace ServerLogic.Control
             log.SessionKey = sessionKey;
             log.ModeratorId = moderatorId;
             string jsonString = JsonSerializer.Serialize<ServerLogicLog>(log);
-            File.WriteAllText(Properties.Settings.Default.ServerLogicLogFilePath+"Session_"+sessionKey+".txt",jsonString);
+            File.WriteAllText(Settings.Default.ServerLogicLogFilePath + "Session_" + sessionKey + ".txt",
+                jsonString);
         }
 
         /// <summary>
@@ -291,8 +248,8 @@ namespace ServerLogic.Control
         /// <returns></returns>
         public static Guid GetModeratorIdFromSessionLog(string sessionKey)
         {
-            string jsonString = File.ReadAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
-                                                       sessionKey + ".txt");
+            string jsonString = File.ReadAllText(Settings.Default.ServerLogicLogFilePath + "Session_" +
+                                                 sessionKey + ".txt");
             ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
             return logicLog.ModeratorId;
         }
@@ -302,9 +259,9 @@ namespace ServerLogic.Control
         /// </summary>
         /// <param name="sessionKey"></param>
         /// <param name="votingResults"></param>
-        public static void AddStatsToSession(string sessionKey, Dictionary<Guid,int> votingResults)
+        public static void AddStatsToSession(string sessionKey, Dictionary<Guid, int> votingResults)
         {
-            string jsonString = File.ReadAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
+            string jsonString = File.ReadAllText(Settings.Default.ServerLogicLogFilePath + "Session_" +
                                                  sessionKey + ".txt");
             ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
             if (logicLog.VotingResults != null)
@@ -318,8 +275,10 @@ namespace ServerLogic.Control
             {
                 logicLog.VotingResults = votingResults;
             }
+
             jsonString = JsonSerializer.Serialize<ServerLogicLog>(logicLog);
-            File.WriteAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" + sessionKey + ".txt", jsonString);
+            File.WriteAllText(Settings.Default.ServerLogicLogFilePath + "Session_" + sessionKey + ".txt",
+                jsonString);
         }
 
         /// <summary>
@@ -329,7 +288,7 @@ namespace ServerLogic.Control
         /// <returns></returns>
         public static Dictionary<Guid, int> GetStatsFromSession(string sessionKey)
         {
-            string jsonString = File.ReadAllText(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
+            string jsonString = File.ReadAllText(Settings.Default.ServerLogicLogFilePath + "Session_" +
                                                  sessionKey + ".txt");
             ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
             return logicLog.VotingResults;
@@ -341,7 +300,7 @@ namespace ServerLogic.Control
         /// <param name="sessionKey"></param>
         public static void ClearSessionLog(string sessionKey)
         {
-            File.Delete(Properties.Settings.Default.ServerLogicLogFilePath + "Session_" +
+            File.Delete(Settings.Default.ServerLogicLogFilePath + "Session_" +
                         sessionKey + ".txt");
         }
 
