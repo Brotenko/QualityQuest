@@ -44,12 +44,6 @@ namespace ServerLogicTests.Control
             };
 
 
-        [TestCleanup]
-        public void Cleanup_Server()
-        {
-            
-        }
-
 
 
 

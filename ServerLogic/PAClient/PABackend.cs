@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace PAClient
 {
     /// <summary>
-    /// 
+    /// Backend for the PlayerAudience-Client
     /// </summary>
     public class PABackend
     {
