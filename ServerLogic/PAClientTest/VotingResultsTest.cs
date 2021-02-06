@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace PAClientTest
 {
     /// <summary>
-    /// 
+    /// VotingResults Test
     /// </summary>
     [TestClass]
     public sealed class VotingResultsTest

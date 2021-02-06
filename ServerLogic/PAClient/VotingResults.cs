@@ -566,7 +566,7 @@ namespace PAClient
         /// ToString-Method of the VotingResults class.
         /// </summary>
         /// 
-        /// <returns>String-based visualisation of the VotingResults.</returns>
+        /// <returns>String-based visualization of the VotingResults.</returns>
         public override string ToString()
         {
             string ret = "VotingResults:\n";

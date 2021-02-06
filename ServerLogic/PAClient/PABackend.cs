@@ -224,7 +224,7 @@ namespace PAClient
         /// 
         /// <param name="option">The voting option the PlayerAudience member voted for.</param>
         /// 
-        /// <returns>If the vote was successful or if some kind of error occured.</returns>
+        /// <returns>If the vote was successful or if some kind of error occurred.</returns>
         public static int CountNewVote(string sessionkey, Guid option)
         {
             try
@@ -303,7 +303,7 @@ namespace PAClient
         /// <param name="connectionId">The unique connectionId of the PlayerAudience-Client.</param>
         /// 
         /// <returns>If the connection was established successfully or if some kind of error 
-        /// occured.</returns>
+        /// occurred.</returns>
         public static int AddConnection(string sessionkey, string connectionId)
         {
             if (sessionkey == null)
@@ -345,7 +345,7 @@ namespace PAClient
         /// <param name="connectionId">The unique connectionId of the PlayerAudience-Client.</param>
         /// 
         /// <returns>If the connection was terminated successfully or if some kind of error 
-        /// occured.</returns>
+        /// occurred.</returns>
         public static int RemoveConnection(string connectionId)
         {
             if (connectionId == null)
@@ -367,7 +367,7 @@ namespace PAClient
 
 
         /// <summary>
-        /// Retrieves the voting results for a specfic session and prompt.
+        /// Retrieves the voting results for a specific session and prompt.
         /// </summary>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>

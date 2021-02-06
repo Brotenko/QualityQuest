@@ -27,3 +27,4 @@ ignore:
   - "**/*.js"
   - "**/*.crt"
   - "**/*.css"
+  - "**/Resources.Designer.cs"

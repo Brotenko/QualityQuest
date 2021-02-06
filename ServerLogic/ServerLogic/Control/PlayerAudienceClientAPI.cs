@@ -204,7 +204,7 @@ namespace ServerLogic.Control
             }
             else
             {
-                throw new InvalidOperationException(message: "The server is currently not running and can't be stoppped right now!");
+                throw new InvalidOperationException(message: "The server is currently not running and can't be stopped right now!");
             }
         }
     }

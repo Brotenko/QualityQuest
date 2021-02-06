@@ -25,7 +25,6 @@ namespace ServerLogicTests.Control
         private const string versionPattern = @"(v\d+.\d+.\d+)";
         private const string serverIsRunningPattern = @"The server is running.";
         private const string serverHasStartedPattern = @"The server has been started successfully with port: \d{1,5}";
-        private const string serverHasStoppedPattern = @"The server has been shut down successfully.";
         private const string portSetPattern = @"The port has been set to \d{1,5} successfully.";
         private const string passwordSetPattern = @"The password has been set to \S+ successfully.";
         private const string invalidCommandPattern = @"'\S+' is not a valid command. See 'help'.";

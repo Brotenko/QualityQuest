@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ServerLogicTests.Control
 {
     /// <summary>
-    /// 
+    /// PlayerAudienceClientAPI Tests
     /// </summary>
     [TestClass]
     public sealed class PlayerAudienceClientAPITest
