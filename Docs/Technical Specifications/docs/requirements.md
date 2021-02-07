@@ -617,6 +617,78 @@ This section contains all requirements that specify the basic actions of the sof
 
 </span>
 
+<h4 style="margin-bottom: 0em"; id="supported-desktop-browser">Supported desktop browser</h4>
+| ID          | FR68                                                                                                                                                             |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                                                |
+| DESCRIPTION | The PlayerAudience-Client shall work on the following desktop browser: </br></br><ul><li>Mozilla Firefox 85</li><li>Google Chrome 88</li><li>Safari 14</li></ul> |
+| EXPLANATION | -                                                                                                                                                                |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="additional-supported-desktop-browser">Additional supported desktop browser</h4>
+| ID          | FR69                                                                                                                                                             |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | -                                                                                                                                                                |
+| DESCRIPTION | The PlayerAudience-Client may work on the following desktop browser: </br></br><ul><li>Microsoft Edge 88</li><li>Opera 72</li><li>Internet Explorer 14</li></ul> |
+| EXPLANATION | -                                                                                                                                                                |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="supported-mobile-browser">Supported mobile browser</h4>
+| ID          | FR70                                                                                                                                                                   |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                                                      |
+| DESCRIPTION | The PlayerAudience-Client shall work on the following mobile browser: </br></br><ul><li>Mozilla Firefox Mobile 81</li><li>Google Chrome 88</li><li>Safari 14</li></ul> |
+| EXPLANATION | -                                                                                                                                                                      |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="additional-supported-mobile-browser">Additional supported mobile browser</h4>
+| ID          | FR71                                                                                                                                                   |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| PRIORITY    | -                                                                                                                                                      |
+| DESCRIPTION | The PlayerAudience-Client may work on the following mobile browser: </br></br><ul><li>Microsoft Edge: Web Browser 46</li><li>Opera Mobile 61</li></ul> |
+| EXPLANATION | -                                                                                                                                                      |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-colour-scheme">PlayerAudience-Client colour scheme</h4>
+| ID          | FR72                                                                                                                                     |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                        |
+| DESCRIPTION | The colour scheme of the PlayerAudience-Client shall roughly resemble the colour scheme of the [NewTec website](https://www.newtec.de/). |
+| EXPLANATION | -                                                                                                                                        |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-newtec-branding">PlayerAudience-Client NewTec branding</h4>
+| ID          | FR73                                                                                   |
+| ----------- | -------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                      |
+| DESCRIPTION | The NewTec logo shall be clearly visible on the homepage of the PlayerAudience-Client. |
+| EXPLANATION | -                                                                                      |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="webpage-live-updating">Webpage live updating</h4>
+| ID          | FR74                                                                                                                              |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                 |
+| DESCRIPTION | The PlayerAudience-Client shall support the functionality to live update the HTML/CSS/JS of a webpage without reloading the site. |
+| EXPLANATION | -                                                                                                                                 |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-data-filtration">PlayerAudience-Client data filtration</h4>
+| ID          | FR75                                                                                                                   |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                      |
+| DESCRIPTION | The ServerLogic shall filter incoming data from the PlayerAudience-Client and discard anything out of order or format. |
+| EXPLANATION | -                                                                                                                      |
+
+</span>
+
 
 
 ## Non-functional Requirements
