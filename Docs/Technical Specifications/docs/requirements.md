@@ -933,7 +933,7 @@ This section specifies the non-functional requirements for the software system.
 | ID          | NFR27                                                     |
 | ----------- | --------------------------------------------------------- |
 | PRIORITY    | +                                                         |
-| DESCRIPTION | The Moderator-Client shall have a 60% unit test coverage. |
+| DESCRIPTION | The Moderator-Client shall have a 60% integration test coverage. |
 | EXPLANATION | -                                                         |
 
 </span>
