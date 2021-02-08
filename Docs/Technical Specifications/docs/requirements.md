@@ -258,11 +258,11 @@ This section contains all requirements that specify the basic actions of the sof
 </span>
 
 <h4 style="margin-bottom: 0em"; id="playeraudience-client-guid">PlayerAudience-Client GUID</h4>
-| ID          | FR28                                                                                                                                                                                                                                                                                                                                      |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                                                                                                                                                                                                                                                                                         |
-| DESCRIPTION | Every PlayerAudience-Client shall be assigned a GUID in the form of a web-cookie.                                                                                                                                                                                                                                                         |
-| EXPLANATION | This ensures the following points: </br></br><ul><li>Participants can rejoin the game after leaving the game or losing the connection to the ServerLogic.</li><li>The ServerLogic can ensure a PlayerAudience-Client can't vote several times per vote.</li><li>The ServerLogic can count the amount of PlayerAudience-Clients connected. |
+| ID          | FR28                                                                                                                                                                                                                                                                                                                       |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                                                                                                                                                                                                          |
+| DESCRIPTION | Every PlayerAudience-Client shall be assigned a GUID in the form of a SignalR connectionId.                                                                                                                                                                                                                                |
+| EXPLANATION | This ensures the following points: </br></br><ul><li>The SignalR-Hub can ensure a PlayerAudience-Client can't vote several times per vote.</li><li>The ServerLogic can count the amount of PlayerAudience-Clients connected.</li><li>The SignalR-Hub can keep exact track of every active PlayerAudience-Client.</li></ul> |
 
 </span>
 
@@ -285,29 +285,29 @@ This section contains all requirements that specify the basic actions of the sof
 </span>
 
 <h4 style="margin-bottom: 0em"; id="network-protocol-violation">Network protocol violation</h4>
-| ID          | FR31                                                                                                                                   |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                                                                                      |
-| DESCRIPTION | If a client does not adhere to the network protocol 3 times, the GUID of the participant should be excluded from the rest of the game. |
-| EXPLANATION | This ensures that it is not easily possible to tinker with the game through an altered client.                                         |
+| ID          | FR31                                                                                                                                          |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                             |
+| DESCRIPTION | If the Moderator-Client does not adhere to the network protocol 3 times in a row, the connection to the Moderator-Client shall be terminated. |
+| EXPLANATION | This ensures that it is not easily possible to tinker with the game through an altered client.                                                |
 
 </span>
 
 <h4 style="margin-bottom: 0em"; id="unique-voting-option-identifier">Unique voting option identifier</h4>
-| ID          | FR32                                                                                                         |
-| ----------- | ------------------------------------------------------------------------------------------------------------ |
-| PRIORITY    | +                                                                                                            |
-| DESCRIPTION | Every voting option shall be assigned a unique voting option identifier by assigning a GUID to every option. |
-| EXPLANATION | -                                                                                                            |
+| ID          | FR32                                                                                       |
+| ----------- | ------------------------------------------------------------------------------------------ |
+| PRIORITY    | +                                                                                          |
+| DESCRIPTION | Every voting option shall be assigned a unique voting option identifier in form of a GUID. |
+| EXPLANATION | -                                                                                          |
 
 </span>
 
 <h4 style="margin-bottom: 0em"; id="game-relevant-serverlogic-logging">Game-relevant ServerLogic logging</h4>
-| ID          | FR33                                                                                                                                                        |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                                                                                                           |
-| DESCRIPTION | Data that is needed for the general course of the game or for communication between clients and server shall be logged by the ServerLogic.                  |
-| EXPLANATION | Relevant data is: </br></br><ul><li>The Moderator-Client GUID</li><li>PlayerAudience-Client GUIDs</li><li>Online-Session key</li><li>Vote results</li></ul> |
+| ID          | FR33                                                                                                                                       |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| PRIORITY    | +                                                                                                                                          |
+| DESCRIPTION | Data that is needed for the general course of the game or for communication between clients and server shall be logged by the ServerLogic. |
+| EXPLANATION | Relevant data is: </br></br><ul><li>The Moderator-Client GUID</li><li>Online-Session key</li></ul>                                         |
 
 </span>
 
@@ -465,11 +465,11 @@ This section contains all requirements that specify the basic actions of the sof
 </span>
 
 <h4 style="margin-bottom: 0em"; id="pause-menu-contents">Pause menu contents</h4>
-| ID          | FR51                                                                                                                                                                                                                                      |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | 0                                                                                                                                                                                                                                         |
+| ID          | FR51                                                                                                                                                                                                                                     |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | 0                                                                                                                                                                                                                                        |
 | DESCRIPTION | The pause menu should display the following elements: </br></br><ul><li>A banner that reads "Pause"</li><li>A button to unpause the game</li><li>The PlayerAudience connection method</li><li>All PlayerAudience connection options</li> |
-| EXPLANATION | -                                                                                                                                                                                                                                         |
+| EXPLANATION | -                                                                                                                                                                                                                                        |
 
 </span>
 
@@ -491,15 +491,14 @@ This section contains all requirements that specify the basic actions of the sof
 
 </span>
 
-<h4 style="margin-bottom: 0em"; id="sessionkey-length">SessionKey length</h4>
-| ID          | FR54                                                    |
-| ----------- | ------------------------------------------------------- |
-| PRIORITY    | +                                                       |
-| DESCRIPTION | The SessionKey shall have a size/length of six.         |
-| EXPLANATION | For example: <code>F8G21Z</code> or <code>8IB2P4</code> |
+<h4 style="margin-bottom: 0em"; id="sessionkey-format">SessionKey format</h4>
+| ID          | FR54                                                                                                  |
+| ----------- | ----------------------------------------------------------------------------------------------------- |
+| PRIORITY    | -                                                                                                     |
+| DESCRIPTION | The SessionKey shall consist of six uppercase, alphanumerical characters.                             |
+| EXPLANATION | For example: <code>F8G21Z</code> or <code>8IB2P4</code> <br> Key-Pattern: <code>@"[A-Z0-9]{6}"</code> |
 
 </span>
-
 
 <h4 style="margin-bottom: 0em"; id="playeraudience-client-count-display">PlayerAudience-Client count display</h4>
 | ID          | FR55                                                                                                                                                           |
@@ -510,6 +509,186 @@ This section contains all requirements that specify the basic actions of the sof
 
 </span>
 
+<h4 style="margin-bottom: 0em"; id="multi-game-support">Multi-Game support</h4>
+| ID          | FR56                                                                  |
+| ----------- | --------------------------------------------------------------------- |
+| PRIORITY    | -                                                                     |
+| DESCRIPTION | The ServerLogic may support several Online-Sessions at the same time. |
+| EXPLANATION | -                                                                     |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-persistence">ServerLogic persistence</h4>
+| ID          | FR57                                                                                                   |
+| ----------- | ------------------------------------------------------------------------------------------------------ |
+| PRIORITY    | +                                                                                                      |
+| DESCRIPTION | The ServerLogic shall not crash or terminate a session upon receiving a faulty message or faulty data. |
+| EXPLANATION | -                                                                                                      |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-content">PlayerAudience-Client content</h4>
+| ID          | FR58                                                                                                                                                                                                                                                                                                                                         |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                                                                                                                                                                                                                            |
+| DESCRIPTION | The PlayerAudience-Client shall contain the following pages and links: </br></br><ul><li>A landing page for cookies and Terms of Service.</li><li>A main homepage that turns into the game.</li><li>A link to the NewTec website.</li><li>A link to the Github Repository.</li><li>An about page.</li><li>A Terms of Service page.</li></ul> |
+| EXPLANATION | -                                                                                                                                                                                                                                                                                                                                            |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-cookies-and-terms-of-service">PlayerAudience-Client cookies and Terms of Service</h4>
+| ID          | FR59                                                                                |
+| ----------- | ----------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                   |
+| DESCRIPTION | The PlayerAudience-Client shall inform the user about cookies and Terms of Service. |
+| EXPLANATION | -                                                                                   |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-landing-page">PlayerAudience-Client landing page</h4>
+| ID          | FR60                                                                                                              |
+| ----------- | ----------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                 |
+| DESCRIPTION | The PlayerAudience-Client shall display a cookies and Terms of Service pop-up which the user needs to consent to. |
+| EXPLANATION | -                                                                                                                 |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-wrong-sessionkey-feedback">PlayerAudience-Client wrong SessionKey feedback</h4>
+| ID          | FR61                                                                                                       |
+| ----------- | ---------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | 0                                                                                                          |
+| DESCRIPTION | The user should receive instant feedback upon entering a faulty SessionKey into the PlayerAudience-Client. |
+| EXPLANATION | -                                                                                                          |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-error-logging">PlayerAudience-Client error logging</h4>
+| ID          | FR62                                                                                                  |
+| ----------- | ----------------------------------------------------------------------------------------------------- |
+| PRIORITY    | 0                                                                                                     |
+| DESCRIPTION | Errors caused by faulty communication between PlayerAudience-Client and ServerLogic should be logged. |
+| EXPLANATION | -                                                                                                     |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-persistent-connection">PlayerAudience-Client persistent connection</h4>
+| ID          | FR63                                                                              |
+| ----------- | --------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                 |
+| DESCRIPTION | The connection between PlayerAudience-Client and ServerLogic shall be persistent. |
+| EXPLANATION | -                                                                                 |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="asp-net-and-signalr">ASP.NET and SignalR</h4>
+| ID          | FR64                                                                                                                                         |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                            |
+| DESCRIPTION | The ServerLogic and PlayerAudience-Client shall use ASP.NET and SignalR for the implementation of the website and the persistent connection. |
+| EXPLANATION | -                                                                                                                                            |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-statistics-display">PlayerAudience-Client statistics display</h4>
+| ID          | FR65                                                                       |
+| ----------- | -------------------------------------------------------------------------- |
+| PRIORITY    | -                                                                          |
+| DESCRIPTION | The PlayerAudience-Client may display the voting results of the last poll. |
+| EXPLANATION | -                                                                          |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-language">PlayerAudience-Client language</h4>
+| ID          | FR66                                                             |
+| ----------- | ---------------------------------------------------------------- |
+| PRIORITY    | +                                                                |
+| DESCRIPTION | The main language of the PlayerAudience-Client shall be English. |
+| EXPLANATION | -                                                                |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="additional-playeraudience-client-languages">Additional PlayerAudience-Client languages</h4>
+| ID          | FR67                                                       |
+| ----------- | ---------------------------------------------------------- |
+| PRIORITY    | -                                                          |
+| DESCRIPTION | The PlayerAudience-Client may support the german language. |
+| EXPLANATION | -                                                          |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="supported-desktop-browser">Supported desktop browser</h4>
+| ID          | FR68                                                                                                                                                             |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                                                |
+| DESCRIPTION | The PlayerAudience-Client shall work on the following desktop browser: </br></br><ul><li>Mozilla Firefox 85</li><li>Google Chrome 88</li><li>Safari 14</li></ul> |
+| EXPLANATION | -                                                                                                                                                                |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="additional-supported-desktop-browser">Additional supported desktop browser</h4>
+| ID          | FR69                                                                                                                                                             |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | -                                                                                                                                                                |
+| DESCRIPTION | The PlayerAudience-Client may work on the following desktop browser: </br></br><ul><li>Microsoft Edge 88</li><li>Opera 72</li><li>Internet Explorer 14</li></ul> |
+| EXPLANATION | -                                                                                                                                                                |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="supported-mobile-browser">Supported mobile browser</h4>
+| ID          | FR70                                                                                                                                                                   |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                                                      |
+| DESCRIPTION | The PlayerAudience-Client shall work on the following mobile browser: </br></br><ul><li>Mozilla Firefox Mobile 81</li><li>Google Chrome 88</li><li>Safari 14</li></ul> |
+| EXPLANATION | -                                                                                                                                                                      |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="additional-supported-mobile-browser">Additional supported mobile browser</h4>
+| ID          | FR71                                                                                                                                                   |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| PRIORITY    | -                                                                                                                                                      |
+| DESCRIPTION | The PlayerAudience-Client may work on the following mobile browser: </br></br><ul><li>Microsoft Edge: Web Browser 46</li><li>Opera Mobile 61</li></ul> |
+| EXPLANATION | -                                                                                                                                                      |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-colour-scheme">PlayerAudience-Client colour scheme</h4>
+| ID          | FR72                                                                                                                                     |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                        |
+| DESCRIPTION | The colour scheme of the PlayerAudience-Client shall roughly resemble the colour scheme of the [NewTec website](https://www.newtec.de/). |
+| EXPLANATION | -                                                                                                                                        |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-newtec-branding">PlayerAudience-Client NewTec branding</h4>
+| ID          | FR73                                                                                   |
+| ----------- | -------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                      |
+| DESCRIPTION | The NewTec logo shall be clearly visible on the homepage of the PlayerAudience-Client. |
+| EXPLANATION | -                                                                                      |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="webpage-live-updating">Webpage live updating</h4>
+| ID          | FR74                                                                                                                              |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                 |
+| DESCRIPTION | The PlayerAudience-Client shall support the functionality to live update the HTML/CSS/JS of a webpage without reloading the site. |
+| EXPLANATION | -                                                                                                                                 |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-data-filtration">PlayerAudience-Client data filtration</h4>
+| ID          | FR75                                                                                                                   |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                      |
+| DESCRIPTION | The ServerLogic shall filter incoming data from the PlayerAudience-Client and discard anything out of order or format. |
+| EXPLANATION | -                                                                                                                      |
+
+</span>
+
 
 
 ## Non-functional Requirements
@@ -517,11 +696,11 @@ This section contains all requirements that specify the basic actions of the sof
 This section specifies the non-functional requirements for the software system.
 
 <h4 style="margin-bottom: 0em"; id="documents-to-be-delivered">Documents to be delivered</h4>
-| ID          | NFR1                                                                                                                                                                                                                                                                    |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                                                                                                                                                                                                                       |
-| DESCRIPTION | A System Specification, which comprises use case diagrams, use case descriptions and a static view of the software architecture and Software Design Specification for each software component, which describes both the static and the dynamic view shall be delivered. |
-| EXPLANATION | -                                                                                                                                                                                                                                                                       |
+| ID          | NFR1                                                                                                                                                                                                                                                                       |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                                                                                                                                                          |
+| DESCRIPTION | A Technical Specification, which comprises use case diagrams, use case descriptions and a static view of the software architecture and Software Design Specification for each software component, which describes both the static and the dynamic view shall be delivered. |
+| EXPLANATION | -                                                                                                                                                                                                                                                                          |
 
 </span>
 
@@ -625,11 +804,11 @@ This section specifies the non-functional requirements for the software system.
 </span>
 
 <h4 style="margin-bottom: 0em"; id="type-of-delivery">Type of delivery</h4>
-| ID          | NFR13                                                                                                                                                   |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                                                                                                       |
-| DESCRIPTION | All deliverable artifacts shall be delivered digitally.                                                                                                 |
-| EXPLANATION | The delivery can be by depositing the deliverable artefacts in a public version control system. Documents should be delivered in both PDF and HTML/CSS. |
+| ID          | NFR13                                                                                                                                      |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| PRIORITY    | +                                                                                                                                          |
+| DESCRIPTION | All deliverable artifacts shall be delivered digitally.                                                                                    |
+| EXPLANATION | The delivery can be by depositing the deliverable artefacts in a public version control system. Documents should be delivered in HTML/CSS. |
 
 </span>
 
@@ -661,11 +840,11 @@ This section specifies the non-functional requirements for the software system.
 </span>
 
 <h4 style="margin-bottom: 0em"; id="programming-language">Programming language</h4>
-| ID          | NFR17                                                           |
-| ----------- | --------------------------------------------------------------- |
-| PRIORITY    | +                                                               |
-| DESCRIPTION | QualityQuest shall be programmed in a C dialect (C, C++ or C#). |
-| EXPLANATION | -                                                               |
+| ID          | NFR17                                   |
+| ----------- | --------------------------------------- |
+| PRIORITY    | +                                       |
+| DESCRIPTION | QualityQuest shall be programmed in C#. |
+| EXPLANATION | -                                       |
 
 </span>
 
@@ -738,5 +917,23 @@ This section specifies the non-functional requirements for the software system.
 | PRIORITY    | 0                                                                        |
 | DESCRIPTION | The postgame statistics should display which option was voted how often. |
 | EXPLANATION | -                                                                        |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="unit-test-coverage">Unit test coverage</h4>
+| ID          | NFR26                                                                                        |
+| ----------- | -------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                            |
+| DESCRIPTION | Moderator-Client, PlayerAudience-Client and ServerLogic shall have a 60% unit test coverage. |
+| EXPLANATION | -                                                                                            |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="integration-test-coverage">Integration test coverage</h4>
+| ID          | NFR27                                                     |
+| ----------- | --------------------------------------------------------- |
+| PRIORITY    | +                                                         |
+| DESCRIPTION | The Moderator-Client shall have a 60% integration test coverage. |
+| EXPLANATION | -                                                         |
 
 </span>

@@ -23,6 +23,9 @@ The following tools were used during the creation of Quality Quest and the docum
 | m2r                | Markdown to reStructuredText converter used for making the docs usable for Sphinx.   | [link](https://github.com/miyakogi/m2r) |
 | Sphinx             | Documentation tool for creating stylized documentation through reStructuredText.     | 3.2.1                                   |
 | Adobe XD           | Adobe XD is a vector-based user experience design tool for web apps and mobile apps. | 34.0                                    |
+| Adobe Photoshop    | Adobe Photoshop is a raster graphics editor used to create assets.                   | 22.1.1                                  |
+| ReSharper          | A Visual Studio 2019 extension for refactoring, fixing code smells and the sorts.    | 2020.2.4                                |
+| Codecov            | The leading, dedicated code coverage solution used via Github Action.                | [link](https://about.codecov.io/)       |
 
 </span>
 
