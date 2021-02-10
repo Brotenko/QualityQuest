@@ -168,11 +168,11 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>QualityQuest shall be a 2D RPG.</td>
+<td>QualityQuest shall be a 2D Visual-Novel-RPG.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
-<td>The PlayerAudience makes decisions over the PlayerCharacter in a fictional, high-fantasy world of a software engineer. The PlayerAudience plays the game only through StoryFlowDecisions, comparable to an interactive film in which the PlayerAudience can actively decide on certain parts of the film.</td>
+<td>The PlayerAudience makes decisions over the PlayerCharacter in a fictional, high-fantasy world of a software engineer. The PlayerAudience plays the game only through StoryFlowDecisions, comparable to a Visual Novel in which the PlayerAudience can actively decide on certain parts of the story.</td>
 </tr>
 </tbody>
 </table>
@@ -843,11 +843,11 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>Every PlayerAudience-Client shall be assigned a GUID in the form of a web-cookie.</td>
+<td>Every PlayerAudience-Client shall be assigned a GUID in the form of a SignalR connectionId.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
-<td>This ensures the following points: </br></br><ul><li>Participants can rejoin the game after leaving the game or losing the connection to the ServerLogic.</li><li>The ServerLogic can ensure a PlayerAudience-Client can't vote several times per vote.</li><li>The ServerLogic can count the amount of PlayerAudience-Clients connected.</td>
+<td>This ensures the following points: </br></br><ul><li>The SignalR-Hub can ensure a PlayerAudience-Client can't vote several times per vote.</li><li>The ServerLogic can count the amount of PlayerAudience-Clients connected.</li><li>The SignalR-Hub can keep exact track of every active PlayerAudience-Client.</li></ul></td>
 </tr>
 </tbody>
 </table>
@@ -918,7 +918,7 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>If a client does not adhere to the network protocol 3 times, the GUID of the participant should be excluded from the rest of the game.</td>
+<td>If the Moderator-Client does not adhere to the network protocol 3 times in a row, the connection to the Moderator-Client shall be terminated.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
@@ -943,7 +943,7 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>Every voting option shall be assigned a unique voting option identifier by assigning a GUID to every option.</td>
+<td>Every voting option shall be assigned a unique voting option identifier in form of a GUID.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
@@ -972,7 +972,7 @@
 </tr>
 <tr>
 <td>EXPLANATION</td>
-<td>Relevant data is: </br></br><ul><li>The Moderator-Client GUID</li><li>PlayerAudience-Client GUIDs</li><li>Online-Session key</li><li>Vote results</li></ul></td>
+<td>Relevant data is: </br></br><ul><li>The Moderator-Client GUID</li><li>Online-Session key</li></ul></td>
 </tr>
 </tbody>
 </table>
@@ -1418,7 +1418,7 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>The pause menu should display the following elements: </br></br><ul><li>A banner that reads "Paused"</li><li>A button to unpause the game</li><li>The PlayerAudience connection method</li><li>All PlayerAudience connection options</li></td>
+<td>The pause menu should display the following elements: </br></br><ul><li>A banner that reads "Pause"</li><li>A button to unpause the game</li><li>The PlayerAudience connection method</li><li>All PlayerAudience connection options</li></td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
@@ -1477,7 +1477,7 @@
 </tbody>
 </table>
 <p></span></p>
-<h4 style="margin-bottom: 0em"; id="sessionkey-length">SessionKey length</h4>
+<h4 style="margin-bottom: 0em"; id="sessionkey-format">SessionKey format</h4>
 
 <table>
 <thead>
@@ -1489,15 +1489,540 @@
 <tbody>
 <tr>
 <td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The SessionKey shall consist of six uppercase, alphanumerical characters.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>For example: <code>F8G21Z</code> or <code>8IB2P4</code> <br> Key-Pattern: <code>@"[A-Z0-9]{6}"</code></td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-count-display">PlayerAudience-Client count display</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR55</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
 <td>+</td>
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>The SessionKey shall have a size/length of six.</td>
+<td>The PlayerAudience-Client count shall be displayed in the Moderator-Client, as long as the PlayerAudience-Client count is transmitted to the Moderator-Client.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
 <td>For example: <code>F8G21Z</code> or <code>8IB2P4</code></td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="multi-game-support">Multi-Game support</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR56</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The ServerLogic may support several Online-Sessions at the same time.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-persistence">ServerLogic persistence</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR57</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The ServerLogic shall not crash or terminate a session upon receiving a faulty message or faulty data.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-content">PlayerAudience-Client content</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR58</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client shall contain the following pages and links: </br></br><ul><li>A landing page for cookies and Terms of Service.</li><li>A main homepage that turns into the game.</li><li>A link to the NewTec website.</li><li>A link to the Github Repository.</li><li>An about page.</li><li>A Terms of Service page.</li></ul></td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-cookies-and-terms-of-service">PlayerAudience-Client cookies and Terms of Service</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR59</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client shall inform the user about cookies and Terms of Service.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-landing-page">PlayerAudience-Client landing page</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR60</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client shall display a cookies and Terms of Service pop-up which the user needs to consent to.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-wrong-sessionkey-feedback">PlayerAudience-Client wrong SessionKey feedback</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The user should receive instant feedback upon entering a faulty SessionKey into the PlayerAudience-Client.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-error-logging">PlayerAudience-Client error logging</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR62</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Errors caused by faulty communication between PlayerAudience-Client and ServerLogic should be logged.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-persistent-connection">PlayerAudience-Client persistent connection</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR63</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The connection between PlayerAudience-Client and ServerLogic shall be persistent.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="asp-net-and-signalr">ASP.NET and SignalR</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR64</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The ServerLogic and PlayerAudience-Client shall use ASP.NET and SignalR for the implementation of the website and the persistent connection.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-statistics-display">PlayerAudience-Client statistics display</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR65</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client may display the voting results of the last poll.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-language">PlayerAudience-Client language</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR66</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The main language of the PlayerAudience-Client shall be English.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="additional-playeraudience-client-languages">Additional PlayerAudience-Client languages</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR67</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client may support the german language.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="supported-desktop-browser">Supported desktop browser</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR68</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client shall work on the following desktop browser: </br></br><ul><li>Mozilla Firefox 85</li><li>Google Chrome 88</li><li>Safari 14</li></ul></td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="additional-supported-desktop-browser">Additional supported desktop browser</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR69</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client may work on the following desktop browser: </br></br><ul><li>Microsoft Edge 88</li><li>Opera 72</li><li>Internet Explorer 14</li></ul></td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="supported-mobile-browser">Supported mobile browser</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client shall work on the following mobile browser: </br></br><ul><li>Mozilla Firefox Mobile 81</li><li>Google Chrome 88</li><li>Safari 14</li></ul></td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="additional-supported-mobile-browser">Additional supported mobile browser</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR71</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client may work on the following mobile browser: </br></br><ul><li>Microsoft Edge: Web Browser 46</li><li>Opera Mobile 61</li></ul></td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-colour-scheme">PlayerAudience-Client colour scheme</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR72</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The colour scheme of the PlayerAudience-Client shall roughly resemble the colour scheme of the <a href="https://www.newtec.de/">NewTec website</a>.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-newtec-branding">PlayerAudience-Client NewTec branding</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR73</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The NewTec logo shall be clearly visible on the homepage of the PlayerAudience-Client.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="webpage-live-updating">Webpage live updating</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR74</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client shall support the functionality to live update the HTML/CSS/JS of a webpage without reloading the site.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-data-filtration">PlayerAudience-Client data filtration</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR75</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The ServerLogic shall filter incoming data from the PlayerAudience-Client and discard anything out of order or format.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
 </tr>
 </tbody>
 </table>
@@ -1520,7 +2045,7 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>A System Specification, which comprises use case diagrams, use case descriptions and a static view of the software architecture and Software Design Specification for each software component, which describes both the static and the dynamic view shall be delivered.</td>
+<td>A Technical Specification, which comprises use case diagrams, use case descriptions and a static view of the software architecture and Software Design Specification for each software component, which describes both the static and the dynamic view shall be delivered.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
@@ -1824,7 +2349,7 @@
 </tr>
 <tr>
 <td>EXPLANATION</td>
-<td>The delivery can be by depositing the deliverable artefacts in a public version control system. Documents should be delivered in both PDF and HTML/CSS.</td>
+<td>The delivery can be by depositing the deliverable artefacts in a public version control system. Documents should be delivered in HTML/CSS.</td>
 </tr>
 </tbody>
 </table>
@@ -1920,7 +2445,7 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>QualityQuest shall be programmed in a C dialect (C, C++ or C#).</td>
+<td>QualityQuest shall be programmed in C#.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
@@ -2121,6 +2646,56 @@
 <tr>
 <td>DESCRIPTION</td>
 <td>The postgame statistics should display which option was voted how often.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="unit-test-coverage">Unit test coverage</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Moderator-Client, PlayerAudience-Client and ServerLogic shall have a 60% unit test coverage.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="integration-test-coverage">Integration test coverage</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR27</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Moderator-Client shall have a 60% integration test coverage.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>

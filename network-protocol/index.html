@@ -78,6 +78,10 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#serverlogic-logs">ServerLogic logs</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#playeraudience-client-logs">PlayerAudience-Client logs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#moderator-client-guid-sessionkey-pair">Moderator-Client GUID-Sessionkey-Pair</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#differences-between-starting-in-online-mode-and-offline-mode">Differences between starting in Online-Mode and Offline-Mode</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#behaviour-in-the-event-of-connection-loss">Behaviour in the event of connection loss</a>
@@ -228,13 +232,20 @@
 <p>The "WebSocket" class provided by C# is used for communication between the Moderator-Client and the ServerLogic. When starting an Online-Session, the moderator is asked for a URL and password. The URL leads to the game ServerLogic and is then used to establish a WebSocket connection with the ServerLogic. Once the connection is established, the Moderator-Client sends a <a href="#requestopensessionmessage">RequestOpenSessionMessage</a> to the ServerLogic, which contains the Moderator-Client's GUID and the entered password. If this password is incorrect or if the Moderator-Client takes too long to send the <a href="#requestopensessionmessage">RequestOpenSessionMessage</a>, the WebSocket connection is automatically terminated. If not, a Online-Session is opened, and the PlayerAudience can join. The messages sent back and forth between Moderator-Client and ServerLogic are all in JSON format. </br>
 The security and persistence of communication is guaranteed by the use of WebSockets in combination with the HTTPS protocol. In addition, for communication integral data is stored on the ServerLogic in hashed form. This includes the ServerLogic password and the moderator's GUID.</p>
 <h2 id="serverlogic-logs">ServerLogic logs</h2>
-<p>The ServerLogic log stores the Moderator-Client's GUID, the PlayerAudience-Client GUIDs, the voting results, and the sessionKey. If the ServerLogic should at any time lose the connection to the internet or have to close the current Online-Session, this will provide the following advantages:</p>
+<p>The ServerLogic log stores the Moderator-Client's GUID and the sessionkey as a pair. If the ServerLogic should at any time lose the connection to the internet or have to close the current Online-Session, this will provide the following advantages:</p>
 <ul>
 <li>The logged Moderator-Client's GUID can still be used to send a <a href="#reconnectmessage">ReconnectMessage</a> to the ServerLogic without requiring the password to be re-entered. This allows the Online-Session to resume easily without having to change sessionKey or re-entering the password.</li>
-<li>The logged PlayerAudience-Client GUIDs can be used for keeping track of the PlayerAudience-Clients connected to the ServerLogic.</li>
-<li>The logged sessionKey allows the PlayerAudience-Clients to quickly and easily reconnect to the Online-Session without having to enter a new sessionKey.</li>
+<li>The logged sessionKey allows the PlayerAudience-Clients to quickly and easily reconnect to the Online-Session without the need to enter a new sessionKey.</li>
+</ul>
+<h2 id="playeraudience-client-logs">PlayerAudience-Client logs</h2>
+<p>The backend of the PlayerAudience-Clients stores the the list of active sessions, the respective sessionkeys, a list of all clients connected to the respective session and the voting results for the respective session. This provides the following advantages:</p>
+<ul>
+<li>Multi-Game is supported by the PlayerAudience-Client backend.</li>
+<li>The logged PlayerAudience-Client IDs can be used for keeping track of the PlayerAudience-Clients connected to the ServerLogic.</li>
 <li>The logged voting results realize postgame statistics.</li>
 </ul>
+<h2 id="moderator-client-guid-sessionkey-pair">Moderator-Client GUID-Sessionkey-Pair</h2>
+<p>The ServerLogic stores each Moderator-Client GUID with which it communicates and assigns it a sessionkey accordingly. This tuple of GUID and sessionkey is logged by the ServerLogic and is used for any ServerLogic internal communication to translate the GUID into the respective sessionkey required by the PlayerAudience-Client backend.</p>
 <h2 id="differences-between-starting-in-online-mode-and-offline-mode">Differences between starting in Online-Mode and Offline-Mode</h2>
 <p>When starting the application, the game offers the possibility to start the game either in Online-Mode with a server, or in Offline-Mode. Attention must be paid to a few important points here:</p>
 <ul>
@@ -293,8 +304,8 @@ Though, in the second and third case, nothing can be done for the time being and
 <li>If a vote is in progress, the ServerLogic will pause the voting timer.</li>
 </ul>
 <h2 id="what-about-the-communication-between-playeraudience-clients-and-serverlogic">What about the communication between PlayerAudience-Clients and ServerLogic?</h2>
-<p>Communication between the ServerLogic and the PlayerAudience-Clients is not specified as part of the network protocol because the back-end of the PlayerAudience-Clients and the general ServerLogic logic are on the same physical server and can thus communicate directly with each other. This communication happens locally, through different functions, and does not need pre-defined message types, like the communication between Moderator-Client and ServerLogic. Since the front-end of the PlayerAudience-Clients is a web page, nothing more specific needs to be defined here either, as pre-implemented solutions of HTML and JavaScript can be used to implement the communication between PlayerAudience-Clients and ServerLogic. </br>
-Apart from that, the Observer-pattern is used to make the communication simple and efficient. Here the PlayerAudience-Clients subscribe to the ServerLogic to observe it.</p>
+<p>Communication between the ServerLogic and the PlayerAudience-Clients is not specified as part of the network protocol because the back-end of the PlayerAudience-Clients and the general ServerLogic logic are on the same physical server and can thus communicate directly with each other. This communication happens locally, through different functions, and does not need pre-defined message types, like the communication between Moderator-Client and ServerLogic. Since the front-end of the PlayerAudience-Clients is a web page, nothing more specific needs to be defined here either, as pre-implemented solutions of ASP.NET, SignalR and JQuery can be used to implement the communication between PlayerAudience-Clients and ServerLogic. </br>
+Apart from that, the Observer-pattern is used, in form of SignalR Hubs, to make the communication simple and efficient. Here the PlayerAudience-Clients subscribe to the ServerLogic to observe it.</p>
 <h2 id="messagecontainer">MessageContainer</h2>
 <p>Defines the container format for a message. All following fields can be found in every network message, whereas a debugMessage is purely optional.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">MessageContainer</span> 
@@ -625,13 +636,15 @@ This message is sent from the Moderator-Client to the ServerLogic to request the
 <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">RequestStartVotingMessage</span> <span class="p">:</span> <span class="n">MessageContainer</span> 
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">VotingTime</span><span class="p">;</span>
-    <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">Guid</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;</span> <span class="n">VotingOptions</span><span class="p">;</span>
+    <span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="n">Guid</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;</span> <span class="n">VotingPrompt</span><span class="p">;</span>
+    <span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="n">Guid</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;[]</span> <span class="n">VotingOptions</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <ul>
 <li><strong>VotingTime:</strong> The time in seconds that PlayerAudience-Clients have to cast their vote.</li>
+<li><strong>VotingPrompt:</strong> Contains the GUID of the voting prompt as the key and textual description of the voting prompt as the value.</li>
 <li><strong>VotingOptions:</strong> Contains the GUIDs of the respective voting option as the key and textual description of the voting option as the value.</li>
 </ul>
 <p>The ServerLogic responds with a <a href="#votingstartedmessage">VotingStartedMessage</a> and some time after with a <a href="#votingendedmessage">VotingEndedMessage</a>.</p>
@@ -650,15 +663,15 @@ This message is sent from the ServerLogic to the Moderator-Client in response to
 This message is sent from the ServerLogic to the Moderator-Client in response to a <strong><a href="#requeststartvotingmessage">RequestStartVotingMessage</a></strong>, after the voting time has expired. The winning option and the statistical results of the vote are sent back to the Moderator-Client. </p>
 <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">VotingEndedMessage</span> <span class="p">:</span> <span class="n">MessageContainer</span> 
 <span class="p">{</span>
-    <span class="n">Guid</span> <span class="n">WinningOption</span><span class="p">;</span>
-    <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">Guid</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;</span> <span class="n">VotingResults</span><span class="p">;</span>
+    <span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="n">Guid</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;</span> <span class="n">WinningOption</span><span class="p">;</span>
+    <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="n">Guid</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;,</span> <span class="kt">int</span><span class="p">&gt;</span> <span class="n">VotingResults</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <ul>
-<li><strong>WinningOption:</strong> The GUID of the option that got the most votes from the PlayerAudience.</li>
-<li><strong>VotingResults:</strong> Contains the GUIDs of the option as the key and the respective amount of received votes as the value.</li>
+<li><strong>WinningOption:</strong> The GUID and textual description of the option that got the most votes from the PlayerAudience.</li>
+<li><strong>VotingResults:</strong> Contains the GUID and textual description of the option as the key and the respective amount of received votes as the value.</li>
 </ul>
 <h3 id="control-messages">Control messages</h3>
 <h4 id="errormessage">ErrorMessage</h4>
@@ -723,13 +736,13 @@ This message is sent from the Moderator-Client to the ServerLogic to tell the Se
 This message is sent from the ServerLogic to the Moderator-Client in response to a <strong><a href="#requestclosesessionmessage">RequestCloseSessionMessage</a></strong>, to confirm that the Online-Session has been successfully closed and that the logs have been cleared completely. In addition to that, the statistics of the Online-Session are returned to the Moderator-Client, which can be used to display every conducted vote and which option got how many votes.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">SessionClosedMessage</span> <span class="p">:</span> <span class="n">MessageContainer</span> 
 <span class="p">{</span>
-    <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;</span> <span class="n">Statistics</span><span class="p">;</span>
+    <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="n">Guid</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;,</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="n">Guid</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;,</span> <span class="kt">int</span><span class="p">&gt;&gt;</span> <span class="n">Statistics</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <ul>
-<li><strong>Statistics:</strong> Contains the id of the option as the key and the respective amount of received votes as the value.</li>
+<li><strong>Statistics:</strong> Contains the prompts as the keys, and poll results of the respective prompt as the values.</li>
 </ul>
 <h2 id="sequence-diagrams-of-typical-communicational-processes">Sequence diagrams of typical communicational processes</h2>
 <p>The following diagrams always show typical communication processes between clients and ServerLogic. Only the core contents of the communication, which are relevant for the understanding, are pointed out. For the sake of clarity, the specific message verification mechanisms of the clients and the ServerLogic are not shown, as they are active at all times and check each message for correctness. 
