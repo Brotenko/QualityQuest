@@ -44,7 +44,7 @@ namespace ServerLogic.Control
                 if (ServerIsActive == false)
                 {
                     ServerIsActive = true;
-                    pABackend = PABackend.DebugPABackend(port);
+                    pABackend = new PABackend(port);
                 }
                 else
                 {
