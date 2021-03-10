@@ -68,7 +68,7 @@ namespace ServerLogic.Control
         /// Writes the received string, according to the set Logging Output, either in a File or prints it on the Console. Adds the date and the current logging level to the message.
         /// </summary>
         /// <param name="logMessage">What should be logged.</param>
-        internal static void WriteLog(string logMessage)
+        private static void WriteLog(string logMessage)
         {
             string logRecord = string.Format("{0} [{1}] {2}",
                 "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "]",
