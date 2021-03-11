@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 25683252}
   - component: {fileID: 25683251}
   m_Layer: 5
-  m_Name: Audio
+  m_Name: audio options
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,8 +165,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -540}
-  m_SizeDelta: {x: 960, y: 1080}
+  m_AnchoredPosition: {x: 960, y: -540}
+  m_SizeDelta: {x: 640, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &25683251
 MonoBehaviour:
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 93321157}
   - component: {fileID: 93321156}
   m_Layer: 5
-  m_Name: Anzeige
+  m_Name: graphic-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 145286672}
   - component: {fileID: 145286671}
   m_Layer: 5
-  m_Name: "Aufl\xF6sung"
+  m_Name: resolution
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -535,8 +535,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -231.42859}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: -231.42859}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &145286671
 MonoBehaviour:
@@ -612,8 +612,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -231.42859}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: -231.42859}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &154437250
 MonoBehaviour:
@@ -666,7 +666,7 @@ GameObject:
   - component: {fileID: 165662635}
   - component: {fileID: 165662634}
   m_Layer: 5
-  m_Name: Beenden
+  m_Name: back-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -786,7 +786,7 @@ GameObject:
   - component: {fileID: 180503150}
   - component: {fileID: 180503149}
   m_Layer: 5
-  m_Name: Titel
+  m_Name: titel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1253,7 +1253,7 @@ GameObject:
   - component: {fileID: 261838644}
   - component: {fileID: 261838643}
   m_Layer: 5
-  m_Name: Server verbinden
+  m_Name: connectServer-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1470,8 +1470,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -848.5715}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: -848.5715}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &280430264
 MonoBehaviour:
@@ -1831,7 +1831,7 @@ GameObject:
   - component: {fileID: 352080850}
   - component: {fileID: 352080849}
   m_Layer: 5
-  m_Name: Optionen
+  m_Name: options
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1941,7 +1941,7 @@ GameObject:
   - component: {fileID: 354412527}
   - component: {fileID: 354412530}
   m_Layer: 5
-  m_Name: "Men\xFC"
+  m_Name: menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2176,7 +2176,7 @@ GameObject:
   - component: {fileID: 430025744}
   - component: {fileID: 430025743}
   m_Layer: 5
-  m_Name: Optionen
+  m_Name: options-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2309,7 +2309,7 @@ GameObject:
   - component: {fileID: 438712981}
   - component: {fileID: 438712980}
   m_Layer: 5
-  m_Name: Deutsch
+  m_Name: german-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2430,7 +2430,7 @@ GameObject:
   - component: {fileID: 490249464}
   - component: {fileID: 490249463}
   m_Layer: 5
-  m_Name: "Zur\xFCck"
+  m_Name: back-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2453,8 +2453,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -1002.8572}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: -1002.8572}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &490249463
 MonoBehaviour:
@@ -2637,7 +2637,7 @@ GameObject:
   - component: {fileID: 522241969}
   - component: {fileID: 522241968}
   m_Layer: 5
-  m_Name: Panel (2)
+  m_Name: titel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3384,8 +3384,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -385.7143}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: -385.7143}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &630781277
 MonoBehaviour:
@@ -3588,7 +3588,7 @@ GameObject:
   - component: {fileID: 678384714}
   - component: {fileID: 678384713}
   m_Layer: 5
-  m_Name: "Hauptmen\xFC"
+  m_Name: main menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3718,8 +3718,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -540.00006}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: -540.00006}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &750097615
 MonoBehaviour:
@@ -4013,7 +4013,7 @@ GameObject:
   - component: {fileID: 806688919}
   - component: {fileID: 806688918}
   m_Layer: 5
-  m_Name: Logo
+  m_Name: logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4740,7 +4740,7 @@ GameObject:
   - component: {fileID: 981965568}
   - component: {fileID: 981965567}
   m_Layer: 5
-  m_Name: Audio
+  m_Name: audio-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5496,8 +5496,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: 0}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: 0}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1160581289
 MonoBehaviour:
@@ -5550,7 +5550,7 @@ GameObject:
   - component: {fileID: 1190108405}
   - component: {fileID: 1190108407}
   m_Layer: 5
-  m_Name: Titel
+  m_Name: titel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5856,8 +5856,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -1002.8572}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: -1002.8572}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1202741916
 MonoBehaviour:
@@ -6270,7 +6270,7 @@ GameObject:
   - component: {fileID: 1243964137}
   - component: {fileID: 1243964136}
   m_Layer: 5
-  m_Name: "Zur\xFCck"
+  m_Name: back button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6820,7 +6820,7 @@ GameObject:
   - component: {fileID: 1303831917}
   - component: {fileID: 1303831916}
   m_Layer: 5
-  m_Name: Titel
+  m_Name: titel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6897,7 +6897,7 @@ GameObject:
   - component: {fileID: 1308693235}
   - component: {fileID: 1308693234}
   m_Layer: 5
-  m_Name: Offline Modus
+  m_Name: offlineMode-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7617,7 +7617,7 @@ GameObject:
   - component: {fileID: 1476851289}
   - component: {fileID: 1476851288}
   m_Layer: 5
-  m_Name: Anzeige
+  m_Name: graphic settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7646,8 +7646,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -540}
-  m_SizeDelta: {x: 960, y: 1080}
+  m_AnchoredPosition: {x: 960, y: -540}
+  m_SizeDelta: {x: 640, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1476851288
 MonoBehaviour:
@@ -7726,7 +7726,7 @@ GameObject:
   - component: {fileID: 1508112548}
   - component: {fileID: 1508112547}
   m_Layer: 5
-  m_Name: Sprache
+  m_Name: language-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7984,7 +7984,7 @@ GameObject:
   - component: {fileID: 1606970199}
   - component: {fileID: 1606970198}
   m_Layer: 5
-  m_Name: Vollbild
+  m_Name: fullscreen-toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8008,8 +8008,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -385.7143}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: -385.7143}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1606970198
 MonoBehaviour:
@@ -8330,7 +8330,7 @@ GameObject:
   - component: {fileID: 1644022044}
   - component: {fileID: 1644022043}
   m_Layer: 5
-  m_Name: Spielen
+  m_Name: play-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8602,7 +8602,7 @@ GameObject:
   - component: {fileID: 1721873947}
   - component: {fileID: 1721873946}
   m_Layer: 5
-  m_Name: "Zur\xFCck"
+  m_Name: back-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8735,7 +8735,7 @@ GameObject:
   - component: {fileID: 1781545759}
   - component: {fileID: 1781545758}
   m_Layer: 5
-  m_Name: ResolutionDropdown
+  m_Name: Resolution-dropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9177,8 +9177,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -694.28577}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: -694.28577}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1856994160
 MonoBehaviour:
@@ -9364,7 +9364,7 @@ GameObject:
   - component: {fileID: 1898789250}
   - component: {fileID: 1898789249}
   m_Layer: 5
-  m_Name: Logo
+  m_Name: NewTec Logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9466,8 +9466,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -540.00006}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: -540.00006}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1908350675
 MonoBehaviour:
@@ -10077,8 +10077,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -694.28577}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: -694.28577}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1943129118
 MonoBehaviour:
@@ -10130,7 +10130,7 @@ GameObject:
   - component: {fileID: 1999992127}
   - component: {fileID: 1999992126}
   m_Layer: 5
-  m_Name: Titel
+  m_Name: titel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10153,8 +10153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -77.14286}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: -77.14286}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1999992126
 MonoBehaviour:
@@ -10342,7 +10342,7 @@ GameObject:
   - component: {fileID: 2025683791}
   - component: {fileID: 2025683794}
   m_Layer: 5
-  m_Name: Test
+  m_Name: menu-frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10753,7 +10753,7 @@ GameObject:
   - component: {fileID: 2088663947}
   - component: {fileID: 2088663946}
   m_Layer: 5
-  m_Name: Sprache
+  m_Name: language
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11032,7 +11032,7 @@ GameObject:
   - component: {fileID: 2138252443}
   - component: {fileID: 2138252442}
   m_Layer: 5
-  m_Name: Englisch
+  m_Name: english-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11174,8 +11174,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -848.5715}
-  m_SizeDelta: {x: 960, y: 154.28572}
+  m_AnchoredPosition: {x: 320, y: -848.5715}
+  m_SizeDelta: {x: 640, y: 154.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2142548789
 MonoBehaviour:

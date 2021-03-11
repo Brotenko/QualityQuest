@@ -60,4 +60,12 @@ public class Menu : MonoBehaviour
         displayMenu.SetActive(false);
     }
 
+    /// <summary>
+    /// Method to quit the application through the main menu.
+    /// </summary>
+    public void QuitGame()
+    {
+        Debug.Log("Quit");
+        Application.Quit();
+    }
 }
