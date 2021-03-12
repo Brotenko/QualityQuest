@@ -140,8 +140,13 @@ namespace ServerLogicTest.Control
             //Visible for lvl 0, 1, 2, 3 as "[yyyy-MM-dd HH:mm:ss] [3] ERROR:"
             ServerLogger.LogError("");
 
+            string[] loggedLines = ServerLogger.LogFileToString().Split("\n");
             //LogLevel 3 means only Errors
-            Assert.IsTrue(Regex.IsMatch(ServerLogger.LogFileToString(), logErrorPattern));
+            Assert.IsTrue(Regex.IsMatch(loggedLines[0], logErrorPattern));
+            //really only one entry?
+            Assert.IsTrue(loggedLines.Length == 2);
+            //This is owed to the split at \n.
+            Assert.IsTrue(loggedLines[1]=="");
         }
 
         /// <summary>
@@ -171,6 +176,10 @@ namespace ServerLogicTest.Control
             string[] loggedLines = ServerLogger.LogFileToString().Split("\n");
             Assert.IsTrue(Regex.IsMatch(loggedLines[0], logWarningPattern));
             Assert.IsTrue(Regex.IsMatch(loggedLines[1], logErrorPattern));
+            //really only two entries?
+            Assert.IsTrue(loggedLines.Length == 3);
+            //This is owed to the split at \n.
+            Assert.IsTrue(loggedLines[2] == "");
         }
 
         /// <summary>
@@ -201,6 +210,10 @@ namespace ServerLogicTest.Control
             Assert.IsTrue(Regex.IsMatch(loggedLines[0], logInformationPattern));
             Assert.IsTrue(Regex.IsMatch(loggedLines[1], logWarningPattern));
             Assert.IsTrue(Regex.IsMatch(loggedLines[2], logErrorPattern));
+            //really only three entries?
+            Assert.IsTrue(loggedLines.Length == 4);
+            //This is owed to the split at \n.
+            Assert.IsTrue(loggedLines[3] == "");
         }
 
 
@@ -233,7 +246,10 @@ namespace ServerLogicTest.Control
             Assert.IsTrue(Regex.IsMatch(loggedLines[1], logInformationPattern));
             Assert.IsTrue(Regex.IsMatch(loggedLines[2], logWarningPattern));
             Assert.IsTrue(Regex.IsMatch(loggedLines[3], logErrorPattern));
-            ServerLogger.WipeLogFile();
+            //really only four entries?
+            Assert.IsTrue(loggedLines.Length == 5);
+            //This is owed to the split at \n.
+            Assert.IsTrue(loggedLines[4] == "");
         }
 
         /// <summary>

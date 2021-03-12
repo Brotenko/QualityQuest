@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.IO.Abstractions.TestingHelpers;
+using ServerLogic.Properties;
 
 namespace ServerLogicTests.Control
 {
@@ -647,21 +648,39 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// TODO
+        /// Checks whether the previous level was retained if the format of the input was incorrect.
         /// </summary>
         [TestMethod]
-        public void ShowLogsTest()
+        public void InvalidLogLevelInputFormatTest()
         {
-            // Underlying functionality is covered in ServerLoggerTest-Class
+            Settings.Default.LogFilePath = "TestLog.txt";
+            ServerLogger.CreateServerLogger();
+            ServerLogger.SetLogLevel(0);
+            ServerLogger.ChangeLoggingOutputType(0);
+            ServerLogger.WipeLogFile();
+
+            ServerShell s = new ServerShell();
+            s.ParseCommandDebugger("log --setLevel $");
+            Assert.IsTrue(Settings.Default.LogLevel==0);
+            ServerLogger.WipeLogFile();
         }
 
         /// <summary>
-        /// TODO
+        /// Checks whether the previous level was retained if the format of the input was incorrect.
         /// </summary>
         [TestMethod]
-        public void ClearLogsTest()
+        public void InvalidLoggingOutputTypeInputFormatTest()
         {
-            // Underlying functionality is covered in ServerLoggerTest-Class
+            Settings.Default.LogFilePath = "TestLog.txt";
+            ServerLogger.CreateServerLogger();
+            ServerLogger.SetLogLevel(0);
+            ServerLogger.ChangeLoggingOutputType(0);
+            ServerLogger.WipeLogFile();
+
+            ServerShell s = new ServerShell();
+            s.ParseCommandDebugger("log --setLogOutput $");
+            Assert.IsTrue(Settings.Default.LogOutPutType == 0);
+            ServerLogger.WipeLogFile();
         }
 
         /// <summary>

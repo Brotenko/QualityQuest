@@ -15,8 +15,7 @@ namespace ServerLogic.Control
         //Necessary for Singleton pattern
         private static ServerLogger _serverLogger;
 
-        //Necessary to be able to change the writing of files for the unit tests.
-
+        
         /// <summary>
         /// ServerLogger implements the Singleton-Pattern to ensure there is only one Logger active.
         /// Therefore, there is no need for a ServerLogger object.
@@ -34,7 +33,7 @@ namespace ServerLogic.Control
         /// </summary>
         public static void CreateServerLogger()
         {
-            //"if (_severLogger == NULL) _serverLogger = new ServerLogger();" is the same
+            //Only creates new ServerLogger when field is NULL
             _serverLogger ??= new ServerLogger();
         }
 
@@ -43,7 +42,7 @@ namespace ServerLogic.Control
         /// Sets to which grade information gets logged. Every Level includes the Information of the Levels below it, e.g. Warning Level also logs Error-Logs.
         /// <list type="bullet">
         /// <item><param> 0 </param><term>Debug </term><description> For debugging and development. Use with caution in production due to the high volume. </description></item>
-        /// <item><param> 1 </param><term>Information</term><description>Tracks the general flow of the app. May have long-term value.</description></item>
+        /// <item><param> 1 </param><term>Information</term><description>Tracks the general flow of the app. </description></item>
         /// <item><param> 2 </param><term>Warning</term><description>For abnormal or unexpected events. Typically includes errors or conditions that don't cause the app to fail.</description></item>
         /// <item><param> 3 </param><term>Error</term><description>For errors and exceptions that cannot be handled. These messages indicate a failure in the current operation or request, not an app-wide failure.</description></item>
         /// <item><param> 4 </param><term>None</term><description>Logs won't be recorded. Deactivates the logger.</description></item>
@@ -61,6 +60,7 @@ namespace ServerLogic.Control
             else
             {
                 Console.WriteLine(Resources.InvalidLogLevelMessage);
+                LogInformation("Invalid LogLevel: "+level);
             }
         }
 
@@ -139,10 +139,12 @@ namespace ServerLogic.Control
             {
                 Settings.Default.LogOutPutType = val;
                 Settings.Default.Save();
+                LogInformation("LoggingOutputType was set to "+val+".");
             }
             else
             {
                 Console.WriteLine(Resources.InvalidLoggingOutputType);
+                LogInformation("Invalid LoggingOutputType: "+val);
             }
         }
 
@@ -309,7 +311,7 @@ namespace ServerLogic.Control
         /// </summary>
         public static void DeleteAllSessionLogs()
         {
-            //Directory.Delete(Properties.Settings.Default.ServerLogicLogFilePath, true);
+           
         }
     }
 }

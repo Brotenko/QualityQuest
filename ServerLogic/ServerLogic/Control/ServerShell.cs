@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Resources;
 using System.Text.RegularExpressions;
+using ServerLogic.Properties;
 
 namespace ServerLogic.Control
 {
@@ -566,20 +567,42 @@ namespace ServerLogic.Control
                 }
                 else if (parameterList[0] == "--setLevel")
                 {
-                    ServerLogger.SetLogLevel(Int16.Parse(parameterList[1]));
+                    try
+                    {
+                        ServerLogger.SetLogLevel(Int16.Parse(parameterList[1]));
+                    }
+                    catch (System.FormatException)
+                    {
+                        ServerLogger.LogInformation("Catched Format Exception which occurred by using: log --setLevel "+parameterList[1]+"\nCurrent LogLevel is "+Settings.Default.LogLevel+".");
+                        return Resources.InvalidLogLevelMessage;
+                    }
+
                     //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
                     return "";
                 }
                 else if (parameterList[0]== "--setLogOutput")
                 {
-                    ServerLogger.ChangeLoggingOutputType(Int16.Parse(parameterList[1]));
+                    try
+                    {
+                        ServerLogger.ChangeLoggingOutputType(Int16.Parse(parameterList[1]));
+                    }
+                    catch (System.FormatException)
+                    {
+                        ServerLogger.LogInformation("Catched Format Exception which occurred by using: log --setLogOutput " + parameterList[1] + "\nCurrent LogOutputType is " + Settings.Default.LogOutPutType + ".");
+                        return Resources.InvalidLoggingOutputType;
+                    }
+
                     //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
                     return "";
+                }
+                else if (parameterList[0] == "--getLevel")
+                {
+                    return "Current LogLevel is "+ Settings.Default.LogLevel +".";
                 }
                 // Everything else should just show the logs, disregarding everything
                 else
                 {
-                    return ServerLogger.LogFileToString();
+                    return Resources.LogHelpMessage;
                 }
             }
         }
