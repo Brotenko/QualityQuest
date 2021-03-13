@@ -23,7 +23,7 @@ namespace ServerLogic.Control
         private ServerLogger()
         {
             //default Logging-Level
-            LogInformation("New Session started. LogLevel is " + Settings.Default.LogLevel +
+            LogInformation("New Logger-Instance started. LogLevel is " + Settings.Default.LogLevel +
                            ", LogOutputType is " + Settings.Default.LogOutPutType + ".");
         }
 

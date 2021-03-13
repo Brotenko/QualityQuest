@@ -658,10 +658,15 @@ namespace ServerLogicTests.Control
             ServerLogger.SetLogLevel(0);
             ServerLogger.ChangeLoggingOutputType(0);
             ServerLogger.WipeLogFile();
-
             ServerShell s = new ServerShell();
+
+            //Test for Input with a non-Integer
             s.ParseCommandDebugger("log --setLevel $");
             Assert.IsTrue(Settings.Default.LogLevel==0);
+
+            //Test for Null-Input
+            s.ParseCommandDebugger("log --setLevel");
+            Assert.IsTrue(Settings.Default.LogOutPutType == 0);
             ServerLogger.WipeLogFile();
         }
 
@@ -676,9 +681,14 @@ namespace ServerLogicTests.Control
             ServerLogger.SetLogLevel(0);
             ServerLogger.ChangeLoggingOutputType(0);
             ServerLogger.WipeLogFile();
-
             ServerShell s = new ServerShell();
+
+            //Test for Input with a non-Integer
             s.ParseCommandDebugger("log --setLogOutput $");
+            Assert.IsTrue(Settings.Default.LogOutPutType == 0);
+
+            //Test for Null-Input
+            s.ParseCommandDebugger("log --setLogOutput");
             Assert.IsTrue(Settings.Default.LogOutPutType == 0);
             ServerLogger.WipeLogFile();
         }

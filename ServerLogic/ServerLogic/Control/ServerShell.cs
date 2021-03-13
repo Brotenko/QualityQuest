@@ -573,7 +573,14 @@ namespace ServerLogic.Control
                     }
                     catch (System.FormatException)
                     {
-                        ServerLogger.LogInformation("Catched Format Exception which occurred by using: log --setLevel "+parameterList[1]+"\nCurrent LogLevel is "+Settings.Default.LogLevel+".");
+                        ServerLogger.LogDebug(
+                            "Catched Format Exception which occurred by using: log --setLevel " + parameterList[1] +
+                            "\nCurrent LogLevel is " + Settings.Default.LogLevel + ".");
+                        return Resources.InvalidLogLevelMessage;
+                    }
+                    catch (System.IndexOutOfRangeException)
+                    {
+                        ServerLogger.LogDebug("Catched IndexOutOfRange Exception, caused by using 'log --setLevel' without a parameter.");
                         return Resources.InvalidLogLevelMessage;
                     }
 
@@ -588,7 +595,12 @@ namespace ServerLogic.Control
                     }
                     catch (System.FormatException)
                     {
-                        ServerLogger.LogInformation("Catched Format Exception which occurred by using: log --setLogOutput " + parameterList[1] + "\nCurrent LogOutputType is " + Settings.Default.LogOutPutType + ".");
+                        ServerLogger.LogDebug("Catched Format-Exception which occurred by using: log --setLogOutput " + parameterList[1] + "\nCurrent LogOutputType is " + Settings.Default.LogOutPutType + ".");
+                        return Resources.InvalidLoggingOutputType;
+                    }
+                    catch (System.IndexOutOfRangeException)
+                    {
+                        ServerLogger.LogDebug("Catched IndexOutOfRange-Exception, caused by using 'log --setLogOutput' without a parameter.");
                         return Resources.InvalidLoggingOutputType;
                     }
 
