@@ -11,46 +11,63 @@ public class Menu : MonoBehaviour
     public GameObject languageMenu;
     public GameObject displayMenu;
 
+    /// <summary>
+    /// Makes sure that when the game is launched the main menu is displayed.
+    /// </summary>
     void Start()
     {
-        
+        HideAllMenu();
+        ShowMainMenu();
     }
 
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// Makes the main menu panel visible.
+    /// </summary>
     public void ShowMainMenu()
     {
         HideAllMenu();
         mainMenu.SetActive(true);
     }
 
+    /// <summary>
+    /// Makes the audio volume panel visible.
+    /// </summary>
     public void ShowAudioMenu()
     {
         HideAllMenu();
         audioMenu.SetActive(true);
     }
 
+    /// <summary>
+    /// Makes the options submenu visible.
+    /// </summary>
     public void ShowOptionsMenu()
     {
         HideAllMenu();
         optionsMenu.SetActive(true);
     }
 
+    /// <summary>
+    /// Makes the language selection panel visible.
+    /// </summary>
     public void ShowLanguageMenu()
     {
         HideAllMenu();
         languageMenu.SetActive(true);
     }
 
+    /// <summary>
+    /// Makes the display settings panel visible.
+    /// </summary>
     public void ShowDisplayMenu()
     {
         HideAllMenu();
         displayMenu.SetActive(true);
     }
 
+    /// <summary>
+    /// Method that hides all menu panels.
+    /// </summary>
     public void HideAllMenu()
     {
         audioMenu.SetActive(false);
