@@ -184,7 +184,12 @@ OPTIONS
   Clears the log file(s).
 
 --setLevel 0-4
-  Set the logging level, with 0 for Debug to 4 for None.
+  Set the logging level to: 
+        0 for Debug
+        1 for Information
+        2 for Warning
+        3 for Errors
+        4 for None.
 
 --getLevel
   Prints the current logging level.

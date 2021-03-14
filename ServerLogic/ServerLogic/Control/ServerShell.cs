@@ -547,9 +547,36 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// TODO
+        /// Parses the parameters the "log" command was called with.
+        /// Depending on the type of argument, the following services are provided.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>NULL</term>
+        /// <description>Shows the contents of the log file.</description>
+        /// </item>
+        /// <item>
+        /// <term>--clear</term>
+        /// <description>Deletes the log file.</description>
+        /// </item>
+        /// <item>
+        /// <term>--setLevel [0,1,2,3,4]</term>
+        /// <description>Sets the logging level according to the additional parameter.<See cref="Properties.Resources.LogHelpMessage"/></description>
+        /// </item>
+        /// <item>
+        /// <term>--getLevel</term>
+        /// <description>Shows the current logging level.</description>
+        /// </item>
+        /// <item>
+        /// <term>--setLogOutput [0,1,2]</term>
+        /// <description>0 sets LogOutput to File, 1 to Console, and 2 to both.</description>
+        /// </item>
+        /// <item>
+        /// <term>--help</term>
+        /// <description>Shows the help-text for the Logger.</description>
+        /// </item>
+        /// </list> 
         /// </summary>
-        /// 
+        /// <param name="parameterList"></param>
         /// <returns></returns>
         private string ShowLogs(string[] parameterList)
         {
@@ -559,7 +586,6 @@ namespace ServerLogic.Control
             }
             else
             {
-                // Only checking for '--clear' since that is the only valid option
                 if (parameterList[0] == "--clear")
                 {
                     ServerLogger.WipeLogFile();
@@ -611,10 +637,9 @@ namespace ServerLogic.Control
                 {
                     return "Current LogLevel is "+ Settings.Default.LogLevel +".";
                 }
-                // Everything else should just show the logs, disregarding everything
                 else
                 {
-                    return Resources.LogHelpMessage;
+                    return "Command not understood, use 'log --help' for more information.";
                 }
             }
         }

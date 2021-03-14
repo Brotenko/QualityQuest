@@ -109,7 +109,7 @@ namespace ServerLogic.Control
             }
             catch (FileNotFoundException)
             {
-                //If Log.txt was deleted before, this will occur. No need for Exception-Handling, as a new file is created during the next writing process.
+                //If Log.txt was deleted before, this will occur. No need for further Exception-Handling, as a new file is created during the next writing process.
             }
 
             return fileToString;

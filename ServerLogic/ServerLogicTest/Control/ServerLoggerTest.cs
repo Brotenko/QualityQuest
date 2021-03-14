@@ -91,6 +91,27 @@ namespace ServerLogicTest.Control
         }
 
         /// <summary>
+        /// Checks if a new File is created by Logging after the Deletion of the Log-File. 
+        /// </summary>
+        [TestMethod]
+        public void NewLogFileCreationAfterDeletionTest()
+        {
+            ServerLogger.LogDebug("");
+            string[] loggedLines = ServerLogger.LogFileToString().Split("\n");
+            //Entry was written into file?
+            Assert.IsTrue(Regex.IsMatch(loggedLines[0], logDebugPattern));
+
+            ServerLogger.WipeLogFile();
+            //LogFile empty/non-existant 
+            Assert.AreEqual(ServerLogger.LogFileToString() , "");
+
+            ServerLogger.LogDebug("");
+            loggedLines = ServerLogger.LogFileToString().Split("\n");
+            //File exists and has a debug entry?
+            Assert.IsTrue(Regex.IsMatch(loggedLines[0], logDebugPattern));
+        }
+
+        /// <summary>
         /// Creates a fresh log file and set the level to 4 aka "None".
         /// Writes log messages at all possible levels, at "None" none of them should be written in the log,
         /// which is checked by the Assertion.
