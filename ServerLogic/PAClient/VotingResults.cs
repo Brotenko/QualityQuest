@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace PAClient
 {
@@ -26,9 +27,9 @@ namespace PAClient
         /// </summary>
         /// 
         /// <param name="x">The internal datatype.</param>
-        public VotingResults(Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> x)
+        public VotingResults(Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>> data)
         {
-            data = x;
+            this.data = data;
         }
 
         /// <summary>
@@ -105,9 +106,9 @@ namespace PAClient
                 if (!this.GetPromptsBySession(sessionkey).Contains(prompt))
                 {
                     Dictionary<KeyValuePair<Guid, string>, int> tempDict = new Dictionary<KeyValuePair<Guid, string>, int>();
-                    foreach (KeyValuePair<Guid, string> o in options)
+                    foreach (KeyValuePair<Guid, string> option in options)
                     {
-                        tempDict.Add(o, 0);
+                        tempDict.Add(option, 0);
                     }
 
                     data.GetValueOrDefault(sessionkey).Add(prompt, tempDict);
@@ -124,7 +125,7 @@ namespace PAClient
         }
 
         /// <summary>
-        /// Adds a new poll for a specific session, with the given prompt and voting options.
+        /// Increments the number of votes issued for a specific option by one.
         /// </summary>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
@@ -135,7 +136,7 @@ namespace PAClient
         /// 
         /// <param name="prompt">The prompt of the vote.</param>
         /// 
-        /// <param name="options">The voting options of the prompt.</param>
+        /// <param name="option">The voting option of the vote.</param>
         public void AddVote(string sessionkey, Guid prompt, Guid option)
         {
             if (sessionkey == null)
@@ -346,9 +347,9 @@ namespace PAClient
                         {
                             if (prompt == tempPrompt.Key)
                             {
-                                foreach (Dictionary<KeyValuePair<Guid, string>, int> optionsVotesPairs in session.Value.Values)
+                                if (session.Value.Values != null)
                                 {
-                                    return optionsVotesPairs;
+                                    return session.Value.Values.First();
                                 }
                             }
                         }
@@ -569,21 +570,21 @@ namespace PAClient
         /// <returns>String-based visualization of the VotingResults.</returns>
         public override string ToString()
         {
-            string ret = "VotingResults:\n";
+            StringBuilder ret = new StringBuilder("VotingResults:\n");
 
             foreach (string key in this.GetSessionKeys())
             {
-                ret += " - " + key + ":\n";
+                ret.Append(" - " + key + ":\n");
                 int i = 0;
 
                 foreach (string prompt in this.GetPromptStringsBySession(key))
                 {
-                    ret += "   - " + prompt + " (" + GetPromptGuidsBySession(key)[i].ToString() + "):\n";
+                    ret.Append("   - " + prompt + " (" + GetPromptGuidsBySession(key)[i].ToString() + "):\n");
                     int j = 0;
 
                     foreach (string option in this.GetOptionStringsByPrompt(key, GetPromptGuidsBySession(key)[i]))
                     {
-                        ret += "     - " + option + " (" + GetOptionGuidsByPrompt(key, GetPromptGuidsBySession(key)[i])[j].ToString() + "): " + this.GetVotesByOption(key, GetPromptGuidsBySession(key)[i], GetOptionGuidsByPrompt(key, GetPromptGuidsBySession(key)[i])[j]) + "\n";
+                        ret.Append("     - " + option + " (" + GetOptionGuidsByPrompt(key, GetPromptGuidsBySession(key)[i])[j].ToString() + "): " + this.GetVotesByOption(key, GetPromptGuidsBySession(key)[i], GetOptionGuidsByPrompt(key, GetPromptGuidsBySession(key)[i])[j]) + "\n");
                         j++;
                     }
 
@@ -591,7 +592,7 @@ namespace PAClient
                 }
             }
 
-            return ret;
+            return ret.ToString();
         }
 
         /// <summary>

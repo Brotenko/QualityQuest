@@ -12,7 +12,7 @@ namespace ServerLogic.Control
     /// </summary>
     public class PlayerAudienceClientAPI
     {
-        private PABackend pABackend;
+        private PABackend _pABackend;
 
         /// <summary>
         /// A flag that determines if the server is currently running or not.
@@ -44,7 +44,7 @@ namespace ServerLogic.Control
                 if (ServerIsActive == false)
                 {
                     ServerIsActive = true;
-                    pABackend = new PABackend(port);
+                    _pABackend = new PABackend(port);
                 }
                 else
                 {
@@ -73,7 +73,7 @@ namespace ServerLogic.Control
                 if (ServerIsActive == false)
                 {
                     ServerIsActive = true;
-                    pABackend = PABackend.DebugPABackend(port);
+                    _pABackend = PABackend.DebugPABackend(port);
                 }
                 else
                 {
@@ -101,7 +101,7 @@ namespace ServerLogic.Control
             {
                 if (Regex.IsMatch(sessionkey, @"[A-Z0-9]{6}"))
                 {
-                    pABackend.StartNewSession(sessionkey);
+                    _pABackend.StartNewSession(sessionkey);
                 }
                 else
                 {
@@ -132,7 +132,7 @@ namespace ServerLogic.Control
         {
             if (ServerIsActive)
             {
-                await pABackend.StartNewVote(sessionkey, prompt, options);
+                await _pABackend.StartNewVote(sessionkey, prompt, options);
             }
             else
             {
@@ -158,7 +158,7 @@ namespace ServerLogic.Control
         {
             if (ServerIsActive)
             {
-                return pABackend.GetVotingResult(sessionkey, prompt);
+                return _pABackend.GetVotingResult(sessionkey, prompt);
             }
             else
             {
@@ -182,7 +182,7 @@ namespace ServerLogic.Control
         {
             if (ServerIsActive)
             {
-                return pABackend.EndSession(sessionkey);
+                return _pABackend.EndSession(sessionkey);
             }
             else
             {
@@ -200,7 +200,7 @@ namespace ServerLogic.Control
             if (ServerIsActive)
             {
                 ServerIsActive = false;
-                pABackend.StopServer();
+                _pABackend.StopServer();
             }
             else
             {

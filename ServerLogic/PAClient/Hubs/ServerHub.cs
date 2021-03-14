@@ -6,32 +6,17 @@ using System.Threading.Tasks;
 namespace PAClient.Hubs
 {
     /// <summary>
-    /// 
+    /// The SignalR communication hub of the PAClient backend.
     /// </summary>
     public class ServerHub : Hub
     {
-
         /// <summary>
-        /// 
+        /// Validates that the sessionkey transmitted by the PAClient
+        /// is valid, and adds the user to the Hub-Group identified by
+        /// the sessionkey.
         /// </summary>
         /// 
-        /// <param name="user"></param>
-        /// 
-        /// <param name="message"></param>
-        /// 
-        /// <returns></returns>
-        public async Task SendMessage(string user, string message)
-        {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// 
-        /// <param name="sessionkey"></param>
-        /// 
-        /// <returns></returns>
+        /// <param name="sessionkey">Sessionkey to be validated.</param>
         public async Task ValidateKey(string sessionkey)
         {
             bool isValid = PABackend.PAVotingResults.GetSessionKeys().Contains(sessionkey);
@@ -47,14 +32,14 @@ namespace PAClient.Hubs
         }
 
         /// <summary>
-        /// 
+        /// Transmits a vote from any connected PAClient to the backend.
         /// </summary>
         /// 
-        /// <param name="sessionkey"></param>
+        /// <param name="sessionkey">Specifies for which Hub-Group the
+        /// vote shall be counted.</param>
         /// 
-        /// <param name="option"></param>
-        /// 
-        /// <returns></returns>
+        /// <param name="option">Specifies for which option a vote was
+        /// issued.</param>
         public async Task SendVote(string sessionkey, Guid option)
         {
             Console.WriteLine(sessionkey, option);
@@ -62,10 +47,9 @@ namespace PAClient.Hubs
         }
 
         /// <summary>
-        /// 
+        /// Called when a new connection is established with the Hub.
+        /// Currently only used for debugging purposes.
         /// </summary>
-        /// 
-        /// <returns></returns>
         public override async Task OnConnectedAsync()
         {
             Console.WriteLine("Connected: " + Context.ConnectionId);
@@ -73,12 +57,12 @@ namespace PAClient.Hubs
         }
 
         /// <summary>
-        /// 
+        /// Called when an user disconnects from the Hub. In that case
+        /// the clientID is removed from all instances of the Hub.
         /// </summary>
         /// 
-        /// <param name="exception"></param>
-        /// 
-        /// <returns></returns>
+        /// <param name="exception">If the disconnection occurred due to
+        /// an exception, then it will be specified here.</param>
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             Console.WriteLine("Disconnected: " + Context.ConnectionId + " ; " + exception);
