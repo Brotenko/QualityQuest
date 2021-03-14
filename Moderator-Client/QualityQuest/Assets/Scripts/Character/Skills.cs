@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-namespace Character
+namespace Character.Skills
 {
 
     public class Skills
@@ -18,10 +17,10 @@ namespace Character
         /// <param name="programming">The value of the programming skill.</param>
         public Skills(int communication, int analytics, int partying, int programming)
         {
-            this.communication;
-            this.analytics;
-            this.partying;
-            this.programming;
+            this.communication = communication;
+            this.analytics = analytics;
+            this.partying = partying;
+            this.programming = programming;
         }
 
         /// <summary>
