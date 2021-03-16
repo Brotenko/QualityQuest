@@ -5,8 +5,8 @@ using UnityEngine;
 public class Character
 {
 
-    Skills abilities;
-    string name;
+    private Skills abilities;
+    private string name;
 
     /// <summary>
     /// Constructor for the character class.
@@ -17,5 +17,23 @@ public class Character
     {
         this.abilities = abilities;
         this.name = name;
+    }
+
+    /// <summary>
+    /// Getter for the abilities of the Character.
+    /// </summary>
+    /// <returns>The Skills attribute of the Character.</returns>
+    public Skills getAbilities()
+    {
+        return abilities;
+    }
+
+    /// <summary>
+    /// Getter for the name of the Character.
+    /// </summary>
+    /// <returns>The Name of the character.</returns>
+    public string getName()
+    {
+        return name;
     }
 }
