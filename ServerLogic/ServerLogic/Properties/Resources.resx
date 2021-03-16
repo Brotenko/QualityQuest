@@ -184,7 +184,7 @@ OPTIONS
   Clears the log file(s).
 
 --setLevel 0-4
-  Set the logging level to: 
+  Sets the logging level to: 
         0 for Debug
         1 for Information
         2 for Warning
@@ -195,7 +195,10 @@ OPTIONS
   Prints the current logging level.
 
 --setLogOutput 0-2
-   0 sets LogOutput to File, 1 to Console, and 2 to both.
+   Sets the log output to:
+        0 for File only
+        1 for Console only
+        2 for File and Console.
 
 --help
   Shows this.</value>

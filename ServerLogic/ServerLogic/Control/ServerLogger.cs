@@ -6,11 +6,10 @@ using System.Runtime.CompilerServices;
 using ServerLogic.Properties;
 
 
-[assembly: InternalsVisibleTo("ServerLogicTest")]
 
 namespace ServerLogic.Control
 {
-    class ServerLogger
+    public class ServerLogger
     {
         //Necessary for Singleton pattern
         private static ServerLogger _serverLogger;
@@ -51,7 +50,7 @@ namespace ServerLogic.Control
         /// <param name="level">Which level to use.</param>
         public static void SetLogLevel(int level)
         {
-            if (level >= 0 && level <= 4)
+            if (level is >= 0 and <= 4)
             {
                 Settings.Default.LogLevel = level;
                 Settings.Default.Save();
@@ -135,7 +134,7 @@ namespace ServerLogic.Control
         /// </param>
         public static void ChangeLoggingOutputType(int val)
         {
-            if (val <= 2 && val >= 0)
+            if (val is <= 2 and >= 0)
             {
                 Settings.Default.LogOutPutType = val;
                 Settings.Default.Save();
@@ -194,124 +193,6 @@ namespace ServerLogic.Control
             {
                 WriteLog("ERROR: " + record);
             }
-        }
-
-
-        /*
-        I8,        8        ,8I                      88           88                88888888ba                                                                                
-        `8b       d8b       d8'                      88           ""                88      "8b                                                                               
-         "8,     ,8"8,     ,8"                       88                             88      ,8P                                                                               
-          Y8     8P Y8     8P  ,adPPYba,  8b,dPPYba, 88   ,d8     88 8b,dPPYba,     88aaaaaa8P' 8b,dPPYba,  ,adPPYba,   ,adPPYb,d8 8b,dPPYba,  ,adPPYba, ,adPPYba, ,adPPYba,  
-          `8b   d8' `8b   d8' a8"     "8a 88P'   "Y8 88 ,a8"      88 88P'   `"8a    88""""""'   88P'   "Y8 a8"     "8a a8"    `Y88 88P'   "Y8 a8P_____88 I8[    "" I8[    ""  
-           `8a a8'   `8a a8'  8b       d8 88         8888[        88 88       88    88          88         8b       d8 8b       88 88         8PP"""""""  `"Y8ba,   `"Y8ba,   
-            `8a8'     `8a8'   "8a,   ,a8" 88         88`"Yba,     88 88       88    88          88         "8a,   ,a8" "8a,   ,d88 88         "8b,   ,aa aa    ]8I aa    ]8I  
-             `8'       `8'     `"YbbdP"'  88         88   `Y8a    88 88       88    88          88          `"YbbdP"'   `"YbbdP"Y8 88          `"Ybbd8"' `"YbbdP"' `"YbbdP"'  
-                                                                                                                        aa,    ,88                                            
-                                                                                                                         "Y8bbdP"                                             
-        
-        The following methods are not yet fully implemented, as the classes and methods required for them are currently still being implemented and tested. 
-        A review is welcome, but will most likely be obsolete as soon as work continues and is therefore not necessary at the moment. 
-        For the same reason, there are no unit tests. 
-        Have a good day and come back later!
-        */
-
-
-        /// <summary>
-        /// Class for JSON
-        /// </summary>
-        private class ServerLogicLog
-        {
-            public string SessionKey;
-            public Guid ModeratorId;
-            public Guid[] audienceClients;
-            public Dictionary<Guid, int> VotingResults;
-        }
-
-        /// <summary>
-        /// Creates a SessionLog File.
-        /// </summary>
-        /// <param name="sessionKey"></param>
-        /// <param name="moderatorId"></param>
-        public static void CreateServerSessionLog(string sessionKey, Guid moderatorId)
-        {
-            //todo this method is a draft right now, as it heavily relies on information provided by the yet-not-finished AudienceClient
-            ServerLogicLog log = new ServerLogicLog();
-            log.SessionKey = sessionKey;
-            log.ModeratorId = moderatorId;
-            string jsonString = JsonSerializer.Serialize<ServerLogicLog>(log);
-            File.WriteAllText(Settings.Default.ServerLogicLogFilePath + "Session_" + sessionKey + ".txt",
-                jsonString);
-        }
-
-        /// <summary>
-        /// Gets the ModeratorId from the specified Session-File.
-        /// </summary>
-        /// <param name="sessionKey"></param>
-        /// <returns></returns>
-        public static Guid GetModeratorIdFromSessionLog(string sessionKey)
-        {
-            string jsonString = File.ReadAllText(Settings.Default.ServerLogicLogFilePath + "Session_" +
-                                                 sessionKey + ".txt");
-            ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
-            return logicLog.ModeratorId;
-        }
-
-        /// <summary>
-        /// Adds the survey statistics to an existing Session-File.
-        /// </summary>
-        /// <param name="sessionKey"></param>
-        /// <param name="votingResults"></param>
-        public static void AddStatsToSession(string sessionKey, Dictionary<Guid, int> votingResults)
-        {
-            string jsonString = File.ReadAllText(Settings.Default.ServerLogicLogFilePath + "Session_" +
-                                                 sessionKey + ".txt");
-            ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
-            if (logicLog.VotingResults != null)
-            {
-                foreach (KeyValuePair<Guid, int> entry in votingResults)
-                {
-                    logicLog.VotingResults.Add(entry.Key, entry.Value);
-                }
-            }
-            else
-            {
-                logicLog.VotingResults = votingResults;
-            }
-
-            jsonString = JsonSerializer.Serialize<ServerLogicLog>(logicLog);
-            File.WriteAllText(Settings.Default.ServerLogicLogFilePath + "Session_" + sessionKey + ".txt",
-                jsonString);
-        }
-
-        /// <summary>
-        ///  Returns the survey statistics from an existing Session-File.
-        /// </summary>
-        /// <param name="sessionKey"></param>
-        /// <returns></returns>
-        public static Dictionary<Guid, int> GetStatsFromSession(string sessionKey)
-        {
-            string jsonString = File.ReadAllText(Settings.Default.ServerLogicLogFilePath + "Session_" +
-                                                 sessionKey + ".txt");
-            ServerLogicLog logicLog = JsonSerializer.Deserialize<ServerLogicLog>(jsonString);
-            return logicLog.VotingResults;
-        }
-
-        /// <summary>
-        /// Deletes the corresponding Session-File.
-        /// </summary>
-        /// <param name="sessionKey"></param>
-        public static void ClearSessionLog(string sessionKey)
-        {
-            File.Delete(Settings.Default.ServerLogicLogFilePath + "Session_" +
-                        sessionKey + ".txt");
-        }
-
-        /// <summary>
-        /// Deletes all Session-Files of the server.
-        /// </summary>
-        public static void DeleteAllSessionLogs()
-        {
-           
         }
     }
 }

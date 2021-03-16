@@ -586,60 +586,53 @@ namespace ServerLogic.Control
             }
             else
             {
-                if (parameterList[0] == "--clear")
+                switch (parameterList[0])
                 {
-                    ServerLogger.WipeLogFile();
-                    return "Logs were cleared.";
-                }
-                else if (parameterList[0] == "--setLevel")
-                {
-                    try
-                    {
-                        ServerLogger.SetLogLevel(Int16.Parse(parameterList[1]));
-                    }
-                    catch (System.FormatException)
-                    {
-                        ServerLogger.LogDebug(
-                            "Catched Format Exception which occurred by using: log --setLevel " + parameterList[1] +
-                            "\nCurrent LogLevel is " + Settings.Default.LogLevel + ".");
-                        return Resources.InvalidLogLevelMessage;
-                    }
-                    catch (System.IndexOutOfRangeException)
-                    {
-                        ServerLogger.LogDebug("Catched IndexOutOfRange Exception, caused by using 'log --setLevel' without a parameter.");
-                        return Resources.InvalidLogLevelMessage;
-                    }
+                    case "--clear":
+                        ServerLogger.WipeLogFile();
+                        return "Logs were cleared.";
+                    case "--setLevel":
+                        try
+                        {
+                            ServerLogger.SetLogLevel(short.Parse(parameterList[1]));
+                        }
+                        catch (System.FormatException)
+                        {
+                            ServerLogger.LogDebug(
+                                "Caught Format Exception which occurred by using: log --setLevel " + parameterList[1] +
+                                "\nCurrent LogLevel is " + Settings.Default.LogLevel + ".");
+                            return Resources.InvalidLogLevelMessage;
+                        }
+                        catch (System.IndexOutOfRangeException)
+                        {
+                            ServerLogger.LogDebug("Caught IndexOutOfRange Exception, caused by using 'log --setLevel' without a parameter.");
+                            return Resources.InvalidLogLevelMessage;
+                        }
 
-                    //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
-                    return "";
-                }
-                else if (parameterList[0]== "--setLogOutput")
-                {
-                    try
-                    {
-                        ServerLogger.ChangeLoggingOutputType(Int16.Parse(parameterList[1]));
-                    }
-                    catch (System.FormatException)
-                    {
-                        ServerLogger.LogDebug("Catched Format-Exception which occurred by using: log --setLogOutput " + parameterList[1] + "\nCurrent LogOutputType is " + Settings.Default.LogOutPutType + ".");
-                        return Resources.InvalidLoggingOutputType;
-                    }
-                    catch (System.IndexOutOfRangeException)
-                    {
-                        ServerLogger.LogDebug("Catched IndexOutOfRange-Exception, caused by using 'log --setLogOutput' without a parameter.");
-                        return Resources.InvalidLoggingOutputType;
-                    }
+                        //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
+                        return "";
+                    case "--setLogOutput":
+                        try
+                        {
+                            ServerLogger.ChangeLoggingOutputType(short.Parse(parameterList[1]));
+                        }
+                        catch (System.FormatException)
+                        {
+                            ServerLogger.LogDebug("Caught Format-Exception which occurred by using: log --setLogOutput " + parameterList[1] + "\nCurrent LogOutputType is " + Settings.Default.LogOutPutType + ".");
+                            return Resources.InvalidLoggingOutputType;
+                        }
+                        catch (System.IndexOutOfRangeException)
+                        {
+                            ServerLogger.LogDebug("Caught IndexOutOfRange-Exception, caused by using 'log --setLogOutput' without a parameter.");
+                            return Resources.InvalidLoggingOutputType;
+                        }
 
-                    //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
-                    return "";
-                }
-                else if (parameterList[0] == "--getLevel")
-                {
-                    return "Current LogLevel is "+ Settings.Default.LogLevel +".";
-                }
-                else
-                {
-                    return "Command not understood, use 'log --help' for more information.";
+                        //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
+                        return "";
+                    case "--getLevel":
+                        return "Current LogLevel is "+ Settings.Default.LogLevel +".";
+                    default:
+                        return "Command "+parameterList[0]+" is unknown, use 'log --help' for more information";
                 }
             }
         }
