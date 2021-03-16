@@ -46,7 +46,7 @@ public class StoryEvent
     /// Getter for the parent of a StoryEvent.
     /// </summary>
     /// <returns>The parent of the StoryEvent</returns>
-    public StroyEvent getParent()
+    public StoryEvent getParent()
     {
         return parent;
     }
@@ -67,6 +67,15 @@ public class StoryEvent
     public void addChild(StoryEvent child)
     {
         children.Add(child);
+    }
+
+    /// <summary>
+    /// Method to remove a child from a StoryEvent.
+    /// </summary>
+    /// <param name="child">The child that is removed.</param>
+    public void removeChild(StoryEvent child)
+    {
+        children.Remove(child);
     }
  
 }
