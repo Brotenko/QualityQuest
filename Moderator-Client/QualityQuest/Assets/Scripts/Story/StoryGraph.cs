@@ -51,9 +51,9 @@ public class StoryGraph
     /// Getter for the next possible StoryEvents
     /// </summary>
     /// <returns>The next possible StoryEvents as HashSet.</returns>
-    public Hashset<StoryEvent> getNextPossibleEvents()
+    public HashSet<StoryEvent> getNextPossibleEvents()
     {
-        return currentEvent.getChildren
+        return currentEvent.getChildren();
     }
 
     /// <summary>
