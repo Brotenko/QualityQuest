@@ -185,11 +185,11 @@ OPTIONS
 
 --setLevel 0-4
   Sets the logging level to: 
-        0 for Debug
-        1 for Information
-        2 for Warning
-        3 for Errors
-        4 for None.
+        0 for Debug, which means that debug, information, warning and error logs are saved and displayed.
+        1 for Information, which means that information, warning and error logs are saved and displayed.
+        2 for Warning, which means that warning and error logs are saved and displayed.
+        3 for Errors, which means that only error logs are saved and displayed.
+        4 for None, which means that no logs are saved and displayed.
 
 --getLevel
   Prints the current logging level.
