@@ -18,21 +18,6 @@ namespace ServerLogic.Model.Messages
         public Dictionary<string, int> Statistics { get; }
 
         /// <summary>
-        /// Constructs a new SessionClosedMessage with an empty debugMessage.
-        /// </summary>
-        /// 
-        /// <param name="moderatorId">The individual identifier assigned to the Moderator-Client. 
-        /// Only the Moderator-Client sends this id to the ServerLogic to identify itself. The 
-        /// ServerLogic leaves this field empty.</param>
-        /// 
-        /// <param name="statistics">Contains the id of the option as the key and the respective 
-        /// amount of received votes as the value.</param>
-        public SessionClosedMessage(Guid moderatorId, Dictionary<string, int> statistics) : this(moderatorId, statistics, "")
-        {
-            /* FALL THROUGH */
-        }
-
-        /// <summary>
         /// Constructs a new SessionClosedMessage.
         /// </summary>
         /// 
@@ -47,7 +32,7 @@ namespace ServerLogic.Model.Messages
         /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
         /// or an error occurring, information can be carried to the Moderator-Client directly for 
         /// quick access, without the need to search through the logs.</param>
-        public SessionClosedMessage(Guid moderatorId, Dictionary<string, int> statistics, string debugMessage) : base(moderatorId, MessageType.SessionClosed, debugMessage)
+        public SessionClosedMessage(Guid moderatorId, Dictionary<string, int> statistics) : base(moderatorId, MessageType.SessionClosed)
         {
             Statistics = statistics;
         }

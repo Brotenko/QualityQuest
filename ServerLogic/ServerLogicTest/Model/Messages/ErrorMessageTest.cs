@@ -24,22 +24,22 @@ namespace ServerLogicTests.Model.Messages
         private const string ErrorMessageText = "TestTestTest 123456";
 
         private readonly string expectedWrongPasswordErrorStringPattern = @"ErrorMessage \[<container>: MessageContainer \[ModeratorId: " + 
-            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], ErrorMessageType: " +
+            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], ErrorMessageType: " +
             WrongPasswordError + @", ErrorMessageText: " + ErrorMessageText + @"\]";
         private readonly string expectedUnknownGuidErrorStringPattern = @"ErrorMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], ErrorMessageType: " +
+            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], ErrorMessageType: " +
             UnknownGuidError + @", ErrorMessageText: " + ErrorMessageText + @"\]";
         private readonly string expectedIllegalPauseActionErrorStringPattern = @"ErrorMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], ErrorMessageType: " +
+            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], ErrorMessageType: " +
             IllegalPauseActionError + @", ErrorMessageText: " + ErrorMessageText + @"\]";
         private readonly string expectedSessionDoesNotExistErrorStringPattern = @"ErrorMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], ErrorMessageType: " +
+            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], ErrorMessageType: " +
             SessionDoesNotExistError + @", ErrorMessageText: " + ErrorMessageText + @"\]";
         private readonly string expectedNewModeratorErrorStringPattern = @"ErrorMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], ErrorMessageType: " +
+            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], ErrorMessageType: " +
             NewModeratorError + @", ErrorMessageText: " + ErrorMessageText + @"\]";
         private readonly string expectedIllegalMessageErrorStringPattern = @"ErrorMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], ErrorMessageType: " +
+            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], ErrorMessageType: " +
             IllegalMessageError + @", ErrorMessageText: " + ErrorMessageText + @"\]";
 
         /// <summary>

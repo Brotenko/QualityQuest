@@ -14,9 +14,9 @@ namespace ServerLogicTests.Model.Messages
     {
         private static readonly Guid testGuid = Guid.NewGuid();
         private readonly string expectedPauseStatusTrueTestStringPattern = @"GamePausedStatusMessage \[<container>: MessageContainer \[ModeratorId: " + 
-            testGuid + @", Type: GamePausedStatus, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], GamePaused: True\]";
+            testGuid + @", Type: GamePausedStatus, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], GamePaused: True\]";
         private readonly string expectedPauseStatusFalseTestStringPattern = @"GamePausedStatusMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: GamePausedStatus, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], GamePaused: False\]";
+            testGuid + @", Type: GamePausedStatus, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], GamePaused: False\]";
 
         /// <summary>
         /// Validates that the constructed message contains all the provided

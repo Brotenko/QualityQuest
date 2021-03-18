@@ -15,7 +15,7 @@ namespace ServerLogicTests.Model.Messages
         private const int TestAudienceCount = 20;
         private static readonly Guid testGuid = Guid.NewGuid();
         private readonly string expectedStringPattern = @"AudienceStatusMessage \[<container>: MessageContainer \[ModeratorId: " + testGuid + 
-            @", Type: AudienceStatus, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], AudienceCount: " + TestAudienceCount + @"\]";
+            @", Type: AudienceStatus, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}], AudienceCount: " + TestAudienceCount + @"\]";
 
         /// <summary>
         /// Validates that the assigned test-variable is the same before and after

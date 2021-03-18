@@ -31,7 +31,7 @@ namespace ServerLogicTests.Model.Messages
         private static readonly Uri testURL = new Uri("https://www.google.com/");
         //private static readonly Bitmap testQrCode = new Bitmap("");
         private readonly string expectedStringPattern = @"SessionOpenedMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: SessionOpened, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \], SessionKey: " + 
+            testGuid + @", Type: SessionOpened, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], SessionKey: " + 
             testKey + @", DirectURL: " + testURL + @", QrCode: \]";
 
         /// <summary>
