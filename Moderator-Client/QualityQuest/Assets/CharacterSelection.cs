@@ -10,6 +10,8 @@ public class CharacterSelection : MonoBehaviour
     public GameObject menu;
     public GameObject selectchar;
     public GameObject pauseMenu;
+    public GameObject decision;
+    public GameObject result;
 
     public GameObject pauseIcon;
     public GameObject timer;
