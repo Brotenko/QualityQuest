@@ -605,7 +605,14 @@ namespace ServerLogic.Control
                         }
                         catch (System.IndexOutOfRangeException)
                         {
-                            ServerLogger.LogDebug("Caught IndexOutOfRange Exception, caused by using 'log --setLevel' without a parameter.");
+                            ServerLogger.LogDebug(
+                                "Caught IndexOutOfRange Exception, caused by using 'log --setLevel' without a parameter.");
+                            return Resources.InvalidLogLevelMessage;
+                        }
+                        catch (System.OverflowException)
+                        {
+                            ServerLogger.LogDebug(
+                                "Caught Overflow Exception, caused by using 'log --setLevel' with a parameter to small or to big for short.");
                             return Resources.InvalidLogLevelMessage;
                         }
 
@@ -625,6 +632,12 @@ namespace ServerLogic.Control
                         {
                             ServerLogger.LogDebug("Caught IndexOutOfRange-Exception, caused by using 'log --setLogOutput' without a parameter.");
                             return Resources.InvalidLoggingOutputType;
+                        }
+                        catch (System.OverflowException)
+                        {
+                            ServerLogger.LogDebug(
+                                "Caught Overflow Exception, caused by using 'log --setLogOutput' with a parameter to small or to big for short.");
+                            return Resources.InvalidLogLevelMessage;
                         }
 
                         //return should be empty in case of wrong Input, which is handled inside ServerLogger class.

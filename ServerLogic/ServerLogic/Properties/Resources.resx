@@ -154,12 +154,12 @@ Use '&lt;command&gt; --help' to read about a specific command.</value>
    2 to do both</value>
   </data>
   <data name="InvalidLogLevelMessage" xml:space="preserve">
-    <value>LogLevel needs to be 
-   0 to display Debug Logs, or
-   1 to display Information Logs, or 
-   2 to display Warning Logs, or
-   3 to display Error Log, or
-   4 to disable any Logging.</value>
+    <value>LogLevel needs to  
+        0 for Debug, which means that debug, information, warning and error logs are saved and displayed.
+        1 for Information, which means that information, warning and error logs are saved and displayed.
+        2 for Warning, which means that warning and error logs are saved and displayed.
+        3 for Errors, which means that only error logs are saved and displayed.
+        4 for None, which means that no logs are saved and displayed.</value>
   </data>
   <data name="InvalidPasswordExceptionMessage" xml:space="preserve">
     <value>Please make sure to set a password that doesn't start with a dash ("-"), is at least 8 characters in length, but no more than 32, and satisfies 3 out of the following 4 rules:

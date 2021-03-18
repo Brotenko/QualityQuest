@@ -7,9 +7,6 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("ServerLogicTest")]
 
 namespace ServerLogic.Properties {
     
