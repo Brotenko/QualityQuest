@@ -5,8 +5,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ServerLogic.Control;
 using ServerLogic.Properties;
 
-//TODO refactor according to microsoft unit-test best practices
-
 
 namespace ServerLogicTest.Control
 {
