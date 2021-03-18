@@ -1,0 +1,2 @@
+[2021-03-17 11:47:35] [0] INFO: New Logger-Instance started. LogLevel is 0, LogOutputType is 2.
+[2021-03-17 19:36:39] [0] INFO: New Logger-Instance started. LogLevel is 0, LogOutputType is 2.
