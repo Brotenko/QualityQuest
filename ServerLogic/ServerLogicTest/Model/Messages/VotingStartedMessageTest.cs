@@ -15,7 +15,7 @@ namespace ServerLogicTests.Model.Messages
     {
         private static readonly Guid testGuid = Guid.NewGuid();
         private readonly string expectedStringPattern = @"VotingStartedMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: VotingStarted, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}, Debug: \]";
+            testGuid + @", Type: VotingStarted, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\]";
 
         /// <summary>
         /// Validates that the constructed message contains all the provided
