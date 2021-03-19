@@ -22,6 +22,7 @@ namespace ServerLogic.Control
         private readonly ServerShell serverShell;
         private bool serverIsRunning = false;
         private bool commandRequestsHelpMessage = false;
+        private ModeratorClientManager moderatorClientManager;
 
         public int Port
         {
@@ -473,6 +474,9 @@ namespace ServerLogic.Control
 
             // Need MainServerLogic first
             serverIsRunning = true;
+            //TODO: Might be refactored
+            moderatorClientManager = new ModeratorClientManager();
+            moderatorClientManager.StartWebsocket();
             return "The server has been started successfully with port: " + Port;
         }
 
@@ -485,6 +489,8 @@ namespace ServerLogic.Control
         private string StopServer()
         {
             // Need MainServerLogic first
+            //TODO: Might be refactored
+            moderatorClientManager.StopWebsocket();
             serverIsRunning = false;
             return "The server has been shut down successfully.";
         }

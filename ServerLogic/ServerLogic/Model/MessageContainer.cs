@@ -10,7 +10,7 @@ namespace ServerLogic.Model
 {
     /// <summary>
     /// Defines the container format for a message. All following fields can be found in every network 
-    /// message, whereas a debugMessage is purely optional.
+    /// message.
     /// </summary>
     public class MessageContainer
     {

@@ -1,28 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using Aspose.BarCode.Generation;
 using Newtonsoft.Json;
 using ServerLogic.Model.Messages;
 using Fleck;
+using ServerLogic.Model;
 
 namespace ServerLogic.Control
 {
     class ModeratorClientManager
     {
-        void startWebsocket()
+        //TODO move to settings, same for WebSocket port and Homepage port
+        public static Uri serverURL = new Uri("127.0.0.1");
+        //TODO maybe refactor/rename/both
+        private class ModeratorClientAttributes
         {
-            var allsockets = new List<IWebSocketConnection>();
-            //var server = new WebSocketServer("wss://127.0.0.1:8181");
-            var server = new WebSocketServer("ws://127.0.0.1:8181");
+            public Guid moderatorGuid;
+            public string sessionkey;
+
+            public ModeratorClientAttributes(Guid moderatorGuid, string sessionkey)
+            {
+                this.moderatorGuid = moderatorGuid;
+                this.sessionkey = sessionkey;
+            }
+        }
+        private List<IWebSocketConnection> allsockets = new List<IWebSocketConnection>();
+        private Dictionary<IWebSocketConnection,ModeratorClientAttributes> socketToModerator = new Dictionary<IWebSocketConnection, ModeratorClientAttributes>();
+        private WebSocketServer server = new WebSocketServer("ws://"+serverURL+":8181");
+
+        public void StopWebsocket()
+        {
+            foreach (var connection in allsockets)
+            {
+                //connection.Send(SessionClosedMessage);
+                connection.Close();
+            }
+            //todo: necessary?
+            //server.Dispose();
+        }
+        public void StartWebsocket()
+        {
             //TODO: this certificate is for testing purposes only and should never ever be used in an actual deployment!
             //server.Certificate = new X509Certificate2("..\\..\\..\\TestCert.pfx", "thisIsForTestingOnly");
             server.Start(socket =>
             {
                 socket.OnOpen = () =>
                 {
+                    //todo Use ServerLogger for all Console
                     Console.WriteLine("Open!");
                     Console.WriteLine("Header: " + socket.ConnectionInfo.Headers);
                     Console.WriteLine("IP: " + socket.ConnectionInfo.ClientIpAddress);
@@ -37,12 +66,11 @@ namespace ServerLogic.Control
                 socket.OnMessage = message =>
                 {
                     Console.WriteLine($"OnMessage {message}");
-                    socket.Send(checkStringMessage(message, socket));
+                    socket.Send(CheckStringMessage(message, socket));
                 };
                 socket.OnBinary = bytes =>
                 {
                     Console.WriteLine($"OnBinary {Encoding.UTF8.GetString(bytes)}");
-                    //socket.Send(checkByteMessage(bytes, socket));
                 };
                 socket.OnError = exception =>
                     Console.WriteLine($"OnError {exception.Message}");
@@ -51,52 +79,104 @@ namespace ServerLogic.Control
                 socket.OnPong = bytes =>
                     Console.WriteLine("OnPong");
             });
+        }
 
-            var input = Console.ReadLine();
-            while (input != "exit")
+        private string CheckStringMessage(string message, IWebSocketConnection socket)
+        {
+            try
             {
-                foreach (IWebSocketConnection socket in allsockets)
+                MessageContainer messageContainer = 
+                    JsonConvert.DeserializeObject<MessageContainer>(message);
+                switch (messageContainer.Type)
                 {
-                    //standard socket raw send method
-                    socket.Send(input);
+                    //  ######## Initialization  ######## 
+                    case MessageType.RequestOpenSession:
+                        RequestOpenSessionMessage openSessionMessage =
+                            JsonConvert.DeserializeObject<RequestOpenSessionMessage>(message);
+                        //TODO: Check password
+                        //TODO: build a sessionKey-Generator
+                        //TODO: deal somehow with the currently unknown URL of the Homepage
+                        //after pw confirmation, add GUID in a list to the corresponding socket an send a 'SessionOpenedMessage'
+                        //check pw
+                        //if(pw ok?){
+                        socketToModerator.Add(socket, new ModeratorClientAttributes(openSessionMessage.ModeratorID, GenereateSessionKey(openSessionMessage.ModeratorID)));
+                        //ServerLogger.LogInformation("Current IP: "+server.Location);
+                        socket.Send(JsonConvert.SerializeObject(new SessionOpenedMessage(socketToModerator[socket].moderatorGuid, socketToModerator[socket].sessionkey, new Uri(serverURL+"7777"), GenerateQR())));
+                        //} else { socket.Close();}
+                        break;
+                    case MessageType.RequestServerStatus:
+                        RequestServerStatusMessage serverStatusMessage =
+                            JsonConvert.DeserializeObject<RequestServerStatusMessage>(message);
+                        socket.Send(JsonConvert.SerializeObject(new ServerStatusMessage(socketToModerator[socket].moderatorGuid)));
+                        break;
+                    case MessageType.Reconnect:
+                        ReconnectMessage reconnectMessage = 
+                            JsonConvert.DeserializeObject<ReconnectMessage>(message);
+                        foreach (KeyValuePair<WebSocketConnection, ModeratorClientAttributes> entry in socketToModerator)
+                        {
+                            if (entry.Value.moderatorGuid.Equals(reconnectMessage.ModeratorID))
+                            {
+                                entry.Key = socket;
+                                socket.Send(JsonConvert.SerializeObject(new ReconnectSuccessfulMessage(entry.Value.moderatorGuid)));
+                            }
+                        }
+                        break;
+                    case MessageType.RequestGameStart:
+                        RequestGameStartMessage gameStartMessage =
+                            JsonConvert.DeserializeObject<RequestGameStartMessage>(message);
+                        break;
+                    // ######## Voting ######## 
+                    case MessageType.RequestStartVoting:
+                        RequestStartVotingMessage startVotingMessage =
+                            JsonConvert.DeserializeObject<RequestStartVotingMessage>(message);
+                        break;
+                    // ######## Control messages ########
+                    case MessageType.RequestGamePausedStatusChange:
+                        RequestGamePausedStatusChangeMessage gamePausedStatusChange =
+                            JsonConvert.DeserializeObject<RequestGamePausedStatusChangeMessage>(message);
+                        break;
+                    // ######## Postgame ########
+                    case MessageType.RequestCloseSession:
+                        RequestCloseSessionMessage closeSessionMessage =
+                            JsonConvert.DeserializeObject<RequestCloseSessionMessage>(message);
+                        break;
+                    // unknown Messagetype
+                    default:
+                        //socket.Close();
+                        //DebugLog
+                        break;
+
                 }
-
-                input = Console.ReadLine();
             }
-        }
-
-        private string checkStringMessage(string message, IWebSocketConnection socket)
-        {
-            if (message.Contains("Hello"))
+            catch (JsonSerializationException jsonSerializationException)
             {
-                Console.WriteLine("Responded Hello");
-                return "Hello back!";
+                //Todo Debug-Log
             }
-            else
+            catch (Exception exception)
             {
-                // GameStartedMessage gameStartedMessage = new GameStartedMessage(new Guid());
-                // gameStartedMessage = JsonConvert.DeserializeObject<GameStartedMessage>(message, settings);
-
-                GameStartedMessage gameStartedMessage = JsonConvert.DeserializeObject<GameStartedMessage>(message);
-                //MessageContainer messageContainer = JsonConvert.DeserializeObject<MessageContainer>(message);
-                //HelloMessage helloMessage = JsonConvert.DeserializeObject<HelloMessage>(message);
-                //Console.WriteLine(helloMessage.name);
-                Console.WriteLine("String:\n" + gameStartedMessage.ToString());
-                Console.WriteLine("Received Guid: " + gameStartedMessage.ModeratorID);
-                Console.WriteLine("Im fine");
+                //Todo Warning-Log (unexpected Exception e)
             }
 
             return "";
         }
 
-        private string checkByteMessage(byte[] messageBytes, IWebSocketConnection socket)
+        /// <summary>
+        /// Generates a semi-random sessionkey which starts with a part of the corresponding ModeratorGuid.
+        /// </summary>
+        /// <param name="moderatorGuid"></param>
+        /// <returns>A sessionkey.</returns>
+        private string GenereateSessionKey(Guid moderatorGuid)
         {
-            GameStartedMessage gameStartedMessage =
-                JsonConvert.DeserializeObject<GameStartedMessage>(Encoding.UTF8.GetString(messageBytes));
-            Console.WriteLine("Bytes:\n" + gameStartedMessage.ToString());
-            Console.WriteLine("Received Guid: " + gameStartedMessage.ModeratorID);
-            Console.WriteLine("Im fine");
-            return "";
+            var rand = new Random();
+            return moderatorGuid.ToString().Split(":")[0] +rand.Next(1000,9999).ToString();
+        }
+
+        private Bitmap GenerateQR()
+        {
+            //TODO get serverURL and port from resource file
+            BarcodeGenerator generator = new BarcodeGenerator(EncodeTypes.QR, serverURL + "7777");
+            generator.Parameters.Resolution = 800;
+            return generator.GenerateBarCodeImage();
         }
     }
 }

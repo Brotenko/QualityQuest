@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspose.BarCode" Version="21.3.0" />
     <PackageReference Include="Fleck" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="QRCoder" Version="1.4.1" />
