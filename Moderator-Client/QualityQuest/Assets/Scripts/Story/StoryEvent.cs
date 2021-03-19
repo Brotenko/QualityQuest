@@ -67,6 +67,7 @@ public class StoryEvent
     public void addChild(StoryEvent child)
     {
         children.Add(child);
+        child.parent = this;
     }
 
     /// <summary>
@@ -76,6 +77,7 @@ public class StoryEvent
     public void removeChild(StoryEvent child)
     {
         children.Remove(child);
+        child.parent = null;
     }
  
 }
