@@ -3,6 +3,8 @@ using ServerLogic.Model;
 using System;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.CodeCoverage;
+using Pose;
+using Shim = Pose.Shim;
 
 namespace ServerLogicTests.Model.Messages
 {
@@ -50,16 +52,26 @@ namespace ServerLogicTests.Model.Messages
         [TestMethod]
         public void CreationDateTest()
         {
-            //MessageContainer m_1 = new MessageContainer(testGuid, testType);
-            //MessageContainer m_2 = new MessageContainer(testGuid, testType, testDate, "");
+            //As Date ist set inside the MessageContainer-Class, we mock with Pose the DateTime.Now-Method and set it to always return the Value in 'testDateTime'
+            DateTime testDateTime = new DateTime(2012, 12, 21, 11, 50, 0);
+            Shim dateTimeShim = Shim.Replace(() => DateTime.Now).With(() => testDateTime);
+
+            // Objects initialized inside PoseContext.Isolate won't be visible outside of it, so we override already initialized Objects,
+            // as Assert sadly doesn't seem to work inside PoseContext.Isolate.
             MessageContainer m_1 = new MessageContainer(testGuid, testType);
             MessageContainer m_2 = new MessageContainer(testGuid, testType);
+
+            PoseContext.Isolate(() =>
+            {
+                m_1 = new MessageContainer(testGuid, testType);
+                m_2 = new MessageContainer(testGuid, testType);
+            }, dateTimeShim);
 
             Assert.IsNotNull(m_1.CreationDate);
             Assert.IsInstanceOfType(m_1.CreationDate, typeof(DateTime));
 
             Assert.IsNotNull(m_2.CreationDate);
-            Assert.AreEqual(m_2.CreationDate, DateTime.Now);
+            Assert.AreEqual(m_2.CreationDate, testDateTime);
         }
 
 
