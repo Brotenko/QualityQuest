@@ -17,23 +17,6 @@ namespace ServerLogic.Model.Messages
         public string ErrorMessageText { get; }
 
         /// <summary>
-        /// Constructs a new ErrorMessage with an empty debugMessage.
-        /// </summary>
-        /// 
-        /// <param name="moderatorId">The individual identifier assigned to the Moderator-Client. 
-        /// Only the Moderator-Client sends this id to the ServerLogic to identify itself. The 
-        /// ServerLogic leaves this field empty.</param>
-        /// 
-        /// <param name="errorMessageType">Specifies the reason for the occurred error.</param>
-        /// 
-        /// <param name="errorMessageText">Optional, more detailed description of the occurred 
-        /// error.</param>
-        public ErrorMessage(Guid moderatorId, ErrorType errorMessageType, string errorMessageText) : this(moderatorId, errorMessageType, errorMessageText, "")
-        {
-            /* FALL THROUGH */
-        }
-
-        /// <summary>
         /// Constructs a new ErrorMessage.
         /// </summary>
         /// 
@@ -50,7 +33,7 @@ namespace ServerLogic.Model.Messages
         /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
         /// or an error occurring, information can be carried to the Moderator-Client directly for 
         /// quick access, without the need to search through the logs.</param>
-        public ErrorMessage(Guid moderatorId, ErrorType errorMessageType, string errorMessageText, string debugMessage) : base(moderatorId, MessageType.Error, debugMessage)
+        public ErrorMessage(Guid moderatorId, ErrorType errorMessageType, string errorMessageText) : base(moderatorId, MessageType.Error)
         {
             ErrorMessageType = errorMessageType;
             ErrorMessageText = errorMessageText;

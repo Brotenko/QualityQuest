@@ -13,18 +13,6 @@ namespace ServerLogic.Model.Messages
     public class RequestGameStartMessage : MessageContainer
     {
         /// <summary>
-        /// Constructs a new RequestGameStartMessage with an empty debugMessage.
-        /// </summary>
-        /// 
-        /// <param name="moderatorId">The individual identifier assigned to the Moderator-Client. 
-        /// Only the Moderator-Client sends this id to the ServerLogic to identify itself. The 
-        /// ServerLogic leaves this field empty.</param>
-        public RequestGameStartMessage(Guid moderatorId) : this(moderatorId, "")
-        {
-            /* FALL THROUGH */
-        }
-
-        /// <summary>
         /// Constructs a new RequestGameStartMessage.
         /// </summary>
         /// 
@@ -36,7 +24,7 @@ namespace ServerLogic.Model.Messages
         /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
         /// or an error occurring, information can be carried to the Moderator-Client directly for 
         /// quick access, without the need to search through the logs.</param>
-        public RequestGameStartMessage(Guid moderatorId, string debugMessage) : base(moderatorId, MessageType.RequestGameStart, debugMessage)
+        public RequestGameStartMessage(Guid moderatorId) : base(moderatorId, MessageType.RequestGameStart)
         {
             /* FALL THROUGH */
         }
