@@ -1,4 +1,3 @@
-using ServerLogic.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -6,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServerLogic.Model
+namespace MessageContainer
 {
     /// <summary>
     /// Defines the container format for a message. All following fields can be found in every network 
@@ -45,4 +44,6 @@ namespace ServerLogic.Model
                 "]";
         }
     }
+
+   
 }
