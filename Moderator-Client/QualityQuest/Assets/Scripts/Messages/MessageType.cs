@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServerLogic.Model
+namespace MessageContainer
 {
     /// <summary>
     /// Lists all message types. The structuring by comments is only for overview and has no semantic 

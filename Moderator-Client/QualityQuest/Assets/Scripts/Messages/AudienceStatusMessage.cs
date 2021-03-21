@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServerLogic.Model.Messages
+namespace MessageContainer.Messages
 {
     /// <summary>
     /// This message is sent from the ServerLogic to Moderator-Client every 3 seconds to 

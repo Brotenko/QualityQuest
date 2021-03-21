@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServerLogic.Model.Messages
+namespace MessageContainer.Messages
 {
     /// <summary>
     /// This message is sent from the ServerLogic to the Moderator-Client in response 
