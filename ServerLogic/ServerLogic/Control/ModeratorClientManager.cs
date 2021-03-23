@@ -10,13 +10,13 @@ using Newtonsoft.Json;
 using ServerLogic.Model.Messages;
 using Fleck;
 using ServerLogic.Model;
+using ServerLogic.Properties;
 
 namespace ServerLogic.Control
 {
     class ModeratorClientManager
     {
         //TODO move to settings, same for WebSocket port and Homepage port
-        public static string serverURL = "127.0.0.1";
         //TODO maybe refactor/rename/both
         private class ModeratorClientAttributes
         {
@@ -29,9 +29,9 @@ namespace ServerLogic.Control
                 this.sessionkey = sessionkey;
             }
         }
-        private List<IWebSocketConnection> allsockets = new List<IWebSocketConnection>();
-        private Dictionary<IWebSocketConnection,ModeratorClientAttributes> socketToModerator = new Dictionary<IWebSocketConnection, ModeratorClientAttributes>();
-        private WebSocketServer server = new WebSocketServer("ws://"+serverURL+":8181");
+        private List<IWebSocketConnection> allsockets = new();
+        private Dictionary<IWebSocketConnection,ModeratorClientAttributes> socketToModerator = new();
+        private WebSocketServer server = new("ws://"+Settings.Default.ServerURL+":"+Settings.Default.MCWebSocketPort);
 
         public void StopWebsocket()
         {
@@ -46,38 +46,35 @@ namespace ServerLogic.Control
         public void StartWebsocket()
         {
             //TODO: this certificate is for testing purposes only and should never ever be used in an actual deployment!
-            //server.Certificate = new X509Certificate2("..\\..\\..\\TestCert.pfx", "thisIsForTestingOnly");
+            //server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, "thisIsForTestingOnly");
             server.Start(socket =>
             {
                 socket.OnOpen = () =>
                 {
                     //todo Use ServerLogger for all Console
-                    Console.WriteLine("Open!");
-                    Console.WriteLine("Header: " + socket.ConnectionInfo.Headers);
-                    Console.WriteLine("IP: " + socket.ConnectionInfo.ClientIpAddress);
-                    Console.WriteLine("SubProtocol: " + socket.ConnectionInfo.NegotiatedSubProtocol);
+                    ServerLogger.LogDebug("WebSocket-connection to " + socket.ConnectionInfo.ClientIpAddress + " established.\nHeader: " + socket.ConnectionInfo.Headers+
+                    "\nIP: " + socket.ConnectionInfo.ClientIpAddress+"\nSubProtocol: " + socket.ConnectionInfo.NegotiatedSubProtocol);
                     allsockets.Add(socket);
                 };
                 socket.OnClose = () =>
                 {
-                    Console.WriteLine("Close!");
+                    ServerLogger.LogDebug("Websocket-connection to "+socket.ConnectionInfo.ClientIpAddress+" was closed.");
                     allsockets.Remove(socket);
                 };
                 socket.OnMessage = message =>
                 {
-                    Console.WriteLine($"OnMessage {message}");
                     socket.Send(CheckStringMessage(message, socket));
                 };
                 socket.OnBinary = bytes =>
                 {
-                    Console.WriteLine($"OnBinary {Encoding.UTF8.GetString(bytes)}");
+                    ServerLogger.LogDebug($"OnBinary {Encoding.UTF8.GetString(bytes)}");
                 };
                 socket.OnError = exception =>
-                    Console.WriteLine($"OnError {exception.Message}");
+                   ServerLogger.LogInformation($"OnError {exception.Message}");
                 socket.OnPing = bytes =>
-                    Console.WriteLine("OnPing");
+                    ServerLogger.LogInformation("OnPing");
                 socket.OnPong = bytes =>
-                    Console.WriteLine("OnPong");
+                    ServerLogger.LogInformation("OnPong");
             });
         }
 
@@ -94,87 +91,88 @@ namespace ServerLogic.Control
                         RequestOpenSessionMessage openSessionMessage =
                             JsonConvert.DeserializeObject<RequestOpenSessionMessage>(message);
                         //TODO: Check password
-                        //TODO: build a sessionKey-Generator
-                        //TODO: deal somehow with the currently unknown URL of the Homepage
                         //after pw confirmation, add GUID in a list to the corresponding socket an send a 'SessionOpenedMessage'
                         //check pw
                         //if(pw ok?){
-                        socketToModerator.Add(socket, new ModeratorClientAttributes(openSessionMessage.ModeratorID, GenereateSessionKey(openSessionMessage.ModeratorID)));
+                        socketToModerator.Add(socket, new ModeratorClientAttributes(openSessionMessage.ModeratorID, GenerateSessionKey(openSessionMessage.ModeratorID)));
                         //ServerLogger.LogInformation("Current IP: "+server.Location);
-                        socket.Send(JsonConvert.SerializeObject(new SessionOpenedMessage(socketToModerator[socket].moderatorGuid, socketToModerator[socket].sessionkey, new Uri(serverURL+"7777"), GenerateQR())));
-                        //} else { socket.Close();}
-                        break;
+                        return JsonConvert.SerializeObject(new SessionOpenedMessage(socketToModerator[socket].moderatorGuid, socketToModerator[socket].sessionkey, new Uri($"https://{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}"), GenerateQR()));
+                        //} else { socket.Close();
+
                     //Is sent multiple times after MC lost connection to server
                     case MessageType.RequestServerStatus:
                         RequestServerStatusMessage serverStatusMessage =
                             JsonConvert.DeserializeObject<RequestServerStatusMessage>(message);
-                        socket.Send(JsonConvert.SerializeObject(new ServerStatusMessage(socketToModerator[socket].moderatorGuid)));
-                        break;
+                        return (JsonConvert.SerializeObject(new ServerStatusMessage(socketToModerator[socket].moderatorGuid)));
+
                     //To reestablish a lost connection
                     case MessageType.Reconnect:
                         ReconnectMessage reconnectMessage = 
                             JsonConvert.DeserializeObject<ReconnectMessage>(message);
-                        foreach (var entry in socketToModerator)
+                        //searches for the ModeratorID in the previous connections, and replaces the socket in the entry with the current one.
+                        foreach (var (key, value) in socketToModerator)
                         {
-                            if (entry.Value.moderatorGuid.Equals(reconnectMessage.ModeratorID))
+                            if (value.moderatorGuid.Equals(reconnectMessage.ModeratorID))
                             {
-                                socketToModerator.Add(socket, new ModeratorClientAttributes(entry.Value.moderatorGuid, entry.Value.sessionkey));
-                                socketToModerator.Remove(entry.Key);
-                                socket.Send(JsonConvert.SerializeObject(new ReconnectSuccessfulMessage(entry.Value.moderatorGuid)));
+                                socketToModerator.Add(socket, new ModeratorClientAttributes(value.moderatorGuid, value.sessionkey));
+                                socketToModerator.Remove(key);
+                                return (JsonConvert.SerializeObject(new ReconnectSuccessfulMessage(value.moderatorGuid)));
                             }
                         }
                         break;
+
                     //Is sent to request the start of the current Online-Session
                     case MessageType.RequestGameStart:
                         RequestGameStartMessage gameStartMessage =
                             JsonConvert.DeserializeObject<RequestGameStartMessage>(message);
-                        socket.Send(JsonConvert.SerializeObject(new GameStartedMessage(gameStartMessage.ModeratorID)));
-                        break;
+                        return (JsonConvert.SerializeObject(new GameStartedMessage(gameStartMessage.ModeratorID)));
+ 
                     // ######## Voting ######## 
                     case MessageType.RequestStartVoting:
                         RequestStartVotingMessage startVotingMessage =
                             JsonConvert.DeserializeObject<RequestStartVotingMessage>(message);
                         //TODO start voting process (needs PA-Client)
-                        socket.Send(JsonConvert.SerializeObject(new VotingStartedMessage(startVotingMessage.ModeratorID)));
-                        //wait for voting to end, maybe use await or similar
-                        //socket.Send(JsonConvert.SerializeObject(new VotingEndedMessage(,,)));
-                        break;
+                        return (JsonConvert.SerializeObject(new VotingStartedMessage(startVotingMessage.ModeratorID)));
+                        //wait for voting to end, maybe use await/task or similar
+                        //await socket.Send(JsonConvert.SerializeObject(new VotingEndedMessage(,,)));
+
                     // ######## Control messages ########
                     case MessageType.RequestGamePausedStatusChange:
                         RequestGamePausedStatusChangeMessage gamePausedStatusChange =
                             JsonConvert.DeserializeObject<RequestGamePausedStatusChangeMessage>(message);
                         //TODO: pause game if true, continue if false
-                        socket.Send(JsonConvert.SerializeObject(
+                        return (JsonConvert.SerializeObject(
                             new GamePausedStatusMessage(gamePausedStatusChange.ModeratorID,
                                 gamePausedStatusChange.GamePaused)));
-                        break;
+
                     // ######## Postgame ########
                     case MessageType.RequestCloseSession:
                         RequestCloseSessionMessage closeSessionMessage =
                             JsonConvert.DeserializeObject<RequestCloseSessionMessage>(message);
                         //todo: send the statistics back (needs PA-Client)
-                        //socket.Send(
+                        //return(
                         //    JsonConvert.SerializeObject(new SessionClosedMessage(closeSessionMessage.ModeratorID,)));
                         //socketToModerator.Remove(socket);
                         //socket.Close();
                         break;
+
                     // unknown Messagetype
                     default:
-                        //todo delete socket from socketToModerator dict?
-                        //socketToModerator.Remove(socket);
+                        //todo always end the session if the message type is incorrect?
+                        if (socketToModerator.ContainsKey(socket))socketToModerator.Remove(socket);
+                        ServerLogger.LogDebug($"Corrupted Messagetype: {typeof(MessageType)}.");
                         socket.Close();
-                        //DebugLog
                         break;
 
                 }
             }
             catch (JsonSerializationException jsonSerializationException)
             {
-                //Todo Debug-Log
+                ServerLogger.LogDebug($"Exception occured on json-serialization: {jsonSerializationException}.");
             }
             catch (Exception exception)
             {
-                //Todo Warning-Log (unexpected Exception e)
+                ServerLogger.LogWarning($"Unexpected Exception occured: {exception}.");
             }
 
             return "";
@@ -185,7 +183,7 @@ namespace ServerLogic.Control
         /// </summary>
         /// <param name="moderatorGuid"></param>
         /// <returns>A sessionkey.</returns>
-        private string GenereateSessionKey(Guid moderatorGuid)
+        private string GenerateSessionKey(Guid moderatorGuid)
         {
             var rand = new Random();
             return moderatorGuid.ToString().Split(":")[0] +rand.Next(1000,9999).ToString();
@@ -194,7 +192,7 @@ namespace ServerLogic.Control
         private Bitmap GenerateQR()
         {
             //TODO get serverURL and port from resource file
-            BarcodeGenerator generator = new BarcodeGenerator(EncodeTypes.QR, serverURL + "7777");
+            BarcodeGenerator generator = new(EncodeTypes.QR, $"{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}");
             generator.Parameters.Resolution = 800;
             return generator.GenerateBarCodeImage();
         }

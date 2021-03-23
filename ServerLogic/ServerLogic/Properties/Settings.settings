@@ -9,10 +9,19 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="LogFilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">..//..//..//Properties//Log.txt</Value>
+      <Value Profile="(Default)">Log.txt</Value>
     </Setting>
-    <Setting Name="ServerLogicLogFilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">..//..//..//Properties//ServerLogicLogs</Value>
+    <Setting Name="ServerURL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">127.0.0.1</Value>
+    </Setting>
+    <Setting Name="PAWebPagePort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">7777</Value>
+    </Setting>
+    <Setting Name="MCWebSocketPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">8181</Value>
+    </Setting>
+    <Setting Name="CertFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//Certs//TestCert.pfx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

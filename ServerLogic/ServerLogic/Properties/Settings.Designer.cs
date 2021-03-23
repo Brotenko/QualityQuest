@@ -8,14 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Runtime.CompilerServices;
-[assembly: InternalsVisibleTo("ServerLogicTest")]
-namespace ServerLogic.Properties
-{
+namespace ServerLogic.Properties {
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-
+    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
         public static Settings Default {
@@ -50,7 +49,7 @@ namespace ServerLogic.Properties
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("..//..//..//Properties//Log.txt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Log.txt")]
         public string LogFilePath {
             get {
                 return ((string)(this["LogFilePath"]));
@@ -62,13 +61,49 @@ namespace ServerLogic.Properties
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("..//..//..//Properties//ServerLogicLogs")]
-        public string ServerLogicLogFilePath {
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
+        public string ServerURL {
             get {
-                return ((string)(this["ServerLogicLogFilePath"]));
+                return ((string)(this["ServerURL"]));
             }
             set {
-                this["ServerLogicLogFilePath"] = value;
+                this["ServerURL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7777")]
+        public string PAWebPagePort {
+            get {
+                return ((string)(this["PAWebPagePort"]));
+            }
+            set {
+                this["PAWebPagePort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8181")]
+        public string MCWebSocketPort {
+            get {
+                return ((string)(this["MCWebSocketPort"]));
+            }
+            set {
+                this["MCWebSocketPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("//Certs//TestCert.pfx")]
+        public string CertFilePath {
+            get {
+                return ((string)(this["CertFilePath"]));
+            }
+            set {
+                this["CertFilePath"] = value;
             }
         }
     }
