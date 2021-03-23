@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using PAClient;
 using System.Threading.Tasks;
 
@@ -70,14 +71,14 @@ namespace PAClientTest
             PABackend p = PABackend.DebugPABackend(testPort);
 
             PABackend.PAVotingResults.AddSessionKey(testKey_1);
-            Assert.AreNotEqual(0, p.GetSessionKeys().Length);
+            Assert.AreEqual(1, p.GetSessionKeys().Length);
             Assert.AreEqual(testKey_1, p.GetSessionKeys()[0]);
         }
 
         /************************ StartNewSession Test ****************************/
 
         /// <summary>
-        /// Validates that the <see cref="PABackend.GetSessionKeys"/> method
+        /// Validates that the <see cref="PABackend.StartNewSession"/> method
         /// works correctly when given a valid input.
         /// </summary>
         [TestMethod]
@@ -149,7 +150,18 @@ namespace PAClientTest
         {
             PABackend p = PABackend.DebugPABackend(testPort);
 
-            p.DebugCreatePageContent(testPrompt_Valid_1, testOptions_Valid_1);
+            string pageContent = p.DebugCreatePageContent(testPrompt_Valid_1, testOptions_Valid_1);
+            string toCompare = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
+                                 testPrompt_Valid_1.Value +
+                               "</div>" +
+                               "<div id=\"voting-container\" class=\"voting-container\">" +
+                               "<input type=\"button\" id=\"choice-1\" name=\"" + testOptions_Valid_1[0].Key + "\" class=\"input-button voting-container-4items-1\" value=\"" + testOptions_Valid_1[0].Value + "\" />" +
+                               "<input type=\"button\" id=\"choice-2\" name=\"" + testOptions_Valid_1[1].Key + "\" class=\"input-button voting-container-4items-2\" value=\"" + testOptions_Valid_1[1].Value + "\" />" +
+                               "<input type=\"button\" id=\"choice-3\" name=\"" + testOptions_Valid_1[2].Key + "\" class=\"input-button voting-container-4items-3\" value=\"" + testOptions_Valid_1[2].Value + "\" />" +
+                               "<input type=\"button\" id=\"choice-4\" name=\"" + testOptions_Valid_1[3].Key + "\" class=\"input-button voting-container-4items-4\" value=\"" + testOptions_Valid_1[3].Value + "\" />" +
+                               "</div>";
+
+            Assert.AreEqual(toCompare, pageContent);
         }
 
         /// <summary>
@@ -587,11 +599,20 @@ namespace PAClientTest
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
-        public void GetVotingResult_ValidInputTest()
+        public async Task GetVotingResult_ValidInputTest()
         {
             PABackend p = PABackend.DebugPABackend(testPort);
+            p.StartNewSession(testKey_1);
+            p.StartNewSession(testKey_2);
+            await p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
 
-            // TODO
+            Dictionary<KeyValuePair<Guid, string>, int> retrievedValues = p.GetVotingResult(testKey_1, testPrompt_Valid_1);
+
+            Assert.IsNotNull(retrievedValues);
+            Assert.AreEqual(testOptions_Valid_1.ElementAt(0), retrievedValues.Keys.ElementAt(0));
+            Assert.AreEqual(testOptions_Valid_1.ElementAt(1), retrievedValues.Keys.ElementAt(1));
+            Assert.AreEqual(testOptions_Valid_1.ElementAt(2), retrievedValues.Keys.ElementAt(2));
+            Assert.AreEqual(testOptions_Valid_1.ElementAt(3), retrievedValues.Keys.ElementAt(3));
         }
 
         /// <summary>

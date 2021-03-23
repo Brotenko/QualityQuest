@@ -501,7 +501,6 @@ namespace PAClient
             string ret = "";
 
             string promptString = prompt.Value;
-            //string[] optionsStrings = options.SelectMany(keyValuePair => keyValuePair.Values.Select(key => key)).Distinct().ToArray();
             string[] optionsStrings = options.Select(kvp => kvp.Value).ToArray();
             Guid[] optionsGuids = options.Select(kvp => kvp.Key).ToArray();
 

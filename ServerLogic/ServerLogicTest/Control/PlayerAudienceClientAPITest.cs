@@ -324,12 +324,14 @@ namespace ServerLogicTests.Control
         /// </summary>
         [TestMethod]
         [TestCategory("GetVotingResult")]
-        public void GetVotingResult_ValidInputTest()
+        public async Task GetVotingResult_ValidInputTestAsync()
         {
             p = new PlayerAudienceClientAPI();
             p.DebugStartServer(testPort);
+            p.StartNewSession(testKey_1);
+            await p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
 
-            // TODO
+            Assert.IsNotNull(p.GetVotingResult(testKey_1, testPrompt_Valid_1));
         }
 
         /// <summary>

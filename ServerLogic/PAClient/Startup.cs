@@ -63,7 +63,6 @@ namespace PAClient
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                // 
                 endpoints.MapHub<ServerHub>("/serverhub");
             });
         }
