@@ -143,10 +143,23 @@ These are commands that can be used in various situations:
   start      Start the server
   stop       Stop the server
   log        Show the logs
-  clear      Clear the logs
   exit       Exit the shell
 
 Use '&lt;command&gt; --help' to read about a specific command.</value>
+  </data>
+  <data name="InvalidLoggingOutputType" xml:space="preserve">
+    <value>OutputType needs to be
+   0 to write logs into a file
+   1 to print logs into the console
+   2 to do both</value>
+  </data>
+  <data name="InvalidLogLevelMessage" xml:space="preserve">
+    <value>LogLevel needs to  
+        0 for Debug, which means that debug, information, warning and error logs are saved and displayed.
+        1 for Information, which means that information, warning and error logs are saved and displayed.
+        2 for Warning, which means that warning and error logs are saved and displayed.
+        3 for Errors, which means that only error logs are saved and displayed.
+        4 for None, which means that no logs are saved and displayed.</value>
   </data>
   <data name="InvalidPasswordExceptionMessage" xml:space="preserve">
     <value>Please make sure to set a password that doesn't start with a dash ("-"), is at least 8 characters in length, but no more than 32, and satisfies 3 out of the following 4 rules:
@@ -159,16 +172,33 @@ Use '&lt;command&gt; --help' to read about a specific command.</value>
     <value>Please make sure the port is an integer between 1024 and 65535.</value>
   </data>
   <data name="LogHelpMessage" xml:space="preserve">
-    <value>usage: log [--clear] [--help]
+    <value>usage: log [--clear] [--setLevel 0-4] [--getLevel] [--setLogOutput] [--help]
 
 DESCRIPTON
 
-TODO
+log is used to configure the output of the ServerLogger.
 
 OPTIONS
 
 --clear
   Clears the log file(s).
+
+--setLevel 0-4
+  Sets the logging level to: 
+        0 for Debug, which means that debug, information, warning and error logs are saved and displayed.
+        1 for Information, which means that information, warning and error logs are saved and displayed.
+        2 for Warning, which means that warning and error logs are saved and displayed.
+        3 for Errors, which means that only error logs are saved and displayed.
+        4 for None, which means that no logs are saved and displayed.
+
+--getLevel
+  Prints the current logging level.
+
+--setLogOutput 0-2
+   Sets the log output to:
+        0 for File only
+        1 for Console only
+        2 for File and Console.
 
 --help
   Shows this.</value>

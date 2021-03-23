@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using ServerLogic.Properties;
 
 namespace ServerLogic.Control
 {
@@ -86,6 +87,7 @@ namespace ServerLogic.Control
         {
             this.Password = "!Password123";
             this.Port = 7777;
+            ServerLogger.CreateServerLogger();
         }
 
         /// <summary>
@@ -112,6 +114,7 @@ namespace ServerLogic.Control
         {
             this.Password = password;
             this.Port = port;
+            ServerLogger.CreateServerLogger();
 
             RunShell();
         }
@@ -541,7 +544,6 @@ namespace ServerLogic.Control
         private string ShowHelp(string command)
         {
             string ret;
-
             switch (command)
             {
             case "port":
@@ -571,7 +573,7 @@ namespace ServerLogic.Control
             default:
                 return "'" + command + "' is not a valid command. See 'help'.";
             }
-
+            
             return ret;
         }
 
@@ -586,27 +588,105 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// TODO
+        /// Parses the parameters the "log" command was called with.
+        /// Depending on the type of argument, the following services are provided.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>NULL</term>
+        /// <description>Shows the contents of the log file.</description>
+        /// </item>
+        /// <item>
+        /// <term>--clear</term>
+        /// <description>Deletes the log file.</description>
+        /// </item>
+        /// <item>
+        /// <term>--setLevel [0,1,2,3,4]</term>
+        /// <description>Sets the logging level according to the additional parameter.<See cref="Properties.Resources.LogHelpMessage"/></description>
+        /// </item>
+        /// <item>
+        /// <term>--getLevel</term>
+        /// <description>Shows the current logging level.</description>
+        /// </item>
+        /// <item>
+        /// <term>--setLogOutput [0,1,2]</term>
+        /// <description>0 sets LogOutput to File, 1 to Console, and 2 to both.</description>
+        /// </item>
+        /// <item>
+        /// <term>--help</term>
+        /// <description>Shows the help-text for the Logger.</description>
+        /// </item>
+        /// </list> 
         /// </summary>
-        /// 
+        /// <param name="parameterList"></param>
         /// <returns></returns>
         private string ShowLogs(string[] parameterList)
         {
             if (parameterList.Length == 0)
             {
-                return "These will be the logs later on.";
+                return ServerLogger.LogFileToString();
             }
             else
             {
-                // Only checking for '--clear' since that is the only valid option
-                if (parameterList[0] == "--clear")
+                switch (parameterList[0])
                 {
-                    return "This will clear the logs later on.";
-                }
-                // Everything else should just show the logs, disregarding everything
-                else
-                {
-                    return "These will be the logs later on.";
+                    case "--clear":
+                        ServerLogger.WipeLogFile();
+                        return "Logs were cleared.";
+                    case "--setLevel":
+                        try
+                        {
+                            ServerLogger.SetLogLevel(short.Parse(parameterList[1]));
+                        }
+                        catch (System.FormatException)
+                        {
+                            ServerLogger.LogDebug(
+                                "Caught Format Exception which occurred by using: log --setLevel " + parameterList[1] +
+                                "\nCurrent LogLevel is " + Settings.Default.LogLevel + ".");
+                            return Resources.InvalidLogLevelMessage;
+                        }
+                        catch (System.IndexOutOfRangeException)
+                        {
+                            ServerLogger.LogDebug(
+                                "Caught IndexOutOfRange Exception, caused by using 'log --setLevel' without a parameter.");
+                            return Resources.InvalidLogLevelMessage;
+                        }
+                        catch (System.OverflowException)
+                        {
+                            ServerLogger.LogDebug(
+                                "Caught Overflow Exception, caused by using 'log --setLevel' with a parameter to small or to big for short.");
+                            return Resources.InvalidLogLevelMessage;
+                        }
+
+                        //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
+                        return "";
+                    case "--setLogOutput":
+                        try
+                        {
+                            ServerLogger.ChangeLoggingOutputType(short.Parse(parameterList[1]));
+                        }
+                        catch (System.FormatException)
+                        {
+                            ServerLogger.LogDebug("Caught Format-Exception which occurred by using: log --setLogOutput " + parameterList[1] + "\nCurrent LogOutputType is " + Settings.Default.LogOutPutType + ".");
+                            return Resources.InvalidLoggingOutputType;
+                        }
+                        catch (System.IndexOutOfRangeException)
+                        {
+                            ServerLogger.LogDebug("Caught IndexOutOfRange-Exception, caused by using 'log --setLogOutput' without a parameter.");
+                            return Resources.InvalidLoggingOutputType;
+                        }
+                        catch (System.OverflowException)
+                        {
+                            ServerLogger.LogDebug(
+                                "Caught Overflow Exception, caused by using 'log --setLogOutput' with a parameter to small or to big for short.");
+                            return Resources.InvalidLogLevelMessage;
+                        }
+
+                        //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
+                        return "";
+                    case "--getLevel":
+                        return "Current LogLevel is "+ Settings.Default.LogLevel +".";
+                    default:
+                        return "Command "+parameterList[0]+" is unknown, use 'log --help' for more information";
                 }
             }
         }

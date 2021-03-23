@@ -1,8 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ServerLogic.Control;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using System.IO.Abstractions.TestingHelpers;
+using ServerLogic.Properties;
 
 namespace ServerLogicTests.Control
 {
@@ -35,6 +38,32 @@ namespace ServerLogicTests.Control
         private const int testPort_1 = 5555;
         private const int testPort_2 = 6666;
         private const int testPort_3 = 8888;
+
+
+        /// <summary>
+        /// Sets the path variable for the log file from the settings to a test log
+        /// file to prevent changes to the actual log file by the tests.
+        /// Since the changed value is not saved, the actual settings value is only
+        /// temporarily overwritten and has the original value again the next time the application is started.
+        /// </summary>
+        [TestInitialize]
+        public void Initialize()
+        {
+            ServerLogic.Properties.Settings.Default.LogFilePath = "TestLog.txt";
+            ServerLogger.CreateServerLogger();
+        }
+
+        /// <summary>
+        /// Deletes any log files that may have been created after the tests have been executed.
+        /// As a precaution, a ServerLogger instance is created to avoid a corresponding exception should none have been created by the tests. 
+        /// </summary>
+        [TestCleanup]
+        public void CleanUp()
+        {
+            ServerLogger.CreateServerLogger();
+            ServerLogger.WipeLogFile();
+        }
+
 
         /// <summary>
         /// Validates that an <c>ArgumentException</c> is thrown when a password is
@@ -678,21 +707,49 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// TODO
+        /// Checks whether the previous level was retained if the format of the input was incorrect.
         /// </summary>
         [TestMethod]
-        public void ShowLogsTest()
+        public void InvalidLogLevelInputFormatTest()
         {
-            // TODO when the actual Function is implemented.
+            Settings.Default.LogFilePath = "TestLog.txt";
+            ServerLogger.CreateServerLogger();
+            ServerLogger.SetLogLevel(0);
+            ServerLogger.ChangeLoggingOutputType(0);
+            ServerLogger.WipeLogFile();
+            ServerShell s = new ServerShell();
+
+            //Test for Input with a non-Integer
+            s.ParseCommandDebugger("log --setLevel $");
+            Assert.IsTrue(Settings.Default.LogLevel==0);
+
+            //Test for Null-Input
+            s.ParseCommandDebugger("log --setLevel");
+            Assert.IsTrue(Settings.Default.LogOutPutType == 0);
+            ServerLogger.WipeLogFile();
         }
 
         /// <summary>
-        /// TODO
+        /// Checks whether the previous level was retained if the format of the input was incorrect.
         /// </summary>
         [TestMethod]
-        public void ClearLogsTest()
+        public void InvalidLoggingOutputTypeInputFormatTest()
         {
-            // TODO when the actual Function is implemented.
+            Settings.Default.LogFilePath = "TestLog.txt";
+            ServerLogger.CreateServerLogger();
+            ServerLogger.SetLogLevel(0);
+            ServerLogger.ChangeLoggingOutputType(0);
+            ServerLogger.WipeLogFile();
+            ServerShell s = new ServerShell();
+
+            //Test for Input with a non-Integer
+            s.ParseCommandDebugger("log --setLogOutput $");
+            Assert.IsTrue(Settings.Default.LogOutPutType == 0);
+
+            //Test for Null-Input
+            s.ParseCommandDebugger("log --setLogOutput");
+            Assert.IsTrue(Settings.Default.LogOutPutType == 0);
+            ServerLogger.WipeLogFile();
         }
 
         /// <summary>
