@@ -7,19 +7,33 @@ public class StoryEvent
     private int eventId;
     private string description;
     private HashSet<StoryEvent> children;
+    private StoryEventType storyType;
+    private Skills skillChange;
 
     /// <summary>
     /// Constructor of the StoryEvent class.
     /// </summary>
     /// <param name="eventId">The Id of the StoryEvent.</param>
     /// <param name="description">The description of the StoryEvent.</param>
-    /// <param name="parent">The parent StoryEvent of the StoryEvent.</param>
     /// <param name="children">The children StoryEvents of the StoryEvent.</param>
-    public StoryEvent(int eventId, string description, HashSet<StoryEvent> children)
+    /// <param name="storyType">The type of the StoryEvent.</param>
+    /// <param name="skillChange">The ammount by which the StoryEvent changes the skills of the character.</param>
+    public StoryEvent(int eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, Skills skillChange)
     {
         this.eventId = eventId;
         this.description = description;
         this.children = children;
+        this.storyType = storyType;
+        this.skillChange = skillChange;
+    }
+
+    public StoryEvent(int eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType)
+    {
+        this.eventId = eventId;
+        this.description = description;
+        this.children = children;
+        this.storyType = storyType;
+        this.skillChange = null;
     }
 
     /// <summary>
