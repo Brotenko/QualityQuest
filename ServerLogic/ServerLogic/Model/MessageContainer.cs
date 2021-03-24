@@ -1,10 +1,5 @@
-﻿using ServerLogic.Model;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServerLogic.Model
 {
@@ -86,7 +81,7 @@ namespace ServerLogic.Model
         {
             return "MessageContainer [ModeratorId: " + Convert.ToString(ModeratorID, CultureInfo.CurrentCulture) + 
                 ", Type: " + Convert.ToString(Type, CultureInfo.CurrentCulture) + 
-                ", Date: " + CreationDate.ToString("yyyy.MM.dd HH:mm:ss") + 
+                ", Date: " + CreationDate.ToString("yyyy.MM.dd hh:mm:ss") + 
                 ", Debug: " + DebugMessage + "]";
         }
     }

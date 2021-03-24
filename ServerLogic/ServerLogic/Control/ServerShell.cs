@@ -1,11 +1,5 @@
-﻿using ServerLogic.Model;
-using ServerLogic.Model.Messages;
-using System;
+﻿using System;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Resources;
 using System.Text.RegularExpressions;
 using ServerLogic.Properties;
 
@@ -17,13 +11,13 @@ namespace ServerLogic.Control
     public class ServerShell
     {
         //public Logger logger = [...];
-        //private MainServerLogic mainServerLogic = new MainServerLogic();
+        private MainServerLogic mainServerLogic = new MainServerLogic();
         private int _port;
         private string _password; //Passwort des Servers 
-        private readonly ServerShell serverShell;
         private bool serverIsRunning = false;
         private bool commandRequestsHelpMessage = false;
-        
+        private static bool isDebug;
+
         public int Port
         {
             get => _port;
@@ -91,10 +85,19 @@ namespace ServerLogic.Control
         /// </summary>
         public ServerShell()
         {
-            this.serverShell = this;
             this.Password = "!Password123";
             this.Port = 7777;
             ServerLogger.CreateServerLogger();
+        }
+
+        /// <summary>
+        /// Constructs a new debug version of ServerShell with a predefined password and 
+        /// the standard port.
+        /// </summary>
+        public static ServerShell DebugServerShell()
+        {
+            isDebug = true;
+            return new ServerShell();
         }
 
         /// <summary>
@@ -109,7 +112,6 @@ namespace ServerLogic.Control
         /// ServerLogic.</param>
         public ServerShell(string password, int port)
         {
-            this.serverShell = this;
             this.Password = password;
             this.Port = port;
             ServerLogger.CreateServerLogger();
@@ -118,11 +120,46 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
+        /// The Main method of the ServerShell.
+        /// </summary>
+        /// 
+        /// <param name="args">Command-line parameters.</param>
+        /// 
+        /// <exception cref="ArgumentException">Thrown when either the supposed 
+        /// password or port violate the rules for setting them.</exception>
+        public static void Main(string[] args)
+        {
+            string[] returnValue = CheckMainMethodArgs(args);
+
+            if (returnValue == null)
+            {
+                return;
+            }
+
+            _ = new ServerShell(password: returnValue[0], port: Convert.ToInt32(returnValue[1], CultureInfo.CurrentCulture));
+        }
+
+        /// <summary>
+        /// A debug function that is only used by the unit-tests to test the ServerShell
+        /// and its methods thoroughly.
+        /// </summary>
+        /// 
+        /// <param name="debugInput">Unaltered input sent from the unit-test.</param>
+        /// 
+        /// <returns>The output of the parsed command.</returns>
+        public string ParseCommandDebugger(string debugInput)
+        {
+            return ParseCommand(debugInput);
+        }
+
+        /// <summary>
         /// The main-loop of the shell application that prompts new inputs and returns the
         /// output of the parsed command.
         /// </summary>
         private void RunShell()
         {
+            Console.WriteLine(Properties.Resources.StartupMessage);
+
             while (true)
             {
                 Console.Write(value: "qq >> ");
@@ -138,19 +175,6 @@ namespace ServerLogic.Control
         private void StopShell()
         {
             Environment.Exit(exitCode: 0);
-        }
-
-        /// <summary>
-        /// A debug function that is only used by the unit-tests to test the ServerShell
-        /// and its methods thoroughly.
-        /// </summary>
-        /// 
-        /// <param name="debugInput">Unaltered input sent from the unit-test.</param>
-        /// 
-        /// <returns>The output of the parsed command.</returns>
-        public string ParseCommandDebugger(string debugInput)
-        {
-            return ParseCommand(debugInput);
         }
 
         /// <summary>
@@ -446,37 +470,53 @@ namespace ServerLogic.Control
         /// has been started, if no errors occurred.</returns>
         private string StartServer(string[] parameterList)
         {
-            foreach (string item in parameterList)
+            if (!serverIsRunning)
             {
-                if (Regex.IsMatch(item, @"--port\=(\d*)"))
+                foreach (string item in parameterList)
                 {
-                    try
+                    if (Regex.IsMatch(item, @"--port\=(\d*)"))
                     {
-                        Match m = Regex.Match(item, @"--port\=(\d*)");
-                        Port = Convert.ToInt32(m.Groups[1].Value, CultureInfo.CurrentCulture);
+                        try
+                        {
+                            Match m = Regex.Match(item, @"--port\=(\d*)");
+                            Port = Convert.ToInt32(m.Groups[1].Value, CultureInfo.CurrentCulture);
+                        }
+                        catch (ArgumentException)
+                        {
+                            return Properties.Resources.InvalidPortExceptionMessage;
+                        }
                     }
-                    catch (ArgumentException)
+                    else if (Regex.IsMatch(item, @"--password\=(\S*)"))
                     {
-                        return Properties.Resources.InvalidPortExceptionMessage;
+                        try
+                        {
+                            Match m = Regex.Match(item, @"--password\=(\S*)");
+                            Password = m.Groups[1].Value;
+                        }
+                        catch (ArgumentException)
+                        {
+                            return Properties.Resources.InvalidPasswordExceptionMessage;
+                        }
                     }
                 }
-                else if (Regex.IsMatch(item, @"--password\=(\S*)"))
+                try
                 {
-                    try
+                    if (!isDebug)
                     {
-                        Match m = Regex.Match(item, @"--password\=(\S*)");
-                        Password = m.Groups[1].Value;
-                    }
-                    catch (ArgumentException)
-                    {
-                        return Properties.Resources.InvalidPasswordExceptionMessage;
+                        mainServerLogic.playerAudienceClientAPI.StartServer(Port);
                     }
                 }
+                catch (Exception e)
+                {
+                    return "The server could not be started due to following Exception: \n"
+                        + e.StackTrace;
+                }
+
+                serverIsRunning = true;
+                return "The server has been started successfully with port: " + Port;
             }
 
-            // Need MainServerLogic first
-            serverIsRunning = true;
-            return "The server has been started successfully with port: " + Port;
+            return "The server is already running with port: " + Port;
         }
 
         /// <summary>
@@ -487,7 +527,8 @@ namespace ServerLogic.Control
         /// <returns>Confirmation hat the server has been stopped successfully.</returns>
         private string StopServer()
         {
-            // Need MainServerLogic first
+            mainServerLogic.playerAudienceClientAPI.StopServer();
+
             serverIsRunning = false;
             return "The server has been shut down successfully.";
         }
@@ -762,26 +803,6 @@ namespace ServerLogic.Control
                 throw new ArgumentException(message: Properties.Resources.InvalidPortExceptionMessage);
             }
 
-        }
-
-        /// <summary>
-        /// The Main method of the ServerShell.
-        /// </summary>
-        /// 
-        /// <param name="args">Command-line parameters.</param>
-        /// 
-        /// <exception cref="System.ArgumentException">Thrown when either the supposed 
-        /// password or port violate the rules for setting them.</exception>
-        public static void Main(string[] args)
-        {
-            string[] returnValue = CheckMainMethodArgs(args);
-
-            if (returnValue == null)
-            {
-                return;
-            }
-
-            ServerShell serverShell = new ServerShell(password: returnValue[0], port: Convert.ToInt32(returnValue[1], CultureInfo.CurrentCulture));
         }
     }
 }

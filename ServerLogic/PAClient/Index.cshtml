@@ -1,0 +1,30 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div id="starting-page">
+    <div class="text-center">
+        <h1 class="display-4">Welcome to Quality Quest</h1>
+        <p>Please enter a Room Code in the field below to start playing!</p>
+    </div>
+    <div class="content-center">
+        <h5 style="margin-left: 5%; text-align: left;">Room Code:</h5>
+        <div id="sessionsubmit">
+            <input type="text" id="sessionkey" name="key" class="input-group-text sessionkey-input-box" maxlength="6" minlength="6"
+                   placeholder="Please enter the 6-figure Room Code" pattern="\w{6}" title="6-figure Room Code" required />
+            <input id="enter-room" type="submit" value="Play game" class="input-button sessionkey-submit-button" />
+        </div>
+        <p style="font-size: 12px; font-weight: bold;">
+            By playing the game, you agree to the
+            <a target="_blank" rel="noopener noreferrer" asp-page="/TermsOfService">Terms of Service.</a>
+        </p>
+        <a target="_blank" rel="noopener noreferrer" href="https://www.newtec.de/">
+            <img src="~/newtec_logo.png" alt="NewTec logo" class="logo" />
+        </a>
+    </div>
+</div>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/rooms.js"></script>
+

@@ -272,6 +272,9 @@ OPTIONS
 --port=&lt;integer&gt;
   Sets a new port for the WebSocket of the ServerLogic.</value>
   </data>
+  <data name="StartupMessage" xml:space="preserve">
+    <value>Welcome to Quality Quest [version 1.0.0], please use the command 'help' for further information. </value>
+  </data>
   <data name="StopHelpMessage" xml:space="preserve">
     <value>usage: stop [--help]
 
