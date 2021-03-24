@@ -75,6 +75,7 @@ namespace PAClientTest
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
 
             v.AddSessionKey(testKey_1);
+            Assert.IsTrue(v.GetSessionKeys().Contains(testKey_1));
         }
 
         /// <summary>
@@ -142,8 +143,13 @@ namespace PAClientTest
         {
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
             v.AddSessionKey(testKey_1);
-
             v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
+
+            Assert.IsNotNull(v.GetPromptsBySession(testKey_1));
+            Assert.AreEqual(testOptions_Valid_1[0], v.GetOptionsByPrompt(testKey_1, testPrompt_Valid_1.Key)[0]);
+            Assert.AreEqual(testOptions_Valid_1[1], v.GetOptionsByPrompt(testKey_1, testPrompt_Valid_1.Key)[1]);
+            Assert.AreEqual(testOptions_Valid_1[2], v.GetOptionsByPrompt(testKey_1, testPrompt_Valid_1.Key)[2]);
+            Assert.AreEqual(testOptions_Valid_1[3], v.GetOptionsByPrompt(testKey_1, testPrompt_Valid_1.Key)[3]);
         }
 
         /// <summary>
@@ -236,6 +242,18 @@ namespace PAClientTest
 
             v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
             v.AddNewPoll(testKey_1, testPrompt_Valid_2, testOptions_Valid_1);
+
+            Assert.IsNotNull(v.GetPromptsBySession(testKey_1));
+            Assert.AreEqual(testOptions_Valid_1[0], v.GetOptionsByPrompt(testKey_1, testPrompt_Valid_1.Key)[0]);
+            Assert.AreEqual(testOptions_Valid_1[1], v.GetOptionsByPrompt(testKey_1, testPrompt_Valid_1.Key)[1]);
+            Assert.AreEqual(testOptions_Valid_1[2], v.GetOptionsByPrompt(testKey_1, testPrompt_Valid_1.Key)[2]);
+            Assert.AreEqual(testOptions_Valid_1[3], v.GetOptionsByPrompt(testKey_1, testPrompt_Valid_1.Key)[3]);
+
+            Assert.IsNotNull(v.GetPromptsBySession(testKey_1));
+            Assert.AreEqual(testOptions_Valid_1[0], v.GetOptionsByPrompt(testKey_1, testPrompt_Valid_2.Key)[0]);
+            Assert.AreEqual(testOptions_Valid_1[1], v.GetOptionsByPrompt(testKey_1, testPrompt_Valid_2.Key)[1]);
+            Assert.AreEqual(testOptions_Valid_1[2], v.GetOptionsByPrompt(testKey_1, testPrompt_Valid_2.Key)[2]);
+            Assert.AreEqual(testOptions_Valid_1[3], v.GetOptionsByPrompt(testKey_1, testPrompt_Valid_2.Key)[3]);
         }
 
         /// <summary>
@@ -308,6 +326,7 @@ namespace PAClientTest
             v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
 
             v.AddVote(testKey_1, testPrompt_Valid_1.Key, testPair_Valid_1.Key);
+            Assert.IsTrue(v.GetVotesByOption(testKey_1, testPrompt_Valid_1.Key, testPair_Valid_1.Key) == 1);
         }
 
         /// <summary>
@@ -429,6 +448,7 @@ namespace PAClientTest
             v.AddSessionKey(testKey_1);
 
             v.RemoveSession(testKey_1);
+            Assert.IsFalse(v.GetSessionKeys().Contains(testKey_1));
         }
 
         /// <summary>

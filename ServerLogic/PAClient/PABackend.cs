@@ -193,7 +193,7 @@ namespace PAClient
                     CurrentPrompt[sessionkey] = prompt;
 
                     // Can't test for hubContext/Host related stuff, since the test framework
-                    // can not (at least to my knowledge) start/host the server to test these.
+                    // can not start/host the server to test these (Important: This might be false).
                     // It would go beyond any reason to test these, even if it is somehow possible.
                     if (!isDebug)
                     {

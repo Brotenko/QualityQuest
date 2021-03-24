@@ -218,8 +218,12 @@ namespace PAClientTest
         {
             PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
-
             await p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
+
+            Assert.AreEqual(testOptions_Valid_1[0], p.GetVotingResult(testKey_1, testPrompt_Valid_1).Keys.ElementAt(0));
+            Assert.AreEqual(testOptions_Valid_1[1], p.GetVotingResult(testKey_1, testPrompt_Valid_1).Keys.ElementAt(1));
+            Assert.AreEqual(testOptions_Valid_1[2], p.GetVotingResult(testKey_1, testPrompt_Valid_1).Keys.ElementAt(2));
+            Assert.AreEqual(testOptions_Valid_1[3], p.GetVotingResult(testKey_1, testPrompt_Valid_1).Keys.ElementAt(3));
         }
 
         /// <summary>
@@ -309,9 +313,18 @@ namespace PAClientTest
         {
             PABackend p = PABackend.DebugPABackend(testPort);
             p.StartNewSession(testKey_1);
-
             await p.StartNewVote(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
             await p.StartNewVote(testKey_1, testPrompt_Valid_2, testOptions_Valid_1);
+
+            Assert.AreEqual(testOptions_Valid_1[0], p.GetVotingResult(testKey_1, testPrompt_Valid_1).Keys.ElementAt(0));
+            Assert.AreEqual(testOptions_Valid_1[1], p.GetVotingResult(testKey_1, testPrompt_Valid_1).Keys.ElementAt(1));
+            Assert.AreEqual(testOptions_Valid_1[2], p.GetVotingResult(testKey_1, testPrompt_Valid_1).Keys.ElementAt(2));
+            Assert.AreEqual(testOptions_Valid_1[3], p.GetVotingResult(testKey_1, testPrompt_Valid_1).Keys.ElementAt(3));
+
+            Assert.AreEqual(testOptions_Valid_1[0], p.GetVotingResult(testKey_1, testPrompt_Valid_2).Keys.ElementAt(0));
+            Assert.AreEqual(testOptions_Valid_1[1], p.GetVotingResult(testKey_1, testPrompt_Valid_2).Keys.ElementAt(1));
+            Assert.AreEqual(testOptions_Valid_1[2], p.GetVotingResult(testKey_1, testPrompt_Valid_2).Keys.ElementAt(2));
+            Assert.AreEqual(testOptions_Valid_1[3], p.GetVotingResult(testKey_1, testPrompt_Valid_2).Keys.ElementAt(3));
         }
 
         /// <summary>
