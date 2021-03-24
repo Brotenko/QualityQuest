@@ -6,6 +6,7 @@ using UnityEngine.TestTools;
 
 public class StoryEventTests
 {
+    /*
     public StoryEvent event1;
     public StoryEvent event2;
     public StoryEvent event3;
@@ -48,4 +49,5 @@ public class StoryEventTests
         Assert.IsFalse(event1.getChildren().Contains(event3));
         Assert.IsTrue(event3.getParent() is null);
     }
+    */
 }

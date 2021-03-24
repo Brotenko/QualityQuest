@@ -6,7 +6,6 @@ public class StoryEvent
 {
     private int eventId;
     private string description;
-    private StoryEvent parent;
     private HashSet<StoryEvent> children;
 
     /// <summary>
@@ -16,11 +15,10 @@ public class StoryEvent
     /// <param name="description">The description of the StoryEvent.</param>
     /// <param name="parent">The parent StoryEvent of the StoryEvent.</param>
     /// <param name="children">The children StoryEvents of the StoryEvent.</param>
-    public StoryEvent(int eventId, string description, StoryEvent parent, HashSet<StoryEvent> children)
+    public StoryEvent(int eventId, string description, HashSet<StoryEvent> children)
     {
         this.eventId = eventId;
         this.description = description;
-        this.parent = parent;
         this.children = children;
     }
 
@@ -43,15 +41,6 @@ public class StoryEvent
     }
 
     /// <summary>
-    /// Getter for the parent of a StoryEvent.
-    /// </summary>
-    /// <returns>The parent of the StoryEvent</returns>
-    public StoryEvent getParent()
-    {
-        return parent;
-    }
-
-    /// <summary>
     /// Getter for the children of a StoryEvent.
     /// </summary>
     /// <returns>The children of the StoryEvent.</returns>
@@ -67,7 +56,6 @@ public class StoryEvent
     public void addChild(StoryEvent child)
     {
         children.Add(child);
-        child.parent = this;
     }
 
     /// <summary>
@@ -77,7 +65,6 @@ public class StoryEvent
     public void removeChild(StoryEvent child)
     {
         children.Remove(child);
-        child.parent = null;
     }
  
 }
