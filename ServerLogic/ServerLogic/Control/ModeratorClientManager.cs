@@ -14,7 +14,7 @@ using ServerLogic.Properties;
 
 namespace ServerLogic.Control
 {
-    class ModeratorClientManager
+    public class ModeratorClientManager
     {
         //TODO move to settings, same for WebSocket port and Homepage port
         //TODO maybe refactor/rename/both
@@ -22,6 +22,7 @@ namespace ServerLogic.Control
         {
             public Guid moderatorGuid;
             public string sessionkey;
+            public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> statistics;
 
             public ModeratorClientAttributes(Guid moderatorGuid, string sessionkey)
             {
@@ -29,17 +30,23 @@ namespace ServerLogic.Control
                 this.sessionkey = sessionkey;
             }
         }
-        private List<IWebSocketConnection> allsockets = new();
+        //private List<IWebSocketConnection> allsockets = new();
         private Dictionary<IWebSocketConnection,ModeratorClientAttributes> socketToModerator = new();
         //private WebSocketServer server = new("ws://"+Settings.Default.ServerURL+":"+Settings.Default.MCWebSocketPort);
         private WebSocketServer server = new("ws://0.0.0.0:" + Settings.Default.MCWebSocketPort);
+        private PlayerAudienceClientAPI playerAudienceClientAPI;
+
+        public ModeratorClientManager(PlayerAudienceClientAPI playerAudienceClientApi)
+        {
+            this.playerAudienceClientAPI = playerAudienceClientApi;
+        }
 
         public void StopWebsocket()
         {
-            foreach (var connection in allsockets)
+            foreach (var connection in socketToModerator)
             {
-                //connection.Send(SessionClosedMessage);
-                connection.Close();
+                connection.Key.Send(JsonConvert.SerializeObject(new SessionClosedMessage(connection.Value.moderatorGuid,connection.Value.statistics)));
+                connection.Key.Close();
             }
             //todo: necessary?
             //server.Dispose();
@@ -55,12 +62,12 @@ namespace ServerLogic.Control
                     //todo Use ServerLogger for all Console
                     ServerLogger.LogDebug("WebSocket-connection to " + socket.ConnectionInfo.ClientIpAddress + " established.\nHeader: " + socket.ConnectionInfo.Headers+
                     "\nIP: " + socket.ConnectionInfo.ClientIpAddress+"\nSubProtocol: " + socket.ConnectionInfo.NegotiatedSubProtocol);
-                    allsockets.Add(socket);
+                    //allsockets.Add(socket);
                 };
                 socket.OnClose = () =>
                 {
                     ServerLogger.LogDebug("Websocket-connection to "+socket.ConnectionInfo.ClientIpAddress+" was closed.");
-                    allsockets.Remove(socket);
+                    //allsockets.Remove(socket);
                 };
                 socket.OnMessage = message =>
                 {

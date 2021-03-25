@@ -23,10 +23,11 @@ namespace ServerLogicTests.Model.Messages
         private const int votingTime_5 = -19265423;
         private const int votingTime_6 = Int32.MinValue;
 
-        private static readonly Dictionary<Guid, string> votingOptions_1 = 
-            new Dictionary<Guid, string>() { { Guid.NewGuid(), "string1" }, { Guid.NewGuid(), "string2" } };
-        private static readonly Dictionary<Guid, string> votingOptions_2 = 
-            new Dictionary<Guid, string>();
+        private static readonly KeyValuePair<Guid, string>[] votingOptions_1 = 
+            new KeyValuePair<Guid, string>[] {new KeyValuePair<Guid, string>(Guid.NewGuid(), "string1"), new KeyValuePair<Guid, string>(Guid.NewGuid(), "string2")};
+        private static readonly KeyValuePair<Guid, string>[] votingOptions_2 = 
+            new KeyValuePair<Guid, string>[] { };
+        private static readonly KeyValuePair<Guid, string> votingPrompt = new KeyValuePair<Guid, string>();
 
         private static readonly string dictToString = 
             "{" + string.Join(",", votingOptions_1.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";
@@ -42,12 +43,12 @@ namespace ServerLogicTests.Model.Messages
         [TestMethod]
         public void VotingTimeTest()
         {
-            RequestStartVotingMessage r_1 = new RequestStartVotingMessage(testGuid, votingTime_1, votingOptions_1);
-            RequestStartVotingMessage r_2 = new RequestStartVotingMessage(testGuid, votingTime_2, votingOptions_1);
-            RequestStartVotingMessage r_3 = new RequestStartVotingMessage(testGuid, votingTime_3, votingOptions_1);
-            RequestStartVotingMessage r_4 = new RequestStartVotingMessage(testGuid, votingTime_4, votingOptions_1);
-            RequestStartVotingMessage r_5 = new RequestStartVotingMessage(testGuid, votingTime_5, votingOptions_1);
-            RequestStartVotingMessage r_6 = new RequestStartVotingMessage(testGuid, votingTime_6, votingOptions_1);
+            RequestStartVotingMessage r_1 = new RequestStartVotingMessage(testGuid, votingTime_1, votingPrompt, votingOptions_1);
+            RequestStartVotingMessage r_2 = new RequestStartVotingMessage(testGuid, votingTime_2, votingPrompt, votingOptions_1);
+            RequestStartVotingMessage r_3 = new RequestStartVotingMessage(testGuid, votingTime_3, votingPrompt, votingOptions_1);
+            RequestStartVotingMessage r_4 = new RequestStartVotingMessage(testGuid, votingTime_4, votingPrompt, votingOptions_1);
+            RequestStartVotingMessage r_5 = new RequestStartVotingMessage(testGuid, votingTime_5, votingPrompt, votingOptions_1);
+            RequestStartVotingMessage r_6 = new RequestStartVotingMessage(testGuid, votingTime_6, votingPrompt, votingOptions_1);
 
             Assert.AreEqual(r_1.VotingTime, votingTime_1);
             Assert.AreEqual(r_2.VotingTime, votingTime_2);
@@ -64,8 +65,8 @@ namespace ServerLogicTests.Model.Messages
         [TestMethod]
         public void VotingOptionsTest()
         {
-            RequestStartVotingMessage r_1 = new RequestStartVotingMessage(testGuid, votingTime_1, votingOptions_1);
-            RequestStartVotingMessage r_2 = new RequestStartVotingMessage(testGuid, votingTime_1, votingOptions_2);
+            RequestStartVotingMessage r_1 = new RequestStartVotingMessage(testGuid, votingTime_1, votingPrompt, votingOptions_1);
+            RequestStartVotingMessage r_2 = new RequestStartVotingMessage(testGuid, votingTime_1, votingPrompt, votingOptions_2);
 
             Assert.AreEqual(r_1.VotingOptions, votingOptions_1);
             Assert.AreEqual(r_2.VotingOptions, votingOptions_2);
@@ -80,7 +81,7 @@ namespace ServerLogicTests.Model.Messages
         [TestMethod]
         public void ToStringCorrectness()
         {
-            RequestStartVotingMessage r = new RequestStartVotingMessage(testGuid, votingTime_1, votingOptions_1);
+            RequestStartVotingMessage r = new RequestStartVotingMessage(testGuid, votingTime_1, votingPrompt, votingOptions_1);
 
             Assert.IsNotNull(r.ToString());
             Assert.IsTrue(Regex.IsMatch(r.ToString(), expectedStringPattern));   // DictionaryToString für die normale Klasse und die Test-Klasse erstellen

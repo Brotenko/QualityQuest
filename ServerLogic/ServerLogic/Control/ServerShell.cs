@@ -18,7 +18,7 @@ namespace ServerLogic.Control
         private bool commandRequestsHelpMessage = false;
         private static bool isDebug;
 
-        private ModeratorClientManager moderatorClientManager;
+       // private ModeratorClientManager moderatorClientManager;
 
         public int Port
         {
@@ -505,7 +505,7 @@ namespace ServerLogic.Control
                 {
                     if (!isDebug)
                     {
-                        mainServerLogic.playerAudienceClientAPI.StartServer(Port);
+                        mainServerLogic.StartServer(Port);
                     }
                 }
                 catch (Exception e)
@@ -513,14 +513,9 @@ namespace ServerLogic.Control
                     return "The server could not be started due to following Exception: \n"
                         + e.StackTrace;
                 }
-
-            // Need MainServerLogic first
-            serverIsRunning = true;
-            //TODO: Might be refactored
-            moderatorClientManager = new ModeratorClientManager();
-            moderatorClientManager.StartWebsocket();
-            return "The server has been started successfully with port: " + Port;
-        }
+                serverIsRunning = true;
+                return "The server has been started successfully with port: " + Port;
+            }
 
             return "The server is already running with port: " + Port;
         }
@@ -533,11 +528,7 @@ namespace ServerLogic.Control
         /// <returns>Confirmation hat the server has been stopped successfully.</returns>
         private string StopServer()
         {
-            mainServerLogic.playerAudienceClientAPI.StopServer();
-
-            // Need MainServerLogic first
-            //TODO: Might be refactored
-            moderatorClientManager.StopWebsocket();
+            mainServerLogic.StopServer();
             serverIsRunning = false;
             return "The server has been shut down successfully.";
         }

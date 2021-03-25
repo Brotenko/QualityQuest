@@ -15,8 +15,18 @@ namespace ServerLogicTests.Model.Messages
     public class SessionClosedMessageTest
     {
         private static readonly Guid testGuid = Guid.NewGuid();
-        private static readonly Dictionary<string, int> testStatistics =
-            new Dictionary<string, int>() { { "string1", 1 }, { "string2", 2 } };
+       // private static readonly Dictionary<string, int> testStatistics =
+       //    new Dictionary<string, int>() { { "string1", 1 }, { "string2", 2 } };
+        private static readonly Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> testStatistics =
+            new Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>
+            {
+                {
+                    (//new Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>(
+                        new KeyValuePair<Guid, string>(new Guid(), "string1"),
+                        new Dictionary<KeyValuePair<Guid, string>,int >((new KeyValuePair<Guid, string>(new Guid(), "string1")), 1))
+                },
+                {"string2", 2}
+            };
 
         private static readonly string dictToString =
             "{" + string.Join(",", testStatistics.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";

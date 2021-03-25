@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace PAClient
 {
@@ -592,6 +593,11 @@ namespace PAClient
         /// <returns>The program initialization.</returns>
         private static IHostBuilder CreateHostBuilder(int port) =>
             Host.CreateDefaultBuilder()
+                .ConfigureLogging(logging =>
+                    //sets the built in Logger to Warning-Level, to reduce Log-Spam in Server-Shell 
+                    //TODO: disable the 'Connected: xyz' output for each connection to the website 
+                    logging.AddFilter("System", LogLevel.Warning)
+                        .AddFilter("Microsoft", LogLevel.Warning))
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

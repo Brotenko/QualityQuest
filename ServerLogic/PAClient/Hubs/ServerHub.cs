@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace PAClient.Hubs
 {
     /// <summary>
@@ -26,7 +27,6 @@ namespace PAClient.Hubs
             if (isValid)
             {
                 PABackend.AddConnection(sessionkey, Context.ConnectionId);
-                Console.WriteLine(string.Join(", ", PABackend.ConnectionList.Select(kv => kv.Key + " = " + "[" + string.Join(", ", kv.Value.ToArray()) + "]").ToArray()));
                 await Groups.AddToGroupAsync(Context.ConnectionId, sessionkey);
             }
         }
@@ -42,7 +42,6 @@ namespace PAClient.Hubs
         /// issued.</param>
         public async Task SendVote(string sessionkey, Guid option)
         {
-            Console.WriteLine(sessionkey, option);
             PABackend.CountNewVote(sessionkey, option);
         }
 
@@ -52,7 +51,6 @@ namespace PAClient.Hubs
         /// </summary>
         public override async Task OnConnectedAsync()
         {
-            Console.WriteLine("Connected: " + Context.ConnectionId);
             await base.OnConnectedAsync();
         }
 
@@ -65,7 +63,6 @@ namespace PAClient.Hubs
         /// an exception, then it will be specified here.</param>
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            Console.WriteLine("Disconnected: " + Context.ConnectionId + " ; " + exception);
             PABackend.RemoveConnection(Context.ConnectionId);
             await base.OnDisconnectedAsync(exception);
         }

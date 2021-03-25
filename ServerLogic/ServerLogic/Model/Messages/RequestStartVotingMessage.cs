@@ -15,7 +15,9 @@ namespace ServerLogic.Model.Messages
     public class RequestStartVotingMessage : MessageContainer
     {
         public int VotingTime { get; }
-        public Dictionary<Guid, string> VotingOptions { get; }
+        public KeyValuePair<Guid, string>[] VotingOptions { get; }
+
+        public KeyValuePair<Guid, string> VotingPrompt;
 
         /// <summary>
         /// Constructs a new RequestStartVotingMessage.
@@ -35,10 +37,11 @@ namespace ServerLogic.Model.Messages
         /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
         /// or an error occurring, information can be carried to the Moderator-Client directly for 
         /// quick access, without the need to search through the logs.</param>
-        public RequestStartVotingMessage(Guid moderatorId, int votingTime, Dictionary<Guid, string> votingOptions) : base(moderatorId, MessageType.RequestStartVoting)
+        public RequestStartVotingMessage(Guid moderatorId, int votingTime, KeyValuePair<Guid, string> votingPrompt, KeyValuePair<Guid, string>[] votingOptions) : base(moderatorId, MessageType.RequestStartVoting)
         {
             VotingTime = votingTime;
             VotingOptions = votingOptions;
+            VotingPrompt = votingPrompt;
         }
 
         public override string ToString()
