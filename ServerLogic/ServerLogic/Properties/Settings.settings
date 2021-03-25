@@ -9,7 +9,7 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="LogFilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">..//..//..//Properties//Log.txt</Value>
+      <Value Profile="(Default)">Log.txt</Value>
     </Setting>
     <Setting Name="ServerLogicLogFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">..//..//..//Properties//ServerLogicLogs</Value>
