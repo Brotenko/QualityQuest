@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PAClient\PAClient.csproj" />
     <ProjectReference Include="..\ServerLogic\ServerLogic.csproj" />
   </ItemGroup>
 

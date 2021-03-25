@@ -21,9 +21,10 @@ comment:
   layout: "reach,diff,flags,files,footer"
   behavior: default
   require_changes: no
- 
+
 ignore:
   - "**/*.cshtml"
   - "**/*.js"
   - "**/*.crt"
   - "**/*.css"
+  - "**/Resources.Designer.cs"

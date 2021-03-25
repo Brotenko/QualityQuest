@@ -190,7 +190,7 @@ namespace ServerLogic.Control
         }
 
         private Bitmap GenerateQR()
-        {
+    {
             //TODO get serverURL and port from resource file
             BarcodeGenerator generator = new(EncodeTypes.QR, $"{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}");
             generator.Parameters.Resolution = 800;
