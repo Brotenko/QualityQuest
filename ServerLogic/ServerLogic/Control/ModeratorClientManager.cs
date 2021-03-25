@@ -31,7 +31,8 @@ namespace ServerLogic.Control
         }
         private List<IWebSocketConnection> allsockets = new();
         private Dictionary<IWebSocketConnection,ModeratorClientAttributes> socketToModerator = new();
-        private WebSocketServer server = new("ws://"+Settings.Default.ServerURL+":"+Settings.Default.MCWebSocketPort);
+        //private WebSocketServer server = new("ws://"+Settings.Default.ServerURL+":"+Settings.Default.MCWebSocketPort);
+        private WebSocketServer server = new("ws://0.0.0.0:" + Settings.Default.MCWebSocketPort);
 
         public void StopWebsocket()
         {
