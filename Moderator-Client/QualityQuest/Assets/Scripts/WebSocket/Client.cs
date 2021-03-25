@@ -4,6 +4,8 @@ using UnityEngine;
 using WebSocketSharp;
 using Newtonsoft.Json;
 using System;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// Class to realize the connection to ServerLogic. 
@@ -12,13 +14,14 @@ using System;
 /// </summary>
 public class Client : MonoBehaviour
 {
-
+    
     WebSocket webSocket;
 
     public void StartConnection()
     {
-        // Connect 
-        webSocket = new WebSocket("ws://127.0.0.1:8181");
+        // Connect ws://127.0.0.1:8181
+        
+        webSocket = new WebSocket("ws://" + ip.text + ":" + port.text.ToString());
 
         /*
         // Check the certificate
@@ -44,6 +47,9 @@ public class Client : MonoBehaviour
             {
                 Debug.Log("String data");
                 Read(e.Data);
+
+                // Sets the Message. Only for test purpose.
+                message = e.Data;
             }
             // Check if the data is binary.
             if (e.IsBinary)
@@ -152,14 +158,98 @@ public class Client : MonoBehaviour
     
     }
 
-    /// <summary>
-    /// TestMessage
-    /// </summary>
-    public void SendTestMessage()
+    /******************************* TEST MESSAGES / TEST METHODS FOR TEST PURPOSE *******************************/
+    // Only for Testing purposes, will be deleted in the near future.
+
+    // For testing
+    public Text recievedMessage;
+    public InputField ip;
+    public InputField port;
+    public string message;
+    Guid testGuid = new Guid();
+
+    void Update()
+    {
+        recievedMessage.text = message;
+    }
+
+    public void RequestOpenSessionMessage()
+    {
+        MessageContainer.Messages.RequestOpenSessionMessage test = new MessageContainer.Messages.RequestOpenSessionMessage(testGuid, "");
+
+        SendMessage(test);
+    }
+
+    public void RequestServerStatusMessage()
+    {
+        MessageContainer.Messages.RequestServerStatusMessage test = new MessageContainer.Messages.RequestServerStatusMessage(testGuid);
+
+        SendMessage(test);
+    }
+
+    public void ReconnectMessage()
+    {
+        MessageContainer.Messages.ReconnectMessage test = new MessageContainer.Messages.ReconnectMessage(testGuid);
+
+        SendMessage(test);
+    }
+
+    /*public void RequestStartVotingMessage()
+    {
+        MessageContainer.Messages.RequestStartVotingMessage test = new MessageContainer.Messages.RequestStartVotingMessage(testGuid, new Dictionary<Guid, string>() prompt, new Dictionary<Guid, string>() votingOptions);
+
+        SendMessage(test);
+    } */
+
+
+    public void RequestGamePausedStatusChangeTrueMessage()
+    {
+        MessageContainer.Messages.RequestGamePausedStatusChangeMessage test = new MessageContainer.Messages.RequestGamePausedStatusChangeMessage(testGuid, true);
+
+        SendMessage(test);
+    }
+
+    
+    public void RequestGamePausedStatusChangeFalseMessage()
+    {
+        MessageContainer.Messages.RequestGamePausedStatusChangeMessage test = new MessageContainer.Messages.RequestGamePausedStatusChangeMessage(testGuid, false);
+
+        SendMessage(test);
+    }
+
+    public void RequestCloseSessionMessage()
+    {
+        MessageContainer.Messages.RequestCloseSessionMessage test = new MessageContainer.Messages.RequestCloseSessionMessage(testGuid, "A12A2A");
+
+        SendMessage(test);
+    }
+
+
+    public void RequestGameStartMessage()
     {
 
-        MessageContainer.Messages.RequestGameStartMessage test = new MessageContainer.Messages.RequestGameStartMessage(new Guid());
+        MessageContainer.Messages.RequestGameStartMessage test = new MessageContainer.Messages.RequestGameStartMessage(testGuid);
 
         SendMessage(test);   
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(sceneBuildIndex: 0);
+    }
+    
+    public void CloseConnection()
+    {
+        webSocket.Close();
+    }
+
+    public void SetIp()
+    {
+        Debug.Log("Ip is: " + ip.text);
+    }
+
+    public void SetPort()
+    {
+        Debug.Log("Port is: " + port.text);
     }
 }

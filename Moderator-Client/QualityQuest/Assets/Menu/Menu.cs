@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -84,5 +85,13 @@ public class Menu : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+
+
+    /************************ Method for test porpose ************************/
+
+    public void StartTestScene()
+    {
+        SceneManager.LoadScene(sceneBuildIndex: 1);
     }
 }
