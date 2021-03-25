@@ -48,4 +48,6 @@ public class StoryEventTests
         event1.removeChild(event3);
         Assert.IsFalse(event1.getChildren().Contains(event3));
         Assert.IsTrue(event3.getParent() is null);
-   
+   }
+    */
+}
