@@ -10,7 +10,7 @@ public class StoryEvent
     private HashSet<StoryEvent> children;
     private StoryEventType storyType;
     private Skills skillChange;
-    private bool randomEvent;
+    private bool randomOption;
 
     /// <summary>
     /// Constructor of the StoryEvent class.
@@ -52,13 +52,13 @@ public class StoryEvent
     /// <param name="children">The children StoryEvents of the StoryEvent.</param>
     /// <param name="storyType">The type of the StoryEvent.</param>
     /// <param name="randomEvent"></param>
-    public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, bool randomEvent)
+    public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, bool randomOption)
     {
         this.eventId = eventId;
         this.description = description;
         this.children = children;
         this.storyType = storyType;
-        this.randomEvent = randomEvent;
+        this.randomOption = randomOption;
     }
 
     /// <summary>
@@ -70,14 +70,14 @@ public class StoryEvent
     /// <param name="storyType">The type of the StoryEvent.</param>
     /// <param name="skillChange">The ammount by which the StoryEvent changes the skills of the character.</param>
     /// <param name="randomEvent"></param>
-    public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, Skills skillChange, bool randomEvent)
+    public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, Skills skillChange, bool randomOption)
     {
         this.eventId = eventId;
         this.description = description;
         this.children = children;
         this.storyType = storyType;
         this.skillChange = skillChange;
-        this.randomEvent = randomEvent;
+        this.randomOption = randomOption;
     }
 
     /// <summary>
@@ -105,6 +105,24 @@ public class StoryEvent
     public HashSet<StoryEvent> getChildren()
     {
         return children;
+    }
+
+    /// <summary>
+    /// Getter for the skillsChange of a StoryEvent.
+    /// </summary>
+    /// <returns></returns>
+    public Skills getSkills()
+    {
+        return skillChange;
+    }
+
+    /// <summary>
+    /// Getter for the randomOption of a StoryEvent
+    /// </summary>
+    /// <returns></returns>
+    public bool getRandomOption()
+    {
+        return randomOption;
     }
 
     /// <summary>
