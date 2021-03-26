@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class StoryEvent
 {
-    private int eventId;
+    private Guid eventId;
     private string description;
     private HashSet<StoryEvent> children;
     private StoryEventType storyType;
     private Skills skillChange;
+    private bool randomEvent;
 
     /// <summary>
     /// Constructor of the StoryEvent class.
@@ -18,7 +20,7 @@ public class StoryEvent
     /// <param name="children">The children StoryEvents of the StoryEvent.</param>
     /// <param name="storyType">The type of the StoryEvent.</param>
     /// <param name="skillChange">The ammount by which the StoryEvent changes the skills of the character.</param>
-    public StoryEvent(int eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, Skills skillChange)
+    public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, Skills skillChange)
     {
         this.eventId = eventId;
         this.description = description;
@@ -27,20 +29,62 @@ public class StoryEvent
         this.skillChange = skillChange;
     }
 
-    public StoryEvent(int eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType)
+    /// <summary>
+    /// Constructor of the StoryEvent class. 
+    /// </summary>
+    /// <param name="eventId">The Guid of the StoryEvent.</param>
+    /// <param name="description">The description of the StoryEvent.</param>
+    /// <param name="children">The children StoryEvents of the StoryEvent.</param>
+    /// <param name="storyType">The type of the StoryEvent.</param>
+    public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType)
     {
         this.eventId = eventId;
         this.description = description;
         this.children = children;
         this.storyType = storyType;
-        this.skillChange = null;
+    }
+
+    /// <summary>
+    /// Constructor of the StoryEvent class. 
+    /// </summary>
+    /// <param name="eventId">The Guid of the StoryEvent.</param>
+    /// <param name="description">The description of the StoryEvent.</param>
+    /// <param name="children">The children StoryEvents of the StoryEvent.</param>
+    /// <param name="storyType">The type of the StoryEvent.</param>
+    /// <param name="randomEvent"></param>
+    public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, bool randomEvent)
+    {
+        this.eventId = eventId;
+        this.description = description;
+        this.children = children;
+        this.storyType = storyType;
+        this.randomEvent = randomEvent;
+    }
+
+    /// <summary>
+    /// Constructor of the StoryEvent class. 
+    /// </summary>
+    /// <param name="eventId">The Guid of the StoryEvent.</param>
+    /// <param name="description">The description of the StoryEvent.</param>
+    /// <param name="children">The children StoryEvents of the StoryEvent.</param>
+    /// <param name="storyType">The type of the StoryEvent.</param>
+    /// <param name="skillChange">The ammount by which the StoryEvent changes the skills of the character.</param>
+    /// <param name="randomEvent"></param>
+    public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, Skills skillChange, bool randomEvent)
+    {
+        this.eventId = eventId;
+        this.description = description;
+        this.children = children;
+        this.storyType = storyType;
+        this.skillChange = skillChange;
+        this.randomEvent = randomEvent;
     }
 
     /// <summary>
     /// Getter for the eventId of a StoryEvent.
     /// </summary>
     /// <returns>The eventId of the StoryEvent.</returns>
-    public int getEventId()
+    public Guid getEventId()
     {
         return eventId;
     }
