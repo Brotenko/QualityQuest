@@ -517,8 +517,8 @@ public class Story
 
         storyelement45.addChild(decision18);
 
-        StoryEvent decision18option1 = new StoryEvent(Guid.NewGuid(), "Du willst an der Code Review teilnehmen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
-        StoryEvent decision18option2 = new StoryEvent(Guid.NewGuid(), "Alles läuft gut, wird schon passen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
+        StoryEvent decision18option1 = new StoryEvent(Guid.NewGuid(), "Du willst an der Code Review teilnehmen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        StoryEvent decision18option2 = new StoryEvent(Guid.NewGuid(), "Alles läuft gut, wird schon passen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         decision18.addChild(decision18option1);
         decision18.addChild(decision18option2);
