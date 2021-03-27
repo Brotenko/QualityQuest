@@ -14,7 +14,7 @@ namespace MessageContainer.Messages
     /// </summary>
     public class VotingEndedMessage : MessageContainer
     {
-        public Guid WinningOption { get; }
+        public KeyValuePair<Guid, string> WinningOption { get; }
         public Dictionary<Guid, int> VotingResults { get; }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace MessageContainer.Messages
         /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
         /// or an error occurring, information can be carried to the Moderator-Client directly for 
         /// quick access, without the need to search through the logs.</param>
-        public VotingEndedMessage(Guid moderatorId, Guid winningOption, Dictionary<Guid, int> votingResults) : base(moderatorId, MessageType.VotingEnded)
+        public VotingEndedMessage(Guid moderatorId, KeyValuePair<Guid, string> winningOption, Dictionary<Guid, int> votingResults) : base(moderatorId, MessageType.VotingEnded)
         {
             WinningOption = winningOption;
             VotingResults = votingResults;
