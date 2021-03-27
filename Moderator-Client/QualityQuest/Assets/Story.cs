@@ -307,17 +307,17 @@ public class Story
         decision10.addChild(decision10option3);
         decision10.addChild(decision10option4);
 
-        StoryEvent storyelement24option1 = new StoryEvent(Guid.NewGuid(), "Du kannst deine Deadline nicht einhalten aber deinem Chef gefällt dein Engagement deine Fähigkeiten zu erweitern", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0,0,0,1));
+        StoryEvent storyelement24option1 = new StoryEvent(Guid.NewGuid(), "Du kannst deine Deadline nicht einhalten aber deinem Chef gefällt dein Engagement deine Fähigkeiten zu erweitern.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0,0,0,1));
         StoryEvent storyelement24option2 = new StoryEvent(Guid.NewGuid(), "Du arbeitest an dem Projekt weiter und schaffst es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 0));
-        StoryEvent storyelement24option3 = new StoryEvent(Guid.NewGuid(), "Da du Urlaub genommen hast schaffst du es nicht die Deadline einzuhalten", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, -2, 0, 0));
-        StoryEvent storyelement24option4 = new StoryEvent(Guid.NewGuid(), "Du genießt deinen Urlaub und bekommst keine Probleme mit der Deadline weil dein Chef sich um eine Vertretung gekümmert hat.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 2, 0, 2));
+        StoryEvent storyelement24option3 = new StoryEvent(Guid.NewGuid(), "Da du Urlaub genommen hast schaffst du es nicht die Deadline einzuhalten, dein Chef ist deshalb ziemlich sauer.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, -2, 0, 0));
+        StoryEvent storyelement24option4 = new StoryEvent(Guid.NewGuid(), "Nach der Weiterbildung genießt du eine Woche Urlaub und da dein Chef sich um eine Vertetung gekümmert hat, hast du keine Probleme die Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 2, 0, 2));
 
         decision10option1.addChild(storyelement24option1);
         decision10option2.addChild(storyelement24option2);
         decision10option3.addChild(storyelement24option3);
         decision10option4.addChild(storyelement24option4);
 
-        StoryEvent storyelement25 = new StoryEvent(Guid.NewGuid(), "WizzBook hat sich bei dir gemeldet und möchte Änderungen an der WizzApp vornehmen.",new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement25 = new StoryEvent(Guid.NewGuid(), "Deine Telefon klingelt. WizzBook ruft an und möchte Änderungen an der WizzApp vornehmen.",new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement24option1.addChild(storyelement25);
         storyelement24option2.addChild(storyelement25);
@@ -338,17 +338,17 @@ public class Story
 
         storyelement27.addChild(decision11);
 
-        StoryEvent decision11option1 = new StoryEvent(Guid.NewGuid(), "Du hast keine Lust und legst einfach auf.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        StoryEvent decision11option2 = new StoryEvent(Guid.NewGuid(), "Du setzt die gewünschten Änderungen um.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        StoryEvent decision11option3 = new StoryEvent(Guid.NewGuid(), "Du merkst das die Änderungswünsche technisch nicht umsetzbar sind.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        StoryEvent decision11option1 = new StoryEvent(Guid.NewGuid(), "Du hast keine Lust auf zusätzliche Arbeit und legst deshalb einfach während dem Telefonat auf.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        StoryEvent decision11option2 = new StoryEvent(Guid.NewGuid(), "Nach dem Telefonat setzt du die gewünschten Änderungen um.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        StoryEvent decision11option3 = new StoryEvent(Guid.NewGuid(), "Nach dem Telefonat fällt dir auf, dass die Änderungswünsche technisch nicht umsetzbar sind.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         decision11.addChild(decision11option1);
         decision11.addChild(decision11option2);
         decision11.addChild(decision11option3);
 
         StoryEvent storyelement28option1 = new StoryEvent(Guid.NewGuid(), "Du hast aufgelegt.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption, new Skills(-3, 0, 0, 0));
-        StoryEvent storyelement28option2 = new StoryEvent(Guid.NewGuid(), "Die geünschten Änderungen wurden umgesetzt", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption, new Skills(0, 0, 0, 2));
-        StoryEvent decision12 = new StoryEvent(Guid.NewGuid(), "Wie willst du vorgehen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
+        StoryEvent storyelement28option2 = new StoryEvent(Guid.NewGuid(), "Du hast die gewünschten Änderungen umgesetzt.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption, new Skills(0, 0, 0, 2));
+        StoryEvent decision12 = new StoryEvent(Guid.NewGuid(), "Wie willst du weiter vorgehen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
 
         decision11option1.addChild(storyelement28option1);
         decision11option2.addChild(storyelement28option2);
@@ -360,15 +360,15 @@ public class Story
         decision12.addChild(decision12option1);
         decision12.addChild(decision12option2);
 
-        StoryEvent storyelement29option1 = new StoryEvent(Guid.NewGuid(), "Du hast den Kunden informiert", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(1, 0, 0, 0));
-        StoryEvent storyelement29option2 = new StoryEvent(Guid.NewGuid(), "Du hast den Kunden nicht informiert", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, 0, 0, 0));
+        StoryEvent storyelement29option1 = new StoryEvent(Guid.NewGuid(), "Du rufst WizzBook zurück und erklärst, dass die gewünschte Änderung nicht umsetzbar ist.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(1, 0, 0, 0));
+        StoryEvent storyelement29option2 = new StoryEvent(Guid.NewGuid(), "Du hast WizzBook nicht informiert.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, 0, 0, 0));
 
         decision12option1.addChild(storyelement29option1);
         decision12option2.addChild(storyelement29option2);
 
         //bug has surfaced
 
-        StoryEvent storyelement30 = new StoryEvent(Guid.NewGuid(), "Ein Bug wurde entdeckt.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement30 = new StoryEvent(Guid.NewGuid(), "Du hast einen neuen kritischen Bug entdeckt.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement28option1.addChild(storyelement30);
         storyelement28option2.addChild(storyelement30);
@@ -389,20 +389,20 @@ public class Story
         decision13.addChild(decision13option1);
         decision13.addChild(decision13option2);
 
-        StoryEvent storyelement32 = new StoryEvent(Guid.NewGuid(), "Yaggaya sieht dein Ticket und leitet es weiter.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption, new Skills(0, 2, 0, 0));
+        StoryEvent storyelement32 = new StoryEvent(Guid.NewGuid(), "Yaggaya sieht dein Ticket und leitet es weiter. Yaggaya lobt deine Arbeitsweise.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption, new Skills(0, 2, 0, 0));
 
         decision13option1.addChild(storyelement32);
 
         //affected by dice roll
-        StoryEvent storyelement33option1 = new StoryEvent(Guid.NewGuid(), "Der Bug wurde gefunden.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-3, -3, 0, 0));
-        StoryEvent storyelement33option2 = new StoryEvent(Guid.NewGuid(), "Der Bug wurde nicht gefunden.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, -3, 0, 0));
+        StoryEvent storyelement33option1 = new StoryEvent(Guid.NewGuid(), "Der Bug wurde gefunden und es kommt raus, dass du den Code mit dem Bug als letztes bearbeitet hast. Yaggaya ist sauer, da dir der Bug hätte auffallen müssen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-3, -3, 0, 0), true);
+        StoryEvent storyelement33option2 = new StoryEvent(Guid.NewGuid(), "Der Bug wurde nicht gefunden.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, -3, 0, 0), false);
 
         decision13option2.addChild(storyelement33option1);
         decision13option2.addChild(storyelement33option2);
 
         //customer wants new feature
 
-        StoryEvent storyelement34 = new StoryEvent(Guid.NewGuid(), "Der Kunde will eine neue Funktion zu WizzApp hinzufügen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement34 = new StoryEvent(Guid.NewGuid(), "WizzBook meldet sich nochmals und dieses mal will WizzBook eine neue Funktion zu WizzApp hinzufügen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement32.addChild(storyelement34);
         storyelement33option1.addChild(storyelement34);
@@ -417,7 +417,7 @@ public class Story
         storyelement35.addChild(decision14);
 
         StoryEvent decision14option1 = new StoryEvent(Guid.NewGuid(), "Der Kunde wird schon wissen was er da tut.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        StoryEvent decision14option2 = new StoryEvent(Guid.NewGuid(), "Du versuchst herauszufinden ob du den Kunden richtig verstanden hast", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        StoryEvent decision14option2 = new StoryEvent(Guid.NewGuid(), "Du versuchst herauszufinden ob du den Kunden richtig verstanden hast und ob er unbedingt das neue Feature haben möchte.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         decision14.addChild(decision14option1);
         decision14.addChild(decision14option2);
@@ -428,7 +428,7 @@ public class Story
         decision14option1.addChild(storyelement36option1);
         decision14option1.addChild(storyelement36option2);
 
-        StoryEvent storyelement37= new StoryEvent(Guid.NewGuid(), "Der Kunde hat sich dazu entschieden mit deiner neuen Funktion den Änderungsprozess zu druchlaufen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement37= new StoryEvent(Guid.NewGuid(), "Der Kunde hat sich dazu entschieden mit der neuen Funktion den Änderungsprozess zu druchlaufen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement36option2.addChild(storyelement37);
 
@@ -442,7 +442,7 @@ public class Story
         decision15.addChild(decision15option1);
         decision15.addChild(decision15option2);
 
-        StoryEvent storyelement38option1 = new StoryEvent(Guid.NewGuid(), "Du hast die neue Funktiuon alleine umgesetzt.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, 0, 0, 2));
+        StoryEvent storyelement38option1 = new StoryEvent(Guid.NewGuid(), "Du hast die neue Funktion alleine umgesetzt.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, 0, 0, 2));
         StoryEvent storyelement38option2 = new StoryEvent(Guid.NewGuid(), "Dein Chef is sehr zufrieden mit deiner Herangehensweise.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(1, 2, 0, 0));
 
         decision15option1.addChild(storyelement38option1);
@@ -456,23 +456,23 @@ public class Story
 
         // colleague needs help
 
-        StoryEvent storyelement40 = new StoryEvent(Guid.NewGuid(), "Trummu bracht deine Hilfe.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement40 = new StoryEvent(Guid.NewGuid(), "Dein Kollege Trummu kommt auf dich zu da er drigend deine Hilfe benötigt.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement39.addChild(storyelement40);
 
-        StoryEvent decision16 = new StoryEvent(Guid.NewGuid(), "Willst du trummu helfen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
+        StoryEvent decision16 = new StoryEvent(Guid.NewGuid(), "Willst du Trummu helfen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
 
         storyelement40.addChild(decision16);
 
-        StoryEvent decision16option1 = new StoryEvent(Guid.NewGuid(), "Du hast gerade viel zu tun un kümmerst dich lieber um deine eigenen Sachen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        StoryEvent decision16option1 = new StoryEvent(Guid.NewGuid(), "Du hast gerade viel zu tun und kümmerst dich lieber um deine eigene Arbeit.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
         StoryEvent decision16option2 = new StoryEvent(Guid.NewGuid(), "Du hilfst Trummu auch wenn du dadurch vielleicht deine Deadline verpasst.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         decision16.addChild(decision16option1);
         decision16.addChild(decision16option2);
 
         //dice roll
-        StoryEvent storyelement41option1 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrienden und du schafft es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
-        StoryEvent storyelement41option2= new StoryEvent(Guid.NewGuid(), "Trummu ist zufrienden aber du wirst es nicht schaffen deine Deadline zu halten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement41option1 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden und du schafft es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), true);
+        StoryEvent storyelement41option2= new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden aber du wirst es nicht schaffen deine Deadline zu halten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), false);
 
         decision16option2.addChild(storyelement41option1);
         decision16option2.addChild(storyelement41option2);
@@ -482,17 +482,17 @@ public class Story
         storyelement41option2.addChild(decision17);
 
         StoryEvent decision17option1 = new StoryEvent(Guid.NewGuid(), "Ja, du fragst Yaggaya um Hilfe.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        StoryEvent decision17option2 = new StoryEvent(Guid.NewGuid(), "Nein", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        StoryEvent decision17option2 = new StoryEvent(Guid.NewGuid(), "Nein.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         decision17.addChild(decision17option1);
         decision17.addChild(decision17option2);
 
         //high communication skills required
-        StoryEvent storyelement42option1 = new StoryEvent(Guid.NewGuid(), "Yaggaya hilft dir und du schafst deine Deadline.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 0));
+        StoryEvent storyelement42option1 = new StoryEvent(Guid.NewGuid(), "Yaggaya hilft dir und du schafst deine Deadline.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, true);
 
         decision17option1.addChild(storyelement42option1);
 
-        StoryEvent storyelement42option2 = new StoryEvent(Guid.NewGuid(), "Yaggaya wird dir nicht helfen und du verpasst deine Deadline.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, -2, 0, 0));
+        StoryEvent storyelement42option2 = new StoryEvent(Guid.NewGuid(), "Yaggaya wird dir nicht helfen und du verpasst deine Deadline.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, -2, 0, 0), false);
 
         decision17option1.addChild(storyelement42option2);
 
@@ -506,7 +506,7 @@ public class Story
 
         //code review
 
-        StoryEvent storyelement45 = new StoryEvent(Guid.NewGuid(), "Das Projekt ist fast abgeschlossen. Es fehlt nur noch die Code Rieview.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement45 = new StoryEvent(Guid.NewGuid(), "Das Projekt ist fast abgeschlossen. Es fehlt nur noch die Code Review.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement44.addChild(storyelement45);
         storyelement42option1.addChild(storyelement45);
@@ -517,14 +517,14 @@ public class Story
 
         storyelement45.addChild(decision18);
 
-        StoryEvent decision18option1 = new StoryEvent(Guid.NewGuid(), "Du willst an der Code Review teilnehmen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        StoryEvent decision18option2 = new StoryEvent(Guid.NewGuid(), "Alles läuft gut, wird schon passen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        StoryEvent decision18option1 = new StoryEvent(Guid.NewGuid(), "Du nimmst an der Code Review teil.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        StoryEvent decision18option2 = new StoryEvent(Guid.NewGuid(), "Alles läuft gut, wird schon passen, eine Review ist nicht notwendig.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         decision18.addChild(decision18option1);
         decision18.addChild(decision18option2);
 
         StoryEvent storyelement46option1 = new StoryEvent(Guid.NewGuid(), "Du nimmst an der Code Review teil und erhälst Tipps die später mal sehr hilfreich sein werden.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 2, 0, 0));
-        StoryEvent storyelement46option2 = new StoryEvent(Guid.NewGuid(), "Dein CHef findet es garnicht gut das du nicht an der Code Review teilgenommen hast.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, -2, 0, 0));
+        StoryEvent storyelement46option2 = new StoryEvent(Guid.NewGuid(), "Dein Chef findet es garnicht gut das du nicht an der Code Review teilgenommen hast.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, -2, 0, 0));
 
         decision18option1.addChild(storyelement46option1);
         decision18option2.addChild(storyelement46option2);
@@ -542,7 +542,7 @@ public class Story
 
         //sufficient amount of skill points required
         StoryEvent storyelement49option1 = new StoryEvent(Guid.NewGuid(), "Glückwunsch du wurdest zum Workshop eingeladen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
-        StoryEvent storyelement49option2 = new StoryEvent(Guid.NewGuid(), "Leider warst du nicht gut genug, vielleciht wird dein nächstes Projekt erfolgreicher.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement49option2 = new StoryEvent(Guid.NewGuid(), "Leider warst du nicht gut genug, vielleicht wird dein nächstes Projekt erfolgreicher.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
         StoryEvent storyelement49option3 = new StoryEvent(Guid.NewGuid(), "Leider musst du die Firma verlassen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement48.addChild(storyelement49option1);
