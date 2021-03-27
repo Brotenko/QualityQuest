@@ -15,7 +15,8 @@ namespace ServerLogicTests.Model.Messages
     public class VotingEndedMessageTest
     {
         private static readonly Guid testGuid = Guid.NewGuid();
-        private static readonly Guid testWinningOption = Guid.NewGuid();
+      //  private static readonly Guid testWinningOption = Guid.NewGuid();
+        private static readonly KeyValuePair<Guid, string> testWinningOption = new KeyValuePair<Guid, string>(new Guid(),"string1"); 
         private static readonly Dictionary<Guid, int> testVotingResults =
             new Dictionary<Guid, int>() { { Guid.NewGuid(), 1 }, { Guid.NewGuid(), 2 } };
 

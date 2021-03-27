@@ -15,24 +15,53 @@ namespace ServerLogicTests.Model.Messages
     public class SessionClosedMessageTest
     {
         private static readonly Guid testGuid = Guid.NewGuid();
-       // private static readonly Dictionary<string, int> testStatistics =
-       //    new Dictionary<string, int>() { { "string1", 1 }, { "string2", 2 } };
-        private static readonly Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> testStatistics =
-            new Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>
-            {
-                {
-                    (//new Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>(
-                        new KeyValuePair<Guid, string>(new Guid(), "string1"),
-                        new Dictionary<KeyValuePair<Guid, string>,int >((new KeyValuePair<Guid, string>(new Guid(), "string1")), 1))
-                },
-                {"string2", 2}
-            };
-
+        // private static readonly Dictionary<string, int> testStatistics =
+        //    new Dictionary<string, int>() { { "string1", 1 }, { "string2", 2 } };
+        /* private static readonly Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> testStatistics =
+             new Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>
+             {
+                 //{
+                     (//new Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>(
+                         new KeyValuePair<Guid, string>(new Guid(), "string1"),
+                         new Dictionary<KeyValuePair<Guid, string>,int >((new KeyValuePair<Guid, string>(new Guid(), "string1")), 1))
+                 //}//,
+                 //{"string2", 2}
+             };*/
+        private static readonly Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> testStatistics = new();
+            
         private static readonly string dictToString =
             "{" + string.Join(",", testStatistics.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";
 
         private readonly string expectedStringPattern = @"SessionClosedMessage \[<container>: MessageContainer \[ModeratorId: " +
             testGuid + @", Type: SessionClosed, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], Statistics: " + dictToString + @"\]";
+
+
+        /// <summary>
+        /// Initializes the testStatistics object in multiple, better "readable" steps; 
+        /// </summary>
+        [TestInitialize]
+        public void Initialize()
+        {
+            KeyValuePair<Guid, string> promptOne = new KeyValuePair<Guid, string>(new Guid(), "string1");
+            KeyValuePair<Guid, string> promptOneOptionOne = new KeyValuePair<Guid, string>(new Guid(), "string1_option_1");
+            KeyValuePair<Guid, string> promptOneOptionTwo = new KeyValuePair<Guid, string>(new Guid(), "string1_option_2");
+            
+            KeyValuePair<Guid, string> promptTwo = new KeyValuePair<Guid, string>(new Guid(), "string2");
+            KeyValuePair<Guid, string> promptTwoOptionOne = new KeyValuePair<Guid, string>(new Guid(), "string2_option_1");
+            KeyValuePair<Guid, string> promptTwoOptionTwo = new KeyValuePair<Guid, string>(new Guid(), "string2_option_2");
+
+            Dictionary<KeyValuePair<Guid, string>, int> votesOnPromptOneOptions = new();
+            votesOnPromptOneOptions.Add(promptOneOptionOne, 4);
+            votesOnPromptOneOptions.Add(promptOneOptionTwo,2);
+
+            Dictionary<KeyValuePair<Guid, string>, int> votesOnPromptTwoOptions = new();
+            votesOnPromptOneOptions.Add(promptTwoOptionOne, 4);
+            votesOnPromptOneOptions.Add(promptTwoOptionTwo, 2);
+
+            testStatistics.Add(promptOne, votesOnPromptOneOptions);
+            testStatistics.Add(promptTwo, votesOnPromptTwoOptions);
+
+        }
 
         /// <summary>
         /// Validates that the assigned test-variable is the same before and after
