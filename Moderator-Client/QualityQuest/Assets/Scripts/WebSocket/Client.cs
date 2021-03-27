@@ -175,7 +175,7 @@ public class Client : MonoBehaviour
 
     public void RequestOpenSessionMessage()
     {
-        MessageContainer.Messages.RequestOpenSessionMessage test = new MessageContainer.Messages.RequestOpenSessionMessage(testGuid, "");
+        MessageContainer.Messages.RequestOpenSessionMessage test = new MessageContainer.Messages.RequestOpenSessionMessage(testGuid, "Passw0rd");
 
         SendMessage(test);
     }
