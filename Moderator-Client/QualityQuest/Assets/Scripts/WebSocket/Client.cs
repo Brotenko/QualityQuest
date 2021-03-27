@@ -194,12 +194,16 @@ public class Client : MonoBehaviour
         SendMessage(test);
     }
 
-    /*public void RequestStartVotingMessage()
+    public void RequestStartVotingMessage()
     {
-        MessageContainer.Messages.RequestStartVotingMessage test = new MessageContainer.Messages.RequestStartVotingMessage(testGuid, new Dictionary<Guid, string>() prompt, new Dictionary<Guid, string>() votingOptions);
+        MessageContainer.Messages.RequestStartVotingMessage test = new MessageContainer.Messages.RequestStartVotingMessage(testGuid, 30, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[3]);
+        test.VotingPrompt = new KeyValuePair<Guid, string>(Guid.NewGuid(), "Was machst du?");
+        test.VotingOptions[0] = new KeyValuePair<Guid, string>(Guid.NewGuid(), "Du hast keine Lust auf zusätzliche Arbeit und legst deshalb einfach während dem Telefonat auf.");
+        test.VotingOptions[1] = new KeyValuePair<Guid, string>(Guid.NewGuid(), "Nach dem Telefonat setzt du die gewünschten Änderungen um.");
+        test.VotingOptions[2] = new KeyValuePair<Guid, string>(Guid.NewGuid(), "Nach dem Telefonat fällt dir auf, dass die Änderungswünsche technisch nicht umsetzbar sind.");
 
         SendMessage(test);
-    } */
+    } 
 
 
     public void RequestGamePausedStatusChangeTrueMessage()
