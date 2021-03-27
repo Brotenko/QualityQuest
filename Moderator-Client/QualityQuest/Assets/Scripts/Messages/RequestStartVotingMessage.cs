@@ -15,8 +15,8 @@ namespace MessageContainer.Messages
     public class RequestStartVotingMessage : MessageContainer
     {
         public int VotingTime { get; }
-        public KeyValuePair<Guid, string>[] VotingOptions { get; }
-        public KeyValuePair<Guid, string> VotingPrompt;
+        public KeyValuePair<Guid, string>[] VotingOptions { get; set; }
+        public KeyValuePair<Guid, string> VotingPrompt { get; set; }
 
         /// <summary>
         /// Constructs a new RequestStartVotingMessage.
