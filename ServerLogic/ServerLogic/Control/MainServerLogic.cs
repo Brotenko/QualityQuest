@@ -29,5 +29,10 @@ namespace ServerLogic.Control
             moderatorClientManager.StopWebsocket();
             playerAudienceClientAPI.StopServer();
         }
+
+        public void SetPassword(string password)
+        {
+            moderatorClientManager.SetPassword(password);
+        }
     }
 }

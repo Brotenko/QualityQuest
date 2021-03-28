@@ -595,13 +595,11 @@ namespace PAClient
             Host.CreateDefaultBuilder()
                 .ConfigureLogging(logging =>
                     //sets the built in Logger to Warning-Level, to reduce Log-Spam in Server-Shell 
-                    //TODO: disable the 'Connected: xyz' output for each connection to the website 
                     logging.AddFilter("System", LogLevel.Warning)
                         .AddFilter("Microsoft", LogLevel.Warning))
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    //webBuilder.UseUrls("https://localhost:" + port + "/");
                     webBuilder.UseUrls("https://0.0.0.0:" + port + "/");
                 });
     }

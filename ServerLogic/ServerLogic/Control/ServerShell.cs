@@ -506,6 +506,7 @@ namespace ServerLogic.Control
                     if (!isDebug)
                     {
                         mainServerLogic.StartServer(Port);
+                        mainServerLogic.SetPassword(this._password);
                     }
                 }
                 catch (Exception e)
