@@ -18,7 +18,7 @@ namespace ServerLogic.Control
         private bool commandRequestsHelpMessage = false;
         private static bool isDebug;
 
-       // private ModeratorClientManager moderatorClientManager;
+       // private MainServerLogic moderatorClientManager;
 
         public int Port
         {
@@ -505,7 +505,7 @@ namespace ServerLogic.Control
                 {
                     if (!isDebug)
                     {
-                        mainServerLogic.StartServer(Port);
+                        mainServerLogic.Start(Port);
                         mainServerLogic.SetPassword(this._password);
                     }
                 }
@@ -529,7 +529,7 @@ namespace ServerLogic.Control
         /// <returns>Confirmation hat the server has been stopped successfully.</returns>
         private string StopServer()
         {
-            mainServerLogic.StopServer();
+            mainServerLogic.Stop();
             serverIsRunning = false;
             return "The server has been shut down successfully.";
         }
