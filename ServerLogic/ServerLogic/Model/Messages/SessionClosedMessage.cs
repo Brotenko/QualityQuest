@@ -15,7 +15,8 @@ namespace ServerLogic.Model.Messages
     /// </summary>
     public class SessionClosedMessage : MessageContainer
     {
-        public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int >> Statistics { get; }
+        //TODO: remove Statistics Dictionary 
+        //public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int >> Statistics { get; }
 
         /// <summary>
         /// Constructs a new SessionClosedMessage.
@@ -32,15 +33,16 @@ namespace ServerLogic.Model.Messages
         /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
         /// or an error occurring, information can be carried to the Moderator-Client directly for 
         /// quick access, without the need to search through the logs.</param>
-        public SessionClosedMessage(Guid moderatorId, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> statistics) : base(moderatorId, MessageType.SessionClosed)
+        public SessionClosedMessage(Guid moderatorId/*, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> statistics*/) : base(moderatorId, MessageType.SessionClosed)
         {
-            Statistics = statistics;
+            //Statistics = statistics;
         }
 
         public override string ToString()
         {
-            string dictToString = "{" + string.Join(",", Statistics.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";
-            return "SessionClosedMessage [<container>: " + base.ToString() + ", Statistics: " + dictToString + "]";
+            //string dictToString = "{" + string.Join(",", Statistics.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";
+            //return "SessionClosedMessage [<container>: " + base.ToString() + ", Statistics: " + dictToString + "]";
+            return "SessionClosedMessage [<container>: " + base.ToString() + "]";
         }
     }
 }

@@ -67,7 +67,8 @@ namespace ServerLogic.Control
         private static void WriteLog(string logMessage)
         {
             string logRecord = string.Format("{0} [{1}] {2}",
-                "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "]",
+                "[" + 
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "]",
                 Settings.Default.LogLevel.ToString(),
                 logMessage);
 
