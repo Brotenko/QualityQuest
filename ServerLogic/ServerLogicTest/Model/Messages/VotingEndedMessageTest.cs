@@ -15,16 +15,17 @@ namespace ServerLogicTests.Model.Messages
     public class VotingEndedMessageTest
     {
         private static readonly Guid testGuid = Guid.NewGuid();
-      //  private static readonly Guid testWinningOption = Guid.NewGuid();
-        private static readonly KeyValuePair<Guid, string> testWinningOption = new KeyValuePair<Guid, string>(new Guid(),"string1"); 
-        private static readonly Dictionary<Guid, int> testVotingResults =
-            new Dictionary<Guid, int>() { { Guid.NewGuid(), 1 }, { Guid.NewGuid(), 2 } };
+        //  private static readonly Guid testWinningOption = Guid.NewGuid();
+        private static readonly KeyValuePair<Guid, string> testWinningOption = new(new Guid(), "string1");
+
+        private static readonly Dictionary<KeyValuePair<Guid, string>, int> testVotingResults =
+            new() { { new KeyValuePair<Guid, string>(Guid.NewGuid(), "option2"), 1 }, { new KeyValuePair<Guid, string>(Guid.NewGuid(), "option2"), 2 } };
 
         private static readonly string dictToString =
         "{" + string.Join(",", testVotingResults.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";
 
         private readonly string expectedStringPattern = @"VotingEndedMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: VotingEnded, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], WinningOption: " + 
+            testGuid + @", Type: VotingEnded, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], WinningOption: " +
             testWinningOption + @", VotingResults:" + dictToString + @"\]";
 
         /// <summary>
@@ -59,14 +60,14 @@ namespace ServerLogicTests.Model.Messages
         /// and also validates that the <c>ToString()</c> method of the message
         /// returns a well-formed string, according to the expectations.
         /// </summary>
-/* TODO: was broken after updating the Messages according network-protocol
-[TestMethod]
-public void ToStringCorrectness()
-{
-    VotingEndedMessage v = new VotingEndedMessage(testGuid, testWinningOption, testVotingResults);
+        /* TODO: was broken after updating the Messages according network-protocol
+        [TestMethod]
+        public void ToStringCorrectness()
+        {
+            VotingEndedMessage v = new VotingEndedMessage(testGuid, testWinningOption, testVotingResults);
 
-    Assert.IsNotNull(v.ToString());
-    Assert.IsTrue(Regex.IsMatch(v.ToString(), expectedStringPattern));
-}*/
-}
+            Assert.IsNotNull(v.ToString());
+            Assert.IsTrue(Regex.IsMatch(v.ToString(), expectedStringPattern));
+        }*/
+    }
 }

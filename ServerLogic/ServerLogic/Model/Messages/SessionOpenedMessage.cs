@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
+
 
 namespace ServerLogic.Model.Messages
 {
@@ -17,7 +13,7 @@ namespace ServerLogic.Model.Messages
         public string SessionKey { get; }
         public Uri DirectURL { get; }
         //TODO find alternatives to Bitmap, as unity seems to have problems with this Datatype
-        public Bitmap QrCode { get; }
+       // public Bitmap QrCode { get; }
 
         /// <summary>
         /// Constructs a new SessionOpenedMessage.
@@ -40,16 +36,16 @@ namespace ServerLogic.Model.Messages
         /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
         /// or an error occurring, information can be carried to the Moderator-Client directly for 
         /// quick access, without the need to search through the logs.</param>
-        public SessionOpenedMessage(Guid moderatorId, string sessionKey, Uri directURL, Bitmap qrCode) : base(moderatorId, MessageType.SessionOpened)
+        public SessionOpenedMessage(Guid moderatorId, string sessionKey, Uri directURL/*, Bitmap qrCode*/) : base(moderatorId, MessageType.SessionOpened)
         {
             SessionKey = sessionKey;
             DirectURL = directURL;
-            QrCode = qrCode;
+            //QrCode = qrCode;
         }
 
         public override string ToString()
         {
-            return "SessionOpenedMessage [<container>: " + base.ToString() + ", SessionKey: " + SessionKey + ", DirectURL: " + DirectURL + ", QrCode: " + QrCode + "]";
+            return "SessionOpenedMessage [<container>: " + base.ToString() + ", SessionKey: " + SessionKey + ", DirectURL: " + DirectURL + /*", QrCode: " + QrCode + */"]";
         }
     }
 }

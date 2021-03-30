@@ -41,7 +41,7 @@ namespace ServerLogicTests.Model.Messages
         [TestMethod]
         public void KeyTest()
         {
-            SessionOpenedMessage s = new SessionOpenedMessage(testGuid, testKey, testURL, null);
+            SessionOpenedMessage s = new SessionOpenedMessage(testGuid, testKey, testURL/*, null*/);
 
             Assert.IsNotNull(s.SessionKey);
             Assert.AreEqual(s.SessionKey, testKey);
@@ -54,7 +54,7 @@ namespace ServerLogicTests.Model.Messages
         [TestMethod]
         public void URLTest()
         {
-            SessionOpenedMessage s = new SessionOpenedMessage(testGuid, testKey, testURL, null);
+            SessionOpenedMessage s = new SessionOpenedMessage(testGuid, testKey, testURL/*, null*/);
 
             Assert.IsNotNull(s.DirectURL);
             Assert.AreEqual(s.DirectURL, testURL);
@@ -69,7 +69,7 @@ namespace ServerLogicTests.Model.Messages
         [TestMethod]
         public void ToStringCorrectness()
         {
-            SessionOpenedMessage s = new SessionOpenedMessage(testGuid, testKey, testURL, null);
+            SessionOpenedMessage s = new SessionOpenedMessage(testGuid, testKey, testURL/*, null*/);
 
             Assert.IsNotNull(s.ToString());
             Assert.IsTrue(Regex.IsMatch(s.ToString(), expectedStringPattern));

@@ -15,7 +15,7 @@ namespace ServerLogic.Control
     {
         public Guid moderatorGuid;
         public string sessionkey;
-        public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> statistics;
+        //public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> statistics;
         //public Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>> statistics;
         //FR31 'Network protocol violation', connection is canceled after three strikes/violations against network-protocol in a row.
         public int strikes;
@@ -31,7 +31,7 @@ namespace ServerLogic.Control
         {
             this.moderatorGuid = moderatorGuid;
             this.sessionkey = sessionkey;
-            this.statistics = new Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>();
+            //this.statistics = new Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>();
             this.strikes = 0;
             this._socket = socket;
             this.playerAudienceClientApi = playerAudienceClientApi;
@@ -82,17 +82,20 @@ namespace ServerLogic.Control
         {
             if (pause)
             {
+                ServerLogger.LogDebug("Game is paused.");
                 VotingTimer.Stop();
                 this.votingTimeLeft = votingTimeLeft - votingStarted.Subtract(DateTime.Now).Seconds;
             }
             else
             {
+                ServerLogger.LogDebug("Game is continued.");
                 StartVotingTimer(votingTimeLeft);
             }
         }
 
         private void StartVotingTimer(int time)
         {
+            //TODO: currently not working
             this.votingTimeLeft = time;
             //Timer takes milliseconds
             this.VotingTimer = new Timer(time * 1000);
@@ -116,7 +119,7 @@ namespace ServerLogic.Control
                     winningVotes = value;
                 }
             }
-
+            ServerLogger.LogDebug($"Voting ended. Winning Count is {winningVotes}.");
             _socket.Send(JsonConvert.SerializeObject(new VotingEndedMessage(moderatorGuid,winningOption, votingResults)));
         }
 

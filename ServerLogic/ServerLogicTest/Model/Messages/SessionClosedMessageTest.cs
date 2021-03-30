@@ -63,6 +63,7 @@ namespace ServerLogicTests.Model.Messages
 
         }
 
+        /* obsolete due to the removing of serverbased statistics gathering, TODO remove after consultation with the rest of the team
         /// <summary>
         /// Validates that the assigned test-variable is the same before and after
         /// construction of the message.
@@ -74,7 +75,7 @@ namespace ServerLogicTests.Model.Messages
 
             Assert.IsNotNull(s.Statistics);
             Assert.AreEqual(s.Statistics, testStatistics);
-        }
+        } */
 
         /// <summary>
         /// Validates that the constructed message contains all the provided

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+//using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using Aspose.BarCode.Generation;
+//using Aspose.BarCode.Generation;
 using Newtonsoft.Json;
 using ServerLogic.Model.Messages;
 using Fleck;
@@ -19,17 +19,16 @@ namespace ServerLogic.Control
         //TODO: better name?
         private Dictionary<IWebSocketConnection, ModeratorClientManager> connectedModeratorClients = new();
         private WebSocketServer server = new("ws://0.0.0.0:" + Settings.Default.MCWebSocketPort);
+        //private WebSocketServer server = new("ws://127.0.0.1:" + Settings.Default.MCWebSocketPort);
         private PlayerAudienceClientAPI playerAudienceClientAPI;
         private string _password;
         private const int maxRepForRandomGeneration = 16;
 
         //TODO move settings to PAClient, same for WebSocket port and Homepage port
-        //TODO maybe refactor/rename/both
-
-
-
+       
         public void SetPassword(string password)
         {
+            //todo: replace with hashed string in settings
             this._password = password;
         }
 
@@ -43,6 +42,7 @@ namespace ServerLogic.Control
         {
             playerAudienceClientAPI.StartServer(port);
             StartWebsocket();
+            ServerLogger.LogDebug($"Website started on {port} and WebSocket on {Settings.Default.MCWebSocketPort}");
         }
 
         public void Stop()
@@ -70,6 +70,8 @@ namespace ServerLogic.Control
                 socket.OnClose = () =>
                 {
                     ServerLogger.LogDebug("Websocket-connection to " + socket.ConnectionInfo.ClientIpAddress + " was closed.");
+                    //necessary?
+                    socket.Close();
                 };
                 socket.OnMessage = message =>
                 {
@@ -106,12 +108,14 @@ namespace ServerLogic.Control
                         if (openSessionMessage.Password.Equals(this._password))
                         {
                             connectedModeratorClients.Add(socket, new ModeratorClientManager(openSessionMessage.ModeratorID, GenerateSessionKey(maxRepForRandomGeneration), socket, playerAudienceClientAPI));
-                            response= JsonConvert.SerializeObject(new SessionOpenedMessage(connectedModeratorClients[socket].moderatorGuid, connectedModeratorClients[socket].sessionkey, new Uri($"https://{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}"), GenerateQR()));
+                            response= JsonConvert.SerializeObject(new SessionOpenedMessage(connectedModeratorClients[socket].moderatorGuid, connectedModeratorClients[socket].sessionkey, new Uri($"https://{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}")/*, GenerateQR()*/));
                         }
                         else
                         {
+                            ServerLogger.LogDebug($"Socket closed due to wrong RequestOpenSession: Password received: {openSessionMessage.Password}, Password is: {_password}");
                             socket.Close();
                         }
+                        ServerLogger.LogDebug($"Received RequestOpenSession. SessionKey is {connectedModeratorClients[socket].sessionkey}.");
                         break;
 
                     //Is sent multiple times after MC lost connection to server
@@ -120,6 +124,7 @@ namespace ServerLogic.Control
                             JsonConvert.DeserializeObject<RequestServerStatusMessage>(message);
                         response = (JsonConvert.SerializeObject(
                             new ServerStatusMessage(connectedModeratorClients[socket].moderatorGuid)));
+                        ServerLogger.LogDebug("Received RequestServerStatus.");
                         break;
 
                     //To reestablish a lost connection
@@ -135,6 +140,13 @@ namespace ServerLogic.Control
                                 connectedModeratorClients.Remove(key);
                                 response = (JsonConvert.SerializeObject(
                                     new ReconnectSuccessfulMessage(currentModeratorClientManager.moderatorGuid)));
+                                ServerLogger.LogDebug("Reconnect successful.");
+                            }
+                            else
+                            {
+                                ServerLogger.LogDebug($"Invalid reconnection attempt from {socket.ConnectionInfo}.");
+                                socket.Close();
+                                //TODO?
                             }
                         }
                         break;
@@ -146,6 +158,7 @@ namespace ServerLogic.Control
                         connectedModeratorClients[socket].StopAudienceCountLiveUpdate();
                         response = (JsonConvert.SerializeObject(
                             new GameStartedMessage(gameStartMessage.ModeratorID)));
+                        ServerLogger.LogDebug("Received RequestGameStart.");
                         break;
 
                     // ######## Voting ######## 
@@ -157,11 +170,12 @@ namespace ServerLogic.Control
                         {
                             tempVotingPrompts.Add(votingOption,0);
                         }
-                        connectedModeratorClients[socket].statistics.Add(startVotingMessage.VotingPrompt, tempVotingPrompts);
+                        //connectedModeratorClients[socket].statistics.Add(startVotingMessage.VotingPrompt, tempVotingPrompts);
                         connectedModeratorClients[socket].StartVotingTimer(startVotingMessage);
                         socket.Send(JsonConvert.SerializeObject(
                             new VotingStartedMessage(startVotingMessage.ModeratorID)));
                         //votingEndedMessage is sended via Timer inside ModeratorClientManager-class
+                        ServerLogger.LogDebug("Received RequestStartVoting.");
                         break;
 
                     // ######## Control messages ########
@@ -182,6 +196,7 @@ namespace ServerLogic.Control
                             JsonConvert.SerializeObject(new SessionClosedMessage(closeSessionMessage.ModeratorID)));
                         connectedModeratorClients[socket].Stop();
                         connectedModeratorClients.Remove(socket);
+                        ServerLogger.LogDebug("Received RequestCloseSession.");
                         break;
 
                     // unknown Messagetype
@@ -190,7 +205,7 @@ namespace ServerLogic.Control
                         ServerLogger.LogDebug($"Corrupted Messagetype: {typeof(MessageType)}, received from {connectedModeratorClients[socket].moderatorGuid}, {socket.ConnectionInfo} within session {connectedModeratorClients[socket].sessionkey}.");
                         //FR31 'Network protocol violation'
                         addStrike(socket);
-                        break;
+                        return "";
                 }
 
                 //reset strikes to 0, as the connection is only closed after three violations in a row
@@ -260,11 +275,14 @@ namespace ServerLogic.Control
             return sessionKey;
         }
 
+        /*
         private Bitmap GenerateQR()
         {
+            /*
             BarcodeGenerator generator = new(EncodeTypes.QR, $"{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}");
             generator.Parameters.Resolution = 800;
             return generator.GenerateBarCodeImage();
-        }
+            */
+        //}
     }
 }
