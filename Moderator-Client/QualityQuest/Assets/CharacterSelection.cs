@@ -27,6 +27,8 @@ public class CharacterSelection : MonoBehaviour
     private bool gamePaused;
     private bool menuOpen;
 
+    private Character playerCharacter;
+
     private void Start()
     {
         pauseMenu.SetActive(false);
@@ -129,6 +131,30 @@ public class CharacterSelection : MonoBehaviour
         pauseIcon.SetActive(true);
         //skills.SetActive(false);
         timer.SetActive(false);
+    }
+
+    public void InitializeCharacterNoruso()
+    {
+        playerCharacter = new Character(new Skills(3, 1, 2, 1), "Noruso");
+        Story.playThrough.SetCharacter(playerCharacter);
+    }
+
+    public void InitializeCharacterLumati()
+    {
+        playerCharacter = new Character(new Skills(1, 3, 0, 4), "Lumati");
+        Story.playThrough.SetCharacter(playerCharacter);
+    }
+
+    public void InitializeCharacterTurgal()
+    {
+        playerCharacter = new Character(new Skills(2, 2, 2, 2), "Turgal");
+        Story.playThrough.SetCharacter(playerCharacter);
+    }
+
+    public void InitializeCharacterKirogh()
+    {
+        playerCharacter = new Character(new Skills(2, 0, 5, 1), "Kirogh");
+        Story.playThrough.SetCharacter(playerCharacter);
     }
 
 

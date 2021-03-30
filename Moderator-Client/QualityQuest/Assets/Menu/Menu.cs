@@ -97,6 +97,23 @@ public class Menu : MonoBehaviour
         offlineMode = false;
     }
 
+    /// <summary>
+    /// Method to start the game through the main menu.
+    /// </summary>
+    public void StartGame()
+    {
+        if (offlineMode)
+        {
+
+        } 
+        else
+        {
+            Story.InitializeStoryGraph();
+            SceneManager.LoadScene(sceneBuildIndex: 2);
+            
+        }
+    }
+
 
     /************************ Method for test porpose ************************/
 
