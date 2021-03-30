@@ -30,6 +30,15 @@ public class StoryGraph
     }
 
     /// <summary>
+    /// Setter for the character.
+    /// </summary>
+    /// <returns>The main character.</returns>
+    public void SetCharacter(Character character)
+    {
+        this.character = character;
+    }
+
+    /// <summary>
     /// Getter for the root StoryEvent.
     /// </summary>
     /// <returns>The root StoryEvent.</returns>

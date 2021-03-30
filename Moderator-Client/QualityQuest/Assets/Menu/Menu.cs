@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class Menu : MonoBehaviour
 {
 
+    public static bool offlineMode;
+
     public GameObject mainMenu;
     public GameObject audioMenu;
     public GameObject optionsMenu;
@@ -85,6 +87,14 @@ public class Menu : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+
+    /// <summary>
+    /// Method to set the offlineMode through the main menu.
+    /// </summary>
+    public void SetOfflineMode()
+    {
+        offlineMode = false;
     }
 
 

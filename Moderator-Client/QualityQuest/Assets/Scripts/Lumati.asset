@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b716c1a397312441bfa38f3dd52daee, type: 3}
-  m_Name: Elias
+  m_Name: Lumati
   m_EditorClassIdentifier: 
-  name: Elias
-  image: {fileID: 21300000, guid: 40afcce6dd04ee949ba163b957451844, type: 3}
-  programming: 2
-  communcation: 2
-  analysis: 2
-  party: 2
+  name: Lumati
+  image: {fileID: 21300000, guid: a153a2096ad026b46af59e1fd657acb3, type: 3}
+  programming: 4
+  communcation: 1
+  analysis: 3
+  party: 0

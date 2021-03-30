@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b716c1a397312441bfa38f3dd52daee, type: 3}
-  m_Name: Manuel
+  m_Name: Turgal
   m_EditorClassIdentifier: 
-  name: Manuel
-  image: {fileID: 21300000, guid: 4a30bd1186cbd624fb59bd8fc38e14d2, type: 3}
-  programming: 3
-  communcation: 3
-  analysis: 3
-  party: 3
+  name: Turgal
+  image: {fileID: 21300000, guid: 40afcce6dd04ee949ba163b957451844, type: 3}
+  programming: 2
+  communcation: 2
+  analysis: 2
+  party: 2

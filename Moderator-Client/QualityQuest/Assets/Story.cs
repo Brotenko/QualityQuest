@@ -5,8 +5,10 @@ using System;
 
 public class Story
 {
+    public static StoryGraph playThrough;
+    private Character playerCharacter;
 
-    public void main()
+    public void initializeStoryGraph()
     {
         StoryEvent root = new StoryEvent(Guid.NewGuid(),"Charakter Auswahl",new HashSet<StoryEvent>(),StoryEventType.StoryFlow);
 
@@ -555,6 +557,31 @@ public class Story
         storyelement49option2.addChild(end);
         storyelement49option3.addChild(end);
 
+        StoryGraph playThrough = new StoryGraph(null, root, root);
     }
 
+
+    public void InitializeCharacterNoruso()
+    {
+        Character playerCharacter = new Character(new Skills(3,1,2,1), "Noruso");
+        playThrough.SetCharacter(playerCharacter);
+    }
+
+    public void InitializeCharacterLumati()
+    {
+        Character playerCharacter = new Character(new Skills(1,3,0,4),"Lumati");
+        playThrough.SetCharacter(playerCharacter);
+    }
+
+    public void InitializeCharacterToruso()
+    {
+        Character playerCharacter = new Character(new Skills(2,2,2,2), "Turgal");
+        playThrough.SetCharacter(playerCharacter);
+    }
+
+    public void InitializeCharacterKirogh()
+    {
+        Character playerCharacter = new Character(new Skills(2,0,5,1), "Kirogh");
+        playThrough.SetCharacter(playerCharacter);
+    }
 }
