@@ -90,7 +90,7 @@ namespace ServerLogic.Control
         /// Starts a new session for the PlayerAudience to connect to.
         /// </summary>
         /// 
-        /// <param name="sessionkey">The sessionkey of the to be started session.</param>
+        /// <param name="sessionkey">The SessionKey of the to be started session.</param>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
@@ -105,7 +105,7 @@ namespace ServerLogic.Control
                 }
                 else
                 {
-                    throw new ArgumentException(message: "Sessionkey needs to be 6 uppercase, alphanumerical characters.");
+                    throw new ArgumentException(message: "SessionKey needs to be 6 uppercase, alphanumerical characters.");
                 }
             }
             else
@@ -126,7 +126,7 @@ namespace ServerLogic.Control
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
-        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
+        /// <exception cref="SessionNotFoundException">The given SessionKey is invalid or missformed.</exception>
         /// <exception cref="InvalidOperationException">The server is currently not in a running state.</exception>
         public async Task StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
@@ -150,7 +150,7 @@ namespace ServerLogic.Control
         ///
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
-        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
+        /// <exception cref="SessionNotFoundException">The given SessionKey is invalid or missformed.</exception>
         /// <exception cref="InvalidOperationException">The server is currently not in a running state.</exception>
         /// 
         /// <returns>The voting result of the given session and prompt.</returns>
@@ -174,7 +174,7 @@ namespace ServerLogic.Control
         /// <param name="sessionkey">The to be terminated session.</param>
         ///
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
-        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
+        /// <exception cref="SessionNotFoundException">The given SessionKey is invalid or missformed.</exception>
         /// <exception cref="InvalidOperationException">The server is currently not in a running state.</exception>
         /// 
         /// <returns>The statistics of the terminated session.</returns>

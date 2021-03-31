@@ -678,7 +678,6 @@ namespace ServerLogic.Control
                     if (!isDebug)
                     {
                         mainServerLogic.Start();
-                        mainServerLogic.SetPassword(this._password);
                     }
                 }
                 catch (Exception e)

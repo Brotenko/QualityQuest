@@ -96,7 +96,7 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewSession"/> method
-        /// throws an <see cref="ArgumentException"/> exception when an invalid sessionkey
+        /// throws an <see cref="ArgumentException"/> exception when an invalid SessionKey
         /// is given.
         /// </summary>
         [TestMethod]
@@ -126,7 +126,7 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewSession"/> method
-        /// throws an <see cref="ArgumentException"/> exception when the same sessionkey
+        /// throws an <see cref="ArgumentException"/> exception when the same SessionKey
         /// is given twice.
         /// </summary>
         [TestMethod]
@@ -174,7 +174,7 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.StartNewVote"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid SessionKey
         /// is given.
         /// </summary>
         [TestMethod]
@@ -336,7 +336,7 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.GetVotingResult"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid SessionKey
         /// is given.
         /// </summary>
         [TestMethod]
@@ -428,7 +428,7 @@ namespace ServerLogicTests.Control
 
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.EndSession"/> method
-        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid sessionkey
+        /// throws a <see cref="SessionNotFoundException"/> exception when an invalid SessionKey
         /// is given.
         /// </summary>
         [TestMethod]
@@ -459,7 +459,7 @@ namespace ServerLogicTests.Control
         /// <summary>
         /// Validates that the <see cref="PlayerAudienceClientAPI.EndSession"/> method
         /// throws an <see cref="InvalidOperationException"/> exception when the given
-        /// sessionkey does not belong to an active session.
+        /// SessionKey does not belong to an active session.
         /// </summary>
         [TestMethod]
         [TestCategory("EndSession")]
