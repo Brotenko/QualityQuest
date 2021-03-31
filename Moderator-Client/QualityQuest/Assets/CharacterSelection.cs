@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Threading;
+using System.Threading.Tasks;
 
 public class CharacterSelection : MonoBehaviour
 {
@@ -29,8 +31,15 @@ public class CharacterSelection : MonoBehaviour
 
     private Character playerCharacter;
 
+    public static CharacterSelection CS;
+
     private void Start()
     {
+        if (CS == null)
+        {
+            CS = this;
+        }
+
         pauseMenu.SetActive(false);
         selectchar.SetActive(true);
         menu.SetActive(false);
@@ -137,24 +146,55 @@ public class CharacterSelection : MonoBehaviour
     {
         playerCharacter = new Character(new Skills(3, 1, 2, 1), "Noruso");
         Story.playThrough.SetCharacter(playerCharacter);
+        Story.current.PlayGame();
     }
 
     public void InitializeCharacterLumati()
     {
         playerCharacter = new Character(new Skills(1, 3, 0, 4), "Lumati");
         Story.playThrough.SetCharacter(playerCharacter);
+        Story.current.PlayGame();
     }
 
     public void InitializeCharacterTurgal()
     {
         playerCharacter = new Character(new Skills(2, 2, 2, 2), "Turgal");
         Story.playThrough.SetCharacter(playerCharacter);
+        Story.current.PlayGame();
     }
 
     public void InitializeCharacterKirogh()
     {
         playerCharacter = new Character(new Skills(2, 0, 5, 1), "Kirogh");
         Story.playThrough.SetCharacter(playerCharacter);
+        Story.current.PlayGame();
+    }
+
+    private StoryEvent se;
+
+    public async Task<StoryEvent> ShowDecision(HashSet<StoryEvent> children, CancellationToken cancelation = default)
+    {
+        se = null;
+
+        Decision.current.LoadDecision(children);
+
+
+        selectchar.SetActive(false);
+        decision.SetActive(true);
+        Debug.Log("ShowDecision");
+
+        await Task.Run(() =>  {while (se == null) { cancelation.ThrowIfCancellationRequested(); } },cancelation);;
+
+        return se;
+    }
+
+    public void Pick(StoryEvent e)
+    {
+        if (!Story.current.selected)
+        {
+            se = e;
+            Debug.Log("Selected: " + e.GetDescription());
+        }
     }
 
 

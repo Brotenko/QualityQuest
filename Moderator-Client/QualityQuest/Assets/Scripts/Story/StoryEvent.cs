@@ -84,7 +84,7 @@ public class StoryEvent
     /// Getter for the eventId of a StoryEvent.
     /// </summary>
     /// <returns>The eventId of the StoryEvent.</returns>
-    public Guid getEventId()
+    public Guid GetEventId()
     {
         return eventId;
     }
@@ -93,7 +93,7 @@ public class StoryEvent
     /// Getter for the destription of a StoryEvent.
     /// </summary>
     /// <returns>The description of the StoryEvent</returns>
-    public string getDescription()
+    public string GetDescription()
     {
         return description;
     }
@@ -102,7 +102,7 @@ public class StoryEvent
     /// Getter for the children of a StoryEvent.
     /// </summary>
     /// <returns>The children of the StoryEvent.</returns>
-    public HashSet<StoryEvent> getChildren()
+    public HashSet<StoryEvent> GetChildren()
     {
         return children;
     }
@@ -111,7 +111,7 @@ public class StoryEvent
     /// Getter for the skillsChange of a StoryEvent.
     /// </summary>
     /// <returns></returns>
-    public Skills getSkills()
+    public Skills GetSkills()
     {
         return skillChange;
     }
@@ -120,16 +120,21 @@ public class StoryEvent
     /// Getter for the randomOption of a StoryEvent
     /// </summary>
     /// <returns></returns>
-    public bool getRandomOption()
+    public bool GetRandomOption()
     {
         return randomOption;
+    }
+
+    public StoryEventType GetStoryType()
+    {
+        return storyType;
     }
 
     /// <summary>
     /// Method to add a child to a StoryEvent.
     /// </summary>
     /// <param name="child">The child that is added.</param>
-    public void addChild(StoryEvent child)
+    public void AddChild(StoryEvent child)
     {
         children.Add(child);
     }
@@ -138,7 +143,7 @@ public class StoryEvent
     /// Method to remove a child from a StoryEvent.
     /// </summary>
     /// <param name="child">The child that is removed.</param>
-    public void removeChild(StoryEvent child)
+    public void RemoveChild(StoryEvent child)
     {
         children.Remove(child);
     }

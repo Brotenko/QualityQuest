@@ -62,7 +62,7 @@ public class StoryGraph
     /// <returns>The next possible StoryEvents as HashSet.</returns>
     public HashSet<StoryEvent> getNextPossibleEvents()
     {
-        return currentEvent.getChildren();
+        return currentEvent.GetChildren();
     }
 
     /// <summary>

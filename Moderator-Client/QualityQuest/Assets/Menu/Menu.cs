@@ -94,7 +94,8 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void SetOfflineMode()
     {
-        offlineMode = false;
+        offlineMode = true;
+        Debug.Log("Offlinemode enabled");
     }
 
     /// <summary>
@@ -104,13 +105,12 @@ public class Menu : MonoBehaviour
     {
         if (offlineMode)
         {
-
+            Story.InitializeStoryGraph();
+            SceneManager.LoadScene(sceneBuildIndex: 2);
         } 
         else
         {
-            Story.InitializeStoryGraph();
-            SceneManager.LoadScene(sceneBuildIndex: 2);
-            
+
         }
     }
 
