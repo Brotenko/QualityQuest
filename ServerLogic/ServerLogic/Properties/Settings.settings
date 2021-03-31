@@ -14,7 +14,7 @@
     <Setting Name="ServerURL" Type="System.String" Scope="User">
       <Value Profile="(Default)">127.0.0.1</Value>
     </Setting>
-    <Setting Name="PAWebPagePort" Type="System.String" Scope="User">
+    <Setting Name="PAWebPagePort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">7777</Value>
     </Setting>
     <Setting Name="MCWebSocketPort" Type="System.String" Scope="User">
@@ -22,6 +22,12 @@
     </Setting>
     <Setting Name="CertFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">//Certs//TestCert.pfx</Value>
+    </Setting>
+    <Setting Name="PWHash" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Salt" Type="System.String" Scope="User">
+      <Value Profile="(Default)">f4e4gn3m32da4b17</Value>
     </Setting>
   </Settings>
 </SettingsFile>

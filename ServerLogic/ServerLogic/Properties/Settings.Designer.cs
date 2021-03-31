@@ -74,9 +74,9 @@ namespace ServerLogic.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("7777")]
-        public string PAWebPagePort {
+        public int PAWebPagePort {
             get {
-                return ((string)(this["PAWebPagePort"]));
+                return ((int)(this["PAWebPagePort"]));
             }
             set {
                 this["PAWebPagePort"] = value;
@@ -104,6 +104,30 @@ namespace ServerLogic.Properties {
             }
             set {
                 this["CertFilePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PWHash {
+            get {
+                return ((string)(this["PWHash"]));
+            }
+            set {
+                this["PWHash"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("f4e4gn3m32da4b17")]
+        public string Salt {
+            get {
+                return ((string)(this["Salt"]));
+            }
+            set {
+                this["Salt"] = value;
             }
         }
     }

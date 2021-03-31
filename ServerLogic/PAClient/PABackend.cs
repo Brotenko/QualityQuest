@@ -247,19 +247,16 @@ namespace PAClient
                     throw new SessionNotFoundException("The requested session is either inactive or invalid!");
                 }
             }
-            catch (ArgumentNullException e)
+            catch (ArgumentNullException)
             {
-                /* LOG ERROR HERE */
                 return (int) PABackendErrorType.NullSessionkeyError;
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
-                /* LOG ERROR HERE */
                 return (int) PABackendErrorType.InvalidArgumentError;
             }
-            catch (SessionNotFoundException e)
+            catch (SessionNotFoundException)
             {
-                /* LOG ERROR HERE */
                 return (int) PABackendErrorType.InvalidSessionkeyError;
             }
         }
@@ -593,15 +590,14 @@ namespace PAClient
         /// <returns>The program initialization.</returns>
         private static IHostBuilder CreateHostBuilder(int port) =>
             Host.CreateDefaultBuilder()
-                .ConfigureLogging(logging =>
-                    //sets the built in Logger to Warning-Level, to reduce Log-Spam in Server-Shell 
-                    logging.AddFilter("System", LogLevel.Warning)
-                        .AddFilter("Microsoft", LogLevel.Warning))
+                //.ConfigureLogging(logging =>
+                    //todo sets the built in Logger to Warning-Level, to reduce Log-Spam in Server-Shell 
+                    //logging.AddFilter("System", LogLevel.Warning)
+                    //    .AddFilter("Microsoft", LogLevel.Warning))
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseUrls("https://0.0.0.0:" + port + "/");
-                    //webBuilder.UseUrls("https://localhost:" + port + "/");
                 });
     }
 }

@@ -38,11 +38,11 @@ namespace ServerLogic.Control
             this.playerAudienceClientAPI = new PlayerAudienceClientAPI();
         }
 
-        public void Start(int port)
+        public void Start()
         {
-            playerAudienceClientAPI.StartServer(port);
+            playerAudienceClientAPI.StartServer(Settings.Default.PAWebPagePort);
             StartWebsocket();
-            ServerLogger.LogDebug($"Website started on {port} and WebSocket on {Settings.Default.MCWebSocketPort}");
+            ServerLogger.LogDebug($"Website started on {Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
         }
 
         public void Stop()

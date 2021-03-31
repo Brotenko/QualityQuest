@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using ServerLogic.Properties;
 
@@ -18,7 +20,7 @@ namespace ServerLogic.Control
         private bool commandRequestsHelpMessage = false;
         private static bool isDebug;
 
-       // private MainServerLogic moderatorClientManager;
+        // private MainServerLogic moderatorClientManager;
 
         public int Port
         {
@@ -35,6 +37,9 @@ namespace ServerLogic.Control
             }
         }
 
+        /// <summary>
+        /// TODO: Might be removed in future Refactoring
+        /// </summary>
         public string Password
         {
             get => _password;
@@ -83,13 +88,170 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
+        /// This is a direct copy from the Password-setter:
+        /// 
+        /// Makes sure to set a password that doesn't start with a dash ("-"), 
+        /// is at least 8 characters in length, but no more than 32, and satisfies 
+        /// 3 out of the following 4 rules:
+        ///  At least one digit
+        ///  At least one lowercase character
+        ///  At least one uppercase character
+        ///  At least one special character
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        private string CheckPasswordConditions(string password)
+        {
+            if (password.Length >= 8 && password.Length <= 32 && !password.StartsWith('-'))
+            {
+                int count = 0;
+
+                if (Regex.IsMatch(password, @".*\d.*"))
+                {
+                    count++;
+                }
+                if (Regex.IsMatch(password, @".*[a-z].*"))
+                {
+                    count++;
+                }
+                if (Regex.IsMatch(password, @".*[A-Z].*"))
+                {
+                    count++;
+                }
+                if (Regex.IsMatch(password, @".*[^a-zA-Z0-9 ].*"))
+                {
+                    count++;
+                }
+
+                if (count < 3)
+                {
+                    throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
+                }
+            }
+            else
+            {
+                throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
+            }
+
+            return password;
+        }
+
+        /// <summary>
+        /// Adds a salt from the settings-file to the passed string and returns the SHA256 hash from it.
+        /// </summary>
+        /// <param name="hashMe"></param>
+        /// <returns>A SHA256-Hash</returns>
+        public static string StringToSHA256Hash(string hashMe)
+        {
+            hashMe += Settings.Default.Salt;
+            //source: https://stackoverflow.com/questions/16999361/obtain-sha-256-string-of-a-string
+            StringBuilder stringBuilder = new();
+
+            using (SHA256 hash = SHA256.Create())
+            {
+                Encoding enc = Encoding.UTF8;
+                Byte[] result = hash.ComputeHash(enc.GetBytes(hashMe));
+                foreach (Byte b in result)
+                {
+                    stringBuilder.Append(b.ToString("x2"));
+                }
+            }
+            return stringBuilder.ToString(); 
+        }
+
+        /// <summary>
+        /// A basic method for secure password retrieval. The requested password is stored as a hash in the settings file.
+        /// </summary>
+        private void SetPasswordDialog()
+        {
+            Console.WriteLine("Please enter your password:");
+            while (true)
+            {
+                var pass = "";
+                ConsoleKey key;
+                //read pw and replace entered chars with '*'
+                do
+                {
+                    var keyInfo = Console.ReadKey(intercept: true);
+                    key = keyInfo.Key;
+                    if (key == ConsoleKey.Backspace && pass.Length > 0)
+                    {
+                        Console.Write("\b \b");
+                        pass = pass[0..^1];
+                    }
+                    else if (!char.IsControl(keyInfo.KeyChar))
+                    {
+                        Console.Write("*");
+                        pass += keyInfo.KeyChar;
+                    }
+                } while (key != ConsoleKey.Enter);
+
+                try
+                {
+                    //FR37
+                    Settings.Default.PWHash = StringToSHA256Hash(CheckPasswordConditions(pass));
+                    break;
+                }
+                catch (ArgumentException)
+                {
+                    Console.WriteLine("\n" + Resources.InvalidPasswordExceptionMessage);
+                    Console.WriteLine("Please try again:");
+                }
+            }
+            //Password confirmation
+            while (true)
+            {
+                Console.WriteLine("\nPlease repeat your Password:");
+                var pass = "";
+                ConsoleKey key;
+                do
+                {
+                    var keyInfo = Console.ReadKey(intercept: true);
+                    key = keyInfo.Key;
+                    if (key == ConsoleKey.Backspace && pass.Length > 0)
+                    {
+                        Console.Write("\b \b");
+                        pass = pass[0..^1];
+                    }
+                    else if (!char.IsControl(keyInfo.KeyChar))
+                    {
+                        Console.Write("*");
+                        pass += keyInfo.KeyChar;
+                    }
+                } while (key != ConsoleKey.Enter);
+
+                if (StringToSHA256Hash(pass).Equals(Settings.Default.PWHash))
+                {
+                    Console.WriteLine("\nPassword was changed.");
+                    Settings.Default.Save();
+                    break;
+                }
+                Console.WriteLine("\nThe password entered does not match the one previously entered.");
+            }
+        }
+
+        /// <summary>
         /// Constructs a new ServerShell with a predefined password and the standard port.
         /// </summary>
         public ServerShell()
         {
+            if (Settings.Default.PWHash.Equals(""))
+            {
+                Console.WriteLine("Currently no password is specified.");
+                SetPasswordDialog();
+            }
+            else
+            {
+                Console.WriteLine("If you want to change your password, enter 'password ########'");
+            }
+
+            RunShell();
+
+            /*
             this.Password = "!Password123";
             this.Port = 7777;
             ServerLogger.CreateServerLogger();
+            */
         }
 
         /// <summary>
@@ -121,6 +283,7 @@ namespace ServerLogic.Control
             RunShell();
         }
 
+
         /// <summary>
         /// The Main method of the ServerShell.
         /// </summary>
@@ -131,14 +294,18 @@ namespace ServerLogic.Control
         /// password or port violate the rules for setting them.</exception>
         public static void Main(string[] args)
         {
+            //When started from inside a docker Container, Ports are defined by settings-file
+            new ServerShell();
+            /*
             string[] returnValue = CheckMainMethodArgs(args);
 
             if (returnValue == null)
             {
+                
                 return;
             }
 
-            _ = new ServerShell(password: returnValue[0], port: Convert.ToInt32(returnValue[1], CultureInfo.CurrentCulture));
+            _ = new ServerShell(password: returnValue[0], port: Convert.ToInt32(returnValue[1], CultureInfo.CurrentCulture));*/
         }
 
         /// <summary>
@@ -226,33 +393,33 @@ namespace ServerLogic.Control
             {
                 switch (command)
                 {
-                case "port":
-                    ret = ParsePort(commandParameters);
-                    break;
-                case "password":
-                    ret = ParsePassword(commandParameters);
-                    break;
-                case "start":
-                    ret = StartServer(commandParameters);
-                    break;
-                case "stop":
-                    ret = StopServer();
-                    break;
-                case "version":
-                    ret = ShowVersion();
-                    break;
-                case "help":
-                    ret = ShowHelp("help");
-                    break;
-                case "log":
-                    ret = ShowLogs(commandParameters);
-                    break;
-                case "exit":
-                    StopShell();
-                    break;
-                default:
-                    ret = "'" + command + "' is not a valid command. See 'help'.";
-                    break;
+                    case "port":
+                        ret = ParsePort(commandParameters);
+                        break;
+                    case "password":
+                        ret = ParsePassword(commandParameters);
+                        break;
+                    case "start":
+                        ret = StartServer(commandParameters);
+                        break;
+                    case "stop":
+                        ret = StopServer();
+                        break;
+                    case "version":
+                        ret = ShowVersion();
+                        break;
+                    case "help":
+                        ret = ShowHelp("help");
+                        break;
+                    case "log":
+                        ret = ShowLogs(commandParameters);
+                        break;
+                    case "exit":
+                        StopShell();
+                        break;
+                    default:
+                        ret = "'" + command + "' is not a valid command. See 'help'.";
+                        break;
                 }
             }
 
@@ -365,6 +532,7 @@ namespace ServerLogic.Control
                         return Properties.Resources.InvalidPortExceptionMessage;
                     }
 
+                    Settings.Default.PAWebPagePort = tempPort;
                     return "The port has been set to " + tempPort + " successfully.";
                 }
             }
@@ -428,7 +596,8 @@ namespace ServerLogic.Control
             // command: password -> Returns the currently set password.
             if (parameterList.Length == 0)
             {
-                return Password;
+                return Settings.Default.PWHash;
+                //return Password;
             }
             // command: password string -> Sets a new password.
             else
@@ -442,7 +611,9 @@ namespace ServerLogic.Control
                     // test if password string is of adequate length and characters.
                     try
                     {
-                        Password = parameterList[0];
+                        //todo change help-info, check parameters 
+                        //Password = parameterList[0];
+                        SetPasswordDialog();
                     }
                     // password string violates the password rules.
                     catch (ArgumentException)
@@ -450,7 +621,8 @@ namespace ServerLogic.Control
                         return Properties.Resources.InvalidPasswordExceptionMessage;
                     }
 
-                    return "The password has been set to " + parameterList[0] + " successfully.";
+                    return "";
+                    //return "The password has been set to " + parameterList[0] + " successfully.";
                 }
             }
         }
@@ -505,7 +677,7 @@ namespace ServerLogic.Control
                 {
                     if (!isDebug)
                     {
-                        mainServerLogic.Start(Port);
+                        mainServerLogic.Start();
                         mainServerLogic.SetPassword(this._password);
                     }
                 }
@@ -515,10 +687,10 @@ namespace ServerLogic.Control
                         + e.StackTrace;
                 }
                 serverIsRunning = true;
-                return "The server has been started successfully with port: " + Port;
+                return "The server has been started successfully with port: " + Settings.Default.PAWebPagePort;
             }
 
-            return "The server is already running with port: " + Port;
+            return "The server is already running with port: " + Settings.Default.PAWebPagePort;
         }
 
         /// <summary>
@@ -547,34 +719,34 @@ namespace ServerLogic.Control
             string ret;
             switch (command)
             {
-            case "port":
-                ret = Properties.Resources.PortHelpMessage;
-                break;
-            case "password":
-                ret = Properties.Resources.PasswordHelpMessage;
-                break;
-            case "start":
-                ret = Properties.Resources.StartHelpMessage;
-                break;
-            case "stop":
-                ret = Properties.Resources.StopHelpMessage;
-                break;
-            case "version":
-                ret = Properties.Resources.VersionHelpMessage;
-                break;
-            case "help":
-                ret = Properties.Resources.HelpHelpMessage;
-                break;
-            case "log":
-                ret = Properties.Resources.LogHelpMessage;
-                break;
-            case "exit":
-                ret = Properties.Resources.ExitHelpMessage;
-                break;
-            default:
-                return "'" + command + "' is not a valid command. See 'help'.";
+                case "port":
+                    ret = Properties.Resources.PortHelpMessage;
+                    break;
+                case "password":
+                    ret = Properties.Resources.PasswordHelpMessage;
+                    break;
+                case "start":
+                    ret = Properties.Resources.StartHelpMessage;
+                    break;
+                case "stop":
+                    ret = Properties.Resources.StopHelpMessage;
+                    break;
+                case "version":
+                    ret = Properties.Resources.VersionHelpMessage;
+                    break;
+                case "help":
+                    ret = Properties.Resources.HelpHelpMessage;
+                    break;
+                case "log":
+                    ret = Properties.Resources.LogHelpMessage;
+                    break;
+                case "exit":
+                    ret = Properties.Resources.ExitHelpMessage;
+                    break;
+                default:
+                    return "'" + command + "' is not a valid command. See 'help'.";
             }
-            
+
             return ret;
         }
 
@@ -633,7 +805,7 @@ namespace ServerLogic.Control
                     case "--clear":
                         ServerLogger.WipeLogFile();
                         return "Logs were cleared.";
-                    case "--setLevel":
+                    case "--setLevel" or "--sl":
                         try
                         {
                             ServerLogger.SetLogLevel(short.Parse(parameterList[1]));
@@ -660,7 +832,7 @@ namespace ServerLogic.Control
 
                         //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
                         return "";
-                    case "--setLogOutput":
+                    case "--setLogOutput" or "--slo":
                         try
                         {
                             ServerLogger.ChangeLoggingOutputType(short.Parse(parameterList[1]));
@@ -685,9 +857,9 @@ namespace ServerLogic.Control
                         //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
                         return "";
                     case "--getLevel":
-                        return "Current LogLevel is "+ Settings.Default.LogLevel +".";
+                        return "Current LogLevel is " + Settings.Default.LogLevel + ".";
                     default:
-                        return "Command "+parameterList[0]+" is unknown, use 'log --help' for more information";
+                        return "Command " + parameterList[0] + " is unknown, use 'log --help' for more information";
                 }
             }
         }
