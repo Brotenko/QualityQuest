@@ -35,6 +35,16 @@ The change history is a chronologically ordered list of all changes between diff
 
 </span>
 
+## Version 0.2.3 - Changes during Implementation
+
+| Type  | Description                                                                                                                                     |
+| :---: | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+|   -   | **[_Network Protocol:_](../network-protocol#messagecontainer) _MessageContainer:_** Removed Debug-Field from MessageContainer.         |
+|   -   | **[_Network Protocol:_](../network-protocol#sessionopenedmessage) _SessionOpenedMessage:_** Removed field for QR-Code. |
+|   -   | **[_Network Protocol:_](../network-protocol#sessionopenedmessage) _SessionClosedMessage:_** Removed field for game-statistics. |
+
+</span>
+
 ## Version 0.2.2 - Second revision of the component design
 
 | Type  | Description                                                                                                                                     |
