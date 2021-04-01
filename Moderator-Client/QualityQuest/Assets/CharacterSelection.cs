@@ -31,13 +31,13 @@ public class CharacterSelection : MonoBehaviour
 
     private Character playerCharacter;
 
-    public static CharacterSelection CS;
+    public static CharacterSelection current;
 
     private void Start()
     {
-        if (CS == null)
+        if (current == null)
         {
-            CS = this;
+            current = this;
         }
 
         pauseMenu.SetActive(false);
@@ -172,8 +172,9 @@ public class CharacterSelection : MonoBehaviour
 
     private StoryEvent se;
 
-    public async Task<StoryEvent> ShowDecision(HashSet<StoryEvent> children, CancellationToken cancelation = default)
+    public void ShowDecision(HashSet<StoryEvent> children)
     {
+
         se = null;
 
         Decision.current.LoadDecision(children);
@@ -183,18 +184,21 @@ public class CharacterSelection : MonoBehaviour
         decision.SetActive(true);
         Debug.Log("ShowDecision");
 
-        await Task.Run(() =>  {while (se == null) { cancelation.ThrowIfCancellationRequested(); } },cancelation);;
 
-        return se;
+
     }
 
     public void Pick(StoryEvent e)
     {
-        if (!Story.current.selected)
+        Debug.Log(e.GetChildren().Count);
+
+        if (se == null)
         {
             se = e;
             Debug.Log("Selected: " + e.GetDescription());
+            Story.current.SetCurrentEvent(e);
         }
+
     }
 
 

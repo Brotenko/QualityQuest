@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Threading;
+using System.Linq;
 
 public class Story:MonoBehaviour
 {
@@ -70,10 +70,10 @@ public class Story:MonoBehaviour
 
         StoryEvent storyelement3 = new StoryEvent(Guid.NewGuid(), "Nach dem du dein Anwendungsfach bestanden hast kannst du deine Freizeit genieﬂen oder an einer auﬂerschulischen Aktivit‰t teilnehemn.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
-        decision2option1.AddChild(storyelement3);
-        decision2option2.AddChild(storyelement3);
-        decision2option3.AddChild(storyelement3);
-        decision2option4.AddChild(storyelement3);
+        storyelemnt2option1.AddChild(storyelement3);
+        storyelemnt2option2.AddChild(storyelement3);
+        storyelemnt2option3.AddChild(storyelement3);
+        storyelemnt2option4.AddChild(storyelement3);
 
         StoryEvent decision3 = new StoryEvent(Guid.NewGuid(), "Was willst du tun?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
 
@@ -571,57 +571,49 @@ public class Story:MonoBehaviour
         Debug.Log("StoryGraph initialized.");
     }
 
-    private CancellationTokenSource cts;
-    public bool selected = false;
-
-    public async void PlayGame()
+    public void SetCurrentEvent(StoryEvent e)
     {
+        playThrough.setCurrentEvent(e);
+        PlayGame();
+    }
+
+    public void PlayGame()
+    {
+
+        Debug.Log(playThrough.getCurrentEvent().GetStoryType());
 
         if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryDecision))
         {
-
-            if (cts != null)
-            {
-                cts.Cancel();
-            }
-            cts = new CancellationTokenSource();
-
-            try
-            {
-                selected = false;
-                StoryEvent result = await CharacterSelection.CS.ShowDecision(playThrough.getCurrentEvent().GetChildren(), cts.Token);
-                selected = true;
-                Debug.Log("Result: " + result.GetDescription());
-                playThrough.setCurrentEvent(result);
-                this.PlayGame();
-            }
-            catch (OperationCanceledException)
-            {
-                //Debug.Log("canceled");
-            }
+            CharacterSelection.current.ShowDecision(playThrough.getCurrentEvent().GetChildren());
+            Debug.Log("StoryDecision: " + playThrough.getCurrentEvent().GetDescription());
         }
 
         if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryDecisionOption))
         {
-            foreach (StoryEvent child in playThrough.getCurrentEvent().GetChildren())
+            if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
             {
-                playThrough.setCurrentEvent(child);
-                Debug.Log("Option: " + child.GetDescription());
+                playThrough.setCurrentEvent(playThrough.getCurrentEvent().GetChildren().First());
+                Debug.Log("Option: " + playThrough.getCurrentEvent().GetDescription());
                 this.PlayGame();
-                break;
+            }
+            else
+            {
+                Debug.Log("Story Event has no Children");
             }
         }
 
         if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryFlow))
         {
-            foreach (StoryEvent child in playThrough.getCurrentEvent().GetChildren())
+            if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
             {
-                playThrough.setCurrentEvent(child);
-                Debug.Log("Flow: " + child.GetDescription());
+                playThrough.setCurrentEvent(playThrough.getCurrentEvent().GetChildren().First());
+                Debug.Log("StoryFlow: " + playThrough.getCurrentEvent().GetDescription());
                 this.PlayGame();
-                break;
+            }
+            else
+            {
+                Debug.Log("Story Event has no Children");
             }
         }
     }
-
 }
