@@ -588,7 +588,7 @@ public class Story:MonoBehaviour
             Debug.Log("StoryDecision: " + playThrough.getCurrentEvent().GetDescription());
         }
 
-        if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryDecisionOption))
+        else if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryDecisionOption))
         {
             if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
             {
@@ -602,13 +602,12 @@ public class Story:MonoBehaviour
             }
         }
 
-        if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryFlow))
+        else if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryFlow))
         {
             if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
             {
-                playThrough.setCurrentEvent(playThrough.getCurrentEvent().GetChildren().First());
                 Debug.Log("StoryFlow: " + playThrough.getCurrentEvent().GetDescription());
-                this.PlayGame();
+                CharacterSelection.current.ShowStoryFlow(playThrough.getCurrentEvent(),playThrough.getCurrentEvent().GetChildren());
             }
             else
             {

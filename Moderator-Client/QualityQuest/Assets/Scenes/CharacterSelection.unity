@@ -12738,9 +12738,12 @@ MonoBehaviour:
   pauseMenu: {fileID: 1720045352}
   decision: {fileID: 708271541}
   result: {fileID: 700661100}
+  storyflow: {fileID: 562642644}
   pauseIcon: {fileID: 742760777}
   timer: {fileID: 1689007340}
   skills: {fileID: 1649125297}
+  storyflowbutton: {fileID: 1450303063}
+  storyflowtext: {fileID: 1633821309}
   play: {fileID: 21300000, guid: 0ebfd2c56a5fc4745a2f6b42d8faf32c, type: 3}
   pause: {fileID: 21300000, guid: 0ca7b845a1b4f254fa5b8101774082d9, type: 3}
   pauseButton: {fileID: 1991224246}
@@ -14962,7 +14965,7 @@ GameObject:
   - component: {fileID: 1450303064}
   - component: {fileID: 1450303063}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: storyflowbutton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

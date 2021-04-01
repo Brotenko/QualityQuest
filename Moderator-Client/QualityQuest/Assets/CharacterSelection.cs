@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Linq;
 
 public class CharacterSelection : MonoBehaviour
 {
@@ -14,10 +13,14 @@ public class CharacterSelection : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject decision;
     public GameObject result;
+    public GameObject storyflow;
 
     public GameObject pauseIcon;
     public GameObject timer;
     public GameObject skills;
+
+    public Button storyflowbutton;
+    public TMP_Text storyflowtext;
 
     public Sprite play;
     public Sprite pause;
@@ -179,13 +182,24 @@ public class CharacterSelection : MonoBehaviour
 
         Decision.current.LoadDecision(children);
 
-
+        storyflow.SetActive(false);
         selectchar.SetActive(false);
         decision.SetActive(true);
         Debug.Log("ShowDecision");
 
 
 
+    }
+
+    public void ShowStoryFlow(StoryEvent currentEvent, HashSet<StoryEvent> children)
+    {
+        se = null;
+        storyflowtext.text = currentEvent.GetDescription();
+        decision.SetActive(false);
+        selectchar.SetActive(false);
+        storyflow.SetActive(true);
+        storyflowbutton.onClick.RemoveAllListeners();
+        storyflowbutton.onClick.AddListener(delegate { Pick(children.First()); });
     }
 
     public void Pick(StoryEvent e)
