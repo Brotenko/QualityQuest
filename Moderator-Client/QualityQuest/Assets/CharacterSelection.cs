@@ -22,6 +22,11 @@ public class CharacterSelection : MonoBehaviour
     public Button storyflowbutton;
     public TMP_Text storyflowtext;
 
+    public TMP_Text programming;
+    public TMP_Text communication;
+    public TMP_Text analytics;
+    public TMP_Text party;
+
     public Sprite play;
     public Sprite pause;
 
@@ -35,6 +40,8 @@ public class CharacterSelection : MonoBehaviour
     private Character playerCharacter;
 
     public static CharacterSelection current;
+
+    private GameObject activeMenu;
 
     private void Start()
     {
@@ -52,6 +59,7 @@ public class CharacterSelection : MonoBehaviour
         gamePaused = false;
         pauseButton.sprite = pause;
         menuOpen = false;
+        activeMenu = selectchar;
     }
 
     private float timeRemaining = 60;
@@ -66,6 +74,15 @@ public class CharacterSelection : MonoBehaviour
             timeRemaining -= Time.deltaTime;
         }
         time.text = ((int)timeRemaining).ToString();
+
+    }
+
+    public void UpdateSkills(Skills s)
+    {
+        analytics.text = s.getAnalytics().ToString();
+        communication.text = s.getCommunication().ToString();
+        party.text = s.getPartying().ToString();
+        programming.text = s.getProgramming().ToString();
     }
 
     /// <summary>
@@ -81,7 +98,7 @@ public class CharacterSelection : MonoBehaviour
             }
             else
             {
-                selectchar.SetActive(true);
+                activeMenu.SetActive(true);
             }
             menu.SetActive(false);
             menuOpen = false;
@@ -92,7 +109,7 @@ public class CharacterSelection : MonoBehaviour
             {
                 HidePauseMenu();
             }
-            selectchar.SetActive(false);
+            activeMenu.SetActive(false);
 
             menu.SetActive(true);
             menuOpen = true;
@@ -131,7 +148,7 @@ public class CharacterSelection : MonoBehaviour
     private void HidePauseMenu()
     {
         pauseMenu.SetActive(false);
-        selectchar.SetActive(true);
+        activeMenu.SetActive(true);
         pauseIcon.SetActive(false);
         //skills.SetActive(true);
         timer.SetActive(true);
@@ -139,7 +156,7 @@ public class CharacterSelection : MonoBehaviour
     private void ShowPauseMenu()
     {
         pauseMenu.SetActive(true);
-        selectchar.SetActive(false);
+        activeMenu.SetActive(false);
         pauseIcon.SetActive(true);
         //skills.SetActive(false);
         timer.SetActive(false);
@@ -149,6 +166,7 @@ public class CharacterSelection : MonoBehaviour
     {
         playerCharacter = new Character(new Skills(3, 1, 2, 1), "Noruso");
         Story.playThrough.SetCharacter(playerCharacter);
+        UpdateSkills(Story.playThrough.getCharacter().getAbilities());
         Story.current.PlayGame();
     }
 
@@ -156,6 +174,7 @@ public class CharacterSelection : MonoBehaviour
     {
         playerCharacter = new Character(new Skills(1, 3, 0, 4), "Lumati");
         Story.playThrough.SetCharacter(playerCharacter);
+        UpdateSkills(Story.playThrough.getCharacter().getAbilities());
         Story.current.PlayGame();
     }
 
@@ -163,6 +182,7 @@ public class CharacterSelection : MonoBehaviour
     {
         playerCharacter = new Character(new Skills(2, 2, 2, 2), "Turgal");
         Story.playThrough.SetCharacter(playerCharacter);
+        UpdateSkills(Story.playThrough.getCharacter().getAbilities());
         Story.current.PlayGame();
     }
 
@@ -170,29 +190,36 @@ public class CharacterSelection : MonoBehaviour
     {
         playerCharacter = new Character(new Skills(2, 0, 5, 1), "Kirogh");
         Story.playThrough.SetCharacter(playerCharacter);
+        UpdateSkills(Story.playThrough.getCharacter().getAbilities());
         Story.current.PlayGame();
     }
 
     private StoryEvent se;
 
-    public void ShowDecision(HashSet<StoryEvent> children)
+    public void ShowDecision(StoryEvent currentEvent, HashSet<StoryEvent> children)
     {
+
+        activeMenu = decision;
 
         se = null;
 
-        Decision.current.LoadDecision(children);
+        Decision.current.LoadDecision(currentEvent, children);
 
         storyflow.SetActive(false);
         selectchar.SetActive(false);
         decision.SetActive(true);
         Debug.Log("ShowDecision");
+        timeRemaining = 60;
 
 
 
-    }
+}
 
     public void ShowStoryFlow(StoryEvent currentEvent, HashSet<StoryEvent> children)
     {
+
+        activeMenu = storyflow;
+
         se = null;
         storyflowtext.text = currentEvent.GetDescription();
         decision.SetActive(false);
@@ -200,6 +227,7 @@ public class CharacterSelection : MonoBehaviour
         storyflow.SetActive(true);
         storyflowbutton.onClick.RemoveAllListeners();
         storyflowbutton.onClick.AddListener(delegate { Pick(children.First()); });
+
     }
 
     public void Pick(StoryEvent e)

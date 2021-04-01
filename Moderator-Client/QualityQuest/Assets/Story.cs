@@ -580,12 +580,20 @@ public class Story:MonoBehaviour
 
     public void PlayGame()
     {
+        if (playThrough.getCurrentEvent().GetSkills() != null)
+        {
+            playThrough.getCharacter().getAbilities().updateProgrammingSkill(playThrough.getCurrentEvent().GetSkills().getProgramming());
+            playThrough.getCharacter().getAbilities().updateCommunicationSkill(playThrough.getCurrentEvent().GetSkills().getCommunication());
+            playThrough.getCharacter().getAbilities().updateAnalyticsSkill(playThrough.getCurrentEvent().GetSkills().getAnalytics());
+            playThrough.getCharacter().getAbilities().updatePartyingSkill(playThrough.getCurrentEvent().GetSkills().getPartying());
+            CharacterSelection.current.UpdateSkills(playThrough.getCharacter().getAbilities());
+        }
 
         Debug.Log(playThrough.getCurrentEvent().GetStoryType());
 
         if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryDecision))
         {
-            CharacterSelection.current.ShowDecision(playThrough.getCurrentEvent().GetChildren());
+            CharacterSelection.current.ShowDecision(playThrough.getCurrentEvent(),playThrough.getCurrentEvent().GetChildren());
             Debug.Log("StoryDecision: " + playThrough.getCurrentEvent().GetDescription());
         }
 

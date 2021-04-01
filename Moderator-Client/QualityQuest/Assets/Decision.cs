@@ -30,7 +30,9 @@ public class Decision : MonoBehaviour
     public Button optionD;
     public GameObject panelD;
 
-    public void LoadDecision(HashSet<StoryEvent> events)
+    public TMP_Text question;
+
+    public void LoadDecision(StoryEvent currentEvent, HashSet<StoryEvent> events)
     {
         List<StoryEvent> list = events.ToList();
 
@@ -48,6 +50,8 @@ public class Decision : MonoBehaviour
         panelB.SetActive(false);
         panelC.SetActive(false);
         panelD.SetActive(false);
+
+        question.text = currentEvent.GetDescription();
 
         titleA.text = "Option A";
         if (events.Count() >= 1)
