@@ -37,14 +37,14 @@ public class Story:MonoBehaviour
         root.AddChild(character3);
         root.AddChild(character4);
 
-        StoryEvent storyelement1 = new StoryEvent(Guid.NewGuid(), "Dir fehlt noch ein Anwendungsfach am Ende deines Studiums", new HashSet<StoryEvent>(),StoryEventType.StoryFlow);
+        StoryEvent storyelement1 = new StoryEvent(Guid.NewGuid(), "Dir fehlt noch ein Anwendungsfach am Ende deines Studiums.", new HashSet<StoryEvent>(),StoryEventType.StoryFlow);
 
         character1.AddChild(storyelement1);
         character2.AddChild(storyelement1);
         character3.AddChild(storyelement1);
         character4.AddChild(storyelement1);
 
-        StoryEvent decision2 = new StoryEvent(Guid.NewGuid(), "Welches Anwednungsfach möchtest du auswählen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
+        StoryEvent decision2 = new StoryEvent(Guid.NewGuid(), "Welches Anwendungsfach möchtest du auswählen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
 
         storyelement1.AddChild(decision2);
 
@@ -80,8 +80,8 @@ public class Story:MonoBehaviour
         storyelement3.AddChild(decision3);
 
         StoryEvent decision3option1 = new StoryEvent(Guid.NewGuid(), "Du nimmst an einem Hackathon an der Universität teil.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        StoryEvent decision3option2 = new StoryEvent(Guid.NewGuid(), "Du nutzt deine Zeit um eine dir nicht bekannte Programmiersprache zu lernen", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        StoryEvent decision3option3 = new StoryEvent(Guid.NewGuid(), "Du genießt deine Freizeit und machst Party", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        StoryEvent decision3option2 = new StoryEvent(Guid.NewGuid(), "Du nutzt deine Zeit um eine dir nicht bekannte Programmiersprache zu lernen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        StoryEvent decision3option3 = new StoryEvent(Guid.NewGuid(), "Du genießt deine Freizeit und machst Party.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         decision3.AddChild(decision3option1);
         decision3.AddChild(decision3option2);
@@ -130,7 +130,7 @@ public class Story:MonoBehaviour
         decision4.AddChild(decision4option3);
 
         StoryEvent storyelement10option1 = new StoryEvent(Guid.NewGuid(), "Du lernst deinen Mentor Yaggaya kennen. Yaggaya hilft dir bei deiner Aufgabe.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,new Skills(1,0,0,1));
-        StoryEvent storyelement10option2 = new StoryEvent(Guid.NewGuid(), "Du löst das problem, verschwendest aber eine Menge Zeit.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,new Skills(0,0,0,1));
+        StoryEvent storyelement10option2 = new StoryEvent(Guid.NewGuid(), "Du löst das Problem, verschwendest aber eine Menge Zeit.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,new Skills(0,0,0,1));
         StoryEvent storyelement10option3 = new StoryEvent(Guid.NewGuid(), "Du verschwendest eine Menge Zeit ohne das Problem zu lösen. Du benötigst für deine Aufgabe einen extra Tag.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0,-1,0,0));
 
         decision4option1.AddChild(storyelement10option1);
@@ -153,7 +153,7 @@ public class Story:MonoBehaviour
 
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        StoryEvent decision5option1 = new StoryEvent(Guid.NewGuid(), "Du schreibst umfangreichge Tests bis sie fertig sind ohne auf die Deadline zu schauen", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        StoryEvent decision5option1 = new StoryEvent(Guid.NewGuid(), "Du schreibst umfangreichge Tests bis sie fertig sind ohne auf die Deadline zu schauen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
         StoryEvent decision5option2 = new StoryEvent(Guid.NewGuid(), "Du schreibst Tests bis die Deadline erreicht ist, was du bis dahin nicht schaffst bleibt ungetestet.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
         
         decision5.AddChild(decision5option1);
@@ -165,14 +165,14 @@ public class Story:MonoBehaviour
         decision5option1.AddChild(storyelement11option1);
         decision5option1.AddChild(storyelement11option2);
 
-        StoryEvent storyelement11option3 = new StoryEvent(Guid.NewGuid(), "Durch deine guten Programmierkenntnisse hast du es trotz der kurzen Zeit geschafft umfangreiche Tests zu schreiben", new HashSet<StoryEvent>(),StoryEventType.StoryFlow, true);
+        StoryEvent storyelement11option3 = new StoryEvent(Guid.NewGuid(), "Durch deine guten Programmierkenntnisse hast du es trotz der kurzen Zeit geschafft umfangreiche Tests zu schreiben.", new HashSet<StoryEvent>(),StoryEventType.StoryFlow, true);
         StoryEvent storyelement11option4 = new StoryEvent(Guid.NewGuid(), "Die Deadline wurde erreicht aber du hast es nicht geschafft alles umfangreich zu testen.", new HashSet<StoryEvent>(),StoryEventType.StoryFlow, false);
 
         decision5option2.AddChild(storyelement11option3);
         decision5option2.AddChild(storyelement11option4);
 
-        StoryEvent storyelement12option1 = new StoryEvent(Guid.NewGuid(), "Yaggaya ist sehr zufrieden mit deiner herangehensweise und deinen Tests.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 3, 0, 1));
-        StoryEvent storyelement12option2 = new StoryEvent(Guid.NewGuid(), "Yaggaya ist sehr zufrieden mit deiner herangehensweise und deinen Tests, obwohl du nicht rechtzeitig fertig geworden bist.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 2, 0, 2));
+        StoryEvent storyelement12option1 = new StoryEvent(Guid.NewGuid(), "Yaggaya ist sehr zufrieden mit deiner Herangehensweise und deinen Tests.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 3, 0, 1));
+        StoryEvent storyelement12option2 = new StoryEvent(Guid.NewGuid(), "Yaggaya ist sehr zufrieden mit deiner Herangehensweise und deinen Tests, obwohl du nicht rechtzeitig fertig geworden bist.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 2, 0, 2));
 
         storyelement11option1.AddChild(storyelement12option1);
         storyelement11option2.AddChild(storyelement12option2);
@@ -200,7 +200,7 @@ public class Story:MonoBehaviour
 
         storyelement14.AddChild(storyelement15);
         
-        StoryEvent decision6 = new StoryEvent(Guid.NewGuid(), "Gehst du zur Firmenparty?",new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
+        StoryEvent decision6 = new StoryEvent(Guid.NewGuid(), "Gehst du zur Firmenfeier?",new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
 
         storyelement15.AddChild(decision6);
 
@@ -216,7 +216,7 @@ public class Story:MonoBehaviour
 
         // at the company party
 
-        StoryEvent storyelement18 = new StoryEvent(Guid.NewGuid(), "Du bist auf der Firmenfeier", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement18 = new StoryEvent(Guid.NewGuid(), "Du bist auf der Firmenfeier.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         decision6option1.AddChild(storyelement18);
 
@@ -235,12 +235,12 @@ public class Story:MonoBehaviour
         StoryEvent storyelement19option1 = new StoryEvent(Guid.NewGuid(), "Du bekommst von Kollegen ein paar Tipps.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 2));
 
         // how to influences later decisions ???
-        StoryEvent storyelement19option2 = new StoryEvent(Guid.NewGuid(), "Es wurden zusätzliche Dialogoptionen für spätere Entscheidungen freigeschaltet ", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement19option2 = new StoryEvent(Guid.NewGuid(), "Es wurden zusätzliche Dialogoptionen für spätere Entscheidungen freigeschaltet.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         decision7option1.AddChild(storyelement19option1);
         decision7option2.AddChild(storyelement19option2);
 
-        StoryEvent storyelement20 = new StoryEvent(Guid.NewGuid(), "Du hast durst und holst dir ein Getränk.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement20 = new StoryEvent(Guid.NewGuid(), "Du hast Durst und holst dir ein Getränk.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement19option1.AddChild(storyelement20);
         storyelement19option2.AddChild(storyelement20);
@@ -279,17 +279,17 @@ public class Story:MonoBehaviour
 
         StoryEvent storyelement22option1 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung auf der Party.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,new Skills(0,0,2,0));
 
-
         // affected by dice roll
         StoryEvent storyelement22option2 = new StoryEvent(Guid.NewGuid(), "Du überstehst die Firmenfeier ohne für Aufsehen zu sorgen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,new Skills(0,0,3,0), true);
         StoryEvent storyelement22option3 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung aber fällst negativ auf, weil du ziemlich stark betrunken bist.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,new Skills(-2,0,3,0), false);
 
         decision9option2.AddChild(storyelement22option1);
-        decision9option2.AddChild(storyelement22option2);
-        decision9option2.AddChild(storyelement22option3);
+        decision9option1.AddChild(storyelement22option2);
+        decision9option1.AddChild(storyelement22option3);
 
         StoryEvent storyelement23 = new StoryEvent(Guid.NewGuid(), "Die Firmenfeier ist zu Ende und du gehts nach Hause.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
+        storyelement21option1.AddChild(storyelement23);
         storyelement22option1.AddChild(storyelement23);
         storyelement22option2.AddChild(storyelement23);
         storyelement22option3.AddChild(storyelement23);
@@ -328,7 +328,7 @@ public class Story:MonoBehaviour
         decision10option3.AddChild(storyelement24option3);
         decision10option4.AddChild(storyelement24option4);
 
-        StoryEvent storyelement25 = new StoryEvent(Guid.NewGuid(), "Deine Telefon klingelt. WizzBook ruft an und möchte Änderungen an der WizzApp vornehmen.",new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement25 = new StoryEvent(Guid.NewGuid(), "Deine Telefon klingelt. WizzBook ruft an und möchte Änderungen an WizzApp vornehmen.",new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement24option1.AddChild(storyelement25);
         storyelement24option2.AddChild(storyelement25);
@@ -437,7 +437,7 @@ public class Story:MonoBehaviour
         StoryEvent storyelement36option2 = new StoryEvent(Guid.NewGuid(), "Du sprichst mit dem Kunden über die neue Funktion.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0));
 
         decision14option1.AddChild(storyelement36option1);
-        decision14option1.AddChild(storyelement36option2);
+        decision14option2.AddChild(storyelement36option2);
 
         StoryEvent storyelement37= new StoryEvent(Guid.NewGuid(), "Der Kunde hat sich dazu entschieden mit der neuen Funktion den Änderungsprozess zu druchlaufen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
@@ -519,6 +519,7 @@ public class Story:MonoBehaviour
 
         StoryEvent storyelement45 = new StoryEvent(Guid.NewGuid(), "Das Projekt ist fast abgeschlossen. Es fehlt nur noch die Code Review.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
+        storyelement41option1.AddChild(storyelement45);
         storyelement44.AddChild(storyelement45);
         storyelement42option1.AddChild(storyelement45);
         storyelement42option2.AddChild(storyelement45);
