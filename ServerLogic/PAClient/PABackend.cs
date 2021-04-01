@@ -597,7 +597,8 @@ namespace PAClient
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("https://0.0.0.0:" + port + "/");
+                    //webBuilder.UseUrls("https://0.0.0.0:" + port + "/");
+                    webBuilder.UseUrls("http://0.0.0.0:" + port + "/");
                 });
     }
 }
