@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ServerLogic.Model.Messages;
 using Fleck;
 using ServerLogic.Model;
 using ServerLogic.Properties;
 
+
 namespace ServerLogic.Control
 {
     public class MainServerLogic
     {
-        private Dictionary<IWebSocketConnection, ModeratorClientManager> _connectedModeratorClients = new();
-        private WebSocketServer _server = new("ws://0.0.0.0:" + Settings.Default.MCWebSocketPort);
+        private Dictionary<IWebSocketConnection, ModeratorClientManager> _connectedModeratorClients;
+        private WebSocketServer _server;
         private PlayerAudienceClientAPI _playerAudienceClientAPI;
         private const int MaxRepForRandomGeneration = 16;
 
+        //TODO Remove default password from settings
 
         /// <summary>
         /// Contains a WebSocket through which messages are exchanged with the ModeratorClient,
@@ -27,6 +28,9 @@ namespace ServerLogic.Control
         public MainServerLogic()
         {
             _playerAudienceClientAPI = new PlayerAudienceClientAPI();
+            _connectedModeratorClients = new Dictionary<IWebSocketConnection, ModeratorClientManager>();
+            _server = new WebSocketServer("wss://0.0.0.0:" + Settings.Default.MCWebSocketPort);
+            ServerLogger.LogDebug($"WebSocket secure connection established: {_server.IsSecure}.");
         }
 
         /// <summary>
@@ -56,10 +60,9 @@ namespace ServerLogic.Control
         /// <summary>
         /// Starts a secure WebSocket. 
         /// </summary>
-        private void StartWebsocket()
+        internal void StartWebsocket()
         {
-            //TODO: this certificate is for testing purposes only and should never ever be used in an actual deployment!
-            //server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, "thisIsForTestingOnly");
+            _server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, "thisIsForTestingOnly");
             _server.Start(socket =>
             {
                 socket.OnOpen = () =>
@@ -70,7 +73,6 @@ namespace ServerLogic.Control
                 socket.OnClose = () =>
                 {
                     ServerLogger.LogDebug("Websocket-connection to " + socket.ConnectionInfo.ClientIpAddress + " was closed.");
-                    //necessary?
                     socket.Close();
                 };
                 socket.OnMessage = message =>
@@ -99,7 +101,7 @@ namespace ServerLogic.Control
         /// <param name="message">The received message string.</param>
         /// <param name="socket">The IWebSocketConnection through which the message was received.</param>
         /// <returns>The corresponding response string.</returns>
-        private string CheckStringMessage(string message, IWebSocketConnection socket)
+        internal string CheckStringMessage(string message, IWebSocketConnection socket)
         {
             string response = "";
             try
@@ -111,15 +113,16 @@ namespace ServerLogic.Control
                     case MessageType.RequestOpenSession:
                         RequestOpenSessionMessage openSessionMessage =
                             JsonConvert.DeserializeObject<RequestOpenSessionMessage>(message);
-                        if(ServerShell.StringToSHA256Hash(openSessionMessage.Password).Equals(Settings.Default.PWHash))
+                        if (ServerShell.StringToSHA256Hash(openSessionMessage.Password).Equals(Settings.Default.PWHash))
                         {
                             _connectedModeratorClients.Add(socket, new ModeratorClientManager(openSessionMessage.ModeratorID, GenerateSessionKey(MaxRepForRandomGeneration), socket, _playerAudienceClientAPI));
-                            response= JsonConvert.SerializeObject(new SessionOpenedMessage(_connectedModeratorClients[socket].ModeratorGuid, _connectedModeratorClients[socket].SessionKey, new Uri($"https://{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}")/*, GenerateQR()*/));
+                            response = JsonConvert.SerializeObject(new SessionOpenedMessage(_connectedModeratorClients[socket].ModeratorGuid, _connectedModeratorClients[socket].SessionKey, new Uri($"https://{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}")));
                         }
                         else
                         {
                             //todo: remove before release
                             ServerLogger.LogDebug($"Socket closed due to wrong RequestOpenSession: Password received: {openSessionMessage.Password}.");
+                            
                             socket.Close();
                             response = JsonConvert.SerializeObject(
                                 new ErrorMessage(openSessionMessage.ModeratorID, ErrorType.WrongPassword, ""));
@@ -164,7 +167,7 @@ namespace ServerLogic.Control
 
                     //Is sent to request the start of the current Online-Session
                     case MessageType.RequestGameStart:
-                        if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID ,socket))
+                        if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID, socket))
                         {
                             RequestGameStartMessage gameStartMessage =
                                 JsonConvert.DeserializeObject<RequestGameStartMessage>(message);
@@ -257,18 +260,18 @@ namespace ServerLogic.Control
         /// Increases and checks the number of network protocol violations of the passed IWebSocketConnection.
         /// </summary>
         /// <param name="socket"></param>
-        private void AddStrike(IWebSocketConnection socket)
+        internal void AddStrike(IWebSocketConnection socket)
         {
             //FR31 'Network protocol violation'
             _connectedModeratorClients[socket].Strikes += 1;
-                if (_connectedModeratorClients[socket].Strikes >= 3)
-                {
-                    _connectedModeratorClients[socket].Stop();
-                    _connectedModeratorClients.Remove(socket);
-                }
+            if (_connectedModeratorClients[socket].Strikes >= 3)
+            {
+                _connectedModeratorClients[socket].Stop();
+                _connectedModeratorClients.Remove(socket);
+            }
         }
 
-        private Boolean SessionKeyExists(string sessionKey)
+        internal Boolean SessionKeyExists(string sessionKey)
         {
             foreach (var (key, value) in _connectedModeratorClients)
             {
@@ -278,7 +281,7 @@ namespace ServerLogic.Control
             return false;
         }
 
-        private Boolean ModeratorGuidExists(Guid moderatorGuid, IWebSocketConnection socket)
+        internal Boolean ModeratorGuidExists(Guid moderatorGuid, IWebSocketConnection socket)
         {
             foreach (var (key, moderatorClientManager) in _connectedModeratorClients)
             {
@@ -289,7 +292,7 @@ namespace ServerLogic.Control
             return false;
         }
 
-        private Boolean SocketExists(IWebSocketConnection socket)
+        internal Boolean SocketExists(IWebSocketConnection socket)
         {
             return _connectedModeratorClients.TryGetValue(socket, out ModeratorClientManager value);
         }
@@ -301,7 +304,7 @@ namespace ServerLogic.Control
         /// </summary>
         /// <param name="maxRecursionCycles">The maximum number of recursions allowed to generate a random unique sessionKey.</param>
         /// <returns>A SessionKey.</returns>
-        private string GenerateSessionKey(int maxRecursionCycles)
+        internal string GenerateSessionKey(int maxRecursionCycles)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             var rand = new Random();
@@ -314,13 +317,9 @@ namespace ServerLogic.Control
                 return sessionKey;
             }
             //SessionKey already in use?
-            foreach (var (key, value) in _connectedModeratorClients)
-            {
-                if (value.SessionKey.Equals(sessionKey))
-                {
-                    sessionKey = GenerateSessionKey(maxRecursionCycles - 1);
-                }
-            }
+
+            if (SessionKeyExists(sessionKey)) GenerateSessionKey(maxRecursionCycles - 1);
+
             return sessionKey;
         }
     }

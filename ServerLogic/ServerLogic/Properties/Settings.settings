@@ -21,10 +21,10 @@
       <Value Profile="(Default)">8181</Value>
     </Setting>
     <Setting Name="CertFilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">//Certs//TestCert.pfx</Value>
+      <Value Profile="(Default)">TestCert.pfx</Value>
     </Setting>
     <Setting Name="PWHash" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">dc0000c65f1829e02e9bff46190c82a41f937ba843cb275826ec6b06d460f814</Value>
     </Setting>
     <Setting Name="Salt" Type="System.String" Scope="User">
       <Value Profile="(Default)">f4e4gn3m32da4b17</Value>

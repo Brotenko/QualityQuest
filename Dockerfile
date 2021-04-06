@@ -5,7 +5,7 @@ EXPOSE 8181
 COPY ServerLogic/ ./
 RUN dotnet publish ./ServerLogic.sln -c Release -o build --self-contained=false
 #CMD ["dotnet", "./build/ServerLogic.dll", "!Password123#", "7777"]
-CMD ["dotnet", "./build/ServerLogic.dll"]
+ENTRYPOINT ["dotnet", "./build/ServerLogic.dll"]
 
 
 ############# A small compilation of Docker commands. Will be removed from the Dockerfile in the distant future.#################
@@ -20,6 +20,6 @@ CMD ["dotnet", "./build/ServerLogic.dll"]
 # 'docker ps -a' 
 # start with
 # 'docker start -i Containername'
+# if a container is already running and you want to see/use the ServerShell, enter 
+# 'docker container attach Containername'
 
-#sudo ufw allow ####
-#sudo ufw deny ####

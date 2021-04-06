@@ -97,7 +97,7 @@ namespace ServerLogic.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("//Certs//TestCert.pfx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("TestCert.pfx")]
         public string CertFilePath {
             get {
                 return ((string)(this["CertFilePath"]));
@@ -109,7 +109,7 @@ namespace ServerLogic.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("dc0000c65f1829e02e9bff46190c82a41f937ba843cb275826ec6b06d460f814")]
         public string PWHash {
             get {
                 return ((string)(this["PWHash"]));

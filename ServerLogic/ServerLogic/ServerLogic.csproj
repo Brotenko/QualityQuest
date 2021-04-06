@@ -22,7 +22,11 @@
     <Folder Include="View\" />
   </ItemGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="ServerLogicTest" />
+	</ItemGroup>
+
+	<ItemGroup>
     <ProjectReference Include="..\PAClient\PAClient.csproj" />
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

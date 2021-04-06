@@ -590,10 +590,10 @@ namespace PAClient
         /// <returns>The program initialization.</returns>
         private static IHostBuilder CreateHostBuilder(int port) =>
             Host.CreateDefaultBuilder()
-                //.ConfigureLogging(logging =>
-                    //todo sets the built in Logger to Warning-Level, to reduce Log-Spam in Server-Shell 
-                    //logging.AddFilter("System", LogLevel.Warning)
-                    //    .AddFilter("Microsoft", LogLevel.Warning))
+                .ConfigureLogging(logging =>
+                //sets the built in Logger to Warning-Level, to reduce Log-Spam in Server-Shell 
+                    logging.AddFilter("System", LogLevel.Warning)
+                        .AddFilter("Microsoft", LogLevel.Warning))
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
