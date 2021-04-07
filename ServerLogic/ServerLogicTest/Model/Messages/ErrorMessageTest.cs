@@ -19,7 +19,6 @@ namespace ServerLogicTests.Model.Messages
         private const ErrorType UnknownGuidError = ErrorType.UnknownGuid;
         private const ErrorType IllegalPauseActionError = ErrorType.IllegalPauseAction;
         private const ErrorType SessionDoesNotExistError = ErrorType.SessionDoesNotExist;
-        private const ErrorType NewModeratorError = ErrorType.NewModerator;
         private const ErrorType IllegalMessageError = ErrorType.IllegalMessage;
         private const string ErrorMessageText = "TestTestTest 123456";
 
@@ -35,12 +34,9 @@ namespace ServerLogicTests.Model.Messages
         private readonly string expectedSessionDoesNotExistErrorStringPattern = @"ErrorMessage \[<container>: MessageContainer \[ModeratorId: " +
             testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], ErrorMessageType: " +
             SessionDoesNotExistError + @", ErrorMessageText: " + ErrorMessageText + @"\]";
-        private readonly string expectedNewModeratorErrorStringPattern = @"ErrorMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], ErrorMessageType: " +
-            NewModeratorError + @", ErrorMessageText: " + ErrorMessageText + @"\]";
         private readonly string expectedIllegalMessageErrorStringPattern = @"ErrorMessage \[<container>: MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], ErrorMessageType: " +
-            IllegalMessageError + @", ErrorMessageText: " + ErrorMessageText + @"\]";
+                                                                           testGuid + @", Type: Error, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], ErrorMessageType: " +
+                                                                           IllegalMessageError + @", ErrorMessageText: " + ErrorMessageText + @"\]";
 
         /// <summary>
         /// Validates that the constructed message contains all the provided
@@ -102,21 +98,7 @@ namespace ServerLogicTests.Model.Messages
             Assert.IsTrue(Regex.IsMatch(e.ToString(), expectedSessionDoesNotExistErrorStringPattern));
         }
 
-        /// <summary>
-        /// Validates that the constructed message contains all the provided
-        /// test-variables, at the correct position and with the correct value,
-        /// and also validates that the <c>ToString()</c> method of the message
-        /// returns a well-formed string, according to the expectations.
-        /// </summary>
-        [TestMethod]
-        public void NewModeratorErrorTest()
-        {
-            ErrorMessage e = new ErrorMessage(testGuid, NewModeratorError, ErrorMessageText);
-
-            Assert.AreEqual(e.ErrorMessageType, NewModeratorError);
-            Assert.IsTrue(Regex.IsMatch(e.ToString(), expectedNewModeratorErrorStringPattern));
-        }
-
+        
         /// <summary>
         /// Validates that the constructed message contains all the provided
         /// test-variables, at the correct position and with the correct value,

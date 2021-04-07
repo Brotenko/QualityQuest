@@ -292,7 +292,6 @@ enum ErrorType
     UnknownGuid,
     IllegalPauseAction,
     SessionDoesNotExist,
-    NewModerator,
     IllegalMessage
 }
 ```
@@ -303,7 +302,6 @@ enum ErrorType
     - A request to pause the game reaches the ServerLogic even though the game is already paused.
     - A request to continue the game reaches the ServerLogic even though the game has not been paused previously.
 - **SessionDoesNotExist:** Is triggered when an attempt is made to interact with an Online-Session that does not exist.
-- **NewModerator:** Is triggered and sent to the current Moderator-Client, when a new Moderator connects to the ServerLogic via [RequestOpenSessionMessage](#requestopensessionmessage).
 - **IllegalMessage:** Is triggered when an unknown message type is received, or when a message arrives at the ServerLogic out of order. More precise details are to be specified in the errorMessage.
 
 ## Detailed message definitions

@@ -13,14 +13,14 @@ namespace ServerLogic.Control
         public string SessionKey;
         //FR31 'Network protocol violation', connection is canceled after three Strikes/violations against network-protocol in a row.
         public int Strikes;
+        public bool IsVoting;
+        public bool IsPaused;
 
         private Timer _playerAudienceCountLiveUpdateTimer;
         private Timer _votingTimer;
-        private IWebSocketConnection _socket;
-        private PlayerAudienceClientAPI _playerAudienceClientApi;
+        private readonly IWebSocketConnection _socket;
+        private readonly PlayerAudienceClientAPI _playerAudienceClientApi;
         private KeyValuePair<Guid, string> _currentPrompt;
-        private DateTime _votingStarted;
-        private int _votingTimeLeft;
 
 
         /// <summary>
@@ -39,6 +39,8 @@ namespace ServerLogic.Control
             _playerAudienceClientApi = playerAudienceClientApi;
             _playerAudienceClientApi.StartNewSession(sessionKey);
             StartAudienceCountLiveUpdate();
+            IsVoting = false;
+            IsPaused = false;
         }
 
 
@@ -48,8 +50,7 @@ namespace ServerLogic.Control
         public void StartAudienceCountLiveUpdate()
         {
             //FR42 'PlayerAudience-Client count live update'
-            //The ServerLogic should inform the Moderator-Client in 3 seconds intervals about the amount of PlayerAudience-Clients connected to the ServerLogic,
-            //as long as the game didn't start yet.
+            //The ServerLogic should inform the Moderator-Client in 3 seconds intervals about the amount of PlayerAudience-Clients connected to the ServerLogic, as long as the game didn't start yet.
             _playerAudienceCountLiveUpdateTimer = new Timer(3000);
             _playerAudienceCountLiveUpdateTimer.Elapsed += SendAudienceCount;
             _playerAudienceCountLiveUpdateTimer.AutoReset = true;
@@ -73,14 +74,13 @@ namespace ServerLogic.Control
         public void StartVotingTimer(RequestStartVotingMessage startVoting)
         {
             _playerAudienceClientApi.StartNewVote(SessionKey, startVoting.VotingPrompt, startVoting.VotingOptions);
-            _votingTimeLeft = startVoting.VotingTime;
             //Timer takes milliseconds
             _votingTimer = new Timer(startVoting.VotingTime * 1000);
             _votingTimer.Elapsed += SendVotingResults;
             _votingTimer.AutoReset = false;
             _votingTimer.Enabled = true;
-            _votingStarted = DateTime.Now;
             _currentPrompt = startVoting.VotingPrompt;
+            IsVoting = true;
         }
 
         /// <summary>
@@ -89,32 +89,19 @@ namespace ServerLogic.Control
         /// <param name="pause"></param>
         public void PauseVotingTimer(bool pause)
         {
+            IsPaused = pause;
             if (pause)
             {
                 ServerLogger.LogDebug("Game is paused.");
                 _votingTimer.Stop();
-                _votingTimeLeft -= _votingStarted.Subtract(DateTime.Now).Seconds;
             }
             else
             {
                 ServerLogger.LogDebug("Game is continued.");
                 _votingTimer.Start();
-                //StartVotingTimer(_votingTimeLeft);
+
             }
         }
-
-        /*
-        private void StartVotingTimer(int time)
-        {
-            //TODO: Can be removed if the fix works, might be helpful else 
-            this._votingTimeLeft = time;
-            //Timer takes milliseconds
-            this._votingTimer = new Timer(time * 1000);
-            _votingTimer.Elapsed += SendVotingResults;
-            _votingTimer.AutoReset = false;
-            _votingTimer.Enabled = true;
-            this._votingStarted = DateTime.Now;
-        }*/
 
         /// <summary>
         /// Retrieves the results of the voting process from the PA-Client. Determines the prompt with the highest votes and sends a <a cref="VotingEndedMessage">VotingEndedMessage</a>.
@@ -124,7 +111,7 @@ namespace ServerLogic.Control
         /// <param name="e"></param>
         private void SendVotingResults(object source, ElapsedEventArgs e)
         {
-            
+
             Dictionary<KeyValuePair<Guid, string>, int> votingResults = _playerAudienceClientApi.GetVotingResult(SessionKey, _currentPrompt);
             KeyValuePair<Guid, string> winningOption = new();
             int winningVotes = 0;
@@ -137,7 +124,8 @@ namespace ServerLogic.Control
                 }
             }
             ServerLogger.LogDebug($"Voting ended. Winning Count is {winningVotes}.");
-            _socket.Send(JsonConvert.SerializeObject(new VotingEndedMessage(ModeratorGuid,winningOption, votingResults)));
+            IsVoting = false;
+            _socket.Send(JsonConvert.SerializeObject(new VotingEndedMessage(ModeratorGuid, winningOption, votingResults)));
         }
 
 
@@ -149,10 +137,12 @@ namespace ServerLogic.Control
         {
             try
             {
-               StopAudienceCountLiveUpdate();
-               _votingTimer.Stop();
-               _votingTimer.Dispose();
-               _socket.Close();
+                StopAudienceCountLiveUpdate();
+                _votingTimer.Stop();
+                _votingTimer.Dispose();
+                _playerAudienceCountLiveUpdateTimer.Stop();
+                _playerAudienceCountLiveUpdateTimer.Dispose();
+                _socket.Close();
             }
             catch (Exception exception)
             {

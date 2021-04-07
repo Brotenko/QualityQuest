@@ -67,7 +67,7 @@ connection.on("NewPrompt", function (newPageContent) {
 
     $(function () {
         $("input:button").click(function (event) {
-            var vote = this.attributes["name"].value;
+            var vote = this.attributes["value"].value;
 
             connection.invoke("SendVote", sessionkey, vote).catch(function (err) {
                 return console.error(err.toString());
@@ -75,8 +75,8 @@ connection.on("NewPrompt", function (newPageContent) {
             event.preventDefault();
 
             document.getElementById("starting-page").innerHTML = "<div id=\"voting-prompt\" name=\"future-guid\" class=\"voting-prompt text-center\">" +
-                "You voted for: " + vote + "!" +
-                "</div>";
+                "You voted for: \"" + vote +
+                "\"</div>";
         });
     });
 });

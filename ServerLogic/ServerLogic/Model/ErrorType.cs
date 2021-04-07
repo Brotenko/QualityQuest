@@ -31,11 +31,6 @@
         /// </summary>
         SessionDoesNotExist,
         /// <summary>
-        /// Is triggered and sent to the current Moderator-Client, when a new Moderator connects to the 
-        /// ServerLogic via <see cref="Messages.RequestOpenSessionMessage"/>.
-        /// </summary>
-        NewModerator,
-        /// <summary>
         /// Is triggered when an unknown message type is received, or when a message arrives at the 
         /// ServerLogic out of order. More precise details are to be specified in the errorMessageText.
         /// </summary>

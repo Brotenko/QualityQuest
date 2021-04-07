@@ -42,6 +42,7 @@ The change history is a chronologically ordered list of all changes between diff
 |   -   | **[_Network Protocol:_](../network-protocol#messagecontainer) _MessageContainer:_** Removed Debug-Field from MessageContainer.         |
 |   -   | **[_Network Protocol:_](../network-protocol#sessionopenedmessage) _SessionOpenedMessage:_** Removed field for QR-Code. |
 |   -   | **[_Network Protocol:_](../network-protocol#sessionopenedmessage) _SessionClosedMessage:_** Removed field for game-statistics. |
+|   -   | **[_Network Protocol:_](../network-protocol#errortypeenum) _ErrorTypeEnum:_** Removed entry for NewModerator-Message. |
 
 </span>
 
