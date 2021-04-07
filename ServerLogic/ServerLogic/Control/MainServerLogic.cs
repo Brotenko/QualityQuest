@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Timers;
 using Newtonsoft.Json;
 using ServerLogic.Model.Messages;
 using Fleck;
@@ -14,12 +15,15 @@ namespace ServerLogic.Control
 {
     public class MainServerLogic
     {
+        private WebSocketServer _server;
+
         private readonly Dictionary<IWebSocketConnection, ModeratorClientManager> _connectedModeratorClients;
-        private readonly WebSocketServer _server;
+        private readonly Timer _timerForDataDeletion;
         private readonly PlayerAudienceClientAPI _playerAudienceClientApi;
         private const int MaxRepForRandomGeneration = 16;
 
         //TODO Remove default password from settings
+        //TODO Disable Fleck-Logger
 
         /// <summary>
         /// Contains a WebSocket through which messages are exchanged with the ModeratorClient,
@@ -29,8 +33,10 @@ namespace ServerLogic.Control
         {
             _playerAudienceClientApi = new PlayerAudienceClientAPI();
             _connectedModeratorClients = new Dictionary<IWebSocketConnection, ModeratorClientManager>();
-            _server = new WebSocketServer("ws://0.0.0.0:" + Settings.Default.MCWebSocketPort);
-            ServerLogger.LogDebug($"WebSocket secure connection established: {_server.IsSecure}.");
+            _timerForDataDeletion = new Timer(30000);
+            _timerForDataDeletion.Elapsed += CheckForInactivity;
+            _timerForDataDeletion.AutoReset = true;
+            _timerForDataDeletion.Enabled = true;
         }
 
         /// <summary>
@@ -38,9 +44,12 @@ namespace ServerLogic.Control
         /// </summary>
         public void Start()
         {
+            _server = new WebSocketServer("ws://0.0.0.0:" + Settings.Default.MCWebSocketPort);
+            ServerLogger.LogDebug($"WebSocket secure connection established: {_server.IsSecure}.");
             _playerAudienceClientApi.StartServer(Settings.Default.PAWebPagePort);
             StartWebsocket();
             ServerLogger.LogDebug($"Website started on {Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
+            _timerForDataDeletion.Start();
         }
 
         /// <summary>
@@ -53,8 +62,22 @@ namespace ServerLogic.Control
                 connection.Key.Send(JsonConvert.SerializeObject(new SessionClosedMessage(connection.Value.ModeratorGuid)));
                 connection.Key.Close();
             }
+            _timerForDataDeletion.Stop();
             _server.Dispose();
             _playerAudienceClientApi.StopServer();
+        }
+
+        /// <summary>
+        /// Is periodically triggered by the _timerForDataDeletion. Checks if one of the connected ModeratorClients has been marked as inactive and deletes them from _connectedModeratorClients if necessary. 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private void CheckForInactivity(object source, ElapsedEventArgs e)
+        {
+            foreach (var (socket, moderatorClientManager) in _connectedModeratorClients)
+            {
+                if (moderatorClientManager.IsInactive) _connectedModeratorClients.Remove(socket);
+            }
         }
 
         /// <summary>
@@ -297,6 +320,7 @@ namespace ServerLogic.Control
                 ServerLogger.LogWarning($"Unexpected Exception occurred: {exception}.");
             }
 
+            _connectedModeratorClients[socket].ResetInactivity();
             return response;
         }
 

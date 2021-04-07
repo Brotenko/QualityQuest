@@ -15,13 +15,16 @@ namespace ServerLogic.Control
         public int Strikes;
         public bool IsVoting;
         public bool IsPaused;
+        public bool IsInactive;
 
         private Timer _playerAudienceCountLiveUpdateTimer;
         private Timer _votingTimer;
-        private readonly IWebSocketConnection _socket;
-        private readonly PlayerAudienceClientAPI _playerAudienceClientApi;
         private KeyValuePair<Guid, string> _currentPrompt;
 
+        private readonly Timer _inactivityTimer;
+        private readonly IWebSocketConnection _socket;
+        private readonly PlayerAudienceClientAPI _playerAudienceClientApi;
+        
 
         /// <summary>
         /// An object that manages attributes and methods required for communication between the server and a specific moderator client.
@@ -41,7 +44,33 @@ namespace ServerLogic.Control
             StartAudienceCountLiveUpdate();
             IsVoting = false;
             IsPaused = false;
+            IsInactive = false;
+            _inactivityTimer = new Timer(1800000);
+            _inactivityTimer.Elapsed += SetToInactiv;
+            _inactivityTimer.AutoReset = false;
+            _inactivityTimer.Enabled = true;
         }
+
+        /// <summary>
+        /// Resets the inactivity Timer for this ModeratorClientManager-Object.
+        /// </summary>
+        public void ResetInactivity()
+        {
+            _inactivityTimer.Stop();
+            _inactivityTimer.Start();
+        }
+
+        /// <summary>
+        /// Is automatically triggered after 30 minutes by the _inactivityTimer.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private void SetToInactiv(object source, ElapsedEventArgs e)
+        {
+            IsInactive = true;
+            Stop();
+        }
+
 
 
         /// <summary>
@@ -143,6 +172,8 @@ namespace ServerLogic.Control
                 _playerAudienceCountLiveUpdateTimer.Stop();
                 _playerAudienceCountLiveUpdateTimer.Dispose();
                 _socket.Close();
+                _inactivityTimer.Stop();
+                _inactivityTimer.Dispose();
             }
             catch (Exception exception)
             {
