@@ -156,7 +156,7 @@ namespace ServerLogic.Control
                     stringBuilder.Append(b.ToString("x2"));
                 }
             }
-            return stringBuilder.ToString(); 
+            return stringBuilder.ToString();
         }
 
         /// <summary>
@@ -397,7 +397,7 @@ namespace ServerLogic.Control
                         ret = ParsePort(commandParameters);
                         break;
                     case "password":
-                        ret = ParsePassword(commandParameters);
+                        SetPasswordDialog();
                         break;
                     case "start":
                         ret = StartServer(commandParameters);
@@ -534,95 +534,6 @@ namespace ServerLogic.Control
 
                     Settings.Default.PAWebPagePort = tempPort;
                     return "The port has been set to " + tempPort + " successfully.";
-                }
-            }
-        }
-
-        /// <summary>
-        /// Parses the parameters the "password" command was called with. Depending on the
-        /// number of arguments and type of argument, the following services are provided.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>
-        /// Empty parameter list
-        /// </term>
-        /// <description>
-        /// Returns the currently set password.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// String that does not violate the password rules
-        /// </term>
-        /// <description>
-        /// Sets the port equal to the numeric value and returns a confirmation message.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// String that violates the password rules
-        /// </term>
-        /// <description>
-        /// Returns an error message in form of a 
-        /// <see cref="Properties.Resources.InvalidPasswordExceptionMessage"/>.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Server is running
-        /// </term>
-        /// <description>
-        /// While the server is running, the password can't be changed.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Parameter 2...n
-        /// </term>
-        /// <description>
-        /// Any kind of parameter, after the first one, will be ignored.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// 
-        /// <param name="parameterList">List of all parameters the command has been called 
-        /// with</param>
-        /// 
-        /// <returns>Which password is currently set or has been set, if no errors 
-        /// occurred.</returns>
-        private string ParsePassword(string[] parameterList)
-        {
-            // command: password -> Returns the currently set password.
-            if (parameterList.Length == 0)
-            {
-                return Settings.Default.PWHash;
-                //return Password;
-            }
-            // command: password string -> Sets a new password.
-            else
-            {
-                if (serverIsRunning)
-                {
-                    return "The server is running. Switching passwords is disabled.";
-                }
-                else
-                {
-                    // test if password string is of adequate length and characters.
-                    try
-                    {
-                        //todo change help-info, check parameters 
-                        //Password = parameterList[0];
-                        SetPasswordDialog();
-                    }
-                    // password string violates the password rules.
-                    catch (ArgumentException)
-                    {
-                        return Properties.Resources.InvalidPasswordExceptionMessage;
-                    }
-
-                    return "";
-                    //return "The password has been set to " + parameterList[0] + " successfully.";
                 }
             }
         }

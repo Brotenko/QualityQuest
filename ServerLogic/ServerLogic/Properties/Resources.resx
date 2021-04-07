@@ -204,24 +204,13 @@ OPTIONS
   Shows this.</value>
   </data>
   <data name="PasswordHelpMessage" xml:space="preserve">
-    <value>usage: password [--help] &lt;string&gt;
+    <value>usage: password [--help] 
 
 DESCRIPTON
 
-Shows the password that is currently set and will be used to
-connect to the ServerLogic. Alternatively it can also set a
-new password.
-
-If the command is of form 'password', the currently set password
-will be shown.
-If the command is of form 'password string', a new password
-will be set according to the string provided.
+Starts a dialog to change the current password.
 
 OPTIONS
-
-&lt;string&gt;
-  The string that will be set as the new password used to
-  access the ServerLogic through the Moderator-Client.
 
 --help
   Shows this.</value>
