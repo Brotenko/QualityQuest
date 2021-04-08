@@ -24,7 +24,7 @@ namespace ServerLogic.Control
         private readonly Timer _inactivityTimer;
         private readonly IWebSocketConnection _socket;
         private readonly PlayerAudienceClientAPI _playerAudienceClientApi;
-        
+
 
         /// <summary>
         /// An object that manages attributes and methods required for communication between the server and a specific moderator client.
@@ -45,8 +45,9 @@ namespace ServerLogic.Control
             IsVoting = false;
             IsPaused = false;
             IsInactive = false;
+            //30min = 1800000ms
             _inactivityTimer = new Timer(1800000);
-            _inactivityTimer.Elapsed += SetToInactiv;
+            _inactivityTimer.Elapsed += SetToInactive;
             _inactivityTimer.AutoReset = false;
             _inactivityTimer.Enabled = true;
         }
@@ -65,8 +66,9 @@ namespace ServerLogic.Control
         /// </summary>
         /// <param name="source"></param>
         /// <param name="e"></param>
-        private void SetToInactiv(object source, ElapsedEventArgs e)
+        private void SetToInactive(object source, ElapsedEventArgs e)
         {
+            ServerLogger.LogDebug($"MC-{ModeratorGuid} was set to inactive.");
             IsInactive = true;
             Stop();
         }
@@ -113,23 +115,25 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// todo
+        /// todo fix that when after a voting is finished, pausing and unpausing causes the VotingResults to be send again
         /// </summary>
         /// <param name="pause"></param>
-        public void PauseVotingTimer(bool pause)
+        public bool PauseVotingTimer(bool pause)
         {
-            IsPaused = pause;
-            if (pause)
+            if (IsVoting)
             {
-                ServerLogger.LogDebug("Game is paused.");
-                _votingTimer.Stop();
-            }
-            else
-            {
+                IsPaused = pause;
+                if (pause)
+                {
+                    ServerLogger.LogDebug("Game is paused.");
+                    _votingTimer.Stop();
+                    return true;
+                }
                 ServerLogger.LogDebug("Game is continued.");
                 _votingTimer.Start();
-
+                return true;
             }
+            return false;
         }
 
         /// <summary>
@@ -152,7 +156,7 @@ namespace ServerLogic.Control
                     winningVotes = value;
                 }
             }
-            ServerLogger.LogDebug($"Voting ended. Winning Count is {winningVotes}.");
+            ServerLogger.LogDebug($"Voting ended. Winning prompt is '{winningOption.Value}' with {winningVotes} votes.");
             IsVoting = false;
             _socket.Send(JsonConvert.SerializeObject(new VotingEndedMessage(ModeratorGuid, winningOption, votingResults)));
         }
@@ -174,6 +178,7 @@ namespace ServerLogic.Control
                 _socket.Close();
                 _inactivityTimer.Stop();
                 _inactivityTimer.Dispose();
+                ServerLogger.LogDebug($"MC-{ModeratorGuid} was stopped.");
             }
             catch (Exception exception)
             {
