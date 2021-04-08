@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using UnityEngine.Video;
 
 public class CharacterSelection : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class CharacterSelection : MonoBehaviour
     public GameObject decision;
     public GameObject result;
     public GameObject storyflow;
+
+    public VideoPlayer player;
 
     public GameObject pauseIcon;
     public GameObject timer;
@@ -228,6 +231,12 @@ public class CharacterSelection : MonoBehaviour
         storyflowbutton.onClick.RemoveAllListeners();
         storyflowbutton.onClick.AddListener(delegate { Pick(children.First()); });
 
+    }
+
+
+    public void SwitchBackground(VideoClip video)
+    {
+        player.clip = video;
     }
 
     public void Pick(StoryEvent e)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Video;
 
 public class StoryEvent
 {
@@ -11,6 +12,7 @@ public class StoryEvent
     private StoryEventType storyType;
     private Skills skillChange;
     private bool randomOption;
+    private VideoClip background;
 
     /// <summary>
     /// Constructor of the StoryEvent class.
@@ -78,6 +80,18 @@ public class StoryEvent
         this.storyType = storyType;
         this.skillChange = skillChange;
         this.randomOption = randomOption;
+    }
+
+    public StoryEvent(VideoClip background,HashSet<StoryEvent> children, StoryEventType storyType)
+    {
+        this.children = children;
+        this.storyType = storyType;
+        this.background = background;
+    }
+
+    public VideoClip GetBackground()
+    {
+        return background;
     }
 
     /// <summary>

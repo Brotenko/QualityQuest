@@ -17,6 +17,8 @@ public enum StoryEventType
     /// <summary>
     /// Story Event which happens between storyflow decisions which can't be voted for
     /// </summary>
-    StoryFlow
+    StoryFlow,
+
+    StoryBackground
 
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using UnityEngine.Video;
 
 public class Story:MonoBehaviour
 {
@@ -101,9 +102,13 @@ public class Story:MonoBehaviour
         storyelement4option2.AddChild(storyelement5);
         storyelement4option3.AddChild(storyelement5);
 
+        StoryEvent background2 = new StoryEvent((VideoClip)Resources.Load("videobackgrounds/praktika"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+
+        storyelement5.AddChild(background2);
+
         StoryEvent storyelement6 = new StoryEvent(Guid.NewGuid(), "... ein halbes Jahr vergeht ...", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
-        storyelement5.AddChild(storyelement6);
+        background2.AddChild(storyelement6);
 
         StoryEvent storyelement7 = new StoryEvent(Guid.NewGuid(), "Du hast einen Job bei NewTec GmbH angenommen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
@@ -216,9 +221,13 @@ public class Story:MonoBehaviour
 
         // at the company party
 
+        StoryEvent background4 = new StoryEvent((VideoClip)Resources.Load("videobackgrounds/party"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+
+        decision6option1.AddChild(background4);
+
         StoryEvent storyelement18 = new StoryEvent(Guid.NewGuid(), "Du bist auf der Firmenfeier.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
-        decision6option1.AddChild(storyelement18);
+        background4.AddChild(storyelement18);
 
         StoryEvent decision7 = new StoryEvent(Guid.NewGuid(), "Was willst du auf der Firmenfeier machen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
 
@@ -296,10 +305,14 @@ public class Story:MonoBehaviour
 
         // training course
 
+        StoryEvent background5 = new StoryEvent((VideoClip)Resources.Load("videobackgrounds/meeting"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+
+        storyelement16.AddChild(background5);
+        storyelement23.AddChild(background5);
+
         StoryEvent storyelement17 = new StoryEvent(Guid.NewGuid(), "Eine Weiterbildung steht an.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
-        storyelement16.AddChild(storyelement17);
-        storyelement23.AddChild(storyelement17);
+        background5.AddChild(storyelement17);
 
         // Deadline should be mentioned here as well
         StoryEvent decision10 = new StoryEvent(Guid.NewGuid(), "Willst du an der Weiterbildung teilnehmen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
@@ -328,12 +341,16 @@ public class Story:MonoBehaviour
         decision10option3.AddChild(storyelement24option3);
         decision10option4.AddChild(storyelement24option4);
 
+        StoryEvent background6 = new StoryEvent((VideoClip)Resources.Load("videobackgrounds/desk"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+
+        storyelement24option1.AddChild(background6);
+        storyelement24option2.AddChild(background6);
+        storyelement24option3.AddChild(background6);
+        storyelement24option4.AddChild(background6);
+
         StoryEvent storyelement25 = new StoryEvent(Guid.NewGuid(), "Deine Telefon klingelt. WizzBook ruft an und möchte Änderungen an WizzApp vornehmen.",new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
-        storyelement24option1.AddChild(storyelement25);
-        storyelement24option2.AddChild(storyelement25);
-        storyelement24option3.AddChild(storyelement25);
-        storyelement24option4.AddChild(storyelement25);
+        background6.AddChild(storyelement25);
 
         StoryEvent storyelement26 = new StoryEvent(Guid.NewGuid(), "Du nimmst den Anruf entgegen und hörst dir WizzApps Änderungswünsche an.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
@@ -548,9 +565,15 @@ public class Story:MonoBehaviour
 
         //workshop
 
+        StoryEvent background3 = new StoryEvent((VideoClip)Resources.Load("videobackgrounds/beach"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+
+        storyelement47.AddChild(background3);
+
         StoryEvent storyelement48 = new StoryEvent(Guid.NewGuid(), "Die besten Mitarbeiter werden zu einem Workshop auf Hawaii eingeladen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
-        storyelement47.AddChild(storyelement48);
+        background3.AddChild(storyelement48);
+
+
 
         //sufficient amount of skill points required
         StoryEvent storyelement49option1 = new StoryEvent(Guid.NewGuid(), "Glückwunsch du wurdest zum Workshop eingeladen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
@@ -593,7 +616,7 @@ public class Story:MonoBehaviour
 
         if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryDecision))
         {
-            CharacterSelection.current.ShowDecision(playThrough.getCurrentEvent(),playThrough.getCurrentEvent().GetChildren());
+            CharacterSelection.current.ShowDecision(playThrough.getCurrentEvent(), playThrough.getCurrentEvent().GetChildren());
             Debug.Log("StoryDecision: " + playThrough.getCurrentEvent().GetDescription());
         }
 
@@ -616,7 +639,21 @@ public class Story:MonoBehaviour
             if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
             {
                 Debug.Log("StoryFlow: " + playThrough.getCurrentEvent().GetDescription());
-                CharacterSelection.current.ShowStoryFlow(playThrough.getCurrentEvent(),playThrough.getCurrentEvent().GetChildren());
+                CharacterSelection.current.ShowStoryFlow(playThrough.getCurrentEvent(), playThrough.getCurrentEvent().GetChildren());
+            }
+            else
+            {
+                Debug.Log("Story Event has no Children");
+            }
+        }
+
+        else if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryBackground))
+        {
+            if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
+            {
+                CharacterSelection.current.SwitchBackground(playThrough.getCurrentEvent().GetBackground());
+                playThrough.setCurrentEvent(playThrough.getCurrentEvent().GetChildren().First());
+                this.PlayGame();
             }
             else
             {
