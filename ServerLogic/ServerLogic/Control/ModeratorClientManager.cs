@@ -115,7 +115,7 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// todo fix that when after a voting is finished, pausing and unpausing causes the VotingResults to be send again
+        /// Pauses/unpauses the timeout for voting if there is currently one ongoing.
         /// </summary>
         /// <param name="pause"></param>
         public bool PauseVotingTimer(bool pause)

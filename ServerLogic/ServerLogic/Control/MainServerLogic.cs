@@ -97,8 +97,8 @@ namespace ServerLogic.Control
             {
                 socket.OnOpen = () =>
                 {
-                    ServerLogger.LogDebug("WebSocket-connection to " + socket.ConnectionInfo.ClientIpAddress + " established.\nHeader: " + socket.ConnectionInfo.Headers +
-                                          "\nIP: " + socket.ConnectionInfo.ClientIpAddress + "\nSubProtocol: " + socket.ConnectionInfo.NegotiatedSubProtocol);
+                    ServerLogger.LogDebug("WebSocket-connection to " + socket.ConnectionInfo.ClientIpAddress + " established.\nOrigin: " + socket.ConnectionInfo.Origin +
+                                          "\nIP: " + socket.ConnectionInfo.ClientIpAddress + "\nHost: " + socket.ConnectionInfo.Host);
                 };
                 socket.OnClose = () =>
                 {
@@ -109,20 +109,11 @@ namespace ServerLogic.Control
                 {
                     socket.Send(CheckStringMessage(message, socket));
                 };
-                socket.OnBinary = bytes =>
-                {
-                    ServerLogger.LogDebug($"Received Binary message: {Encoding.UTF8.GetString(bytes)}");
-                };
                 socket.OnError = exception =>
                 {
                     ServerLogger.LogError($"WebSocket-connection failed: {exception.Message}");
                     AddStrike(socket);
                 };
-                /* TODO remove?
-                socket.OnPing = bytes =>
-                    ServerLogger.LogInformation("OnPing");
-                socket.OnPong = bytes =>
-                    ServerLogger.LogInformation("OnPong");*/
             });
         }
 
@@ -140,7 +131,7 @@ namespace ServerLogic.Control
                 MessageContainer messageContainer = JsonConvert.DeserializeObject<MessageContainer>(message);
                 switch (messageContainer.Type)
                 {
-                    //  ######## Initialization  ######## 
+                    // ######## Initialization  ######## 
                     case MessageType.RequestOpenSession:
                         RequestOpenSessionMessage openSessionMessage =
                             JsonConvert.DeserializeObject<RequestOpenSessionMessage>(message);
@@ -180,7 +171,7 @@ namespace ServerLogic.Control
                         }
                         break;
 
-                    //Is sent multiple times after MC lost connection to server
+                    // ######## Check availability after connection loss ########
                     case MessageType.RequestServerStatus:
                         if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID, socket, true))
                         {
@@ -190,7 +181,7 @@ namespace ServerLogic.Control
                         }
                         break;
 
-                    //To reestablish a lost connection
+                    // ######## continue session after reconnect ########
                     case MessageType.Reconnect:
                         if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID, socket, true))
                         {
@@ -208,13 +199,13 @@ namespace ServerLogic.Control
                                     _connectedModeratorClients.Remove(key);
                                     response = JsonConvert.SerializeObject(new ReconnectSuccessfulMessage(
                                         currentModeratorClientManager.ModeratorGuid));
-                                    ServerLogger.LogDebug("Reconnect successful.");
+                                    ServerLogger.LogDebug($"MC-{currentModeratorClientManager.ModeratorGuid} reconnected successful to session {currentModeratorClientManager.SessionKey}.\n\tOld socket-connection:\t{key}\n\tNew socket-connection:\t{socket}");
                                 }
                             }
                         }
                         break;
 
-                    //Is sent to request the start of the current Online-Session
+                    // ######## Start to play ########
                     case MessageType.RequestGameStart:
                         if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID, socket, true))
                         {
@@ -227,7 +218,7 @@ namespace ServerLogic.Control
                         }
                         break;
 
-                    // ######## Voting ######## 
+                    // ######## Start Voting ######## 
                     case MessageType.RequestStartVoting:
                         if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID, socket, true))
                         {
@@ -253,7 +244,7 @@ namespace ServerLogic.Control
                         }
                         break;
 
-                    // ######## Control messages ########
+                    // ######## Pause/Unpaus Voting ########
                     case MessageType.RequestGamePausedStatusChange:
                         if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID, socket, true))
                         {
@@ -261,8 +252,7 @@ namespace ServerLogic.Control
                                 JsonConvert.DeserializeObject<RequestGamePausedStatusChangeMessage>(message);
                             if (!gamePausedStatusChange.GamePaused.Equals(_connectedModeratorClients[socket].IsPaused))
                             {
-                                if (_connectedModeratorClients[socket]
-                                    .PauseVotingTimer(gamePausedStatusChange.GamePaused))
+                                if (_connectedModeratorClients[socket].PauseVotingTimer(gamePausedStatusChange.GamePaused))
                                 {
                                     response = JsonConvert.SerializeObject(new GamePausedStatusMessage(
                                         gamePausedStatusChange.ModeratorID,
@@ -286,13 +276,13 @@ namespace ServerLogic.Control
                         }
                         break;
 
-                    // ######## Post-game ########
+                    // ######## Close Session ########
                     case MessageType.RequestCloseSession:
                         if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID, socket, true))
                         {
                             RequestCloseSessionMessage closeSessionMessage =
                                 JsonConvert.DeserializeObject<RequestCloseSessionMessage>(message);
-                            if (SessionKeyExists(closeSessionMessage.SessionKey))
+                            if (_connectedModeratorClients[socket].SessionKey.Equals(closeSessionMessage.SessionKey))
                             {
                                 response = JsonConvert.SerializeObject(
                                         new SessionClosedMessage(closeSessionMessage.ModeratorID));
@@ -357,16 +347,6 @@ namespace ServerLogic.Control
             }
         }
 
-        internal bool SessionKeyExists(string sessionKey)
-        {
-            foreach (var (_, value) in _connectedModeratorClients)
-            {
-                if (value.SessionKey.Equals(sessionKey)) return true;
-            }
-
-            return false;
-        }
-
         internal bool ModeratorGuidExists(Guid moderatorGuid, IWebSocketConnection socket, bool sendResponse)
         {
             foreach (var (_, moderatorClientManager) in _connectedModeratorClients)
@@ -403,8 +383,11 @@ namespace ServerLogic.Control
                 return sessionKey;
             }
             //SessionKey already in use?
-            if (SessionKeyExists(sessionKey)) GenerateSessionKey(maxRecursionCycles - 1);
-
+            foreach (var (_, value) in _connectedModeratorClients)
+            {
+                if (value.SessionKey.Equals(sessionKey)) GenerateSessionKey(maxRecursionCycles - 1);
+            }
+            
             return sessionKey;
         }
     }
