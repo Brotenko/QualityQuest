@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Linq;
 using UnityEngine.Video;
 
 public class CharacterSelection : MonoBehaviour
@@ -29,6 +28,11 @@ public class CharacterSelection : MonoBehaviour
     public TMP_Text communication;
     public TMP_Text analytics;
     public TMP_Text party;
+
+    public TMP_Text skillChangeProgramming;
+    public TMP_Text skillChangeCommunication;
+    public TMP_Text skillChangeAnalytics;
+    public TMP_Text skillChangeParty;
 
     public Sprite play;
     public Sprite pause;
@@ -57,7 +61,7 @@ public class CharacterSelection : MonoBehaviour
         selectchar.SetActive(true);
         menu.SetActive(false);
         pauseIcon.SetActive(false);
-        skills.SetActive(true);
+        skills.SetActive(false);
         timer.SetActive(true);
         gamePaused = false;
         pauseButton.sprite = pause;
@@ -86,6 +90,93 @@ public class CharacterSelection : MonoBehaviour
         communication.text = s.getCommunication().ToString();
         party.text = s.getPartying().ToString();
         programming.text = s.getProgramming().ToString();
+    }
+
+    public void UpdateSkills(Skills s,int programmingDiff, int communicationDiff, int analyticsDiff, int partyDiff)
+    {
+        analytics.text = s.getAnalytics().ToString();
+        communication.text = s.getCommunication().ToString();
+        party.text = s.getPartying().ToString();
+        programming.text = s.getProgramming().ToString();
+
+        Debug.Log("Skill Change");
+
+        if (programmingDiff != 0)
+        {
+            skillChangeProgramming.gameObject.SetActive(true);
+            skillChangeProgramming.text = programmingDiff.ToString();
+
+            if (programmingDiff > 0)
+            {
+                skillChangeProgramming.color = new Color(0.3215686f, 0.6352941f, 0.3411765f);
+            }
+
+            if (programmingDiff < 0)
+            {
+                skillChangeProgramming.color = Color.red;
+            }
+
+        }
+
+        if (communicationDiff != 0)
+        {
+            skillChangeCommunication.gameObject.SetActive(true);
+            skillChangeCommunication.text = communicationDiff.ToString();
+
+            if (communicationDiff > 0)
+            {
+                skillChangeCommunication.color = new Color(0.3215686f, 0.6352941f, 0.3411765f);
+            }
+
+            if (communicationDiff < 0)
+            {
+                skillChangeCommunication.color = Color.red;
+            }
+
+        }
+
+        if (analyticsDiff != 0)
+        {
+            skillChangeAnalytics.gameObject.SetActive(true);
+            skillChangeAnalytics.text = analyticsDiff.ToString();
+
+            if (analyticsDiff > 0)
+            {
+                skillChangeAnalytics.color = new Color(0.3215686f, 0.6352941f, 0.3411765f);
+            }
+
+            if (analyticsDiff < 0)
+            {
+                skillChangeAnalytics.color = Color.red;
+            }
+
+        }
+
+        if (partyDiff != 0)
+        {
+            skillChangeParty.gameObject.SetActive(true);
+            skillChangeParty.text = partyDiff.ToString();
+
+            if (partyDiff > 0)
+            {
+                skillChangeParty.color = new Color(0.3215686f, 0.6352941f, 0.3411765f);
+            }
+
+            if (partyDiff < 0)
+            {
+                skillChangeParty.color = Color.red;
+            }
+
+        }
+
+    }
+
+    public void HideSkillChange()
+    {
+        skillChangeProgramming.gameObject.SetActive(false);
+        skillChangeCommunication.gameObject.SetActive(false);
+        skillChangeAnalytics.gameObject.SetActive(false);
+        skillChangeParty.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -171,6 +262,7 @@ public class CharacterSelection : MonoBehaviour
         Story.playThrough.SetCharacter(playerCharacter);
         UpdateSkills(Story.playThrough.getCharacter().getAbilities());
         Story.current.PlayGame();
+        skills.SetActive(true);
     }
 
     public void InitializeCharacterLumati()
@@ -179,6 +271,7 @@ public class CharacterSelection : MonoBehaviour
         Story.playThrough.SetCharacter(playerCharacter);
         UpdateSkills(Story.playThrough.getCharacter().getAbilities());
         Story.current.PlayGame();
+        skills.SetActive(true);
     }
 
     public void InitializeCharacterTurgal()
@@ -187,6 +280,7 @@ public class CharacterSelection : MonoBehaviour
         Story.playThrough.SetCharacter(playerCharacter);
         UpdateSkills(Story.playThrough.getCharacter().getAbilities());
         Story.current.PlayGame();
+        skills.SetActive(true);
     }
 
     public void InitializeCharacterKirogh()
@@ -195,6 +289,7 @@ public class CharacterSelection : MonoBehaviour
         Story.playThrough.SetCharacter(playerCharacter);
         UpdateSkills(Story.playThrough.getCharacter().getAbilities());
         Story.current.PlayGame();
+        skills.SetActive(true);
     }
 
     private StoryEvent se;

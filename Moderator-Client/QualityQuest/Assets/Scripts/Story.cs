@@ -603,13 +603,15 @@ public class Story:MonoBehaviour
 
     public void PlayGame()
     {
+        CharacterSelection.current.HideSkillChange();
+
         if (playThrough.getCurrentEvent().GetSkills() != null)
         {
             playThrough.getCharacter().getAbilities().updateProgrammingSkill(playThrough.getCurrentEvent().GetSkills().getProgramming());
             playThrough.getCharacter().getAbilities().updateCommunicationSkill(playThrough.getCurrentEvent().GetSkills().getCommunication());
             playThrough.getCharacter().getAbilities().updateAnalyticsSkill(playThrough.getCurrentEvent().GetSkills().getAnalytics());
             playThrough.getCharacter().getAbilities().updatePartyingSkill(playThrough.getCurrentEvent().GetSkills().getPartying());
-            CharacterSelection.current.UpdateSkills(playThrough.getCharacter().getAbilities());
+            CharacterSelection.current.UpdateSkills(playThrough.getCharacter().getAbilities(), playThrough.getCurrentEvent().GetSkills().getProgramming(), playThrough.getCurrentEvent().GetSkills().getCommunication(), playThrough.getCurrentEvent().GetSkills().getAnalytics(), playThrough.getCurrentEvent().GetSkills().getPartying());
         }
 
         Debug.Log(playThrough.getCurrentEvent().GetStoryType());
