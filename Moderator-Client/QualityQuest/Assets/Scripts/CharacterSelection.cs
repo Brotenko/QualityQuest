@@ -24,6 +24,8 @@ public class CharacterSelection : MonoBehaviour
     public Button storyflowbutton;
     public TMP_Text storyflowtext;
 
+    public Image characterImage;
+
     public TMP_Text programming;
     public TMP_Text communication;
     public TMP_Text analytics;
@@ -263,6 +265,7 @@ public class CharacterSelection : MonoBehaviour
         UpdateSkills(Story.playThrough.getCharacter().getAbilities());
         Story.current.PlayGame();
         skills.SetActive(true);
+        characterImage.sprite = Resources.Load<Sprite>("characters/noruso");
     }
 
     public void InitializeCharacterLumati()
@@ -272,6 +275,7 @@ public class CharacterSelection : MonoBehaviour
         UpdateSkills(Story.playThrough.getCharacter().getAbilities());
         Story.current.PlayGame();
         skills.SetActive(true);
+        characterImage.sprite = Resources.Load<Sprite>("characters/lumati");
     }
 
     public void InitializeCharacterTurgal()
@@ -281,6 +285,7 @@ public class CharacterSelection : MonoBehaviour
         UpdateSkills(Story.playThrough.getCharacter().getAbilities());
         Story.current.PlayGame();
         skills.SetActive(true);
+        characterImage.sprite = Resources.Load<Sprite>("characters/turgal");
     }
 
     public void InitializeCharacterKirogh()
@@ -290,6 +295,7 @@ public class CharacterSelection : MonoBehaviour
         UpdateSkills(Story.playThrough.getCharacter().getAbilities());
         Story.current.PlayGame();
         skills.SetActive(true);
+        characterImage.sprite = Resources.Load<Sprite>("characters/kirogh");
     }
 
     private StoryEvent se;

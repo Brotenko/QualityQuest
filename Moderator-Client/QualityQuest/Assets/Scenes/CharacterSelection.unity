@@ -1615,7 +1615,7 @@ GameObject:
   - component: {fileID: 196111058}
   - component: {fileID: 196111057}
   m_Layer: 5
-  m_Name: Image
+  m_Name: logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6307,7 +6307,7 @@ GameObject:
   - component: {fileID: 678732908}
   - component: {fileID: 678732907}
   m_Layer: 5
-  m_Name: Image
+  m_Name: character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13256,6 +13256,7 @@ MonoBehaviour:
   skills: {fileID: 1649125297}
   storyflowbutton: {fileID: 1450303063}
   storyflowtext: {fileID: 1633821309}
+  characterImage: {fileID: 678732907}
   programming: {fileID: 1143312689}
   communication: {fileID: 1412858840}
   analytics: {fileID: 15795693}
@@ -17784,8 +17785,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Story Flow
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 11981673e46fd864899c79589f11ea15, type: 2}
-  m_sharedMaterial: {fileID: -5351863059603356170, guid: 11981673e46fd864899c79589f11ea15, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b1aa97de9da99a54eb9b079ccbce8985, type: 2}
+  m_sharedMaterial: {fileID: 3756195951959868412, guid: b1aa97de9da99a54eb9b079ccbce8985, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
