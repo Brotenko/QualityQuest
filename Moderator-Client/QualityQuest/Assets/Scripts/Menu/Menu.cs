@@ -99,7 +99,7 @@ public class Menu : MonoBehaviour
     /// <summary>
     /// Method to set the offlineMode through the main menu.
     /// </summary>
-    public void SetOfflineMode()
+    public void PlayOfflineMode()
     {
         offlineMode = true;
         Debug.Log("Offlinemode enabled");
@@ -123,6 +123,7 @@ public class Menu : MonoBehaviour
         if (offlineMode)
         {
             Story.InitializeStoryGraph();
+            SceneManager.LoadScene(sceneBuildIndex: 2);
         } 
         else
         {
