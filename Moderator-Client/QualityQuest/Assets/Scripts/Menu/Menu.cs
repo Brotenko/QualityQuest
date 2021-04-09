@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Menu : MonoBehaviour
 {
 
     public static bool offlineMode;
+    public TMP_InputField ip;
+    public TMP_InputField port;
+    public TMP_InputField password;
+
 
     public GameObject mainMenu;
     public GameObject audioMenu;
     public GameObject optionsMenu;
     public GameObject languageMenu;
     public GameObject displayMenu;
+    public GameObject playOnline;
 
     /// <summary>
     /// Makes sure that when the game is launched the main menu is displayed.
@@ -78,6 +84,7 @@ public class Menu : MonoBehaviour
         mainMenu.SetActive(false);
         languageMenu.SetActive(false);
         displayMenu.SetActive(false);
+        playOnline.SetActive(false);
     }
 
     /// <summary>
@@ -96,6 +103,16 @@ public class Menu : MonoBehaviour
     {
         offlineMode = true;
         Debug.Log("Offlinemode enabled");
+        StartGame();
+    }
+
+    /// <summary>
+    /// Makes the playOnline panel visible.
+    /// </summary>
+    public void PlayOnline()
+    {
+        HideAllMenu();
+        playOnline.SetActive(true);
     }
 
     /// <summary>
@@ -106,7 +123,6 @@ public class Menu : MonoBehaviour
         if (offlineMode)
         {
             Story.InitializeStoryGraph();
-            SceneManager.LoadScene(sceneBuildIndex: 2);
         } 
         else
         {
