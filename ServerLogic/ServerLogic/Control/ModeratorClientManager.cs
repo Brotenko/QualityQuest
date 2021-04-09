@@ -10,7 +10,7 @@ namespace ServerLogic.Control
     public class ModeratorClientManager
     {
         public Guid ModeratorGuid;
-        public string SessionKey;
+        public string SessionKey="";
         //FR31 'Network protocol violation', connection is canceled after three Strikes/violations against network-protocol in a row.
         public int Strikes;
         public bool IsVoting;
@@ -22,7 +22,7 @@ namespace ServerLogic.Control
         private KeyValuePair<Guid, string> _currentPrompt;
 
         private readonly Timer _inactivityTimer;
-        private readonly IWebSocketConnection _socket;
+        public IWebSocketConnection SocketConnection;
         private readonly PlayerAudienceClientAPI _playerAudienceClientApi;
 
 
@@ -30,26 +30,32 @@ namespace ServerLogic.Control
         /// An object that manages attributes and methods required for communication between the server and a specific moderator client.
         /// </summary>
         /// <param name="moderatorGuid">The transmitted Guid of a ModeratorClient.</param>
-        /// <param name="sessionKey">The assigned sessionKey.</param>
-        /// <param name="socket">The assigned IWebSocketConnection.</param>
+        /// <param name="socketConnection">The assigned IWebSocketConnection.</param>
         /// <param name="playerAudienceClientApi"></param>
-        public ModeratorClientManager(Guid moderatorGuid, string sessionKey, IWebSocketConnection socket, PlayerAudienceClientAPI playerAudienceClientApi)
+        public ModeratorClientManager(Guid moderatorGuid, IWebSocketConnection socketConnection, PlayerAudienceClientAPI playerAudienceClientApi)
         {
             ModeratorGuid = moderatorGuid;
-            SessionKey = sessionKey;
-            Strikes = 0;
-            _socket = socket;
+            SocketConnection = socketConnection;
             _playerAudienceClientApi = playerAudienceClientApi;
-            _playerAudienceClientApi.StartNewSession(sessionKey);
-            StartAudienceCountLiveUpdate();
+
+            Strikes = 0;
             IsVoting = false;
             IsPaused = false;
             IsInactive = false;
+
             //30min = 1800000ms
             _inactivityTimer = new Timer(1800000);
             _inactivityTimer.Elapsed += SetToInactive;
             _inactivityTimer.AutoReset = false;
             _inactivityTimer.Enabled = true;
+        }
+
+
+        public void InitSession(string sessionKey)
+        {
+            SessionKey = sessionKey;
+            _playerAudienceClientApi.StartNewSession(sessionKey);
+            StartAudienceCountLiveUpdate();
         }
 
         /// <summary>
@@ -95,7 +101,7 @@ namespace ServerLogic.Control
         /// <param name="e"></param>
         private void SendAudienceCount(object source, ElapsedEventArgs e)
         {
-            _socket.Send(JsonConvert.SerializeObject(new AudienceStatusMessage(this.ModeratorGuid, PAClient.PABackend.ConnectionList[this.SessionKey].Count)));
+            SocketConnection.Send(JsonConvert.SerializeObject(new AudienceStatusMessage(this.ModeratorGuid, PAClient.PABackend.ConnectionList[this.SessionKey].Count)));
         }
 
         /// <summary>
@@ -158,7 +164,7 @@ namespace ServerLogic.Control
             }
             ServerLogger.LogDebug($"Voting ended. Winning prompt is '{winningOption.Value}' with {winningVotes} votes.");
             IsVoting = false;
-            _socket.Send(JsonConvert.SerializeObject(new VotingEndedMessage(ModeratorGuid, winningOption, votingResults)));
+            SocketConnection.Send(JsonConvert.SerializeObject(new VotingEndedMessage(ModeratorGuid, winningOption, votingResults)));
         }
 
 
@@ -175,7 +181,7 @@ namespace ServerLogic.Control
                 _votingTimer.Dispose();
                 _playerAudienceCountLiveUpdateTimer.Stop();
                 _playerAudienceCountLiveUpdateTimer.Dispose();
-                _socket.Close();
+                SocketConnection.Close();
                 _inactivityTimer.Stop();
                 _inactivityTimer.Dispose();
                 ServerLogger.LogDebug($"MC-{ModeratorGuid} was stopped.");
