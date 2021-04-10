@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Class to realize the connection to ServerLogic. 
@@ -14,18 +15,32 @@ using UnityEngine.UI;
 /// </summary>
 public class Client : MonoBehaviour
 {
-    
-    WebSocket webSocket;
+    public static Client webSocket;
+    public WebSocket socket;
+
+    void Awake()
+    {
+        if (webSocket == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            webSocket = this;
+        } else if (webSocket != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
 
     public void StartConnection()
     {
         // Connect ws://127.0.0.1:8181
         
-        webSocket = new WebSocket("ws://" + ip.text + ":" + port.text.ToString());
+        socket = new WebSocket("ws://127.0.0.1:8181");
 
         /*
         // Check the certificate
-        webSocket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
+        socket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
         {
             // If desired you can change the certificate validation
 
@@ -33,14 +48,15 @@ public class Client : MonoBehaviour
         }; */
 
         // Event when the WebSocket connection is established.
-        webSocket.OnOpen += (sender, e) =>
+        socket.OnOpen += (sender, e) =>
         {
+            Menu.onlineMode = true;
             Debug.Log("Connection established.");
         };
 
-        webSocket.EmitOnPing = true;
+        socket.EmitOnPing = true;
         // Event when the WebSocket recieves a message.
-        webSocket.OnMessage += (sender, e) =>
+        socket.OnMessage += (sender, e) =>
         {
             // Check if the data is a string.
             if (e.IsText)
@@ -65,18 +81,19 @@ public class Client : MonoBehaviour
         };
 
         //Event when the WebSockets gets an Error.
-        webSocket.OnError += (sender, e) =>
+        socket.OnError += (sender, e) =>
         {
             Debug.Log("Error: " + e.Message);
         };
 
-        webSocket.OnClose += (sender, e) =>
+        socket.OnClose += (sender, e) =>
         {
+            Menu.onlineMode = false;
             Debug.Log("Connection is closed. Reason: " + e.Reason + ", ErrorCode: " + e.Code);
         };
 
         //Connect the WebSocket
-        webSocket.ConnectAsync();
+        socket.ConnectAsync();
     }
 
 
@@ -144,13 +161,13 @@ public class Client : MonoBehaviour
     /// </summary>
     /// <typeparam name="T">The type of the message</typeparam>
     /// <param name="msg">The message</param>
-    void SendMessage<T>(T message)
+    public void SendMessage<T>(T message)
     {
         try
         {
             string jsonMessage = JsonConvert.SerializeObject(message);
             Debug.Log("SENDING => " + jsonMessage);
-            webSocket.Send(jsonMessage);
+            socket.Send(jsonMessage);
         } catch (JsonSerializationException jse)
         {
             Debug.Log("Can't send Message, JSON parse error: " + jse);
@@ -168,10 +185,7 @@ public class Client : MonoBehaviour
     public string message;
     Guid testGuid = new Guid();
 
-    void Update()
-    {
-        recievedMessage.text = message;
-    }
+    
 
     public void RequestOpenSessionMessage()
     {
@@ -232,7 +246,7 @@ public class Client : MonoBehaviour
     public void RequestGameStartMessage()
     {
 
-        MessageContainer.Messages.RequestGameStartMessage test = new MessageContainer.Messages.RequestGameStartMessage(testGuid);
+        MessageContainer.Messages.RequestGameStartMessage test = new MessageContainer.Messages.RequestGameStartMessage(new Guid());
 
         SendMessage(test);   
     }
@@ -244,9 +258,9 @@ public class Client : MonoBehaviour
     
     public void CloseConnection()
     {
-        webSocket.Close();
+        socket.Close();
     }
-
+    
     public void SetIp()
     {
         Debug.Log("Ip is: " + ip.text);
@@ -256,4 +270,5 @@ public class Client : MonoBehaviour
     {
         Debug.Log("Port is: " + port.text);
     }
+    
 }
