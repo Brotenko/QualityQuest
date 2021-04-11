@@ -13,34 +13,34 @@ using TMPro;
 /// For the WebSockets the solution of WebSocket-sharp is used. 
 /// For more information: https://github.com/PingmanTools/websocket-sharp/
 /// </summary>
-public class Client : MonoBehaviour
+public class QualityQuestWebSocket : MonoBehaviour
 {
-    public static Client webSocket;
-    public WebSocket socket;
+    private QualityQuestWebSocket qualityQuestWebSocket;
+    public OnlineClientManager onlineClientManager;
+    public WebSocket webSocket;
 
     void Awake()
     {
-        if (webSocket == null)
+        if (qualityQuestWebSocket == null)
         {
             DontDestroyOnLoad(gameObject);
-            webSocket = this;
-        } else if (webSocket != this)
+            qualityQuestWebSocket = this;
+        } else if (qualityQuestWebSocket != this)
         {
             Destroy(gameObject);
         }
     }
 
 
-
-    public void StartConnection()
+    public void StartConnection(string ip, int port)
     {
         // Connect ws://127.0.0.1:8181
         
-        socket = new WebSocket("ws://127.0.0.1:8181");
+        webSocket = new WebSocket("ws://" + ip +":" + port.ToString());
 
         /*
         // Check the certificate
-        socket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
+        webSocket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
         {
             // If desired you can change the certificate validation
 
@@ -48,15 +48,16 @@ public class Client : MonoBehaviour
         }; */
 
         // Event when the WebSocket connection is established.
-        socket.OnOpen += (sender, e) =>
+        webSocket.OnOpen += (sender, e) =>
         {
             Menu.onlineMode = true;
+            onlineClientManager.SendTestMessage();
             Debug.Log("Connection established.");
         };
 
-        socket.EmitOnPing = true;
+        webSocket.EmitOnPing = true;
         // Event when the WebSocket recieves a message.
-        socket.OnMessage += (sender, e) =>
+        webSocket.OnMessage += (sender, e) =>
         {
             // Check if the data is a string.
             if (e.IsText)
@@ -81,19 +82,19 @@ public class Client : MonoBehaviour
         };
 
         //Event when the WebSockets gets an Error.
-        socket.OnError += (sender, e) =>
+        webSocket.OnError += (sender, e) =>
         {
             Debug.Log("Error: " + e.Message);
         };
 
-        socket.OnClose += (sender, e) =>
+        webSocket.OnClose += (sender, e) =>
         {
             Menu.onlineMode = false;
             Debug.Log("Connection is closed. Reason: " + e.Reason + ", ErrorCode: " + e.Code);
         };
 
         //Connect the WebSocket
-        socket.ConnectAsync();
+        webSocket.ConnectAsync();
     }
 
 
@@ -121,8 +122,6 @@ public class Client : MonoBehaviour
                 case MessageContainer.MessageType.ReconnectSuccessful:
                     break;
                 case MessageContainer.MessageType.GameStarted:
-                    //Debug.Log("Log3");
-                    //Debug.Log("GameStartedMessage");
                     break;
                 case MessageContainer.MessageType.VotingStarted:
                     break;
@@ -167,7 +166,7 @@ public class Client : MonoBehaviour
         {
             string jsonMessage = JsonConvert.SerializeObject(message);
             Debug.Log("SENDING => " + jsonMessage);
-            socket.Send(jsonMessage);
+            webSocket.Send(jsonMessage);
         } catch (JsonSerializationException jse)
         {
             Debug.Log("Can't send Message, JSON parse error: " + jse);
@@ -258,7 +257,7 @@ public class Client : MonoBehaviour
     
     public void CloseConnection()
     {
-        socket.Close();
+        webSocket.Close();
     }
     
     public void SetIp()

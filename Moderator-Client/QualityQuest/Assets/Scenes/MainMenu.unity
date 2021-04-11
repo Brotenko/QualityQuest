@@ -315,9 +315,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2025683794}
-        m_TargetAssemblyTypeName: Menu, Scripts
-        m_MethodName: StartOnlineSession
+      - m_Target: {fileID: 1162830968}
+        m_TargetAssemblyTypeName: OnlineClientManager, Scripts
+        m_MethodName: SendTestMessage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4761,7 +4761,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d044c31393e2f49a01ae69523ebac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onlineClientManager: {fileID: 1162830968}
   recievedMessage: {fileID: 0}
+  ip: {fileID: 0}
+  port: {fileID: 0}
   message: 
 --- !u!4 &694265636
 Transform:
@@ -6875,9 +6878,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2025683794}
-        m_TargetAssemblyTypeName: Menu, Scripts
-        m_MethodName: ConnectToServer
+      - m_Target: {fileID: 1162830968}
+        m_TargetAssemblyTypeName: OnlineGameManager, Scripts
+        m_MethodName: Connect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7567,6 +7570,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1160581287}
   m_CullTransparentMesh: 1
+--- !u!1 &1162830967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1162830969}
+  - component: {fileID: 1162830968}
+  m_Layer: 0
+  m_Name: OnlineGameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1162830968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162830967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e91fcce9275ea47861af84834a0cb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qualityQuestWebSocket: {fileID: 694265635}
+  menu: {fileID: 2025683794}
+  port: {fileID: 874406444}
+  ip: {fileID: 877534654}
+  password: {fileID: 1779595206}
+--- !u!4 &1162830969
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162830967}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 391.86957, y: 413.56287, z: -275.91687}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1190108403
 GameObject:
   m_ObjectHideFlags: 0
@@ -13858,9 +13909,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf302652ff27c64aade52029daf64db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ip: {fileID: 877534654}
-  fuck: {fileID: 874406444}
-  password: {fileID: 1779595206}
   startButton: {fileID: 51321545}
   mainMenu: {fileID: 678384711}
   audioMenu: {fileID: 25683249}

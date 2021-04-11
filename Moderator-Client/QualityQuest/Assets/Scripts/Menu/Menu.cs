@@ -8,10 +8,6 @@ public class Menu : MonoBehaviour
 {
     public static bool onlineMode;
     public static bool offlineMode;
-    public TMP_InputField ip;
-    public TMP_InputField port;
-    public TMP_InputField password;
-    public Button startButton;
 
 
     public GameObject mainMenu;
@@ -116,37 +112,6 @@ public class Menu : MonoBehaviour
         HideAllMenu();
         playOnline.SetActive(true);
     }
-
-    public void ConnectToServer()
-    {
-        // TODO: Change IP/Port
-        //Client.webSocket.StartConnection(ip.text, Convert.ToInt32(port.text));
-        Client.webSocket.StartConnection();
-        
-    }
-
-    public void StartOnlineSession()
-    {
-        // Test PW:!Password123#
-        MessageContainer.Messages.RequestOpenSessionMessage requestOpenSessionMessage = new MessageContainer.Messages.RequestOpenSessionMessage(new Guid(), password.text);
-
-        Client.webSocket.SendMessage(requestOpenSessionMessage);
-        SceneManager.LoadScene(sceneBuildIndex: 1);
-    }
-
-    void Update()
-    {
-        if (onlineMode)
-        {
-            startButton.interactable = true;
-        }
-        else
-        {
-            startButton.interactable = false;
-        }
-    }
-
-
 
     /// <summary>
     /// Method to start the game through the main menu.
