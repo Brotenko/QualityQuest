@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -143,6 +144,7 @@ namespace ServerLogic.Control
         /// <returns>A SHA256-Hash</returns>
         public static string StringToSHA256Hash(string hashMe)
         {
+            Settings.Default.Salt = SaltGen();
             hashMe += Settings.Default.Salt;
             //source: https://stackoverflow.com/questions/16999361/obtain-sha-256-string-of-a-string
             StringBuilder stringBuilder = new();
@@ -157,6 +159,18 @@ namespace ServerLogic.Control
                 }
             }
             return stringBuilder.ToString();
+        }
+
+        /// <summary>
+        /// Generates a random string with length 16.
+        /// </summary>
+        /// <returns></returns>
+        private static string SaltGen()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+            var rand = new Random();
+            string salt = new(Enumerable.Repeat(chars, 16).Select(s => s[rand.Next(s.Length)]).ToArray());
+            return salt;
         }
 
         /// <summary>
