@@ -49,6 +49,7 @@ namespace ServerLogic.Control
         /// </summary>
         public void Start()
         {
+            //TODO set url by using installer skript & settings file
             _server = new WebSocketServer("ws://0.0.0.0:" + Settings.Default.MCWebSocketPort);
             ServerLogger.LogDebug($"WebSocket secure connection established: {_server.IsSecure}.");
             _playerAudienceClientApi.StartServer(Settings.Default.PAWebPagePort);
@@ -230,6 +231,7 @@ namespace ServerLogic.Control
                                 ServerLogger.LogDebug($"ModeratorClient {openSessionMessage.ModeratorID} tried to open another session.");
                             }
                         }
+                        //wrong password
                         else
                         {
                             //todo: remove before release

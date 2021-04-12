@@ -144,7 +144,6 @@ namespace ServerLogic.Control
         /// <returns>A SHA256-Hash</returns>
         public static string StringToSHA256Hash(string hashMe)
         {
-            Settings.Default.Salt = SaltGen();
             hashMe += Settings.Default.Salt;
             //source: https://stackoverflow.com/questions/16999361/obtain-sha-256-string-of-a-string
             StringBuilder stringBuilder = new();
@@ -202,7 +201,8 @@ namespace ServerLogic.Control
 
                 try
                 {
-                    //FR37
+                    //FR37, new PW, new Salt
+                    Settings.Default.Salt = SaltGen();
                     Settings.Default.PWHash = StringToSHA256Hash(CheckPasswordConditions(pass));
                     break;
                 }
@@ -428,7 +428,7 @@ namespace ServerLogic.Control
                     case "log":
                         ret = ShowLogs(commandParameters);
                         break;
-                    case "sessions":
+                    case "sess":
                         ret = mainServerLogic.ActiveConnections;
                         break;
                     case "exit":

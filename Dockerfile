@@ -4,7 +4,6 @@ EXPOSE 7777
 EXPOSE 8181
 COPY ServerLogic/ ./
 RUN dotnet publish ./ServerLogic.sln -c Release -o build --self-contained=false
-#CMD ["dotnet", "./build/ServerLogic.dll", "!Password123#", "7777"]
 ENTRYPOINT ["dotnet", "./build/ServerLogic.dll"]
 
 
