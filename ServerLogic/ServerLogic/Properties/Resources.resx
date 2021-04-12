@@ -139,11 +139,12 @@ OPTIONS
 These are commands that can be used in various situations:
 
   password   Show or set the server-access password
-  port       Show or set the port
-  start      Start the server
-  stop       Stop the server
-  log        Show the logs
-  exit       Exit the shell
+  port           Show or set the port
+  start           Start the server
+  stop           Stop the server
+  sess           Shows the currently active sessions
+  log             Show the logs
+  exit            Exit the shell
 
 Use '&lt;command&gt; --help' to read about a specific command.</value>
   </data>

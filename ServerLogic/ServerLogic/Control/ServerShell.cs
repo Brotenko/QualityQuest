@@ -256,7 +256,7 @@ namespace ServerLogic.Control
             }
             else
             {
-                Console.WriteLine("If you want to change your password, enter 'password ########'");
+                Console.WriteLine("To change the password, simply enter 'password'.");
             }
 
             RunShell();
@@ -427,6 +427,9 @@ namespace ServerLogic.Control
                         break;
                     case "log":
                         ret = ShowLogs(commandParameters);
+                        break;
+                    case "sessions":
+                        ret = mainServerLogic.ActiveConnections;
                         break;
                     case "exit":
                         StopShell();

@@ -10,19 +10,20 @@ namespace ServerLogic.Control
     public class ModeratorClientManager
     {
         public Guid ModeratorGuid;
-        public string SessionKey="";
+        public string SessionKey = "";
         //FR31 'Network protocol violation', connection is canceled after three Strikes/violations against network-protocol in a row.
         public int Strikes;
         public bool IsVoting;
         public bool IsPaused;
         public bool IsInactive;
 
+        public IWebSocketConnection SocketConnection;
+
         private Timer _playerAudienceCountLiveUpdateTimer;
         private Timer _votingTimer;
         private KeyValuePair<Guid, string> _currentPrompt;
 
         private readonly Timer _inactivityTimer;
-        public IWebSocketConnection SocketConnection;
         private readonly PlayerAudienceClientAPI _playerAudienceClientApi;
 
 
@@ -169,8 +170,8 @@ namespace ServerLogic.Control
 
 
         /// <summary>
-        /// Always call before removing a ModeratorClientAttributes-Object.
         /// Stops all processes that may still be running in the background.
+        /// Should be called if the connection to the ModeratorClient is closed.
         /// </summary>
         public void Stop()
         {
@@ -182,8 +183,6 @@ namespace ServerLogic.Control
                 _playerAudienceCountLiveUpdateTimer.Stop();
                 _playerAudienceCountLiveUpdateTimer.Dispose();
                 SocketConnection.Close();
-                _inactivityTimer.Stop();
-                _inactivityTimer.Dispose();
                 ServerLogger.LogDebug($"MC-{ModeratorGuid} was stopped.");
             }
             catch (Exception exception)
@@ -200,6 +199,16 @@ namespace ServerLogic.Control
         {
             _playerAudienceCountLiveUpdateTimer.Stop();
             _playerAudienceCountLiveUpdateTimer.Dispose();
+        }
+
+        /// <summary>
+        /// Stops the Timer used for indicating if a moderator has gotten inactive.
+        /// Only use this when deletion of the corresponding ModeratorClientManager is imminent, which should only the case when a RequestCloseSession-Message is received.
+        /// </summary>
+        public void StopInactivityTimer()
+        {
+            _inactivityTimer.Stop();
+            _inactivityTimer.Dispose();
         }
 
     }

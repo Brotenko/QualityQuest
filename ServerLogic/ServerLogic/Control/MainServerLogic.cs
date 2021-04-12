@@ -15,6 +15,8 @@ namespace ServerLogic.Control
 {
     public class MainServerLogic
     {
+        public string ActiveConnections;
+
         private WebSocketServer _server;
 
         private readonly Dictionary<Guid, ModeratorClientManager> _connectedModeratorClients;
@@ -61,7 +63,7 @@ namespace ServerLogic.Control
         /// </summary>
         public void Stop()
         {
-            foreach (var (key, value) in _connectedModeratorClients)
+            foreach (var (_, value) in _connectedModeratorClients)
             {
                 value.SocketConnection.Send(JsonConvert.SerializeObject(new SessionClosedMessage(value.ModeratorGuid)));
                 value.SocketConnection.Close();
@@ -88,8 +90,8 @@ namespace ServerLogic.Control
                         tempLog +=
                             $"\tMC-{moderatorClientManager.ModeratorGuid} in Session {moderatorClientManager.SessionKey}.\n";
                 }
-                //todo might move this to a shell command (by adding attribute/method?) 
-                ServerLogger.LogDebug("Currently actively connected ModeratorClients: \n" + tempLog);
+
+                ActiveConnections = tempLog;
             }
         }
 
@@ -108,8 +110,16 @@ namespace ServerLogic.Control
                 };
                 socketConnection.OnClose = () =>
                 {
-                    ServerLogger.LogDebug("Websocket-connection to " + socketConnection.ConnectionInfo.ClientIpAddress + " was closed.");
-                    socketConnection.Close();
+                    foreach (var (_, moderatorClientManager) in _connectedModeratorClients)
+                    {
+                        if (socketConnection.Equals(moderatorClientManager.SocketConnection))
+                        {
+                            //Disposes all timers, except inactivity-timer, and closes the socket. 
+                            moderatorClientManager.Stop();
+                            ServerLogger.LogDebug("Websocket-connection to " + socketConnection.ConnectionInfo.ClientIpAddress + " was closed. Communication attempts are temporarily paused until a moderator-client reconnect attempt or until the server-side session-relevant data is deleted after 30 minutes of inactivity.");
+                        }
+                    }
+                    //socketConnection.Close();
                 };
                 socketConnection.OnMessage = message =>
                 {
@@ -150,8 +160,10 @@ namespace ServerLogic.Control
                             if (messageContainer.Type == MessageType.Reconnect)
                             {
                                 _connectedModeratorClients[messageContainer.ModeratorID].SocketConnection = socketConnection;
+                                _connectedModeratorClients[messageContainer.ModeratorID].ResetInactivity();
                                 response = JsonConvert.SerializeObject(new ReconnectSuccessfulMessage(
                                        messageContainer.ModeratorID));
+                                //todo? On the server side, it is difficult to recognize when a disconnect has occurred in the game. After GameStart, recovery is possible without any problems, but if the connection is interrupted after OpenSession and before GameStart, no AudienceLiveUpdates are sent even if reconnect is successful, i.e. the server behaves as if a RequestGameStart message had come together with the reconnect. This is not problematic in itself, as long as one can do without the AudienceLiveUpdates in this case.
                                 ServerLogger.LogDebug("Reconnect successful.");
                             }
                             //Mismatch, but not a reconnect message;
