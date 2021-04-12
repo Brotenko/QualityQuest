@@ -122,7 +122,7 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// todo fix that when after a voting is finished, pausing and unpausing causes the VotingResults to be send again
+        /// Pauses/Unpauses voting.
         /// </summary>
         /// <param name="pause"></param>
         public bool PauseVotingTimer(bool pause)
@@ -178,10 +178,8 @@ namespace ServerLogic.Control
             try
             {
                 StopAudienceCountLiveUpdate();
-                _votingTimer.Stop();
-                _votingTimer.Dispose();
-                _playerAudienceCountLiveUpdateTimer.Stop();
-                _playerAudienceCountLiveUpdateTimer.Dispose();
+                _votingTimer?.Stop();
+                _votingTimer?.Dispose();
                 SocketConnection.Close();
                 ServerLogger.LogDebug($"MC-{ModeratorGuid} was stopped.");
             }
@@ -197,8 +195,8 @@ namespace ServerLogic.Control
         /// </summary>
         public void StopAudienceCountLiveUpdate()
         {
-            _playerAudienceCountLiveUpdateTimer.Stop();
-            _playerAudienceCountLiveUpdateTimer.Dispose();
+            _playerAudienceCountLiveUpdateTimer?.Stop();
+            _playerAudienceCountLiveUpdateTimer?.Dispose();
         }
 
         /// <summary>
@@ -207,8 +205,8 @@ namespace ServerLogic.Control
         /// </summary>
         public void StopInactivityTimer()
         {
-            _inactivityTimer.Stop();
-            _inactivityTimer.Dispose();
+            _inactivityTimer?.Stop();
+            _inactivityTimer?.Dispose();
         }
 
     }

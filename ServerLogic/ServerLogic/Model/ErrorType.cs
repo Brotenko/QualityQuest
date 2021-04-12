@@ -34,6 +34,8 @@
         /// Is triggered when an unknown message type is received, or when a message arrives at the 
         /// ServerLogic out of order. More precise details are to be specified in the errorMessageText.
         /// </summary>
-        IllegalMessage
+        IllegalMessage,
+
+        GuidAlreadyExists
     }
 }

@@ -170,7 +170,9 @@ namespace ServerLogic.Control
                             //Mismatch, but not a reconnect message;
                             else
                             {
-                                //TODO
+                                response = JsonConvert.SerializeObject(new ErrorMessage(messageContainer.ModeratorID,
+                                    ErrorType.GuidAlreadyExists, ""));
+                                ServerLogger.LogDebug("MC tried to connect with an already existing Guid.");
                             }
                         }
 
@@ -220,7 +222,6 @@ namespace ServerLogic.Control
                                     _connectedModeratorClients[mcId].SessionKey,
                                     new Uri($"https://{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}")));
                                 ServerLogger.LogDebug($"Received RequestOpenSession. SessionKey is {_connectedModeratorClients[mcId].SessionKey}.");
-
                             }
                             else
                             {
@@ -237,10 +238,9 @@ namespace ServerLogic.Control
                             //todo: remove before release
                             ServerLogger.LogDebug($"SocketConnection closed due to wrong RequestOpenSession: Password received: {openSessionMessage.Password}.");
 
-                            //todo remove entry from list!
                             response = JsonConvert.SerializeObject(new ErrorMessage(
                                 mcId, ErrorType.WrongPassword, ""));
-                            _connectedModeratorClients[mcId].SocketConnection.Close();
+                            _connectedModeratorClients[mcId].Stop();
                             _connectedModeratorClients.Remove(mcId);
 
                         }
