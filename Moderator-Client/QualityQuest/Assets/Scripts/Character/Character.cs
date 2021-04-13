@@ -7,6 +7,7 @@ public class Character
 
     private Skills abilities;
     private string name;
+    private Sprite sprite;
 
     /// <summary>
     /// Constructor for the character class.
@@ -17,6 +18,13 @@ public class Character
     {
         this.abilities = abilities;
         this.name = name;
+    }
+
+    public Character(Skills abilities, string name, Sprite sprite)
+    {
+        this.abilities = abilities;
+        this.name = name;
+        this.sprite = sprite;
     }
 
     /// <summary>
@@ -36,4 +44,10 @@ public class Character
     {
         return name;
     }
+
+    public Sprite getSprite()
+    {
+        return sprite;
+    }
+
 }

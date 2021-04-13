@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using System.Linq;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
-public class Decision : MonoBehaviour
+public class DisplayDecision : MonoBehaviour
 {
-
-    public static Decision current;
 
     public TMP_Text titleA;
     public TMP_Text descriptionA;
@@ -57,7 +55,7 @@ public class Decision : MonoBehaviour
         if (events.Count() >= 1)
         {
             descriptionA.text = list[0].GetDescription();
-            optionA.onClick.AddListener(delegate { CharacterSelection.current.Pick(list[0]); });
+            optionA.onClick.AddListener(delegate { OfflineGameManager.current.story.SetCurrentEvent(list[0]); });
             panelA.SetActive(true);
 
         }
@@ -66,7 +64,7 @@ public class Decision : MonoBehaviour
         if (events.Count() >= 2)
         {
             descriptionB.text = list[1].GetDescription();
-            optionB.onClick.AddListener(delegate { CharacterSelection.current.Pick(list[1]); });
+            optionB.onClick.AddListener(delegate { OfflineGameManager.current.story.SetCurrentEvent(list[1]); });
             panelB.SetActive(true);
         }
 
@@ -74,7 +72,7 @@ public class Decision : MonoBehaviour
         if (events.Count() >= 3)
         {
             descriptionC.text = list[2].GetDescription();
-            optionC.onClick.AddListener(delegate { CharacterSelection.current.Pick(list[2]); });
+            optionC.onClick.AddListener(delegate { OfflineGameManager.current.story.SetCurrentEvent(list[2]); });
             panelC.SetActive(true);
         }
 
@@ -82,24 +80,10 @@ public class Decision : MonoBehaviour
         if (events.Count() >= 4)
         {
             descriptionD.text = list[3].GetDescription();
-            optionD.onClick.AddListener(delegate { CharacterSelection.current.Pick(list[3]); });
+            optionD.onClick.AddListener(delegate { OfflineGameManager.current.story.SetCurrentEvent(list[3]); });
             panelD.SetActive(true);
         }
 
     }
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        if (Decision.current == null)
-        {
-            Decision.current = this;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

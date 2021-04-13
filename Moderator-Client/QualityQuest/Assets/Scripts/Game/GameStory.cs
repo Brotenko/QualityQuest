@@ -1,33 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.Video;
 
-public class Story:MonoBehaviour
+public class GameStory
 {
 
-    public static Story current;
+    public StoryGraph playThrough;
 
-    private void Awake()
-    {
-        if (current == null)
-        {
-            current = this;
-        }
-    }
-
-
-    public static StoryGraph playThrough;
-    
-
-    public static void InitializeStoryGraph()
+    public GameStory()
     {
 
-        StoryEvent root = new StoryEvent(Guid.NewGuid(), "Mit welchem Charakter möchtest du das Spiel spielen?", new HashSet<StoryEvent>(),StoryEventType.StoryDecision);
+        StoryEvent root = new StoryEvent(Guid.NewGuid(), "Mit welchem Charakter möchtest du das Spiel spielen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
 
-        StoryEvent character1 = new StoryEvent(Guid.NewGuid(), "Noruso \n Programming: 1 \n Analytics: 4 \n Communication: 3 \n Partying: 2", new HashSet<StoryEvent>(),StoryEventType.StoryDecisionOption);
+        StoryEvent character1 = new StoryEvent(Guid.NewGuid(), "Noruso \n Programming: 1 \n Analytics: 4 \n Communication: 3 \n Partying: 2", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
         StoryEvent character2 = new StoryEvent(Guid.NewGuid(), "Lumati \n Programming: 4 \n Analytics: 3 \n Communication: 1 \n Partying: 0", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
         StoryEvent character3 = new StoryEvent(Guid.NewGuid(), "Turgal \n Programming: 2 \n Analytics: 2 \n Communication: 2 \n Partying: 2", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
         StoryEvent character4 = new StoryEvent(Guid.NewGuid(), "Kirogh \n Programming: 1 \n Analytics: 0 \n Communication: 2 \n Partying: 5", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
@@ -38,7 +26,7 @@ public class Story:MonoBehaviour
         root.AddChild(character3);
         root.AddChild(character4);
 
-        StoryEvent storyelement1 = new StoryEvent(Guid.NewGuid(), "Dir fehlt noch ein Anwendungsfach am Ende deines Studiums.", new HashSet<StoryEvent>(),StoryEventType.StoryFlow);
+        StoryEvent storyelement1 = new StoryEvent(Guid.NewGuid(), "Dir fehlt noch ein Anwendungsfach am Ende deines Studiums.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         character1.AddChild(storyelement1);
         character2.AddChild(storyelement1);
@@ -102,7 +90,7 @@ public class Story:MonoBehaviour
         storyelement4option2.AddChild(storyelement5);
         storyelement4option3.AddChild(storyelement5);
 
-        StoryEvent background2 = new StoryEvent((VideoClip)Resources.Load("videobackgrounds/praktika"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        StoryEvent background2 = new StoryEvent(OfflineGameManager.current.video.praktika, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         storyelement5.AddChild(background2);
 
@@ -113,13 +101,13 @@ public class Story:MonoBehaviour
         StoryEvent storyelement7 = new StoryEvent(Guid.NewGuid(), "Du hast einen Job bei NewTec GmbH angenommen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement6.AddChild(storyelement7);
-        
+
         StoryEvent storyelement8 = new StoryEvent(Guid.NewGuid(), "Dein Chef hat einen neuen Auftrag von WizzBook an Land gezogen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement7.AddChild(storyelement8);
 
         StoryEvent storyelement9 = new StoryEvent(Guid.NewGuid(), "Deine Aufgabe ist es das User Interface zu designen und zu implementieren.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
-       
+
         storyelement8.AddChild(storyelement9);
 
         StoryEvent decision4 = new StoryEvent(Guid.NewGuid(), "Wie willst du mit deiner Aufgabe anfangen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
@@ -134,15 +122,15 @@ public class Story:MonoBehaviour
         decision4.AddChild(decision4option2);
         decision4.AddChild(decision4option3);
 
-        StoryEvent storyelement10option1 = new StoryEvent(Guid.NewGuid(), "Du lernst deinen Mentor Yaggaya kennen. Yaggaya hilft dir bei deiner Aufgabe.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,new Skills(1,0,0,1));
-        StoryEvent storyelement10option2 = new StoryEvent(Guid.NewGuid(), "Du löst das Problem, verschwendest aber eine Menge Zeit.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,new Skills(0,0,0,1));
-        StoryEvent storyelement10option3 = new StoryEvent(Guid.NewGuid(), "Du verschwendest eine Menge Zeit ohne das Problem zu lösen. Du benötigst für deine Aufgabe einen extra Tag.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0,-1,0,0));
+        StoryEvent storyelement10option1 = new StoryEvent(Guid.NewGuid(), "Du lernst deinen Mentor Yaggaya kennen. Yaggaya hilft dir bei deiner Aufgabe.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(1, 0, 0, 1));
+        StoryEvent storyelement10option2 = new StoryEvent(Guid.NewGuid(), "Du löst das Problem, verschwendest aber eine Menge Zeit.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 1));
+        StoryEvent storyelement10option3 = new StoryEvent(Guid.NewGuid(), "Du verschwendest eine Menge Zeit ohne das Problem zu lösen. Du benötigst für deine Aufgabe einen extra Tag.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, -1, 0, 0));
 
         decision4option1.AddChild(storyelement10option1);
         decision4option2.AddChild(storyelement10option2);
         decision4option3.AddChild(storyelement10option3);
 
-        StoryEvent storyelement11 = new StoryEvent(Guid.NewGuid(), "Nach deiner ersten Aufgabe musst du nun die dazugehörigen Tests implementieren.",new HashSet<StoryEvent>(),StoryEventType.StoryFlow);
+        StoryEvent storyelement11 = new StoryEvent(Guid.NewGuid(), "Nach deiner ersten Aufgabe musst du nun die dazugehörigen Tests implementieren.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement10option1.AddChild(storyelement11);
         storyelement10option2.AddChild(storyelement11);
@@ -160,18 +148,18 @@ public class Story:MonoBehaviour
 
         StoryEvent decision5option1 = new StoryEvent(Guid.NewGuid(), "Du schreibst umfangreichge Tests bis sie fertig sind ohne auf die Deadline zu schauen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
         StoryEvent decision5option2 = new StoryEvent(Guid.NewGuid(), "Du schreibst Tests bis die Deadline erreicht ist, was du bis dahin nicht schaffst bleibt ungetestet.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        
+
         decision5.AddChild(decision5option1);
         decision5.AddChild(decision5option2);
 
-        StoryEvent storyelement11option1 = new StoryEvent(Guid.NewGuid(), "Durch deine guten Programmierkenntnisse kannst du trotzdem die Deadline einhalten.", new HashSet<StoryEvent>(),StoryEventType.StoryFlow, true);
-        StoryEvent storyelement11option2 = new StoryEvent(Guid.NewGuid(), "Leider wirst du nicht rechtzeitig fertig aber du hast sehr umfangreiche Tests geschrieben.", new HashSet<StoryEvent>(),StoryEventType.StoryFlow, false);
+        StoryEvent storyelement11option1 = new StoryEvent(Guid.NewGuid(), "Durch deine guten Programmierkenntnisse kannst du trotzdem die Deadline einhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, true);
+        StoryEvent storyelement11option2 = new StoryEvent(Guid.NewGuid(), "Leider wirst du nicht rechtzeitig fertig aber du hast sehr umfangreiche Tests geschrieben.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, false);
 
         decision5option1.AddChild(storyelement11option1);
         decision5option1.AddChild(storyelement11option2);
 
-        StoryEvent storyelement11option3 = new StoryEvent(Guid.NewGuid(), "Durch deine guten Programmierkenntnisse hast du es trotz der kurzen Zeit geschafft umfangreiche Tests zu schreiben.", new HashSet<StoryEvent>(),StoryEventType.StoryFlow, true);
-        StoryEvent storyelement11option4 = new StoryEvent(Guid.NewGuid(), "Die Deadline wurde erreicht aber du hast es nicht geschafft alles umfangreich zu testen.", new HashSet<StoryEvent>(),StoryEventType.StoryFlow, false);
+        StoryEvent storyelement11option3 = new StoryEvent(Guid.NewGuid(), "Durch deine guten Programmierkenntnisse hast du es trotz der kurzen Zeit geschafft umfangreiche Tests zu schreiben.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, true);
+        StoryEvent storyelement11option4 = new StoryEvent(Guid.NewGuid(), "Die Deadline wurde erreicht aber du hast es nicht geschafft alles umfangreich zu testen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, false);
 
         decision5option2.AddChild(storyelement11option3);
         decision5option2.AddChild(storyelement11option4);
@@ -201,11 +189,11 @@ public class Story:MonoBehaviour
 
         storyelement13.AddChild(storyelement14);
 
-        StoryEvent storyelement15 = new StoryEvent(Guid.NewGuid(), "Die Tests haben ein paar Fehler aufgedeckt, wenn du sie behebst kannst du nicht zu Firmenfeier.",new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement15 = new StoryEvent(Guid.NewGuid(), "Die Tests haben ein paar Fehler aufgedeckt, wenn du sie behebst kannst du nicht zu Firmenfeier.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement14.AddChild(storyelement15);
-        
-        StoryEvent decision6 = new StoryEvent(Guid.NewGuid(), "Gehst du zur Firmenfeier?",new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
+
+        StoryEvent decision6 = new StoryEvent(Guid.NewGuid(), "Gehst du zur Firmenfeier?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
 
         storyelement15.AddChild(decision6);
 
@@ -221,7 +209,7 @@ public class Story:MonoBehaviour
 
         // at the company party
 
-        StoryEvent background4 = new StoryEvent((VideoClip)Resources.Load("videobackgrounds/party"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        StoryEvent background4 = new StoryEvent(OfflineGameManager.current.video.party, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         decision6option1.AddChild(background4);
 
@@ -267,7 +255,7 @@ public class Story:MonoBehaviour
         decision8.AddChild(decision8option2);
         decision8.AddChild(decision8option3);
 
-        StoryEvent storyelement21option1 = new StoryEvent(Guid.NewGuid(), "Du hast die Firmenfeier gut überstanden.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,new Skills(0,0,1,0));
+        StoryEvent storyelement21option1 = new StoryEvent(Guid.NewGuid(), "Du hast die Firmenfeier gut überstanden.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 1, 0));
 
         decision8option1.AddChild(storyelement21option1);
         decision8option2.AddChild(storyelement21option1);
@@ -286,11 +274,11 @@ public class Story:MonoBehaviour
         decision9.AddChild(decision9option1);
         decision9.AddChild(decision9option2);
 
-        StoryEvent storyelement22option1 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung auf der Party.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,new Skills(0,0,2,0));
+        StoryEvent storyelement22option1 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung auf der Party.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 2, 0));
 
         // affected by dice roll
-        StoryEvent storyelement22option2 = new StoryEvent(Guid.NewGuid(), "Du überstehst die Firmenfeier ohne für Aufsehen zu sorgen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,new Skills(0,0,3,0), true);
-        StoryEvent storyelement22option3 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung aber fällst negativ auf, weil du ziemlich stark betrunken bist.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,new Skills(-2,0,3,0), false);
+        StoryEvent storyelement22option2 = new StoryEvent(Guid.NewGuid(), "Du überstehst die Firmenfeier ohne für Aufsehen zu sorgen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 3, 0), true);
+        StoryEvent storyelement22option3 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung aber fällst negativ auf, weil du ziemlich stark betrunken bist.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, 0, 3, 0), false);
 
         decision9option2.AddChild(storyelement22option1);
         decision9option1.AddChild(storyelement22option2);
@@ -305,7 +293,7 @@ public class Story:MonoBehaviour
 
         // training course
 
-        StoryEvent background5 = new StoryEvent((VideoClip)Resources.Load("videobackgrounds/meeting"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        StoryEvent background5 = new StoryEvent(OfflineGameManager.current.video.meeting, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         storyelement16.AddChild(background5);
         storyelement23.AddChild(background5);
@@ -331,7 +319,7 @@ public class Story:MonoBehaviour
         decision10.AddChild(decision10option3);
         decision10.AddChild(decision10option4);
 
-        StoryEvent storyelement24option1 = new StoryEvent(Guid.NewGuid(), "Du kannst deine Deadline nicht einhalten aber deinem Chef gefällt dein Engagement deine Fähigkeiten zu erweitern.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0,0,0,1));
+        StoryEvent storyelement24option1 = new StoryEvent(Guid.NewGuid(), "Du kannst deine Deadline nicht einhalten aber deinem Chef gefällt dein Engagement deine Fähigkeiten zu erweitern.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 1));
         StoryEvent storyelement24option2 = new StoryEvent(Guid.NewGuid(), "Du arbeitest an dem Projekt weiter und schaffst es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 0));
         StoryEvent storyelement24option3 = new StoryEvent(Guid.NewGuid(), "Da du Urlaub genommen hast schaffst du es nicht die Deadline einzuhalten, dein Chef ist deshalb ziemlich sauer.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, -2, 0, 0));
         StoryEvent storyelement24option4 = new StoryEvent(Guid.NewGuid(), "Nach der Weiterbildung genießt du eine Woche Urlaub und da dein Chef sich um eine Vertetung gekümmert hat, hast du keine Probleme die Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 2, 0, 2));
@@ -341,14 +329,14 @@ public class Story:MonoBehaviour
         decision10option3.AddChild(storyelement24option3);
         decision10option4.AddChild(storyelement24option4);
 
-        StoryEvent background6 = new StoryEvent((VideoClip)Resources.Load("videobackgrounds/desk"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        StoryEvent background6 = new StoryEvent(OfflineGameManager.current.video.desk, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         storyelement24option1.AddChild(background6);
         storyelement24option2.AddChild(background6);
         storyelement24option3.AddChild(background6);
         storyelement24option4.AddChild(background6);
 
-        StoryEvent storyelement25 = new StoryEvent(Guid.NewGuid(), "Deine Telefon klingelt. WizzBook ruft an und möchte Änderungen an WizzApp vornehmen.",new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement25 = new StoryEvent(Guid.NewGuid(), "Deine Telefon klingelt. WizzBook ruft an und möchte Änderungen an WizzApp vornehmen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         background6.AddChild(storyelement25);
 
@@ -456,11 +444,11 @@ public class Story:MonoBehaviour
         decision14option1.AddChild(storyelement36option1);
         decision14option2.AddChild(storyelement36option2);
 
-        StoryEvent storyelement37= new StoryEvent(Guid.NewGuid(), "Der Kunde hat sich dazu entschieden mit der neuen Funktion den Änderungsprozess zu druchlaufen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        StoryEvent storyelement37 = new StoryEvent(Guid.NewGuid(), "Der Kunde hat sich dazu entschieden mit der neuen Funktion den Änderungsprozess zu druchlaufen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement36option2.AddChild(storyelement37);
 
-        StoryEvent decision15= new StoryEvent(Guid.NewGuid(), "Wie gehst du vor?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
+        StoryEvent decision15 = new StoryEvent(Guid.NewGuid(), "Wie gehst du vor?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
 
         storyelement37.AddChild(decision15);
 
@@ -500,12 +488,12 @@ public class Story:MonoBehaviour
 
         //dice roll
         StoryEvent storyelement41option1 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden und du schafft es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), true);
-        StoryEvent storyelement41option2= new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden aber du wirst es nicht schaffen deine Deadline zu halten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), false);
+        StoryEvent storyelement41option2 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden aber du wirst es nicht schaffen deine Deadline zu halten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), false);
 
         decision16option2.AddChild(storyelement41option1);
         decision16option2.AddChild(storyelement41option2);
 
-        StoryEvent decision17= new StoryEvent(Guid.NewGuid(), "Frägst du um Hilfe, um deine Deadline noch halten zu können?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
+        StoryEvent decision17 = new StoryEvent(Guid.NewGuid(), "Frägst du um Hilfe, um deine Deadline noch halten zu können?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
 
         storyelement41option2.AddChild(decision17);
 
@@ -565,7 +553,7 @@ public class Story:MonoBehaviour
 
         //workshop
 
-        StoryEvent background3 = new StoryEvent((VideoClip)Resources.Load("videobackgrounds/beach"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        StoryEvent background3 = new StoryEvent(OfflineGameManager.current.video.beach, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         storyelement47.AddChild(background3);
 
@@ -593,7 +581,9 @@ public class Story:MonoBehaviour
         playThrough = new StoryGraph(null, root, storyelement1);
 
         Debug.Log("StoryGraph initialized.");
+
     }
+
 
     public void SetCurrentEvent(StoryEvent e)
     {
@@ -603,22 +593,20 @@ public class Story:MonoBehaviour
 
     public void PlayGame()
     {
-        CharacterSelection.current.HideSkillChange();
 
         if (playThrough.getCurrentEvent().GetSkills() != null)
         {
-            playThrough.getCharacter().getAbilities().updateProgrammingSkill(playThrough.getCurrentEvent().GetSkills().getProgramming());
-            playThrough.getCharacter().getAbilities().updateCommunicationSkill(playThrough.getCurrentEvent().GetSkills().getCommunication());
-            playThrough.getCharacter().getAbilities().updateAnalyticsSkill(playThrough.getCurrentEvent().GetSkills().getAnalytics());
-            playThrough.getCharacter().getAbilities().updatePartyingSkill(playThrough.getCurrentEvent().GetSkills().getPartying());
-            CharacterSelection.current.UpdateSkills(playThrough.getCharacter().getAbilities(), playThrough.getCurrentEvent().GetSkills().getProgramming(), playThrough.getCurrentEvent().GetSkills().getCommunication(), playThrough.getCurrentEvent().GetSkills().getAnalytics(), playThrough.getCurrentEvent().GetSkills().getPartying());
+            playThrough.getCharacter().getAbilities().updateAbilities(playThrough.getCurrentEvent().GetSkills());
+            OfflineGameManager.current.statusbar.DisplaySkills(playThrough.getCharacter().getAbilities());
+            OfflineGameManager.current.statusbar.UpdateSkillChanges(playThrough.getCurrentEvent().GetSkills());
         }
 
         Debug.Log(playThrough.getCurrentEvent().GetStoryType());
 
         if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryDecision))
         {
-            CharacterSelection.current.ShowDecision(playThrough.getCurrentEvent(), playThrough.getCurrentEvent().GetChildren());
+            OfflineGameManager.current.decision.LoadDecision(playThrough.getCurrentEvent(), playThrough.getCurrentEvent().GetChildren());
+            OfflineGameManager.current.screenmanager.ShowDecision();
             Debug.Log("StoryDecision: " + playThrough.getCurrentEvent().GetDescription());
         }
 
@@ -626,7 +614,7 @@ public class Story:MonoBehaviour
         {
             if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
             {
-                playThrough.setCurrentEvent(playThrough.getCurrentEvent().GetChildren().First());
+                NextStoryEvent();
                 Debug.Log("Option: " + playThrough.getCurrentEvent().GetDescription());
                 this.PlayGame();
             }
@@ -641,7 +629,11 @@ public class Story:MonoBehaviour
             if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
             {
                 Debug.Log("StoryFlow: " + playThrough.getCurrentEvent().GetDescription());
-                CharacterSelection.current.ShowStoryFlow(playThrough.getCurrentEvent(), playThrough.getCurrentEvent().GetChildren());
+                OfflineGameManager.current.screenmanager.ShowStoryFlow();
+                OfflineGameManager.current.storyflow.LoadStoryFlow(playThrough.getCurrentEvent());
+                NextStoryEvent();
+
+
             }
             else
             {
@@ -653,8 +645,8 @@ public class Story:MonoBehaviour
         {
             if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
             {
-                CharacterSelection.current.SwitchBackground(playThrough.getCurrentEvent().GetBackground());
-                playThrough.setCurrentEvent(playThrough.getCurrentEvent().GetChildren().First());
+                OfflineGameManager.current.video.SwitchBackground(playThrough.getCurrentEvent().GetBackground());
+                NextStoryEvent();
                 this.PlayGame();
             }
             else
@@ -663,4 +655,11 @@ public class Story:MonoBehaviour
             }
         }
     }
+
+    public void NextStoryEvent()
+    {
+        playThrough.setCurrentEvent(playThrough.getCurrentEvent().GetChildren().First());
+    }
+
+
 }

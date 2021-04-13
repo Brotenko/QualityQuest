@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-public class CharacterSelection : MonoBehaviour
+public class GameLogic : MonoBehaviour
 {
 
     public GameObject menu;
@@ -48,7 +48,7 @@ public class CharacterSelection : MonoBehaviour
 
     private Character playerCharacter;
 
-    public static CharacterSelection current;
+    public static GameLogic current;
 
     private GameObject activeMenu;
 
@@ -307,7 +307,7 @@ public class CharacterSelection : MonoBehaviour
 
         se = null;
 
-        Decision.current.LoadDecision(currentEvent, children);
+        //Decision.current.LoadDecision(currentEvent, children);
 
         storyflow.SetActive(false);
         selectchar.SetActive(false);

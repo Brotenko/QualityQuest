@@ -111,5 +111,14 @@ public class Skills
             programming = 0;
         }
     }
+
+    public void updateAbilities(Skills skills)
+    {
+        updateProgrammingSkill(skills.getProgramming());
+        updateCommunicationSkill(skills.getCommunication());
+        updateAnalyticsSkill(skills.getAnalytics());
+        updatePartyingSkill(skills.getPartying());
+    }
+
 }
 
