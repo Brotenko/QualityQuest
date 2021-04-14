@@ -5,20 +5,10 @@ using UnityEngine;
 public class MainThreadWorker : MonoBehaviour
 {
     // singleton pattern
-    public MainThreadWorker Instance;
+    
 
     // added actions will be executed in the main thread
     ConcurrentQueue<Action> actions = new ConcurrentQueue<Action>();
-
-    private void Awake()
-    {
-        if (Instance)
-        {
-            this.enabled = false;
-            return;
-        }
-        Instance = this;
-    }
 
     private void Update()
     {
