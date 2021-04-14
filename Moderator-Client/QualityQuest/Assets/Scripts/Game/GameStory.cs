@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class GameStory
+public class GameStory : MonoBehaviour
 {
 
     public StoryGraph playThrough;
@@ -90,7 +90,7 @@ public class GameStory
         storyelement4option2.AddChild(storyelement5);
         storyelement4option3.AddChild(storyelement5);
 
-        StoryEvent background2 = new StoryEvent(OfflineGameManager.current.video.praktika, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        StoryEvent background2 = new StoryEvent(Resources.Load<VideoClip>("videobackgrounds/praktika"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         storyelement5.AddChild(background2);
 
@@ -209,7 +209,7 @@ public class GameStory
 
         // at the company party
 
-        StoryEvent background4 = new StoryEvent(OfflineGameManager.current.video.party, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        StoryEvent background4 = new StoryEvent(Resources.Load<VideoClip>("videobackgrounds/party"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         decision6option1.AddChild(background4);
 
@@ -293,7 +293,7 @@ public class GameStory
 
         // training course
 
-        StoryEvent background5 = new StoryEvent(OfflineGameManager.current.video.meeting, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        StoryEvent background5 = new StoryEvent(Resources.Load<VideoClip>("videobackgrounds/meeting"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         storyelement16.AddChild(background5);
         storyelement23.AddChild(background5);
@@ -329,7 +329,7 @@ public class GameStory
         decision10option3.AddChild(storyelement24option3);
         decision10option4.AddChild(storyelement24option4);
 
-        StoryEvent background6 = new StoryEvent(OfflineGameManager.current.video.desk, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        StoryEvent background6 = new StoryEvent(Resources.Load<VideoClip>("videobackgrounds/desk"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         storyelement24option1.AddChild(background6);
         storyelement24option2.AddChild(background6);
@@ -553,7 +553,7 @@ public class GameStory
 
         //workshop
 
-        StoryEvent background3 = new StoryEvent(OfflineGameManager.current.video.beach, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        StoryEvent background3 = new StoryEvent(Resources.Load<VideoClip>("videobackgrounds/beach"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         storyelement47.AddChild(background3);
 
