@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ActiveScreenManager : MonoBehaviour
@@ -12,17 +13,37 @@ public class ActiveScreenManager : MonoBehaviour
     public GameObject pauseScreen;
     public GameObject gameMenu;
     public GameObject gameInfo;
+    public GameObject connect;
+    public GameObject qrCode;
+    public QRCode qrCodeGenerator;
+    public TMP_Text audienceCount;
+    public TMP_Text websiteUrl;
+    public TMP_Text sessionKey;
 
     private GameObject activeMenu;
     private bool paused = false;
 
     private void Awake()
     {
-        activeMenu = characterSelection;
+        Debug.Log("Game is online:" + Menu.gameIsOnline);
+        HideAllMenus();
+        if (Menu.gameIsOnline)
+        {
+            
+            activeMenu = connect;
+            connect.SetActive(true);
+        }
+        else
+        {
+            activeMenu = characterSelection;
+            characterSelection.SetActive(true);
+        }
     }
 
     public void HideAllMenus()
     {
+        connect.SetActive(false);
+        qrCode.SetActive(false);
         characterSelection.SetActive(false);
         decision.SetActive(false);
         storyflow.SetActive(false);
@@ -38,6 +59,27 @@ public class ActiveScreenManager : MonoBehaviour
             HideAllMenus();
             characterSelection.SetActive(true);
         }
+    }
+
+    public void ShowQrCodePanel(string url, string key)
+    {
+        activeMenu = qrCode;
+        
+        if (!gameMenu.activeSelf && !paused)
+        {
+            HideAllMenus();
+            qrCode.SetActive(true);
+            websiteUrl.text = url;
+            sessionKey.text = key;
+            qrCodeGenerator.GenerateQRCode(url);
+            audienceCount.text = "Verbundene Spieler (0)";
+            Debug.Log("3");
+        }
+    }
+
+    public void UpdateAudienceCount(int audienceCount)
+    {
+        this.audienceCount.text = "Verbundene Spieler (" + audienceCount.ToString() + ")";
     }
 
     public void ShowDecision()
