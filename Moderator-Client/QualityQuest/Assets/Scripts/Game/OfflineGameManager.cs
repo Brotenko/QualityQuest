@@ -35,9 +35,6 @@ public class OfflineGameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        story = new GameStory();
-        
     }
 
 }
