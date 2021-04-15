@@ -4,6 +4,7 @@ using UnityEngine;
 using WebSocketSharp;
 using Newtonsoft.Json;
 using System;
+using MessageContainer.Messages;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
@@ -15,23 +16,10 @@ using TMPro;
 /// </summary>
 public class QualityQuestWebSocket : MonoBehaviour
 {
-    private QualityQuestWebSocket qualityQuestWebSocket;
     public OnlineClientManager onlineClientManager;
+    public MainThreadWorker mainThreadWorker;
     public WebSocket webSocket;
-
-    void Awake()
-    {
-        if (qualityQuestWebSocket == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            qualityQuestWebSocket = this;
-        } else if (qualityQuestWebSocket != this)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-
+    
     public void StartConnection(string ip, int port)
     {
         // Connect ws://127.0.0.1:8181
@@ -50,8 +38,8 @@ public class QualityQuestWebSocket : MonoBehaviour
         // Event when the WebSocket connection is established.
         webSocket.OnOpen += (sender, e) =>
         {
-            Menu.onlineMode = true;
-            onlineClientManager.SendTestMessage();
+            Menu.gameIsOnline = true;
+            onlineClientManager.SendRequestOpenSessionMessage();
             Debug.Log("Connection established.");
         };
 
@@ -89,7 +77,72 @@ public class QualityQuestWebSocket : MonoBehaviour
 
         webSocket.OnClose += (sender, e) =>
         {
-            Menu.onlineMode = false;
+            Menu.gameIsOnline = false;
+            Debug.Log("Connection is closed. Reason: " + e.Reason + ", ErrorCode: " + e.Code);
+        };
+
+        //Connect the WebSocket
+        webSocket.ConnectAsync();
+    }
+
+    public void StartConnection()
+    {
+        // Connect ws://127.0.0.1:8181
+
+        webSocket = new WebSocket("ws://127.0.0.1:8181");
+
+        /*
+        // Check the certificate
+        webSocket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
+        {
+            // If desired you can change the certificate validation
+
+            return true;
+        }; */
+
+        // Event when the WebSocket connection is established.
+        webSocket.OnOpen += (sender, e) =>
+        {
+            Menu.gameIsOnline = true;
+            onlineClientManager.SendRequestOpenSessionMessage();
+            Debug.Log("Connection established.");
+        };
+
+        webSocket.EmitOnPing = true;
+        // Event when the WebSocket recieves a message.
+        webSocket.OnMessage += (sender, e) =>
+        {
+            // Check if the data is a string.
+            if (e.IsText)
+            {
+                Debug.Log("String data");
+                Read(e.Data);
+
+                // Sets the Message. Only for test purpose.
+                message = e.Data;
+            }
+            // Check if the data is binary.
+            if (e.IsBinary)
+            {
+                Read(e.RawData);
+                Debug.Log("Binary Data");
+            }
+            if (e.IsPing)
+            {
+                Debug.Log("Ping.");
+                return;
+            }
+        };
+
+        //Event when the WebSockets gets an Error.
+        webSocket.OnError += (sender, e) =>
+        {
+            Debug.Log("Error: " + e.Message);
+        };
+
+        webSocket.OnClose += (sender, e) =>
+        {
+            Menu.gameIsOnline = false;
             Debug.Log("Connection is closed. Reason: " + e.Reason + ", ErrorCode: " + e.Code);
         };
 
@@ -108,35 +161,44 @@ public class QualityQuestWebSocket : MonoBehaviour
 
         try
         {
-            //Debug.Log("Log1");
-            MessageContainer.MessageContainer container = JsonConvert.DeserializeObject<MessageContainer.MessageContainer>(msg);
-            //Debug.Log("Log2");
-            switch (container.Type)
+            mainThreadWorker.AddAction(() =>
             {
-                case MessageContainer.MessageType.SessionOpened:
-                    break;
-                case MessageContainer.MessageType.AudienceStatus:
-                    break;
-                case MessageContainer.MessageType.ServerStatus:
-                    break;
-                case MessageContainer.MessageType.ReconnectSuccessful:
-                    break;
-                case MessageContainer.MessageType.GameStarted:
-                    break;
-                case MessageContainer.MessageType.VotingStarted:
-                    break;
-                case MessageContainer.MessageType.VotingEnded:
-                    break;
-                case MessageContainer.MessageType.Error:
-                    break;
-                case MessageContainer.MessageType.GamePausedStatus:
-                    break;
-                case MessageContainer.MessageType.SessionClosed:
-                    break;
-                default:
-                    Debug.Log(container.Type + " is not a valid messageType.");
-                    break;
-            }
+                //Debug.Log("Log1");
+                MessageContainer.MessageContainer container =
+                    JsonConvert.DeserializeObject<MessageContainer.MessageContainer>(msg);
+                //Debug.Log("Log2");
+                switch (container.Type)
+                {
+                    case MessageContainer.MessageType.SessionOpened:
+                        onlineClientManager.ReceivedSessionOpenedMessage(JsonConvert.DeserializeObject<SessionOpenedMessage>(msg));
+                        break;
+                    case MessageContainer.MessageType.AudienceStatus:
+                        onlineClientManager.ReceivedAudienceStatusMessage(JsonConvert.DeserializeObject<AudienceStatusMessage>(msg));
+                        break;
+                    case MessageContainer.MessageType.ServerStatus:
+                        break;
+                    case MessageContainer.MessageType.ReconnectSuccessful:
+                        break;
+                    case MessageContainer.MessageType.GameStarted:
+                        onlineClientManager.ReceivedGameStartedMessage(JsonConvert.DeserializeObject<GameStartedMessage>(msg));
+                        break;
+                    case MessageContainer.MessageType.VotingStarted:
+                        onlineClientManager.ReceivedVotingStartedMessage(JsonConvert.DeserializeObject<VotingStartedMessage>(msg));
+                        break;
+                    case MessageContainer.MessageType.VotingEnded:
+                        onlineClientManager.Test(JsonConvert.DeserializeObject<VotingEndedMessage>(msg));
+                        break;
+                    case MessageContainer.MessageType.Error:
+                        break;
+                    case MessageContainer.MessageType.GamePausedStatus:
+                        break;
+                    case MessageContainer.MessageType.SessionClosed:
+                        break;
+                    default:
+                        Debug.Log(container.Type + " is not a valid messageType.");
+                        break;
+                }
+            });
         } catch (JsonSerializationException jse)
         {
             Debug.Log("Can't read message, JSON parse error: " + jse);

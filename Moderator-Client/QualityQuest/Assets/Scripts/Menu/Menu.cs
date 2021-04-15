@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-    public static bool onlineMode;
-    public static bool offlineMode;
+    public static bool gameIsOnline;
+    
 
 
     public GameObject mainMenu;
@@ -24,6 +24,7 @@ public class Menu : MonoBehaviour
     {
         HideAllMenu();
         ShowMainMenu();
+        DontDestroyOnLoad(gameObject);
     }
 
     /// <summary>
@@ -99,9 +100,9 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void PlayOfflineMode()
     {
-        offlineMode = true;
+        gameIsOnline = false;
         Debug.Log("Offlinemode enabled");
-        StartGame();
+        SceneManager.LoadScene(sceneBuildIndex: 2);
     }
 
     /// <summary>
@@ -109,26 +110,9 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void PlayOnline()
     {
-        HideAllMenu();
-        playOnline.SetActive(true);
+        gameIsOnline = true;
+        SceneManager.LoadScene(sceneBuildIndex: 2);
     }
-
-    /// <summary>
-    /// Method to start the game through the main menu.
-    /// </summary>
-    public void StartGame()
-    {
-        if (offlineMode)
-        {
-            Story.InitializeStoryGraph();
-            SceneManager.LoadScene(sceneBuildIndex: 2);
-        } 
-        else
-        {
-
-        }
-    }
-
 
     /************************ Method for test porpose ************************/
 

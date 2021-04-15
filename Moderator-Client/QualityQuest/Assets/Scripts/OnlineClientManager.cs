@@ -1,29 +1,23 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using TMPro;
+using UnityEditor;
+using MessageContainer.Messages;
 
 public class OnlineClientManager : MonoBehaviour
 {
-    
-    
     public  QualityQuestWebSocket qualityQuestWebSocket;
-    private OnlineClientManager onlineClientManager;
-
-    public TMP_InputField port;
-    public TMP_InputField ip;
-    public TMP_InputField password;
-
+    public ActiveScreenManager activeScreen;
+    public GameStory story;
+    
+    private Guid moderatorClientGuid;
+    
 
     void Awake()
     {
-        if (onlineClientManager == null)
-        {
-            onlineClientManager = this;
-            DontDestroyOnLoad(gameObject);
-        } else if (onlineClientManager != null)
-        {
-            Destroy(gameObject);
-        }
+        moderatorClientGuid = Guid.NewGuid();
     }
 
     public void Connect()
@@ -32,12 +26,58 @@ public class OnlineClientManager : MonoBehaviour
         qualityQuestWebSocket.StartConnection("127.0.0.1", 8181);
     }
 
-
-    public void SendTestMessage()
+    public void SendRequestOpenSessionMessage()
     {
-        MessageContainer.Messages.RequestOpenSessionMessage requestOpenSessionMessage = new MessageContainer.Messages.RequestOpenSessionMessage(new Guid(), "!Password123#");
+        //MessageContainer.Messages.RequestOpenSessionMessage requestOpenSessionMessage = new MessageContainer.Messages.RequestOpenSessionMessage(new Guid(), password.text);
+        // for testing with a default password
+        var requestOpenSessionMessage = new RequestOpenSessionMessage(moderatorClientGuid, "!Password123#");
 
         qualityQuestWebSocket.SendMessage(requestOpenSessionMessage);
     }
 
+    
+
+    public void SendRequestGameStartMessage()
+    {
+        var requestGameStartMessage = new RequestGameStartMessage(moderatorClientGuid);
+        qualityQuestWebSocket.SendMessage(requestGameStartMessage);
+    }
+
+    
+
+    public void ReceivedSessionOpenedMessage(SessionOpenedMessage sessionOpenedMessage)
+    {
+        activeScreen.ShowQrCodePanel(sessionOpenedMessage.DirectURL.ToString(), sessionOpenedMessage.SessionKey);
+    }
+
+    public void ReceivedAudienceStatusMessage(AudienceStatusMessage audienceStatusMessage)
+    {
+        activeScreen.UpdateAudienceCount(audienceStatusMessage.AudienceCount);
+    }
+
+    public void ReceivedGameStartedMessage(GameStartedMessage gameStartedMessage)
+    {
+        activeScreen.ShowCharacterSelection();
+
+        var requestStartVotingMessage = new RequestStartVotingMessage(moderatorClientGuid, 2, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[story.playThrough.getRoot().GetChildren().Count]);
+        requestStartVotingMessage.VotingPrompt = new KeyValuePair<Guid, string>(story.playThrough.getRoot().GetEventId(), story.playThrough.getRoot().GetDescription());
+
+        var options = story.playThrough.getRoot().GetChildren().ToArray();
+        for (var i = 0; i < options.Length; i++)
+        {
+            requestStartVotingMessage.VotingOptions[i] = new KeyValuePair<Guid, string>(options[i].GetEventId(), options[i].GetDescription());
+        }
+        qualityQuestWebSocket.SendMessage(requestStartVotingMessage);
+    }
+
+    public void Test(VotingEndedMessage votingEndedMessage)
+    {
+        Debug.Log("haha");
+    }
+
+
+    public void ReceivedVotingStartedMessage(VotingStartedMessage votingStartedMessage)
+    {
+        // TODO: Set Timer
+    }
 }
