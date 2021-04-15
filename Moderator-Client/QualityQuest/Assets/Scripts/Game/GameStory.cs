@@ -14,10 +14,10 @@ public class GameStory : MonoBehaviour
     {
         var root = new StoryEvent(Guid.NewGuid(), "Mit welchem Charakter möchtest du das Spiel spielen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
 
-        var character1 = new StoryEvent(Guid.NewGuid(), "Noruso \n Programming: 1 \n Analytics: 4 \n Communication: 3 \n Partying: 2", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        var character2 = new StoryEvent(Guid.NewGuid(), "Lumati \n Programming: 4 \n Analytics: 3 \n Communication: 1 \n Partying: 0", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        var character3 = new StoryEvent(Guid.NewGuid(), "Turgal \n Programming: 2 \n Analytics: 2 \n Communication: 2 \n Partying: 2", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        var character4 = new StoryEvent(Guid.NewGuid(), "Kirogh \n Programming: 1 \n Analytics: 0 \n Communication: 2 \n Partying: 5", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        var character1 = new StoryEvent(Guid.NewGuid(), "Noruso", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        var character2 = new StoryEvent(Guid.NewGuid(), "Lumati", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        var character3 = new StoryEvent(Guid.NewGuid(), "Turgal", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        var character4 = new StoryEvent(Guid.NewGuid(), "Kirogh", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
 
         root.AddChild(character1);
