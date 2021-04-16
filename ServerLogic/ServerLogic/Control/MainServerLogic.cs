@@ -19,7 +19,7 @@ namespace ServerLogic.Control
 
         private WebSocketServer _server;
 
-        private readonly Dictionary<Guid, ModeratorClientManager> _connectedModeratorClients;
+        internal readonly Dictionary<Guid, ModeratorClientManager> _connectedModeratorClients;
         private readonly Timer _timerForDataDeletion;
         private readonly PlayerAudienceClientAPI _playerAudienceClientApi;
         private const int MaxRepForRandomGeneration = 16;
@@ -69,7 +69,7 @@ namespace ServerLogic.Control
                 value.SocketConnection.Send(JsonConvert.SerializeObject(new SessionClosedMessage(value.ModeratorGuid)));
                 value.SocketConnection.Close();
             }
-            _timerForDataDeletion.Stop();
+            _timerForDataDeletion?.Stop();
             _server.Dispose();
             _playerAudienceClientApi.StopServer();
         }
@@ -242,15 +242,6 @@ namespace ServerLogic.Control
                             _connectedModeratorClients.Remove(mcId);
                             AddStrike(mcId);
                         }
-                        break;
-
-                    //Is sent multiple times after MC lost connection to server
-                    case MessageType.RequestServerStatus:
-
-                        response = JsonConvert.SerializeObject(new ServerStatusMessage(
-                            _connectedModeratorClients[mcId].ModeratorGuid));
-                        ServerLogger.LogDebug("Received RequestServerStatus.");
-                        _connectedModeratorClients[mcId].Strikes = 0;
                         break;
 
                     //Is sent to request the start of the current Online-Session

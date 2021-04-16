@@ -6,8 +6,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Fleck;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using ServerLogic.Control;
 using Pose;
+using ServerLogic.Model.Messages;
 using ServerLogic.Properties;
 using Shim = Pose.Shim;
 
@@ -19,6 +21,7 @@ namespace ServerLogicTest.Control
         private Shim playerAudienceApiShim;
         private Shim webSocketShim;
         private MainServerLogic mainServerLogic;
+        private const string openSessionFormat = "";
 
         [TestInitialize]
         public void Initialize()
@@ -28,9 +31,6 @@ namespace ServerLogicTest.Control
             ServerLogger.SetLogLevel(0);
             ServerLogger.ChangeLoggingOutputType(0);
             ServerLogger.WipeLogFile();
-            //We don't need to really start a server, but 
-            //playerAudienceApiShim = Shim.Replace(()=> new PlayerAudienceClientAPI().StartServer(7777)).With(delegate(PlayerAudienceClientAPI @this){/*todo or nothing?*/});
-            //webSocketShim = Shim.Replace(()=> new WebSocketServer().Start());
             mainServerLogic = new MainServerLogic();
         }
 
@@ -48,24 +48,33 @@ namespace ServerLogicTest.Control
             Assert.IsTrue(Regex.IsMatch(mainServerLogic.GenerateSessionKey(4), @"[A-Z0-9]{6}"));
         }
 
+        [TestMethod]
+        [TestCategory("HelperMethods")]
+        public void CheckModeratorClientIsKickedAfterThreeViolations()
+        {
+            Guid mc1 = new Guid();
+            mainServerLogic._connectedModeratorClients.Add(mc1, new ModeratorClientManager(mc1, null, null));
+            mainServerLogic.AddStrike(mc1);
+            Assert.AreEqual(mainServerLogic._connectedModeratorClients[mc1].Strikes, 1);
+
+            mainServerLogic.AddStrike(mc1);
+            mainServerLogic.AddStrike(mc1);
+            Assert.IsFalse(mainServerLogic._connectedModeratorClients.TryGetValue(mc1,out _));
+        }
+
         /// <summary>
-        /// Checks whether the GenerateSessionKey method still terminates if for some reason the random generation is no longer random and therefore the adjustment to already generated session keys repeatedly fails.
+        /// Checks the correct format of the SessionOpenedMessage.
         /// </summary>
-        /*  [TestMethod]
-          [TestCategory("HelperMethods")]
-          public void CheckSessionKeyGenerationIsStoppedInCaseOfDeadlock()
-          {
-              //Random.Next will always return 1 
-              Shim randomNotRandomShim = Shim.Replace(() => new Random().Next()).With(() => 1);
-  
-              //As random isn't random anymore, the generated sessionKey is always the same
-              PoseContext.Isolate(() =>
-              {
-                  mainServerLogic._connectedModeratorClients.Add(null, new ModeratorClientManager(new Guid(), mainServerLogic.GenerateSessionKey(4), null, null));
-                  mainServerLogic._connectedModeratorClients.Add(null, new ModeratorClientManager(new Guid(), mainServerLogic.GenerateSessionKey(4), null, null));
-              }, randomNotRandomShim );
-              //If the generation process was aborted because too many attempts were made, this should be logged.
-              Assert.IsTrue(Regex.IsMatch(ServerLogger.LogFileToString(),@"Session-Key [A-Z0-9]{6} might be duplicate"));
-          }*/
+        [TestMethod]
+        public void CheckValidOpenSessionResponseFormat()
+        {
+            Guid mc1 = new Guid();
+            mainServerLogic._connectedModeratorClients.Add(mc1, new ModeratorClientManager(mc1, null, null));
+            string response =
+                mainServerLogic.CheckStringMessage(
+                    JsonConvert.SerializeObject(new RequestOpenSessionMessage(mc1, "!Password123#")));
+            Assert.AreEqual(response, openSessionFormat);
+            //todo add tests for session already exists and wrong password
+        }
     }
 }

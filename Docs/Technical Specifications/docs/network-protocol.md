@@ -178,16 +178,6 @@ Listing which participant may send which message, the order of the listing is ba
                     <th>✓</th>
                 </tr>
                 <tr>
-                    <th style="font-weight: normal"><a href="#requestserverstatusmessage">RequestServerStatus</a></th>
-                    <th>✓</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th style="font-weight: normal"><a href="#serverstatusmessage">ServerStatus</a></th>
-                    <th></th>
-                    <th>✓</th>
-                </tr>
-                <tr>
                     <th style="font-weight: normal"><a href="#reconnectmessage">Reconnect</a></th>
                     <th>✓</th>
                     <th></th>
@@ -354,31 +344,6 @@ class AudienceStatusMessage : MessageContainer
 
 - **AudienceCount:** The amount of PlayerAudience members that connected to the current session.
 
-#### RequestServerStatusMessage
-
-Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageType](#messagetype-enum)::RequestServerStatus**. </br>
-This message is sent from the Moderator-Client to the ServerLogic if there is currently no connection to a ServerLogic. This message is sent to the ServerLogic at regular intervals until the ServerLogic returns a response in form of a [ServerStatusMessage](#serverstatusmessage). If a [ServerStatusMessage](#serverstatusmessage) is received by the Moderator-Client at any given time, the moderator is notified that a connection to the ServerLogic is possible, and at the same time, RequestServerStatus messages are stopped being sent to the ServerLogic.
-
-``` csharp
-class RequestServerStatusMessage : MessageContainer 
-{
-    // No extra fields needed
-}
-```
-
-The ServerLogic responds with a **[ServerStatusMessage](#serverstatusmessage)**.
-
-#### ServerStatusMessage
-
-Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageType](#messagetype-enum)::ServerStatus**. </br>
-This message is sent from the ServerLogic to the Moderator-Client in response to a **[RequestServerStatusMessage](#requestserverstatusmessage)** to confirm that the ServerLogic is available for a connection.
-
-``` csharp
-class ServerStatusMessage : MessageContainer 
-{
-    // No extra fields needed
-}
-```
 
 #### ReconnectMessage
 
