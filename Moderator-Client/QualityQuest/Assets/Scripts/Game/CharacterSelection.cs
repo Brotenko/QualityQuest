@@ -11,12 +11,7 @@ public class CharacterSelection : MonoBehaviour
     public Sprite turgalSprite;
     public Sprite kiroghSprite;
 
-    public Button selectNoruso;
-    public Button selectLumati;
-    public Button selectTurgal;
-    public Button selectKirogh;
-
-    Character noruso, lumati, turgal, kirogh;
+    public Character noruso, lumati, turgal, kirogh;
 
     private void Awake()
     {
@@ -26,45 +21,19 @@ public class CharacterSelection : MonoBehaviour
         kirogh = new Character(new Skills(2, 0, 5, 1), "Kirogh", kiroghSprite);
     }
 
-    private void Start()
+    public void SetCharacters(DisplayCharacter monster1, DisplayCharacter monster2, DisplayCharacter monster3, DisplayCharacter monster4)
     {
-
-        OfflineGameManager.current.monster1.UpdateCharacter(noruso);
-        OfflineGameManager.current.monster2.UpdateCharacter(lumati);
-        OfflineGameManager.current.monster3.UpdateCharacter(turgal);
-        OfflineGameManager.current.monster4.UpdateCharacter(kirogh);
-
-        selectNoruso.onClick.AddListener(delegate {
-            InitializeCharacter(noruso);
-        });
-
-        selectLumati.onClick.AddListener(delegate {
-            InitializeCharacter(lumati);
-        });
-
-        selectTurgal.onClick.AddListener(delegate {
-            InitializeCharacter(turgal);
-        });
-
-        selectKirogh.onClick.AddListener(delegate {
-            InitializeCharacter(kirogh);
-        });
+        monster1.UpdateCharacter(noruso);
+        monster2.UpdateCharacter(kirogh);
+        monster3.UpdateCharacter(turgal);
+        monster4.UpdateCharacter(lumati);
     }
 
-    public void InitializeCharacter(Character character)
+    public void InitializeCharacter(Character character, GameStory story, DisplayStatusbar statusBar)
     {
-
-        selectNoruso.onClick.RemoveAllListeners();
-        selectLumati.onClick.RemoveAllListeners();
-        selectTurgal.onClick.RemoveAllListeners();
-        selectKirogh.onClick.RemoveAllListeners();
-
-        OfflineGameManager.current.story.playThrough.SetCharacter(character);
-        OfflineGameManager.current.statusbar.DisplaySkills(OfflineGameManager.current.story.playThrough.getCharacter().getAbilities());
-        OfflineGameManager.current.statusbar.ShowStatusbar(true);
-        OfflineGameManager.current.statusbar.SetImage(character.getSprite());
-        OfflineGameManager.current.story.PlayGame();
-
+        story.playThrough.Character = character ;
+        statusBar.DisplaySkills(story.playThrough.Character.Abilities);
+        statusBar.ShowStatusBar(true);
+        statusBar.SetImage(character.Sprite);
     }
-
 }
