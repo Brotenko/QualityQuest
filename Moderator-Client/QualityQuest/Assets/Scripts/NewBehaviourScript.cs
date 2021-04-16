@@ -35,7 +35,7 @@ public class NewBehaviourScript : MonoBehaviour
 
         votRes.Add(new KeyValuePair<Guid,string>(new Guid(),"Nudel"),3);
 
-        var test = new VotingEndedMessage(new Guid(),winOpt,votRes);
+        var hehe = new VotingEndedMessage(new Guid(),winOpt,votRes);
 
         Debug.Log("A");
         string nudel = JsonConvert.SerializeObject(test);
