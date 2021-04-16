@@ -14,7 +14,7 @@ public class DisplayStoryFlow : MonoBehaviour
     public void LoadStoryFlow(StoryEvent storyevent)
     {
         storyflowElement.SetActive(true);
-        storyflowText.text = storyevent.GetDescription();
+        storyflowText.text = storyevent.Description;
         storyflowButton.onClick.AddListener(delegate { Contineu(); });
 
     }

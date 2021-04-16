@@ -88,18 +88,18 @@ public class GameLogic : MonoBehaviour
 
     public void UpdateSkills(Skills s)
     {
-        analytics.text = s.getAnalytics().ToString();
-        communication.text = s.getCommunication().ToString();
-        party.text = s.getPartying().ToString();
-        programming.text = s.getProgramming().ToString();
+        analytics.text = s.Analytics.ToString();
+        communication.text = s.Communication.ToString();
+        party.text = s.Partying.ToString();
+        programming.text = s.Programming.ToString();
     }
 
     public void UpdateSkills(Skills s,int programmingDiff, int communicationDiff, int analyticsDiff, int partyDiff)
     {
-        analytics.text = s.getAnalytics().ToString();
-        communication.text = s.getCommunication().ToString();
-        party.text = s.getPartying().ToString();
-        programming.text = s.getProgramming().ToString();
+        analytics.text = s.Analytics.ToString();
+        communication.text = s.Communication.ToString();
+        party.text = s.Partying.ToString();
+        programming.text = s.Programming.ToString();
 
         Debug.Log("Skill Change");
 
@@ -261,8 +261,8 @@ public class GameLogic : MonoBehaviour
     public void InitializeCharacterNoruso()
     {
         playerCharacter = new Character(new Skills(3, 1, 2, 1), "Noruso");
-        Story.playThrough.SetCharacter(playerCharacter);
-        UpdateSkills(Story.playThrough.getCharacter().getAbilities());
+        Story.playThrough.Character = playerCharacter;
+        UpdateSkills(Story.playThrough.Character.Abilities);
         Story.current.PlayGame();
         skills.SetActive(true);
         characterImage.sprite = Resources.Load<Sprite>("characters/noruso");
@@ -271,8 +271,8 @@ public class GameLogic : MonoBehaviour
     public void InitializeCharacterLumati()
     {
         playerCharacter = new Character(new Skills(1, 3, 0, 4), "Lumati");
-        Story.playThrough.SetCharacter(playerCharacter);
-        UpdateSkills(Story.playThrough.getCharacter().getAbilities());
+        Story.playThrough.Character = playerCharacter;
+        UpdateSkills(Story.playThrough.Character.Abilities);
         Story.current.PlayGame();
         skills.SetActive(true);
         characterImage.sprite = Resources.Load<Sprite>("characters/lumati");
@@ -281,8 +281,8 @@ public class GameLogic : MonoBehaviour
     public void InitializeCharacterTurgal()
     {
         playerCharacter = new Character(new Skills(2, 2, 2, 2), "Turgal");
-        Story.playThrough.SetCharacter(playerCharacter);
-        UpdateSkills(Story.playThrough.getCharacter().getAbilities());
+        Story.playThrough.Character = playerCharacter;
+        UpdateSkills(Story.playThrough.Character.Abilities);
         Story.current.PlayGame();
         skills.SetActive(true);
         characterImage.sprite = Resources.Load<Sprite>("characters/turgal");
@@ -291,8 +291,8 @@ public class GameLogic : MonoBehaviour
     public void InitializeCharacterKirogh()
     {
         playerCharacter = new Character(new Skills(2, 0, 5, 1), "Kirogh");
-        Story.playThrough.SetCharacter(playerCharacter);
-        UpdateSkills(Story.playThrough.getCharacter().getAbilities());
+        Story.playThrough.Character = playerCharacter;
+        UpdateSkills(Story.playThrough.Character.Abilities);
         Story.current.PlayGame();
         skills.SetActive(true);
         characterImage.sprite = Resources.Load<Sprite>("characters/kirogh");
@@ -307,7 +307,7 @@ public class GameLogic : MonoBehaviour
 
         se = null;
 
-        //Decision.current.LoadDecision(currentEvent, children);
+        //Decision.current.LoadDecision(CurrentEvent, children);
 
         storyflow.SetActive(false);
         selectchar.SetActive(false);
@@ -325,7 +325,7 @@ public class GameLogic : MonoBehaviour
         activeMenu = storyflow;
 
         se = null;
-        storyflowtext.text = currentEvent.GetDescription();
+        storyflowtext.text = currentEvent.Description;
         decision.SetActive(false);
         selectchar.SetActive(false);
         storyflow.SetActive(true);
@@ -342,12 +342,12 @@ public class GameLogic : MonoBehaviour
 
     public void Pick(StoryEvent e)
     {
-        Debug.Log(e.GetChildren().Count);
+        Debug.Log(e.Children.Count);
 
         if (se == null)
         {
             se = e;
-            Debug.Log("Selected: " + e.GetDescription());
+            Debug.Log("Selected: " + e.Description);
             Story.current.SetCurrentEvent(e);
         }
 

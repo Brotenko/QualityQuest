@@ -59,13 +59,13 @@ public class OnlineClientManager : MonoBehaviour
     {
         activeScreen.ShowCharacterSelection();
 
-        var requestStartVotingMessage = new RequestStartVotingMessage(moderatorClientGuid, 2, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[story.playThrough.getRoot().GetChildren().Count]);
-        requestStartVotingMessage.VotingPrompt = new KeyValuePair<Guid, string>(story.playThrough.getRoot().GetEventId(), story.playThrough.getRoot().GetDescription());
+        var requestStartVotingMessage = new RequestStartVotingMessage(moderatorClientGuid, 30, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[story.playThrough.Root.Children.Count]);
+        requestStartVotingMessage.VotingPrompt = new KeyValuePair<Guid, string>(story.playThrough.Root.EventId, story.playThrough.Root.Description);
 
-        var options = story.playThrough.getRoot().GetChildren().ToArray();
+        var options = story.playThrough.Root.Children.ToArray();
         for (var i = 0; i < options.Length; i++)
         {
-            requestStartVotingMessage.VotingOptions[i] = new KeyValuePair<Guid, string>(options[i].GetEventId(), options[i].GetDescription());
+            requestStartVotingMessage.VotingOptions[i] = new KeyValuePair<Guid, string>(options[i].EventId, options[i].Description);
         }
         qualityQuestWebSocket.SendMessage(requestStartVotingMessage);
     }

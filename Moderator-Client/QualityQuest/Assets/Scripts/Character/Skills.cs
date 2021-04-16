@@ -3,121 +3,88 @@ using System.Collections.Generic;
 
 public class Skills
 {
-    int communication, analytics, partying, programming;
+    public int Communication { get; set; }
+    public int Analytics { get; set; }
+    public int Partying { get; set; }
+    public int Programming { get; set; }
 
     /// <summary>
     /// Constructor of the class Skills.
     /// </summary>
-    /// <param name="communication">The value of the communication skill.</param>
-    /// <param name="analytics">The value of the analytics skill.</param>
-    /// <param name="partying">The value of the partying skill.</param>
-    /// <param name="programming">The value of the programming skill.</param>
-    public Skills(int communication, int analytics, int partying, int programming)
+    /// <param name="communication">The value of the Communication skill.</param>
+    /// <param name="analytic">The value of the Analytics skill.</param>
+    /// <param name="partying">The value of the Partying skill.</param>
+    /// <param name="programming">The value of the Programming skill.</param>
+    public Skills(int communication, int analytic, int partying, int programming)
     {
-        this.communication = communication;
-        this.analytics = analytics;
-        this.partying = partying;
-        this.programming = programming;
+        this.Communication = communication;
+        this.Analytics = analytic;
+        this.Partying = partying;
+        this.Programming = programming;
     }
 
     /// <summary>
-    /// Getter for the communication value.
-    /// </summary>
-    /// <returns>The communication value.</returns>
-    public int getCommunication()
-    {
-        return communication;
-    }
-
-    /// <summary>
-    /// Getter for the analytics value.
-    /// </summary>
-    /// <returns>The analytics value.</returns>
-    public int getAnalytics()
-    {
-        return analytics;
-    }
-
-    /// <summary>
-    /// Getter for the partying value.
-    /// </summary>
-    /// <returns>The partying value.</returns>
-    public int getPartying()
-    {
-        return partying;
-    }
-
-    /// <summary>
-    /// Getter for the programming value.
-    /// </summary>
-    /// <returns>The programming value.</returns>
-    public int getProgramming()
-    {
-        return programming;
-    }
-
-    /// <summary>
-    /// Method to update the value of communication. The value can be increased or decreased.
+    /// Method to update the value of Communication. The value can be increased or decreased.
     /// </summary>
     /// <param name="updateCommunication">Update value.</param>
-    public void updateCommunicationSkill(int updateCommunication)
+    public void UpdateCommunicationSkill(int updateCommunication)
     {
-        communication += updateCommunication;
+        Communication += updateCommunication;
 
-        if (communication < 0)
+        if (Communication < 0)
         {
-            communication = 0;
+            Communication = 0;
         }
     }
 
     /// <summary>
-    /// Method to update4 the value of analytics. The value can be increased or decreased.
+    /// Method to update4 the value of Analytic. The value can be increased or decreased.
     /// </summary>
     /// <param name="updateAnalytics">Update value.</param>
-    public void updateAnalyticsSkill(int updateAnalytics)
+    public void UpdateAnalyticSkill(int updateAnalytic)
     {
-        analytics += updateAnalytics;
+        Analytics += updateAnalytic;
 
-        if (analytics < 0)
+        if (Analytics < 0)
         {
-            analytics = 0;
+            Analytics = 0;
         }
     }
 
     /// <summary>
-    /// Method to update the value of partying. The value can be increased or decreased.
+    /// Method to update the value of Partying. The value can be increased or decreased.
     /// </summary>
     /// <param name="updatePartying">Update value</param>
-    public void updatePartyingSkill(int updatePartying)
+    public void UpdatePartyingSkill(int updatePartying)
     {
-        partying += updatePartying;
+        Partying += updatePartying;
 
-        if (partying < 0)
+        if (Partying < 0)
         {
-            partying = 0;
+            Partying = 0;
         }
     }
 
     /// <summary>
-    /// Method to update the value of programming. The value can be increased or decreased.
+    /// Method to update the value of Programming. The value can be increased or decreased.
     /// </summary>
     /// <param name="updateProgramming">Update value.</param>
-    public void updateProgrammingSkill(int updateProgramming)
+    public void UpdateProgrammingSkill(int updateProgramming)
     {
-        programming += updateProgramming;
+        Programming += updateProgramming;
 
-        if (programming < 0)
+        if (Programming < 0)
         {
-            programming = 0;
+            Programming = 0;
         }
     }
 
     public void updateAbilities(Skills skills)
     {
-        updateProgrammingSkill(skills.getProgramming());
-        updateCommunicationSkill(skills.getCommunication());
-        updateAnalyticsSkill(skills.getAnalytics());
-        updatePartyingSkill(skills.getPartying());
+        UpdateProgrammingSkill(skills.Programming);
+        UpdateCommunicationSkill(skills.Communication);
+        UpdateAnalyticSkill(skills.Analytics);
+        UpdatePartyingSkill(skills.Partying);
     }
 
 }

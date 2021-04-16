@@ -4,73 +4,30 @@ using UnityEngine;
 
 public class StoryGraph 
 {
-    private Character character;
-    private StoryEvent root, currentEvent;
+    public Character Character { get; set; }
+    public StoryEvent Root { get; }
+    public StoryEvent CurrentEvent { get; set; }
 
     /// <summary>
     /// Constructor for the StoryGraph class.
     /// </summary>
-    /// <param name="character">The main character.</param>
-    /// <param name="root">The root StoryEvent of the StoryGraph</param>
-    /// <param name="currentEvent">The currentEvent of the StoryGraph</param>
-    public StoryGraph(Character character, StoryEvent root, StoryEvent currentEvent)
+    /// <param name="character">The main Character.</param>
+    /// <param name="r">The Root StoryEvent of the StoryGraph</param>
+    /// <param name="currentEvent">The CurrentEvent of the StoryGraph</param>
+    public StoryGraph(Character character, StoryEvent r, StoryEvent currentEvent)
     {
-        this.character = character;
-        this.root = root;
-        this.currentEvent = currentEvent;
+        this.Character = character;
+        this.Root = r;
+        this.CurrentEvent = currentEvent;
     }
 
-    /// <summary>
-    /// Getter for the character.
-    /// </summary>
-    /// <returns>The main character.</returns>
-    public Character getCharacter()
-    {
-        return character;
-    }
-
-    /// <summary>
-    /// Setter for the character.
-    /// </summary>
-    /// <returns>The main character.</returns>
-    public void SetCharacter(Character character)
-    {
-        this.character = character;
-    }
-
-    /// <summary>
-    /// Getter for the root StoryEvent.
-    /// </summary>
-    /// <returns>The root StoryEvent.</returns>
-    public StoryEvent getRoot()
-    {
-        return root;
-    }
-
-    /// <summary>
-    /// Getter for the currentEvent.
-    /// </summary>
-    /// <returns>The current StoryEvent.</returns>
-    public StoryEvent getCurrentEvent()
-    {
-        return currentEvent;
-    }
-
-    /// <summary>
-    /// Getter for the next possible StoryEvents
-    /// </summary>
-    /// <returns>The next possible StoryEvents as HashSet.</returns>
-    public HashSet<StoryEvent> getNextPossibleEvents()
-    {
-        return currentEvent.GetChildren();
-    }
-
+    
     /// <summary>
     /// Method to set a new current StoryEvent
     /// </summary>
     /// <param name="newCurrentEvent">The new current StoryEvent.</param>
     public void setCurrentEvent(StoryEvent newCurrentEvent)
     {
-        currentEvent = newCurrentEvent;
+        CurrentEvent = newCurrentEvent;
     }
 }

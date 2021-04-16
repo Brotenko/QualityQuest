@@ -16,12 +16,12 @@ public class DisplayCharacter : MonoBehaviour
 
     public void UpdateCharacter(Character character)
     {
-        name.text = character.getName();
-        image.sprite = character.getSprite();
-        programming.text = character.getAbilities().getProgramming().ToString();
-        communcation.text = character.getAbilities().getCommunication().ToString();
-        analytics.text = character.getAbilities().getAnalytics().ToString();
-        party.text = character.getAbilities().getPartying().ToString();
+        name.text = character.Name;
+        image.sprite = character.Sprite;
+        programming.text = character.Abilities.Programming.ToString();
+        communcation.text = character.Abilities.Communication.ToString();
+        analytics.text = character.Abilities.Analytics.ToString();
+        party.text = character.Abilities.Partying.ToString();
     }
 
 }

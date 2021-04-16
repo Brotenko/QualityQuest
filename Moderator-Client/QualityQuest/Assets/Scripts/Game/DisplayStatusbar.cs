@@ -39,13 +39,13 @@ public class DisplayStatusbar : MonoBehaviour
     public void UpdateSkillChanges(Skills skills)
     {
 
-        if (ShowSkillChange(skillChangeProgramming, skills.getProgramming()))
+        if (ShowSkillChange(skillChangeProgramming, skills.Programming))
         { programmingSkillChangeTimer = skillHideTimerDuration; };
-        if (ShowSkillChange(skillChangeCommunication, skills.getCommunication()))
+        if (ShowSkillChange(skillChangeCommunication, skills.Communication))
         { communicationSkillChangeTimer = skillHideTimerDuration; };
-        if (ShowSkillChange(skillChangeAnalytics, skills.getAnalytics()))
+        if (ShowSkillChange(skillChangeAnalytics, skills.Analytics))
         { analyticsSkillChangeTimer = skillHideTimerDuration; };
-        if (ShowSkillChange(skillChangeParty, skills.getPartying()))
+        if (ShowSkillChange(skillChangeParty, skills.Partying))
         { partySkillChangeTimer = skillHideTimerDuration; };
 
     }
@@ -82,21 +82,21 @@ public class DisplayStatusbar : MonoBehaviour
     }
 
     /// <summary>
-    /// displays the amount of point of each skill the character currently has
+    /// displays the amount of point of each skill the Character currently has
     /// </summary>
     public void DisplaySkills(Skills skills)
     {
-        this.programmingSkillValue.text = skills.getProgramming().ToString();
-        this.communicationSkillValue.text = skills.getCommunication().ToString();
-        this.analyticsSkillValue.text = skills.getAnalytics().ToString();
-        this.partySkillValue.text = skills.getPartying().ToString();
+        this.programmingSkillValue.text = skills.Programming.ToString();
+        this.communicationSkillValue.text = skills.Communication.ToString();
+        this.analyticsSkillValue.text = skills.Analytics.ToString();
+        this.partySkillValue.text = skills.Partying.ToString();
     }
 
     /// <summary>
     /// shows or hides the statusbar
     /// </summary>
     /// <param name="status"></param> if set to true the statusbar is visible
-    public void ShowStatusbar(bool status)
+    public void ShowStatusBar(bool status)
     {
         statusbar.SetActive(status);
     }

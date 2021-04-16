@@ -6,142 +6,87 @@ using UnityEngine.Video;
 
 public class StoryEvent
 {
-    private Guid eventId;
-    private string description;
-    private HashSet<StoryEvent> children;
-    private StoryEventType storyType;
-    private Skills skillChange;
-    private bool randomOption;
-    private VideoClip background;
+    public Guid EventId { get; }
+    public string Description { get; }
+    public HashSet<StoryEvent> Children { get; }
+    public StoryEventType StoryType { get; }
+    public Skills SkillChange { get; }
+    public bool RandomOption { get; }
+    public VideoClip Background { get; }
 
     /// <summary>
     /// Constructor of the StoryEvent class.
     /// </summary>
     /// <param name="eventId">The Id of the StoryEvent.</param>
-    /// <param name="description">The description of the StoryEvent.</param>
-    /// <param name="children">The children StoryEvents of the StoryEvent.</param>
+    /// <param name="description">The Description of the StoryEvent.</param>
+    /// <param name="children">The Children StoryEvents of the StoryEvent.</param>
     /// <param name="storyType">The type of the StoryEvent.</param>
-    /// <param name="skillChange">The ammount by which the StoryEvent changes the skills of the character.</param>
+    /// <param name="skillChange">The ammount by which the StoryEvent changes the skills of the Character.</param>
     public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, Skills skillChange)
     {
-        this.eventId = eventId;
-        this.description = description;
-        this.children = children;
-        this.storyType = storyType;
-        this.skillChange = skillChange;
+        this.EventId = eventId;
+        this.Description = description;
+        this.Children = children;
+        this.StoryType = storyType;
+        this.SkillChange = skillChange;
     }
 
     /// <summary>
     /// Constructor of the StoryEvent class. 
     /// </summary>
     /// <param name="eventId">The Guid of the StoryEvent.</param>
-    /// <param name="description">The description of the StoryEvent.</param>
-    /// <param name="children">The children StoryEvents of the StoryEvent.</param>
+    /// <param name="description">The Description of the StoryEvent.</param>
+    /// <param name="children">The Children StoryEvents of the StoryEvent.</param>
     /// <param name="storyType">The type of the StoryEvent.</param>
     public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType)
     {
-        this.eventId = eventId;
-        this.description = description;
-        this.children = children;
-        this.storyType = storyType;
+        this.EventId = eventId;
+        this.Description = description;
+        this.Children = children;
+        this.StoryType = storyType;
     }
 
     /// <summary>
     /// Constructor of the StoryEvent class. 
     /// </summary>
     /// <param name="eventId">The Guid of the StoryEvent.</param>
-    /// <param name="description">The description of the StoryEvent.</param>
-    /// <param name="children">The children StoryEvents of the StoryEvent.</param>
+    /// <param name="description">The Description of the StoryEvent.</param>
+    /// <param name="children">The Children StoryEvents of the StoryEvent.</param>
     /// <param name="storyType">The type of the StoryEvent.</param>
     /// <param name="randomEvent"></param>
     public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, bool randomOption)
     {
-        this.eventId = eventId;
-        this.description = description;
-        this.children = children;
-        this.storyType = storyType;
-        this.randomOption = randomOption;
+        this.EventId = eventId;
+        this.Description = description;
+        this.Children = children;
+        this.StoryType = storyType;
+        this.RandomOption = randomOption;
     }
 
     /// <summary>
     /// Constructor of the StoryEvent class. 
     /// </summary>
     /// <param name="eventId">The Guid of the StoryEvent.</param>
-    /// <param name="description">The description of the StoryEvent.</param>
-    /// <param name="children">The children StoryEvents of the StoryEvent.</param>
+    /// <param name="description">The Description of the StoryEvent.</param>
+    /// <param name="children">The Children StoryEvents of the StoryEvent.</param>
     /// <param name="storyType">The type of the StoryEvent.</param>
-    /// <param name="skillChange">The ammount by which the StoryEvent changes the skills of the character.</param>
+    /// <param name="skillChange">The ammount by which the StoryEvent changes the skills of the Character.</param>
     /// <param name="randomEvent"></param>
     public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, Skills skillChange, bool randomOption)
     {
-        this.eventId = eventId;
-        this.description = description;
-        this.children = children;
-        this.storyType = storyType;
-        this.skillChange = skillChange;
-        this.randomOption = randomOption;
+        this.EventId = eventId;
+        this.Description = description;
+        this.Children = children;
+        this.StoryType = storyType;
+        this.SkillChange = skillChange;
+        this.RandomOption = randomOption;
     }
 
-    public StoryEvent(VideoClip background,HashSet<StoryEvent> children, StoryEventType storyType)
+    public StoryEvent(VideoClip b,HashSet<StoryEvent> children, StoryEventType storyType)
     {
-        this.children = children;
-        this.storyType = storyType;
-        this.background = background;
-    }
-
-    public VideoClip GetBackground()
-    {
-        return background;
-    }
-
-    /// <summary>
-    /// Getter for the eventId of a StoryEvent.
-    /// </summary>
-    /// <returns>The eventId of the StoryEvent.</returns>
-    public Guid GetEventId()
-    {
-        return eventId;
-    }
-
-    /// <summary>
-    /// Getter for the destription of a StoryEvent.
-    /// </summary>
-    /// <returns>The description of the StoryEvent</returns>
-    public string GetDescription()
-    {
-        return description;
-    }
-
-    /// <summary>
-    /// Getter for the children of a StoryEvent.
-    /// </summary>
-    /// <returns>The children of the StoryEvent.</returns>
-    public HashSet<StoryEvent> GetChildren()
-    {
-        return children;
-    }
-
-    /// <summary>
-    /// Getter for the skillsChange of a StoryEvent.
-    /// </summary>
-    /// <returns></returns>
-    public Skills GetSkills()
-    {
-        return skillChange;
-    }
-
-    /// <summary>
-    /// Getter for the randomOption of a StoryEvent
-    /// </summary>
-    /// <returns></returns>
-    public bool GetRandomOption()
-    {
-        return randomOption;
-    }
-
-    public StoryEventType GetStoryType()
-    {
-        return storyType;
+        this.Children = children;
+        this.StoryType = storyType;
+        this.Background = b;
     }
 
     /// <summary>
@@ -150,7 +95,7 @@ public class StoryEvent
     /// <param name="child">The child that is added.</param>
     public void AddChild(StoryEvent child)
     {
-        children.Add(child);
+        Children.Add(child);
     }
 
     /// <summary>
@@ -159,7 +104,7 @@ public class StoryEvent
     /// <param name="child">The child that is removed.</param>
     public void RemoveChild(StoryEvent child)
     {
-        children.Remove(child);
+        Children.Remove(child);
     }
  
 }

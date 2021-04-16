@@ -592,28 +592,28 @@ public class GameStory : MonoBehaviour
     public void PlayGame()
     {
 
-        if (playThrough.getCurrentEvent().GetSkills() != null)
+        if (playThrough.CurrentEvent.SkillChange != null)
         {
-            playThrough.getCharacter().getAbilities().updateAbilities(playThrough.getCurrentEvent().GetSkills());
-            OfflineGameManager.current.statusbar.DisplaySkills(playThrough.getCharacter().getAbilities());
-            OfflineGameManager.current.statusbar.UpdateSkillChanges(playThrough.getCurrentEvent().GetSkills());
+            playThrough.Character.Abilities.updateAbilities(playThrough.CurrentEvent.SkillChange);
+            OfflineGameManager.current.statusBar.DisplaySkills(playThrough.Character.Abilities);
+            OfflineGameManager.current.statusBar.UpdateSkillChanges(playThrough.CurrentEvent.SkillChange);
         }
 
-        Debug.Log(playThrough.getCurrentEvent().GetStoryType());
+        Debug.Log(playThrough.CurrentEvent.StoryType);
 
-        if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryDecision))
+        if (playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryDecision))
         {
-            OfflineGameManager.current.decision.LoadDecision(playThrough.getCurrentEvent(), playThrough.getCurrentEvent().GetChildren());
+            OfflineGameManager.current.decision.LoadDecision(playThrough.CurrentEvent, playThrough.CurrentEvent.Children);
             OfflineGameManager.current.screenmanager.ShowDecision();
-            Debug.Log("StoryDecision: " + playThrough.getCurrentEvent().GetDescription());
+            Debug.Log("StoryDecision: " + playThrough.CurrentEvent.Description);
         }
 
-        else if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryDecisionOption))
+        else if (playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryDecisionOption))
         {
-            if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
+            if (playThrough.CurrentEvent.Children.Count() > 0)
             {
                 NextStoryEvent();
-                Debug.Log("Option: " + playThrough.getCurrentEvent().GetDescription());
+                Debug.Log("Option: " + playThrough.CurrentEvent.Description);
                 this.PlayGame();
             }
             else
@@ -622,13 +622,13 @@ public class GameStory : MonoBehaviour
             }
         }
 
-        else if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryFlow))
+        else if (playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryFlow))
         {
-            if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
+            if (playThrough.CurrentEvent.Children.Count() > 0)
             {
-                Debug.Log("StoryFlow: " + playThrough.getCurrentEvent().GetDescription());
+                Debug.Log("StoryFlow: " + playThrough.CurrentEvent.Description);
                 OfflineGameManager.current.screenmanager.ShowStoryFlow();
-                OfflineGameManager.current.storyflow.LoadStoryFlow(playThrough.getCurrentEvent());
+                OfflineGameManager.current.storyflow.LoadStoryFlow(playThrough.CurrentEvent);
                 NextStoryEvent();
 
 
@@ -639,11 +639,11 @@ public class GameStory : MonoBehaviour
             }
         }
 
-        else if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryBackground))
+        else if (playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryBackground))
         {
-            if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
+            if (playThrough.CurrentEvent.Children.Count() > 0)
             {
-                OfflineGameManager.current.video.SwitchBackground(playThrough.getCurrentEvent().GetBackground());
+                OfflineGameManager.current.video.SwitchBackground(playThrough.CurrentEvent.Background);
                 NextStoryEvent();
                 this.PlayGame();
             }
@@ -656,8 +656,6 @@ public class GameStory : MonoBehaviour
 
     public void NextStoryEvent()
     {
-        playThrough.setCurrentEvent(playThrough.getCurrentEvent().GetChildren().First());
+        playThrough.setCurrentEvent(playThrough.CurrentEvent.Children.First());
     }
-
-
 }

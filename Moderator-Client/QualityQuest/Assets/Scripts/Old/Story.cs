@@ -605,29 +605,29 @@ public class Story:MonoBehaviour
     {
         GameLogic.current.HideSkillChange();
 
-        if (playThrough.getCurrentEvent().GetSkills() != null)
+        if (playThrough.CurrentEvent.SkillChange != null)
         {
-            playThrough.getCharacter().getAbilities().updateProgrammingSkill(playThrough.getCurrentEvent().GetSkills().getProgramming());
-            playThrough.getCharacter().getAbilities().updateCommunicationSkill(playThrough.getCurrentEvent().GetSkills().getCommunication());
-            playThrough.getCharacter().getAbilities().updateAnalyticsSkill(playThrough.getCurrentEvent().GetSkills().getAnalytics());
-            playThrough.getCharacter().getAbilities().updatePartyingSkill(playThrough.getCurrentEvent().GetSkills().getPartying());
-            GameLogic.current.UpdateSkills(playThrough.getCharacter().getAbilities(), playThrough.getCurrentEvent().GetSkills().getProgramming(), playThrough.getCurrentEvent().GetSkills().getCommunication(), playThrough.getCurrentEvent().GetSkills().getAnalytics(), playThrough.getCurrentEvent().GetSkills().getPartying());
+            playThrough.Character.Abilities.UpdateProgrammingSkill(playThrough.CurrentEvent.SkillChange.Programming);
+            playThrough.Character.Abilities.UpdateCommunicationSkill(playThrough.CurrentEvent.SkillChange.Communication);
+            playThrough.Character.Abilities.UpdateAnalyticSkill(playThrough.CurrentEvent.SkillChange.Analytics);
+            playThrough.Character.Abilities.UpdatePartyingSkill(playThrough.CurrentEvent.SkillChange.Partying);
+            GameLogic.current.UpdateSkills(playThrough.Character.Abilities, playThrough.CurrentEvent.SkillChange.Programming, playThrough.CurrentEvent.SkillChange.Communication, playThrough.CurrentEvent.SkillChange.Analytics, playThrough.CurrentEvent.SkillChange.Partying);
         }
 
-        Debug.Log(playThrough.getCurrentEvent().GetStoryType());
+        Debug.Log(playThrough.CurrentEvent.StoryType);
 
-        if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryDecision))
+        if (playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryDecision))
         {
-            GameLogic.current.ShowDecision(playThrough.getCurrentEvent(), playThrough.getCurrentEvent().GetChildren());
-            Debug.Log("StoryDecision: " + playThrough.getCurrentEvent().GetDescription());
+            GameLogic.current.ShowDecision(playThrough.CurrentEvent, playThrough.CurrentEvent.Children);
+            Debug.Log("StoryDecision: " + playThrough.CurrentEvent.Description);
         }
 
-        else if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryDecisionOption))
+        else if (playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryDecisionOption))
         {
-            if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
+            if (playThrough.CurrentEvent.Children.Count() > 0)
             {
-                playThrough.setCurrentEvent(playThrough.getCurrentEvent().GetChildren().First());
-                Debug.Log("Option: " + playThrough.getCurrentEvent().GetDescription());
+                playThrough.setCurrentEvent(playThrough.CurrentEvent.Children.First());
+                Debug.Log("Option: " + playThrough.CurrentEvent.Description);
                 this.PlayGame();
             }
             else
@@ -636,12 +636,12 @@ public class Story:MonoBehaviour
             }
         }
 
-        else if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryFlow))
+        else if (playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryFlow))
         {
-            if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
+            if (playThrough.CurrentEvent.Children.Count() > 0)
             {
-                Debug.Log("StoryFlow: " + playThrough.getCurrentEvent().GetDescription());
-                GameLogic.current.ShowStoryFlow(playThrough.getCurrentEvent(), playThrough.getCurrentEvent().GetChildren());
+                Debug.Log("StoryFlow: " + playThrough.CurrentEvent.Description);
+                GameLogic.current.ShowStoryFlow(playThrough.CurrentEvent, playThrough.CurrentEvent.Children);
             }
             else
             {
@@ -649,12 +649,12 @@ public class Story:MonoBehaviour
             }
         }
 
-        else if (playThrough.getCurrentEvent().GetStoryType().Equals(StoryEventType.StoryBackground))
+        else if (playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryBackground))
         {
-            if (playThrough.getCurrentEvent().GetChildren().Count() > 0)
+            if (playThrough.CurrentEvent.Children.Count() > 0)
             {
-                GameLogic.current.SwitchBackground(playThrough.getCurrentEvent().GetBackground());
-                playThrough.setCurrentEvent(playThrough.getCurrentEvent().GetChildren().First());
+                GameLogic.current.SwitchBackground(playThrough.CurrentEvent.Background);
+                playThrough.setCurrentEvent(playThrough.CurrentEvent.Children.First());
                 this.PlayGame();
             }
             else

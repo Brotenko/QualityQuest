@@ -49,12 +49,12 @@ public class DisplayDecision : MonoBehaviour
         panelC.SetActive(false);
         panelD.SetActive(false);
 
-        question.text = currentEvent.GetDescription();
+        question.text = currentEvent.Description;
 
         titleA.text = "Option A";
         if (events.Count() >= 1)
         {
-            descriptionA.text = list[0].GetDescription();
+            descriptionA.text = list[0].Description;
             optionA.onClick.AddListener(delegate { OfflineGameManager.current.story.SetCurrentEvent(list[0]); });
             panelA.SetActive(true);
 
@@ -63,7 +63,7 @@ public class DisplayDecision : MonoBehaviour
         titleB.text = "Option B";
         if (events.Count() >= 2)
         {
-            descriptionB.text = list[1].GetDescription();
+            descriptionB.text = list[1].Description;
             optionB.onClick.AddListener(delegate { OfflineGameManager.current.story.SetCurrentEvent(list[1]); });
             panelB.SetActive(true);
         }
@@ -71,7 +71,7 @@ public class DisplayDecision : MonoBehaviour
         titleC.text = "Option C";
         if (events.Count() >= 3)
         {
-            descriptionC.text = list[2].GetDescription();
+            descriptionC.text = list[2].Description;
             optionC.onClick.AddListener(delegate { OfflineGameManager.current.story.SetCurrentEvent(list[2]); });
             panelC.SetActive(true);
         }
@@ -79,7 +79,7 @@ public class DisplayDecision : MonoBehaviour
         titleD.text = "Option D";
         if (events.Count() >= 4)
         {
-            descriptionD.text = list[3].GetDescription();
+            descriptionD.text = list[3].Description;
             optionD.onClick.AddListener(delegate { OfflineGameManager.current.story.SetCurrentEvent(list[3]); });
             panelD.SetActive(true);
         }
