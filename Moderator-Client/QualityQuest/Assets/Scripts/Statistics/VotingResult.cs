@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 public class VotingResult
 {
-    private string votingDecision;
-    private KeyValuePair<string, int> votingOptions;
+    public string VotingDecision { get; }
+    public KeyValuePair<string, int> VotingOptions { get; }
 
     /// <summary>
     /// Constructs a new VotingResult.
@@ -12,7 +12,7 @@ public class VotingResult
     /// <param name="votingOptions">The options and number of votes as a KeyValuePair.</param>
     public VotingResult(string votingDecision, KeyValuePair<string, int> votingOptions)
     {
-        this.votingDecision = votingDecision;
-        this.votingOptions = votingOptions;
+        this.VotingDecision = votingDecision;
+        this.VotingOptions = votingOptions;
     }
 }

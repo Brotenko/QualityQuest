@@ -7,14 +7,14 @@ using UnityEngine;
 /// </summary>
 public class VotingStatistics
 {
-    private List<VotingResult> votingStatistics;
+    public  List<VotingResult> Statistic { get; }
 
     /// <summary>
-    /// Constructs a new VotingStatistics.
+    /// Constructs a new Statistic.
     /// </summary>
-    /// <param name="votingStatistics"></param>
-    public VotingStatistics(List<VotingResult> votingStatistics)
+    /// <param name="statistic"></param>
+    public VotingStatistics(List<VotingResult> statistic)
     {
-        this.votingStatistics = votingStatistics;
+        this.Statistic = statistic;
     }
 }
