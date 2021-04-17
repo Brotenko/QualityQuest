@@ -442,11 +442,13 @@ class VotingEndedMessage : MessageContainer
 {
     string WinningOption;
     Dictionary<string, int> VotingResults;
+    int TotalVotes;
 }
 ```
 
 - **WinningOption:** The string of the option that got the most votes from the PlayerAudience.
 - **VotingResults:** Contains the string of the option as the key and the respective amount of received votes as the value.
+- **TotalVotes:** The total number of votes cast in this round of voting.
 
 ### Control messages
 

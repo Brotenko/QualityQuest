@@ -162,6 +162,7 @@ namespace ServerLogic.Control
             KeyValuePair<Guid, string> winningOption = new ();
             Dictionary<string, int> blankoVotingResults = new ();
             int winningVotes = -1;
+            int totalVotes = 0;
             foreach (var (key, value) in votingResults)
             {
                 if (value > winningVotes)
@@ -170,10 +171,11 @@ namespace ServerLogic.Control
                     winningVotes = value;
                 }
                 blankoVotingResults.Add(key.Value,value);
+                totalVotes += value;
             }
             ServerLogger.LogDebug($"Voting ended. Winning prompt is '{winningOption.Value}' with {winningVotes} votes.");
             IsVoting = false;
-            SocketConnection.Send(JsonConvert.SerializeObject(new VotingEndedMessage(ModeratorGuid, winningOption.Value, blankoVotingResults)));
+            SocketConnection.Send(JsonConvert.SerializeObject(new VotingEndedMessage(ModeratorGuid, winningOption.Value, blankoVotingResults, totalVotes)));
         }
 
 

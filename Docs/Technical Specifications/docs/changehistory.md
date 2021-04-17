@@ -46,7 +46,8 @@ The change history is a chronologically ordered list of all changes between diff
 |   +   | **[_Network Protocol:_](../network-protocol#errortypeenum) _ErrorTypeEnum:_** Added entry and explanation for GuidAlreadyExists-ErrorMessage. |
 |   -   | **[_Network Protocol:_](../network-protocol#whocansendwhichmessagetype) _MessageOverview:_** Removed entries for ServerStatus-Messages. |
 |   -   | **[_Network Protocol:_](../network-protocol#detailedmessagedefinitions) _MessageOverview:_** Removed detailed definitions for ServerStatus-Messages. |
-|   *   | **[_Network Protocol:_](../network-protocol#detailedmessagedefinitions) _MessageOverview:_** Changed VotingEndedMessage to include WinningOption as string and VotingResults as <string,int> Dictionary. |
+|   *   | **[_Network Protocol:_](../network-protocol#detailedmessagedefinitions) _MessageOverview:_** Changed VotingEndedMessage to include WinningOption as string, VotingResults as <string,int> Dictionary and TotalVotes as an int. |
+
 
 
 
