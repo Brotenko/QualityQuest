@@ -20,7 +20,7 @@ namespace ServerLogic.Control
         private WebSocketServer _server;
 
         internal readonly Dictionary<Guid, ModeratorClientManager> _connectedModeratorClients;
-        private readonly Timer _timerForDataDeletion;
+        private readonly Timer _timerForInactiveSessionDataDeletion;
         private readonly PlayerAudienceClientAPI _playerAudienceClientApi;
         private const int MaxRepForRandomGeneration = 16;
 
@@ -36,12 +36,10 @@ namespace ServerLogic.Control
             _playerAudienceClientApi = new PlayerAudienceClientAPI();
             _connectedModeratorClients = new Dictionary<Guid, ModeratorClientManager>();
             //30sec interval
-            //_timerForDataDeletion = new Timer(30000); todo
-            _timerForDataDeletion = new Timer(30000);
-
-            _timerForDataDeletion.Elapsed += CheckForInactivity;
-            _timerForDataDeletion.AutoReset = true;
-            _timerForDataDeletion.Enabled = true;
+            _timerForInactiveSessionDataDeletion = new Timer(30000);
+            _timerForInactiveSessionDataDeletion.Elapsed += CheckForInactiveSessionInactivity;
+            _timerForInactiveSessionDataDeletion.AutoReset = true;
+            _timerForInactiveSessionDataDeletion.Enabled = true;
         }
 
         /// <summary>
@@ -55,7 +53,7 @@ namespace ServerLogic.Control
             _playerAudienceClientApi.StartServer(Settings.Default.PAWebPagePort);
             StartWebsocket();
             ServerLogger.LogDebug($"Website started on {Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
-            _timerForDataDeletion.Start();
+            _timerForInactiveSessionDataDeletion.Start();
 
         }
 
@@ -69,17 +67,17 @@ namespace ServerLogic.Control
                 value.SocketConnection.Send(JsonConvert.SerializeObject(new SessionClosedMessage(value.ModeratorGuid)));
                 value.SocketConnection.Close();
             }
-            _timerForDataDeletion?.Stop();
-            _server.Dispose();
+            _timerForInactiveSessionDataDeletion?.Stop();
+            _server?.Dispose();
             _playerAudienceClientApi.StopServer();
         }
 
         /// <summary>
-        /// Is periodically triggered by the _timerForDataDeletion. Checks if one of the connected ModeratorClients has been marked as inactive and deletes them from _connectedModeratorClients if necessary. 
+        /// Is periodically triggered by the _timerForInactiveSessionDataDeletion. Checks if one of the connected ModeratorClients has been marked as inactive and deletes them from _connectedModeratorClients if necessary. 
         /// </summary>
         /// <param name="source"></param>
         /// <param name="e"></param>
-        private void CheckForInactivity(object source, ElapsedEventArgs e)
+        private void CheckForInactiveSessionInactivity(object source, ElapsedEventArgs e)
         {
             if (_connectedModeratorClients.Count>0)
             {
@@ -335,7 +333,7 @@ namespace ServerLogic.Control
                         {
                             response = JsonConvert.SerializeObject(
                                 new ErrorMessage(closeSessionMessage.ModeratorID, ErrorType.SessionDoesNotExist, ""));
-                            ServerLogger.LogDebug($"MC-{closeSessionMessage.SessionKey} tried to close Session but failed to due wrong sessionkey. \n\tTransmitted Sessionkey: \t{closeSessionMessage.SessionKey}\n\tActual Sessionkey: \t{_connectedModeratorClients[mcId].SessionKey}");
+                            ServerLogger.LogDebug($"MC-{closeSessionMessage.SessionKey} tried to close Session but failed to due wrong sessionKey. \n\tTransmitted sessionKey: \t{closeSessionMessage.SessionKey}\n\tActual sessionKey: \t\t{_connectedModeratorClients[mcId].SessionKey}");
                             AddStrike(mcId);
                         }
                         break;

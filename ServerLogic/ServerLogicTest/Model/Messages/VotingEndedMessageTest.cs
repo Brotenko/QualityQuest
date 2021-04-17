@@ -16,10 +16,10 @@ namespace ServerLogicTests.Model.Messages
     {
         private static readonly Guid testGuid = Guid.NewGuid();
         //  private static readonly Guid testWinningOption = Guid.NewGuid();
-        private static readonly KeyValuePair<Guid, string> testWinningOption = new(new Guid(), "string1");
+        private static readonly string testWinningOption = "string1";
 
-        private static readonly Dictionary<KeyValuePair<Guid, string>, int> testVotingResults =
-            new() { { new KeyValuePair<Guid, string>(Guid.NewGuid(), "option2"), 1 }, { new KeyValuePair<Guid, string>(Guid.NewGuid(), "option2"), 2 } };
+        private static readonly Dictionary<string, int> testVotingResults =
+            new() { {  "option2", 1 }, { "option2", 2 } };
 
         private static readonly string dictToString =
         "{" + string.Join(",", testVotingResults.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";

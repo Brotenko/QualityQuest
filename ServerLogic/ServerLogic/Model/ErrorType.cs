@@ -35,7 +35,10 @@
         /// ServerLogic out of order. More precise details are to be specified in the errorMessageText.
         /// </summary>
         IllegalMessage,
-
+        /// <summary>
+        /// Is triggered if an already registered ModeratorGuid attempts to open a new session from a new connection.
+        /// Addresses the unlikely event that two different ModeratorClients happen to generate the same Guid.
+        /// </summary>
         GuidAlreadyExists
     }
 }

@@ -628,9 +628,17 @@ namespace ServerLogic.Control
         /// <returns>Confirmation hat the server has been stopped successfully.</returns>
         private string StopServer()
         {
-            mainServerLogic.Stop();
-            serverIsRunning = false;
-            return "The server has been shut down successfully.";
+            try
+            {
+                mainServerLogic.Stop();
+                serverIsRunning = false;
+                return "The server has been shut down successfully.";
+            }
+            catch (InvalidOperationException e)
+            {
+                serverIsRunning = false;
+                return e.ToString();
+            }
         }
 
         /// <summary>

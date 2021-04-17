@@ -14,8 +14,8 @@ namespace ServerLogic.Model.Messages
     /// </summary>
     public class VotingEndedMessage : MessageContainer
     {
-        public KeyValuePair<Guid, string> WinningOption { get; }
-        public Dictionary<KeyValuePair<Guid, string>, int> VotingResults { get; }
+        public string WinningOption { get; }
+        public Dictionary<string, int> VotingResults { get; }
 
         /// <summary>
         /// Constructs a new VotingEndedMessage.
@@ -35,16 +35,17 @@ namespace ServerLogic.Model.Messages
         /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
         /// or an error occurring, information can be carried to the Moderator-Client directly for 
         /// quick access, without the need to search through the logs.</param>
-        public VotingEndedMessage(Guid moderatorId, KeyValuePair<Guid,string> winningOption, Dictionary<KeyValuePair<Guid, string>, int> votingResults) : base(moderatorId, MessageType.VotingEnded)
+        public VotingEndedMessage(Guid moderatorId, string winningOption, Dictionary<string, int> votingResults) : base(moderatorId, MessageType.VotingEnded)
         {
             WinningOption = winningOption;
             VotingResults = votingResults;
         }
 
+        /* todo -> is broke, and as the tests seem to heavily rely on ToString(), these are probably broken too
         public override string ToString()
         {
             string dictToString = "{" + string.Join(",", VotingResults.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";
             return "VotingEndedMessage [<container>: " + base.ToString() + ", WinningOption: " + WinningOption + ", VotingResults:" + dictToString + "]";
-        }
+        }*/
     }
 }

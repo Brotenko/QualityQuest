@@ -282,7 +282,8 @@ enum ErrorType
     UnknownGuid,
     IllegalPauseAction,
     SessionDoesNotExist,
-    IllegalMessage
+    IllegalMessage,
+    GuidAlreadyExists
 }
 ```
 
@@ -293,6 +294,8 @@ enum ErrorType
     - A request to continue the game reaches the ServerLogic even though the game has not been paused previously.
 - **SessionDoesNotExist:** Is triggered when an attempt is made to interact with an Online-Session that does not exist.
 - **IllegalMessage:** Is triggered when an unknown message type is received, or when a message arrives at the ServerLogic out of order. More precise details are to be specified in the errorMessage.
+- **GuidAlreadyExists:** Is triggered if an already registered ModeratorGuid attempts to open a new session from a new connection.
+Addresses the unlikely event that two different ModeratorClients happen to generate the same Guid.
 
 ## Detailed message definitions
 
@@ -437,13 +440,13 @@ This message is sent from the ServerLogic to the Moderator-Client in response to
 ``` csharp
 class VotingEndedMessage : MessageContainer 
 {
-    Guid WinningOption;
-    Dictionary<Guid, int> VotingResults;
+    string WinningOption;
+    Dictionary<string, int> VotingResults;
 }
 ```
 
-- **WinningOption:** The GUID of the option that got the most votes from the PlayerAudience.
-- **VotingResults:** Contains the GUIDs of the option as the key and the respective amount of received votes as the value.
+- **WinningOption:** The string of the option that got the most votes from the PlayerAudience.
+- **VotingResults:** Contains the string of the option as the key and the respective amount of received votes as the value.
 
 ### Control messages
 

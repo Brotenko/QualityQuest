@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using ServerLogic.Control;
 using Pose;
+using ServerLogic.Model;
 using ServerLogic.Model.Messages;
 using ServerLogic.Properties;
 using Shim = Pose.Shim;
@@ -68,6 +69,7 @@ namespace ServerLogicTest.Control
         [TestMethod]
         public void CheckValidOpenSessionResponseFormat()
         {
+            //TODO redo
             Guid mc1 = new Guid();
             mainServerLogic._connectedModeratorClients.Add(mc1, new ModeratorClientManager(mc1, null, null));
             string response =
@@ -75,6 +77,19 @@ namespace ServerLogicTest.Control
                     JsonConvert.SerializeObject(new RequestOpenSessionMessage(mc1, "!Password123#")));
             Assert.AreEqual(response, openSessionFormat);
             //todo add tests for session already exists and wrong password
+        }
+
+        [TestMethod]
+        public void CheckRequestGameStartMessageJsonConversion()
+        {
+            Guid mc1 = new Guid();
+            mainServerLogic._connectedModeratorClients.Add(mc1, new ModeratorClientManager(mc1, null, null));
+            string response =
+                mainServerLogic.CheckStringMessage(JsonConvert.SerializeObject(new RequestGameStartMessage(mc1)));
+            MessageContainer responseAsObject =
+                JsonConvert.DeserializeObject<MessageContainer>(mainServerLogic.CheckStringMessage(response));
+            Assert.AreEqual(responseAsObject.Type,MessageType.RequestGameStart);
+            Assert.AreEqual(responseAsObject.ModeratorID, mc1);
         }
     }
 }
