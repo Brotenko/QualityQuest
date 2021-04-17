@@ -86,8 +86,7 @@ namespace ServerLogicTest.Control
             mainServerLogic._connectedModeratorClients.Add(mc1, new ModeratorClientManager(mc1, null, null));
             string response =
                 mainServerLogic.CheckStringMessage(JsonConvert.SerializeObject(new RequestGameStartMessage(mc1)));
-            MessageContainer responseAsObject =
-                JsonConvert.DeserializeObject<MessageContainer>(mainServerLogic.CheckStringMessage(response));
+            MessageContainer responseAsObject = JsonConvert.DeserializeObject<MessageContainer>(mainServerLogic.CheckStringMessage(response));
             Assert.AreEqual(responseAsObject.Type,MessageType.RequestGameStart);
             Assert.AreEqual(responseAsObject.ModeratorID, mc1);
         }

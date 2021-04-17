@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Timers;
 using Fleck;
 using Newtonsoft.Json;
@@ -151,11 +152,16 @@ namespace ServerLogic.Control
         /// <param name="e"></param>
         private void SendVotingResults(object source, ElapsedEventArgs e)
         {
-
             Dictionary<KeyValuePair<Guid, string>, int> votingResults = _playerAudienceClientApi.GetVotingResult(SessionKey, _currentPrompt);
-            KeyValuePair<Guid, string> winningOption = new();
+
+            //shuffle so that the winning option in the event of a tie does not depend on the order of the options.
+            Random rand = new Random();
+            votingResults = votingResults.OrderBy(x => rand.Next())
+                .ToDictionary(item => item.Key, item => item.Value);
+
+            KeyValuePair<Guid, string> winningOption = new ();
             Dictionary<string, int> blankoVotingResults = new ();
-            int winningVotes = 0;
+            int winningVotes = -1;
             foreach (var (key, value) in votingResults)
             {
                 if (value > winningVotes)
