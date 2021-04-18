@@ -17,9 +17,10 @@ namespace ServerLogicTests.Model.Messages
         private static readonly Guid testGuid = Guid.NewGuid();
         //  private static readonly Guid testWinningOption = Guid.NewGuid();
         private static readonly string testWinningOption = "string1";
+        private static readonly int testTotalVotes = 42;
 
-        private static readonly Dictionary<string, int> testVotingResults =
-            new() { {  "option2", 1 }, { "option2", 2 } };
+        private static readonly Dictionary<Guid, int> testVotingResults =
+            new() { { Guid.NewGuid(), 1 }, { Guid.NewGuid(), 2 } };
 
         private static readonly string dictToString =
         "{" + string.Join(",", testVotingResults.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";
@@ -35,7 +36,7 @@ namespace ServerLogicTests.Model.Messages
         [TestMethod]
         public void WinningOptionTest()
         {
-            VotingEndedMessage v = new VotingEndedMessage(testGuid, testWinningOption, testVotingResults);
+            VotingEndedMessage v = new VotingEndedMessage(testGuid, testWinningOption, testVotingResults, 42);
 
             Assert.IsNotNull(v.WinningOption);
             Assert.AreEqual(v.WinningOption, testWinningOption);
@@ -48,7 +49,7 @@ namespace ServerLogicTests.Model.Messages
         [TestMethod]
         public void VotingResultsTest()
         {
-            VotingEndedMessage v = new VotingEndedMessage(testGuid, testWinningOption, testVotingResults);
+            VotingEndedMessage v = new VotingEndedMessage(testGuid, testWinningOption, testVotingResults, 42);
 
             Assert.IsNotNull(v.VotingResults);
             Assert.AreEqual(v.VotingResults, testVotingResults);

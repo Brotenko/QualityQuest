@@ -156,26 +156,26 @@ namespace ServerLogic.Control
 
             //shuffle so that the winning option in the event of a tie does not depend on the order of the options.
             Random rand = new Random();
-            votingResults = votingResults.OrderBy(x => rand.Next())
+            votingResults = votingResults.OrderBy(_ => rand.Next())
                 .ToDictionary(item => item.Key, item => item.Value);
 
             KeyValuePair<Guid, string> winningOption = new ();
-            Dictionary<string, int> blankoVotingResults = new ();
+            Dictionary<Guid, int> blankVotingResults = new ();
             int winningVotes = -1;
             int totalVotes = 0;
-            foreach (var (key, value) in votingResults)
+            foreach (var (guidPromptPair, votes) in votingResults)
             {
-                if (value > winningVotes)
+                if (votes > winningVotes)
                 {
-                    winningOption = key;
-                    winningVotes = value;
+                    winningOption = guidPromptPair;
+                    winningVotes = votes;
                 }
-                blankoVotingResults.Add(key.Value,value);
-                totalVotes += value;
+                blankVotingResults.Add(guidPromptPair.Key, votes);
+                totalVotes += votes;
             }
             ServerLogger.LogDebug($"Voting ended. Winning prompt is '{winningOption.Value}' with {winningVotes} votes.");
             IsVoting = false;
-            SocketConnection.Send(JsonConvert.SerializeObject(new VotingEndedMessage(ModeratorGuid, winningOption.Value, blankoVotingResults, totalVotes)));
+            SocketConnection.Send(JsonConvert.SerializeObject(new VotingEndedMessage(ModeratorGuid, winningOption.Value, blankVotingResults, totalVotes)));
         }
 
 

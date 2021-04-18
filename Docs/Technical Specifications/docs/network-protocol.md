@@ -281,7 +281,7 @@ enum ErrorType
     WrongPassword,
     UnknownGuid,
     IllegalPauseAction,
-    SessionDoesNotExist,
+    WrongSession,
     IllegalMessage,
     GuidAlreadyExists
 }
@@ -292,7 +292,7 @@ enum ErrorType
 - **IllegalPauseAction:** Is triggered if one of the following cases applies:
     - A request to pause the game reaches the ServerLogic even though the game is already paused.
     - A request to continue the game reaches the ServerLogic even though the game has not been paused previously.
-- **SessionDoesNotExist:** Is triggered when an attempt is made to interact with an Online-Session that does not exist.
+- **WrongSession:** Is triggered when a ModeratorClient tries to interact with a session not assigned to him.
 - **IllegalMessage:** Is triggered when an unknown message type is received, or when a message arrives at the ServerLogic out of order. More precise details are to be specified in the errorMessage.
 - **GuidAlreadyExists:** Is triggered if an already registered ModeratorGuid attempts to open a new session from a new connection.
 Addresses the unlikely event that two different ModeratorClients happen to generate the same Guid.

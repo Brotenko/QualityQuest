@@ -222,7 +222,7 @@ namespace ServerLogic.Control
                             {
                                 response = JsonConvert.SerializeObject(new ErrorMessage(
                                     openSessionMessage.ModeratorID,
-                                    ErrorType.SessionDoesNotExist,
+                                    ErrorType.WrongSession,
                                     "Session with this ModeratorGuid already exists."));
                                 ServerLogger.LogDebug($"ModeratorClient {openSessionMessage.ModeratorID} tried to open another session.");
                                 AddStrike(mcId);
@@ -332,7 +332,7 @@ namespace ServerLogic.Control
                         else
                         {
                             response = JsonConvert.SerializeObject(
-                                new ErrorMessage(closeSessionMessage.ModeratorID, ErrorType.SessionDoesNotExist, ""));
+                                new ErrorMessage(closeSessionMessage.ModeratorID, ErrorType.WrongSession, ""));
                             ServerLogger.LogDebug($"MC-{closeSessionMessage.SessionKey} tried to close Session but failed to due wrong sessionKey. \n\tTransmitted sessionKey: \t{closeSessionMessage.SessionKey}\n\tActual sessionKey: \t\t{_connectedModeratorClients[mcId].SessionKey}");
                             AddStrike(mcId);
                         }

@@ -15,7 +15,7 @@ namespace ServerLogic.Model.Messages
     public class VotingEndedMessage : MessageContainer
     {
         public string WinningOption { get; }
-        public Dictionary<string, int> VotingResults { get; }
+        public Dictionary<Guid, int> VotingResults { get; }
 
         public int TotalVotes { get; }
 
@@ -37,14 +37,14 @@ namespace ServerLogic.Model.Messages
         /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
         /// or an error occurring, information can be carried to the Moderator-Client directly for 
         /// quick access, without the need to search through the logs.</param>
-        public VotingEndedMessage(Guid moderatorId, string winningOption, Dictionary<string, int> votingResults, int totalVotes) : base(moderatorId, MessageType.VotingEnded)
+        public VotingEndedMessage(Guid moderatorId, string winningOption, Dictionary<Guid, int> votingResults, int totalVotes) : base(moderatorId, MessageType.VotingEnded)
         {
             WinningOption = winningOption;
             VotingResults = votingResults;
             TotalVotes = totalVotes;
         }
 
-        /* todo -> is broke, and as the tests seem to heavily rely on ToString(), these are probably broken too
+        /* todo -> is broke, and as the Message-tests seem to heavily rely on ToString(), these are probably broken too
         public override string ToString()
         {
             string dictToString = "{" + string.Join(",", VotingResults.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";

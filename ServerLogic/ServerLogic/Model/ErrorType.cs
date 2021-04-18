@@ -27,9 +27,9 @@
         /// </summary>
         IllegalPauseAction,
         /// <summary>
-        /// Is triggered when an attempt is made to interact with an Online-Session that does not exist.
+        /// Is triggered when a ModeratorClient tries to interact with a session not assigned to him.
         /// </summary>
-        SessionDoesNotExist,
+        WrongSession,
         /// <summary>
         /// Is triggered when an unknown message type is received, or when a message arrives at the 
         /// ServerLogic out of order. More precise details are to be specified in the errorMessageText.
