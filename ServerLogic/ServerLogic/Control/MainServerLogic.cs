@@ -21,7 +21,7 @@ namespace ServerLogic.Control
 
         internal readonly Dictionary<Guid, ModeratorClientManager> _connectedModeratorClients;
         private readonly Timer _timerForInactiveSessionDataDeletion;
-        private readonly PlayerAudienceClientAPI _playerAudienceClientApi;
+        internal PlayerAudienceClientAPI _playerAudienceClientApi;
         private const int MaxRepForRandomGeneration = 16;
 
         //TODO Remove default password from settings
@@ -160,7 +160,6 @@ namespace ServerLogic.Control
                                 _connectedModeratorClients[messageContainer.ModeratorID].ResetInactivity();
                                 response = JsonConvert.SerializeObject(new ReconnectSuccessfulMessage(
                                        messageContainer.ModeratorID));
-                                //todo? On the server side, it is difficult to recognize when a disconnect has occurred in the game. After GameStart, recovery is possible without any problems, but if the connection is interrupted after OpenSession and before GameStart, no AudienceLiveUpdates are sent even if reconnect is successful, i.e. the server behaves as if a RequestGameStart message had come together with the reconnect. This is not problematic in itself, as long as one can do without the AudienceLiveUpdates in this case.
                                 ServerLogger.LogDebug("Reconnect successful.");
                             }
                             //Mismatch, but not a reconnect message;
@@ -238,7 +237,6 @@ namespace ServerLogic.Control
                                 mcId, ErrorType.WrongPassword, ""));
                             _connectedModeratorClients[mcId].Stop();
                             _connectedModeratorClients.Remove(mcId);
-                            AddStrike(mcId);
                         }
                         break;
 
