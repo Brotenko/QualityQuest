@@ -240,7 +240,8 @@ namespace ServerLogic.Control
                     Settings.Default.Save();
                     break;
                 }
-                Console.WriteLine("\nThe password entered does not match the one previously entered.");
+                Console.WriteLine("\nThe password entered does not match the one previously entered.\n Do you want to stop the password-changing dialog?\n Enter 'y' for yes or 'n' to retry:" );
+                if (Console.ReadLine().Equals("y")) break;
             }
         }
 
