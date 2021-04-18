@@ -177,6 +177,8 @@ namespace ServerLogic.Control
         /// </summary>
         private void SetPasswordDialog()
         {
+            string backupSalt = Settings.Default.Salt;
+            string backupPW = Settings.Default.PWHash;
             Console.WriteLine("Please enter your password:");
             while (true)
             {
@@ -241,7 +243,12 @@ namespace ServerLogic.Control
                     break;
                 }
                 Console.WriteLine("\nThe password entered does not match the one previously entered.\n Do you want to stop the password-changing dialog?\n Enter 'y' for yes or 'n' to retry:" );
-                if (Console.ReadLine().Equals("y")) break;
+                if (Console.ReadLine().Equals("y"))
+                {
+                    Settings.Default.Salt = backupSalt;
+                    Settings.Default.PWHash = backupPW;
+                    break;
+                }
             }
         }
 
