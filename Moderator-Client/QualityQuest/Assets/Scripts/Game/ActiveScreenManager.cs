@@ -103,6 +103,17 @@ public class ActiveScreenManager : MonoBehaviour
         }
     }
 
+    public void ShowResults()
+    {
+        activeMenu = result;
+
+        if (!gameMenu.activeSelf && !paused)
+        {
+            HideAllMenus();
+            result.SetActive(true);
+        }
+    }
+
     public void ShowPauseMenu()
     {
 
