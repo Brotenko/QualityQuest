@@ -11730,6 +11730,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusbar: {fileID: 1649125297}
+  decision: {fileID: 1689007340}
+  dice: {fileID: 838670564}
   characterImage: {fileID: 678732907}
   programmingSkillValue: {fileID: 1143312689}
   communicationSkillValue: {fileID: 1412858840}
@@ -11739,6 +11741,7 @@ MonoBehaviour:
   skillChangeCommunication: {fileID: 696969618}
   skillChangeAnalytics: {fileID: 2015008924}
   skillChangeParty: {fileID: 680701862}
+  decisionTimerTime: {fileID: 1234933204}
   skillHideTimerDuration: 5
 --- !u!114 &1093310170
 MonoBehaviour:

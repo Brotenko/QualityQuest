@@ -8,6 +8,9 @@ public class DisplayStatusbar : MonoBehaviour
 {
     public GameObject statusbar;
 
+    public GameObject decision;
+    public GameObject dice;
+
     public Image characterImage;
 
     public TMP_Text programmingSkillValue;
@@ -20,10 +23,15 @@ public class DisplayStatusbar : MonoBehaviour
     public TMP_Text skillChangeAnalytics;
     public TMP_Text skillChangeParty;
 
+    public TMP_Text decisionTimerTime;
+
     private float programmingSkillChangeTimer;
     private float communicationSkillChangeTimer;
     private float analyticsSkillChangeTimer;
     private float partySkillChangeTimer;
+
+    private float diceTimer;
+    private float decisionTimer;
 
     public float skillHideTimerDuration = 5;
 
@@ -101,9 +109,31 @@ public class DisplayStatusbar : MonoBehaviour
         statusbar.SetActive(status);
     }
 
+    /// <summary>
+    /// shows dice icon and sets duration
+    /// </summary>
+    /// <param name="time"></param> duration for visibility of dice icon
+    public void DisplayDice(int time)
+    {
+        diceTimer = time;
+        dice.SetActive(true);
+    }
+
+    /// <summary>
+    /// shows timer for decision and sets duration
+    /// </summary>
+    /// <param name="time"></param> duration for decision
+    public void DisplayTimer(int time)
+    {
+        decisionTimer = time;
+        decision.SetActive(true);
+    }
+
     public void Start()
     {
         statusbar.SetActive(false);
+        decision.SetActive(false);
+        dice.SetActive(false);
     }
 
     public void Update()
@@ -145,6 +175,26 @@ public class DisplayStatusbar : MonoBehaviour
             if(partySkillChangeTimer < 0)
             {
                 skillChangeParty.gameObject.SetActive(false);
+            }
+        }
+
+        // hides dice icon when timer hits 0
+        if (diceTimer > 0)
+        {
+            diceTimer -= Time.deltaTime;
+            if (diceTimer < 0)
+            {
+                dice.gameObject.SetActive(false);
+            }
+        }
+
+        // hides dice icon when timer hits 0
+        if (decisionTimer > 0)
+        {
+            decisionTimer -= Time.deltaTime;
+            if (decisionTimer < 0)
+            {
+                decision.gameObject.SetActive(false);
             }
         }
     }
