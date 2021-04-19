@@ -111,7 +111,7 @@ namespace PAClient
                         tempDict.Add(option, 0);
                     }
 
-                    data.GetValueOrDefault(sessionkey).Add(prompt, tempDict);
+                    data[sessionkey].Add(prompt, tempDict);
                 }
                 else
                 {
@@ -122,6 +122,17 @@ namespace PAClient
             {
                 throw new SessionNotFoundException(message: "The requested session is either inactive or invalid!");
             }
+        }
+
+        private Dictionary<KeyValuePair<Guid, string>, int> TestMethod(KeyValuePair<Guid, string>[] options)
+        {
+            Dictionary<KeyValuePair<Guid, string>, int> tempDict = new Dictionary<KeyValuePair<Guid, string>, int>();
+            foreach (KeyValuePair<Guid, string> option in options)
+            {
+                tempDict.Add(option, 0);
+            }
+
+            return tempDict;
         }
 
         /// <summary>
@@ -349,15 +360,7 @@ namespace PAClient
                             {
                                 if (session.Value.Values != null)
                                 {
-                                    //TODO Remove
-                                    var dsf = session.Value.Values.First();
-                                    Console.WriteLine($"PACAPi.PABackend.VotingResults.GetOptionsVotesPairsByPrompt:\n\tPrompt is {prompt.ToString()}.");
-                                    foreach (var (guidPromptPair, votes) in dsf)
-                                    {
-                                        Console.WriteLine($"\tGuid+prompt: {guidPromptPair}.\tVotes: {votes}");
-                                    }
-
-                                    return dsf;
+                                    return session.Value[tempPrompt];
                                 }
                             }
                         }
