@@ -349,7 +349,15 @@ namespace PAClient
                             {
                                 if (session.Value.Values != null)
                                 {
-                                    return session.Value.Values.First();
+                                    //TODO Remove
+                                    var dsf = session.Value.Values.First();
+                                    Console.WriteLine($"PACAPi.PABackend.VotingResults.GetOptionsVotesPairsByPrompt:\n\tPrompt is {prompt.ToString()}.");
+                                    foreach (var (guidPromptPair, votes) in dsf)
+                                    {
+                                        Console.WriteLine($"\tGuid+prompt: {guidPromptPair}.\tVotes: {votes}");
+                                    }
+
+                                    return dsf;
                                 }
                             }
                         }

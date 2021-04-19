@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Timers;
 using Fleck;
 using Newtonsoft.Json;
@@ -112,7 +113,15 @@ namespace ServerLogic.Control
         /// <param name="startVoting"></param>
         public void StartVotingTimer(RequestStartVotingMessage startVoting)
         {
-            _playerAudienceClientApi.StartNewVote(SessionKey, startVoting.VotingPrompt, startVoting.VotingOptions);
+            _ = _playerAudienceClientApi.StartNewVote(SessionKey, startVoting.VotingPrompt, startVoting.VotingOptions);
+
+            string received = "\tPrompt is: " + startVoting.VotingPrompt.Value+"\n";
+            foreach (var (key, value) in startVoting.VotingOptions)
+            {
+                received += $"\tOption: {value}\n";
+            }
+            ServerLogger.LogDebug("MC sended following voting options:\n"+received);
+
             //Timer takes milliseconds
             _votingTimer = new Timer(startVoting.VotingTime * 1000);
             _votingTimer.Elapsed += SendVotingResults;
@@ -159,10 +168,11 @@ namespace ServerLogic.Control
             votingResults = votingResults.OrderBy(_ => rand.Next())
                 .ToDictionary(item => item.Key, item => item.Value);
 
-            KeyValuePair<Guid, string> winningOption = new ();
-            Dictionary<Guid, int> blankVotingResults = new ();
+            KeyValuePair<Guid, string> winningOption = new();
+            Dictionary<Guid, int> blankVotingResults = new();
             int winningVotes = -1;
             int totalVotes = 0;
+            string received = "PAClient provided following options:\n";
             foreach (var (guidPromptPair, votes) in votingResults)
             {
                 if (votes > winningVotes)
@@ -172,7 +182,9 @@ namespace ServerLogic.Control
                 }
                 blankVotingResults.Add(guidPromptPair.Key, votes);
                 totalVotes += votes;
+                received += $"\tOption: {guidPromptPair.Value}\n";
             }
+            ServerLogger.LogDebug(received);
             ServerLogger.LogDebug($"Voting ended. Winning prompt is '{winningOption.Value}' with {winningVotes} votes.");
             IsVoting = false;
             SocketConnection.Send(JsonConvert.SerializeObject(new VotingEndedMessage(ModeratorGuid, winningOption.Value, blankVotingResults, totalVotes)));
