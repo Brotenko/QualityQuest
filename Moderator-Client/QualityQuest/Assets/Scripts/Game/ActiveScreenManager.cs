@@ -15,6 +15,7 @@ public class ActiveScreenManager : MonoBehaviour
     public GameObject gameInfo;
     public GameObject connect;
     public GameObject qrCode;
+    public GameObject statistics;
     public QRCode qrCodeGenerator;
     public TMP_Text audienceCount;
     public TMP_Text websiteUrl;
@@ -48,6 +49,18 @@ public class ActiveScreenManager : MonoBehaviour
         decision.SetActive(false);
         storyflow.SetActive(false);
         result.SetActive(false);
+        statistics.SetActive(false);
+    }
+
+    public void ShowStatistics()
+    {
+        activeMenu = statistics;
+
+        if (!gameMenu.activeSelf && !paused)
+        {
+            HideAllMenus();
+            statistics.SetActive(true);
+        }
     }
 
     public void ShowCharacterSelection()
