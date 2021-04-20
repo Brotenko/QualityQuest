@@ -112,7 +112,7 @@ namespace ServerLogicTest.Control
             //Since Settings.Default.Save() is not used, the password is only changed for the instance of this test. 
             string password = "Password!123#";
             Settings.Default.PWHash = ServerShell.StringToSHA256Hash(password);
-            //registration of a session with mc1
+            //registration of a session with modClient-Guid
             mainServerLogic.CheckStringMessage(JsonConvert.SerializeObject(new RequestOpenSessionMessage(modClient, password)));
 
             //Try registration again with same ModeratorGuid
@@ -151,6 +151,44 @@ namespace ServerLogicTest.Control
 
             Assert.AreEqual(MessageType.GameStarted, responseAsObject.Type);
             Assert.AreEqual(modClient, responseAsObject.ModeratorID);
+        }
+
+        [TestMethod]
+        [TestCategory("MessageHandling")]
+        public void CheckRequestCloseSessionValidSessionKey()
+        {
+            Guid modClient = Guid.NewGuid();
+            mainServerLogic._connectedModeratorClients.Add(modClient, new ModeratorClientManager(modClient, null, null));
+            //registrate Session
+            string password = "Password!123#";
+            Settings.Default.PWHash = ServerShell.StringToSHA256Hash(password);
+            //registration of a session with mc1
+            mainServerLogic.CheckStringMessage(JsonConvert.SerializeObject(new RequestOpenSessionMessage(modClient, password)));
+            string sessionKey = mainServerLogic._connectedModeratorClients[modClient].SessionKey;
+
+            string response = mainServerLogic.CheckStringMessage(JsonConvert.SerializeObject(new RequestCloseSessionMessage(modClient, sessionKey)));
+            MessageContainer messageContainer = JsonConvert.DeserializeObject<MessageContainer>(response);
+
+            Assert.AreEqual(MessageType.SessionClosed, messageContainer.Type);
+        }
+
+        [TestMethod]
+        [TestCategory("MessageHandling")]
+        public void CheckRequestCloseSessionInvalidSessionKey()
+        {
+            Guid modClient = Guid.NewGuid();
+            mainServerLogic._connectedModeratorClients.Add(modClient, new ModeratorClientManager(modClient, null, null));
+            //registrate Session
+            string password = "Password!123#";
+            Settings.Default.PWHash = ServerShell.StringToSHA256Hash(password);
+            //registration of a session with mc1
+            mainServerLogic.CheckStringMessage(JsonConvert.SerializeObject(new RequestOpenSessionMessage(modClient, password)));
+            string sessionKey = mainServerLogic._connectedModeratorClients[modClient].SessionKey;
+
+            string response = mainServerLogic.CheckStringMessage(JsonConvert.SerializeObject(new RequestCloseSessionMessage(modClient, sessionKey)));
+            ErrorMessage messageContainer = JsonConvert.DeserializeObject<ErrorMessage>(response);
+
+            Assert.AreEqual(ErrorType.WrongSession, messageContainer.ErrorMessageType);
         }
     }
 }
