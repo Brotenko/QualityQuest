@@ -4,8 +4,8 @@ public class VotingResult
 {
 
     public int VotingCount { get; }
-    public string VotingDecision { get; }
-    public Dictionary<string, int> VotingOptions { get; }
+    public string VotingDecision { get;  }
+    public Dictionary<string, int> VotingOptions { get; set; }
 
     /// <summary>
     /// Constructs a new VotingResult.

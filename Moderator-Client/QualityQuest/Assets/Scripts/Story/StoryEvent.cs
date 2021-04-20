@@ -13,6 +13,7 @@ public class StoryEvent
     public Skills SkillChange { get; }
     public bool RandomOption { get; }
     public VideoClip Background { get; }
+    public RandomType Random { get; }
 
     /// <summary>
     /// Constructor of the StoryEvent class.
@@ -54,13 +55,14 @@ public class StoryEvent
     /// <param name="children">The Children StoryEvents of the StoryEvent.</param>
     /// <param name="storyType">The type of the StoryEvent.</param>
     /// <param name="randomEvent"></param>
-    public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, bool randomOption)
+    public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, bool randomOption, RandomType randomType)
     {
         this.EventId = eventId;
         this.Description = description;
         this.Children = children;
         this.StoryType = storyType;
         this.RandomOption = randomOption;
+        this.Random = randomType;
     }
 
     /// <summary>
@@ -72,7 +74,7 @@ public class StoryEvent
     /// <param name="storyType">The type of the StoryEvent.</param>
     /// <param name="skillChange">The ammount by which the StoryEvent changes the skills of the Character.</param>
     /// <param name="randomEvent"></param>
-    public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, Skills skillChange, bool randomOption)
+    public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, Skills skillChange, bool randomOption, RandomType randomType)
     {
         this.EventId = eventId;
         this.Description = description;
@@ -80,6 +82,7 @@ public class StoryEvent
         this.StoryType = storyType;
         this.SkillChange = skillChange;
         this.RandomOption = randomOption;
+        this.Random = randomType;
     }
 
     public StoryEvent(VideoClip b,HashSet<StoryEvent> children, StoryEventType storyType)

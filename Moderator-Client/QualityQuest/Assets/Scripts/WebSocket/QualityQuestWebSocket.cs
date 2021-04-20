@@ -16,6 +16,7 @@ using TMPro;
 /// </summary>
 public class QualityQuestWebSocket : MonoBehaviour
 {
+
     public OnlineClientManager onlineClientManager;
     public MainThreadWorker mainThreadWorker;
     public WebSocket webSocket;
@@ -51,15 +52,20 @@ public class QualityQuestWebSocket : MonoBehaviour
             if (e.IsText)
             {
                 Debug.Log("String data");
-                Read(e.Data);
-
+                mainThreadWorker.AddAction(() =>
+                {
+                    Read(e.Data);
+                });
                 // Sets the Message. Only for test purpose.
                 message = e.Data;
             }
             // Check if the data is binary.
             if (e.IsBinary)
             {
-                Read(e.RawData);
+                mainThreadWorker.AddAction(() =>
+                {
+                    Read(e.RawData);
+                });
                 Debug.Log("Binary Data");
             }
             if (e.IsPing)
@@ -78,6 +84,10 @@ public class QualityQuestWebSocket : MonoBehaviour
         webSocket.OnClose += (sender, e) =>
         {
             Menu.gameIsOnline = false;
+            mainThreadWorker.AddAction(() =>
+            {
+                onlineClientManager.ServerIssues(e.Code);
+            });
             Debug.Log("Connection is closed. Reason: " + e.Reason + ", ErrorCode: " + e.Code);
         };
 
@@ -116,15 +126,20 @@ public class QualityQuestWebSocket : MonoBehaviour
             if (e.IsText)
             {
                 Debug.Log("String data");
-                Read(e.Data);
-
+                mainThreadWorker.AddAction(() =>
+                {
+                    Read(e.Data);
+                });
                 // Sets the Message. Only for test purpose.
                 message = e.Data;
             }
             // Check if the data is binary.
             if (e.IsBinary)
             {
-                Read(e.RawData);
+                mainThreadWorker.AddAction(() =>
+                {
+                    Read(e.RawData);
+                });
                 Debug.Log("Binary Data");
             }
             if (e.IsPing)
@@ -158,15 +173,11 @@ public class QualityQuestWebSocket : MonoBehaviour
     void Read(string msg)
     {
         Debug.Log("RECEIVING => " + msg);
-
         try
         {
-            mainThreadWorker.AddAction(() =>
-            {
-                //Debug.Log("Log1");
-                MessageContainer.MessageContainer container =
+            MessageContainer.MessageContainer container =
                     JsonConvert.DeserializeObject<MessageContainer.MessageContainer>(msg);
-                //Debug.Log("Log2");
+                
                 switch (container.Type)
                 {
                     case MessageContainer.MessageType.SessionOpened:
@@ -175,10 +186,6 @@ public class QualityQuestWebSocket : MonoBehaviour
                     case MessageContainer.MessageType.AudienceStatus:
                         onlineClientManager.ReceivedAudienceStatusMessage(JsonConvert.DeserializeObject<AudienceStatusMessage>(msg));
                         break;
-                    case MessageContainer.MessageType.ServerStatus:
-                        break;
-                    case MessageContainer.MessageType.ReconnectSuccessful:
-                        break;
                     case MessageContainer.MessageType.GameStarted:
                         onlineClientManager.ReceivedGameStartedMessage(JsonConvert.DeserializeObject<GameStartedMessage>(msg));
                         break;
@@ -186,19 +193,20 @@ public class QualityQuestWebSocket : MonoBehaviour
                         onlineClientManager.ReceivedVotingStartedMessage(JsonConvert.DeserializeObject<VotingStartedMessage>(msg));
                         break;
                     case MessageContainer.MessageType.VotingEnded:
-                        onlineClientManager.Test(JsonConvert.DeserializeObject<VotingEndedMessage>(msg));
+                        onlineClientManager.ReceivedVotingEndedMessage(JsonConvert.DeserializeObject<VotingEndedMessage>(msg));
                         break;
                     case MessageContainer.MessageType.Error:
+                        onlineClientManager.ReceivedErrorMessage(JsonConvert.DeserializeObject<ErrorMessage>(msg));
                         break;
                     case MessageContainer.MessageType.GamePausedStatus:
+                        onlineClientManager.RecievedGamePausedStatusChange(JsonConvert.DeserializeObject<GamePausedStatusMessage>(msg));
                         break;
                     case MessageContainer.MessageType.SessionClosed:
                         break;
                     default:
-                        Debug.Log(container.Type + " is not a valid messageType.");
+                        Debug.Log(container.Type + " is not a valid messageType."); 
                         break;
                 }
-            });
         } catch (JsonSerializationException jse)
         {
             Debug.Log("Can't read message, JSON parse error: " + jse);
@@ -331,5 +339,4 @@ public class QualityQuestWebSocket : MonoBehaviour
     {
         Debug.Log("Port is: " + port.text);
     }
-    
 }

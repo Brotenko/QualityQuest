@@ -15,10 +15,11 @@ public enum StoryEventType
     StoryDecisionOption,
     
     /// <summary>
-    /// Story Event which happens between storyflow decisions which can't be voted for
+    /// Story Event which happens between storyFlow decisions which can't be voted for
     /// </summary>
     StoryFlow,
 
-    StoryBackground
+    StoryBackground,
 
+    StoryRootEvent
 }
