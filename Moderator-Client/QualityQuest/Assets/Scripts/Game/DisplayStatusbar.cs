@@ -47,6 +47,7 @@ public class DisplayStatusbar : MonoBehaviour
     public void UpdateSkillChanges(Skills skills)
     {
 
+
         if (ShowSkillChange(skillChangeProgramming, skills.Programming))
         { programmingSkillChangeTimer = skillHideTimerDuration; };
         if (ShowSkillChange(skillChangeCommunication, skills.Communication))
@@ -94,6 +95,7 @@ public class DisplayStatusbar : MonoBehaviour
     /// </summary>
     public void DisplaySkills(Skills skills)
     {
+        this.programmingSkillValue.text = "";
         this.programmingSkillValue.text = skills.Programming.ToString();
         this.communicationSkillValue.text = skills.Communication.ToString();
         this.analyticsSkillValue.text = skills.Analytics.ToString();
@@ -178,6 +180,7 @@ public class DisplayStatusbar : MonoBehaviour
             }
         }
 
+        
         // hides dice icon when timer hits 0
         if (diceTimer > 0)
         {
@@ -187,14 +190,19 @@ public class DisplayStatusbar : MonoBehaviour
                 dice.gameObject.SetActive(false);
             }
         }
+        
 
-        // hides dice icon when timer hits 0
-        if (decisionTimer > 0)
+        if (!ActiveScreenManager.paused)
         {
-            decisionTimer -= Time.deltaTime;
-            if (decisionTimer < 0)
+            // hides dice icon when timer hits 0
+            if (decisionTimer > 0)
             {
-                decision.gameObject.SetActive(false);
+                decisionTimer -= Time.deltaTime;
+                decisionTimerTime.text = ((int) decisionTimer).ToString();
+                if (decisionTimer < 0)
+                {
+                    decision.gameObject.SetActive(false);
+                }
             }
         }
     }
