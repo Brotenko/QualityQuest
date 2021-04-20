@@ -12079,6 +12079,9 @@ MonoBehaviour:
   url: 
   votingTime: 0
   debugVotingTime: 0
+  ip: {fileID: 8958024211337089618}
+  port: {fileID: 8958024210022591637}
+  password: {fileID: 8958024210826368123}
   storyflowButton: {fileID: 1450303063}
   resultAButton: {fileID: 503501120}
   resultBButton: {fileID: 1728332701}

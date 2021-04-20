@@ -4,6 +4,7 @@ using System.Linq;
 using MessageContainer;
 using UnityEngine;
 using MessageContainer.Messages;
+using TMPro;
 using UnityEngine.UI;
 using Random = System.Random;
 
@@ -28,6 +29,10 @@ public class OnlineClientManager : MonoBehaviour
     public int votingTime;
     public int debugVotingTime;
 
+    public TMP_InputField ip;
+    public TMP_InputField port;
+    public TMP_InputField password;
+
     public Button storyflowButton;
     public Button resultAButton;
     public Button resultBButton;
@@ -51,15 +56,15 @@ public class OnlineClientManager : MonoBehaviour
 
     public void Connect()
     {
-        //qualityQuestWebSocket.StartConnection(ip.text, Convert.ToInt32(port.text));
-        qualityQuestWebSocket.StartConnection("127.0.0.1", 8181);
+        qualityQuestWebSocket.StartConnection(ip.text, Convert.ToInt32(port.text));
+        //qualityQuestWebSocket.StartConnection("127.0.0.1", 8181);
     }
 
     public void SendRequestOpenSessionMessage()
     {
-        //MessageContainer.Messages.RequestOpenSessionMessage requestOpenSessionMessage = new MessageContainer.Messages.RequestOpenSessionMessage(moderatorClientGuid, password.text);
+        MessageContainer.Messages.RequestOpenSessionMessage requestOpenSessionMessage = new MessageContainer.Messages.RequestOpenSessionMessage(moderatorClientGuid, password.text);
         // for testing with a default password
-        var requestOpenSessionMessage = new RequestOpenSessionMessage(moderatorClientGuid, "!Password123#");
+        //var requestOpenSessionMessage = new RequestOpenSessionMessage(moderatorClientGuid, "!Password123#");
 
         qualityQuestWebSocket.SendMessage(requestOpenSessionMessage);
     }
