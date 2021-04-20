@@ -142,7 +142,7 @@ namespace ServerLogicTests.Control
              * Returns the currently set port, which is always 7777 (standard port).
              */
             string t = s.ParseCommandDebugger("port");
-            Assert.AreEqual(7777, Convert.ToInt32(t, CultureInfo.CurrentCulture));
+            Assert.AreEqual(Settings.Default.PAWebPagePort, Convert.ToInt32(t, CultureInfo.CurrentCulture));
 
             /*
              * Tests for the following conditions:
@@ -363,10 +363,9 @@ namespace ServerLogicTests.Control
              * - the command "stop" is entered without any additional options
              * 
              * What it does:
-             * Throws an InvalidOperationException because the Server is not
-             * running and thus can not be stopped.
+             * Stops the running server.
              */
-            Assert.ThrowsException<InvalidOperationException>(() => s.ParseCommandDebugger("stop"));
+            s.ParseCommandDebugger("stop");
         }
 
         /// <summary>
@@ -590,72 +589,6 @@ namespace ServerLogicTests.Control
             s.ParseCommandDebugger("log --setLogOutput");
             Assert.IsTrue(Settings.Default.LogOutPutType == 0);
             ServerLogger.WipeLogFile();
-        }
-
-        /// <summary>
-        /// Validates that an <c>ArgumentException</c> is thrown when a password or 
-        /// port is transmitted as an option for the <c>Main</c> method, that violates
-        /// the respective rules.
-        /// </summary>
-        [TestMethod]
-        public void MainMethodTest()
-        {
-            /*
-             * Tests for the following conditions:
-             * - application started without any options
-             * 
-             * What it does:
-             * An "ArgumentException" is thrown that is caught to return 
-             * an "InvalidPasswordExceptionMessage" to inform the user 
-             * that the password was not in adequate form.
-             */
-            Assert.ThrowsException<ArgumentException>(() => ServerShell.Main(Array.Empty<string>()));
-
-            /*
-             * Tests for the following conditions:
-             * - password violates password rules
-             * 
-             * What it does:
-             * An "ArgumentException" is thrown that is caught to return 
-             * an "InvalidPasswordExceptionMessage" to inform the user 
-             * that the password was not in adequate form.
-             */
-            Assert.ThrowsException<ArgumentException>(() => ServerShell.Main(new string[] { "123" }));
-
-            /*
-             * Tests for the following conditions:
-             * - application started with unknown option
-             * 
-             * What it does:
-             * An "ArgumentException" is thrown that is caught to return 
-             * an "InvalidPasswordExceptionMessage" to inform the user 
-             * that the password was not in adequate form.
-             */
-            Assert.ThrowsException<ArgumentException>(() => ServerShell.Main(new string[] { "--f8&4#vB%" }));
-
-            /*
-             * Tests for the following conditions:
-             * - password violates password rules
-             * - port is in adequare format
-             * 
-             * What it does:
-             * An "ArgumentException" is thrown that is caught to return 
-             * an "InvalidPasswordExceptionMessage" to inform the user 
-             * that the password was not in adequate form.
-             */
-            Assert.ThrowsException<ArgumentException>(() => ServerShell.Main(new string[] { "passwordbad", Convert.ToString(testPort_2, CultureInfo.CurrentCulture) }));
-
-            /*
-             * Tests for the following conditions:
-             * - password is in adequate format
-             * - port that overflows int32 datatype
-             * 
-             * What it does:
-             * An "ArugmentException" is thrown that is caught to return an
-             * "InvalidPortExceptionMessage" to inform the user that the port
-             * was outside the settable range (aka: 1025-65535).
-             */
-            Assert.ThrowsException<ArgumentException>(() => ServerShell.Main(new string[] { testPassword_2, "10605106801" }));
         }
     }
 }

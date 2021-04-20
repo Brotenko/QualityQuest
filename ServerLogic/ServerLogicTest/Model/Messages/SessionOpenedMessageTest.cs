@@ -32,7 +32,7 @@ namespace ServerLogicTests.Model.Messages
         //private static readonly Bitmap testQrCode = new Bitmap("");
         private readonly string expectedStringPattern = @"SessionOpenedMessage \[<container>: MessageContainer \[ModeratorId: " +
             testGuid + @", Type: SessionOpened, Date: \d{4}\.\d{2}\.\d{2}\s{1}\d{2}\:\d{2}\:\d{2}\], SessionKey: " + 
-            testKey + @", DirectURL: " + testURL + @", QrCode: \]";
+            testKey + @", DirectURL: " + testURL + @"\]";
 
         /// <summary>
         /// Validates that the assigned test-variable is the same before and after
