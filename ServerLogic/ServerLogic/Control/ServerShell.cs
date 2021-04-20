@@ -480,7 +480,7 @@ namespace ServerLogic.Control
             // command: port -> Returns the currently set port.
             if (parameterList.Length == 0)
             {
-                return Port.ToString(CultureInfo.CurrentCulture);
+                return Settings.Default.PAWebPagePort.ToString(CultureInfo.CurrentCulture);
             }
             // command: port number -> Sets a new port.
             else
