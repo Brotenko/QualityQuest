@@ -309,12 +309,15 @@ namespace ServerLogic.Control
         {
             Console.WriteLine(Properties.Resources.StartupMessage);
 
-            while (true)
+            if (!isDebug)
             {
-                Console.Write(value: "qq >> ");
-                string command = Console.ReadLine();
+                while (true)
+                {
+                    Console.Write(value: "qq >> ");
+                    string command = Console.ReadLine();
 
-                Console.WriteLine(ParseCommand(command));
+                    Console.WriteLine(ParseCommand(command));
+                }
             }
         }
 

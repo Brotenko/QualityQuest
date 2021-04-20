@@ -557,7 +557,7 @@ namespace ServerLogicTests.Control
             ServerLogger.SetLogLevel(0);
             ServerLogger.ChangeLoggingOutputType(0);
             ServerLogger.WipeLogFile();
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             //Test for Input with a non-Integer
             s.ParseCommandDebugger("log --setLevel $");
@@ -580,7 +580,7 @@ namespace ServerLogicTests.Control
             ServerLogger.SetLogLevel(0);
             ServerLogger.ChangeLoggingOutputType(0);
             ServerLogger.WipeLogFile();
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             //Test for Input with a non-Integer
             s.ParseCommandDebugger("log --setLogOutput $");

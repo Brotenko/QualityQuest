@@ -124,17 +124,6 @@ namespace PAClient
             }
         }
 
-        private Dictionary<KeyValuePair<Guid, string>, int> TestMethod(KeyValuePair<Guid, string>[] options)
-        {
-            Dictionary<KeyValuePair<Guid, string>, int> tempDict = new Dictionary<KeyValuePair<Guid, string>, int>();
-            foreach (KeyValuePair<Guid, string> option in options)
-            {
-                tempDict.Add(option, 0);
-            }
-
-            return tempDict;
-        }
-
         /// <summary>
         /// Increments the number of votes issued for a specific option by one.
         /// </summary>
