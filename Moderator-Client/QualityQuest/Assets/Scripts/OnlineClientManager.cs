@@ -400,7 +400,7 @@ public class OnlineClientManager : MonoBehaviour
 
     public void ReceivedVotingStartedMessage(VotingStartedMessage votingStartedMessage)
     {
-        statusBar.DisplayTimer(debugVotingTime);
+        statusBar.DisplayTimer(votingTime);
     }
 
     public void RequestGamePause()
