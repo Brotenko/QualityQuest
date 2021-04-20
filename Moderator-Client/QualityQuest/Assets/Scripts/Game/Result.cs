@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -10,45 +12,73 @@ public class Result : MonoBehaviour
     public TMP_Text titleB;
     public TMP_Text titleC;
     public TMP_Text titleD;
+    public TMP_Text prompt;
 
     public Slider resultA;
     public Slider resultB;
     public Slider resultC;
     public Slider resultD;
 
-    [Range(0.0f, 1.0f)]
-    public float valueA = 0.5F;
-
-    [Range(0.0f, 1.0f)]
-    public float valueB = 0.5f;
-
-    [Range(0.0f, 1.0f)]
-    public float valueC = 0.5f;
-
-    [Range(0.0f, 1.0f)]
-    public float valueD = 0.5f;
-
-    public void LoadResult()
+    public void LoadResult(StoryEvent currentEvent, List<StoryEvent> currentEventChildren, Dictionary<Guid, int> VotingResults, int countVotings)
     {
-        titleA.text = "Option A";
-        titleB.text = "Option B";
-        titleC.text = "Option C";
-        titleD.text = "Option D";
-        resultA.value = valueA;
-        resultB.value = valueB;
-        resultC.value = valueC;
-        resultD.value = valueD;
+        this.prompt.text = currentEvent.Description;
+        SetMaxValues(countVotings);
+        switch (currentEventChildren.Count)
+        {
+            case 2:
+                HideAllSlider();
+                resultA.gameObject.SetActive(true);
+                resultB.gameObject.SetActive(true);
+                titleA.text = currentEventChildren[0].Description;
+                titleB.text = currentEventChildren[1].Description;
+                resultA.value = VotingResults[currentEventChildren[0].EventId];
+                resultB.value = VotingResults[currentEventChildren[1].EventId];
+                break;
+            case 3:
+                HideAllSlider();
+                resultA.gameObject.SetActive(true);
+                resultB.gameObject.SetActive(true);
+                resultC.gameObject.SetActive(true);
+                titleA.text = currentEventChildren[0].Description;
+                titleB.text = currentEventChildren[1].Description;
+                titleC.text = currentEventChildren[2].Description;
+                resultA.value = VotingResults[currentEventChildren[0].EventId];
+                resultB.value = VotingResults[currentEventChildren[1].EventId];
+                resultC.value = VotingResults[currentEventChildren[2].EventId];
+                break;
+            case 4:
+                HideAllSlider();
+                resultA.gameObject.SetActive(true);
+                resultB.gameObject.SetActive(true);
+                resultC.gameObject.SetActive(true);
+                resultD.gameObject.SetActive(true);
+                titleA.text = currentEventChildren[0].Description;
+                titleB.text = currentEventChildren[1].Description;
+                titleC.text = currentEventChildren[2].Description;
+                titleD.text = currentEventChildren[3].Description;
+                resultA.value = VotingResults[currentEventChildren[0].EventId];
+                resultB.value = VotingResults[currentEventChildren[1].EventId];
+                resultC.value = VotingResults[currentEventChildren[2].EventId];
+                resultD.value = VotingResults[currentEventChildren[3].EventId];
+                break;
+            default:
+                break;
+        }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetMaxValues(int maxValue)
     {
-        LoadResult();
+        resultA.maxValue = maxValue;
+        resultB.maxValue = maxValue;
+        resultC.maxValue = maxValue;
+        resultD.maxValue = maxValue;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void HideAllSlider()
     {
-        //LoadResult();
+        resultA.gameObject.SetActive(false);
+        resultB.gameObject.SetActive(false);
+        resultC.gameObject.SetActive(false);
+        resultD.gameObject.SetActive(false);
     }
 }

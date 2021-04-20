@@ -8,23 +8,18 @@ public class DisplayStoryFlow : MonoBehaviour
 {
 
     public GameObject storyflowElement;
-    public Button storyflowButton;
     public TMP_Text storyflowText;
 
-    public void LoadStoryFlow(StoryEvent storyevent)
+    public void LoadStoryFlow(StoryEvent stroyEvent)
     {
         storyflowElement.SetActive(true);
-        storyflowText.text = storyevent.Description;
-        storyflowButton.onClick.AddListener(delegate { Contineu(); });
-
+        storyflowText.text = stroyEvent.Description;
     }
 
-    public void Contineu()
+    public void SetStoryFlow(StoryEvent storyEvent)
     {
-        storyflowElement.SetActive(false);
-        storyflowButton.onClick.RemoveAllListeners();
-        OfflineGameManager.current.story.PlayGame();
+        storyflowElement.SetActive(true);
+        storyflowText.text = storyEvent.Description;
     }
-
 
 }

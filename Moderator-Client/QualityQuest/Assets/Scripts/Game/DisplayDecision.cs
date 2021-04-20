@@ -10,34 +10,68 @@ public class DisplayDecision : MonoBehaviour
 
     public TMP_Text titleA;
     public TMP_Text descriptionA;
-    public Button optionA;
     public GameObject panelA;
 
     public TMP_Text titleB;
     public TMP_Text descriptionB;
-    public Button optionB;
     public GameObject panelB;
 
     public TMP_Text titleC;
     public TMP_Text descriptionC;
-    public Button optionC;
     public GameObject panelC;
 
     public TMP_Text titleD;
     public TMP_Text descriptionD;
-    public Button optionD;
     public GameObject panelD;
 
     public TMP_Text question;
 
-    public void LoadDecision(StoryEvent currentEvent, HashSet<StoryEvent> events)
+    public void LoadDecision(StoryEvent currentEvent, List<StoryEvent> children)
     {
-        List<StoryEvent> list = events.ToList();
+        descriptionA.text = "";
+        descriptionB.text = "";
+        descriptionC.text = "";
+        descriptionD.text = "";
 
-        optionA.onClick.RemoveAllListeners();
-        optionB.onClick.RemoveAllListeners();
-        optionC.onClick.RemoveAllListeners();
-        optionD.onClick.RemoveAllListeners();
+        panelA.SetActive(false);
+        panelB.SetActive(false);
+        panelC.SetActive(false);
+        panelD.SetActive(false);
+
+        question.text = currentEvent.Description;
+
+        titleA.text = "Option A";
+        if (children.Count() >= 1)
+        {
+            descriptionA.text = children[0].Description;
+            panelA.SetActive(true);
+
+        }
+
+        titleB.text = "Option B";
+        if (children.Count() >= 2)
+        {
+            descriptionB.text = children[1].Description;
+            panelB.SetActive(true);
+        }
+
+        titleC.text = "Option C";
+        if (children.Count() >= 3)
+        {
+            descriptionC.text = children[2].Description;
+            panelC.SetActive(true);
+        }
+
+        titleD.text = "Option D";
+        if (children.Count() >= 4)
+        {
+            descriptionD.text = children[3].Description;
+            panelD.SetActive(true);
+        }
+    }
+
+    public void LoadOnlineDecision(StoryEvent currentEvent, List<StoryEvent> children)
+    {
 
         descriptionA.text = "";
         descriptionB.text = "";
@@ -52,38 +86,32 @@ public class DisplayDecision : MonoBehaviour
         question.text = currentEvent.Description;
 
         titleA.text = "Option A";
-        if (events.Count() >= 1)
+        if (children.Any())
         {
-            descriptionA.text = list[0].Description;
-            optionA.onClick.AddListener(delegate { OfflineGameManager.current.story.SetCurrentEvent(list[0]); });
+            descriptionA.text = children[0].Description;
             panelA.SetActive(true);
-
         }
 
         titleB.text = "Option B";
-        if (events.Count() >= 2)
+        if (children.Count() >= 2)
         {
-            descriptionB.text = list[1].Description;
-            optionB.onClick.AddListener(delegate { OfflineGameManager.current.story.SetCurrentEvent(list[1]); });
+            descriptionB.text = children[1].Description;
             panelB.SetActive(true);
         }
 
         titleC.text = "Option C";
-        if (events.Count() >= 3)
+        if (children.Count() >= 3)
         {
-            descriptionC.text = list[2].Description;
-            optionC.onClick.AddListener(delegate { OfflineGameManager.current.story.SetCurrentEvent(list[2]); });
+            descriptionC.text = children[2].Description;
             panelC.SetActive(true);
         }
 
         titleD.text = "Option D";
-        if (events.Count() >= 4)
+        if (children.Count() >= 4)
         {
-            descriptionD.text = list[3].Description;
-            optionD.onClick.AddListener(delegate { OfflineGameManager.current.story.SetCurrentEvent(list[3]); });
+            descriptionD.text = children[3].Description;
             panelD.SetActive(true);
         }
-
     }
 
 }
