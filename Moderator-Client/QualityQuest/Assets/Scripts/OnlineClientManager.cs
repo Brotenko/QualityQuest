@@ -47,7 +47,7 @@ public class OnlineClientManager : MonoBehaviour
     {
         if (Menu.gameIsOnline)
         {
-            votingTime = 30;
+            votingTime = 20;
             debugVotingTime = 2;
             moderatorClientGuid = Guid.NewGuid();
             votingStatistics = new VotingStatistics(new List<VotingResult>());
@@ -98,7 +98,7 @@ public class OnlineClientManager : MonoBehaviour
         if (currentEvent.StoryType.Equals(StoryEventType.StoryRootEvent))
         {
             activeScreen.ShowCharacterSelection();
-            var requestStartVotingMessage = new RequestStartVotingMessage(moderatorClientGuid, debugVotingTime, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[currentEvent.Children.Count]);
+            var requestStartVotingMessage = new RequestStartVotingMessage(moderatorClientGuid, votingTime, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[currentEvent.Children.Count]);
             requestStartVotingMessage.VotingPrompt = new KeyValuePair<Guid, string>(currentEvent.EventId, currentEvent.Description);
 
             // start Voting for the character
@@ -356,7 +356,7 @@ public class OnlineClientManager : MonoBehaviour
         decision.LoadOnlineDecision(story.playThrough.CurrentEvent, children);
         activeScreen.ShowDecision();
 
-        var requestStartVotingMessage = new RequestStartVotingMessage(moderatorClientGuid, debugVotingTime, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[story.playThrough.CurrentEvent.Children.Count]);
+        var requestStartVotingMessage = new RequestStartVotingMessage(moderatorClientGuid, votingTime, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[story.playThrough.CurrentEvent.Children.Count]);
         requestStartVotingMessage.VotingPrompt = new KeyValuePair<Guid, string>(story.playThrough.CurrentEvent.EventId, story.playThrough.CurrentEvent.Description);
 
         // start Voting
