@@ -214,7 +214,7 @@ namespace ServerLogic.Control
                 Guid mcId = messageContainer.ModeratorID;
                 switch (messageContainer.Type)
                 {
-                    //  ######## Initialization  ######## 
+                    // ######## Initialization  ######## 
                     case MessageType.RequestOpenSession:
                         RequestOpenSessionMessage openSessionMessage =
                             JsonConvert.DeserializeObject<RequestOpenSessionMessage>(message);
@@ -248,7 +248,7 @@ namespace ServerLogic.Control
                         }
                         break;
 
-                    //Is sent to request the start of the current Online-Session
+                    // ######## Start to play ########
                     case MessageType.RequestGameStart:
 
                         RequestGameStartMessage gameStartMessage =
@@ -260,7 +260,7 @@ namespace ServerLogic.Control
                         _connectedModeratorClients[mcId].Strikes = 0;
                         break;
 
-                    // ######## Voting ######## 
+                    // ######## Start Voting ######## 
                     case MessageType.RequestStartVoting:
 
                         RequestStartVotingMessage startVotingMessage =
@@ -285,7 +285,7 @@ namespace ServerLogic.Control
                         }
                         break;
 
-                    // ######## Control messages ########
+                    // ######## Pause/Unpaus Voting ########
                     case MessageType.RequestGamePausedStatusChange:
 
                         RequestGamePausedStatusChangeMessage gamePausedStatusChange =
@@ -319,7 +319,7 @@ namespace ServerLogic.Control
                         }
                         break;
 
-                    // ######## Post-game ########
+                    // ######## Close Session ########
                     case MessageType.RequestCloseSession:
 
                         RequestCloseSessionMessage closeSessionMessage =
