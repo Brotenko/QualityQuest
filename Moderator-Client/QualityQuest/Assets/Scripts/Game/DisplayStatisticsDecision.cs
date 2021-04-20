@@ -39,7 +39,7 @@ public class DisplayStatisticsDecision : MonoBehaviour
         HideAllOptions();
 
         question.text = result.VotingDecision;
-        questionVotes.text = "100% (" + result.VotingCount + ")";
+        questionVotes.text = result.VotingCount.ToString();
 
         List<KeyValuePair<string, int>> optionen = new List<KeyValuePair<string, int>>();
 
@@ -51,28 +51,28 @@ public class DisplayStatisticsDecision : MonoBehaviour
         if (optionen.Count > 0)
         {
             answerA.text = optionen[0].Key;
-            votesA.text = (100 * optionen[0].Value / result.VotingCount) + "% (" + optionen[0].Value + ")";
+            votesA.text = optionen[0].Value.ToString();
             optionPanelA.SetActive(true);
         }
 
         if (optionen.Count > 1)
         {
             answerB.text = optionen[1].Key;
-            votesB.text = (100 * optionen[1].Value / result.VotingCount) + "% (" + optionen[1].Value + ")";
+            votesB.text = optionen[1].Value.ToString();
             optionPanelB.SetActive(true);
         }
 
         if (optionen.Count > 2)
         {
             answerC.text = optionen[2].Key;
-            votesC.text = (100 * optionen[2].Value / result.VotingCount) + "% (" + optionen[2].Value + ")";
+            votesC.text = optionen[2].Value.ToString();
             optionPanelC.SetActive(true);
         }
 
         if (optionen.Count > 3)
         {
             answerD.text = optionen[3].Key;
-            votesD.text = (100 * optionen[3].Value / result.VotingCount) + "% (" + optionen[3].Value + ")";
+            votesD.text = optionen[3].Value.ToString();
             optionPanelD.SetActive(true);
         }
 
