@@ -49,11 +49,11 @@ namespace ServerLogic.Control
         {
             //TODO set url by using installer skript & settings file
             _server = new WebSocketServer("ws://0.0.0.0:" + Settings.Default.MCWebSocketPort);
-            ServerLogger.LogDebug($"WebSocket secure connection established: {_server.IsSecure}.");
             _playerAudienceClientApi.StartServer(Settings.Default.PAWebPagePort);
             StartWebsocket();
-            ServerLogger.LogDebug($"Website started on {Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
             _timerForInactiveSessionDataDeletion.Start();
+            ServerLogger.LogDebug($"Website started on {Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
+            ServerLogger.LogDebug($"Using wss: {_server.IsSecure}.");
 
         }
 
@@ -99,6 +99,7 @@ namespace ServerLogic.Control
         /// </summary>
         internal void StartWebsocket()
         {
+            //todo try-catch & test
             //_server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, "thisIsForTestingOnly");
             _server.Start(socketConnection =>
             {
@@ -153,7 +154,7 @@ namespace ServerLogic.Control
                         //modId exists, but with different socket
                         else
                         {
-                            //Mismatch caused by connection loss and following reconnect -> Guid already exists, but socketconnection has changed
+                            //Mismatch caused by connection loss and following reconnect -> Guid already exists, but socketConnection has changed
                             if (messageContainer.Type == MessageType.Reconnect)
                             {
                                 _connectedModeratorClients[messageContainer.ModeratorID].SocketConnection = socketConnection;
@@ -171,7 +172,20 @@ namespace ServerLogic.Control
                             }
                         }
 
-                        socketConnection.Send(response);
+                        //In case of this two MessageTypes, Connection is closed after sending the response
+                        if (JsonConvert.DeserializeObject<MessageContainer>(response).Type
+                            .Equals(MessageType.RequestCloseSession) || JsonConvert
+                            .DeserializeObject<ErrorMessage>(response).ErrorMessageType.Equals(ErrorType.WrongPassword))
+                        {
+                            socketConnection.Send(response);
+                            _connectedModeratorClients[messageContainer.ModeratorID].Stop();
+                            _connectedModeratorClients[messageContainer.ModeratorID].StopInactivityTimer();
+                            _connectedModeratorClients.Remove(messageContainer.ModeratorID);
+                        }
+                        else
+                        {
+                            socketConnection.Send(response);
+                        }
                     }
                     catch (Exception e)
                     {
@@ -200,7 +214,6 @@ namespace ServerLogic.Control
                 Guid mcId = messageContainer.ModeratorID;
                 switch (messageContainer.Type)
                 {
-                    //todo try eliminating the usage of the socket-attribute, to enable unit testing this method
                     //  ######## Initialization  ######## 
                     case MessageType.RequestOpenSession:
                         RequestOpenSessionMessage openSessionMessage =
@@ -230,13 +243,8 @@ namespace ServerLogic.Control
                         //wrong password
                         else
                         {
-                            //todo: remove before release
-                            ServerLogger.LogDebug($"SocketConnection closed due to wrong RequestOpenSession: Password received: {openSessionMessage.Password}.");
-
                             response = JsonConvert.SerializeObject(new ErrorMessage(
                                 mcId, ErrorType.WrongPassword, ""));
-                            _connectedModeratorClients[mcId].Stop();
-                            _connectedModeratorClients.Remove(mcId);
                         }
                         break;
 
@@ -321,9 +329,6 @@ namespace ServerLogic.Control
                         {
                             response = JsonConvert.SerializeObject(
                                     new SessionClosedMessage(closeSessionMessage.ModeratorID));
-                            _connectedModeratorClients[mcId].Stop();
-                            _connectedModeratorClients[mcId].StopInactivityTimer();
-                            _connectedModeratorClients.Remove(mcId);
                             ServerLogger.LogDebug(
                                 $"Session {closeSessionMessage.SessionKey} was closed, {_connectedModeratorClients[mcId].SocketConnection.ConnectionInfo} has disconnected.");
                         }

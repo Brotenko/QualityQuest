@@ -22,3 +22,6 @@ ENTRYPOINT ["dotnet", "./build/ServerLogic.dll"]
 # if a container is already running and you want to see/use the ServerShell, enter 
 # 'docker container attach Containername'
 
+# Exports logs to local machine
+# 'docker run -v $(pwd):/app/Logs --rm -it -p 80:7777 -p 443:8181 --name=qqserver qqserver'
+

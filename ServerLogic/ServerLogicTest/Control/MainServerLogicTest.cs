@@ -137,8 +137,6 @@ namespace ServerLogicTest.Control
             ErrorMessage responseAsObject = JsonConvert.DeserializeObject<ErrorMessage>(response);
 
             Assert.AreEqual(ErrorType.WrongPassword, responseAsObject.ErrorMessageType);
-            //MC removed from connection-list?
-            Assert.IsFalse(mainServerLogic._connectedModeratorClients.TryGetValue(modClient, out _));
         }
 
         [TestMethod]

@@ -9,7 +9,7 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="LogFilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Log.txt</Value>
+      <Value Profile="(Default)">Logs/Log.txt</Value>
     </Setting>
     <Setting Name="ServerURL" Type="System.String" Scope="User">
       <Value Profile="(Default)">127.0.0.1</Value>

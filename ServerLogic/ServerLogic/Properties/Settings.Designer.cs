@@ -49,7 +49,7 @@ namespace ServerLogic.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Log.txt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Logs/Log.txt")]
         public string LogFilePath {
             get {
                 return ((string)(this["LogFilePath"]));

@@ -38,55 +38,6 @@ namespace ServerLogic.Control
             }
         }
 
-        /// <summary>
-        /// TODO: Might be removed in future Refactoring
-        /// </summary>
-        public string Password
-        {
-            get => _password;
-            private set
-            {
-                // Makes sure to set a password that doesn't start with a dash ("-"), 
-                // is at least 8 characters in length, but no more than 32, and satisfies 
-                // 3 out of the following 4 rules:
-                //  At least one digit
-                //  At least one lowercase character
-                //  At least one uppercase character
-                //  At least one special character
-                if (value.Length >= 8 && value.Length <= 32 && !value.StartsWith('-'))
-                {
-                    int count = 0;
-
-                    if (Regex.IsMatch(value, @".*\d.*"))
-                    {
-                        count++;
-                    }
-                    if (Regex.IsMatch(value, @".*[a-z].*"))
-                    {
-                        count++;
-                    }
-                    if (Regex.IsMatch(value, @".*[A-Z].*"))
-                    {
-                        count++;
-                    }
-                    if (Regex.IsMatch(value, @".*[^a-zA-Z0-9 ].*"))
-                    {
-                        count++;
-                    }
-
-                    if (count < 3)
-                    {
-                        throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
-                    }
-                }
-                else
-                {
-                    throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
-                }
-
-                _password = value;
-            }
-        }
 
         /// <summary>
         /// This is a direct copy from the Password-setter:
@@ -211,7 +162,14 @@ namespace ServerLogic.Control
                 catch (ArgumentException)
                 {
                     Console.WriteLine("\n" + Resources.InvalidPasswordExceptionMessage);
-                    Console.WriteLine("Please try again:");
+                    Console.WriteLine("\n Do you want to stop the password-changing dialog?\n Enter 'y' for yes or 'n' to retry:");
+                    if (Console.ReadLine().Equals("y"))
+                    {
+                        Settings.Default.Salt = backupSalt;
+                        Settings.Default.PWHash = backupPW;
+                        return;
+                    }
+                    Console.WriteLine("Please enter your password again:");
                 }
             }
             //Password confirmation
@@ -298,7 +256,7 @@ namespace ServerLogic.Control
         /// ServerLogic.</param>
         public ServerShell(string password, int port)
         {
-            this.Password = password;
+            //this.Password = password;
             this.Port = port;
             ServerLogger.CreateServerLogger();
 
@@ -594,18 +552,6 @@ namespace ServerLogic.Control
                         catch (ArgumentException)
                         {
                             return Properties.Resources.InvalidPortExceptionMessage;
-                        }
-                    }
-                    else if (Regex.IsMatch(item, @"--password\=(\S*)"))
-                    {
-                        try
-                        {
-                            Match m = Regex.Match(item, @"--password\=(\S*)");
-                            Password = m.Groups[1].Value;
-                        }
-                        catch (ArgumentException)
-                        {
-                            return Properties.Resources.InvalidPasswordExceptionMessage;
                         }
                     }
                 }
