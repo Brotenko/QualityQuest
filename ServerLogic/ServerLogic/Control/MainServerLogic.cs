@@ -48,7 +48,7 @@ namespace ServerLogic.Control
         public void Start()
         {
             //TODO set url by using installer skript & settings file
-            _server = new WebSocketServer("wss://0.0.0.0:" + Settings.Default.MCWebSocketPort);
+            _server = new WebSocketServer("ws://0.0.0.0:" + Settings.Default.MCWebSocketPort);
             _playerAudienceClientApi.StartServer(Settings.Default.PAWebPagePort);
             StartWebsocket();
             _timerForInactiveSessionDataDeletion.Start();
@@ -101,7 +101,7 @@ namespace ServerLogic.Control
         {
             //todo try-catch & test
             //_server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, "thisIsForTestingOnly");
-            _server.Certificate = new X509Certificate2("qualityquest.informatik.uni-ulm.de.pfx", "thisIsForTestingOnly");
+            //_server.Certificate = new X509Certificate2("qualityquest.informatik.uni-ulm.de.pfx", "thisIsForTestingOnly");
             _server.Start(socketConnection =>
             {
                 socketConnection.OnOpen = () =>
@@ -174,10 +174,11 @@ namespace ServerLogic.Control
                         }
 
                         //In case of this two MessageTypes, Connection is closed after sending the response
-                        if (JsonConvert.DeserializeObject<MessageContainer>(response).Type
-                            .Equals(MessageType.RequestCloseSession) || JsonConvert
-                            .DeserializeObject<ErrorMessage>(response).ErrorMessageType.Equals(ErrorType.WrongPassword))
+                        if (JsonConvert.DeserializeObject<MessageContainer>(response).Type.Equals(MessageType.RequestCloseSession) ||
+                            (JsonConvert.DeserializeObject<MessageContainer>(response).Type.Equals(MessageType.Error) &&
+                            JsonConvert.DeserializeObject<ErrorMessage>(response).ErrorMessageType.Equals(ErrorType.WrongPassword)))
                         {
+                            ServerLogger.LogDebug("Connection cancel: \n"+response);
                             socketConnection.Send(response);
                             _connectedModeratorClients[messageContainer.ModeratorID].Stop();
                             _connectedModeratorClients[messageContainer.ModeratorID].StopInactivityTimer();
@@ -286,7 +287,7 @@ namespace ServerLogic.Control
                         }
                         break;
 
-                    // ######## Pause/Unpaus Voting ########
+                    // ######## Pause/Unpause Voting ########
                     case MessageType.RequestGamePausedStatusChange:
 
                         RequestGamePausedStatusChangeMessage gamePausedStatusChange =
@@ -376,6 +377,7 @@ namespace ServerLogic.Control
         internal void AddStrike(Guid moderatorId)
         {
             //FR31 'Network protocol violation'
+            ServerLogger.LogDebug($"Strike for {moderatorId}.");
             _connectedModeratorClients[moderatorId].Strikes += 1;
             if (_connectedModeratorClients[moderatorId].Strikes >= 3)
             {

@@ -23,6 +23,7 @@ namespace ServerLogic.Control
 
         private Timer _playerAudienceCountLiveUpdateTimer;
         private Timer _votingTimer;
+        private DateTime _votingStarted;
         private KeyValuePair<Guid, string> _currentPrompt;
 
         private readonly Timer _inactivityTimer;
@@ -114,14 +115,6 @@ namespace ServerLogic.Control
         public void StartVotingTimer(RequestStartVotingMessage startVoting)
         {
             _ = _playerAudienceClientApi.StartNewVote(SessionKey, startVoting.VotingPrompt, startVoting.VotingOptions);
-
-            string received = "\tPrompt is: " + startVoting.VotingPrompt.Value+"\n";
-            foreach (var (key, value) in startVoting.VotingOptions)
-            {
-                received += $"\tOption: {value}\n";
-            }
-            ServerLogger.LogDebug("MC sended following voting options:\n"+received);
-
             //Timer takes milliseconds
             _votingTimer = new Timer(startVoting.VotingTime * 1000);
             _votingTimer.Elapsed += SendVotingResults;
@@ -129,6 +122,7 @@ namespace ServerLogic.Control
             _votingTimer.Enabled = true;
             _currentPrompt = startVoting.VotingPrompt;
             IsVoting = true;
+            _votingStarted = DateTime.Now;
         }
 
         /// <summary>
@@ -144,6 +138,7 @@ namespace ServerLogic.Control
                 {
                     ServerLogger.LogDebug("Game is paused.");
                     _votingTimer.Stop();
+                    _votingTimer.Interval -= DateTime.Now.Subtract(_votingStarted).TotalMilliseconds;
                     return true;
                 }
                 ServerLogger.LogDebug("Game is continued.");
@@ -172,7 +167,7 @@ namespace ServerLogic.Control
             Dictionary<Guid, int> blankVotingResults = new();
             int winningVotes = -1;
             int totalVotes = 0;
-            string received = "PAClient provided following options:\n";
+           
             foreach (var (guidPromptPair, votes) in votingResults)
             {
                 if (votes > winningVotes)
@@ -182,9 +177,7 @@ namespace ServerLogic.Control
                 }
                 blankVotingResults.Add(guidPromptPair.Key, votes);
                 totalVotes += votes;
-                received += $"\tOption: {guidPromptPair.Value}\n";
             }
-            ServerLogger.LogDebug(received);
             ServerLogger.LogDebug($"Voting ended. Winning prompt is '{winningOption.Value}' with {winningVotes} votes.");
             IsVoting = false;
             SocketConnection.Send(JsonConvert.SerializeObject(new VotingEndedMessage(ModeratorGuid, winningOption.Value, blankVotingResults, totalVotes)));
