@@ -6,10 +6,6 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-    public static bool gameIsOnline;
-    
-
-
     public GameObject mainMenu;
     public GameObject audioMenu;
     public GameObject optionsMenu;
@@ -24,7 +20,6 @@ public class Menu : MonoBehaviour
     {
         HideAllMenu();
         ShowMainMenu();
-        DontDestroyOnLoad(gameObject);
     }
 
     /// <summary>
@@ -100,7 +95,7 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void PlayOfflineMode()
     {
-        gameIsOnline = false;
+        GameState.gameIsOnline = false;
         Debug.Log("Offlinemode enabled");
         SceneManager.LoadScene(sceneBuildIndex: 2);
     }
@@ -110,14 +105,7 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void PlayOnline()
     {
-        gameIsOnline = true;
+        GameState.gameIsOnline = true;
         SceneManager.LoadScene(sceneBuildIndex: 2);
-    }
-
-    /************************ Method for test porpose ************************/
-
-    public void StartTestScene()
-    {
-        SceneManager.LoadScene(sceneBuildIndex: 1);
     }
 }

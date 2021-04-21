@@ -10,8 +10,7 @@ using Random = System.Random;
 
 public class OnlineClientManager : MonoBehaviour
 {
-    
-    
+
     public QualityQuestWebSocket qualityQuestWebSocket;
     public ActiveScreenManager activeScreen;
     public GameStory story;
@@ -22,8 +21,6 @@ public class OnlineClientManager : MonoBehaviour
     public DisplayStatistics displayStatistics;
     public VideoBackground video;
     public OfflineGameManager offlineGameManager;
-    public string sessionKey;
-    public string url;
     public VotingStatistics votingStatistics;
 
     public int votingTime;
@@ -39,16 +36,23 @@ public class OnlineClientManager : MonoBehaviour
     public Button resultCButton;
     public Button resultDButton;
 
-
+    private string sessionKey;
+    private string url;
     private Guid moderatorClientGuid;
+
+    void Awake()
+    {
+        Debug.Log("Awake");
+    }
     
 
     void Start()
     {
-        if (Menu.gameIsOnline)
+        Debug.Log("Start");
+        if (GameState.gameIsOnline)
         {
             votingTime = 20;
-            debugVotingTime = 2;
+            debugVotingTime = 1;
             moderatorClientGuid = Guid.NewGuid();
             votingStatistics = new VotingStatistics(new List<VotingResult>());
         }
@@ -441,7 +445,7 @@ public class OnlineClientManager : MonoBehaviour
 
     public void SwapIntoOfflineMode()
     {
-        Menu.gameIsOnline = false;
+        GameState.gameIsOnline = false;
         Debug.Log(story.playThrough.CurrentEvent.Description);
         offlineGameManager.ContinueOfflineStory(story.playThrough.CurrentEvent);
     }
@@ -488,7 +492,7 @@ public class OnlineClientManager : MonoBehaviour
 
     public void SwitchModes()
     {
-        if (Menu.gameIsOnline)
+        if (GameState.gameIsOnline)
         {
             activeScreen.ShowGameMenu();
             SwapIntoOfflineMode();

@@ -39,7 +39,7 @@ public class OfflineGameManager : MonoBehaviour
     {
         characterSelection.SetCharacters(monster1, monster2, monster3, monster4);
 
-        if (!Menu.gameIsOnline)
+        if (!GameState.gameIsOnline)
         {
             StartOfflinePlaythrough();
         }

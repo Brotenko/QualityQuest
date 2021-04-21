@@ -35,9 +35,9 @@ public class ActiveScreenManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Game is online:" + Menu.gameIsOnline);
+        Debug.Log("Game is online:" + GameState.gameIsOnline);
         HideAllMenus();
-        if (Menu.gameIsOnline)
+        if (GameState.gameIsOnline)
         {
             activeMenu = connect;
             connect.SetActive(true);
@@ -192,7 +192,7 @@ public class ActiveScreenManager : MonoBehaviour
 
     public void ShowGameMenu()
     {
-        if (Menu.gameIsOnline)
+        if (GameState.gameIsOnline)
         {
             gameMenuSwitchModeButton.text = "Offline Mode";
         }
