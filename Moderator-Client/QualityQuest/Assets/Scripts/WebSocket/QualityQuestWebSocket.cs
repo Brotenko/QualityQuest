@@ -28,6 +28,9 @@ public class QualityQuestWebSocket : MonoBehaviour
         webSocket = new WebSocket("ws://" + ip +":" + port.ToString());
 
         /*
+        // Logic to connect with a secure websocket
+
+        webSocket = new WebSocket("wss://" + ip +":" + port.ToString());
         // Check the certificate
         webSocket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
         {
@@ -39,7 +42,7 @@ public class QualityQuestWebSocket : MonoBehaviour
         // Event when the WebSocket connection is established.
         webSocket.OnOpen += (sender, e) =>
         {
-            Menu.gameIsOnline = true;
+            GameState.gameIsOnline = true;
             onlineClientManager.SendRequestOpenSessionMessage();
             Debug.Log("Connection established.");
         };
@@ -56,8 +59,6 @@ public class QualityQuestWebSocket : MonoBehaviour
                 {
                     Read(e.Data);
                 });
-                // Sets the Message. Only for test purpose.
-                message = e.Data;
             }
             // Check if the data is binary.
             if (e.IsBinary)
@@ -83,7 +84,7 @@ public class QualityQuestWebSocket : MonoBehaviour
 
         webSocket.OnClose += (sender, e) =>
         {
-            Menu.gameIsOnline = false;
+            GameState.gameIsOnline = false;
             mainThreadWorker.AddAction(() =>
             {
                 onlineClientManager.ServerIssues(e.Code);
@@ -94,77 +95,6 @@ public class QualityQuestWebSocket : MonoBehaviour
         //Connect the WebSocket
         webSocket.ConnectAsync();
     }
-
-    public void StartConnection()
-    {
-        // Connect ws://127.0.0.1:8181
-
-        webSocket = new WebSocket("ws://127.0.0.1:8181");
-
-        /*
-        // Check the certificate
-        webSocket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
-        {
-            // If desired you can change the certificate validation
-
-            return true;
-        }; */
-
-        // Event when the WebSocket connection is established.
-        webSocket.OnOpen += (sender, e) =>
-        {
-            Menu.gameIsOnline = true;
-            onlineClientManager.SendRequestOpenSessionMessage();
-            Debug.Log("Connection established.");
-        };
-
-        webSocket.EmitOnPing = true;
-        // Event when the WebSocket recieves a message.
-        webSocket.OnMessage += (sender, e) =>
-        {
-            // Check if the data is a string.
-            if (e.IsText)
-            {
-                Debug.Log("String data");
-                mainThreadWorker.AddAction(() =>
-                {
-                    Read(e.Data);
-                });
-                // Sets the Message. Only for test purpose.
-                message = e.Data;
-            }
-            // Check if the data is binary.
-            if (e.IsBinary)
-            {
-                mainThreadWorker.AddAction(() =>
-                {
-                    Read(e.RawData);
-                });
-                Debug.Log("Binary Data");
-            }
-            if (e.IsPing)
-            {
-                Debug.Log("Ping.");
-                return;
-            }
-        };
-
-        //Event when the WebSockets gets an Error.
-        webSocket.OnError += (sender, e) =>
-        {
-            Debug.Log("Error: " + e.Message);
-        };
-
-        webSocket.OnClose += (sender, e) =>
-        {
-            Menu.gameIsOnline = false;
-            Debug.Log("Connection is closed. Reason: " + e.Reason + ", ErrorCode: " + e.Code);
-        };
-
-        //Connect the WebSocket
-        webSocket.ConnectAsync();
-    }
-
 
     /// <summary>
     /// Method to read/parse the incoming string message.
@@ -242,101 +172,5 @@ public class QualityQuestWebSocket : MonoBehaviour
             Debug.Log("Can't send Message, JSON parse error: " + jse);
         }
     
-    }
-
-    /******************************* TEST MESSAGES / TEST METHODS FOR TEST PURPOSE *******************************/
-    // Only for Testing purposes, will be deleted in the near future.
-
-    // For testing
-    public Text recievedMessage;
-    public InputField ip;
-    public InputField port;
-    public string message;
-    Guid testGuid = new Guid();
-
-    
-
-    public void RequestOpenSessionMessage()
-    {
-        MessageContainer.Messages.RequestOpenSessionMessage test = new MessageContainer.Messages.RequestOpenSessionMessage(testGuid, "!Password123#");
-
-        SendMessage(test);
-    }
-
-    public void RequestServerStatusMessage()
-    {
-        MessageContainer.Messages.RequestServerStatusMessage test = new MessageContainer.Messages.RequestServerStatusMessage(testGuid);
-
-        SendMessage(test);
-    }
-
-    public void ReconnectMessage()
-    {
-        MessageContainer.Messages.ReconnectMessage test = new MessageContainer.Messages.ReconnectMessage(testGuid);
-
-        SendMessage(test);
-    }
-
-    public void RequestStartVotingMessage()
-    {
-        MessageContainer.Messages.RequestStartVotingMessage test = new MessageContainer.Messages.RequestStartVotingMessage(testGuid, 30, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[3]);
-        test.VotingPrompt = new KeyValuePair<Guid, string>(Guid.NewGuid(), "Was machst du?");
-        test.VotingOptions[0] = new KeyValuePair<Guid, string>(Guid.NewGuid(), "Du hast keine Lust auf zusätzliche Arbeit und legst deshalb einfach während dem Telefonat auf.");
-        test.VotingOptions[1] = new KeyValuePair<Guid, string>(Guid.NewGuid(), "Nach dem Telefonat setzt du die gewünschten Änderungen um.");
-        test.VotingOptions[2] = new KeyValuePair<Guid, string>(Guid.NewGuid(), "Nach dem Telefonat fällt dir auf, dass die Änderungswünsche technisch nicht umsetzbar sind.");
-
-        SendMessage(test);
-    } 
-
-
-    public void RequestGamePausedStatusChangeTrueMessage()
-    {
-        MessageContainer.Messages.RequestGamePausedStatusChangeMessage test = new MessageContainer.Messages.RequestGamePausedStatusChangeMessage(testGuid, true);
-
-        SendMessage(test);
-    }
-
-    
-    public void RequestGamePausedStatusChangeFalseMessage()
-    {
-        MessageContainer.Messages.RequestGamePausedStatusChangeMessage test = new MessageContainer.Messages.RequestGamePausedStatusChangeMessage(testGuid, false);
-
-        SendMessage(test);
-    }
-
-    public void RequestCloseSessionMessage()
-    {
-        MessageContainer.Messages.RequestCloseSessionMessage test = new MessageContainer.Messages.RequestCloseSessionMessage(testGuid, "A12A2A");
-
-        SendMessage(test);
-    }
-
-
-    public void RequestGameStartMessage()
-    {
-
-        MessageContainer.Messages.RequestGameStartMessage test = new MessageContainer.Messages.RequestGameStartMessage(new Guid());
-
-        SendMessage(test);   
-    }
-
-    public void BackToMainMenu()
-    {
-        SceneManager.LoadScene(sceneBuildIndex: 0);
-    }
-    
-    public void CloseConnection()
-    {
-        webSocket.Close();
-    }
-    
-    public void SetIp()
-    {
-        Debug.Log("Ip is: " + ip.text);
-    }
-
-    public void SetPort()
-    {
-        Debug.Log("Port is: " + port.text);
     }
 }
