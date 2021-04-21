@@ -85,7 +85,7 @@ namespace ServerLogic.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8181")]
+        [global::System.Configuration.DefaultSettingValueAttribute("443")]
         public string MCWebSocketPort {
             get {
                 return ((string)(this["MCWebSocketPort"]));

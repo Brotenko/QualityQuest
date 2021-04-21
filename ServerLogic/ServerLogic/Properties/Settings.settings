@@ -18,7 +18,7 @@
       <Value Profile="(Default)">7777</Value>
     </Setting>
     <Setting Name="MCWebSocketPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">8181</Value>
+      <Value Profile="(Default)">443</Value>
     </Setting>
     <Setting Name="CertFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">TestCert.pfx</Value>

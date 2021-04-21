@@ -48,7 +48,8 @@ namespace ServerLogic.Control
         public void Start()
         {
             //TODO set url by using installer skript & settings file
-            _server = new WebSocketServer("ws://0.0.0.0:" + Settings.Default.MCWebSocketPort);
+            //_server = new WebSocketServer("wss://0.0.0.0:" + Settings.Default.MCWebSocketPort);
+            _server = new WebSocketServer("wss://127.0.0.1:" + Settings.Default.MCWebSocketPort);
             _playerAudienceClientApi.StartServer(Settings.Default.PAWebPagePort);
             StartWebsocket();
             _timerForInactiveSessionDataDeletion.Start();
@@ -101,7 +102,7 @@ namespace ServerLogic.Control
         {
             //todo try-catch & test
             //_server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, "thisIsForTestingOnly");
-            //_server.Certificate = new X509Certificate2("qualityquest.informatik.uni-ulm.de.pfx", "thisIsForTestingOnly");
+            _server.Certificate = new X509Certificate2("qualityquest.informatik.uni-ulm.de.pfx", "thisIsForTestingOnly");
             _server.Start(socketConnection =>
             {
                 socketConnection.OnOpen = () =>
