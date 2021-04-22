@@ -151,32 +151,24 @@ public class OnlineClientManager : MonoBehaviour
             }
             else
             {
-                switch (currentEventChildren.Count)
+                // Activate resulsts screen and load the results. Activates click listeners for option one and two.
+                if (currentEventChildren.Count >= 2)
                 {
-                    case 2:
-                        activeScreen.ShowResults();
-                        result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults,
-                            votingEndedMessage.TotalVotes);
-                        selectOnlineA.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
-                        selectOnlineB.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
-                        break;
-                    case 3:
-                        activeScreen.ShowResults();
-                        result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults,
-                            votingEndedMessage.TotalVotes);
-                        selectOnlineA.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
-                        selectOnlineB.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
-                        selectOnlineC.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[2]); });
-                        break;
-                    case 4:
-                        activeScreen.ShowResults();
-                        result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults,
-                            votingEndedMessage.TotalVotes);
-                        selectOnlineA.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
-                        selectOnlineB.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
-                        selectOnlineC.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[2]); });
-                        selectOnlineD.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[3]); });
-                        break;
+                    activeScreen.ShowResults();
+                    result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults,
+                        votingEndedMessage.TotalVotes);
+                    selectOnlineA.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
+                    selectOnlineB.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
+                }
+                // Activates the click listener for option 3
+                if (currentEventChildren.Count >= 3)
+                {
+                    selectOnlineC.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[2]); });
+                }
+                // Activates the click listener for option 4
+                if (currentEventChildren.Count >= 4)
+                {
+                    selectOnlineD.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[3]); });
                 }
             }
         }
