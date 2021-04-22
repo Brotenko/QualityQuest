@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Timers;
@@ -48,8 +49,10 @@ namespace ServerLogic.Control
         public void Start()
         {
             //TODO set url by using installer skript & settings file
-            //_server = new WebSocketServer("wss://0.0.0.0:" + Settings.Default.MCWebSocketPort);
-            _server = new WebSocketServer("wss://127.0.0.1:" + Settings.Default.MCWebSocketPort);
+            //_server = new WebSocketServer("ws://0.0.0.0:" + Settings.Default.MCWebSocketPort);
+            _server = new WebSocketServer("wss://0.0.0.0:" + "8181");
+            //_server.EnabledSslProtocols = SslProtocols.Tls13;
+            //_server = new WebSocketServer("ws://127.0.0.1:" + Settings.Default.MCWebSocketPort);
             _playerAudienceClientApi.StartServer(Settings.Default.PAWebPagePort);
             StartWebsocket();
             _timerForInactiveSessionDataDeletion.Start();
@@ -100,8 +103,8 @@ namespace ServerLogic.Control
         /// </summary>
         internal void StartWebsocket()
         {
-            //todo try-catch & test
-            //_server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, "thisIsForTestingOnly");
+            //todo test
+            //_server.Certificate = new X509Certificate2("TestCert.pfx", "thisIsForTestingOnly");
             _server.Certificate = new X509Certificate2("qualityquest.informatik.uni-ulm.de.pfx", "thisIsForTestingOnly");
             _server.Start(socketConnection =>
             {
@@ -229,7 +232,7 @@ namespace ServerLogic.Control
                                 response = JsonConvert.SerializeObject(new SessionOpenedMessage(
                                     _connectedModeratorClients[mcId].ModeratorGuid,
                                     _connectedModeratorClients[mcId].SessionKey,
-                                    new Uri($"https://{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}")));
+                                    new Uri($"https://{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}/?key={_connectedModeratorClients[mcId].SessionKey}")));
                                 ServerLogger.LogDebug($"Received RequestOpenSession. Opened Session {_connectedModeratorClients[mcId].SessionKey} for MC-{mcId}.");
                                 _connectedModeratorClients[mcId].Strikes = 0;
                             }

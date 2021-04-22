@@ -9,7 +9,7 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="LogFilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Logs/Log.txt</Value>
+      <Value Profile="(Default)">Log.txt</Value>
     </Setting>
     <Setting Name="ServerURL" Type="System.String" Scope="User">
       <Value Profile="(Default)">127.0.0.1</Value>
@@ -18,7 +18,7 @@
       <Value Profile="(Default)">7777</Value>
     </Setting>
     <Setting Name="MCWebSocketPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">443</Value>
+      <Value Profile="(Default)">8181</Value>
     </Setting>
     <Setting Name="CertFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">TestCert.pfx</Value>

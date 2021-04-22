@@ -16,7 +16,6 @@ namespace ServerLogic.Control
         //public Logger logger = [...];
         private MainServerLogic mainServerLogic = new MainServerLogic();
         private int _port;
-        private string _password; //Passwort des Servers 
         private bool serverIsRunning = false;
         private bool commandRequestsHelpMessage = false;
         private static bool isDebug;
