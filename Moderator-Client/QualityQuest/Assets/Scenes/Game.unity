@@ -12076,11 +12076,11 @@ MonoBehaviour:
   ip: {fileID: 8958024211337089618}
   port: {fileID: 8958024210022591637}
   password: {fileID: 8958024210826368123}
-  storyFlowButton: {fileID: 0}
-  resultAButton: {fileID: 503501120}
-  resultBButton: {fileID: 1728332701}
-  resultCButton: {fileID: 805083530}
-  resultDButton: {fileID: 1857060242}
+  storyFlowButton: {fileID: 1450303063}
+  selectOnlineA: {fileID: 503501120}
+  selectOnlineB: {fileID: 1728332701}
+  selectOnlineC: {fileID: 805083530}
+  selectOnlineD: {fileID: 1857060242}
 --- !u!4 &1086257396
 Transform:
   m_ObjectHideFlags: 0
