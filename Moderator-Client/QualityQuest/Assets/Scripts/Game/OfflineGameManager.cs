@@ -8,8 +8,6 @@ using Random = System.Random;
 
 public class OfflineGameManager : MonoBehaviour
 {
-
-
     public DisplayStatusbar statusBar;
     public CharacterSelection characterSelection;
     public GameStory story;
@@ -24,18 +22,26 @@ public class OfflineGameManager : MonoBehaviour
     public DisplayCharacter monster4;
 
     public Button storyFlowButton;
-    public Button selectLumati;
-    public Button selectTurgal;
-    public Button selectKirogh;
-    public Button selectNoruso;
-    public Button selectA;
-    public Button selectB;
-    public Button selectC;
-    public Button selectD;
+    public Button selectOfflineLumati;
+    public Button selectOfflineTurgal;
+    public Button selectOfflineKirogh;
+    public Button selectOfflineNoruso;
+    public Button selectOfflineA;
+    public Button selectOfflineB;
+    public Button selectOfflineC;
+    public Button selectOfflineD;
+    private Character a;
 
 
+    void Awake()
+    {
+        selectOfflineKirogh.gameObject.SetActive(false);
+        selectOfflineLumati.gameObject.SetActive(false);
+        selectOfflineTurgal.gameObject.SetActive(false);
+        selectOfflineNoruso.gameObject.SetActive(false);
+    }
 
-    private void Start()
+    void Start()
     {
         characterSelection.SetCharacters(monster1, monster2, monster3, monster4);
 
@@ -45,97 +51,119 @@ public class OfflineGameManager : MonoBehaviour
         }
         else
         {
-            selectKirogh.gameObject.SetActive(false);
-            selectLumati.gameObject.SetActive(false);
-            selectTurgal.gameObject.SetActive(false);
-            selectNoruso.gameObject.SetActive(false);
+
         }
-        
     }
 
 
     public void StartOfflinePlaythrough()
     {
         activeScreen.ShowCharacterSelection();
-        selectKirogh.gameObject.SetActive(true);
-        selectLumati.gameObject.SetActive(true);
-        selectTurgal.gameObject.SetActive(true);
-        selectNoruso.gameObject.SetActive(true);
+        selectOfflineKirogh.gameObject.SetActive(true);
+        selectOfflineLumati.gameObject.SetActive(true);
+        selectOfflineTurgal.gameObject.SetActive(true);
+        selectOfflineNoruso.gameObject.SetActive(true);
 
-        selectNoruso.onClick.AddListener(delegate {
+        selectOfflineNoruso.onClick.AddListener(delegate {
             PickNoruso();
         });
 
-        selectLumati.onClick.AddListener(delegate {
+        selectOfflineLumati.onClick.AddListener(delegate {
             PickLumati();
         });
 
-        selectTurgal.onClick.AddListener(delegate {
+        selectOfflineTurgal.onClick.AddListener(delegate {
             PickTurgal();
         });
 
-        selectKirogh.onClick.AddListener(delegate {
+        selectOfflineKirogh.onClick.AddListener(delegate {
             PickKirogh();
         });
     }
 
     public void PickNoruso()
     {
-        RemoveListeners();
+        RemovePickListeners();
         characterSelection.InitializeCharacter(characterSelection.noruso, story, statusBar);
         var list = story.playThrough.CurrentEvent.Children.ToList();
-        ContinueOfflineStory(list[0]);
+        if (GameState.gameIsOnline)
+        {
+
+        }
+        else
+        {
+            ContinueOfflineStory(list[0]);
+        }
+        
     }
 
     public void PickLumati()
     {
-        RemoveListeners();
+        RemovePickListeners();
         characterSelection.InitializeCharacter(characterSelection.lumati, story, statusBar);
         var list = story.playThrough.CurrentEvent.Children.ToList();
-        ContinueOfflineStory(list[0]);
+        if (GameState.gameIsOnline)
+        {
+
+        }
+        else
+        {
+            ContinueOfflineStory(list[0]);
+        }
     }
 
     public void PickTurgal()
     {
-        RemoveListeners();
+        RemovePickListeners();
         characterSelection.InitializeCharacter(characterSelection.turgal, story, statusBar);
         var list = story.playThrough.CurrentEvent.Children.ToList();
-        ContinueOfflineStory(list[0]);
+        if (GameState.gameIsOnline)
+        {
+
+        }
+        else
+        {
+            ContinueOfflineStory(list[0]);
+        }
     }
 
     public void PickKirogh()
     {
-        RemoveListeners();
+        RemovePickListeners();
         characterSelection.InitializeCharacter(characterSelection.kirogh, story, statusBar);
         var list = story.playThrough.CurrentEvent.Children.ToList();
-        ContinueOfflineStory(list[0]);
+        if (GameState.gameIsOnline)
+        {
+
+        }
+        else
+        {
+            ContinueOfflineStory(list[0]);
+        }
     }
 
-    void RemoveListeners()
+    void RemovePickListeners()
     {
-        selectNoruso.onClick.RemoveAllListeners();
-        selectLumati.onClick.RemoveAllListeners();
-        selectTurgal.onClick.RemoveAllListeners();
-        selectKirogh.onClick.RemoveAllListeners();
-        storyFlowButton.onClick.RemoveAllListeners();
-        selectA.onClick.RemoveAllListeners();
-        selectB.onClick.RemoveAllListeners();
-        selectC.onClick.RemoveAllListeners();
-        selectD.onClick.RemoveAllListeners();
+        selectOfflineNoruso.onClick.RemoveAllListeners();
+        selectOfflineLumati.onClick.RemoveAllListeners();
+        selectOfflineTurgal.onClick.RemoveAllListeners();
+        selectOfflineKirogh.onClick.RemoveAllListeners();
     }
 
     public void ContinueOfflineStory(StoryEvent storyEvent)
     {
-        RemoveListeners();
+        selectOfflineA.onClick.RemoveAllListeners();
+        selectOfflineB.onClick.RemoveAllListeners();
+        selectOfflineC.onClick.RemoveAllListeners();
+        selectOfflineD.onClick.RemoveAllListeners();
 
-        story.SetCurrentEvent(storyEvent);
+        story.playThrough.CurrentEvent = storyEvent;
 
-        
         if (storyEvent.SkillChange != null)
         {
             story.playThrough.Character.Abilities.updateAbilities(storyEvent.SkillChange);
             statusBar.DisplaySkills(story.playThrough.Character.Abilities);
-            statusBar.UpdateSkillChanges(storyEvent.SkillChange); 
+            statusBar.UpdateSkillChanges(storyEvent.SkillChange);
         }
 
         switch (storyEvent.StoryType)
@@ -154,6 +182,8 @@ public class OfflineGameManager : MonoBehaviour
                 break;
             case StoryEventType.StoryFlow:
                 ContinueOfflineStoryFlow(storyEvent);
+                break;
+            default:
                 break;
         }
     }
@@ -266,62 +296,36 @@ public class OfflineGameManager : MonoBehaviour
         decision.LoadDecision(currentEvent, children);
         activeScreen.ShowDecision();
 
-        switch (children.Count)
+        if (children.Count >= 2)
         {
-            case 2:
-                selectA.onClick.AddListener(delegate
-                {
-                    ContinueOfflineStory(children[0]);
-                });
-                selectB.onClick.AddListener(delegate
-                {
-                    ContinueOfflineStory(children[1]);
-                });
-                break;
-            case 3:
-                selectA.onClick.AddListener(delegate
-                {
-                    ContinueOfflineStory(children[0]);
-                });
-                selectB.onClick.AddListener(delegate
-                {
-                    ContinueOfflineStory(children[1]);
-                });
-                selectC.onClick.AddListener(delegate
-                {
-                    ContinueOfflineStory(children[2]);
-                });
-                break;
-            case 4:
-                selectA.onClick.AddListener(delegate
-                {
-                    ContinueOfflineStory(children[0]);
-                });
-                selectB.onClick.AddListener(delegate
-                {
-                    ContinueOfflineStory(children[1]);
-                });
-                selectC.onClick.AddListener(delegate
-                {
-                    ContinueOfflineStory(children[2]);
-                });
-                selectD.onClick.AddListener(delegate
-                {
-                    ContinueOfflineStory(children[3]);
-                });
-                break;
-            default:
-                break;
+            selectOfflineA.onClick.AddListener(delegate { ContinueOfflineStory(children[0]); });
+            selectOfflineB.onClick.AddListener(delegate { ContinueOfflineStory(children[1]); });
         }
+
+        if (children.Count >= 3)
+        {
+            selectOfflineC.onClick.AddListener(delegate { ContinueOfflineStory(children[2]); });
+        }
+
+        if (children.Count >= 4)
+        {
+            selectOfflineD.onClick.AddListener(delegate { ContinueOfflineStory(children[3]); });
+        }
+    
     }
 
-    void ContinueOfflineStoryFlow(StoryEvent currentEvent)
+    private void ContinueOfflineStoryFlow(StoryEvent currentEvent)
     {
+        storyFlowButton.onClick.RemoveAllListeners();
+
         if (currentEvent.Children.Count > 0)
         {
             activeScreen.ShowStoryFlow();
             storyFlow.SetStoryFlow(currentEvent);
-            storyFlowButton.onClick.AddListener(delegate { ContinueOfflineStory(currentEvent.Children.First()); });
+            storyFlowButton.onClick.AddListener(delegate
+            {
+                ContinueOfflineStory(currentEvent.Children.First());
+            });
         }
     }
 }

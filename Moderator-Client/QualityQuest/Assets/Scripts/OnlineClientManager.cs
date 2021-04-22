@@ -30,50 +30,59 @@ public class OnlineClientManager : MonoBehaviour
     public TMP_InputField port;
     public TMP_InputField password;
 
-    public Button storyflowButton;
-    public Button resultAButton;
-    public Button resultBButton;
-    public Button resultCButton;
-    public Button resultDButton;
+    public Button storyFlowButton;
+    public Button selectOnlineA;
+    public Button selectOnlineB;
+    public Button selectOnlineC;
+    public Button selectOnlineD;
 
     private string sessionKey;
     private string url;
     private Guid moderatorClientGuid;
 
-    void Awake()
-    {
-        Debug.Log("Awake");
-    }
     
-
-    void Start()
+    public void StartOnlineMode()
     {
-        Debug.Log("Start");
-        if (GameState.gameIsOnline)
-        {
-            votingTime = 20;
-            debugVotingTime = 1;
-            moderatorClientGuid = Guid.NewGuid();
-            votingStatistics = new VotingStatistics(new List<VotingResult>());
-        }
+        votingTime = 20;
+        debugVotingTime = 1;
+        moderatorClientGuid = Guid.NewGuid();
+        votingStatistics ??= new VotingStatistics(new List<VotingResult>());
     }
 
     public void Connect()
     {
-        qualityQuestWebSocket.StartConnection(ip.text, Convert.ToInt32(port.text));
+        if (ip.text != "" && port.text != "" && password.text != "")
+        {
+            qualityQuestWebSocket.StartConnection(ip.text, port.text);
+        }
+        else
+        {
+            activeScreen.ShowErrorScreen("Ip, Port oder Passwort fehlt. Bitte neu versuchen oder im Offline-Modus fortfahren.");
+        }
         //qualityQuestWebSocket.StartConnection("127.0.0.1", 8181);
     }
 
-    public void SendRequestOpenSessionMessage()
+    public void ConnectionEstablished()
     {
-        MessageContainer.Messages.RequestOpenSessionMessage requestOpenSessionMessage = new MessageContainer.Messages.RequestOpenSessionMessage(moderatorClientGuid, password.text);
-        // for testing with a default password
-        //var requestOpenSessionMessage = new RequestOpenSessionMessage(moderatorClientGuid, "!Password123#");
-
-        qualityQuestWebSocket.SendMessage(requestOpenSessionMessage);
+        // Open new session
+        if (sessionKey == null)
+        {
+            SendRequestSessionOpenedMessage();
+        }
+        else
+        {
+            // TODO: Reconnect to old session
+            // Stay offline until reconnect
+        }
     }
 
-    
+    public void SendRequestSessionOpenedMessage()
+    {
+        var requestOpenSessionMessage = new RequestOpenSessionMessage(moderatorClientGuid, password.text);
+        // for testing with a default password
+        //var requestOpenSessionMessage = new RequestOpenSessionMessage(moderatorClientGuid, "!Password123#");
+        qualityQuestWebSocket.SendMessage(requestOpenSessionMessage);
+    }
 
     public void SendRequestGameStartMessage()
     {
@@ -82,10 +91,17 @@ public class OnlineClientManager : MonoBehaviour
         qualityQuestWebSocket.SendMessage(requestGameStartMessage);
     }
 
+    public void ReceivedReconnectSuccessfulMessage()
+    {
+        GameState.gameIsOnline = true;
+        SwitchModes(true);
+    }
+
     
 
     public void ReceivedSessionOpenedMessage(SessionOpenedMessage sessionOpenedMessage)
     {
+        GameState.gameIsOnline = true;
         url = sessionOpenedMessage.DirectURL.ToString();
         sessionKey = sessionOpenedMessage.SessionKey;
         activeScreen.ShowQrCodePanel(sessionOpenedMessage.DirectURL.ToString(), sessionOpenedMessage.SessionKey);
@@ -141,25 +157,25 @@ public class OnlineClientManager : MonoBehaviour
                         activeScreen.ShowResults();
                         result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults,
                             votingEndedMessage.TotalVotes);
-                        resultAButton.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
-                        resultBButton.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
+                        selectOnlineA.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
+                        selectOnlineB.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
                         break;
                     case 3:
                         activeScreen.ShowResults();
                         result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults,
                             votingEndedMessage.TotalVotes);
-                        resultAButton.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
-                        resultBButton.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
-                        resultCButton.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[2]); });
+                        selectOnlineA.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
+                        selectOnlineB.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
+                        selectOnlineC.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[2]); });
                         break;
                     case 4:
                         activeScreen.ShowResults();
                         result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults,
                             votingEndedMessage.TotalVotes);
-                        resultAButton.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
-                        resultBButton.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
-                        resultCButton.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[2]); });
-                        resultDButton.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[3]); });
+                        selectOnlineA.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
+                        selectOnlineB.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
+                        selectOnlineC.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[2]); });
+                        selectOnlineD.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[3]); });
                         break;
                 }
             }
@@ -168,7 +184,8 @@ public class OnlineClientManager : MonoBehaviour
         {
             Debug.Log("Exception :" + e);
             Debug.Log("Switch to offline mode.");
-            SwapIntoOfflineMode();
+            GameState.gameIsOnline = false;
+            SwitchModes(GameState.gameIsOnline);
         }
     }
 
@@ -176,22 +193,22 @@ public class OnlineClientManager : MonoBehaviour
     {
         activeScreen.ShowResults();
         result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes);
-        resultAButton.onClick.AddListener(delegate
+        selectOnlineA.onClick.AddListener(delegate
         { 
             offlineGameManager.PickNoruso(); 
             ContinueOnlineStory(currentEventChildren[0]);
         }); 
-        resultBButton.onClick.AddListener(delegate 
+        selectOnlineB.onClick.AddListener(delegate 
         { 
             offlineGameManager.PickLumati(); 
             ContinueOnlineStory(currentEventChildren[1]);
         });
-        resultCButton.onClick.AddListener(delegate 
+        selectOnlineC.onClick.AddListener(delegate 
         { 
             offlineGameManager.PickTurgal(); 
             ContinueOnlineStory(currentEventChildren[2]);
         }); 
-        resultDButton.onClick.AddListener(delegate 
+        selectOnlineD.onClick.AddListener(delegate 
         { 
             offlineGameManager.PickKirogh(); 
             ContinueOnlineStory(currentEventChildren[3]);
@@ -378,11 +395,11 @@ public class OnlineClientManager : MonoBehaviour
         {
             activeScreen.ShowStoryFlow();
             storyFlow.SetStoryFlow(story.playThrough.CurrentEvent);
-            storyflowButton.onClick.AddListener(delegate { ContinueOnlineStory(story.playThrough.CurrentEvent.Children.First()); });
+            storyFlowButton.onClick.AddListener(delegate { ContinueOnlineStory(story.playThrough.CurrentEvent.Children.First()); });
         }
         else
         {
-            storyflowButton.onClick.AddListener(delegate { LoadStatistics(); });
+            storyFlowButton.onClick.AddListener(delegate { LoadStatistics(); });
         }
     }
 
@@ -394,11 +411,11 @@ public class OnlineClientManager : MonoBehaviour
 
     void RemoveListeners()
     {
-        storyflowButton.onClick.RemoveAllListeners();
-        resultAButton.onClick.RemoveAllListeners();
-        resultBButton.onClick.RemoveAllListeners();
-        resultCButton.onClick.RemoveAllListeners();
-        resultDButton.onClick.RemoveAllListeners();
+        storyFlowButton.onClick.RemoveAllListeners();
+        selectOnlineA.onClick.RemoveAllListeners();
+        selectOnlineB.onClick.RemoveAllListeners();
+        selectOnlineC.onClick.RemoveAllListeners();
+        selectOnlineD.onClick.RemoveAllListeners();
     }
 
 
@@ -421,7 +438,7 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
-    public void RecievedGamePausedStatusChange(GamePausedStatusMessage gamePausedStatusMessage)
+    public void ReceivedGamePausedStatusChange(GamePausedStatusMessage gamePausedStatusMessage)
     {
         if (gamePausedStatusMessage.GamePaused)
         {
@@ -436,18 +453,11 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
-    
-
-    public void ReceivedPausedGameStatus()
-    {
-
-    }
-
     public void SwapIntoOfflineMode()
     {
         GameState.gameIsOnline = false;
         Debug.Log(story.playThrough.CurrentEvent.Description);
-        offlineGameManager.ContinueOfflineStory(story.playThrough.CurrentEvent);
+        
     }
 
     public void ServerIssues(int errorCode)
@@ -458,12 +468,6 @@ public class OnlineClientManager : MonoBehaviour
             case 1006:
                 activeScreen.ShowErrorScreen("Es konnte keine Verbindung zum Server aufgebaut werden.");
                 break;
-            case 1000:
-                activeScreen.ShowErrorScreen("Passwort ist falsch. Erneut versuchen oder im Offline Mode fortfahren.");
-                break;
-            case 1005:
-                activeScreen.ShowErrorScreen("Verbindung verloren. Spiel im Offline Mode fortführen oder eine neue Verbindung aufbauen.");
-                break;
             default:
                 break;
         }
@@ -473,35 +477,36 @@ public class OnlineClientManager : MonoBehaviour
     {
         switch (errorMessage.ErrorMessageType)
         {
-            case ErrorType.WrongSession:
-                activeScreen.ShowErrorScreen("Session ist nicht mehr Verfügbar. Spiel im Offline Mode fortführen oder eine neue Verbindung aufbauen.");
-                qualityQuestWebSocket.CloseConnection();
-                moderatorClientGuid = Guid.NewGuid();
+            case ErrorType.IllegalMessage:
+                break;
+            case ErrorType.IllegalPauseAction:
                 break;
             case ErrorType.GuidAlreadyExists:
-                activeScreen.ShowErrorScreen("Verbindung verloren. Spiel im Offline Mode fortführen oder eine neue Verbindung aufbauen.");
-                qualityQuestWebSocket.CloseConnection();
+                break;
+            case ErrorType.UnknownGuid:
                 break;
             case ErrorType.WrongPassword:
-                activeScreen.ShowErrorScreen("Passwort ist falsch. Erneut versuchen oder im Offline Mode fortfahren.");
+                activeScreen.ShowErrorScreen("Passwort ist falsch. Bitte erneut versuchen oder im Offline-Modus fortfahren.");
+                break;
+            case ErrorType.WrongSession:
                 break;
             default:
                 break;
         }
     }
 
-    public void SwitchModes()
+    public void SwitchModes(bool gameIsOnline)
     {
-        if (GameState.gameIsOnline)
+        if (!GameState.gameIsOnline)
         {
             activeScreen.ShowGameMenu();
             SwapIntoOfflineMode();
+            offlineGameManager.ContinueOfflineStory(story.playThrough.CurrentEvent);
         }
         else
         {
             activeScreen.HideAllMenus();
             activeScreen.ShowConnection();
         }
-        
     }
 }

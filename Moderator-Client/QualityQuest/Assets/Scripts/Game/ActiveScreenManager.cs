@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.WebSockets;
+using MessageContainer;
+using MessageContainer.Messages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -174,7 +177,7 @@ public class ActiveScreenManager : MonoBehaviour
                 pauseScreen.SetActive(true);
                 pauseKey.text = sessionKey;
                 pauseUrl.text = url;
-                qrCodeGenerator.GenerateQRCode("www.twitch.tv/maxolus", 2);
+                qrCodeGenerator.GenerateQRCode(url, 2);
             }
 
         }
@@ -235,6 +238,4 @@ public class ActiveScreenManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneBuildIndex: 0);
     }
-
-
 }
