@@ -6,6 +6,7 @@ using UnityEngine;
 using MessageContainer.Messages;
 using TMPro;
 using UnityEngine.UI;
+using WebSocketSharp;
 using Random = System.Random;
 
 public class OnlineClientManager : MonoBehaviour
@@ -91,10 +92,9 @@ public class OnlineClientManager : MonoBehaviour
         qualityQuestWebSocket.SendMessage(requestGameStartMessage);
     }
 
-    public void ReceivedReconnectSuccessfulMessage()
+    public void ReceivedReconnectSuccessfulMessage(ReconnectSuccessfulMessage reconnectSuccessfulMessage)
     {
-        GameState.gameIsOnline = true;
-        SwitchModes(true);
+        SwitchModes();
     }
 
     
@@ -184,8 +184,7 @@ public class OnlineClientManager : MonoBehaviour
         {
             Debug.Log("Exception :" + e);
             Debug.Log("Switch to offline mode.");
-            GameState.gameIsOnline = false;
-            SwitchModes(GameState.gameIsOnline);
+            SwitchModes();
         }
     }
 
@@ -213,7 +212,6 @@ public class OnlineClientManager : MonoBehaviour
             offlineGameManager.PickKirogh(); 
             ContinueOnlineStory(currentEventChildren[3]);
         });
-        
     }
 
     void SaveStatistics(string votingPrompt, HashSet<StoryEvent> votingOptions, Dictionary<Guid, int> votingResults, int totalVotes)
@@ -255,6 +253,8 @@ public class OnlineClientManager : MonoBehaviour
             case StoryEventType.StoryBackground:
                 ContinueOnlineBackground(storyEvent);
                 break;
+            case StoryEventType.StoryRootEvent:
+                // FALL THROUGH
             case StoryEventType.StoryDecision:
                 ContinueStoryDecision();
                 break;
@@ -453,12 +453,6 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
-    public void SwapIntoOfflineMode()
-    {
-        GameState.gameIsOnline = false;
-        Debug.Log(story.playThrough.CurrentEvent.Description);
-        
-    }
 
     public void ServerIssues(int errorCode)
     {
@@ -475,6 +469,9 @@ public class OnlineClientManager : MonoBehaviour
 
     public void ReceivedErrorMessage(ErrorMessage errorMessage)
     {
+
+
+
         switch (errorMessage.ErrorMessageType)
         {
             case ErrorType.IllegalMessage:
@@ -495,18 +492,51 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
-    public void SwitchModes(bool gameIsOnline)
+    public void SendReconnectMessage()
     {
-        if (!GameState.gameIsOnline)
+        var reconnectMessage = new ReconnectMessage(moderatorClientGuid);
+    }
+
+
+    public void SwitchModes()
+    {
+        if (GameState.gameIsOnline)
         {
-            activeScreen.ShowGameMenu();
-            SwapIntoOfflineMode();
+            GameState.gameIsOnline = false;
             offlineGameManager.ContinueOfflineStory(story.playThrough.CurrentEvent);
         }
         else
         {
-            activeScreen.HideAllMenus();
-            activeScreen.ShowConnection();
+            GameState.gameIsOnline = true;
+            if (qualityQuestWebSocket.webSocket == null)
+            {
+                activeScreen.ShowConnection();
+            }
+            else
+            {
+                switch (qualityQuestWebSocket.webSocket.ReadyState)
+                {
+                    case WebSocketState.Closed:
+                        activeScreen.ShowConnection();
+                        break;
+                    case WebSocketState.Open:
+                        if (sessionKey == null)
+                        {
+                            SendRequestSessionOpenedMessage();
+                        }
+                        else
+                        {
+                            SendReconnectMessage();
+                        }
+                        break;
+                    case WebSocketState.Closing:
+                        break;
+                    case WebSocketState.Connecting:
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

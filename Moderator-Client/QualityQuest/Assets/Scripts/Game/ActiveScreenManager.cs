@@ -31,7 +31,7 @@ public class ActiveScreenManager : MonoBehaviour
     public TMP_Text pauseUrl;
     public TMP_Text pauseKey;
     public TMP_Text errorMessage;
-    public Button pauseButton;
+    public GameObject pauseButton;
 
     private GameObject activeMenu;
     public static bool paused;
@@ -69,7 +69,6 @@ public class ActiveScreenManager : MonoBehaviour
     public void ShowConnection()
     {
         activeMenu = connect;
-
         if (!gameMenu.activeSelf && !paused)
         {
             HideAllMenus();

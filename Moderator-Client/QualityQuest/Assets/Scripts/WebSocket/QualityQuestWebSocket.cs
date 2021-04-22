@@ -43,12 +43,8 @@ public class QualityQuestWebSocket : MonoBehaviour
         // Event when the WebSocket connection is established.
         webSocket.OnOpen += (sender, e) =>
         {
-            if (!GameState.gameStartedOnline)
-            {
-                GameState.gameIsOnline = true;
-                onlineClientManager.StartOnlineMode();
-            } 
             GameState.gameIsOnline = true;
+            onlineClientManager.StartOnlineMode();
             onlineClientManager.ConnectionEstablished();
             Debug.Log("Connection established.");
         };
@@ -140,6 +136,7 @@ public class QualityQuestWebSocket : MonoBehaviour
                     case MessageType.SessionClosed:
                         break;
                     case MessageType.ReconnectSuccessful:
+                        onlineClientManager.ReceivedReconnectSuccessfulMessage(JsonConvert.DeserializeObject<ReconnectSuccessfulMessage>(msg));
                         break;
                     default:
                         Debug.Log(container.Type + " is not a valid messageType."); 

@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Video;
 using Random = System.Random;
 
 public class OfflineGameManager : MonoBehaviour
@@ -30,16 +27,7 @@ public class OfflineGameManager : MonoBehaviour
     public Button selectOfflineB;
     public Button selectOfflineC;
     public Button selectOfflineD;
-    private Character a;
 
-
-    void Awake()
-    {
-        selectOfflineKirogh.gameObject.SetActive(false);
-        selectOfflineLumati.gameObject.SetActive(false);
-        selectOfflineTurgal.gameObject.SetActive(false);
-        selectOfflineNoruso.gameObject.SetActive(false);
-    }
 
     void Start()
     {
@@ -63,27 +51,10 @@ public class OfflineGameManager : MonoBehaviour
         selectOfflineLumati.gameObject.SetActive(true);
         selectOfflineTurgal.gameObject.SetActive(true);
         selectOfflineNoruso.gameObject.SetActive(true);
-
-        selectOfflineNoruso.onClick.AddListener(delegate {
-            PickNoruso();
-        });
-
-        selectOfflineLumati.onClick.AddListener(delegate {
-            PickLumati();
-        });
-
-        selectOfflineTurgal.onClick.AddListener(delegate {
-            PickTurgal();
-        });
-
-        selectOfflineKirogh.onClick.AddListener(delegate {
-            PickKirogh();
-        });
     }
 
     public void PickNoruso()
     {
-        RemovePickListeners();
         characterSelection.InitializeCharacter(characterSelection.noruso, story, statusBar);
         var list = story.playThrough.CurrentEvent.Children.ToList();
         if (GameState.gameIsOnline)
@@ -99,7 +70,6 @@ public class OfflineGameManager : MonoBehaviour
 
     public void PickLumati()
     {
-        RemovePickListeners();
         characterSelection.InitializeCharacter(characterSelection.lumati, story, statusBar);
         var list = story.playThrough.CurrentEvent.Children.ToList();
         if (GameState.gameIsOnline)
@@ -114,7 +84,6 @@ public class OfflineGameManager : MonoBehaviour
 
     public void PickTurgal()
     {
-        RemovePickListeners();
         characterSelection.InitializeCharacter(characterSelection.turgal, story, statusBar);
         var list = story.playThrough.CurrentEvent.Children.ToList();
         if (GameState.gameIsOnline)
@@ -129,7 +98,6 @@ public class OfflineGameManager : MonoBehaviour
 
     public void PickKirogh()
     {
-        RemovePickListeners();
         characterSelection.InitializeCharacter(characterSelection.kirogh, story, statusBar);
         var list = story.playThrough.CurrentEvent.Children.ToList();
         if (GameState.gameIsOnline)
@@ -140,14 +108,6 @@ public class OfflineGameManager : MonoBehaviour
         {
             ContinueOfflineStory(list[0]);
         }
-    }
-
-    void RemovePickListeners()
-    {
-        selectOfflineNoruso.onClick.RemoveAllListeners();
-        selectOfflineLumati.onClick.RemoveAllListeners();
-        selectOfflineTurgal.onClick.RemoveAllListeners();
-        selectOfflineKirogh.onClick.RemoveAllListeners();
     }
 
     public void ContinueOfflineStory(StoryEvent storyEvent)
