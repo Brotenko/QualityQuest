@@ -4,6 +4,7 @@ using UnityEngine;
 using WebSocketSharp;
 using Newtonsoft.Json;
 using System;
+using MessageContainer;
 using MessageContainer.Messages;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,7 +22,7 @@ public class QualityQuestWebSocket : MonoBehaviour
     public MainThreadWorker mainThreadWorker;
     public WebSocket webSocket;
     
-    public void StartConnection(string ip, int port)
+    public void StartConnection(string ip, string port)
     {
         // Connect ws://127.0.0.1:8181
         
@@ -42,8 +43,13 @@ public class QualityQuestWebSocket : MonoBehaviour
         // Event when the WebSocket connection is established.
         webSocket.OnOpen += (sender, e) =>
         {
+            if (!GameState.gameStartedOnline)
+            {
+                GameState.gameIsOnline = true;
+                onlineClientManager.StartOnlineMode();
+            } 
             GameState.gameIsOnline = true;
-            onlineClientManager.SendRequestOpenSessionMessage();
+            onlineClientManager.ConnectionEstablished();
             Debug.Log("Connection established.");
         };
 
@@ -110,28 +116,30 @@ public class QualityQuestWebSocket : MonoBehaviour
                 
                 switch (container.Type)
                 {
-                    case MessageContainer.MessageType.SessionOpened:
+                    case MessageType.SessionOpened:
                         onlineClientManager.ReceivedSessionOpenedMessage(JsonConvert.DeserializeObject<SessionOpenedMessage>(msg));
                         break;
-                    case MessageContainer.MessageType.AudienceStatus:
+                    case MessageType.AudienceStatus:
                         onlineClientManager.ReceivedAudienceStatusMessage(JsonConvert.DeserializeObject<AudienceStatusMessage>(msg));
                         break;
-                    case MessageContainer.MessageType.GameStarted:
+                    case MessageType.GameStarted:
                         onlineClientManager.ReceivedGameStartedMessage(JsonConvert.DeserializeObject<GameStartedMessage>(msg));
                         break;
-                    case MessageContainer.MessageType.VotingStarted:
+                    case MessageType.VotingStarted:
                         onlineClientManager.ReceivedVotingStartedMessage(JsonConvert.DeserializeObject<VotingStartedMessage>(msg));
                         break;
-                    case MessageContainer.MessageType.VotingEnded:
+                    case MessageType.VotingEnded:
                         onlineClientManager.ReceivedVotingEndedMessage(JsonConvert.DeserializeObject<VotingEndedMessage>(msg));
                         break;
-                    case MessageContainer.MessageType.Error:
+                    case MessageType.Error:
                         onlineClientManager.ReceivedErrorMessage(JsonConvert.DeserializeObject<ErrorMessage>(msg));
                         break;
-                    case MessageContainer.MessageType.GamePausedStatus:
-                        onlineClientManager.RecievedGamePausedStatusChange(JsonConvert.DeserializeObject<GamePausedStatusMessage>(msg));
+                    case MessageType.GamePausedStatus:
+                        onlineClientManager.ReceivedGamePausedStatusChange(JsonConvert.DeserializeObject<GamePausedStatusMessage>(msg));
                         break;
-                    case MessageContainer.MessageType.SessionClosed:
+                    case MessageType.SessionClosed:
+                        break;
+                    case MessageType.ReconnectSuccessful:
                         break;
                     default:
                         Debug.Log(container.Type + " is not a valid messageType."); 
@@ -171,6 +179,15 @@ public class QualityQuestWebSocket : MonoBehaviour
         {
             Debug.Log("Can't send Message, JSON parse error: " + jse);
         }
-    
+    }
+
+    public void CloseConnection()
+    {
+        webSocket.CloseAsync();
+    }
+
+    public void CloseConnectionWithReason(CloseStatusCode closeStatusCode, string reason)
+    {
+        webSocket.CloseAsync(closeStatusCode, reason);
     }
 }
