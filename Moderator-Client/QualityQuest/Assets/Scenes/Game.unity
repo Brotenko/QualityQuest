@@ -8678,10 +8678,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onlineClientManager: {fileID: 1086257395}
   mainThreadWorker: {fileID: 1093310181}
-  recievedMessage: {fileID: 0}
-  ip: {fileID: 0}
-  port: {fileID: 0}
-  message: 
 --- !u!4 &795812798
 Transform:
   m_ObjectHideFlags: 0
@@ -12075,14 +12071,12 @@ MonoBehaviour:
   displayStatistics: {fileID: 457941537}
   video: {fileID: 1093310177}
   offlineGameManager: {fileID: 1093310170}
-  sessionKey: 
-  url: 
   votingTime: 0
   debugVotingTime: 0
   ip: {fileID: 8958024211337089618}
   port: {fileID: 8958024210022591637}
   password: {fileID: 8958024210826368123}
-  storyflowButton: {fileID: 1450303063}
+  storyFlowButton: {fileID: 0}
   resultAButton: {fileID: 503501120}
   resultBButton: {fileID: 1728332701}
   resultCButton: {fileID: 805083530}
@@ -12390,14 +12384,14 @@ MonoBehaviour:
   monster3: {fileID: 1093310174}
   monster4: {fileID: 1093310173}
   storyFlowButton: {fileID: 1450303063}
-  selectLumati: {fileID: 1558054843}
-  selectTurgal: {fileID: 323672502}
-  selectKirogh: {fileID: 2064761990}
-  selectNoruso: {fileID: 535994654}
-  selectA: {fileID: 1164812061}
-  selectB: {fileID: 759759807}
-  selectC: {fileID: 120202801}
-  selectD: {fileID: 866158021}
+  selectOfflineLumati: {fileID: 1558054843}
+  selectOfflineTurgal: {fileID: 323672502}
+  selectOfflineKirogh: {fileID: 2064761990}
+  selectOfflineNoruso: {fileID: 535994654}
+  selectOfflineA: {fileID: 1164812061}
+  selectOfflineB: {fileID: 759759807}
+  selectOfflineC: {fileID: 120202801}
+  selectOfflineD: {fileID: 866158021}
 --- !u!4 &1093310171
 Transform:
   m_ObjectHideFlags: 0
