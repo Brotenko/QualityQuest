@@ -53,6 +53,7 @@ public class ActiveScreenManager : MonoBehaviour
         }
     }
 
+    // Test
     public void HideAllMenus()
     {
         gameMenu.SetActive(false);
