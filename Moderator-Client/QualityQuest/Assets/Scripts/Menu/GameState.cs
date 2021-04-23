@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameState : MonoBehaviour
 {
     public static bool gameIsOnline;
-    public static bool gameStartedOnline;
 
 
     void Awake()

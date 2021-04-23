@@ -52,6 +52,7 @@ public class OnlineClientManager : MonoBehaviour
 
     public void Connect()
     {
+        
         if (ip.text != "" && port.text != "" && password.text != "")
         {
             qualityQuestWebSocket.StartConnection(ip.text, port.text);
@@ -59,8 +60,8 @@ public class OnlineClientManager : MonoBehaviour
         else
         {
             activeScreen.ShowErrorScreen("Ip, Port oder Passwort fehlt. Bitte neu versuchen oder im Offline-Modus fortfahren.");
-        }
-        //qualityQuestWebSocket.StartConnection("127.0.0.1", 8181);
+        } 
+        //qualityQuestWebSocket.StartConnection("127.0.0.1", "8181");
     }
 
     public void ConnectionEstablished()
@@ -94,7 +95,8 @@ public class OnlineClientManager : MonoBehaviour
 
     public void ReceivedReconnectSuccessfulMessage(ReconnectSuccessfulMessage reconnectSuccessfulMessage)
     {
-        SwitchModes();
+        GameState.gameIsOnline = true;
+        ContinueOnlineStory(story.playThrough.CurrentEvent);
     }
 
     
@@ -114,25 +116,7 @@ public class OnlineClientManager : MonoBehaviour
 
     public void ReceivedGameStartedMessage(GameStartedMessage gameStartedMessage)
     {
-        var currentEvent = story.playThrough.CurrentEvent;
-        if (currentEvent.StoryType.Equals(StoryEventType.StoryRootEvent))
-        {
-            activeScreen.ShowCharacterSelection();
-            var requestStartVotingMessage = new RequestStartVotingMessage(moderatorClientGuid, votingTime, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[currentEvent.Children.Count]);
-            requestStartVotingMessage.VotingPrompt = new KeyValuePair<Guid, string>(currentEvent.EventId, currentEvent.Description);
-
-            // start Voting for the character
-            var options = currentEvent.Children.ToArray();
-            for (var i = 0; i < options.Length; i++)
-            {
-                requestStartVotingMessage.VotingOptions[i] = new KeyValuePair<Guid, string>(options[i].EventId, options[i].Description);
-            }
-            qualityQuestWebSocket.SendMessage(requestStartVotingMessage);
-        }
-        else
-        {
-            ContinueOnlineStory(currentEvent);
-        }
+        ContinueOnlineStory(story.playThrough.CurrentEvent);
     }
 
     public void ReceivedVotingEndedMessage(VotingEndedMessage votingEndedMessage)
@@ -151,7 +135,7 @@ public class OnlineClientManager : MonoBehaviour
             }
             else
             {
-                // Activate resulsts screen and load the results. Activates click listeners for option one and two.
+                // Activate results screen and loads the results. Activates click listeners for option one and two.
                 if (currentEventChildren.Count >= 2)
                 {
                     activeScreen.ShowResults();
@@ -180,7 +164,7 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
-    void OnlineModePickInitializeChar(StoryEvent currentEvent, List<StoryEvent> currentEventChildren, VotingEndedMessage votingEndedMessage)
+    private void OnlineModePickInitializeChar(StoryEvent currentEvent, List<StoryEvent> currentEventChildren, VotingEndedMessage votingEndedMessage)
     {
         activeScreen.ShowResults();
         result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes);
@@ -206,7 +190,7 @@ public class OnlineClientManager : MonoBehaviour
         });
     }
 
-    void SaveStatistics(string votingPrompt, HashSet<StoryEvent> votingOptions, Dictionary<Guid, int> votingResults, int totalVotes)
+    private void SaveStatistics(string votingPrompt, HashSet<StoryEvent> votingOptions, Dictionary<Guid, int> votingResults, int totalVotes)
     {
         var voting = new VotingResult(votingPrompt, totalVotes, new Dictionary<string, int>());
 
@@ -248,18 +232,21 @@ public class OnlineClientManager : MonoBehaviour
             case StoryEventType.StoryRootEvent:
                 // FALL THROUGH
             case StoryEventType.StoryDecision:
-                ContinueStoryDecision();
+                ContinueStoryDecision(storyEvent);
                 break;
             case StoryEventType.StoryDecisionOption:
-                ContinueDecisionOption();
+                ContinueDecisionOption(storyEvent);
                 break;
             case StoryEventType.StoryFlow:
-                ContinueStoryFlow();
+                ContinueStoryFlow(storyEvent);
+                break;
+            default:
+                Debug.Log("StoryEventType is not valid.");
                 break;
         }
     }
 
-    void ContinueOnlineBackground(StoryEvent currentEvent)
+    private void ContinueOnlineBackground(StoryEvent currentEvent)
     {
         if (currentEvent.Children.Any())
         {
@@ -272,133 +259,70 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
-    void ContinueDecisionOption()
+    private void ContinueDecisionOption(StoryEvent currentEvent)
     {
-        if (story.playThrough.CurrentEvent.Children.Count() == 1)
+        switch (currentEvent.Children.Count())
         {
-            ContinueOnlineStory(story.playThrough.CurrentEvent.Children.First());
-        } 
-        else if (story.playThrough.CurrentEvent.Children.Count() > 1)
-        {
-            statusBar.DisplayDice(3);
-            Random diceRoll = new Random();
-            int rollTheDice = diceRoll.Next(0, 6);
-            var children = story.playThrough.CurrentEvent.Children.ToList();
-            switch (story.playThrough.CurrentEvent.Children.First().Random)
-            {
-                case RandomType.DecisionFiveOne:
-                    bool randomEventOne = rollTheDice + story.playThrough.Character.Abilities.Programming + 1 > 8;
-                    if (randomEventOne == children[0].RandomOption)
-                    {
-                        ContinueOnlineStory(children[0]);
-                    }
-                    else
-                    {
-                        ContinueOnlineStory(children[1]);
-                    }
-                    break;
-                case RandomType.DecisionFiveTwo:
-                    var randomEventTwo = rollTheDice + story.playThrough.Character.Abilities.Programming - 1 > 8;
-                    if (randomEventTwo == children[0].RandomOption)
-                    {
-                        ContinueOnlineStory(children[0]);
-                    }
-                    else
-                    {
-                        ContinueOnlineStory(children[1]);
-                    }
-                    break;
-                case RandomType.DecisionEight:
-                    var randomEventThree = rollTheDice + story.playThrough.Character.Abilities.Partying > 8;
-                    Debug.Log("Test hier, randomBool: " + randomEventThree);
-                    if (randomEventThree == children[0].RandomOption)
-                    {
-                        Debug.Log(children[0].RandomOption);
-                        ContinueOnlineStory(children[0]);
-                    }
-                    else
-                    {
-                        Debug.Log(children[1].RandomOption);
-                        ContinueOnlineStory(children[1]);
-                    }
-                    break;
-                case RandomType.DecisionEleven:
-                    var randomEventFour = rollTheDice > 3;
-                    if (randomEventFour == children[0].RandomOption)
-                    {
-                        ContinueOnlineStory(children[0]);
-                    }
-                    else
-                    {
-                        ContinueOnlineStory(children[1]);
-                    }
-                    break;
-                case RandomType.DecisionThirteenOne:
-                    var randomEventFive = rollTheDice <= 3;
-                    if (randomEventFive == children[0].RandomOption)
-                    {
-                        ContinueOnlineStory(children[0]);
-                    }
-                    else
-                    {
-                        ContinueOnlineStory(children[1]);
-                    }
-                    break;
-                case RandomType.DecisionThirteenTwo:
-                    var randomEventSix = story.playThrough.Character.Abilities.Communication > 6;
-                    if (randomEventSix == children[0].RandomOption)
-                    {
-                        ContinueOnlineStory(children[0]);
-                    }
-                    else
-                    {
-                        ContinueOnlineStory(children[1]);
-                    }
-                    break;
-                default:
-                    ContinueOnlineStory(story.playThrough.CurrentEvent.Children.First());
-                    break;
-            }
+            case 1:
+                ContinueOnlineStory(currentEvent.Children.First());
+                break;
+            default:
+                ContinueOnlineStory(story.GetRandomOption(statusBar));
+                break;
         }
     }
 
-    void ContinueStoryDecision()
+    private void ContinueStoryDecision(StoryEvent currentEvent)
     {
-        var children = story.playThrough.CurrentEvent.Children.ToList();
+        if (currentEvent.StoryType.Equals(StoryEventType.StoryDecision))
+        {
+            activeScreen.ShowDecision();
+        }
+        else
+        {
+            activeScreen.ShowCharacterSelection();
+        }
 
-        decision.LoadOnlineDecision(story.playThrough.CurrentEvent, children);
-        activeScreen.ShowDecision();
+        var children = currentEvent.Children.ToList();
+        decision.LoadDecision(currentEvent, children);
 
-        var requestStartVotingMessage = new RequestStartVotingMessage(moderatorClientGuid, votingTime, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[story.playThrough.CurrentEvent.Children.Count]);
-        requestStartVotingMessage.VotingPrompt = new KeyValuePair<Guid, string>(story.playThrough.CurrentEvent.EventId, story.playThrough.CurrentEvent.Description);
+        var requestStartVotingMessage = new RequestStartVotingMessage(moderatorClientGuid, votingTime, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[currentEvent.Children.Count])
+        {
+            VotingPrompt = new KeyValuePair<Guid, string>(currentEvent.EventId, currentEvent.Description)
+        };
 
         // start Voting
-        var options = story.playThrough.CurrentEvent.Children.ToArray();
-        for (var i = 0; i < options.Length; i++)
+        for (var i = 0; i < children.Count; i++)
         {
-            requestStartVotingMessage.VotingOptions[i] = new KeyValuePair<Guid, string>(options[i].EventId, options[i].Description);
+            requestStartVotingMessage.VotingOptions[i] = new KeyValuePair<Guid, string>(children[i].EventId, children[i].Description);
         }
         qualityQuestWebSocket.SendMessage(requestStartVotingMessage);
     }
 
-    void ContinueStoryFlow()
+    private void ContinueStoryFlow(StoryEvent currentEvent)
     {
-        if (story.playThrough.CurrentEvent.Children.Count > 0)
+        if (currentEvent.Children.Count > 0)
         {
             activeScreen.ShowStoryFlow();
-            storyFlow.SetStoryFlow(story.playThrough.CurrentEvent);
-            storyFlowButton.onClick.AddListener(delegate { ContinueOnlineStory(story.playThrough.CurrentEvent.Children.First()); });
+            storyFlow.SetStoryFlow(currentEvent);
+            storyFlowButton.onClick.AddListener(delegate { ContinueOnlineStory(currentEvent.Children.First()); });
         }
         else
         {
-            storyFlowButton.onClick.AddListener(delegate { LoadStatistics(); });
+            storyFlowButton.onClick.AddListener(delegate
+            {
+                SendRequestCloseSessionMessage();
+                activeScreen.ShowStatistics();
+                displayStatistics.DisplayAllDescisions(votingStatistics);
+            });
         }
     }
 
-    void LoadStatistics()
+    public void SendRequestCloseSessionMessage()
     {
-        activeScreen.ShowStatistics();
-        displayStatistics.DisplayAllDescisions(votingStatistics);
+        if (sessionKey == null) return;
+        var requestCloseSessionMessage = new RequestCloseSessionMessage(moderatorClientGuid, sessionKey);
+        qualityQuestWebSocket.SendMessage(requestCloseSessionMessage);
     }
 
     void RemoveListeners()
@@ -434,7 +358,6 @@ public class OnlineClientManager : MonoBehaviour
     {
         if (gamePausedStatusMessage.GamePaused)
         {
-            
             ActiveScreenManager.paused = false;
             activeScreen.ShowPauseMenu(url, sessionKey);
         }
@@ -461,9 +384,6 @@ public class OnlineClientManager : MonoBehaviour
 
     public void ReceivedErrorMessage(ErrorMessage errorMessage)
     {
-
-
-
         switch (errorMessage.ErrorMessageType)
         {
             case ErrorType.IllegalMessage:
@@ -487,11 +407,13 @@ public class OnlineClientManager : MonoBehaviour
     public void SendReconnectMessage()
     {
         var reconnectMessage = new ReconnectMessage(moderatorClientGuid);
+        qualityQuestWebSocket.SendMessage(reconnectMessage);
     }
 
 
     public void SwitchModes()
     {
+        
         if (GameState.gameIsOnline)
         {
             GameState.gameIsOnline = false;
@@ -499,7 +421,8 @@ public class OnlineClientManager : MonoBehaviour
         }
         else
         {
-            GameState.gameIsOnline = true;
+            decision.RemoveOfflineDecisionListeners();
+            offlineGameManager.characterSelection.RemoveOfflinePickButtons();
             if (qualityQuestWebSocket.webSocket == null)
             {
                 activeScreen.ShowConnection();
@@ -518,7 +441,8 @@ public class OnlineClientManager : MonoBehaviour
                         }
                         else
                         {
-                            SendReconnectMessage();
+                            GameState.gameIsOnline = true;
+                            ContinueOnlineStory(story.playThrough.CurrentEvent);
                         }
                         break;
                     case WebSocketState.Closing:

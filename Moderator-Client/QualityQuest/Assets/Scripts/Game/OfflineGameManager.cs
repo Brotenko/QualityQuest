@@ -7,22 +7,11 @@ public class OfflineGameManager : MonoBehaviour
 {
     public DisplayStatusbar statusBar;
     public CharacterSelection characterSelection;
-    public GameStory story;
-    public VideoBackground video;
-    public DisplayDecision decision;
-    public DisplayStoryFlow storyFlow;
-    public ActiveScreenManager activeScreen;
-
-    public Button storyFlowButton;
-    public Button selectOfflineLumati;
-    public Button selectOfflineTurgal;
-    public Button selectOfflineKirogh;
-    public Button selectOfflineNoruso;
-    public Button selectOfflineA;
-    public Button selectOfflineB;
-    public Button selectOfflineC;
-    public Button selectOfflineD;
-
+    public GameStory gameStory;
+    public VideoBackground videoBackground;
+    public DisplayDecision displayDecision;
+    public DisplayStoryFlow displayStoryFlow;
+    public ActiveScreenManager activeScreenManager;
 
     void Start()
     {
@@ -35,17 +24,14 @@ public class OfflineGameManager : MonoBehaviour
 
     public void StartOfflinePlaythrough()
     {
-        activeScreen.ShowCharacterSelection();
-        selectOfflineKirogh.gameObject.SetActive(true);
-        selectOfflineLumati.gameObject.SetActive(true);
-        selectOfflineTurgal.gameObject.SetActive(true);
-        selectOfflineNoruso.gameObject.SetActive(true);
+        activeScreenManager.ShowCharacterSelection();
+        characterSelection.ActivateOfflineCharacterPickButtons();
     }
 
     public void PickNoruso()
     {
-        characterSelection.InitializeCharacter(characterSelection.noruso, story, statusBar);
-        var list = story.playThrough.CurrentEvent.Children.ToList();
+        characterSelection.InitializeCharacter(characterSelection.noruso, gameStory, statusBar);
+        var list = gameStory.playThrough.CurrentEvent.Children.ToList();
         if (GameState.gameIsOnline)
         {
 
@@ -59,8 +45,8 @@ public class OfflineGameManager : MonoBehaviour
 
     public void PickLumati()
     {
-        characterSelection.InitializeCharacter(characterSelection.lumati, story, statusBar);
-        var list = story.playThrough.CurrentEvent.Children.ToList();
+        characterSelection.InitializeCharacter(characterSelection.lumati, gameStory, statusBar);
+        var list = gameStory.playThrough.CurrentEvent.Children.ToList();
         if (GameState.gameIsOnline)
         {
 
@@ -73,8 +59,8 @@ public class OfflineGameManager : MonoBehaviour
 
     public void PickTurgal()
     {
-        characterSelection.InitializeCharacter(characterSelection.turgal, story, statusBar);
-        var list = story.playThrough.CurrentEvent.Children.ToList();
+        characterSelection.InitializeCharacter(characterSelection.turgal, gameStory, statusBar);
+        var list = gameStory.playThrough.CurrentEvent.Children.ToList();
         if (GameState.gameIsOnline)
         {
 
@@ -87,8 +73,8 @@ public class OfflineGameManager : MonoBehaviour
 
     public void PickKirogh()
     {
-        characterSelection.InitializeCharacter(characterSelection.kirogh, story, statusBar);
-        var list = story.playThrough.CurrentEvent.Children.ToList();
+        characterSelection.InitializeCharacter(characterSelection.kirogh, gameStory, statusBar);
+        var list = gameStory.playThrough.CurrentEvent.Children.ToList();
         if (GameState.gameIsOnline)
         {
 
@@ -101,17 +87,13 @@ public class OfflineGameManager : MonoBehaviour
 
     public void ContinueOfflineStory(StoryEvent storyEvent)
     {
-        selectOfflineA.onClick.RemoveAllListeners();
-        selectOfflineB.onClick.RemoveAllListeners();
-        selectOfflineC.onClick.RemoveAllListeners();
-        selectOfflineD.onClick.RemoveAllListeners();
-
-        story.playThrough.CurrentEvent = storyEvent;
+        gameStory.SetCurrentEvent(storyEvent);
+        Debug.Log("Current Event: " + gameStory.playThrough.CurrentEvent.Description);
 
         if (storyEvent.SkillChange != null)
         {
-            story.playThrough.Character.Abilities.updateAbilities(storyEvent.SkillChange);
-            statusBar.DisplaySkills(story.playThrough.Character.Abilities);
+            gameStory.playThrough.Character.Abilities.updateAbilities(storyEvent.SkillChange);
+            statusBar.DisplaySkills(gameStory.playThrough.Character.Abilities);
             statusBar.UpdateSkillChanges(storyEvent.SkillChange);
         }
 
@@ -137,11 +119,11 @@ public class OfflineGameManager : MonoBehaviour
         }
     }
 
-    void ContinueOfflineBackground(StoryEvent currentEvent)
+    private void ContinueOfflineBackground(StoryEvent currentEvent)
     {
         if (currentEvent.Children.Any())
         {
-            video.SwitchBackground(currentEvent.Background);
+            videoBackground.SwitchBackground(currentEvent.Background);
             ContinueOfflineStory(currentEvent.Children.First());
         }
         else
@@ -150,128 +132,55 @@ public class OfflineGameManager : MonoBehaviour
         }
     }
 
-    void ContinueOfflineDecisionOption(StoryEvent currentEvent)
+    private void ContinueOfflineDecisionOption(StoryEvent currentEvent)
     {
+        displayStoryFlow.RemoveStoryFlowListeners();
+
         if (currentEvent.Children.Count() == 1)
         {
             ContinueOfflineStory(currentEvent.Children.First());
         }
-        else if (story.playThrough.CurrentEvent.Children.Count() > 1)
+        else if (gameStory.playThrough.CurrentEvent.Children.Count() > 1)
         {
-            statusBar.DisplayDice(3);
-            Random diceRoll = new Random();
-            int rollTheDice = diceRoll.Next(0, 6);
-            var children = story.playThrough.CurrentEvent.Children.ToList();
-            switch (currentEvent.Children.First().Random)
-            {
-                case RandomType.DecisionFiveOne:
-                    bool randomEventOne = rollTheDice + story.playThrough.Character.Abilities.Programming + 1 > 8;
-                    if (randomEventOne == children[0].RandomOption)
-                    {
-                        ContinueOfflineStory(children[0]);
-                    }
-                    else
-                    {
-                        ContinueOfflineStory(children[1]);
-                    }
-                    break;
-                case RandomType.DecisionFiveTwo:
-                    var randomEventTwo = rollTheDice + story.playThrough.Character.Abilities.Programming - 1 > 8;
-                    if (randomEventTwo == children[0].RandomOption)
-                    {
-                        ContinueOfflineStory(children[0]);
-                    }
-                    else
-                    {
-                        ContinueOfflineStory(children[1]);
-                    }
-                    break;
-                case RandomType.DecisionEight:
-                    var randomEventThree = rollTheDice + story.playThrough.Character.Abilities.Partying > 8;
-                    if (randomEventThree == children[0].RandomOption)
-                    {
-                        Debug.Log(children[0].RandomOption);
-                        ContinueOfflineStory(children[0]);
-                    }
-                    else
-                    {
-                        Debug.Log(children[1].RandomOption);
-                        ContinueOfflineStory(children[1]);
-                    }
-                    break;
-                case RandomType.DecisionEleven:
-                    var randomEventFour = rollTheDice > 3;
-                    if (randomEventFour == children[0].RandomOption)
-                    {
-                        ContinueOfflineStory(children[0]);
-                    }
-                    else
-                    {
-                        ContinueOfflineStory(children[1]);
-                    }
-                    break;
-                case RandomType.DecisionThirteenOne:
-                    var randomEventFive = rollTheDice <= 3;
-                    if (randomEventFive == children[0].RandomOption)
-                    {
-                        ContinueOfflineStory(children[0]);
-                    }
-                    else
-                    {
-                        ContinueOfflineStory(children[1]);
-                    }
-                    break;
-                case RandomType.DecisionThirteenTwo:
-                    var randomEventSix = story.playThrough.Character.Abilities.Communication > 6;
-                    if (randomEventSix == children[0].RandomOption)
-                    {
-                        ContinueOfflineStory(children[0]);
-                    }
-                    else
-                    {
-                        ContinueOfflineStory(children[1]);
-                    }
-                    break;
-                default:
-                    ContinueOfflineStory(story.playThrough.CurrentEvent.Children.First());
-                    break;
-            }
+            ContinueOfflineStory(gameStory.GetRandomOption(statusBar));
         }
     }
 
-    void ContinueOfflineDecision(StoryEvent currentEvent)
+    
+    private void ContinueOfflineDecision(StoryEvent currentEvent)
     {
+        displayDecision.RemoveOfflineDecisionListeners();
+
         var children = currentEvent.Children.ToList();
-        decision.LoadDecision(currentEvent, children);
-        activeScreen.ShowDecision();
+        displayDecision.LoadDecision(currentEvent, children);
+        activeScreenManager.ShowDecision();
 
         if (children.Count >= 2)
         {
-            selectOfflineA.onClick.AddListener(delegate { ContinueOfflineStory(children[0]); });
-            selectOfflineB.onClick.AddListener(delegate { ContinueOfflineStory(children[1]); });
+            displayDecision.selectOfflineA.onClick.AddListener(delegate { ContinueOfflineStory(children[0]); });
+            displayDecision.selectOfflineB.onClick.AddListener(delegate { ContinueOfflineStory(children[1]); });
         }
 
         if (children.Count >= 3)
         {
-            selectOfflineC.onClick.AddListener(delegate { ContinueOfflineStory(children[2]); });
+            displayDecision.selectOfflineC.onClick.AddListener(delegate { ContinueOfflineStory(children[2]); });
         }
 
         if (children.Count >= 4)
         {
-            selectOfflineD.onClick.AddListener(delegate { ContinueOfflineStory(children[3]); });
+            displayDecision.selectOfflineD.onClick.AddListener(delegate { ContinueOfflineStory(children[3]); });
         }
-    
     }
 
     private void ContinueOfflineStoryFlow(StoryEvent currentEvent)
     {
-        storyFlowButton.onClick.RemoveAllListeners();
+        displayStoryFlow.RemoveStoryFlowListeners();
 
         if (currentEvent.Children.Count > 0)
         {
-            activeScreen.ShowStoryFlow();
-            storyFlow.SetStoryFlow(currentEvent);
-            storyFlowButton.onClick.AddListener(delegate
+            activeScreenManager.ShowStoryFlow();
+            displayStoryFlow.SetStoryFlow(currentEvent);
+            displayStoryFlow.storyFlowButton.onClick.AddListener(delegate
             {
                 ContinueOfflineStory(currentEvent.Children.First());
             });

@@ -27,7 +27,7 @@ public class CharacterSelection : MonoBehaviour
     public Character noruso, lumati, turgal, kirogh;
 
     /// <summary>
-    ///     Awake is called when the script is loaded
+    /// Awake is called when the script is loaded
     /// </summary>
     private void Awake()
     {
@@ -75,5 +75,16 @@ public class CharacterSelection : MonoBehaviour
         selectOfflineLumati.gameObject.SetActive(true);
         selectOfflineTurgal.gameObject.SetActive(true);
         selectOfflineNoruso.gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// disables the buttons for selecting a character in offline mode
+    /// </summary>
+    public void RemoveOfflinePickButtons()
+    {
+        selectOfflineKirogh.gameObject.SetActive(false);
+        selectOfflineLumati.gameObject.SetActive(false);
+        selectOfflineTurgal.gameObject.SetActive(false);
+        selectOfflineNoruso.gameObject.SetActive(false);
     }
 }

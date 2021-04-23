@@ -2,10 +2,10 @@ using System;
 
 public enum RandomType 
 {
-    DecisionFiveOne,
-    DecisionFiveTwo,
-    DecisionEight,
-    DecisionEleven,
-    DecisionThirteenOne,
-    DecisionThirteenTwo
+    RandomDecisionOne,
+    RandomDecisionTwo,
+    RandomDecisionThree,
+    RandomDecisionFour,
+    RandomDecisionFive,
+    RandomDecisionSix
 }

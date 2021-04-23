@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Video;
+using Random = System.Random;
 
 public class GameStory : MonoBehaviour
 {
@@ -151,14 +152,14 @@ public class GameStory : MonoBehaviour
         decision5.AddChild(decision5option1);
         decision5.AddChild(decision5option2);
 
-        var storyelement11option1 = new StoryEvent(Guid.NewGuid(), "Durch deine guten Programmierkenntnisse kannst du trotzdem die Deadline einhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, true, RandomType.DecisionFiveOne);
-        var storyelement11option2 = new StoryEvent(Guid.NewGuid(), "Leider wirst du nicht rechtzeitig fertig aber du hast sehr umfangreiche Tests geschrieben.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, false, RandomType.DecisionFiveOne);
+        var storyelement11option1 = new StoryEvent(Guid.NewGuid(), "Durch deine guten Programmierkenntnisse kannst du trotzdem die Deadline einhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, true, RandomType.RandomDecisionOne);
+        var storyelement11option2 = new StoryEvent(Guid.NewGuid(), "Leider wirst du nicht rechtzeitig fertig aber du hast sehr umfangreiche Tests geschrieben.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, false, RandomType.RandomDecisionOne);
 
         decision5option1.AddChild(storyelement11option1);
         decision5option1.AddChild(storyelement11option2);
 
-        var storyelement11option3 = new StoryEvent(Guid.NewGuid(), "Durch deine guten Programmierkenntnisse hast du es trotz der kurzen Zeit geschafft umfangreiche Tests zu schreiben.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, true, RandomType.DecisionFiveTwo);
-        var storyelement11option4 = new StoryEvent(Guid.NewGuid(), "Die Deadline wurde erreicht aber du hast es nicht geschafft alles umfangreich zu testen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, false, RandomType.DecisionFiveTwo);
+        var storyelement11option3 = new StoryEvent(Guid.NewGuid(), "Durch deine guten Programmierkenntnisse hast du es trotz der kurzen Zeit geschafft umfangreiche Tests zu schreiben.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, true, RandomType.RandomDecisionTwo);
+        var storyelement11option4 = new StoryEvent(Guid.NewGuid(), "Die Deadline wurde erreicht aber du hast es nicht geschafft alles umfangreich zu testen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, false, RandomType.RandomDecisionTwo);
 
         decision5option2.AddChild(storyelement11option3);
         decision5option2.AddChild(storyelement11option4);
@@ -276,8 +277,8 @@ public class GameStory : MonoBehaviour
         var storyelement22option1 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung auf der Party.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 2, 0));
 
         // affected by dice roll
-        var storyelement22option2 = new StoryEvent(Guid.NewGuid(), "Du überstehst die Firmenfeier ohne für Aufsehen zu sorgen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 3, 0), true, RandomType.DecisionEight);
-        var storyelement22option3 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung aber fällst negativ auf, weil du ziemlich stark betrunken bist.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, 0, 3, 0), false, RandomType.DecisionEight);
+        var storyelement22option2 = new StoryEvent(Guid.NewGuid(), "Du überstehst die Firmenfeier ohne für Aufsehen zu sorgen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 3, 0), true, RandomType.RandomDecisionThree);
+        var storyelement22option3 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung aber fällst negativ auf, weil du ziemlich stark betrunken bist.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, 0, 3, 0), false, RandomType.RandomDecisionThree);
 
         decision9option2.AddChild(storyelement22option1);
         decision9option1.AddChild(storyelement22option2);
@@ -409,8 +410,8 @@ public class GameStory : MonoBehaviour
         decision13option1.AddChild(storyelement32);
 
         //affected by dice roll
-        var storyelement33option1 = new StoryEvent(Guid.NewGuid(), "Der Bug wurde gefunden und es kommt raus, dass du den Code mit dem Bug als letztes bearbeitet hast. Yaggaya ist sauer, da dir der Bug hätte auffallen müssen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-3, -3, 0, 0), true, RandomType.DecisionEleven);
-        var storyelement33option2 = new StoryEvent(Guid.NewGuid(), "Der Bug wurde nicht gefunden.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, -3, 0, 0), false, RandomType.DecisionEleven);
+        var storyelement33option1 = new StoryEvent(Guid.NewGuid(), "Der Bug wurde gefunden und es kommt raus, dass du den Code mit dem Bug als letztes bearbeitet hast. Yaggaya ist sauer, da dir der Bug hätte auffallen müssen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-3, -3, 0, 0), true, RandomType.RandomDecisionFour);
+        var storyelement33option2 = new StoryEvent(Guid.NewGuid(), "Der Bug wurde nicht gefunden.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, -3, 0, 0), false, RandomType.RandomDecisionFour);
 
         decision13option2.AddChild(storyelement33option1);
         decision13option2.AddChild(storyelement33option2);
@@ -486,8 +487,8 @@ public class GameStory : MonoBehaviour
         decision16.AddChild(decision16option2);
 
         //dice roll
-        var storyelement41option1 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden und du schafft es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), true, RandomType.DecisionThirteenOne);
-        var storyelement41option2 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden aber du wirst es nicht schaffen deine Deadline zu halten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), false, RandomType.DecisionThirteenOne);
+        var storyelement41option1 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden und du schafft es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), true, RandomType.RandomDecisionFive);
+        var storyelement41option2 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden aber du wirst es nicht schaffen deine Deadline zu halten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), false, RandomType.RandomDecisionFive);
 
         decision16option2.AddChild(storyelement41option1);
         decision16option2.AddChild(storyelement41option2);
@@ -503,11 +504,11 @@ public class GameStory : MonoBehaviour
         decision17.AddChild(decision17option2);
 
         //high communication skills required
-        var storyelement42option1 = new StoryEvent(Guid.NewGuid(), "Yaggaya hilft dir und du schaffst es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, true, RandomType.DecisionThirteenTwo);
+        var storyelement42option1 = new StoryEvent(Guid.NewGuid(), "Yaggaya hilft dir und du schaffst es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, true, RandomType.RandomDecisionSix);
 
         decision17option1.AddChild(storyelement42option1);
 
-        var storyelement42option2 = new StoryEvent(Guid.NewGuid(), "Yaggaya wird dir nicht helfen und du verpasst deine Deadline.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, -2, 0, 0), false, RandomType.DecisionThirteenTwo);
+        var storyelement42option2 = new StoryEvent(Guid.NewGuid(), "Yaggaya wird dir nicht helfen und du verpasst deine Deadline.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, -2, 0, 0), false, RandomType.RandomDecisionSix);
 
         decision17option1.AddChild(storyelement42option2);
 
@@ -588,73 +589,39 @@ public class GameStory : MonoBehaviour
         playThrough.setCurrentEvent(storyEvent);
     }
 
-    /*
-    public void PlayGame()
+    public StoryEvent GetRandomOption(DisplayStatusbar displayStatusbar)
     {
+        var diceRoll = new Random();
+        var currentEvent = playThrough.CurrentEvent;
+        var rollTheDice = diceRoll.Next(0, 6);
+        var children = playThrough.CurrentEvent.Children.ToList();
 
-        if (playThrough.CurrentEvent.SkillChange != null)
+        displayStatusbar.DisplayDice(3);
+
+        switch (currentEvent.Children.First().Random)
         {
-            playThrough.Character.Abilities.updateAbilities(playThrough.CurrentEvent.SkillChange);
-            OfflineGameManager.current.statusBar.DisplaySkills(playThrough.Character.Abilities);
-            OfflineGameManager.current.statusBar.UpdateSkillChanges(playThrough.CurrentEvent.SkillChange);
-        }
-
-        Debug.Log(playThrough.CurrentEvent.StoryType);
-
-        if (playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryDecision))
-        {
-            OfflineGameManager.current.decision.LoadDecision(playThrough.CurrentEvent, playThrough.CurrentEvent.Children);
-            OfflineGameManager.current.activeScreen.ShowDecision();
-            Debug.Log("StoryDecision: " + playThrough.CurrentEvent.Description);
-        }
-
-        else if (playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryDecisionOption))
-        {
-            if (playThrough.CurrentEvent.Children.Count() > 0)
-            {
-                NextStoryEvent();
-                Debug.Log("Option: " + playThrough.CurrentEvent.Description);
-                this.PlayGame();
-            }
-            else
-            {
-                Debug.Log("Story Event has no Children");
-            }
-        }
-
-        else if (playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryFlow))
-        {
-            if (playThrough.CurrentEvent.Children.Count() > 0)
-            {
-                Debug.Log("StoryFlow: " + playThrough.CurrentEvent.Description);
-                OfflineGameManager.current.activeScreen.ShowStoryFlow();
-                OfflineGameManager.current.storyFlow.LoadStoryFlow(playThrough.CurrentEvent);
-                NextStoryEvent();
-            }
-            else
-            {
-                Debug.Log("Story Event has no Children");
-            }
-        }
-
-        else if (playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryBackground))
-        {
-            if (playThrough.CurrentEvent.Children.Count() > 0)
-            {
-                OfflineGameManager.current.video.SwitchBackground(playThrough.CurrentEvent.Background);
-                NextStoryEvent();
-                this.PlayGame();
-            }
-            else
-            {
-                Debug.Log("Story Event has no Children");
-            }
+            case RandomType.RandomDecisionOne:
+                var randomEventOne = rollTheDice + playThrough.Character.Abilities.Programming + 1 > 8;
+                return randomEventOne == children[0].RandomOption ? children[0] : children[1];
+            case RandomType.RandomDecisionTwo:
+                var randomEventTwo = rollTheDice + playThrough.Character.Abilities.Programming - 1 > 8;
+                return randomEventTwo == children[0].RandomOption ? children[0] : children[1];
+            case RandomType.RandomDecisionThree:
+                var randomEventThree = rollTheDice + playThrough.Character.Abilities.Partying > 8;
+                return randomEventThree == children[0].RandomOption ? children[0] : children[1];
+            case RandomType.RandomDecisionFour:
+                var randomEventFour = rollTheDice > 3;
+                return randomEventFour == children[0].RandomOption ? children[0] : children[1];
+            case RandomType.RandomDecisionFive:
+                var randomEventFive = rollTheDice <= 3;
+                return randomEventFive == children[0].RandomOption ? children[0] : children[1];
+            case RandomType.RandomDecisionSix:
+                var randomEventSix = playThrough.Character.Abilities.Communication > 6;
+                return randomEventSix == children[0].RandomOption ? children[0] : children[1];
+            default:
+                return currentEvent.Children.First();
         }
     }
 
-    public void NextStoryEvent()
-    {
-        playThrough.setCurrentEvent(playThrough.CurrentEvent.Children.First());
-    }
-    */
+
 }

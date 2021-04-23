@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public class DisplayDecision : MonoBehaviour
 {
+    public Button selectOfflineA;
+    public Button selectOfflineB;
+    public Button selectOfflineC;
+    public Button selectOfflineD;
 
     public TMP_Text titleA;
     public TMP_Text descriptionA;
@@ -69,48 +73,12 @@ public class DisplayDecision : MonoBehaviour
         }
     }
 
-    public void LoadOnlineDecision(StoryEvent currentEvent, List<StoryEvent> children)
+    public void RemoveOfflineDecisionListeners()
     {
-
-        descriptionA.text = "";
-        descriptionB.text = "";
-        descriptionC.text = "";
-        descriptionD.text = "";
-
-        panelA.SetActive(false);
-        panelB.SetActive(false);
-        panelC.SetActive(false);
-        panelD.SetActive(false);
-
-        question.text = currentEvent.Description;
-
-        titleA.text = "Option A";
-        if (children.Any())
-        {
-            descriptionA.text = children[0].Description;
-            panelA.SetActive(true);
-        }
-
-        titleB.text = "Option B";
-        if (children.Count() >= 2)
-        {
-            descriptionB.text = children[1].Description;
-            panelB.SetActive(true);
-        }
-
-        titleC.text = "Option C";
-        if (children.Count() >= 3)
-        {
-            descriptionC.text = children[2].Description;
-            panelC.SetActive(true);
-        }
-
-        titleD.text = "Option D";
-        if (children.Count() >= 4)
-        {
-            descriptionD.text = children[3].Description;
-            panelD.SetActive(true);
-        }
+        selectOfflineA.onClick.RemoveAllListeners();
+        selectOfflineB.onClick.RemoveAllListeners();
+        selectOfflineC.onClick.RemoveAllListeners();
+        selectOfflineD.onClick.RemoveAllListeners();
     }
 
 }

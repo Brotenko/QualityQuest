@@ -109,5 +109,4 @@ public class StoryEvent
     {
         Children.Remove(child);
     }
- 
 }
