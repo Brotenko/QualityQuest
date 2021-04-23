@@ -45,7 +45,6 @@ public class DisplayDecision : MonoBehaviour
         {
             descriptionA.text = children[0].Description;
             panelA.SetActive(true);
-
         }
 
         titleB.text = "Option B";

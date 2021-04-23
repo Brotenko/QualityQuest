@@ -13,11 +13,6 @@ public class OfflineGameManager : MonoBehaviour
     public DisplayStoryFlow storyFlow;
     public ActiveScreenManager activeScreen;
 
-    public DisplayCharacter monster1;
-    public DisplayCharacter monster2;
-    public DisplayCharacter monster3;
-    public DisplayCharacter monster4;
-
     public Button storyFlowButton;
     public Button selectOfflineLumati;
     public Button selectOfflineTurgal;
@@ -31,15 +26,9 @@ public class OfflineGameManager : MonoBehaviour
 
     void Start()
     {
-        characterSelection.SetCharacters(monster1, monster2, monster3, monster4);
-
         if (!GameState.gameIsOnline)
         {
             StartOfflinePlaythrough();
-        }
-        else
-        {
-
         }
     }
 

@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class CharacterSelection : MonoBehaviour
 {
+    public DisplayCharacter displayNoruso;
+    public DisplayCharacter displayKirogh;
+    public DisplayCharacter displayTurgal;
+    public DisplayCharacter displayLumati;
 
     public Sprite norusoSprite;
     public Sprite lumatiSprite;
@@ -19,14 +23,15 @@ public class CharacterSelection : MonoBehaviour
         lumati = new Character(new Skills(1, 3, 0, 4), "Lumati", lumatiSprite);
         turgal = new Character(new Skills(2, 2, 2, 2), "Turgal", turgalSprite);
         kirogh = new Character(new Skills(2, 0, 5, 1), "Kirogh", kiroghSprite);
+        SetCharacters();
     }
 
-    public void SetCharacters(DisplayCharacter monster1, DisplayCharacter monster2, DisplayCharacter monster3, DisplayCharacter monster4)
+    public void SetCharacters()
     {
-        monster1.UpdateCharacter(noruso);
-        monster2.UpdateCharacter(kirogh);
-        monster3.UpdateCharacter(turgal);
-        monster4.UpdateCharacter(lumati);
+        displayNoruso.UpdateCharacter(noruso);
+        displayKirogh.UpdateCharacter(kirogh);
+        displayTurgal.UpdateCharacter(turgal);
+        displayLumati.UpdateCharacter(lumati);
     }
 
     public void InitializeCharacter(Character character, GameStory story, DisplayStatusbar statusBar)

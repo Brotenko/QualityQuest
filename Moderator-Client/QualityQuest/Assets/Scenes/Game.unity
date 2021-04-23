@@ -12095,6 +12095,15 @@ MonoBehaviour:
   displayStatistics: {fileID: 457941537}
   video: {fileID: 1093310177}
   offlineGameManager: {fileID: 1093310170}
+  characterSelection: {fileID: 0}
+  selectOfflineLumati: {fileID: 0}
+  selectOfflineTurgal: {fileID: 0}
+  selectOfflineKirogh: {fileID: 0}
+  selectOfflineNoruso: {fileID: 0}
+  selectOfflineA: {fileID: 0}
+  selectOfflineB: {fileID: 0}
+  selectOfflineC: {fileID: 0}
+  selectOfflineD: {fileID: 0}
   votingTime: 0
   debugVotingTime: 0
   ip: {fileID: 8958024211337089618}
@@ -12403,10 +12412,6 @@ MonoBehaviour:
   decision: {fileID: 1093310178}
   storyFlow: {fileID: 1093310179}
   activeScreen: {fileID: 1093310180}
-  monster1: {fileID: 1093310176}
-  monster2: {fileID: 1093310175}
-  monster3: {fileID: 1093310174}
-  monster4: {fileID: 1093310173}
   storyFlowButton: {fileID: 1450303063}
   selectOfflineLumati: {fileID: 1558054843}
   selectOfflineTurgal: {fileID: 323672502}
@@ -12442,6 +12447,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e9c1682cd791f40b7c418dcc987a4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayNoruso: {fileID: 1093310176}
+  displayKirogh: {fileID: 1093310175}
+  displayTurgal: {fileID: 1093310174}
+  displayLumati: {fileID: 1093310173}
   norusoSprite: {fileID: 21300000, guid: d0a20ea131b7b274b9f9578cd8be394c, type: 3}
   lumatiSprite: {fileID: 21300000, guid: a153a2096ad026b46af59e1fd657acb3, type: 3}
   turgalSprite: {fileID: 21300000, guid: 40afcce6dd04ee949ba163b957451844, type: 3}
