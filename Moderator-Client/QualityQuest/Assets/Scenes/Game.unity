@@ -12095,15 +12095,6 @@ MonoBehaviour:
   displayStatistics: {fileID: 457941537}
   video: {fileID: 1093310177}
   offlineGameManager: {fileID: 1093310170}
-  characterSelection: {fileID: 0}
-  selectOfflineLumati: {fileID: 0}
-  selectOfflineTurgal: {fileID: 0}
-  selectOfflineKirogh: {fileID: 0}
-  selectOfflineNoruso: {fileID: 0}
-  selectOfflineA: {fileID: 0}
-  selectOfflineB: {fileID: 0}
-  selectOfflineC: {fileID: 0}
-  selectOfflineD: {fileID: 0}
   votingTime: 0
   debugVotingTime: 0
   ip: {fileID: 8958024211337089618}
@@ -12407,20 +12398,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusBar: {fileID: 1093310169}
   characterSelection: {fileID: 1093310172}
-  story: {fileID: 1093310182}
-  video: {fileID: 1093310177}
-  decision: {fileID: 1093310178}
-  storyFlow: {fileID: 1093310179}
-  activeScreen: {fileID: 1093310180}
-  storyFlowButton: {fileID: 1450303063}
-  selectOfflineLumati: {fileID: 1558054843}
-  selectOfflineTurgal: {fileID: 323672502}
-  selectOfflineKirogh: {fileID: 2064761990}
-  selectOfflineNoruso: {fileID: 535994654}
-  selectOfflineA: {fileID: 1164812061}
-  selectOfflineB: {fileID: 759759807}
-  selectOfflineC: {fileID: 120202801}
-  selectOfflineD: {fileID: 866158021}
+  gameStory: {fileID: 1093310182}
+  videoBackground: {fileID: 1093310177}
+  displayDecision: {fileID: 1093310178}
+  displayStoryFlow: {fileID: 1093310179}
+  activeScreenManager: {fileID: 1093310180}
 --- !u!4 &1093310171
 Transform:
   m_ObjectHideFlags: 0
@@ -12451,6 +12433,10 @@ MonoBehaviour:
   displayKirogh: {fileID: 1093310175}
   displayTurgal: {fileID: 1093310174}
   displayLumati: {fileID: 1093310173}
+  selectOfflineLumati: {fileID: 1558054843}
+  selectOfflineTurgal: {fileID: 323672502}
+  selectOfflineKirogh: {fileID: 2064761990}
+  selectOfflineNoruso: {fileID: 535994654}
   norusoSprite: {fileID: 21300000, guid: d0a20ea131b7b274b9f9578cd8be394c, type: 3}
   lumatiSprite: {fileID: 21300000, guid: a153a2096ad026b46af59e1fd657acb3, type: 3}
   turgalSprite: {fileID: 21300000, guid: 40afcce6dd04ee949ba163b957451844, type: 3}
@@ -12557,6 +12543,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bac5cb0a694aef4d9510d5dfcccf307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectOfflineA: {fileID: 1164812061}
+  selectOfflineB: {fileID: 759759807}
+  selectOfflineC: {fileID: 120202801}
+  selectOfflineD: {fileID: 866158021}
   titleA: {fileID: 822883283}
   descriptionA: {fileID: 1138419594}
   panelA: {fileID: 1164812056}
@@ -12584,6 +12574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storyflowElement: {fileID: 1450303061}
   storyflowText: {fileID: 1633821309}
+  storyFlowButton: {fileID: 1450303063}
 --- !u!114 &1093310180
 MonoBehaviour:
   m_ObjectHideFlags: 0
