@@ -10,6 +10,11 @@ public class CharacterSelection : MonoBehaviour
     public DisplayCharacter displayTurgal;
     public DisplayCharacter displayLumati;
 
+    public Button selectOfflineLumati;
+    public Button selectOfflineTurgal;
+    public Button selectOfflineKirogh;
+    public Button selectOfflineNoruso;
+
     public Sprite norusoSprite;
     public Sprite lumatiSprite;
     public Sprite turgalSprite;
@@ -40,5 +45,13 @@ public class CharacterSelection : MonoBehaviour
         statusBar.DisplaySkills(story.playThrough.Character.Abilities);
         statusBar.ShowStatusBar(true);
         statusBar.SetImage(character.Sprite);
+    }
+
+    public void ActivateOfflineCharacterPickButtons()
+    {
+        selectOfflineKirogh.gameObject.SetActive(true);
+        selectOfflineLumati.gameObject.SetActive(true);
+        selectOfflineTurgal.gameObject.SetActive(true);
+        selectOfflineNoruso.gameObject.SetActive(true);
     }
 }
