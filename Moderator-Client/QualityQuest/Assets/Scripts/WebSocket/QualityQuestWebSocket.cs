@@ -59,7 +59,11 @@ public class QualityQuestWebSocket : MonoBehaviour
                 Debug.Log("String data");
                 mainThreadWorker.AddAction(() =>
                 {
-                    Read(e.Data);
+                    //Ignores all messages if the game is in offline mode.
+                    if (GameState.gameIsOnline)
+                    {
+                        Read(e.Data);
+                    }
                 });
             }
             // Check if the data is binary.
