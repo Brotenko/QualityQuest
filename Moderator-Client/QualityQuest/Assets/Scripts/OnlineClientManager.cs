@@ -203,12 +203,9 @@ public class OnlineClientManager : MonoBehaviour
 
     public void ValidateVotingEndedMessage(StoryEvent currentEvent, Dictionary<Guid, int> votingOptions)
     {
-        foreach (var child in currentEvent.Children)
+        if (currentEvent.Children.Any(child => !votingOptions.ContainsKey(child.EventId)))
         {
-            if (!votingOptions.ContainsKey(child.EventId))
-            {
-                throw new WrongVotingEndedMessage("The VotingEndedMessage does not match the current StoryEvent.");
-            }
+            throw new WrongVotingEndedMessage("The VotingEndedMessage does not match the current StoryEvent.");
         }
     }
 
