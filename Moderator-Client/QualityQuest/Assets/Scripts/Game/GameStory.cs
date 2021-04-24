@@ -589,14 +589,15 @@ public class GameStory : MonoBehaviour
         playThrough.setCurrentEvent(storyEvent);
     }
 
-    public StoryEvent GetRandomOption(DisplayStatusbar displayStatusbar)
+    public StoryEvent GetRandomOption(DisplayStatusbar displayStatusBar)
     {
         var diceRoll = new Random();
         var currentEvent = playThrough.CurrentEvent;
         var rollTheDice = diceRoll.Next(0, 6);
         var children = playThrough.CurrentEvent.Children.ToList();
 
-        displayStatusbar.DisplayDice(3);
+        // TODO: New dice animation
+        displayStatusBar.DisplayDice(3);
 
         switch (currentEvent.Children.First().Random)
         {
