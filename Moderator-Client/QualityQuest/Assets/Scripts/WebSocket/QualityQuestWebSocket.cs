@@ -27,7 +27,7 @@ public class QualityQuestWebSocket : MonoBehaviour
         // Connect ws://127.0.0.1:8181
         
         webSocket = new WebSocket("ws://" + ip +":" + port.ToString());
-
+        //webSocket = new WebSocket("ws://" + ip + ":" + port.ToString() + "/MessageHandler");
         /*
         // Logic to connect with a secure websocket
 
