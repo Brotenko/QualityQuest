@@ -27,7 +27,7 @@
         /// </summary>
         IllegalPauseAction,
         /// <summary>
-        /// Is triggered when a ModeratorClient tries to interact with a session not assigned to him.
+        /// Is triggered when a ModeratorClient tries to interact with a session not assigned to the Moderator.
         /// </summary>
         WrongSession,
         /// <summary>

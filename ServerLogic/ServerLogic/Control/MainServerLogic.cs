@@ -79,9 +79,9 @@ namespace ServerLogic.Control
         /// <summary>
         /// Is periodically triggered by the _timerForInactiveSessionDataDeletion. Checks if one of the connected ModeratorClients has been marked as inactive and deletes them from _connectedModeratorClients if necessary. 
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="e"></param>
-        private void CheckForInactiveSessionInactivity(object source, ElapsedEventArgs e)
+        /// <param name="source">Parameter used by Timer-Elapsed-Event.</param>
+        /// <param name="eventArgs">Parameter used by Timer-Elapsed-Event.</param>
+        private void CheckForInactiveSessionInactivity(object source, ElapsedEventArgs eventArgs)
         {
             if (_connectedModeratorClients.Count>0)
             {
@@ -89,9 +89,7 @@ namespace ServerLogic.Control
                 foreach (var (socket, moderatorClientManager) in _connectedModeratorClients)
                 {
                     if (moderatorClientManager.IsInactive) _connectedModeratorClients.Remove(socket);
-                    else
-                        tempLog +=
-                            $"\tMC-{moderatorClientManager.ModeratorGuid} in Session {moderatorClientManager.SessionKey}.\n";
+                    else tempLog += $"\tMC-{moderatorClientManager.ModeratorGuid} in Session {moderatorClientManager.SessionKey}.\n";
                 }
 
                 ActiveConnections = tempLog;
@@ -377,7 +375,7 @@ namespace ServerLogic.Control
         /// <summary>
         /// Increases and checks the number of network protocol violations of the passed IWebSocketConnection.
         /// </summary>
-        /// <param name="moderatorId"></param>
+        /// <param name="moderatorId">The Guid of the violator.</param>
         internal void AddStrike(Guid moderatorId)
         {
             //FR31 'Network protocol violation'

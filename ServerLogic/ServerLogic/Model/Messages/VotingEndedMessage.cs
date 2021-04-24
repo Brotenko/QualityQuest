@@ -16,7 +16,6 @@ namespace ServerLogic.Model.Messages
     {
         public string WinningOption { get; }
         public Dictionary<Guid, int> VotingResults { get; }
-
         public int TotalVotes { get; }
 
         /// <summary>
@@ -44,11 +43,10 @@ namespace ServerLogic.Model.Messages
             TotalVotes = totalVotes;
         }
 
-        /* todo -> is broke, and as the Message-tests seem to heavily rely on ToString(), these are probably broken too
         public override string ToString()
         {
             string dictToString = "{" + string.Join(",", VotingResults.Select(kv => kv.Key + "=" + kv.Value).ToArray()) + "}";
-            return "VotingEndedMessage [<container>: " + base.ToString() + ", WinningOption: " + WinningOption + ", VotingResults:" + dictToString + "]";
-        }*/
+            return "VotingEndedMessage [<container>: " + base.ToString() + ", WinningOption: " + WinningOption + ", VotingResults:" + dictToString + ", TotalVotes: " + TotalVotes + "]";
+        }
     }
 }

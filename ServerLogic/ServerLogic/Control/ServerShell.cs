@@ -111,9 +111,9 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// Generates a random string with length 16.
+        /// Generates a random string with length 16. May be used to salt a password before hashing.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A string of length 16.</returns>
         private static string SaltGen()
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
@@ -130,83 +130,23 @@ namespace ServerLogic.Control
             string backupSalt = Settings.Default.Salt;
             string backupPW = Settings.Default.PWHash;
             Console.WriteLine("Please enter your password:");
-            while (true)
+            string password = Console.ReadLine();
+            try
             {
-                var pass = "";
-                ConsoleKey key;
-                //read pw and replace entered chars with '*'
-                do
-                {
-                    var keyInfo = Console.ReadKey(intercept: true);
-                    key = keyInfo.Key;
-                    if (key == ConsoleKey.Backspace && pass.Length > 0)
-                    {
-                        Console.Write("\b \b");
-                        pass = pass[0..^1];
-                    }
-                    else if (!char.IsControl(keyInfo.KeyChar))
-                    {
-                        Console.Write("*");
-                        pass += keyInfo.KeyChar;
-                    }
-                } while (key != ConsoleKey.Enter);
+                //FR37, new PW, new Salt
+                Settings.Default.Salt = SaltGen();
+                Settings.Default.PWHash = StringToSHA256Hash(CheckPasswordConditions(password));
 
-                try
-                {
-                    //FR37, new PW, new Salt
-                    Settings.Default.Salt = SaltGen();
-                    Settings.Default.PWHash = StringToSHA256Hash(CheckPasswordConditions(pass));
-                    break;
-                }
-                catch (ArgumentException)
-                {
-                    Console.WriteLine("\n" + Resources.InvalidPasswordExceptionMessage);
-                    Console.WriteLine("\n Do you want to stop the password-changing dialog?\n Enter 'y' for yes or 'n' to retry:");
-                    if (Console.ReadLine().Equals("y"))
-                    {
-                        Settings.Default.Salt = backupSalt;
-                        Settings.Default.PWHash = backupPW;
-                        return;
-                    }
-                    Console.WriteLine("Please enter your password again:");
-                }
             }
-            //Password confirmation
-            while (true)
+            catch (ArgumentException)
             {
-                Console.WriteLine("\nPlease repeat your Password:");
-                var pass = "";
-                ConsoleKey key;
-                do
-                {
-                    var keyInfo = Console.ReadKey(intercept: true);
-                    key = keyInfo.Key;
-                    if (key == ConsoleKey.Backspace && pass.Length > 0)
-                    {
-                        Console.Write("\b \b");
-                        pass = pass[0..^1];
-                    }
-                    else if (!char.IsControl(keyInfo.KeyChar))
-                    {
-                        Console.Write("*");
-                        pass += keyInfo.KeyChar;
-                    }
-                } while (key != ConsoleKey.Enter);
-
-                if (StringToSHA256Hash(pass).Equals(Settings.Default.PWHash))
-                {
-                    Console.WriteLine("\nPassword was changed.");
-                    Settings.Default.Save();
-                    break;
-                }
-                Console.WriteLine("\nThe password entered does not match the one previously entered.\n Do you want to stop the password-changing dialog?\n Enter 'y' for yes or 'n' to retry:" );
-                if (Console.ReadLine().Equals("y"))
-                {
-                    Settings.Default.Salt = backupSalt;
-                    Settings.Default.PWHash = backupPW;
-                    break;
-                }
+                Console.WriteLine("\n" + Resources.InvalidPasswordExceptionMessage);
+                Settings.Default.Salt = backupSalt;
+                Settings.Default.PWHash = backupPW;
+                return;
             }
+            Console.WriteLine("Password was changed successfully.");
+            Settings.Default.Save();
         }
 
         /// <summary>
@@ -219,18 +159,7 @@ namespace ServerLogic.Control
                 Console.WriteLine("Currently no password is specified.");
                 SetPasswordDialog();
             }
-            else
-            {
-                Console.WriteLine("To change the password, simply enter 'password'.");
-            }
-
             RunShell();
-
-            /*
-            this.Password = "!Password123";
-            this.Port = 7777;
-            ServerLogger.CreateServerLogger();
-            */
         }
 
         /// <summary>

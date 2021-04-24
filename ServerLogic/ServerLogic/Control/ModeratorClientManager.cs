@@ -74,9 +74,9 @@ namespace ServerLogic.Control
         /// <summary>
         /// Is automatically triggered after 30 minutes by the _inactivityTimer.
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="e"></param>
-        private void SetToInactive(object source, ElapsedEventArgs e)
+        /// <param name="source">Parameter used by Timer-Elapsed-Event.</param>
+        /// <param name="eventArgs">Parameter used by Timer-Elapsed-Event.</param>
+        private void SetToInactive(object source, ElapsedEventArgs eventArgs)
         {
             ServerLogger.LogDebug($"MC-{ModeratorGuid} was set to inactive.");
             IsInactive = true;
@@ -101,9 +101,9 @@ namespace ServerLogic.Control
         /// <summary>
         /// This method is automatically triggered by the _audienceCountLiveUpdate-Timer.
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="e"></param>
-        private void SendAudienceCount(object source, ElapsedEventArgs e)
+        /// <param name="source">Parameter used by Timer-Elapsed-Event.</param>
+        /// <param name="eventArgs">Parameter used by Timer-Elapsed-Event.</param>
+        private void SendAudienceCount(object source, ElapsedEventArgs eventArgs)
         {
             SocketConnection.Send(JsonConvert.SerializeObject(new AudienceStatusMessage(this.ModeratorGuid, PAClient.PABackend.ConnectionList[this.SessionKey].Count)));
         }
@@ -111,7 +111,7 @@ namespace ServerLogic.Control
         /// <summary>
         /// Initializes and starts a Timer, which triggers the sending of a <a cref="VotingEndedMessage">VotingEndedMessage</a> after the time specified in the <a cref="RequestStartVotingMessage">RequestStartVotingMessage</a> time parameter has elapsed 
         /// </summary>
-        /// <param name="startVoting"></param>
+        /// <param name="startVoting">The received RequestStartVotingMessage.</param>
         public void StartVotingTimer(RequestStartVotingMessage startVoting)
         {
             _ = _playerAudienceClientApi.StartNewVote(SessionKey, startVoting.VotingPrompt, startVoting.VotingOptions);
@@ -126,9 +126,10 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
-        /// Pauses/Unpauses voting.
+        /// Pauses/Unpauses the time-limit for an ongoing voting-round. 
         /// </summary>
-        /// <param name="pause"></param>
+        /// <param name="pause">True to pause, false to unpause.</param>
+        /// <returns>False if there isn't an ongoing voting-round.</returns>
         public bool PauseVotingTimer(bool pause)
         {
             if (IsVoting)
