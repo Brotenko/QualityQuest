@@ -23,6 +23,9 @@ The following tools were used during the creation of Quality Quest and the docum
 | m2r                | Markdown to reStructuredText converter used for making the docs usable for Sphinx.   | [link](https://github.com/miyakogi/m2r) |
 | Sphinx             | Documentation tool for creating stylized documentation through reStructuredText.     | 3.2.1                                   |
 | Adobe XD           | Adobe XD is a vector-based user experience design tool for web apps and mobile apps. | 34.0                                    |
+| Adobe Photoshop    | Adobe Photoshop is a raster graphics editor used to create assets.                   | 22.1.1                                  |
+| ReSharper          | A Visual Studio 2019 extension for refactoring, fixing code smells and the sorts.    | 2020.2.4                                |
+| Codecov            | The leading, dedicated code coverage solution used via Github Action.                | [link](https://about.codecov.io/)       |
 
 </span>
 
@@ -46,13 +49,13 @@ The following plugins were used during the creation of Quality Quest and the doc
 
 The following libraries were used during the creation of Quality Quest:
 
-| Library                | Description                                                                                                     | Version |
-| :--------------------- | :-------------------------------------------------------------------------------------------------------------- | :------ |
-| Microsoft.NET.Test.Sdk | The MSbuild targets and properties for building .NET test projects.                                             | 16.8.3  |
-| MSTest.TestAdapter     | The adapter to discover and execute MSTest Framework based tests.                                               | 2.1.2   |
-| MSTest.TestFramework   | This is MSTest V2, the evolution of Microsoft's Test Framework.                                                 | 2.1.2   |
-| System.Drawing.Common  | Provides access to GDI+ graphics functionality.                                                                 | 5.0.0   |
-| QRCoder                | QRCoder is a simple library, written in C#.NET, which enables you to create QR codes.                           | 1.4.1   |
-| coverlet.collector     | Coverlet is a cross platform code coverage library for .NET, with support for line, branch and method coverage. | 1.3.0   |
+| Library                | Description                                                                                   | Version |
+| :--------------------- | :-------------------------------------------------------------------------------------------- | :------ |
+| Microsoft.NET.Test.Sdk | The MSbuild targets and properties for building .NET test projects.                           | 16.7.1  |
+| MSTest.TestAdapter     | The adapter to discover and execute MSTest Framework based tests.                             | 2.1.1   |
+| MSTest.TestFramework   | This is MSTest V2, the evolution of Microsoft's Test Framework.                               | 2.1.1   |
+| jQuery                 | jQuery is a JavaScript library designed to simplify HTML DOM tree traversal and manipulation. | 3.5.1   |
+| Bootstrap              | Bootstrap is a free and open-source CSS framework.                                            | 4.3.1   |
+| SignalR                | Allows server code to send asynchronous notifications to client-side web applications.        | 5.0.2   |
 
 </span>
