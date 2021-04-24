@@ -362,8 +362,8 @@ public class GameStory : MonoBehaviour
         decision11.AddChild(decision11option2);
         decision11.AddChild(decision11option3);
 
-        var storyelement28option1 = new StoryEvent(Guid.NewGuid(), "Du hast aufgelegt.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption, new Skills(-3, 0, 0, 0));
-        var storyelement28option2 = new StoryEvent(Guid.NewGuid(), "Du hast die gewünschten Änderungen umgesetzt.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption, new Skills(0, 0, 0, 2));
+        var storyelement28option1 = new StoryEvent(Guid.NewGuid(), "Du hast aufgelegt.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-3, 0, 0, 0));
+        var storyelement28option2 = new StoryEvent(Guid.NewGuid(), "Du hast die gewünschten Änderungen umgesetzt.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 2));
         var decision12 = new StoryEvent(Guid.NewGuid(), "Wie willst du weiter vorgehen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
 
         decision11option1.AddChild(storyelement28option1);
@@ -572,7 +572,7 @@ public class GameStory : MonoBehaviour
         storyelement48.AddChild(storyelement49option2);
         storyelement48.AddChild(storyelement49option3);
 
-        var end = new StoryEvent(Guid.NewGuid(), "Ende.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var end = new StoryEvent(Guid.NewGuid(), "", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement49option1.AddChild(end);
         storyelement49option2.AddChild(end);
