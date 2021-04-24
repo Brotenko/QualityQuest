@@ -411,11 +411,13 @@ This message is sent from the Moderator-Client to the ServerLogic to request the
 class RequestStartVotingMessage : MessageContainer 
 {
     int VotingTime;
+    KeyValuePair<Guid, string> VotingPrompt;
     Dictionary<Guid, string> VotingOptions;
 }
 ```
 
 - **VotingTime:** The time in seconds that PlayerAudience-Clients have to cast their vote.
+- **VotingPrompt** The Guid and string of the prompt to be voted on. 
 - **VotingOptions:** Contains the GUIDs of the respective voting option as the key and textual description of the voting option as the value.
 
 The ServerLogic responds with a [VotingStartedMessage](#votingstartedmessage) and some time after with a [VotingEndedMessage](#votingendedmessage).
@@ -441,13 +443,13 @@ This message is sent from the ServerLogic to the Moderator-Client in response to
 class VotingEndedMessage : MessageContainer 
 {
     string WinningOption;
-    Dictionary<string, int> VotingResults;
+    Dictionary<Guid, int> VotingResults;
     int TotalVotes;
 }
 ```
 
 - **WinningOption:** The string of the option that got the most votes from the PlayerAudience.
-- **VotingResults:** Contains the string of the option as the key and the respective amount of received votes as the value.
+- **VotingResults:** Contains the Guid of the option as the key and the respective amount of received votes as the value.
 - **TotalVotes:** The total number of votes cast in this round of voting.
 
 ### Control messages
