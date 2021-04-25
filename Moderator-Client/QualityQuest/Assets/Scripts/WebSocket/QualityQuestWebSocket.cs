@@ -4,11 +4,9 @@ using UnityEngine;
 using WebSocketSharp;
 using Newtonsoft.Json;
 using System;
+using System.Threading;
 using MessageContainer;
 using MessageContainer.Messages;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
 
 /// <summary>
 /// Class to realize the connection to ServerLogic. 
@@ -27,19 +25,19 @@ public class QualityQuestWebSocket : MonoBehaviour
         // Connect ws://127.0.0.1:8181
         
         //webSocket = new WebSocket("ws://" + ip +":" + port.ToString());
-        
-        
+
         // Logic to connect with a secure websocket
         webSocket = new WebSocket("wss://" + ip);
+        webSocket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
 
-        /*
+
         // Check the certificate
         webSocket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
         {
             // If desired you can change the certificate validation
 
             return true;
-        }; */
+        }; 
 
         // Event when the WebSocket connection is established.
         webSocket.OnOpen += (sender, e) =>
