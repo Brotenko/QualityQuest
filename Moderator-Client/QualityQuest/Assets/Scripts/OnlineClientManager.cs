@@ -117,8 +117,6 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
-    
-
     public void ReceivedReconnectSuccessfulMessage(ReconnectSuccessfulMessage reconnectSuccessfulMessage)
     {
         GameState.gameIsOnline = true;

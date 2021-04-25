@@ -18,6 +18,4 @@ public class VideoBackground : MonoBehaviour
     {
         player.clip = clip;
     }
-
-
 }

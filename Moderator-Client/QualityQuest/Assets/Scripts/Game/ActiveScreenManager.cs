@@ -267,8 +267,8 @@ public class ActiveScreenManager : MonoBehaviour
     /// <summary>
     /// Method which displays and hides the pause screen and updates its content.
     /// </summary>
-    /// <param name="url"></param> url which is used by the audience to connect to the server
-    /// <param name="sessionKey"></param> key that has to be entered by the audience to enter the session
+    /// <param name="url">Url which is used by the audience to connect to the server</param> 
+    /// <param name="sessionKey">Key that has to be entered by the audience to enter the session</param> 
     public void ShowPauseMenu(string url, string sessionKey)
     {
 

@@ -3123,8 +3123,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1093310170}
-        m_TargetAssemblyTypeName: OfflineGameManager, Scripts
+      - m_Target: {fileID: 1086257395}
+        m_TargetAssemblyTypeName: OnlineClientManager, Scripts
         m_MethodName: PickTurgal
         m_Mode: 1
         m_Arguments:
@@ -5958,8 +5958,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1093310170}
-        m_TargetAssemblyTypeName: OfflineGameManager, Scripts
+      - m_Target: {fileID: 1086257395}
+        m_TargetAssemblyTypeName: OnlineClientManager, Scripts
         m_MethodName: PickNoruso
         m_Mode: 1
         m_Arguments:
@@ -12094,7 +12094,7 @@ MonoBehaviour:
   result: {fileID: 1234932276}
   displayStatistics: {fileID: 457941537}
   videoBackground: {fileID: 1093310177}
-  offlineGameManager: {fileID: 1093310170}
+  characterSelection: {fileID: 1093310172}
   votingTime: 0
   debugVotingTime: 0
   ip: {fileID: 8958024211337089618}
@@ -12391,13 +12391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db89326fbd7eda49b2bd2ebf7f7eeaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statusBar: {fileID: 1093310169}
-  characterSelection: {fileID: 1093310172}
-  gameStory: {fileID: 1093310182}
-  videoBackground: {fileID: 1093310177}
-  displayDecision: {fileID: 1093310178}
-  displayStoryFlow: {fileID: 1093310179}
-  activeScreenManager: {fileID: 1093310180}
 --- !u!4 &1093310171
 Transform:
   m_ObjectHideFlags: 0
@@ -18165,8 +18158,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1093310170}
-        m_TargetAssemblyTypeName: OfflineGameManager, Scripts
+      - m_Target: {fileID: 1086257395}
+        m_TargetAssemblyTypeName: OnlineClientManager, Scripts
         m_MethodName: PickLumati
         m_Mode: 1
         m_Arguments:
@@ -24294,8 +24287,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1093310170}
-        m_TargetAssemblyTypeName: OfflineGameManager, Scripts
+      - m_Target: {fileID: 1086257395}
+        m_TargetAssemblyTypeName: OnlineClientManager, Scripts
         m_MethodName: PickKirogh
         m_Mode: 1
         m_Arguments:
