@@ -90,7 +90,6 @@ public class Result : MonoBehaviour
             default:
                 break;
         }
-        GetWinner(VotingResults,currentEventChildren);
     }
 
     /// <summary>

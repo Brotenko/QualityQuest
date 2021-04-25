@@ -128,6 +128,7 @@ public class OfflineGameManager : MonoBehaviour
         }
         else
         {
+            // Should not happen
             Debug.Log("Story Event has no Children");
         }
     }
@@ -185,5 +186,6 @@ public class OfflineGameManager : MonoBehaviour
                 ContinueOfflineStory(currentEvent.Children.First());
             });
         }
+
     }
 }

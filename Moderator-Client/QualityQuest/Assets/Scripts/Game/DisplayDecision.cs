@@ -12,6 +12,11 @@ public class DisplayDecision : MonoBehaviour
     public Button selectOfflineC;
     public Button selectOfflineD;
 
+    public Button selectOnlineA;
+    public Button selectOnlineB;
+    public Button selectOnlineC;
+    public Button selectOnlineD;
+
     public TMP_Text titleA;
     public TMP_Text descriptionA;
     public GameObject panelA;
@@ -79,6 +84,14 @@ public class DisplayDecision : MonoBehaviour
         selectOfflineB.onClick.RemoveAllListeners();
         selectOfflineC.onClick.RemoveAllListeners();
         selectOfflineD.onClick.RemoveAllListeners();
+    }
+
+    public void RemoveOnlineDecisionListeners()
+    {
+        selectOnlineA.onClick.RemoveAllListeners();
+        selectOnlineB.onClick.RemoveAllListeners();
+        selectOnlineC.onClick.RemoveAllListeners();
+        selectOnlineD.onClick.RemoveAllListeners();
     }
 
 }

@@ -13,14 +13,14 @@ public class OnlineClientManager : MonoBehaviour
 {
 
     public QualityQuestWebSocket qualityQuestWebSocket;
-    public ActiveScreenManager activeScreen;
-    public GameStory story;
-    public DisplayStatusbar statusBar;
-    public DisplayDecision decision;
-    public DisplayStoryFlow storyFlow;
+    public ActiveScreenManager activeScreenManager;
+    public GameStory gameStory;
+    public DisplayStatusbar displayStatusBar;
+    public DisplayDecision displayDecision;
+    public DisplayStoryFlow displayStoryFlow;
     public Result result;
     public DisplayStatistics displayStatistics;
-    public VideoBackground video;
+    public VideoBackground videoBackground;
     public OfflineGameManager offlineGameManager;
     public VotingStatistics votingStatistics;
 
@@ -30,12 +30,6 @@ public class OnlineClientManager : MonoBehaviour
     public TMP_InputField ip;
     public TMP_InputField port;
     public TMP_InputField password;
-
-    public Button storyFlowButton;
-    public Button selectOnlineA;
-    public Button selectOnlineB;
-    public Button selectOnlineC;
-    public Button selectOnlineD;
 
     private string sessionKey;
     private string url;
@@ -59,7 +53,7 @@ public class OnlineClientManager : MonoBehaviour
         }
         else
         {
-            activeScreen.ShowErrorScreen("Ip, Port oder Passwort fehlt. Bitte neu versuchen oder im Offline-Modus fortfahren.");
+            activeScreenManager.ShowErrorScreen("Ip, Port oder Passwort fehlt. Bitte neu versuchen oder im Offline-Modus fortfahren.");
         } 
         //qualityQuestWebSocket.StartConnection("127.0.0.1", "8181");
     }
@@ -78,6 +72,12 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    public void SendReconnectMessage()
+    {
+        var reconnectMessage = new ReconnectMessage(moderatorClientGuid);
+        qualityQuestWebSocket.SendMessage(reconnectMessage);
+    }
+
     public void SendRequestSessionOpenedMessage()
     {
         var requestOpenSessionMessage = new RequestOpenSessionMessage(moderatorClientGuid, password.text);
@@ -93,10 +93,17 @@ public class OnlineClientManager : MonoBehaviour
         qualityQuestWebSocket.SendMessage(requestGameStartMessage);
     }
 
+    public void SendRequestCloseSessionMessage()
+    {
+        if (sessionKey == null) return;
+        var requestCloseSessionMessage = new RequestCloseSessionMessage(moderatorClientGuid, sessionKey);
+        qualityQuestWebSocket.SendMessage(requestCloseSessionMessage);
+    }
+
     public void ReceivedReconnectSuccessfulMessage(ReconnectSuccessfulMessage reconnectSuccessfulMessage)
     {
         GameState.gameIsOnline = true;
-        ContinueOnlineStory(story.playThrough.CurrentEvent);
+        ContinueOnlineStory(gameStory.playThrough.CurrentEvent);
     }
 
     
@@ -106,28 +113,28 @@ public class OnlineClientManager : MonoBehaviour
         GameState.gameIsOnline = true;
         url = sessionOpenedMessage.DirectURL.ToString();
         sessionKey = sessionOpenedMessage.SessionKey;
-        activeScreen.ShowQrCodePanel(sessionOpenedMessage.DirectURL.ToString(), sessionOpenedMessage.SessionKey);
+        activeScreenManager.ShowQrCodePanel(sessionOpenedMessage.DirectURL.ToString(), sessionOpenedMessage.SessionKey);
     }
 
     public void ReceivedAudienceStatusMessage(AudienceStatusMessage audienceStatusMessage)
     {
-        activeScreen.UpdateAudienceCount(audienceStatusMessage.AudienceCount);
+        activeScreenManager.UpdateAudienceCount(audienceStatusMessage.AudienceCount);
     }
 
     public void ReceivedGameStartedMessage(GameStartedMessage gameStartedMessage)
     {
-        ContinueOnlineStory(story.playThrough.CurrentEvent);
+        ContinueOnlineStory(gameStory.playThrough.CurrentEvent);
     }
 
     public void ReceivedVotingEndedMessage(VotingEndedMessage votingEndedMessage)
     {
-        var currentEvent = story.playThrough.CurrentEvent;
+        var currentEvent = gameStory.playThrough.CurrentEvent;
         try
         {
             ValidateVotingEndedMessage(currentEvent, votingEndedMessage.VotingResults);
             SaveStatistics(currentEvent.Description, currentEvent.Children, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes);
 
-            var currentEventChildren = story.playThrough.CurrentEvent.Children.ToList();
+            var currentEventChildren = gameStory.playThrough.CurrentEvent.Children.ToList();
 
             if (currentEvent.StoryType.Equals(StoryEventType.StoryRootEvent))
             {
@@ -138,21 +145,21 @@ public class OnlineClientManager : MonoBehaviour
                 // Activate results screen and loads the results. Activates click listeners for option one and two.
                 if (currentEventChildren.Count >= 2)
                 {
-                    activeScreen.ShowResults();
+                    activeScreenManager.ShowResults();
                     result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults,
                         votingEndedMessage.TotalVotes);
-                    selectOnlineA.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
-                    selectOnlineB.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
+                    displayDecision.selectOnlineA.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
+                    displayDecision.selectOnlineB.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
                 }
                 // Activates the click listener for option 3
                 if (currentEventChildren.Count >= 3)
                 {
-                    selectOnlineC.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[2]); });
+                    displayDecision.selectOnlineC.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[2]); });
                 }
                 // Activates the click listener for option 4
                 if (currentEventChildren.Count >= 4)
                 {
-                    selectOnlineD.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[3]); });
+                    displayDecision.selectOnlineD.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[3]); });
                 }
             }
         }
@@ -166,24 +173,24 @@ public class OnlineClientManager : MonoBehaviour
 
     private void OnlineModePickInitializeChar(StoryEvent currentEvent, List<StoryEvent> currentEventChildren, VotingEndedMessage votingEndedMessage)
     {
-        activeScreen.ShowResults();
+        activeScreenManager.ShowResults();
         result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes);
-        selectOnlineA.onClick.AddListener(delegate
+        displayDecision.selectOnlineA.onClick.AddListener(delegate
         { 
             offlineGameManager.PickNoruso(); 
             ContinueOnlineStory(currentEventChildren[0]);
-        }); 
-        selectOnlineB.onClick.AddListener(delegate 
+        });
+        displayDecision.selectOnlineB.onClick.AddListener(delegate 
         { 
             offlineGameManager.PickLumati(); 
             ContinueOnlineStory(currentEventChildren[1]);
         });
-        selectOnlineC.onClick.AddListener(delegate 
+        displayDecision.selectOnlineC.onClick.AddListener(delegate 
         { 
             offlineGameManager.PickTurgal(); 
             ContinueOnlineStory(currentEventChildren[2]);
-        }); 
-        selectOnlineD.onClick.AddListener(delegate 
+        });
+        displayDecision.selectOnlineD.onClick.AddListener(delegate 
         { 
             offlineGameManager.PickKirogh(); 
             ContinueOnlineStory(currentEventChildren[3]);
@@ -211,14 +218,14 @@ public class OnlineClientManager : MonoBehaviour
 
     public void ContinueOnlineStory(StoryEvent storyEvent)
     {
-        RemoveListeners();
-        story.SetCurrentEvent(storyEvent);
+        displayDecision.RemoveOnlineDecisionListeners();
+        gameStory.SetCurrentEvent(storyEvent);
         
         if (storyEvent.SkillChange != null)
         {
-            story.playThrough.Character.Abilities.updateAbilities(storyEvent.SkillChange);
-            statusBar.DisplaySkills(story.playThrough.Character.Abilities);
-            statusBar.UpdateSkillChanges(storyEvent.SkillChange);
+            gameStory.playThrough.Character.Abilities.updateAbilities(storyEvent.SkillChange);
+            displayStatusBar.DisplaySkills(gameStory.playThrough.Character.Abilities);
+            displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
         }
 
         switch (storyEvent.StoryType)
@@ -247,7 +254,7 @@ public class OnlineClientManager : MonoBehaviour
     {
         if (currentEvent.Children.Any())
         {
-            video.SwitchBackground(currentEvent.Background);
+            videoBackground.SwitchBackground(currentEvent.Background);
             ContinueOnlineStory(currentEvent.Children.First());
         }
         else
@@ -264,24 +271,26 @@ public class OnlineClientManager : MonoBehaviour
                 ContinueOnlineStory(currentEvent.Children.First());
                 break;
             default:
-                ContinueOnlineStory(story.GetRandomOption(statusBar));
+                ContinueOnlineStory(gameStory.GetRandomOption(displayStatusBar));
                 break;
         }
     }
 
     private void ContinueStoryDecision(StoryEvent currentEvent)
     {
+        displayDecision.RemoveOnlineDecisionListeners();
+
         if (currentEvent.StoryType.Equals(StoryEventType.StoryDecision))
         {
-            activeScreen.ShowDecision();
+            activeScreenManager.ShowDecision();
         }
         else
         {
-            activeScreen.ShowCharacterSelection();
+            activeScreenManager.ShowCharacterSelection();
         }
 
         var children = currentEvent.Children.ToList();
-        decision.LoadDecision(currentEvent, children);
+        displayDecision.LoadDecision(currentEvent, children);
 
         var requestStartVotingMessage = new RequestStartVotingMessage(moderatorClientGuid, votingTime, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[currentEvent.Children.Count])
         {
@@ -298,43 +307,27 @@ public class OnlineClientManager : MonoBehaviour
 
     private void ContinueStoryFlow(StoryEvent currentEvent)
     {
+        displayStoryFlow.RemoveStoryFlowListeners();
         if (currentEvent.Children.Count > 0)
         {
-            activeScreen.ShowStoryFlow();
-            storyFlow.SetStoryFlow(currentEvent);
-            storyFlowButton.onClick.AddListener(delegate { ContinueOnlineStory(currentEvent.Children.First()); });
+            activeScreenManager.ShowStoryFlow();
+            displayStoryFlow.SetStoryFlow(currentEvent);
+            displayStoryFlow.storyFlowButton.onClick.AddListener(delegate { ContinueOnlineStory(currentEvent.Children.First()); });
         }
         else
         {
-            storyFlowButton.onClick.AddListener(delegate
+            displayStoryFlow.storyFlowButton.onClick.AddListener(delegate
             {
                 SendRequestCloseSessionMessage();
-                activeScreen.ShowStatistics();
+                activeScreenManager.ShowStatistics();
                 displayStatistics.DisplayAllDescisions(votingStatistics);
             });
         }
     }
 
-    public void SendRequestCloseSessionMessage()
-    {
-        if (sessionKey == null) return;
-        var requestCloseSessionMessage = new RequestCloseSessionMessage(moderatorClientGuid, sessionKey);
-        qualityQuestWebSocket.SendMessage(requestCloseSessionMessage);
-    }
-
-    void RemoveListeners()
-    {
-        storyFlowButton.onClick.RemoveAllListeners();
-        selectOnlineA.onClick.RemoveAllListeners();
-        selectOnlineB.onClick.RemoveAllListeners();
-        selectOnlineC.onClick.RemoveAllListeners();
-        selectOnlineD.onClick.RemoveAllListeners();
-    }
-
-
     public void ReceivedVotingStartedMessage(VotingStartedMessage votingStartedMessage)
     {
-        statusBar.DisplayTimer(votingTime);
+        displayStatusBar.DisplayTimer(votingTime);
     }
 
     public void RequestGamePause()
@@ -356,12 +349,12 @@ public class OnlineClientManager : MonoBehaviour
         if (gamePausedStatusMessage.GamePaused)
         {
             ActiveScreenManager.paused = false;
-            activeScreen.ShowPauseMenu(url, sessionKey);
+            activeScreenManager.ShowPauseMenu(url, sessionKey);
         }
         else
         {
             ActiveScreenManager.paused = true;
-            activeScreen.ShowPauseMenu(url, sessionKey);
+            activeScreenManager.ShowPauseMenu(url, sessionKey);
         }
     }
 
@@ -372,7 +365,7 @@ public class OnlineClientManager : MonoBehaviour
         switch (errorCode)
         {
             case 1006:
-                activeScreen.ShowErrorScreen("Es konnte keine Verbindung zum Server aufgebaut werden.");
+                activeScreenManager.ShowErrorScreen("Es konnte keine Verbindung zum Server aufgebaut werden.");
                 break;
             default:
                 break;
@@ -388,25 +381,24 @@ public class OnlineClientManager : MonoBehaviour
             case ErrorType.IllegalPauseAction:
                 break;
             case ErrorType.GuidAlreadyExists:
+                moderatorClientGuid = Guid.NewGuid();
+                SendRequestSessionOpenedMessage();
                 break;
             case ErrorType.UnknownGuid:
+                moderatorClientGuid = Guid.NewGuid();
+                SendRequestSessionOpenedMessage();
                 break;
             case ErrorType.WrongPassword:
-                activeScreen.ShowErrorScreen("Passwort ist falsch. Bitte erneut versuchen oder im Offline-Modus fortfahren.");
+                activeScreenManager.ShowErrorScreen("Passwort ist falsch. Bitte erneut versuchen oder im Offline-Modus fortfahren.");
                 break;
             case ErrorType.WrongSession:
+                moderatorClientGuid = Guid.NewGuid();
+                SendRequestSessionOpenedMessage();
                 break;
             default:
                 break;
         }
     }
-
-    public void SendReconnectMessage()
-    {
-        var reconnectMessage = new ReconnectMessage(moderatorClientGuid);
-        qualityQuestWebSocket.SendMessage(reconnectMessage);
-    }
-
 
     public void SwitchModes()
     {
@@ -414,22 +406,22 @@ public class OnlineClientManager : MonoBehaviour
         if (GameState.gameIsOnline)
         {
             GameState.gameIsOnline = false;
-            offlineGameManager.ContinueOfflineStory(story.playThrough.CurrentEvent);
+            offlineGameManager.ContinueOfflineStory(gameStory.playThrough.CurrentEvent);
         }
         else
         {
-            decision.RemoveOfflineDecisionListeners();
+            displayDecision.RemoveOfflineDecisionListeners();
             offlineGameManager.characterSelection.RemoveOfflinePickButtons();
             if (qualityQuestWebSocket.webSocket == null)
             {
-                activeScreen.ShowConnection();
+                activeScreenManager.ShowConnection();
             }
             else
             {
                 switch (qualityQuestWebSocket.webSocket.ReadyState)
                 {
                     case WebSocketState.Closed:
-                        activeScreen.ShowConnection();
+                        activeScreenManager.ShowConnection();
                         break;
                     case WebSocketState.Open:
                         if (sessionKey == null)
@@ -439,7 +431,7 @@ public class OnlineClientManager : MonoBehaviour
                         else
                         {
                             GameState.gameIsOnline = true;
-                            ContinueOnlineStory(story.playThrough.CurrentEvent);
+                            ContinueOnlineStory(gameStory.playThrough.CurrentEvent);
                         }
                         break;
                     case WebSocketState.Closing:
