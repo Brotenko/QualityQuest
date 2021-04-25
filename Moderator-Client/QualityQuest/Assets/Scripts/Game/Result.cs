@@ -30,10 +30,10 @@ public class Result : MonoBehaviour
     /// colors for the sliders.
     /// Green represents the winning option and blue is used for the remaining options.
     /// </summary>
-    public Color lightBlue;
-    public Color darkBlue;
-    public Color lightGreen;
-    public Color darkGreen;
+    public Color lightBlue = new Color(0, 0.427451f, 0.6980392f);
+    public Color darkBlue = new Color(0, 0.3372549f, 0.5490196f);
+    public Color lightGreen = new Color(0.0509804f, 0.6980392f, 0.2980392f);
+    public Color darkGreen = new Color(0, 0.5490196f, 0.2117647f);
 
     /// <summary>
     /// Updates the text and votes of each slider to match the options the audience was able to chose.
@@ -90,25 +90,25 @@ public class Result : MonoBehaviour
             default:
                 break;
         }
-        GetWinner(VotingResults, currentEventChildren);
+        GetWinner(VotingResults, currentEventChildren, winningOption);
     }
 
     /// <summary>
-    /// Compares all results for all storyevents of a decision the audience was able to choose and picks the one with the most votes.
-    /// If two or more decisions have the same ammount of votes the first one of those decisions is picked.
+    /// Compares the descriptions of all storyevents of a decision the audience was able to choose and finds out which one matches the winning option.
     /// </summary>
     /// <param name="results"></param>  dictionary witch contains the number of votes and the guid of the coresponding storyevent.
     /// <param name="children"></param> list of all stroyevents the audicence was able to choose.
-    public void GetWinner(Dictionary<Guid,int> results, List<StoryEvent> children)
+    public void GetWinner(Dictionary<Guid,int> results, List<StoryEvent> children, string winningOption)
     {
 
         int winner = 0;
 
         for (int i = 0; i < children.Count; i++)
         {
-            if (results[children[winner].EventId] < results[children[i].EventId])
+            if (children[i].Description.Equals(winningOption))
             {
                 winner = i;
+                break;
             }
         }
 
