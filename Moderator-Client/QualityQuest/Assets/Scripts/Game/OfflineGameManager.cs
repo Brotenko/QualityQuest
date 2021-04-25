@@ -5,6 +5,7 @@ using Random = System.Random;
 
 public class OfflineGameManager : MonoBehaviour
 {
+    /*
     public DisplayStatusbar statusBar;
     public CharacterSelection characterSelection;
     public GameStory gameStory;
@@ -188,4 +189,5 @@ public class OfflineGameManager : MonoBehaviour
         }
 
     }
+    */
 }

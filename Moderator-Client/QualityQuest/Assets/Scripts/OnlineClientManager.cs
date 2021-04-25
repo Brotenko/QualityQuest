@@ -21,8 +21,9 @@ public class OnlineClientManager : MonoBehaviour
     public Result result;
     public DisplayStatistics displayStatistics;
     public VideoBackground videoBackground;
-    public OfflineGameManager offlineGameManager;
     public VotingStatistics votingStatistics;
+
+    public CharacterSelection characterSelection;
 
     public int votingTime;
     public int debugVotingTime;
@@ -35,7 +36,14 @@ public class OnlineClientManager : MonoBehaviour
     private string url;
     private Guid moderatorClientGuid;
 
-    
+    private void Start()
+    {
+        if (!GameState.gameIsOnline)
+        {
+            StartOfflinePlaythrough();
+        }
+    }
+
     public void StartOnlineMode()
     {
         votingTime = 20;
@@ -46,7 +54,6 @@ public class OnlineClientManager : MonoBehaviour
 
     public void Connect()
     {
-        
         if (ip.text != "" && port.text != "" && password.text != "")
         {
             qualityQuestWebSocket.StartConnection(ip.text, port.text);
@@ -54,8 +61,7 @@ public class OnlineClientManager : MonoBehaviour
         else
         {
             activeScreenManager.ShowErrorScreen("Ip, Port oder Passwort fehlt. Bitte neu versuchen oder im Offline-Modus fortfahren.");
-        } 
-        //qualityQuestWebSocket.StartConnection("127.0.0.1", "8181");
+        }
     }
 
     public void ConnectionEstablished()
@@ -67,8 +73,7 @@ public class OnlineClientManager : MonoBehaviour
         }
         else
         {
-            // TODO: Reconnect to old session
-            // Stay offline until reconnect
+            SendReconnectMessage();
         }
     }
 
@@ -81,8 +86,6 @@ public class OnlineClientManager : MonoBehaviour
     public void SendRequestSessionOpenedMessage()
     {
         var requestOpenSessionMessage = new RequestOpenSessionMessage(moderatorClientGuid, password.text);
-        // for testing with a default password
-        //var requestOpenSessionMessage = new RequestOpenSessionMessage(moderatorClientGuid, "!Password123#");
         qualityQuestWebSocket.SendMessage(requestOpenSessionMessage);
     }
 
@@ -100,13 +103,27 @@ public class OnlineClientManager : MonoBehaviour
         qualityQuestWebSocket.SendMessage(requestCloseSessionMessage);
     }
 
+    public void ReceivedGamePausedStatusChange(GamePausedStatusMessage gamePausedStatusMessage)
+    {
+        if (gamePausedStatusMessage.GamePaused)
+        {
+            ActiveScreenManager.paused = false;
+            activeScreenManager.ShowPauseMenu(url, sessionKey);
+        }
+        else
+        {
+            ActiveScreenManager.paused = true;
+            activeScreenManager.ShowPauseMenu(url, sessionKey);
+        }
+    }
+
+    
+
     public void ReceivedReconnectSuccessfulMessage(ReconnectSuccessfulMessage reconnectSuccessfulMessage)
     {
         GameState.gameIsOnline = true;
         ContinueOnlineStory(gameStory.playThrough.CurrentEvent);
     }
-
-    
 
     public void ReceivedSessionOpenedMessage(SessionOpenedMessage sessionOpenedMessage)
     {
@@ -178,22 +195,22 @@ public class OnlineClientManager : MonoBehaviour
         result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes, votingEndedMessage.WinningOption);
         displayDecision.selectOnlineA.onClick.AddListener(delegate
         { 
-            offlineGameManager.PickNoruso(); 
+            PickNoruso(); 
             ContinueOnlineStory(currentEventChildren[0]);
         });
         displayDecision.selectOnlineB.onClick.AddListener(delegate 
         { 
-            offlineGameManager.PickLumati(); 
+            PickLumati(); 
             ContinueOnlineStory(currentEventChildren[1]);
         });
         displayDecision.selectOnlineC.onClick.AddListener(delegate 
         { 
-            offlineGameManager.PickTurgal(); 
+            PickTurgal(); 
             ContinueOnlineStory(currentEventChildren[2]);
         });
         displayDecision.selectOnlineD.onClick.AddListener(delegate 
         { 
-            offlineGameManager.PickKirogh(); 
+            PickKirogh(); 
             ContinueOnlineStory(currentEventChildren[3]);
         });
     }
@@ -232,7 +249,7 @@ public class OnlineClientManager : MonoBehaviour
         switch (storyEvent.StoryType)
         {
             case StoryEventType.StoryBackground:
-                ContinueOnlineBackground(storyEvent);
+                ContinueBackground(storyEvent);
                 break;
             case StoryEventType.StoryRootEvent:
                 // FALL THROUGH
@@ -251,28 +268,29 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
-    private void ContinueOnlineBackground(StoryEvent currentEvent)
-    {
-        if (currentEvent.Children.Any())
-        {
-            videoBackground.SwitchBackground(currentEvent.Background);
-            ContinueOnlineStory(currentEvent.Children.First());
-        }
-        else
-        {
-            Debug.Log("Story Event has no Children");
-        }
-    }
-
     private void ContinueDecisionOption(StoryEvent currentEvent)
     {
         switch (currentEvent.Children.Count())
         {
             case 1:
-                ContinueOnlineStory(currentEvent.Children.First());
+                if (GameState.gameIsOnline)
+                {
+                    ContinueOnlineStory(currentEvent.Children.First());
+                }
+                else
+                {
+                    ContinueOfflineStory(currentEvent.Children.First());
+                }
                 break;
             default:
-                ContinueOnlineStory(gameStory.GetRandomOption(displayStatusBar));
+                if (GameState.gameIsOnline)
+                {
+                    ContinueOnlineStory(gameStory.GetRandomOption(displayStatusBar));
+                }
+                else
+                {
+                    ContinueOfflineStory(gameStory.GetRandomOption(displayStatusBar));
+                }
                 break;
         }
     }
@@ -313,15 +331,28 @@ public class OnlineClientManager : MonoBehaviour
         {
             activeScreenManager.ShowStoryFlow();
             displayStoryFlow.SetStoryFlow(currentEvent);
-            displayStoryFlow.storyFlowButton.onClick.AddListener(delegate { ContinueOnlineStory(currentEvent.Children.First()); });
+            displayStoryFlow.storyFlowButton.onClick.AddListener(delegate
+            {
+                if (GameState.gameIsOnline)
+                {
+                    ContinueOnlineStory(currentEvent.Children.First());
+                }
+                else
+                {
+                    ContinueOfflineStory(currentEvent.Children.First());
+                }
+            });
         }
         else
         {
             displayStoryFlow.storyFlowButton.onClick.AddListener(delegate
             {
-                SendRequestCloseSessionMessage();
-                activeScreenManager.ShowStatistics();
-                displayStatistics.DisplayAllDescisions(votingStatistics);
+                if (GameState.gameIsOnline)
+                {
+                    SendRequestCloseSessionMessage();
+                    activeScreenManager.ShowStatistics();
+                    displayStatistics.DisplayAllDescisions(votingStatistics);
+                }
             });
         }
     }
@@ -345,19 +376,7 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
-    public void ReceivedGamePausedStatusChange(GamePausedStatusMessage gamePausedStatusMessage)
-    {
-        if (gamePausedStatusMessage.GamePaused)
-        {
-            ActiveScreenManager.paused = false;
-            activeScreenManager.ShowPauseMenu(url, sessionKey);
-        }
-        else
-        {
-            ActiveScreenManager.paused = true;
-            activeScreenManager.ShowPauseMenu(url, sessionKey);
-        }
-    }
+    
 
 
     public void ServerIssues(int errorCode)
@@ -407,12 +426,12 @@ public class OnlineClientManager : MonoBehaviour
         if (GameState.gameIsOnline)
         {
             GameState.gameIsOnline = false;
-            offlineGameManager.ContinueOfflineStory(gameStory.playThrough.CurrentEvent);
+            ContinueOfflineStory(gameStory.playThrough.CurrentEvent);
         }
         else
         {
             displayDecision.RemoveOfflineDecisionListeners();
-            offlineGameManager.characterSelection.RemoveOfflinePickButtons();
+            characterSelection.RemoveOfflinePickButtons();
             if (qualityQuestWebSocket.webSocket == null)
             {
                 activeScreenManager.ShowConnection();
@@ -443,6 +462,152 @@ public class OnlineClientManager : MonoBehaviour
                         break;
                 }
             }
+        }
+    }
+
+
+    public void StartOfflinePlaythrough()
+    {
+        Debug.Log("ahaha");
+        activeScreenManager.ShowCharacterSelection();
+        characterSelection.ActivateOfflineCharacterPickButtons();
+    }
+
+    public void PickNoruso()
+    {
+        Debug.Log("haha");
+        characterSelection.InitializeCharacter(characterSelection.noruso, gameStory, displayStatusBar);
+        var list = gameStory.playThrough.CurrentEvent.Children.ToList();
+        if (GameState.gameIsOnline)
+        {
+            ContinueOnlineStory(list[0]);
+        }
+        else
+        {
+            ContinueOfflineStory(list[0]);
+        }
+
+    }
+
+    public void PickLumati()
+    {
+        characterSelection.InitializeCharacter(characterSelection.lumati, gameStory, displayStatusBar);
+        var list = gameStory.playThrough.CurrentEvent.Children.ToList();
+        if (GameState.gameIsOnline)
+        {
+            ContinueOnlineStory(list[1]);
+        }
+        else
+        {
+            ContinueOfflineStory(list[1]);
+        }
+    }
+
+    public void PickTurgal()
+    {
+        characterSelection.InitializeCharacter(characterSelection.turgal, gameStory, displayStatusBar);
+        var list = gameStory.playThrough.CurrentEvent.Children.ToList();
+        if (GameState.gameIsOnline)
+        {
+            ContinueOnlineStory(list[2]);
+        }
+        else
+        {
+            ContinueOfflineStory(list[2]);
+        }
+    }
+
+    public void PickKirogh()
+    {
+        characterSelection.InitializeCharacter(characterSelection.kirogh, gameStory, displayStatusBar);
+        var list = gameStory.playThrough.CurrentEvent.Children.ToList();
+        if (GameState.gameIsOnline)
+        {
+            ContinueOnlineStory(list[3]);
+        }
+        else
+        {
+            ContinueOfflineStory(list[3]);
+        }
+    }
+
+    public void ContinueOfflineStory(StoryEvent storyEvent)
+    {
+        gameStory.SetCurrentEvent(storyEvent);
+        Debug.Log("Current Event: " + gameStory.playThrough.CurrentEvent.Description);
+
+        if (storyEvent.SkillChange != null)
+        {
+            gameStory.playThrough.Character.Abilities.updateAbilities(storyEvent.SkillChange);
+            displayStatusBar.DisplaySkills(gameStory.playThrough.Character.Abilities);
+            displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
+        }
+
+        switch (storyEvent.StoryType)
+        {
+            case StoryEventType.StoryRootEvent:
+                StartOfflinePlaythrough();
+                break;
+            case StoryEventType.StoryBackground:
+                ContinueBackground(storyEvent);
+                break;
+            case StoryEventType.StoryDecision:
+                ContinueOfflineDecision(storyEvent);
+                break;
+            case StoryEventType.StoryDecisionOption:
+                ContinueDecisionOption(storyEvent);
+                break;
+            case StoryEventType.StoryFlow:
+                ContinueStoryFlow(storyEvent);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void ContinueBackground(StoryEvent currentEvent)
+    {
+        if (currentEvent.Children.Any())
+        {
+            videoBackground.SwitchBackground(currentEvent.Background);
+            if (GameState.gameIsOnline)
+            {
+                ContinueOnlineStory(currentEvent.Children.First());
+            }
+            else
+            {
+                ContinueOfflineStory(currentEvent.Children.First());
+            }
+        }
+        else
+        {
+            // Should not happen
+            Debug.Log("Story Event has no Children");
+        }
+    }
+
+    private void ContinueOfflineDecision(StoryEvent currentEvent)
+    {
+        displayDecision.RemoveOfflineDecisionListeners();
+
+        var children = currentEvent.Children.ToList();
+        displayDecision.LoadDecision(currentEvent, children);
+        activeScreenManager.ShowDecision();
+
+        if (children.Count >= 2)
+        {
+            displayDecision.selectOfflineA.onClick.AddListener(delegate { ContinueOfflineStory(children[0]); });
+            displayDecision.selectOfflineB.onClick.AddListener(delegate { ContinueOfflineStory(children[1]); });
+        }
+
+        if (children.Count >= 3)
+        {
+            displayDecision.selectOfflineC.onClick.AddListener(delegate { ContinueOfflineStory(children[2]); });
+        }
+
+        if (children.Count >= 4)
+        {
+            displayDecision.selectOfflineD.onClick.AddListener(delegate { ContinueOfflineStory(children[3]); });
         }
     }
 }
