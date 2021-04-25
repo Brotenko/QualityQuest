@@ -134,6 +134,7 @@ public class OnlineClientManager : MonoBehaviour
             ValidateVotingEndedMessage(currentEvent, votingEndedMessage.VotingResults);
             SaveStatistics(currentEvent.Description, currentEvent.Children, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes);
 
+
             var currentEventChildren = gameStory.playThrough.CurrentEvent.Children.ToList();
 
             if (currentEvent.StoryType.Equals(StoryEventType.StoryRootEvent))
@@ -147,7 +148,7 @@ public class OnlineClientManager : MonoBehaviour
                 {
                     activeScreenManager.ShowResults();
                     result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults,
-                        votingEndedMessage.TotalVotes);
+                        votingEndedMessage.TotalVotes, votingEndedMessage.WinningOption);
                     displayDecision.selectOnlineA.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
                     displayDecision.selectOnlineB.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
                 }
@@ -174,7 +175,7 @@ public class OnlineClientManager : MonoBehaviour
     private void OnlineModePickInitializeChar(StoryEvent currentEvent, List<StoryEvent> currentEventChildren, VotingEndedMessage votingEndedMessage)
     {
         activeScreenManager.ShowResults();
-        result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes);
+        result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes, votingEndedMessage.WinningOption);
         displayDecision.selectOnlineA.onClick.AddListener(delegate
         { 
             offlineGameManager.PickNoruso(); 

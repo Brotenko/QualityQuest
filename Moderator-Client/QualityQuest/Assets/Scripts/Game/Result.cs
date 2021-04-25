@@ -44,7 +44,7 @@ public class Result : MonoBehaviour
     /// <param name="currentEventChildren"></param> list which contains all children of the currently active storyevent
     /// <param name="VotingResults"></param> dictionary witch contains the number of votes and the guid of the coresponding storyevent.
     /// <param name="countVotings"></param> list of all stroyevents the audicence was able to choose.
-    public void LoadResult(StoryEvent currentEvent, List<StoryEvent> currentEventChildren, Dictionary<Guid, int> VotingResults, int countVotings)
+    public void LoadResult(StoryEvent currentEvent, List<StoryEvent> currentEventChildren, Dictionary<Guid, int> VotingResults, int countVotings, string winningOption)
     {
         this.prompt.text = currentEvent.Description;
         SetMaxValues(countVotings);
@@ -90,6 +90,7 @@ public class Result : MonoBehaviour
             default:
                 break;
         }
+        GetWinner(VotingResults, currentEventChildren);
     }
 
     /// <summary>
