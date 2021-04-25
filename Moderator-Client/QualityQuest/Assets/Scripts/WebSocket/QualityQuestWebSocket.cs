@@ -32,13 +32,14 @@ public class QualityQuestWebSocket : MonoBehaviour
         // Logic to connect with a secure websocket
         webSocket = new WebSocket("wss://" + ip);
 
+        /*
         // Check the certificate
         webSocket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
         {
             // If desired you can change the certificate validation
 
             return true;
-        }; 
+        }; */
 
         // Event when the WebSocket connection is established.
         webSocket.OnOpen += (sender, e) =>
