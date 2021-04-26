@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class Result : MonoBehaviour
 {
     /// <summary>
-    /// text inside of the individual sliders that display the decisionoption
+    /// Text inside of the individual sliders that display the DecisionOption.
     /// </summary>
     public TMP_Text titleA;
     public TMP_Text titleB;
@@ -19,7 +19,7 @@ public class Result : MonoBehaviour
     public TMP_Text prompt;
 
     /// <summary>
-    /// sliders that visualy represent the number of votes for each decisionoption
+    /// Sliders that visually represent the number of votes for each DecisionOption.
     /// </summary>
     public Slider resultA;
     public Slider resultB;
@@ -27,7 +27,8 @@ public class Result : MonoBehaviour
     public Slider resultD;
 
     /// <summary>
-    /// colors for the sliders.
+    /// Defines all colors which are used for the sliders.
+    /// All colors are set to public so they can be overwritten through the Inspector in unity.
     /// Green represents the winning option and blue is used for the remaining options.
     /// </summary>
     public Color lightBlue = new Color(0, 0.427451f, 0.6980392f);
@@ -40,10 +41,10 @@ public class Result : MonoBehaviour
     /// Makes sure only the sliders that are needed are visible.
     /// Marks the winning option in green.
     /// </summary>
-    /// <param name="currentEvent"></param> currently active storyevent
-    /// <param name="currentEventChildren"></param> list which contains all children of the currently active storyevent
-    /// <param name="votingResults"></param> dictionary witch contains the number of votes and the guid of the coresponding storyevent.
-    /// <param name="countVotings"></param> list of all stroyevents the audicence was able to choose.
+    /// <param name="currentEvent">Represents the currently active StoryEvent.</param>
+    /// <param name="currentEventChildren">List which contains all children of the currently active StoryEvent.</param>
+    /// <param name="votingResults">Dictionary witch contains the number of votes and the guid of the corresponding StoryEvent.</param>
+    /// <param name="countVotings">List of all StoryEvents the audience was able to choose.</param>
     public void LoadResult(StoryEvent currentEvent, List<StoryEvent> currentEventChildren, Dictionary<Guid, int> votingResults, int countVotings, string winningOption)
     {
         this.prompt.text = currentEvent.Description;
@@ -74,10 +75,11 @@ public class Result : MonoBehaviour
     }
 
     /// <summary>
-    /// Compares the descriptions of all storyevents of a decision the audience was able to choose and finds out which one matches the winning option.
+    /// Compares the descriptions of all StoryEvent of a decision the audience was able to choose and finds out which one matches the winning option.
     /// </summary>
-    /// <param name="results"></param>  dictionary witch contains the number of votes and the guid of the coresponding storyevent.
-    /// <param name="children"></param> list of all stroyevents the audicence was able to choose.
+    /// <param name="results">Dictionary witch contains the number of votes and the guid of the corresponding StoryEvent.</param>
+    /// <param name="children">List of all StoryEvent the audience was able to choose.</param>
+    /// <param name="winningOption">String of the StoryOption which is used to find the corresponding children in the list of StoryEvents.</param>
     public void GetWinner(Dictionary<Guid,int> results, List<StoryEvent> children, string winningOption)
     {
 
@@ -111,7 +113,7 @@ public class Result : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the color of all sliders to blue
+    /// Sets the color of all sliders to blue.
     /// </summary>
     public void SetAllBlue()
     {
@@ -124,7 +126,7 @@ public class Result : MonoBehaviour
     /// <summary>
     /// Sets the color of a slider to green
     /// </summary>
-    /// <param name="result"></param> slider which will be set to green
+    /// <param name="result">Slider which will be set to green.</param>
     public void SetGreen(Slider result)
     {
         result.GetComponent<Image>().color = darkGreen;
@@ -134,7 +136,7 @@ public class Result : MonoBehaviour
     /// <summary>
     /// Sets the color of a slider to blue.
     /// </summary>
-    /// <param name="result"></param> slider which will be set to blue.
+    /// <param name="result">Slider which will be set to blue.</param>
     public void SetBlue(Slider result)
     {
         result.GetComponent<Image>().color = darkBlue;
@@ -144,7 +146,7 @@ public class Result : MonoBehaviour
     /// <summary>
     /// Sets the maxValue of all sliders to the value of the result with the most votes.
     /// </summary>
-    /// <param name="maxValue"></param> votes of the result with the most votes.
+    /// <param name="maxValue">Votes of the result with the most votes.</param>
     public void SetMaxValues(int maxValue)
     {
         resultA.maxValue = maxValue;
@@ -154,7 +156,7 @@ public class Result : MonoBehaviour
     }
 
     /// <summary>
-    /// hides all sliders to make sure none of them is active before renabling those that are needed.
+    /// Hides all sliders to make sure none of them is active before re enabling those that are needed.
     /// </summary>
     public void HideAllSlider()
     {
