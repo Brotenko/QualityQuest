@@ -51,7 +51,7 @@ namespace ServerLogic.Control
             //TODO set url by using installer skript & settings file
             //_server = new WebSocketServer("ws://0.0.0.0:" + Settings.Default.MCWebSocketPort);
             _server = new WebSocketServer("wss://0.0.0.0:" + "8181");
-            //_server.EnabledSslProtocols = SslProtocols.Tls13;
+            _server.EnabledSslProtocols = SslProtocols.Tls12;
             //_server = new WebSocketServer("ws://127.0.0.1:" + Settings.Default.MCWebSocketPort);
             _playerAudienceClientApi.StartServer(Settings.Default.PAWebPagePort);
             StartWebsocket();
@@ -102,8 +102,8 @@ namespace ServerLogic.Control
         internal void StartWebsocket()
         {
             //todo test
-            //_server.Certificate = new X509Certificate2("TestCert.pfx", "thisIsForTestingOnly");
-            _server.Certificate = new X509Certificate2("qualityquest.informatik.uni-ulm.de.pfx", "thisIsForTestingOnly");
+            _server.Certificate = new X509Certificate2("TestCert.pfx", "thisIsForTestingOnly");
+            //_server.Certificate = new X509Certificate2("qualityquest.informatik.uni-ulm.de.pfx", "thisIsForTestingOnly");
             _server.Start(socketConnection =>
             {
                 socketConnection.OnOpen = () =>
