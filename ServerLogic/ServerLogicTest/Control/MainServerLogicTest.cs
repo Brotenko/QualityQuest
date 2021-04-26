@@ -183,9 +183,8 @@ namespace ServerLogicTest.Control
             Settings.Default.PWHash = ServerShell.StringToSHA256Hash(password);
             //registration of a session with mc1
             mainServerLogic.CheckStringMessage(JsonConvert.SerializeObject(new RequestOpenSessionMessage(modClient, password)));
-            string sessionKey = mainServerLogic._connectedModeratorClients[modClient].SessionKey;
 
-            string response = mainServerLogic.CheckStringMessage(JsonConvert.SerializeObject(new RequestCloseSessionMessage(modClient, sessionKey)));
+            string response = mainServerLogic.CheckStringMessage(JsonConvert.SerializeObject(new RequestCloseSessionMessage(modClient, "invalid")));
             ErrorMessage messageContainer = JsonConvert.DeserializeObject<ErrorMessage>(response);
 
             Assert.AreEqual(ErrorType.WrongSession, messageContainer.ErrorMessageType);

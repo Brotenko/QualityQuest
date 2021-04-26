@@ -49,7 +49,7 @@ namespace ServerLogic.Control
             //
             _server = new WebSocketServer("wss:"+Settings.Default.DockerUrl + Settings.Default.MCWebSocketPort);
             _server.EnabledSslProtocols = SslProtocols.Tls12;
-            _server.Certificate = new X509Certificate2(Settings.Default.CertPath, Settings.Default.CertPW);
+            _server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, Settings.Default.CertPW);
             _playerAudienceClientApi.StartServer(Settings.Default.PAWebPagePort);
             StartWebsocket();
             _timerForInactiveSessionDataDeletion.Start();
