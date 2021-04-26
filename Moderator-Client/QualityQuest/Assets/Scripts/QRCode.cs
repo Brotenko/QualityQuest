@@ -9,9 +9,9 @@ public class QRCode : MonoBehaviour
 
 
     private Texture2D encoded;
-    [Tooltip("Put a picture of a rawimage")]
+    [Tooltip("Put a picture of a RawImage")]
     public RawImage connectionPanel;
-    [Tooltip("Put a picture of a rawimage")]
+    [Tooltip("Put a picture of a RawImage")]
     public RawImage pausePanel;
     
     /// <summary>
@@ -41,16 +41,16 @@ public class QRCode : MonoBehaviour
     /// <param name="url"></param>
     public void GenerateQRCode(string url, int a)
     {
-        var textForEncoding = url;
+        
         switch (a)
         {
             case 1:
                 encoded = new Texture2D(256, 256);
 
                 
-                if (textForEncoding != null)
+                if (url != null)
                 {
-                    var color32 = Encode(textForEncoding, encoded.width, encoded.height);
+                    var color32 = Encode(url, encoded.width, encoded.height);
                     encoded.SetPixels32(color32);
                     encoded.Apply();
                     connectionPanel.GetComponent<RawImage>().texture = encoded;
@@ -59,9 +59,9 @@ public class QRCode : MonoBehaviour
             case 2:
                 encoded = new Texture2D(256, 256);
 
-                if (textForEncoding != null)
+                if (url != null)
                 {
-                    var color32 = Encode(textForEncoding, encoded.width, encoded.height);
+                    var color32 = Encode(url, encoded.width, encoded.height);
                     encoded.SetPixels32(color32);
                     encoded.Apply();
                     pausePanel.GetComponent<RawImage>().texture = encoded;
