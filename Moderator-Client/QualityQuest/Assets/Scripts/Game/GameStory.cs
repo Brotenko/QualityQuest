@@ -8,9 +8,15 @@ using Random = System.Random;
 
 public class GameStory : MonoBehaviour
 {
-
+    /// <summary>
+    /// The StoryGraph.
+    /// </summary>
     public StoryGraph playThrough;
 
+    /// <summary>
+    /// The unity awake method is called only once during the lifetime of the script instance. Awake is called after all objects are initialized.
+    /// Gets used to initialize the StoryGraph of the game.
+    /// </summary>
     void Awake()
     {
         var root = new StoryEvent(Guid.NewGuid(), "Mit welchem Charakter möchtest du das Spiel spielen?", new HashSet<StoryEvent>(), StoryEventType.StoryRootEvent);
@@ -583,12 +589,21 @@ public class GameStory : MonoBehaviour
         Debug.Log("StoryGraph initialized.");
     }
 
-
+    /// <summary>
+    /// Method to update the currentEvent of the StoryGraph.
+    /// </summary>
+    /// <param name="storyEvent">The new currentEvent.</param>
     public void SetCurrentEvent(StoryEvent storyEvent)
     {
         playThrough.setCurrentEvent(storyEvent);
     }
 
+    /// <summary>
+    /// Method that is called on a RandomEvent after a StoryFlowDecision.
+    /// The method determines the next StoryEvent based on the respective formula, the method also starts the dice animation.
+    /// </summary>
+    /// <param name="displayStatusBar">The statusBar to start and display the dice animation.</param>
+    /// <returns>The next StoryEvent with which the game continues.</returns>
     public StoryEvent GetRandomOption(DisplayStatusbar displayStatusBar)
     {
         var diceRoll = new Random();
@@ -623,6 +638,4 @@ public class GameStory : MonoBehaviour
                 return currentEvent.Children.First();
         }
     }
-
-
 }
