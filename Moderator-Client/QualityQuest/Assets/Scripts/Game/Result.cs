@@ -42,55 +42,35 @@ public class Result : MonoBehaviour
     /// </summary>
     /// <param name="currentEvent"></param> currently active storyevent
     /// <param name="currentEventChildren"></param> list which contains all children of the currently active storyevent
-    /// <param name="VotingResults"></param> dictionary witch contains the number of votes and the guid of the coresponding storyevent.
+    /// <param name="votingResults"></param> dictionary witch contains the number of votes and the guid of the coresponding storyevent.
     /// <param name="countVotings"></param> list of all stroyevents the audicence was able to choose.
-    public void LoadResult(StoryEvent currentEvent, List<StoryEvent> currentEventChildren, Dictionary<Guid, int> VotingResults, int countVotings, string winningOption)
+    public void LoadResult(StoryEvent currentEvent, List<StoryEvent> currentEventChildren, Dictionary<Guid, int> votingResults, int countVotings, string winningOption)
     {
         this.prompt.text = currentEvent.Description;
         SetMaxValues(countVotings);
-        switch (currentEventChildren.Count)
+        HideAllSlider();
+        if (currentEventChildren.Count >= 2)
         {
-            case 2:
-                HideAllSlider();
-                resultA.gameObject.SetActive(true);
-                resultB.gameObject.SetActive(true);
-                titleA.text = currentEventChildren[0].Description;
-                titleB.text = currentEventChildren[1].Description;
-                resultA.value = VotingResults[currentEventChildren[0].EventId];
-                resultB.value = VotingResults[currentEventChildren[1].EventId];
-
-                break;
-            case 3:
-                HideAllSlider();
-                resultA.gameObject.SetActive(true);
-                resultB.gameObject.SetActive(true);
-                resultC.gameObject.SetActive(true);
-                titleA.text = currentEventChildren[0].Description;
-                titleB.text = currentEventChildren[1].Description;
-                titleC.text = currentEventChildren[2].Description;
-                resultA.value = VotingResults[currentEventChildren[0].EventId];
-                resultB.value = VotingResults[currentEventChildren[1].EventId];
-                resultC.value = VotingResults[currentEventChildren[2].EventId];
-                break;
-            case 4:
-                HideAllSlider();
-                resultA.gameObject.SetActive(true);
-                resultB.gameObject.SetActive(true);
-                resultC.gameObject.SetActive(true);
-                resultD.gameObject.SetActive(true);
-                titleA.text = currentEventChildren[0].Description;
-                titleB.text = currentEventChildren[1].Description;
-                titleC.text = currentEventChildren[2].Description;
-                titleD.text = currentEventChildren[3].Description;
-                resultA.value = VotingResults[currentEventChildren[0].EventId];
-                resultB.value = VotingResults[currentEventChildren[1].EventId];
-                resultC.value = VotingResults[currentEventChildren[2].EventId];
-                resultD.value = VotingResults[currentEventChildren[3].EventId];
-                break;
-            default:
-                break;
+            resultA.gameObject.SetActive(true);
+            resultB.gameObject.SetActive(true);
+            titleA.text = currentEventChildren[0].Description;
+            titleB.text = currentEventChildren[1].Description;
+            resultA.value = votingResults[currentEventChildren[0].EventId];
+            resultB.value = votingResults[currentEventChildren[1].EventId];
         }
-        GetWinner(VotingResults, currentEventChildren, winningOption);
+        if (currentEventChildren.Count >= 3)
+        {
+            resultC.gameObject.SetActive(true);
+            titleC.text = currentEventChildren[2].Description;
+            resultC.value = votingResults[currentEventChildren[2].EventId];
+        }
+        if (currentEventChildren.Count >= 4)
+        {
+            resultD.gameObject.SetActive(true);
+            titleD.text = currentEventChildren[3].Description;
+            resultD.value = votingResults[currentEventChildren[3].EventId];
+        }
+        GetWinner(votingResults, currentEventChildren, winningOption);
     }
 
     /// <summary>
