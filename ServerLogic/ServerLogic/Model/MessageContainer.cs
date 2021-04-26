@@ -23,8 +23,6 @@ namespace ServerLogic.Model
         /// 
         /// <param name="type">Specifies the type of the message to be able to parse it accordingly.
         /// </param>
-        /// 
-        /// <param name="creationDate">The timestamp of the message.</param>
         public MessageContainer(Guid moderatorId, MessageType type)
         {
             ModeratorID = moderatorId;

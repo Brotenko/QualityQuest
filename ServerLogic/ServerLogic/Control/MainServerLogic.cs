@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Timers;
 using Newtonsoft.Json;
 using ServerLogic.Model.Messages;
@@ -17,16 +16,15 @@ namespace ServerLogic.Control
     public class MainServerLogic
     {
         public string ActiveConnections;
-
-        private WebSocketServer _server;
-
-        internal readonly Dictionary<Guid, ModeratorClientManager> _connectedModeratorClients;
-        private readonly Timer _timerForInactiveSessionDataDeletion;
+        
         internal PlayerAudienceClientAPI _playerAudienceClientApi;
+        internal readonly Dictionary<Guid, ModeratorClientManager> _connectedModeratorClients;
+        
+        private WebSocketServer _server;
         private const int MaxRepForRandomGeneration = 16;
+        private readonly Timer _timerForInactiveSessionDataDeletion;
 
-        //TODO Remove default password from settings
-        //TODO Disable Fleck-Logger
+        //TODO Remove default password from settings before release
 
         /// <summary>
         /// Contains a WebSocket through which messages are exchanged with the ModeratorClient,
@@ -390,7 +388,7 @@ namespace ServerLogic.Control
         /// even at the risk that it is already in use.
         /// </summary>
         /// <param name="maxRecursionCycles">The maximum number of recursions allowed to generate a random unique sessionKey.</param>
-        /// <returns>A SessionKey.</returns>
+        /// <returns>A unique SessionKey.</returns>
         internal string GenerateSessionKey(int maxRecursionCycles)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

@@ -52,6 +52,8 @@ The change history is a chronologically ordered list of all changes between diff
 |   -   | **[_Network Protocol:_](../network-protocol#detailed-message-definitions) _ServerStatusMessage:_** Removed detailed definitions for ServerStatusMessage.                                                                |
 |   *   | **[_Network Protocol:_](../network-protocol#votingendedmessage) _VotingEndedMessage:_** Changed VotingEndedMessage to include WinningOption as string, VotingResults as <Guid,int> Dictionary and TotalVotes as an int. |
 
+|   *   | **[_Network Protocol:_](../network-protocol#requeststartvotingmessage) _RequestStartVotingMessage:_** Changed RequestStartVotingMessage to use an KeyValuePair-Array for the VotingOptions. |
+
 </span>
 
 ## Version 0.3.0 - PlayerAudience-Client implementation

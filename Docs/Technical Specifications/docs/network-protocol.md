@@ -419,12 +419,12 @@ class RequestStartVotingMessage : MessageContainer
 {
     int VotingTime;
     KeyValuePair<Guid, string> VotingPrompt;
-    Dictionary<Guid, string> VotingOptions;
+    KeyValuePair<Guid, string>[] VotingOptions;
 }
 ```
 
 - **VotingTime:** The time in seconds that PlayerAudience-Clients have to cast their vote.
-- **VotingPrompt** The Guid and string of the prompt to be voted on. 
+- **VotingPrompt:** The Guid and string of the prompt to be voted on. 
 - **VotingOptions:** Contains the GUIDs of the respective voting option as the key and textual description of the voting option as the value.
 
 The ServerLogic responds with a [VotingStartedMessage](#votingstartedmessage) and some time after with a [VotingEndedMessage](#votingendedmessage).

@@ -28,11 +28,6 @@ namespace ServerLogic.Model.Messages
         /// 
         /// <param name="errorMessageText">Optional, more detailed description of the occurred 
         /// error.</param>
-        /// 
-        /// <param name="debugMessage">Can be used during development to transport additional data 
-        /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
-        /// or an error occurring, information can be carried to the Moderator-Client directly for 
-        /// quick access, without the need to search through the logs.</param>
         public ErrorMessage(Guid moderatorId, ErrorType errorMessageType, string errorMessageText) : base(moderatorId, MessageType.Error)
         {
             ErrorMessageType = errorMessageType;

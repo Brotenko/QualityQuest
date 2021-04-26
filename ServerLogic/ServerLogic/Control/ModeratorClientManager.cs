@@ -54,7 +54,10 @@ namespace ServerLogic.Control
             _inactivityTimer.Enabled = true;
         }
 
-
+        /// <summary>
+        /// Initializes a new session with the given sessionKey.
+        /// </summary>
+        /// <param name="sessionKey">The sessionKey for which a new session should be started.</param>
         public void InitSession(string sessionKey)
         {
             SessionKey = sessionKey;

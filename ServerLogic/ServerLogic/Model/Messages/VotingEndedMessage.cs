@@ -32,10 +32,7 @@ namespace ServerLogic.Model.Messages
         /// <param name="votingResults">Contains the GUIDs of the option as the key and the 
         /// respective amount of received votes as the value.</param>
         /// 
-        /// <param name="debugMessage">Can be used during development to transport additional data 
-        /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
-        /// or an error occurring, information can be carried to the Moderator-Client directly for 
-        /// quick access, without the need to search through the logs.</param>
+        /// <param name="totalVotes">The sum of all votes.</param>
         public VotingEndedMessage(Guid moderatorId, string winningOption, Dictionary<Guid, int> votingResults, int totalVotes) : base(moderatorId, MessageType.VotingEnded)
         {
             WinningOption = winningOption;
