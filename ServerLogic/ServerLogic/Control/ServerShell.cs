@@ -560,6 +560,9 @@ namespace ServerLogic.Control
                 case "log":
                     ret = Properties.Resources.LogHelpMessage;
                     break;
+                case "sess":
+                    ret = Properties.Resources.SessHelpMessage;
+                    break;
                 case "exit":
                     ret = Properties.Resources.ExitHelpMessage;
                     break;
