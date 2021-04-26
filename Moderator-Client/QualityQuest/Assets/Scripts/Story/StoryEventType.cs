@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 
 public enum StoryEventType
 {
     /// <summary>
-    /// This Story Event is a Storyflowdecision which can be voted for or be choosen by the moderator
+    /// This Story Event is a StoryFlowDecision which can be voted for or be chosen by the moderator.
     /// </summary>
     StoryDecision,
     
     /// <summary>
-    /// This Story Event is a votingoption for a storyflowdecision
+    /// This Story Event is a VotingOption for a StoryFlowDecision
     /// </summary>
     StoryDecisionOption,
     
@@ -19,7 +17,19 @@ public enum StoryEventType
     /// </summary>
     StoryFlow,
 
+    /// <summary>
+    /// StoryEvent to change the background of the game between StoryEvents.
+    /// </summary>
     StoryBackground,
 
-    StoryRootEvent
+    /// <summary>
+    /// The first StoryEvent in the StoryGraph. Used to start the character pick phase.
+    /// </summary>
+    StoryRootEvent,
+
+    /// <summary>
+    /// The last StoryEvent of the game, when reaching the event, the game was successfully completed.
+    /// Used to decide how the player did and to display the statistics.
+    /// </summary>
+    StoryEnd
 }
