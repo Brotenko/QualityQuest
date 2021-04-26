@@ -54,7 +54,7 @@ public class OnlineClientManager : MonoBehaviour
 
     public void Connect()
     {
-        if (ip.text != "" && port.text != "" && password.text != "")
+        if (ip.text != "" || port.text != "" || password.text != "")
         {
             qualityQuestWebSocket.StartConnection(ip.text, port.text);
         }
@@ -71,6 +71,7 @@ public class OnlineClientManager : MonoBehaviour
         {
             SendRequestSessionOpenedMessage();
         }
+        // Reconnect 
         else
         {
             SendReconnectMessage();
