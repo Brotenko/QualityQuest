@@ -16,6 +16,17 @@ public class Result : MonoBehaviour
     public TMP_Text titleC;
     public TMP_Text titleD;
 
+    /// <summary>
+    /// Text inside of the individual sliders that display the amount of votes for each DecisionOption.
+    /// </summary>
+    public TMP_Text votesA;
+    public TMP_Text votesB;
+    public TMP_Text votesC;
+    public TMP_Text votesD;
+
+    /// <summary>
+    /// Text in die navbar which displays the Question corresponding to the DecisionOptions.
+    /// </summary>
     public TMP_Text prompt;
 
     /// <summary>
@@ -58,18 +69,22 @@ public class Result : MonoBehaviour
             titleB.text = currentEventChildren[1].Description;
             resultA.value = votingResults[currentEventChildren[0].EventId];
             resultB.value = votingResults[currentEventChildren[1].EventId];
+            votesA.text = votingResults[currentEventChildren[0].EventId].ToString();
+            votesB.text = votingResults[currentEventChildren[1].EventId].ToString();
         }
         if (currentEventChildren.Count >= 3)
         {
             resultC.gameObject.SetActive(true);
             titleC.text = currentEventChildren[2].Description;
             resultC.value = votingResults[currentEventChildren[2].EventId];
+            votesC.text = votingResults[currentEventChildren[2].EventId].ToString();
         }
         if (currentEventChildren.Count >= 4)
         {
             resultD.gameObject.SetActive(true);
             titleD.text = currentEventChildren[3].Description;
             resultD.value = votingResults[currentEventChildren[3].EventId];
+            votesD.text = votingResults[currentEventChildren[3].EventId].ToString();
         }
         GetWinner(votingResults, currentEventChildren, winningOption);
     }
