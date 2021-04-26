@@ -130,5 +130,41 @@ namespace ServerLogic.Properties {
                 this["Salt"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("TestCert.pfx")]
+        public string CertPath {
+            get {
+                return ((string)(this["CertPath"]));
+            }
+            set {
+                this["CertPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("thisIsForTestingOnly")]
+        public string CertPW {
+            get {
+                return ((string)(this["CertPW"]));
+            }
+            set {
+                this["CertPW"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("//0.0.0.0:")]
+        public string DockerUrl {
+            get {
+                return ((string)(this["DockerUrl"]));
+            }
+            set {
+                this["DockerUrl"] = value;
+            }
+        }
     }
 }
