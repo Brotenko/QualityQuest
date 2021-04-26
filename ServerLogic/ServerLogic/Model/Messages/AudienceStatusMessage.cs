@@ -27,11 +27,6 @@ namespace ServerLogic.Model.Messages
         /// 
         /// <param name="audienceCount">The amount of PlayerAudience members that connected to the 
         /// current session.></param>
-        /// 
-        /// <param name="debugMessage">Can be used during development to transport additional data 
-        /// between ServerLogic and Moderator-Client. This way, in case of a non parseable message, 
-        /// or an error occurring, information can be carried to the Moderator-Client directly for 
-        /// quick access, without the need to search through the logs.</param>
         public AudienceStatusMessage(Guid moderatorId, int audienceCount) : base(moderatorId, MessageType.AudienceStatus)
         {
             AudienceCount = audienceCount;

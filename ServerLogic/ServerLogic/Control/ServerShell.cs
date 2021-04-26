@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -15,7 +16,6 @@ namespace ServerLogic.Control
         //public Logger logger = [...];
         private MainServerLogic mainServerLogic = new MainServerLogic();
         private int _port;
-        private string _password; //Passwort des Servers 
         private bool serverIsRunning = false;
         private bool commandRequestsHelpMessage = false;
         private static bool isDebug;
@@ -37,55 +37,6 @@ namespace ServerLogic.Control
             }
         }
 
-        /// <summary>
-        /// TODO: Might be removed in future Refactoring
-        /// </summary>
-        public string Password
-        {
-            get => _password;
-            private set
-            {
-                // Makes sure to set a password that doesn't start with a dash ("-"), 
-                // is at least 8 characters in length, but no more than 32, and satisfies 
-                // 3 out of the following 4 rules:
-                //  At least one digit
-                //  At least one lowercase character
-                //  At least one uppercase character
-                //  At least one special character
-                if (value.Length >= 8 && value.Length <= 32 && !value.StartsWith('-'))
-                {
-                    int count = 0;
-
-                    if (Regex.IsMatch(value, @".*\d.*"))
-                    {
-                        count++;
-                    }
-                    if (Regex.IsMatch(value, @".*[a-z].*"))
-                    {
-                        count++;
-                    }
-                    if (Regex.IsMatch(value, @".*[A-Z].*"))
-                    {
-                        count++;
-                    }
-                    if (Regex.IsMatch(value, @".*[^a-zA-Z0-9 ].*"))
-                    {
-                        count++;
-                    }
-
-                    if (count < 3)
-                    {
-                        throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
-                    }
-                }
-                else
-                {
-                    throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
-                }
-
-                _password = value;
-            }
-        }
 
         /// <summary>
         /// This is a direct copy from the Password-setter:
@@ -160,74 +111,42 @@ namespace ServerLogic.Control
         }
 
         /// <summary>
+        /// Generates a random string with length 16. May be used to salt a password before hashing.
+        /// </summary>
+        /// <returns>A string of length 16.</returns>
+        private static string SaltGen()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+            var rand = new Random();
+            string salt = new(Enumerable.Repeat(chars, 16).Select(s => s[rand.Next(s.Length)]).ToArray());
+            return salt;
+        }
+
+        /// <summary>
         /// A basic method for secure password retrieval. The requested password is stored as a hash in the settings file.
         /// </summary>
         private void SetPasswordDialog()
         {
+            string backupSalt = Settings.Default.Salt;
+            string backupPW = Settings.Default.PWHash;
             Console.WriteLine("Please enter your password:");
-            while (true)
+            string password = Console.ReadLine();
+            try
             {
-                var pass = "";
-                ConsoleKey key;
-                //read pw and replace entered chars with '*'
-                do
-                {
-                    var keyInfo = Console.ReadKey(intercept: true);
-                    key = keyInfo.Key;
-                    if (key == ConsoleKey.Backspace && pass.Length > 0)
-                    {
-                        Console.Write("\b \b");
-                        pass = pass[0..^1];
-                    }
-                    else if (!char.IsControl(keyInfo.KeyChar))
-                    {
-                        Console.Write("*");
-                        pass += keyInfo.KeyChar;
-                    }
-                } while (key != ConsoleKey.Enter);
+                //FR37, new PW, new Salt
+                Settings.Default.Salt = SaltGen();
+                Settings.Default.PWHash = StringToSHA256Hash(CheckPasswordConditions(password));
 
-                try
-                {
-                    //FR37
-                    Settings.Default.PWHash = StringToSHA256Hash(CheckPasswordConditions(pass));
-                    break;
-                }
-                catch (ArgumentException)
-                {
-                    Console.WriteLine("\n" + Resources.InvalidPasswordExceptionMessage);
-                    Console.WriteLine("Please try again:");
-                }
             }
-            //Password confirmation
-            while (true)
+            catch (ArgumentException)
             {
-                Console.WriteLine("\nPlease repeat your Password:");
-                var pass = "";
-                ConsoleKey key;
-                do
-                {
-                    var keyInfo = Console.ReadKey(intercept: true);
-                    key = keyInfo.Key;
-                    if (key == ConsoleKey.Backspace && pass.Length > 0)
-                    {
-                        Console.Write("\b \b");
-                        pass = pass[0..^1];
-                    }
-                    else if (!char.IsControl(keyInfo.KeyChar))
-                    {
-                        Console.Write("*");
-                        pass += keyInfo.KeyChar;
-                    }
-                } while (key != ConsoleKey.Enter);
-
-                if (StringToSHA256Hash(pass).Equals(Settings.Default.PWHash))
-                {
-                    Console.WriteLine("\nPassword was changed.");
-                    Settings.Default.Save();
-                    break;
-                }
-                Console.WriteLine("\nThe password entered does not match the one previously entered.");
+                Console.WriteLine("\n" + Resources.InvalidPasswordExceptionMessage);
+                Settings.Default.Salt = backupSalt;
+                Settings.Default.PWHash = backupPW;
+                return;
             }
+            Console.WriteLine("Password was changed successfully.");
+            Settings.Default.Save();
         }
 
         /// <summary>
@@ -240,18 +159,7 @@ namespace ServerLogic.Control
                 Console.WriteLine("Currently no password is specified.");
                 SetPasswordDialog();
             }
-            else
-            {
-                Console.WriteLine("If you want to change your password, enter 'password ########'");
-            }
-
             RunShell();
-
-            /*
-            this.Password = "!Password123";
-            this.Port = 7777;
-            ServerLogger.CreateServerLogger();
-            */
         }
 
         /// <summary>
@@ -276,7 +184,7 @@ namespace ServerLogic.Control
         /// ServerLogic.</param>
         public ServerShell(string password, int port)
         {
-            this.Password = password;
+            //this.Password = password;
             this.Port = port;
             ServerLogger.CreateServerLogger();
 
@@ -329,12 +237,15 @@ namespace ServerLogic.Control
         {
             Console.WriteLine(Properties.Resources.StartupMessage);
 
-            while (true)
+            if (!isDebug)
             {
-                Console.Write(value: "qq >> ");
-                string command = Console.ReadLine();
+                while (true)
+                {
+                    Console.Write(value: "qq >> ");
+                    string command = Console.ReadLine();
 
-                Console.WriteLine(ParseCommand(command));
+                    Console.WriteLine(ParseCommand(command));
+                }
             }
         }
 
@@ -413,6 +324,9 @@ namespace ServerLogic.Control
                         break;
                     case "log":
                         ret = ShowLogs(commandParameters);
+                        break;
+                    case "sess":
+                        ret = mainServerLogic.ActiveConnections;
                         break;
                     case "exit":
                         StopShell();
@@ -494,7 +408,7 @@ namespace ServerLogic.Control
             // command: port -> Returns the currently set port.
             if (parameterList.Length == 0)
             {
-                return Port.ToString(CultureInfo.CurrentCulture);
+                return Settings.Default.PAWebPagePort.ToString(CultureInfo.CurrentCulture);
             }
             // command: port number -> Sets a new port.
             else
@@ -571,18 +485,6 @@ namespace ServerLogic.Control
                             return Properties.Resources.InvalidPortExceptionMessage;
                         }
                     }
-                    else if (Regex.IsMatch(item, @"--password\=(\S*)"))
-                    {
-                        try
-                        {
-                            Match m = Regex.Match(item, @"--password\=(\S*)");
-                            Password = m.Groups[1].Value;
-                        }
-                        catch (ArgumentException)
-                        {
-                            return Properties.Resources.InvalidPasswordExceptionMessage;
-                        }
-                    }
                 }
                 try
                 {
@@ -611,9 +513,17 @@ namespace ServerLogic.Control
         /// <returns>Confirmation hat the server has been stopped successfully.</returns>
         private string StopServer()
         {
-            mainServerLogic.Stop();
-            serverIsRunning = false;
-            return "The server has been shut down successfully.";
+            try
+            {
+                mainServerLogic.Stop();
+                serverIsRunning = false;
+                return "The server has been shut down successfully.";
+            }
+            catch (InvalidOperationException e)
+            {
+                serverIsRunning = false;
+                return e.ToString();
+            }
         }
 
         /// <summary>
@@ -649,6 +559,9 @@ namespace ServerLogic.Control
                     break;
                 case "log":
                     ret = Properties.Resources.LogHelpMessage;
+                    break;
+                case "sess":
+                    ret = Properties.Resources.SessHelpMessage;
                     break;
                 case "exit":
                     ret = Properties.Resources.ExitHelpMessage;

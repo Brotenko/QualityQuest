@@ -11,10 +11,10 @@ activate m
 activate s
 
 loop send until answered 
-    m -> s: RequestServerStatus
+    m -> s: WebSocket Ping
 end 
 
-s --> m: ServerStatus
+s --> m: WebSocket ACK
 
 opt 
     m -> s: Reconnect

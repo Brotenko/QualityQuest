@@ -18,7 +18,7 @@ namespace ServerLogicTests.Model.Messages
         private const ErrorType WrongPasswordError = ErrorType.WrongPassword;
         private const ErrorType UnknownGuidError = ErrorType.UnknownGuid;
         private const ErrorType IllegalPauseActionError = ErrorType.IllegalPauseAction;
-        private const ErrorType SessionDoesNotExistError = ErrorType.SessionDoesNotExist;
+        private const ErrorType SessionDoesNotExistError = ErrorType.WrongSession;
         private const ErrorType IllegalMessageError = ErrorType.IllegalMessage;
         private const string ErrorMessageText = "TestTestTest 123456";
 

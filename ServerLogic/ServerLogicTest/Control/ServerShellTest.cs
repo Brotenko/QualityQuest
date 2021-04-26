@@ -66,44 +66,6 @@ namespace ServerLogicTests.Control
 
 
         /// <summary>
-        /// Validates that an <c>ArgumentException</c> is thrown when a password is
-        /// transmitted that violates the password rules.
-        /// </summary>
-        [TestMethod]
-        public void IllegalPasswordTest()
-        {
-            // Password empty
-            Assert.ThrowsException<ArgumentException>(() => new ServerShell("", 7777));
-
-            // Password too short
-            Assert.ThrowsException<ArgumentException>(() => new ServerShell("1!Aasd", 7777));
-
-            // Password too long
-            Assert.ThrowsException<ArgumentException>(() => new ServerShell("1!Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 7777));
-
-            // Missing Rules: Special characters, uppercase character
-            Assert.ThrowsException<ArgumentException>(() => new ServerShell("1234asdfasdf", 7777));
-
-            // Missing Rules: Special characters, lowercase character
-            Assert.ThrowsException<ArgumentException>(() => new ServerShell("1234ASDFASDF", 7777));
-
-            // Missing Rules: Special characters, numeric character
-            Assert.ThrowsException<ArgumentException>(() => new ServerShell("asdfASDFasdf", 7777));
-
-            // Missing Rules: uppercase characters, lowercase character
-            Assert.ThrowsException<ArgumentException>(() => new ServerShell("!&$123123131", 7777));
-
-            // Missing Rules: uppercase characters, numeric character
-            Assert.ThrowsException<ArgumentException>(() => new ServerShell("!§$!§dasfgsadfg", 7777));
-
-            // Missing Rules: lowercase characters, numeric character
-            Assert.ThrowsException<ArgumentException>(() => new ServerShell("!&/$YDFGSDAFGHSDFG", 7777));
-
-            // Missing Rule: Leading dash
-            Assert.ThrowsException<ArgumentException>(() => new ServerShell("-12fUZdnm&f5$", 7777));
-        }
-
-        /// <summary>
         /// Validates that an <c>ArgumentException</c> is thrown when a port is
         /// transmitted that violates the port rules.
         /// </summary>
@@ -180,7 +142,7 @@ namespace ServerLogicTests.Control
              * Returns the currently set port, which is always 7777 (standard port).
              */
             string t = s.ParseCommandDebugger("port");
-            Assert.AreEqual(7777, Convert.ToInt32(t, CultureInfo.CurrentCulture));
+            Assert.AreEqual(Settings.Default.PAWebPagePort, Convert.ToInt32(t, CultureInfo.CurrentCulture));
 
             /*
              * Tests for the following conditions:
@@ -252,83 +214,6 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// Validates that the <c>ParsePassword</c> method acts like inteded, 
-        /// when certain arguments are transmitted.
-        /// </summary>
-        [TestMethod]
-        public void ParsePasswordTest()
-        {
-            ServerShell s = ServerShell.DebugServerShell();
-
-            /*
-             * Tests for the following conditions:
-             * - commandList.Length == 0
-             * 
-             * What it does:
-             * Returns the currently set password, which is always 
-             * "!Password123" (standard password).
-             */
-            string t = s.ParseCommandDebugger("password");
-            Assert.AreEqual("!Password123", t);
-
-            /*
-             * Tests for the following conditions:
-             * - commandList.Length != 0
-             * - password violates the password rules
-             * 
-             * What it does:
-             * An "ArgumentException" is thrown that is caught to return 
-             * an "InvalidPasswordExceptionMessage" to inform the user 
-             * that the password was not in adequate form.
-             */
-            t = s.ParseCommandDebugger("password g:78G#");
-            Assert.IsTrue(Regex.IsMatch(t, passwordExceptionPattern));
-
-            /*
-             * Tests for the following conditions:
-             * - commandList.Length != 0
-             * - password does not violate the password rules
-             * 
-             * What it does:
-             * Sets the password of the ServerLogic to "!Password456#" 
-             * and returns a confirmation message for the user.
-             */
-            t = s.ParseCommandDebugger("password " + testPassword_1);
-            Assert.IsTrue(Regex.IsMatch(t, passwordSetPattern));
-            Assert.AreEqual(testPassword_1, s.Password);
-
-            /*
-             * Tests for the following conditions:
-             * - commandList.Length != 0
-             * - password does not violate the password rules
-             * - more than one argument is being transmitted
-             * 
-             * What it does:
-             * Sets the password of the ServerLogic to "!Password456#" 
-             * and returns a confirmation message for the user without 
-             * regarding the excess arguments.
-             */
-            t = s.ParseCommandDebugger("password " + testPassword_2 + " g:78G#f)_F75f !Password456#!Password456#!Password456#");
-            Assert.IsTrue(Regex.IsMatch(t, passwordSetPattern));
-            Assert.AreEqual(testPassword_2, s.Password);
-
-            /*
-             * Tests for the following conditions:
-             * - commandList.Length != 0
-             * - serverIsRunning == true
-             * 
-             * What it does:
-             * Returns a message, informing the user that the server is 
-             * currently running, and returns before even trying to set 
-             * the password.
-             */
-            s.ParseCommandDebugger("start");
-            t = s.ParseCommandDebugger("password " + testPassword_3);
-            Assert.IsTrue(Regex.IsMatch(t, serverIsRunningPattern));
-            Assert.AreNotEqual(testPassword_3, s.Password);
-        }
-
-        /// <summary>
         /// Validates that the <c>StartServer</c> method acts like inteded, 
         /// when certain options are transmitted.
         /// </summary>
@@ -393,49 +278,6 @@ namespace ServerLogicTests.Control
             Assert.IsTrue(Regex.IsMatch(t, portExceptionPattern));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("StartServer")]
-        public void StartServer_ValidPasswordTest()
-        {
-            ServerShell s = ServerShell.DebugServerShell();
-
-            /*
-             * Tests for the following conditions:
-             * - an element of commandList matches "--password\=(\S*)"
-             * 
-             * What it does:
-             * Starts the ServerLogic with previously set port and the
-             * newly set password.
-             */
-            string t = s.ParseCommandDebugger("start --password=" + testPassword_1);
-            Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
-            Assert.AreEqual(testPassword_1, s.Password);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("StartServer")]
-        public void StartServer_InvalidPasswordTest()
-        {
-            ServerShell s = ServerShell.DebugServerShell();
-
-            /*
-             * Tests for the following conditions:
-             * - password violates the password rules
-             * 
-             * What it does:
-             * An "ArgumentException" is thrown that is caught to return 
-             * an "InvalidPasswordExceptionMessage" to inform the user that
-             * the password was not in adequate form.
-             */
-            string t = s.ParseCommandDebugger("start --password=123");
-            Assert.IsTrue(Regex.IsMatch(t, passwordExceptionPattern));
-        }
 
         /// <summary>
         /// 
@@ -481,7 +323,6 @@ namespace ServerLogicTests.Control
             string t = s.ParseCommandDebugger("start --password=" + testPassword_2 + " --port=" + testPort_2);
             Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
             Assert.AreEqual(testPort_2, s.Port);
-            Assert.AreEqual(testPassword_2, s.Password);
         }
 
         /// <summary>
@@ -506,7 +347,6 @@ namespace ServerLogicTests.Control
             string t = s.ParseCommandDebugger("start --port=" + testPort_3 + " --password=" + testPassword_3);
             Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
             Assert.AreEqual(testPort_3, s.Port);
-            Assert.AreEqual(testPassword_3, s.Password);
         }
 
         /// <summary>
@@ -523,10 +363,9 @@ namespace ServerLogicTests.Control
              * - the command "stop" is entered without any additional options
              * 
              * What it does:
-             * Throws an InvalidOperationException because the Server is not
-             * running and thus can not be stopped.
+             * Stops the running server.
              */
-            Assert.ThrowsException<InvalidOperationException>(() => s.ParseCommandDebugger("stop"));
+            s.ParseCommandDebugger("stop");
         }
 
         /// <summary>
@@ -717,7 +556,7 @@ namespace ServerLogicTests.Control
             ServerLogger.SetLogLevel(0);
             ServerLogger.ChangeLoggingOutputType(0);
             ServerLogger.WipeLogFile();
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             //Test for Input with a non-Integer
             s.ParseCommandDebugger("log --setLevel $");
@@ -740,7 +579,7 @@ namespace ServerLogicTests.Control
             ServerLogger.SetLogLevel(0);
             ServerLogger.ChangeLoggingOutputType(0);
             ServerLogger.WipeLogFile();
-            ServerShell s = new ServerShell();
+            ServerShell s = ServerShell.DebugServerShell();
 
             //Test for Input with a non-Integer
             s.ParseCommandDebugger("log --setLogOutput $");
@@ -750,72 +589,6 @@ namespace ServerLogicTests.Control
             s.ParseCommandDebugger("log --setLogOutput");
             Assert.IsTrue(Settings.Default.LogOutPutType == 0);
             ServerLogger.WipeLogFile();
-        }
-
-        /// <summary>
-        /// Validates that an <c>ArgumentException</c> is thrown when a password or 
-        /// port is transmitted as an option for the <c>Main</c> method, that violates
-        /// the respective rules.
-        /// </summary>
-        [TestMethod]
-        public void MainMethodTest()
-        {
-            /*
-             * Tests for the following conditions:
-             * - application started without any options
-             * 
-             * What it does:
-             * An "ArgumentException" is thrown that is caught to return 
-             * an "InvalidPasswordExceptionMessage" to inform the user 
-             * that the password was not in adequate form.
-             */
-            Assert.ThrowsException<ArgumentException>(() => ServerShell.Main(Array.Empty<string>()));
-
-            /*
-             * Tests for the following conditions:
-             * - password violates password rules
-             * 
-             * What it does:
-             * An "ArgumentException" is thrown that is caught to return 
-             * an "InvalidPasswordExceptionMessage" to inform the user 
-             * that the password was not in adequate form.
-             */
-            Assert.ThrowsException<ArgumentException>(() => ServerShell.Main(new string[] { "123" }));
-
-            /*
-             * Tests for the following conditions:
-             * - application started with unknown option
-             * 
-             * What it does:
-             * An "ArgumentException" is thrown that is caught to return 
-             * an "InvalidPasswordExceptionMessage" to inform the user 
-             * that the password was not in adequate form.
-             */
-            Assert.ThrowsException<ArgumentException>(() => ServerShell.Main(new string[] { "--f8&4#vB%" }));
-
-            /*
-             * Tests for the following conditions:
-             * - password violates password rules
-             * - port is in adequare format
-             * 
-             * What it does:
-             * An "ArgumentException" is thrown that is caught to return 
-             * an "InvalidPasswordExceptionMessage" to inform the user 
-             * that the password was not in adequate form.
-             */
-            Assert.ThrowsException<ArgumentException>(() => ServerShell.Main(new string[] { "passwordbad", Convert.ToString(testPort_2, CultureInfo.CurrentCulture) }));
-
-            /*
-             * Tests for the following conditions:
-             * - password is in adequate format
-             * - port that overflows int32 datatype
-             * 
-             * What it does:
-             * An "ArugmentException" is thrown that is caught to return an
-             * "InvalidPortExceptionMessage" to inform the user that the port
-             * was outside the settable range (aka: 1025-65535).
-             */
-            Assert.ThrowsException<ArgumentException>(() => ServerShell.Main(new string[] { testPassword_2, "10605106801" }));
         }
     }
 }

@@ -23,7 +23,7 @@ namespace PAClientTest
         private static KeyValuePair<Guid, string> testPair_Valid_2 = KeyValuePair.Create(Guid.NewGuid(), "Quite a lot");
         private static KeyValuePair<Guid, string> testPair_Valid_3 = KeyValuePair.Create(Guid.NewGuid(), "Perhaps a little something");
         private static KeyValuePair<Guid, string> testPair_Valid_4 = KeyValuePair.Create(Guid.NewGuid(), "Everything");
-        private static KeyValuePair<Guid, string> testPair_Valid_5 = KeyValuePair.Create(Guid.NewGuid(), "This one is not supposed to work! 451%51s0-.ÜPOK$%");
+        private static KeyValuePair<Guid, string> testPair_Valid_5 = KeyValuePair.Create(Guid.NewGuid(), "This one is supposed to work! 451%51s0-.ÜPOK$%");
         private static KeyValuePair<Guid, string> testPair_NullString = new KeyValuePair<Guid, string>(Guid.NewGuid(), null);
         private KeyValuePair<Guid, string>[] testOptions_Valid_1 = new KeyValuePair<Guid, string>[]
             {
@@ -796,6 +796,7 @@ namespace PAClientTest
             VotingResults v = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
             v.AddSessionKey(testKey_1);
             v.AddNewPoll(testKey_1, testPrompt_Valid_1, testOptions_Valid_1);
+            v.AddNewPoll(testKey_1, testPrompt_Valid_2, testOptions_Valid_2);
 
             Dictionary<KeyValuePair<Guid, string>, int> retrievedValues = v.GetOptionsVotesPairsByPrompt(testKey_1, testPrompt_Valid_1.Key);
 
@@ -804,6 +805,11 @@ namespace PAClientTest
             Assert.AreEqual(testOptions_Valid_1.ElementAt(1), retrievedValues.Keys.ElementAt(1));
             Assert.AreEqual(testOptions_Valid_1.ElementAt(2), retrievedValues.Keys.ElementAt(2));
             Assert.AreEqual(testOptions_Valid_1.ElementAt(3), retrievedValues.Keys.ElementAt(3));
+
+            Dictionary<KeyValuePair<Guid, string>, int> retrievedValues2 = v.GetOptionsVotesPairsByPrompt(testKey_1, testPrompt_Valid_2.Key);
+
+            Assert.IsNotNull(retrievedValues2);
+            Assert.AreEqual(testOptions_Valid_2.ElementAt(0), retrievedValues2.Keys.ElementAt(0));
         }
 
         /// <summary>

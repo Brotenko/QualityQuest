@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using PAClient;
+using ServerLogic.Properties;
 
 namespace ServerLogic.Control
 {
@@ -44,7 +45,7 @@ namespace ServerLogic.Control
                 if (ServerIsActive == false)
                 {
                     ServerIsActive = true;
-                    _pABackend = new PABackend(port);
+                    _pABackend = new PABackend(port, Settings.Default.DockerUrl);
                 }
                 else
                 {

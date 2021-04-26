@@ -13,7 +13,7 @@
         <h5 style="margin-left: 5%; text-align: left;">Room Code:</h5>
         <div id="sessionsubmit">
             <input type="text" id="sessionkey" name="key" class="input-group-text sessionkey-input-box" maxlength="6" minlength="6"
-                   placeholder="Please enter the 6-figure Room Code" pattern="\w{6}" title="6-figure Room Code" required />
+                   placeholder="Please enter the 6-figure Room Code" pattern="\w{6}" title="6-figure Room Code" value="@HttpContext.Request.Query["key"].ToString()" required />
             <input id="enter-room" type="submit" value="Play game" class="input-button sessionkey-submit-button" />
         </div>
         <p style="font-size: 12px; font-weight: bold;">

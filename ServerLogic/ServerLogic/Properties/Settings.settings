@@ -29,5 +29,11 @@
     <Setting Name="Salt" Type="System.String" Scope="User">
       <Value Profile="(Default)">f4e4gn3m32da4b17</Value>
     </Setting>
+    <Setting Name="CertPW" Type="System.String" Scope="User">
+      <Value Profile="(Default)">thisIsForTestingOnly</Value>
+    </Setting>
+    <Setting Name="DockerUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//0.0.0.0:</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

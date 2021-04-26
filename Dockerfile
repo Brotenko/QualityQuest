@@ -1,10 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine
 WORKDIR /app
-EXPOSE 7777
-EXPOSE 8181
+EXPOSE 80
+EXPOSE 443
 COPY ServerLogic/ ./
 RUN dotnet publish ./ServerLogic.sln -c Release -o build --self-contained=false
-#CMD ["dotnet", "./build/ServerLogic.dll", "!Password123#", "7777"]
 ENTRYPOINT ["dotnet", "./build/ServerLogic.dll"]
 
 
@@ -23,3 +22,7 @@ ENTRYPOINT ["dotnet", "./build/ServerLogic.dll"]
 # if a container is already running and you want to see/use the ServerShell, enter 
 # 'docker container attach Containername'
 
+# Exports logs to local machine
+# 'docker run -v $(pwd):/app/Logs --rm -it -p 80:7777 -p 8181:8181 --name=qqserver qqserver'
+
+#docker run --rm -it -p 7777:7777 -p 443:443 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=443 -e ASPNETCORE_Kestrel__Certificates__Default__Password="thisIsForTestingOnly" -e ASPNETCORE_Kestrel__Certificates__Default__Path=./qualityquest.informatik.uni-ulm.de.pfx --name=qqserver qqserver

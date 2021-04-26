@@ -26,11 +26,6 @@ namespace ServerLogic.Model.Messages
         /// <param name="gamePaused">Specifies whether the game is being paused or whether 
         /// the already paused game is being continued. With true indicating that the game has 
         /// been paused, and false indicating that the game is continuing.</param>
-        /// 
-        /// <param name="debugMessage">Can be used during development to transport additional data 
-        /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
-        /// or an error occurring, information can be carried to the Moderator-Client directly for 
-        /// quick access, without the need to search through the logs.</param>
         public GamePausedStatusMessage(Guid moderatorId, bool gamePaused) : base(moderatorId, MessageType.GamePausedStatus)
         {
             GamePaused = gamePaused;

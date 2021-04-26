@@ -24,11 +24,6 @@ namespace ServerLogic.Model.Messages
         /// ServerLogic leaves this field empty.</param>
         /// 
         /// <param name="sessionKey">The key of the to be closed Online-Session.</param>
-        /// 
-        /// <param name="debugMessage">Can be used during development to transport additional data 
-        /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
-        /// or an error occurring, information can be carried to the Moderator-Client directly for 
-        /// quick access, without the need to search through the logs.</param>
         public RequestCloseSessionMessage(Guid moderatorId, string sessionKey) : base(moderatorId, MessageType.RequestCloseSession)
         {
             SessionKey = sessionKey;

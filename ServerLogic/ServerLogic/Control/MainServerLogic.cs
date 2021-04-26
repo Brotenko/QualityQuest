@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Timers;
 using Newtonsoft.Json;
 using ServerLogic.Model.Messages;
@@ -15,15 +15,16 @@ namespace ServerLogic.Control
 {
     public class MainServerLogic
     {
+        public string ActiveConnections;
+        
+        internal PlayerAudienceClientAPI _playerAudienceClientApi;
+        internal readonly Dictionary<Guid, ModeratorClientManager> _connectedModeratorClients;
+        
         private WebSocketServer _server;
-
-        private readonly Dictionary<IWebSocketConnection, ModeratorClientManager> _connectedModeratorClients;
-        private readonly Timer _timerForDataDeletion;
-        private readonly PlayerAudienceClientAPI _playerAudienceClientApi;
         private const int MaxRepForRandomGeneration = 16;
+        private readonly Timer _timerForInactiveSessionDataDeletion;
 
-        //TODO Remove default password from settings
-        //TODO Disable Fleck-Logger
+        //TODO Remove default password from settings before release
 
         /// <summary>
         /// Contains a WebSocket through which messages are exchanged with the ModeratorClient,
@@ -32,14 +33,12 @@ namespace ServerLogic.Control
         public MainServerLogic()
         {
             _playerAudienceClientApi = new PlayerAudienceClientAPI();
-            _connectedModeratorClients = new Dictionary<IWebSocketConnection, ModeratorClientManager>();
+            _connectedModeratorClients = new Dictionary<Guid, ModeratorClientManager>();
             //30sec interval
-            //_timerForDataDeletion = new Timer(30000); todo
-            _timerForDataDeletion = new Timer(30000);
-
-            _timerForDataDeletion.Elapsed += CheckForInactivity;
-            _timerForDataDeletion.AutoReset = true;
-            _timerForDataDeletion.Enabled = true;
+            _timerForInactiveSessionDataDeletion = new Timer(30000);
+            _timerForInactiveSessionDataDeletion.Elapsed += CheckForInactiveSessionInactivity;
+            _timerForInactiveSessionDataDeletion.AutoReset = true;
+            _timerForInactiveSessionDataDeletion.Enabled = true;
         }
 
         /// <summary>
@@ -47,13 +46,16 @@ namespace ServerLogic.Control
         /// </summary>
         public void Start()
         {
-            _server = new WebSocketServer("ws://0.0.0.0:" + Settings.Default.MCWebSocketPort);
-            ServerLogger.LogDebug($"WebSocket secure connection established: {_server.IsSecure}.");
+            //
+            _server = new WebSocketServer("wss:"+Settings.Default.DockerUrl + Settings.Default.MCWebSocketPort);
+            _server.EnabledSslProtocols = SslProtocols.Tls12;
+            _server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, Settings.Default.CertPW);
             _playerAudienceClientApi.StartServer(Settings.Default.PAWebPagePort);
             StartWebsocket();
+            _timerForInactiveSessionDataDeletion.Start();
             ServerLogger.LogDebug($"Website started on {Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
-            _timerForDataDeletion.Start();
-            
+            ServerLogger.LogDebug($"Using wss: {_server.IsSecure}.");
+
         }
 
         /// <summary>
@@ -61,30 +63,34 @@ namespace ServerLogic.Control
         /// </summary>
         public void Stop()
         {
-            foreach (var connection in _connectedModeratorClients)
+            foreach (var (_, value) in _connectedModeratorClients)
             {
-                connection.Key.Send(JsonConvert.SerializeObject(new SessionClosedMessage(connection.Value.ModeratorGuid)));
-                connection.Key.Close();
+                value.SocketConnection.Send(JsonConvert.SerializeObject(new SessionClosedMessage(value.ModeratorGuid)));
+                value.SocketConnection.Close();
             }
-            _timerForDataDeletion.Stop();
-            _server.Dispose();
+            _timerForInactiveSessionDataDeletion?.Stop();
+            _server?.Dispose();
             _playerAudienceClientApi.StopServer();
         }
 
         /// <summary>
-        /// Is periodically triggered by the _timerForDataDeletion. Checks if one of the connected ModeratorClients has been marked as inactive and deletes them from _connectedModeratorClients if necessary. 
+        /// Is periodically triggered by the _timerForInactiveSessionDataDeletion. Checks if one of the connected ModeratorClients has been marked as inactive and deletes them from _connectedModeratorClients if necessary. 
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="e"></param>
-        private void CheckForInactivity(object source, ElapsedEventArgs e)
+        /// <param name="source">Parameter used by Timer-Elapsed-Event.</param>
+        /// <param name="eventArgs">Parameter used by Timer-Elapsed-Event.</param>
+        private void CheckForInactiveSessionInactivity(object source, ElapsedEventArgs eventArgs)
         {
-            string tempLog = "";
-            foreach (var (socket, moderatorClientManager) in _connectedModeratorClients)
+            if (_connectedModeratorClients.Count>0)
             {
-                if (moderatorClientManager.IsInactive) _connectedModeratorClients.Remove(socket);
-                else tempLog += $"\tMC-{moderatorClientManager.ModeratorGuid} in Session {moderatorClientManager.SessionKey}.\n";
+                string tempLog = "";
+                foreach (var (socket, moderatorClientManager) in _connectedModeratorClients)
+                {
+                    if (moderatorClientManager.IsInactive) _connectedModeratorClients.Remove(socket);
+                    else tempLog += $"\tMC-{moderatorClientManager.ModeratorGuid} in Session {moderatorClientManager.SessionKey}.\n";
+                }
+
+                ActiveConnections = tempLog;
             }
-            ServerLogger.LogDebug("Currently actively connected ModeratorClients: \n" + tempLog);
         }
 
         /// <summary>
@@ -92,43 +98,118 @@ namespace ServerLogic.Control
         /// </summary>
         internal void StartWebsocket()
         {
-            //_server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, "thisIsForTestingOnly");
-            _server.Start(socket =>
+            _server.Start(socketConnection =>
             {
-                socket.OnOpen = () =>
+                socketConnection.OnOpen = () =>
                 {
-                    ServerLogger.LogDebug("WebSocket-connection to " + socket.ConnectionInfo.ClientIpAddress + " established.\nOrigin: " + socket.ConnectionInfo.Origin +
-                                          "\nIP: " + socket.ConnectionInfo.ClientIpAddress + "\nHost: " + socket.ConnectionInfo.Host);
+                    ServerLogger.LogDebug("WebSocket-connection to " + socketConnection.ConnectionInfo.ClientIpAddress + " established.\nHeader: " + socketConnection.ConnectionInfo.Headers +
+                                          "\nIP: " + socketConnection.ConnectionInfo.ClientIpAddress + "\nSubProtocol: " + socketConnection.ConnectionInfo.NegotiatedSubProtocol);
                 };
-                socket.OnClose = () =>
+                socketConnection.OnClose = () =>
                 {
-                    ServerLogger.LogDebug("Websocket-connection to " + socket.ConnectionInfo.ClientIpAddress + " was closed.");
-                    socket.Close();
+                    foreach (var (_, moderatorClientManager) in _connectedModeratorClients)
+                    {
+                        if (socketConnection.Equals(moderatorClientManager.SocketConnection))
+                        {
+                            //Disposes all timers, except inactivity-timer, and closes the socket. 
+                            moderatorClientManager.Stop();
+                            ServerLogger.LogDebug("Websocket-connection to " + socketConnection.ConnectionInfo.ClientIpAddress + " was closed. Communication attempts are temporarily paused until a moderator-client reconnect attempt or until the server-side session-relevant data is deleted after 30 minutes of inactivity.");
+                        }
+                    }
                 };
-                socket.OnMessage = message =>
+                socketConnection.OnMessage = message =>
                 {
-                    socket.Send(CheckStringMessage(message, socket));
+                    try
+                    {
+                        string response = "";
+                        MessageContainer messageContainer = JsonConvert.DeserializeObject<MessageContainer>(message);
+                        //ModGuid previously unknown
+                        if (!_connectedModeratorClients.ContainsKey(messageContainer.ModeratorID))
+                        {
+                            //Wants to open session
+                            if (messageContainer.Type == MessageType.RequestOpenSession)
+                            {
+                                _connectedModeratorClients.Add(messageContainer.ModeratorID, new ModeratorClientManager(
+                                    messageContainer.ModeratorID, 
+                                    socketConnection,
+                                    _playerAudienceClientApi));
+                                response = CheckStringMessage(message);
+                            }
+                            // unknown guid
+                            else
+                            {
+                                response= JsonConvert.SerializeObject(
+                                    new ErrorMessage(messageContainer.ModeratorID, ErrorType.UnknownGuid, ""));
+                            }
+                        }
+
+                        //socket already exists and fits the sent modID
+                        else if (_connectedModeratorClients[messageContainer.ModeratorID].SocketConnection.Equals(socketConnection))
+                        {
+                            response = CheckStringMessage(message);
+                        }
+                        //modId exists, but with different socket
+                        else
+                        {
+                            //Mismatch caused by connection loss and following reconnect -> Guid already exists, but socketConnection has changed
+                            if (messageContainer.Type == MessageType.Reconnect)
+                            {
+                                _connectedModeratorClients[messageContainer.ModeratorID].SocketConnection = socketConnection;
+                                _connectedModeratorClients[messageContainer.ModeratorID].ResetInactivity();
+                                response = JsonConvert.SerializeObject(new ReconnectSuccessfulMessage(
+                                       messageContainer.ModeratorID));
+                                ServerLogger.LogDebug("Reconnect successful.");
+                            }
+                            //Mismatch, but not a reconnect message;
+                            else
+                            {
+                                response = JsonConvert.SerializeObject(new ErrorMessage(messageContainer.ModeratorID,
+                                    ErrorType.GuidAlreadyExists, ""));
+                                ServerLogger.LogDebug("MC tried to connect with an already existing Guid.");
+                            }
+                        }
+
+                        //In case of this two MessageTypes, Connection is closed after sending the response
+                        if (JsonConvert.DeserializeObject<MessageContainer>(response).Type.Equals(MessageType.RequestCloseSession) ||
+                            (JsonConvert.DeserializeObject<MessageContainer>(response).Type.Equals(MessageType.Error) &&
+                            JsonConvert.DeserializeObject<ErrorMessage>(response).ErrorMessageType.Equals(ErrorType.WrongPassword)))
+                        {
+                            ServerLogger.LogDebug("Connection cancel: \n"+response);
+                            socketConnection.Send(response);
+                            _connectedModeratorClients[messageContainer.ModeratorID].Stop();
+                            _connectedModeratorClients[messageContainer.ModeratorID].StopInactivityTimer();
+                            _connectedModeratorClients.Remove(messageContainer.ModeratorID);
+                        }
+                        else
+                        {
+                            socketConnection.Send(response);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        ServerLogger.LogDebug("OnOpenException:" + e);
+                    }
+
                 };
-                socket.OnError = exception =>
+                socketConnection.OnError = exception =>
                 {
                     ServerLogger.LogError($"WebSocket-connection failed: {exception.Message}");
-                    AddStrike(socket);
                 };
             });
         }
 
         /// <summary>
-        /// Checks whether the string passed corresponds to the message types specified in the network protocol and converts it accordingly. If necessary, returns a string for the appropriate response. 
+        /// Checks whether the string passed corresponds to the message types specified in the network protocol and converts it accordingly. Returns a formatted message-string for the response.
         /// </summary>
         /// <param name="message">The received message string.</param>
-        /// <param name="socket">The IWebSocketConnection through which the message was received.</param>
         /// <returns>The corresponding response string.</returns>
-        internal string CheckStringMessage(string message, IWebSocketConnection socket)
+        internal string CheckStringMessage(string message)
         {
             string response = "";
-            try
+            try 
             {
                 MessageContainer messageContainer = JsonConvert.DeserializeObject<MessageContainer>(message);
+                Guid mcId = messageContainer.ModeratorID;
                 switch (messageContainer.Type)
                 {
                     // ######## Initialization  ######## 
@@ -137,134 +218,85 @@ namespace ServerLogic.Control
                             JsonConvert.DeserializeObject<RequestOpenSessionMessage>(message);
                         if (ServerShell.StringToSHA256Hash(openSessionMessage.Password).Equals(Settings.Default.PWHash))
                         {
-                            if (!ModeratorGuidExists(openSessionMessage.ModeratorID, socket, false))
+                            if (_connectedModeratorClients[mcId].SessionKey.Equals(""))
                             {
-                                _connectedModeratorClients.Add(socket, new ModeratorClientManager(
-                                        openSessionMessage.ModeratorID,
-                                        GenerateSessionKey(MaxRepForRandomGeneration),
-                                        socket,
-                                        _playerAudienceClientApi));
+                                _connectedModeratorClients[mcId].InitSession(GenerateSessionKey(MaxRepForRandomGeneration));
                                 response = JsonConvert.SerializeObject(new SessionOpenedMessage(
-                                    _connectedModeratorClients[socket].ModeratorGuid,
-                                    _connectedModeratorClients[socket].SessionKey,
-                                    new Uri($"https://{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}")));
-                                ServerLogger.LogDebug($"Received RequestOpenSession. SessionKey is {_connectedModeratorClients[socket].SessionKey}.");
-
+                                    _connectedModeratorClients[mcId].ModeratorGuid,
+                                    _connectedModeratorClients[mcId].SessionKey,
+                                    new Uri($"https://{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}/?key={_connectedModeratorClients[mcId].SessionKey}")));
+                                ServerLogger.LogDebug($"Received RequestOpenSession. Opened Session {_connectedModeratorClients[mcId].SessionKey} for MC-{mcId}.");
+                                _connectedModeratorClients[mcId].Strikes = 0;
                             }
                             else
                             {
                                 response = JsonConvert.SerializeObject(new ErrorMessage(
                                     openSessionMessage.ModeratorID,
-                                    ErrorType.SessionDoesNotExist,
+                                    ErrorType.WrongSession,
                                     "Session with this ModeratorGuid already exists."));
                                 ServerLogger.LogDebug($"ModeratorClient {openSessionMessage.ModeratorID} tried to open another session.");
+                                AddStrike(mcId);
                             }
                         }
+                        //wrong password
                         else
                         {
-                            //todo: remove before release
-                            ServerLogger.LogDebug($"Socket closed due to wrong RequestOpenSession: Password received: {openSessionMessage.Password}.");
-
-                            socket.Close();
                             response = JsonConvert.SerializeObject(new ErrorMessage(
-                                openSessionMessage.ModeratorID, ErrorType.WrongPassword, ""));
-                        }
-                        break;
-
-                    // ######## Check availability after connection loss ########
-                    case MessageType.RequestServerStatus:
-                        if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID, socket, true))
-                        {
-                            response = JsonConvert.SerializeObject(new ServerStatusMessage(
-                                _connectedModeratorClients[socket].ModeratorGuid));
-                            ServerLogger.LogDebug("Received RequestServerStatus.");
-                        }
-                        break;
-
-                    // ######## continue session after reconnect ########
-                    case MessageType.Reconnect:
-                        if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID, socket, true))
-                        {
-                            ReconnectMessage reconnectMessage =
-                                JsonConvert.DeserializeObject<ReconnectMessage>(message);
-                            //searches for the ModeratorID in the previous connections, and replaces the socket in the entry with the current one.
-                            foreach (var (key, currentModeratorClientManager) in _connectedModeratorClients)
-                            {
-                                if (currentModeratorClientManager.ModeratorGuid.Equals(reconnectMessage.ModeratorID))
-                                {
-                                    _connectedModeratorClients.Add(socket, new ModeratorClientManager(
-                                            currentModeratorClientManager.ModeratorGuid,
-                                            currentModeratorClientManager.SessionKey,
-                                            socket, _playerAudienceClientApi));
-                                    _connectedModeratorClients.Remove(key);
-                                    response = JsonConvert.SerializeObject(new ReconnectSuccessfulMessage(
-                                        currentModeratorClientManager.ModeratorGuid));
-                                    ServerLogger.LogDebug($"MC-{currentModeratorClientManager.ModeratorGuid} reconnected successful to session {currentModeratorClientManager.SessionKey}.\n\tOld socket-connection:\t{key}\n\tNew socket-connection:\t{socket}");
-                                }
-                            }
+                                mcId, ErrorType.WrongPassword, ""));
                         }
                         break;
 
                     // ######## Start to play ########
                     case MessageType.RequestGameStart:
-                        if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID, socket, true))
-                        {
-                            RequestGameStartMessage gameStartMessage =
-                                JsonConvert.DeserializeObject<RequestGameStartMessage>(message);
-                            _connectedModeratorClients[socket].StopAudienceCountLiveUpdate();
-                            response = JsonConvert.SerializeObject(new GameStartedMessage(
-                                gameStartMessage.ModeratorID));
-                            ServerLogger.LogDebug("Received RequestGameStart.");
-                        }
+
+                        RequestGameStartMessage gameStartMessage =
+                            JsonConvert.DeserializeObject<RequestGameStartMessage>(message);
+                        _connectedModeratorClients[mcId].StopAudienceCountLiveUpdate();
+                        response = JsonConvert.SerializeObject(new GameStartedMessage(
+                            gameStartMessage.ModeratorID));
+                        ServerLogger.LogDebug("Received RequestGameStart.");
+                        _connectedModeratorClients[mcId].Strikes = 0;
                         break;
 
                     // ######## Start Voting ######## 
                     case MessageType.RequestStartVoting:
-                        if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID, socket, true))
+
+                        RequestStartVotingMessage startVotingMessage =
+                            JsonConvert.DeserializeObject<RequestStartVotingMessage>(message);
+                        if (!_connectedModeratorClients[mcId].IsVoting)
                         {
-                            RequestStartVotingMessage startVotingMessage =
-                                JsonConvert.DeserializeObject<RequestStartVotingMessage>(message);
-                            if (!_connectedModeratorClients[socket].IsVoting)
-                            {
-                                _connectedModeratorClients[socket].StartVotingTimer(startVotingMessage);
-                                //votingOptions get extracted inside ModeratorClientManager
-                                response = JsonConvert.SerializeObject(new VotingStartedMessage(
-                                    startVotingMessage.ModeratorID));
-                                ServerLogger.LogDebug("Received RequestStartVoting.");
-                            }
-                            else
-                            {
-                                response = JsonConvert.SerializeObject(new ErrorMessage(
-                                    messageContainer.ModeratorID,
-                                    ErrorType.IllegalMessage,
-                                    "Message out of order: Voting still active."));
-                                AddStrike(socket);
-                                ServerLogger.LogDebug("Received RequestStartVoting before current voting was finished.");
-                            }
+                            _connectedModeratorClients[mcId].StartVotingTimer(startVotingMessage);
+                            //votingOptions get extracted inside ModeratorClientManager
+                            response = JsonConvert.SerializeObject(new VotingStartedMessage(
+                                startVotingMessage.ModeratorID));
+                            ServerLogger.LogDebug("Received RequestStartVoting.");
+                            _connectedModeratorClients[mcId].Strikes = 0;
+                        }
+                        else
+                        {
+                            response = JsonConvert.SerializeObject(new ErrorMessage(
+                                messageContainer.ModeratorID,
+                                ErrorType.IllegalMessage,
+                                "Message out of order: Voting still active."));
+                            ServerLogger.LogDebug("Received RequestStartVoting before current voting was finished.");
+                            AddStrike(mcId);
                         }
                         break;
 
-                    // ######## Pause/Unpaus Voting ########
+                    // ######## Pause/Unpause Voting ########
                     case MessageType.RequestGamePausedStatusChange:
-                        if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID, socket, true))
+
+                        RequestGamePausedStatusChangeMessage gamePausedStatusChange =
+                            JsonConvert.DeserializeObject<RequestGamePausedStatusChangeMessage>(message);
+                        if (!gamePausedStatusChange.GamePaused.Equals(_connectedModeratorClients[mcId].IsPaused))
                         {
-                            RequestGamePausedStatusChangeMessage gamePausedStatusChange =
-                                JsonConvert.DeserializeObject<RequestGamePausedStatusChangeMessage>(message);
-                            if (!gamePausedStatusChange.GamePaused.Equals(_connectedModeratorClients[socket].IsPaused))
+                            if (_connectedModeratorClients[mcId]
+                                .PauseVotingTimer(gamePausedStatusChange.GamePaused))
                             {
-                                if (_connectedModeratorClients[socket].PauseVotingTimer(gamePausedStatusChange.GamePaused))
-                                {
-                                    response = JsonConvert.SerializeObject(new GamePausedStatusMessage(
-                                        gamePausedStatusChange.ModeratorID,
-                                        gamePausedStatusChange.GamePaused));
-                                }
-                                else
-                                {
-                                    response = JsonConvert.SerializeObject(new ErrorMessage(
-                                        gamePausedStatusChange.ModeratorID,
-                                        ErrorType.IllegalPauseAction,
-                                        ""));
-                                }
+                                response = JsonConvert.SerializeObject(new GamePausedStatusMessage(
+                                    gamePausedStatusChange.ModeratorID,
+                                    gamePausedStatusChange.GamePaused));
+                                _connectedModeratorClients[mcId].Strikes = 0;
                             }
                             else
                             {
@@ -272,52 +304,55 @@ namespace ServerLogic.Control
                                     gamePausedStatusChange.ModeratorID,
                                     ErrorType.IllegalPauseAction,
                                     ""));
+                                AddStrike(mcId);
                             }
+                        }
+                        else
+                        {
+                            response = JsonConvert.SerializeObject(new ErrorMessage(
+                                gamePausedStatusChange.ModeratorID,
+                                ErrorType.IllegalPauseAction,
+                                ""));
+                            AddStrike(mcId);
                         }
                         break;
 
                     // ######## Close Session ########
                     case MessageType.RequestCloseSession:
-                        if (SocketExists(socket) && ModeratorGuidExists(messageContainer.ModeratorID, socket, true))
+
+                        RequestCloseSessionMessage closeSessionMessage =
+                            JsonConvert.DeserializeObject<RequestCloseSessionMessage>(message);
+                        //if (SessionKeyExists(closeSessionMessage.SessionKey))
+                        if(_connectedModeratorClients[mcId].SessionKey.Equals(closeSessionMessage.SessionKey))
                         {
-                            RequestCloseSessionMessage closeSessionMessage =
-                                JsonConvert.DeserializeObject<RequestCloseSessionMessage>(message);
-                            if (_connectedModeratorClients[socket].SessionKey.Equals(closeSessionMessage.SessionKey))
-                            {
-                                response = JsonConvert.SerializeObject(
-                                        new SessionClosedMessage(closeSessionMessage.ModeratorID));
-                                _connectedModeratorClients[socket].Stop();
-                                _connectedModeratorClients.Remove(socket);
-                                ServerLogger.LogDebug(
-                                    $"Session {closeSessionMessage.SessionKey} was closed, {socket.ConnectionInfo} has disconnected.");
-                            }
-                            else
-                            {
-                                response = JsonConvert.SerializeObject(
-                                    new ErrorMessage(closeSessionMessage.ModeratorID, ErrorType.SessionDoesNotExist, ""));
-                                ServerLogger.LogDebug($"MC-{closeSessionMessage.SessionKey} tried to close Session but failed to due wrong sessionkey. \n\tTransmitted Sessionkey: \t{closeSessionMessage.SessionKey}\n\tActual Sessionkey: \t{_connectedModeratorClients[socket].SessionKey}");
-                            }
+                            response = JsonConvert.SerializeObject(
+                                    new SessionClosedMessage(closeSessionMessage.ModeratorID));
+                            ServerLogger.LogDebug(
+                                $"Session {closeSessionMessage.SessionKey} was closed, {_connectedModeratorClients[mcId].SocketConnection.ConnectionInfo} has disconnected.");
+                        }
+                        else
+                        {
+                            response = JsonConvert.SerializeObject(
+                                new ErrorMessage(closeSessionMessage.ModeratorID, ErrorType.WrongSession, ""));
+                            ServerLogger.LogDebug($"MC-{closeSessionMessage.SessionKey} tried to close Session but failed to due wrong sessionKey. \n\tTransmitted sessionKey: \t{closeSessionMessage.SessionKey}\n\tActual sessionKey: \t\t{_connectedModeratorClients[mcId].SessionKey}");
+                            AddStrike(mcId);
                         }
                         break;
 
                     // unknown MessageType
                     default:
                         //FR57 'ServerLogic persistence': "The ServerLogic shall not crash or terminate a session upon receiving a faulty message or faulty data."
-                        ServerLogger.LogDebug($"Corrupted MessageType: {typeof(MessageType)}, received from {_connectedModeratorClients[socket].ModeratorGuid}, {socket.ConnectionInfo} within session {_connectedModeratorClients[socket].SessionKey}.");
+                        ServerLogger.LogDebug($"Corrupted MessageType: {typeof(MessageType)}, received from {_connectedModeratorClients[mcId].ModeratorGuid}, {_connectedModeratorClients[mcId].SocketConnection.ConnectionInfo} within session {_connectedModeratorClients[mcId].SessionKey}.");
                         //FR31 'Network protocol violation'
                         response = JsonConvert.SerializeObject(new ErrorMessage(
                             messageContainer.ModeratorID,
                             ErrorType.IllegalMessage,
                             "Message out of order or messageType unknown."));
-                        AddStrike(socket);
+                        AddStrike(mcId);
                         break;
                 }
-
-                //reset Strikes to 0, as the connection is only closed after three violations in a row
-                if (_connectedModeratorClients.TryGetValue(socket, out ModeratorClientManager currentModeratorClient))
-                {
-                    currentModeratorClient.Strikes = 0;
-                }
+                _connectedModeratorClients[mcId].ResetInactivity();
+                
             }
             catch (JsonSerializationException jsonSerializationException)
             {
@@ -328,39 +363,23 @@ namespace ServerLogic.Control
                 ServerLogger.LogWarning($"Unexpected Exception occurred: {exception}.");
             }
 
-            _connectedModeratorClients[socket].ResetInactivity();
             return response;
         }
 
         /// <summary>
         /// Increases and checks the number of network protocol violations of the passed IWebSocketConnection.
         /// </summary>
-        /// <param name="socket"></param>
-        internal void AddStrike(IWebSocketConnection socket)
+        /// <param name="moderatorId">The Guid of the violator.</param>
+        internal void AddStrike(Guid moderatorId)
         {
             //FR31 'Network protocol violation'
-            _connectedModeratorClients[socket].Strikes += 1;
-            if (_connectedModeratorClients[socket].Strikes >= 3)
+            ServerLogger.LogDebug($"Strike for {moderatorId}.");
+            _connectedModeratorClients[moderatorId].Strikes += 1;
+            if (_connectedModeratorClients[moderatorId].Strikes >= 3)
             {
-                _connectedModeratorClients[socket].Stop();
-                _connectedModeratorClients.Remove(socket);
+                _connectedModeratorClients[moderatorId].Stop();
+                _connectedModeratorClients.Remove(moderatorId);
             }
-        }
-
-        internal bool ModeratorGuidExists(Guid moderatorGuid, IWebSocketConnection socket, bool sendResponse)
-        {
-            foreach (var (_, moderatorClientManager) in _connectedModeratorClients)
-            {
-                if (moderatorClientManager.ModeratorGuid.Equals(moderatorGuid)) return true;
-            }
-
-            if (sendResponse) socket.Send(JsonConvert.SerializeObject(new ErrorMessage(moderatorGuid, ErrorType.UnknownGuid, "")));
-            return false;
-        }
-
-        internal bool SocketExists(IWebSocketConnection socket)
-        {
-            return _connectedModeratorClients.TryGetValue(socket, out _);
         }
 
         /// <summary>
@@ -369,7 +388,7 @@ namespace ServerLogic.Control
         /// even at the risk that it is already in use.
         /// </summary>
         /// <param name="maxRecursionCycles">The maximum number of recursions allowed to generate a random unique sessionKey.</param>
-        /// <returns>A SessionKey.</returns>
+        /// <returns>A unique SessionKey.</returns>
         internal string GenerateSessionKey(int maxRecursionCycles)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -382,12 +401,13 @@ namespace ServerLogic.Control
                 ServerLogger.LogWarning($"Couldn't generate unique Session-Key. Session-Key {sessionKey} might be duplicate.");
                 return sessionKey;
             }
+
             //SessionKey already in use?
             foreach (var (_, value) in _connectedModeratorClients)
             {
                 if (value.SessionKey.Equals(sessionKey)) GenerateSessionKey(maxRecursionCycles - 1);
             }
-            
+
             return sessionKey;
         }
     }

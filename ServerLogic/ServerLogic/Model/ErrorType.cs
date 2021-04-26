@@ -27,13 +27,18 @@
         /// </summary>
         IllegalPauseAction,
         /// <summary>
-        /// Is triggered when an attempt is made to interact with an Online-Session that does not exist.
+        /// Is triggered when a ModeratorClient tries to interact with a session not assigned to the Moderator.
         /// </summary>
-        SessionDoesNotExist,
+        WrongSession,
         /// <summary>
         /// Is triggered when an unknown message type is received, or when a message arrives at the 
         /// ServerLogic out of order. More precise details are to be specified in the errorMessageText.
         /// </summary>
-        IllegalMessage
+        IllegalMessage,
+        /// <summary>
+        /// Is triggered if an already registered ModeratorGuid attempts to open a new session from a new connection.
+        /// Addresses the unlikely event that two different ModeratorClients happen to generate the same Guid.
+        /// </summary>
+        GuidAlreadyExists
     }
 }
