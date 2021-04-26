@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.Video;
 using Random = System.Random;
 
+/// <summary>
+/// Class to initialize the StoryGraph.
+/// </summary>
 public class GameStory : MonoBehaviour
 {
     /// <summary>
@@ -584,8 +587,9 @@ public class GameStory : MonoBehaviour
         storyelement49option2.AddChild(end);
         storyelement49option3.AddChild(end);
 
-        playThrough = new StoryGraph(null, root, root);
 
+        // Sets the storyGraph with all the StoryEvents.
+        playThrough = new StoryGraph(null, root, root);
         Debug.Log("StoryGraph initialized.");
     }
 
