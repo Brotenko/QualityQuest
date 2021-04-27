@@ -145,7 +145,7 @@ public class GameStory : MonoBehaviour
         storyelement10option2.AddChild(storyelement11);
         storyelement10option3.AddChild(storyelement11);
 
-        var storyelement12 = new StoryEvent(Guid.NewGuid(), "Du hast nur wenige Tage Zeit die Tests zu implementieren, da die Deadline des Projekts sicher immer weiter nähert.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var storyelement12 = new StoryEvent(Guid.NewGuid(), "Du hast nur wenige Tage Zeit die Tests zu implementieren, da die Deadline des Projekts sich immer weiter nähert.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement11.AddChild(storyelement12);
 
@@ -155,20 +155,20 @@ public class GameStory : MonoBehaviour
 
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        var decision5option1 = new StoryEvent(Guid.NewGuid(), "Du schreibst umfangreichge Tests bis sie fertig sind ohne auf die Deadline zu schauen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        var decision5option1 = new StoryEvent(Guid.NewGuid(), "Du schreibst umfangreiche Tests bis sie fertig sind, ohne die Deadline zu beachten.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
         var decision5option2 = new StoryEvent(Guid.NewGuid(), "Du schreibst Tests bis die Deadline erreicht ist, was du bis dahin nicht schaffst bleibt ungetestet.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         decision5.AddChild(decision5option1);
         decision5.AddChild(decision5option2);
 
         var storyelement11option1 = new StoryEvent(Guid.NewGuid(), "Durch deine guten Programmierkenntnisse kannst du trotzdem die Deadline einhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, true, RandomType.RandomDecisionOne);
-        var storyelement11option2 = new StoryEvent(Guid.NewGuid(), "Leider wirst du nicht rechtzeitig fertig aber du hast sehr umfangreiche Tests geschrieben.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, false, RandomType.RandomDecisionOne);
+        var storyelement11option2 = new StoryEvent(Guid.NewGuid(), "Leider wirst du nicht rechtzeitig fertig, aber du hast sehr umfangreiche Tests geschrieben.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, false, RandomType.RandomDecisionOne);
 
         decision5option1.AddChild(storyelement11option1);
         decision5option1.AddChild(storyelement11option2);
 
         var storyelement11option3 = new StoryEvent(Guid.NewGuid(), "Durch deine guten Programmierkenntnisse hast du es trotz der kurzen Zeit geschafft umfangreiche Tests zu schreiben.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, true, RandomType.RandomDecisionTwo);
-        var storyelement11option4 = new StoryEvent(Guid.NewGuid(), "Die Deadline wurde erreicht aber du hast es nicht geschafft alles umfangreich zu testen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, false, RandomType.RandomDecisionTwo);
+        var storyelement11option4 = new StoryEvent(Guid.NewGuid(), "Die Deadline wurde erreicht, du hast es nicht geschafft alles umfangreich zu testen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, false, RandomType.RandomDecisionTwo);
 
         decision5option2.AddChild(storyelement11option3);
         decision5option2.AddChild(storyelement11option4);
@@ -198,7 +198,7 @@ public class GameStory : MonoBehaviour
 
         storyelement13.AddChild(storyelement14);
 
-        var storyelement15 = new StoryEvent(Guid.NewGuid(), "Die Tests haben ein paar Fehler aufgedeckt, wenn du sie behebst kannst du nicht zu Firmenfeier.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var storyelement15 = new StoryEvent(Guid.NewGuid(), "Die Tests haben ein paar Fehler aufgedeckt, wenn du sie behebst hast du keine Zeit um an der Firmenfeier teilzunehmen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement14.AddChild(storyelement15);
 
@@ -238,7 +238,7 @@ public class GameStory : MonoBehaviour
         decision7.AddChild(decision7option2);
         decision7.AddChild(decision7option3);
 
-        var storyelement19option1 = new StoryEvent(Guid.NewGuid(), "Du bekommst von Kollegen ein paar Tipps.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 2));
+        var storyelement19option1 = new StoryEvent(Guid.NewGuid(), "Du bekommst von Kollegen ein paar hilfreiche Tipps.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 2));
 
         // how to influences later decisions ???
         var storyelement19option2 = new StoryEvent(Guid.NewGuid(), "Es wurden zusätzliche Dialogoptionen für spätere Entscheidungen freigeschaltet.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
@@ -287,13 +287,13 @@ public class GameStory : MonoBehaviour
 
         // affected by dice roll
         var storyelement22option2 = new StoryEvent(Guid.NewGuid(), "Du überstehst die Firmenfeier ohne für Aufsehen zu sorgen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 3, 0), true, RandomType.RandomDecisionThree);
-        var storyelement22option3 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung aber fällst negativ auf, weil du ziemlich stark betrunken bist.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, 0, 3, 0), false, RandomType.RandomDecisionThree);
+        var storyelement22option3 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung, aber fällst negativ auf, weil du ziemlich stark betrunken bist.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, 0, 3, 0), false, RandomType.RandomDecisionThree);
 
         decision9option2.AddChild(storyelement22option1);
         decision9option1.AddChild(storyelement22option2);
         decision9option1.AddChild(storyelement22option3);
 
-        var storyelement23 = new StoryEvent(Guid.NewGuid(), "Die Firmenfeier ist zu Ende und du gehts nach Hause.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var storyelement23 = new StoryEvent(Guid.NewGuid(), "Die Firmenfeier ist zu Ende und du gehst nach Hause.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement21option1.AddChild(storyelement23);
         storyelement22option1.AddChild(storyelement23);
@@ -321,14 +321,14 @@ public class GameStory : MonoBehaviour
         var decision10option3 = new StoryEvent(Guid.NewGuid(), "Nein, du brauchst erstmal Urlaub.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         // only if dialog option was ulocked previously
-        var decision10option4 = new StoryEvent(Guid.NewGuid(), "Dein Chef bietet dir an nach der Weiterbildung Urlaub zu machen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        var decision10option4 = new StoryEvent(Guid.NewGuid(), "Dein Chef bietet dir an, nach der Weiterbildung Urlaub zu machen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         decision10.AddChild(decision10option1);
         decision10.AddChild(decision10option2);
         decision10.AddChild(decision10option3);
         decision10.AddChild(decision10option4);
 
-        var storyelement24option1 = new StoryEvent(Guid.NewGuid(), "Du kannst deine Deadline nicht einhalten aber deinem Chef gefällt dein Engagement deine Fähigkeiten zu erweitern.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 1));
+        var storyelement24option1 = new StoryEvent(Guid.NewGuid(), "Du kannst deine Deadline nicht einhalten, aber deinem Chef gefällt dein Engagement deine Fähigkeiten zu erweitern.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 1));
         var storyelement24option2 = new StoryEvent(Guid.NewGuid(), "Du arbeitest an dem Projekt weiter und schaffst es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 0));
         var storyelement24option3 = new StoryEvent(Guid.NewGuid(), "Da du Urlaub genommen hast schaffst du es nicht die Deadline einzuhalten, dein Chef ist deshalb ziemlich sauer.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, -2, 0, 0));
         var storyelement24option4 = new StoryEvent(Guid.NewGuid(), "Nach der Weiterbildung genießt du eine Woche Urlaub und da dein Chef sich um eine Vertetung gekümmert hat, hast du keine Probleme die Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 2, 0, 2));
@@ -345,11 +345,11 @@ public class GameStory : MonoBehaviour
         storyelement24option3.AddChild(background6);
         storyelement24option4.AddChild(background6);
 
-        var storyelement25 = new StoryEvent(Guid.NewGuid(), "Deine Telefon klingelt. WizzBook ruft an und möchte Änderungen an WizzApp vornehmen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var storyelement25 = new StoryEvent(Guid.NewGuid(), "Dein Telefon klingelt. WizzBook ruft an und möchte Änderungen an der WizzApp vornehmen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         background6.AddChild(storyelement25);
 
-        var storyelement26 = new StoryEvent(Guid.NewGuid(), "Du nimmst den Anruf entgegen und hörst dir WizzApps Änderungswünsche an.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var storyelement26 = new StoryEvent(Guid.NewGuid(), "Du nimmst den Anruf entgegen und hörst dir WizzBooks Änderungswünsche an.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement25.AddChild(storyelement26);
 
@@ -380,7 +380,7 @@ public class GameStory : MonoBehaviour
         decision11option3.AddChild(decision12);
 
         var decision12option1 = new StoryEvent(Guid.NewGuid(), "Du informierst den Kunden.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        var decision12option2 = new StoryEvent(Guid.NewGuid(), "Du setzt die Änderungen nicht um ohne den Kunden darüber zu informieren.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        var decision12option2 = new StoryEvent(Guid.NewGuid(), "Die Änderungen werden nicht umgesetzt, ohne den Kunden darüber zu informieren.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         decision12.AddChild(decision12option1);
         decision12.AddChild(decision12option2);
@@ -409,7 +409,7 @@ public class GameStory : MonoBehaviour
         storyelement31.AddChild(decision13);
 
         var decision13option1 = new StoryEvent(Guid.NewGuid(), "Du schreibst ein Bug Ticket.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        var decision13option2 = new StoryEvent(Guid.NewGuid(), "Einfach ingorieren wird schon keinem auffallen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        var decision13option2 = new StoryEvent(Guid.NewGuid(), "Einfach ignorieren, wird schon keinem auffallen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         decision13.AddChild(decision13option1);
         decision13.AddChild(decision13option2);
@@ -481,7 +481,7 @@ public class GameStory : MonoBehaviour
 
         // colleague needs help
 
-        var storyelement40 = new StoryEvent(Guid.NewGuid(), "Dein Kollege Trummu kommt auf dich zu da er drigend deine Hilfe benötigt.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var storyelement40 = new StoryEvent(Guid.NewGuid(), "Dein Kollege Trummu kommt auf dich zu, da er dringend deine Hilfe benötigt.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement39.AddChild(storyelement40);
 
@@ -497,7 +497,7 @@ public class GameStory : MonoBehaviour
 
         //dice roll
         var storyelement41option1 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden und du schafft es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), true, RandomType.RandomDecisionFive);
-        var storyelement41option2 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden aber du wirst es nicht schaffen deine Deadline zu halten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), false, RandomType.RandomDecisionFive);
+        var storyelement41option2 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden, aber du wirst es nicht schaffen deine Deadline zu halten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), false, RandomType.RandomDecisionFive);
 
         decision16option2.AddChild(storyelement41option1);
         decision16option2.AddChild(storyelement41option2);
@@ -525,7 +525,7 @@ public class GameStory : MonoBehaviour
 
         decision17option2.AddChild(storyelement43);
 
-        var storyelement44 = new StoryEvent(Guid.NewGuid(), "Trummu ist verärgert das du im nicht geholfen hast.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, 0, 0, 0));
+        var storyelement44 = new StoryEvent(Guid.NewGuid(), "Trummu ist verärgert, da du im nicht geholfen hast.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, 0, 0, 0));
 
         decision16option1.AddChild(storyelement44);
 
@@ -550,12 +550,12 @@ public class GameStory : MonoBehaviour
         decision18.AddChild(decision18option2);
 
         var storyelement46option1 = new StoryEvent(Guid.NewGuid(), "Du nimmst an der Code Review teil und erhälst Tipps die später mal sehr hilfreich sein werden.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 2, 0, 0));
-        var storyelement46option2 = new StoryEvent(Guid.NewGuid(), "Dein Chef findet es garnicht gut das du nicht an der Code Review teilgenommen hast.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, -2, 0, 0));
+        var storyelement46option2 = new StoryEvent(Guid.NewGuid(), "Dein Chef ist ziemlich sauer, da eine Code Review sehr wichtig ist.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, -2, 0, 0));
 
         decision18option1.AddChild(storyelement46option1);
         decision18option2.AddChild(storyelement46option2);
 
-        var storyelement47 = new StoryEvent(Guid.NewGuid(), "Das Projekt ist abgeschlossen", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var storyelement47 = new StoryEvent(Guid.NewGuid(), "Das Projekt ist abgeschlossen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement46option1.AddChild(storyelement47);
         storyelement46option2.AddChild(storyelement47);
