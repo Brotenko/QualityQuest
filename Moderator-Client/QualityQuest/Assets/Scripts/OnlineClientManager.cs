@@ -44,6 +44,9 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method that initializes all variables needed for the online mode.
+    /// </summary>
     public void StartOnlineMode()
     {
         votingTime = 20;
@@ -52,9 +55,13 @@ public class OnlineClientManager : MonoBehaviour
         votingStatistics ??= new VotingStatistics(new List<VotingResult>());
     }
 
+    /// <summary>
+    /// Method to start a connection with a WebSocket. Uses the InputFields for ip, port and password.
+    /// Shows a errorMessage if one or more of the inputs are blank.
+    /// </summary>
     public void Connect()
     {
-        if (ip.text != "" || port.text != "" || password.text != "")
+        if (ip.text != "" && port.text != "" && password.text != "")
         {
             qualityQuestWebSocket.StartConnection(ip.text, port.text);
         }
@@ -64,6 +71,10 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method that is called as soon as a connection to the WebSocket is established.
+    /// Starts a new session or connects to an existing one.
+    /// </summary>
     public void ConnectionEstablished()
     {
         // Open new session
@@ -78,18 +89,27 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to send a ReconnectMessage.
+    /// </summary>
     public void SendReconnectMessage()
     {
         var reconnectMessage = new ReconnectMessage(moderatorClientGuid);
         qualityQuestWebSocket.SendMessage(reconnectMessage);
     }
 
+    /// <summary>
+    /// Method to send a RequestSessionOpenedMessage.
+    /// </summary>
     public void SendRequestSessionOpenedMessage()
     {
         var requestOpenSessionMessage = new RequestOpenSessionMessage(moderatorClientGuid, password.text);
         qualityQuestWebSocket.SendMessage(requestOpenSessionMessage);
     }
 
+    /// <summary>
+    /// Method to send a RequestGameStartMessage.
+    /// </summary>
     public void SendRequestGameStartMessage()
     {
         Debug.Log("RequestGameStartMessage");
@@ -97,6 +117,9 @@ public class OnlineClientManager : MonoBehaviour
         qualityQuestWebSocket.SendMessage(requestGameStartMessage);
     }
 
+    /// <summary>
+    /// Method to send a RequestCloseSessionMessage.
+    /// </summary>
     public void SendRequestCloseSessionMessage()
     {
         if (sessionKey == null) return;
@@ -104,6 +127,11 @@ public class OnlineClientManager : MonoBehaviour
         qualityQuestWebSocket.SendMessage(requestCloseSessionMessage);
     }
 
+    /// <summary>
+    /// Method when the ModeratorClient receives a GamePausedStatusMessage.
+    /// Disables the pausePanel.
+    /// </summary>
+    /// <param name="gamePausedStatusMessage">The GamePausedStatusMessage.</param>
     public void ReceivedGamePausedStatusChange(GamePausedStatusMessage gamePausedStatusMessage)
     {
         if (gamePausedStatusMessage.GamePaused)
@@ -118,12 +146,22 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method when the ModeratorClient receives a ReconnectSuccessfulMessage.
+    /// Switches the game into online mode.
+    /// </summary>
+    /// <param name="reconnectSuccessfulMessage">The ReconnectSuccessfulMessage.</param>
     public void ReceivedReconnectSuccessfulMessage(ReconnectSuccessfulMessage reconnectSuccessfulMessage)
     {
         GameState.gameIsOnline = true;
         ContinueOnlineStory(gameStory.playThrough.CurrentEvent);
     }
 
+    /// <summary>
+    /// Method when the ModeratorClient receives a SessionOpenedMessage.
+    /// Saves the url and sessionKey and switches to the qrCodePanel.
+    /// </summary>
+    /// <param name="sessionOpenedMessage">The SessionOpenedMessage.</param>
     public void ReceivedSessionOpenedMessage(SessionOpenedMessage sessionOpenedMessage)
     {
         GameState.gameIsOnline = true;
@@ -132,22 +170,41 @@ public class OnlineClientManager : MonoBehaviour
         activeScreenManager.ShowQrCodePanel(sessionOpenedMessage.DirectURL.ToString(), sessionOpenedMessage.SessionKey);
     }
 
+    /// <summary>
+    /// Method when the ModeratorClient receives a AudienceStatusMessage.
+    /// Updates the PlayerAudience count on the qrCodePanel.
+    /// </summary>
+    /// <param name="audienceStatusMessage">The AudienceStatusMessage.</param>
     public void ReceivedAudienceStatusMessage(AudienceStatusMessage audienceStatusMessage)
     {
         activeScreenManager.UpdateAudienceCount(audienceStatusMessage.AudienceCount);
     }
 
+    /// <summary>
+    /// Method when the ModeratorClient receives a GameStartedMessage.
+    /// Starts the online mode of the QualityQuest.
+    /// </summary>
+    /// <param name="gameStartedMessage">The GameStartedMessage.</param>
     public void ReceivedGameStartedMessage(GameStartedMessage gameStartedMessage)
     {
         ContinueOnlineStory(gameStory.playThrough.CurrentEvent);
     }
 
+    /// <summary>
+    /// Method when the ModeratorClient receives a VotingEndedMessage.
+    /// Checks the VotingEndedMessage for correctness and then saves the voting for the statistics.
+    /// Switches to the resultPanel and displays the voting.
+    /// Activates the ClickListeners so that the moderator can continue with the game.
+    /// </summary>
+    /// <param name="votingEndedMessage">The VotingEndedMessage.</param>
     public void ReceivedVotingEndedMessage(VotingEndedMessage votingEndedMessage)
     {
         var currentEvent = gameStory.playThrough.CurrentEvent;
         try
         {
+            // validate the received message.
             ValidateVotingEndedMessage(currentEvent, votingEndedMessage.VotingResults);
+            // save voting statistic
             SaveStatistics(currentEvent.Description, currentEvent.Children, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes);
 
 
@@ -188,32 +245,30 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to display the result of the CharacterSelection after a VotingEndedMessage.
+    /// Sets the clickListeners for the individual characters.
+    /// </summary>
+    /// <param name="currentEvent">The current StoryEvent.</param>
+    /// <param name="currentEventChildren">The children of the current StoryEvent.</param>
+    /// <param name="votingEndedMessage">The VotingEndedMessage.</param>
     private void OnlineModePickInitializeChar(StoryEvent currentEvent, List<StoryEvent> currentEventChildren, VotingEndedMessage votingEndedMessage)
     {
         activeScreenManager.ShowResults();
         result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes, votingEndedMessage.WinningOption);
-        displayDecision.selectOnlineA.onClick.AddListener(delegate
-        { 
-            PickNoruso(); 
-            ContinueOnlineStory(currentEventChildren[0]);
-        });
-        displayDecision.selectOnlineB.onClick.AddListener(delegate 
-        { 
-            PickLumati(); 
-            ContinueOnlineStory(currentEventChildren[1]);
-        });
-        displayDecision.selectOnlineC.onClick.AddListener(delegate 
-        { 
-            PickTurgal(); 
-            ContinueOnlineStory(currentEventChildren[2]);
-        });
-        displayDecision.selectOnlineD.onClick.AddListener(delegate 
-        { 
-            PickKirogh(); 
-            ContinueOnlineStory(currentEventChildren[3]);
-        });
+        displayDecision.selectOnlineA.onClick.AddListener(PickNoruso);
+        displayDecision.selectOnlineB.onClick.AddListener(PickLumati);
+        displayDecision.selectOnlineC.onClick.AddListener(PickTurgal);
+        displayDecision.selectOnlineD.onClick.AddListener(PickKirogh);
     }
 
+    /// <summary>
+    /// Method to save the voting statistic.
+    /// </summary>
+    /// <param name="votingPrompt">The current votingPrompt.</param>
+    /// <param name="votingOptions">The votingOptions of the current votingPrompt.</param>
+    /// <param name="votingResults">The result of the voting.</param>
+    /// <param name="totalVotes">The total number of votes.</param>
     private void SaveStatistics(string votingPrompt, HashSet<StoryEvent> votingOptions, Dictionary<Guid, int> votingResults, int totalVotes)
     {
         var voting = new VotingResult(votingPrompt, totalVotes, new Dictionary<string, int>());
@@ -225,6 +280,11 @@ public class OnlineClientManager : MonoBehaviour
         votingStatistics.Statistic.Add(voting);
     }
 
+    /// <summary>
+    /// Checks if the voting options match the current StoryEvent.
+    /// </summary>
+    /// <param name="currentEvent">The current StoryEvent.</param>
+    /// <param name="votingOptions">The votingOptions of the VotingEndedMessage.</param>
     public void ValidateVotingEndedMessage(StoryEvent currentEvent, Dictionary<Guid, int> votingOptions)
     {
         if (currentEvent.Children.Any(child => !votingOptions.ContainsKey(child.EventId)))
@@ -233,6 +293,11 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method gets called to continue with the story in online mode. Updates the character stats.
+    /// Checks the next StoryEvenType and continues the story depending on the StoryEventType.
+    /// </summary>
+    /// <param name="storyEvent">The next StoryEvent.</param>
     public void ContinueOnlineStory(StoryEvent storyEvent)
     {
         displayDecision.RemoveOnlineDecisionListeners();
@@ -267,6 +332,12 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to continue the story with a StoryFlowDecisionOption.
+    /// If the StoryEvent is a RandomEvent, the story will be continued with a random StoryEvent.
+    /// Continues the story in offline or online mode, depending on the state of the game.
+    /// </summary>
+    /// <param name="currentEvent">The current StoryEvent.</param>
     private void ContinueDecisionOption(StoryEvent currentEvent)
     {
         switch (currentEvent.Children.Count())
@@ -294,6 +365,11 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to continue the story with a StoryFlowDecision if the game is in online mode.
+    /// Activates the decisionPanel and sends the RequestStartVotingMessage.
+    /// </summary>
+    /// <param name="currentEvent">The current StoryEvent.</param>
     private void ContinueStoryDecision(StoryEvent currentEvent)
     {
         displayDecision.RemoveOnlineDecisionListeners();
@@ -323,6 +399,13 @@ public class OnlineClientManager : MonoBehaviour
         qualityQuestWebSocket.SendMessage(requestStartVotingMessage);
     }
 
+    /// <summary>
+    /// Method to continue the StoryFlow between the StoryFlowDecisions.
+    /// Activates the click listeners for the StoryFlowButton so the Moderator can continue the story.
+    /// Continues the game in online or offline mode, depending on the state of the game.
+    /// The last StoryFlow activates and shows the statistics, if the game is in online mode. Also sends the RequestCloseSessionMessage.
+    /// </summary>
+    /// <param name="currentEvent">The current StoryFlow StoryEvent.</param>
     private void ContinueStoryFlow(StoryEvent currentEvent)
     {
         displayStoryFlow.RemoveStoryFlowListeners();
@@ -350,17 +433,24 @@ public class OnlineClientManager : MonoBehaviour
                 {
                     SendRequestCloseSessionMessage();
                     activeScreenManager.ShowStatistics();
-                    displayStatistics.DisplayAllDescisions(votingStatistics);
+                    displayStatistics.DisplayAllDecisions(votingStatistics);
                 }
             });
         }
     }
 
+    /// <summary>
+    /// Method when the ModeratorClient receives a VotingStartedMessage. Starts the voting time on the lower left corner.
+    /// </summary>
+    /// <param name="votingStartedMessage">The VotingStartedMessage.</param>
     public void ReceivedVotingStartedMessage(VotingStartedMessage votingStartedMessage)
     {
         displayStatusBar.DisplayTimer(votingTime);
     }
 
+    /// <summary>
+    /// Method to request a game pause. Sends the RequestGamePause message and activates or disables the pause screen.
+    /// </summary>
     public void RequestGamePause()
     {
         if (gameStory.playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryDecision) || gameStory.playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryRootEvent))
@@ -382,9 +472,12 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
-    
 
 
+    /// <summary>
+    /// Method gets called on the WebSocket onClose event. Triggers an ErrorMessage depending on the reason why the WebSocket was closed
+    /// </summary>
+    /// <param name="errorCode">The errorCode of the close reason.</param>
     public void ServerIssues(int errorCode)
     {
         moderatorClientGuid = Guid.NewGuid();
@@ -399,6 +492,11 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method when the ModeratorClient receives a ErrorMessage.
+    /// Depending on the ErrorMessage a new SessionOpenedMessage is sent or the ErrorPanel is activated.
+    /// </summary>
+    /// <param name="errorMessage"></param>
     public void ReceivedErrorMessage(ErrorMessage errorMessage)
     {
         switch (errorMessage.ErrorMessageType)
@@ -427,6 +525,9 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to switch between the offline and offline mode.
+    /// </summary>
     public void SwitchModes()
     {
         Debug.Log("Switch modes:" + GameState.gameIsOnline);
@@ -472,13 +573,18 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Method to start the offline playthrough.
+    /// </summary>
     public void StartOfflinePlaythrough()
     {
         activeScreenManager.ShowCharacterSelection();
         characterSelection.ActivateOfflineCharacterPickButtons();
     }
 
+    /// <summary>
+    /// Method to initialize the char Noruso and continues the game in offline or online mode, depending on the game state.
+    /// </summary>
     public void PickNoruso()
     {
         characterSelection.InitializeCharacter(characterSelection.noruso, gameStory, displayStatusBar);
@@ -494,6 +600,9 @@ public class OnlineClientManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Method to initialize the char Lumati and continues the game in offline or online mode, depending on the game state.
+    /// </summary>
     public void PickLumati()
     {
         characterSelection.InitializeCharacter(characterSelection.lumati, gameStory, displayStatusBar);
@@ -508,6 +617,9 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to initialize the char Turgal and continues the game in offline or online mode, depending on the game state.
+    /// </summary>
     public void PickTurgal()
     {
         characterSelection.InitializeCharacter(characterSelection.turgal, gameStory, displayStatusBar);
@@ -522,6 +634,9 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to initialize the char Kirogh and continues the game in offline or online mode, depending on the game state.
+    /// </summary>
     public void PickKirogh()
     {
         characterSelection.InitializeCharacter(characterSelection.kirogh, gameStory, displayStatusBar);
@@ -536,6 +651,11 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method gets called to continue with the story in offline mode. Updates the character stats.
+    /// Checks the next StoryEvenType and continues the story depending on the StoryEventType.
+    /// </summary>
+    /// <param name="storyEvent">The next StoryEvent.</param>
     public void ContinueOfflineStory(StoryEvent storyEvent)
     {
         gameStory.SetCurrentEvent(storyEvent);
@@ -570,6 +690,10 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to switch the background between the StoryEvents. Continues the game the game in offline or online mode, after switching the background.
+    /// </summary>
+    /// <param name="currentEvent"></param>
     private void ContinueBackground(StoryEvent currentEvent)
     {
         if (currentEvent.Children.Any())
@@ -591,6 +715,11 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to continue they game if a StoryFlowDecision happens in offline mode. Activates the click
+    /// listeners so that the player can decide by clicking on the button, also activates the decisionPanel.
+    /// </summary>
+    /// <param name="currentEvent"></param>
     private void ContinueOfflineDecision(StoryEvent currentEvent)
     {
         displayDecision.RemoveOfflineDecisionListeners();
