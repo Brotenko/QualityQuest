@@ -88,7 +88,6 @@ public class QualityQuestWebSocket : MonoBehaviour
 
         webSocket.OnClose += (sender, e) =>
         {
-            GameState.gameIsOnline = false;
             mainThreadWorker.AddAction(() =>
             {
                 onlineClientManager.ServerIssues(e.Code);

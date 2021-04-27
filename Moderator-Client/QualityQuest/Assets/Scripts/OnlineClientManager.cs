@@ -429,6 +429,7 @@ public class OnlineClientManager : MonoBehaviour
 
     public void SwitchModes()
     {
+        Debug.Log("Switch modes:" + GameState.gameIsOnline);
         if (GameState.gameIsOnline)
         {
             GameState.gameIsOnline = false;
@@ -457,8 +458,6 @@ public class OnlineClientManager : MonoBehaviour
                         }
                         else
                         {
-                            GameState.gameIsOnline = true;
-
                             ContinueOnlineStory(gameStory.playThrough.CurrentEvent);
                         }
                         break;
