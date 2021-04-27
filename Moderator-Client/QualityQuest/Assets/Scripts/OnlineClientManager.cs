@@ -458,7 +458,7 @@ public class OnlineClientManager : MonoBehaviour
                         else
                         {
                             GameState.gameIsOnline = true;
-                            activeScreenManager.ActivatePauseButton();
+
                             ContinueOnlineStory(gameStory.playThrough.CurrentEvent);
                         }
                         break;
@@ -476,14 +476,12 @@ public class OnlineClientManager : MonoBehaviour
 
     public void StartOfflinePlaythrough()
     {
-        Debug.Log("ahaha");
         activeScreenManager.ShowCharacterSelection();
         characterSelection.ActivateOfflineCharacterPickButtons();
     }
 
     public void PickNoruso()
     {
-        Debug.Log("haha");
         characterSelection.InitializeCharacter(characterSelection.noruso, gameStory, displayStatusBar);
         var list = gameStory.playThrough.CurrentEvent.Children.ToList();
         if (GameState.gameIsOnline)
