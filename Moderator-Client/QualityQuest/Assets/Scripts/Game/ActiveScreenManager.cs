@@ -107,6 +107,8 @@ public class ActiveScreenManager : MonoBehaviour
     /// </summary>
     public void ShowConnection()
     {
+        GameState.gameIsOnline = true;
+
         activeMenu = connect;
         if (!gameMenu.activeSelf && !paused)
         {
@@ -345,6 +347,14 @@ public class ActiveScreenManager : MonoBehaviour
             }
 
         }
+    }
+
+    /// <summary>
+    /// Method to activate the pause button on the top right corner.
+    /// </summary>
+    public void ActivatePauseButton()
+    {
+        pauseButton.SetActive(true);
     }
 
     /// <summary>
