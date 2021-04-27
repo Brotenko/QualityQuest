@@ -363,15 +363,22 @@ public class OnlineClientManager : MonoBehaviour
 
     public void RequestGamePause()
     {
-        if (!ActiveScreenManager.paused)
+        if (gameStory.playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryDecision) || gameStory.playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryRootEvent))
         {
-            var requestGamePausedStatusChangeMessage = new RequestGamePausedStatusChangeMessage(moderatorClientGuid, true);
-            qualityQuestWebSocket.SendMessage(requestGamePausedStatusChangeMessage);
+            if (!ActiveScreenManager.paused)
+            {
+                var requestGamePausedStatusChangeMessage = new RequestGamePausedStatusChangeMessage(moderatorClientGuid, true);
+                qualityQuestWebSocket.SendMessage(requestGamePausedStatusChangeMessage);
+            }
+            else
+            {
+                var requestGamePausedStatusChangeMessage = new RequestGamePausedStatusChangeMessage(moderatorClientGuid, false);
+                qualityQuestWebSocket.SendMessage(requestGamePausedStatusChangeMessage);
+            }
         }
         else
         {
-            var requestGamePausedStatusChangeMessage = new RequestGamePausedStatusChangeMessage(moderatorClientGuid, false);
-            qualityQuestWebSocket.SendMessage(requestGamePausedStatusChangeMessage);
+            activeScreenManager.ShowPauseMenu(url, sessionKey);
         }
     }
 
@@ -387,6 +394,7 @@ public class OnlineClientManager : MonoBehaviour
                 activeScreenManager.ShowErrorScreen("Es konnte keine Verbindung zum Server aufgebaut werden.");
                 break;
             default:
+                activeScreenManager.ShowErrorScreen("Verbindung verloren. Bitte erneut verbinden oder im Offline-Modus fortfahren.");
                 break;
         }
     }
@@ -421,7 +429,6 @@ public class OnlineClientManager : MonoBehaviour
 
     public void SwitchModes()
     {
-        
         if (GameState.gameIsOnline)
         {
             GameState.gameIsOnline = false;
@@ -446,10 +453,12 @@ public class OnlineClientManager : MonoBehaviour
                         if (sessionKey == null)
                         {
                             SendRequestSessionOpenedMessage();
+                            activeScreenManager.ActivatePauseButton();
                         }
                         else
                         {
                             GameState.gameIsOnline = true;
+                            activeScreenManager.ActivatePauseButton();
                             ContinueOnlineStory(gameStory.playThrough.CurrentEvent);
                         }
                         break;
