@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class DisplayCharacter : MonoBehaviour
 {
-
+    /// <summary>
+    /// Text elements and images which are changed during the game.
+    /// </summary>
     public new TMP_Text name;
     public Image image;
     public TMP_Text programming;
@@ -14,6 +16,10 @@ public class DisplayCharacter : MonoBehaviour
     public TMP_Text analytics;
     public TMP_Text party;
 
+    /// <summary>
+    /// Changes the Text and Image of a Character in the CharacterSelection.
+    /// </summary>
+    /// <param name="character">Character which contains the name, the sprite and the skills of the character.</param>
     public void UpdateCharacter(Character character)
     {
         name.text = character.Name;

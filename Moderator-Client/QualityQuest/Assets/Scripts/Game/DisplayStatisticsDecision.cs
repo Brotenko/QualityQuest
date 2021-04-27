@@ -26,6 +26,9 @@ public class DisplayStatisticsDecision : MonoBehaviour
     public TMP_Text answerD;
     public TMP_Text votesD;
 
+    /// <summary>
+    /// Hides all decision panels to make sure none of them are visible.
+    /// </summary>
     public void HideAllOptions()
     {
         optionPanelA.SetActive(false);

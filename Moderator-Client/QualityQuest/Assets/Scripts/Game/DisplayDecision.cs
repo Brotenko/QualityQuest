@@ -7,15 +7,25 @@ using UnityEngine.UI;
 
 public class DisplayDecision : MonoBehaviour
 {
+    /// <summary>
+    /// Buttons which are used to select a decision in OfflineMode.
+    /// </summary>
     public Button selectOfflineA;
     public Button selectOfflineB;
     public Button selectOfflineC;
     public Button selectOfflineD;
 
+    /// <summary>
+    /// Buttons which are used to select a decision in OnlineMode.
+    /// </summary>
     public Button selectOnlineA;
     public Button selectOnlineB;
     public Button selectOnlineC;
     public Button selectOnlineD;
+
+    /// <summary>
+    /// Decision panels with their corresponding title and description.
+    /// </summary>
 
     public TMP_Text titleA;
     public TMP_Text descriptionA;
@@ -35,6 +45,12 @@ public class DisplayDecision : MonoBehaviour
 
     public TMP_Text question;
 
+    /// <summary>
+    /// Hides all decision panels and only sets those to visible that are needed.
+    /// Updates the description and title of the individual decision panels.
+    /// </summary>
+    /// <param name="currentEvent"></param>
+    /// <param name="children"></param>
     public void LoadDecision(StoryEvent currentEvent, List<StoryEvent> children)
     {
         descriptionA.text = "";
@@ -78,6 +94,9 @@ public class DisplayDecision : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Removes all EventListeners of the OfflineMode buttons so clicks on the buttons ar no longer registered.
+    /// </summary>
     public void RemoveOfflineDecisionListeners()
     {
         selectOfflineA.onClick.RemoveAllListeners();
@@ -86,6 +105,9 @@ public class DisplayDecision : MonoBehaviour
         selectOfflineD.onClick.RemoveAllListeners();
     }
 
+    /// <summary>
+    /// Removes all EventListeners of the OnlineMode buttons so clicks on the buttons ar no longer registered.
+    /// </summary>
     public void RemoveOnlineDecisionListeners()
     {
         selectOnlineA.onClick.RemoveAllListeners();

@@ -12,7 +12,7 @@ public class ActiveScreenManager : MonoBehaviour
 {
 
     /// <summary>
-    /// All panels that the game switches through during a game
+    /// All panels that the game switches through during a game.
     /// </summary>
     public GameObject characterSelection;
     public GameObject decision;
@@ -27,12 +27,12 @@ public class ActiveScreenManager : MonoBehaviour
     public GameObject errorScreen;
 
     /// <summary>
-    /// generates QR code
+    /// Generates the QR code.
     /// </summary>
     public QRCode qrCodeGenerator;
 
     /// <summary>
-    /// text elements which are changed during the game
+    /// Text elements which are changed during the game.
     /// </summary>
     public TMP_Text gameMenuSwitchModeButton;
     public TMP_Text audienceCount;
@@ -43,24 +43,24 @@ public class ActiveScreenManager : MonoBehaviour
     public TMP_Text errorMessage;
 
     /// <summary>
-    /// button which is used to pause the game
+    /// Button which is used to pause the game.
     /// </summary>
     public GameObject pauseButton;
 
     /// <summary>
-    /// this parameter helps to switch back to the correct screen after the pause screen or menu screen was shown
+    /// This parameter helps to switch back to the correct screen after the pause screen or menu screen was shown.
     /// </summary>
     private GameObject activeMenu;
 
     /// <summary>
-    /// this parameter helps to dertermine if the game si paused or not
+    /// This parameter helps to determine if the game si paused or not.
     /// </summary>
     public static bool paused;
 
     /// <summary>
-    /// This method is called when the script is laoded
+    /// This method is called when the script is loaded
     /// when the game is run in the online mode the connect screen is shown
-    /// otherwise the characterselection screen is shown and the pause button is disable
+    /// otherwise the CharacterSelection screen is shown and the pause button is disable
     /// because the game can't be paused in offline mode.
     /// </summary>
     private void Awake()
@@ -183,7 +183,7 @@ public class ActiveScreenManager : MonoBehaviour
     /// If the pause or menu screen are not currently active
     /// HideAllMenus is called to make sure no other screen is active
     /// and the QR code screen is displayed.
-    /// Additionaly the url, session key and qr code image get updated.
+    /// Additionally the url, session key and qr code image get updated.
     /// </summary>
     public void ShowQrCodePanel(string url, string key)
     {
@@ -202,7 +202,7 @@ public class ActiveScreenManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Displays the current ammount of connected player
+    /// Displays the current amount of connected player
     /// </summary>
     public void UpdateAudienceCount(int audienceCount)
     {
@@ -229,13 +229,13 @@ public class ActiveScreenManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the activeMenu parameter to storyflow
+    /// Sets the activeMenu parameter to StoryFlow
     /// which helps to switch back to the correct screen
     /// after the pause screen or menu screen was shown.
     /// If the pause or menu screen are 
     /// not currently active
-    /// HideAllMenus is called to make sure no other screen is active
-    /// and the storyflow screen is displayed.
+    /// HideAllMenus is called to make sure no other screen is active.
+    /// and the StoryFlow screen is displayed.
     /// </summary>
     public void ShowStoryFlow()
     {
@@ -277,13 +277,13 @@ public class ActiveScreenManager : MonoBehaviour
 
         if (!paused)
         {
-            //Sets the pause parameter to true which prevents all other screens exept for the menu screen from getting shown.
+            //Sets the pause parameter to true which prevents all other screens except for the menu screen from getting shown.
             paused = true;
 
 
             /*
             If the menu screen is not currently active HideAllMenus is called to make sure no other screen is active
-            and the pause screen is displayed. Additionaly the session key and url gets updated and generateWRCode is called to display the qr code.
+            and the pause screen is displayed. Additionally the session key and url gets updated and generateWRCode is called to display the qr code.
             */
             if (!gameMenu.activeSelf)
             {
@@ -300,7 +300,7 @@ public class ActiveScreenManager : MonoBehaviour
             //Sets the pause parameter to false which won't prevent other screens from getting shown.
             paused = false;
 
-            // If the menu screen in not currently active the pause screen gets hidden and the active screen is set be visbile again.
+            // If the menu screen in not currently active the pause screen gets hidden and the active screen is set be visible again.
             if (!gameMenu.activeSelf)
             {
                 pauseScreen.SetActive(false);
@@ -314,7 +314,7 @@ public class ActiveScreenManager : MonoBehaviour
     /// </summary>
     public void ShowGameMenu()
     {
-        // changes the button which is used to switch between offline and online mode acording to the currently active mode.
+        // changes the button which is used to switch between offline and online mode according to the currently active mode.
         if (GameState.gameIsOnline)
         {
             gameMenuSwitchModeButton.text = "Offline Mode";
@@ -324,7 +324,7 @@ public class ActiveScreenManager : MonoBehaviour
             gameMenuSwitchModeButton.text = "Online Mode";
         }
 
-        // Hides all screens and diplays the game menu.
+        // Hides all screens and displays the game menu.
         if (!gameMenu.activeSelf)
         {
             HideAllMenus();
@@ -334,7 +334,7 @@ public class ActiveScreenManager : MonoBehaviour
             }
             gameMenu.SetActive(true);
         }
-        // hides the game menu. If the game is currently paused the pause menu is shown otherwise the active screen is displayed.
+        // Hides the game menu. If the game is currently paused the pause menu is shown otherwise the active screen is displayed.
         else
         {
             gameMenu.SetActive(false);
@@ -359,7 +359,7 @@ public class ActiveScreenManager : MonoBehaviour
     }
 
     /// <summary>
-    /// this method closes the application
+    /// This method closes the application.
     /// </summary>
     public void QuitGame()
     {
@@ -368,7 +368,7 @@ public class ActiveScreenManager : MonoBehaviour
     }
 
     /// <summary>
-    /// switches the active scene to display the main menu
+    /// Switches the active scene to display the main menu.
     /// </summary>
     public void BackToMainMenu()
     {

@@ -5,19 +5,19 @@ using UnityEngine.UI;
 
 public class CharacterSelection : MonoBehaviour
 {
-    // scripts which update the displayed characters in the character selection screen
+    // Scripts which update the displayed characters in the character selection screen.
     public DisplayCharacter displayNoruso;
     public DisplayCharacter displayKirogh;
     public DisplayCharacter displayTurgal;
     public DisplayCharacter displayLumati;
 
-    // buttons which are used by the moderator to select a character while in offline mode
+    // Buttons which are used by the moderator to select a character while in offline mode.
     public Button selectOfflineLumati;
     public Button selectOfflineTurgal;
     public Button selectOfflineKirogh;
     public Button selectOfflineNoruso;
 
-    // images of the characters
+    // Images of the characters
     public Sprite norusoSprite;
     public Sprite lumatiSprite;
     public Sprite turgalSprite;
@@ -31,7 +31,7 @@ public class CharacterSelection : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        // initialising all playable characters with associated skills name and image
+        // Initializing all playable characters with associated skills name and image.
         noruso = new Character(new Skills(3, 1, 2, 1), "Noruso", norusoSprite);
         lumati = new Character(new Skills(1, 3, 0, 4), "Lumati", lumatiSprite);
         turgal = new Character(new Skills(2, 2, 2, 2), "Turgal", turgalSprite);
@@ -40,7 +40,7 @@ public class CharacterSelection : MonoBehaviour
     }
 
     /// <summary>
-    /// update characterselection screen with created characters
+    /// Update CharacterSelection screen with created characters.
     /// </summary>
     public void SetCharacters()
     {
@@ -51,13 +51,13 @@ public class CharacterSelection : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the character for the storygraph.
-    /// Displays the statusbar.
-    /// Updates the skills and the character image in the statusbar.
+    /// Sets the character for the StoryGraph.
+    /// Displays the StatusBar.
+    /// Updates the skills and the character image in the StatusBar.
     /// </summary>
-    /// <param name="character"></param> character which has been selected for the game by the audience or by the moderator
-    /// <param name="story"></param> script which contains the story graph
-    /// <param name="statusBar"></param> script which updates skills, skillchanges and the character image in the satusbar
+    /// <param name="character">Character which has been selected for the game by the audience or by the moderator.</param>
+    /// <param name="story">Script which contains the StoryGraph.</param> 
+    /// <param name="statusBar">Script which updates skills, SkillChanges and the character image in the StatusBar.</param>
     public void InitializeCharacter(Character character, GameStory story, DisplayStatusbar statusBar)
     {
         story.playThrough.Character = character ;
@@ -67,7 +67,7 @@ public class CharacterSelection : MonoBehaviour
     }
 
     /// <summary>
-    /// enables the buttons for selecting a character in offline mode
+    /// Enables the buttons for selecting a character in offline mode.
     /// </summary>
     public void ActivateOfflineCharacterPickButtons()
     {
@@ -78,7 +78,7 @@ public class CharacterSelection : MonoBehaviour
     }
 
     /// <summary>
-    /// disables the buttons for selecting a character in offline mode
+    /// Disables the buttons for selecting a character in Offline mode.
     /// </summary>
     public void RemoveOfflinePickButtons()
     {

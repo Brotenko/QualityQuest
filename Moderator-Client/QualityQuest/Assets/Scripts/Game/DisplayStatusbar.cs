@@ -6,13 +6,21 @@ using UnityEngine.UI;
 
 public class DisplayStatusbar : MonoBehaviour
 {
+    /// <summary>
+    /// UI elements which can be hidden during some parts of the game.
+    /// </summary>
     public GameObject statusbar;
-
     public GameObject decision;
     public GameObject dice;
 
+    /// <summary>
+    /// Image of the character that was selected during the CharacterSelection.
+    /// </summary>
     public Image characterImage;
 
+    /// <summary>
+    /// Text elements for displaying Skills and SkillChange.
+    /// </summary>
     public TMP_Text programmingSkillValue;
     public TMP_Text communicationSkillValue;
     public TMP_Text analyticsSkillValue;
@@ -25,6 +33,9 @@ public class DisplayStatusbar : MonoBehaviour
 
     public TMP_Text decisionTimerTime;
 
+    /// <summary>
+    /// Floats which hold the time of each individual timer.
+    /// </summary>
     private float programmingSkillChangeTimer;
     private float communicationSkillChangeTimer;
     private float analyticsSkillChangeTimer;
@@ -35,14 +46,18 @@ public class DisplayStatusbar : MonoBehaviour
 
     public float skillHideTimerDuration = 5;
 
+    /// <summary>
+    /// Updates the image of the Character in the StatusBar.
+    /// </summary>
+    /// <param name="sprite">Image of the Selected Character.</param>
     public void SetImage(Sprite sprite)
     {
         characterImage.sprite = sprite;
     }
 
     /// <summary>
-    /// displays the skill changes in the statusbar
-    /// timer to hide the skill is reset if ShowSkillChange returns true
+    /// Displays the skill changes in the StatusBar.
+    /// The timer to hide the skill is reset if ShowSkillChange returns true.
     /// </summary>
     public void UpdateSkillChanges(Skills skills)
     {
@@ -60,11 +75,11 @@ public class DisplayStatusbar : MonoBehaviour
     }
 
     /// <summary>
-    /// displays skill change values in green if positive or red when negativ or hides them if they are 0
-    /// whenn the skill is not changed the method returns false otherwise it returns true
+    /// Displays skill change values in green if positive or red when negative or hides them if they are 0.
+    /// When the skill is not changed the method returns false otherwise it returns true.
     /// </summary>
-    /// <param name="text"></param> text element in the ui that displays the skill change
-    /// <param name="value"></param> value of the skill change
+    /// <param name="text">Text element in the ui that displays the skill change.</param>
+    /// <param name="value">Value of the skill change.</param>
     public bool ShowSkillChange(TMP_Text text,int value)
     {
 
@@ -91,7 +106,7 @@ public class DisplayStatusbar : MonoBehaviour
     }
 
     /// <summary>
-    /// displays the amount of point of each skill the Character currently has
+    /// Displays the amount of point of each skill the Character currently has.
     /// </summary>
     public void DisplaySkills(Skills skills)
     {
@@ -103,18 +118,18 @@ public class DisplayStatusbar : MonoBehaviour
     }
 
     /// <summary>
-    /// shows or hides the statusbar
+    /// Shows or hides the StatusBar.
     /// </summary>
-    /// <param name="status"></param> if set to true the statusbar is visible
+    /// <param name="status">If set to true the StatusBar is visible.</param>
     public void ShowStatusBar(bool status)
     {
         statusbar.SetActive(status);
     }
 
     /// <summary>
-    /// shows dice icon and sets duration
+    /// Shows dice icon and sets duration
     /// </summary>
-    /// <param name="time"></param> duration for visibility of dice icon
+    /// <param name="time">Duration for visibility of dice icon.</param>
     public void DisplayDice(int time)
     {
         diceTimer = time;
@@ -122,9 +137,9 @@ public class DisplayStatusbar : MonoBehaviour
     }
 
     /// <summary>
-    /// shows timer for decision and sets duration
+    /// Shows timer for decision and sets duration.
     /// </summary>
-    /// <param name="time"></param> duration for decision
+    /// <param name="time">Duration for the decision.</param>
     public void DisplayTimer(int time)
     {
         decisionTimer = time;
@@ -140,7 +155,7 @@ public class DisplayStatusbar : MonoBehaviour
 
     public void Update()
     {
-        // hides programming skillchange when timer hits 0
+        // Hides programming SkillChange when timer hits 0.
         if (programmingSkillChangeTimer > 0)
         {
             programmingSkillChangeTimer -= Time.deltaTime;
@@ -150,7 +165,7 @@ public class DisplayStatusbar : MonoBehaviour
             }
         }
 
-        // hides communication skillchange when timer hits 0
+        // Hides communication SkillChange when timer hits 0.
         if (communicationSkillChangeTimer > 0)
         {
             communicationSkillChangeTimer -= Time.deltaTime;
@@ -160,7 +175,7 @@ public class DisplayStatusbar : MonoBehaviour
             }
         }
 
-        // hides analytics skillchange when timer hits 0
+        // Hides analytics SkillChange when timer hits 0.
         if (analyticsSkillChangeTimer > 0)
         {
             analyticsSkillChangeTimer -= Time.deltaTime;
@@ -170,7 +185,7 @@ public class DisplayStatusbar : MonoBehaviour
             }
         }
 
-        // hides partying skillchange when timer hits 0
+        // Hides partying SkillChange when timer hits 0.
         if (partySkillChangeTimer > 0)
         {
             partySkillChangeTimer -= Time.deltaTime;
@@ -181,7 +196,7 @@ public class DisplayStatusbar : MonoBehaviour
         }
 
         
-        // hides dice icon when timer hits 0
+        // Hides dice icon when timer hits 0.
         if (diceTimer > 0)
         {
             diceTimer -= Time.deltaTime;
@@ -194,7 +209,7 @@ public class DisplayStatusbar : MonoBehaviour
 
         if (!ActiveScreenManager.paused)
         {
-            // hides dice icon when timer hits 0
+            // Hides dice icon when timer hits 0.
             if (decisionTimer > 0)
             {
                 decisionTimer -= Time.deltaTime;
