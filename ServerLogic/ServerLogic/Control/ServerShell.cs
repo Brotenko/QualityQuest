@@ -14,14 +14,13 @@ namespace ServerLogic.Control
     public class ServerShell
     {
         //public Logger logger = [...];
-        private MainServerLogic mainServerLogic = new MainServerLogic();
+        private readonly MainServerLogic _mainServerLogic = new MainServerLogic();
         private int _port;
-        private bool serverIsRunning = false;
-        private bool commandRequestsHelpMessage = false;
-        private static bool isDebug;
+        private bool _serverIsRunning = false;
+        private bool _commandRequestsHelpMessage = false;
+        private static bool _isDebug;
 
-        // private MainServerLogic moderatorClientManager;
-
+        /*todo delete
         public int Port
         {
             get => _port;
@@ -35,7 +34,7 @@ namespace ServerLogic.Control
 
                 _port = value;
             }
-        }
+        }*/
 
 
         /// <summary>
@@ -168,27 +167,8 @@ namespace ServerLogic.Control
         /// </summary>
         public static ServerShell DebugServerShell()
         {
-            isDebug = true;
+            _isDebug = true;
             return new ServerShell();
-        }
-
-        /// <summary>
-        /// Constructs a new ServerShell with a password and a port and starts the main-loop
-        /// that runs the actual shell application.
-        /// </summary>
-        /// 
-        /// <param name="password">The password, that will be required by the Moderator-Client, 
-        /// to establish a connection with the ServerLogic.</param>
-        /// 
-        /// <param name="port">The port that will be used to set up the WebSocket of the 
-        /// ServerLogic.</param>
-        public ServerShell(string password, int port)
-        {
-            //this.Password = password;
-            this.Port = port;
-            ServerLogger.CreateServerLogger();
-
-            RunShell();
         }
 
 
@@ -202,18 +182,7 @@ namespace ServerLogic.Control
         /// password or port violate the rules for setting them.</exception>
         public static void Main(string[] args)
         {
-            //When started from inside a docker Container, Ports are defined by settings-file
             new ServerShell();
-            /*
-            string[] returnValue = CheckMainMethodArgs(args);
-
-            if (returnValue == null)
-            {
-                
-                return;
-            }
-
-            _ = new ServerShell(password: returnValue[0], port: Convert.ToInt32(returnValue[1], CultureInfo.CurrentCulture));*/
         }
 
         /// <summary>
@@ -237,7 +206,7 @@ namespace ServerLogic.Control
         {
             Console.WriteLine(Properties.Resources.StartupMessage);
 
-            if (!isDebug)
+            if (!_isDebug)
             {
                 while (true)
                 {
@@ -295,18 +264,15 @@ namespace ServerLogic.Control
 
                 if (commandParameters[0] == "--help")
                 {
-                    commandRequestsHelpMessage = true;
+                    _commandRequestsHelpMessage = true;
                     ret = ShowHelp(command);
                 }
             }
 
-            if (!commandRequestsHelpMessage)
+            if (!_commandRequestsHelpMessage)
             {
                 switch (command)
                 {
-                    case "port":
-                        ret = ParsePort(commandParameters);
-                        break;
                     case "password":
                         SetPasswordDialog();
                         break;
@@ -326,7 +292,7 @@ namespace ServerLogic.Control
                         ret = ShowLogs(commandParameters);
                         break;
                     case "sess":
-                        ret = mainServerLogic.ActiveConnections;
+                        ret = _mainServerLogic.ActiveConnections;
                         break;
                     case "exit":
                         StopShell();
@@ -337,119 +303,8 @@ namespace ServerLogic.Control
                 }
             }
 
-            commandRequestsHelpMessage = false;
+            _commandRequestsHelpMessage = false;
             return ret;
-        }
-
-        /// <summary>
-        /// Parses the parameters the "port" command was called with. Depending on the
-        /// number of arguments and type of argument, the following services are provided.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>
-        /// Empty parameter list
-        /// </term>
-        /// <description>
-        /// Returns the currently set port.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Numeric first parameter inside settable range
-        /// </term>
-        /// <description>
-        /// Sets the port equal to the numeric value and returns a confirmation message.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Numeric first parameter inside settable range
-        /// </term>
-        /// <description>
-        /// Returns an error message in form of a 
-        /// <see cref="Properties.Resources.InvalidPortExceptionMessage"/>.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Non-numeric first parameter
-        /// </term>
-        /// <description>
-        /// Returns an error message in form of a 
-        /// <see cref="Properties.Resources.InvalidPortExceptionMessage"/>.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Server is running
-        /// </term>
-        /// <description>
-        /// While the server is running, the port can't be changed.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Parameter 2...n
-        /// </term>
-        /// <description>
-        /// Any kind of parameter, after the first one, will be ignored.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// 
-        /// <param name="parameterList">List of all parameters the command has been called 
-        /// with.</param>
-        /// 
-        /// <returns>Which port is currently set or has been set, if no errors occurred.
-        /// </returns>
-        private string ParsePort(string[] parameterList)
-        {
-            // command: port -> Returns the currently set port.
-            if (parameterList.Length == 0)
-            {
-                return Settings.Default.PAWebPagePort.ToString(CultureInfo.CurrentCulture);
-            }
-            // command: port number -> Sets a new port.
-            else
-            {
-                if (serverIsRunning)
-                {
-                    return "The server is running. Switching ports is disabled.";
-                }
-                else
-                {
-                    int tempPort;
-
-                    // port-input is not a numeral.
-                    try
-                    {
-                        tempPort = Convert.ToInt32(parameterList[0], CultureInfo.CurrentCulture);
-                    }
-                    catch (FormatException)
-                    {
-                        return Properties.Resources.InvalidPortExceptionMessage;
-                    }
-                    catch (OverflowException)
-                    {
-                        return Properties.Resources.InvalidPortExceptionMessage;
-                    }
-
-                    // test for port number being inside the settable range.
-                    try
-                    {
-                        Port = tempPort;
-                    }
-                    // port number outside the range.
-                    catch (ArgumentException)
-                    {
-                        return Properties.Resources.InvalidPortExceptionMessage;
-                    }
-
-                    //Settings.Default.PAWebPagePort = tempPort;
-                    return "The port has been set to " + tempPort + " successfully.";
-                }
-            }
         }
 
         /// <summary>
@@ -469,8 +324,9 @@ namespace ServerLogic.Control
         /// has been started, if no errors occurred.</returns>
         private string StartServer(string[] parameterList)
         {
-            if (!serverIsRunning)
+            if (!_serverIsRunning)
             {
+                /* todo remove
                 foreach (string item in parameterList)
                 {
                     if (Regex.IsMatch(item, @"--port\=(\d*)"))
@@ -485,12 +341,12 @@ namespace ServerLogic.Control
                             return Properties.Resources.InvalidPortExceptionMessage;
                         }
                     }
-                }
+                }*/
                 try
                 {
-                    if (!isDebug)
+                    if (!_isDebug)
                     {
-                        mainServerLogic.Start();
+                        _mainServerLogic.Start();
                     }
                 }
                 catch (Exception e)
@@ -498,7 +354,7 @@ namespace ServerLogic.Control
                     return "The server could not be started due to following Exception: \n"
                         + e.StackTrace;
                 }
-                serverIsRunning = true;
+                _serverIsRunning = true;
                 return "The server has been started successfully with port: " + Settings.Default.PAWebPagePort;
             }
 
@@ -515,13 +371,13 @@ namespace ServerLogic.Control
         {
             try
             {
-                mainServerLogic.Stop();
-                serverIsRunning = false;
+                _mainServerLogic.Stop();
+                _serverIsRunning = false;
                 return "The server has been shut down successfully.";
             }
             catch (InvalidOperationException e)
             {
-                serverIsRunning = false;
+                _serverIsRunning = false;
                 return e.ToString();
             }
         }
@@ -685,120 +541,6 @@ namespace ServerLogic.Control
                         return "Command " + parameterList[0] + " is unknown, use 'log --help' for more information";
                 }
             }
-        }
-
-        /// <summary>
-        /// Wrapper-Function to check if the command-line arguments are valid and can be
-        /// transmitted forward to set password and/or port of the server.
-        /// </summary>
-        /// 
-        /// <param name="args">Command-line parameters that need to checked.</param>
-        /// 
-        /// <returns>To be used password and port, if no errors occurred.</returns>
-        /// 
-        /// <exception cref="System.ArgumentException">Thrown when either the supposed 
-        /// password or port violate the rules for setting them.</exception>
-        private static string[] CheckMainMethodArgs(string[] args)
-        {
-            int port;
-            string password;
-
-            if (args.Length == 0)
-            {
-                throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
-            }
-            else
-            {
-                password = ValidateShellPassword(args[0].ToLower(CultureInfo.CurrentCulture));
-
-                if (args.Length == 1)
-                {
-                    port = 7777;
-                }
-                else
-                {
-                    port = ValidateShellPort(args[1]);
-                }
-
-                return new string[] { password, port.ToString(CultureInfo.CurrentCulture) };
-            }
-        }
-
-        /// <summary>
-        /// Checks if the supposed password is an actual password and if it complies with
-        /// the password rules. Alternatively, if the supposed password starts with a dash,
-        /// it's instead checked if a known option is being called.
-        /// </summary>
-        /// 
-        /// <param name="password">The supposed password that needs to be checked.</param>
-        /// 
-        /// <returns>The entered password, if no errors occurred.</returns>
-        /// 
-        /// <exception cref="System.ArgumentException">Thrown when the supposed password 
-        /// violates the rules.</exception>
-        private static string ValidateShellPassword(string password)
-        {
-            if (password.Length == 0)
-            {
-                throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
-            }
-            else if (password.StartsWith("-", StringComparison.CurrentCulture))
-            {
-                if (password == "--version")
-                {
-                    Console.WriteLine(Properties.Resources.CurrentVersion);
-                }
-                else if (password == "--help")
-                {
-                    Console.WriteLine(Properties.Resources.HelpHelpMessage);
-                }
-                else
-                {
-                    throw new ArgumentException(message: "Unknown option: '" + password + "'");
-                }
-
-                Environment.Exit(exitCode: 0);
-                return null;
-            }
-            else
-            {
-                return password;
-            }
-        }
-
-        /// <summary>
-        /// Checks if the supposed port is an actual password and if it complies with
-        /// the port rules.
-        /// </summary>
-        /// 
-        /// <param name="portString">The supposed port that needs to be checked.</param>
-        /// 
-        /// <returns>The entered port, if no errors occurred.</returns>
-        /// 
-        /// <exception cref="System.ArgumentException">Thrown when the supposed port
-        /// violates the rules.</exception>
-        private static int ValidateShellPort(string portString)
-        {
-            int port;
-
-            try
-            {
-                port = Convert.ToInt32(value: portString, provider: CultureInfo.CurrentCulture);
-
-                if (port <= 1023 || port > 65535)
-                {
-                    throw new ArgumentException(message: Properties.Resources.InvalidPortExceptionMessage);
-                }
-                else
-                {
-                    return port;
-                }
-            }
-            catch (Exception)
-            {
-                throw new ArgumentException(message: Properties.Resources.InvalidPortExceptionMessage);
-            }
-
         }
     }
 }

@@ -23,23 +23,12 @@ namespace ServerLogicTests.Control
         private const string helpCommandPattern = @"(usage: qq)";
         private const string logCommandPattern = @"(usage: log)";
         private const string exitCommandPattern = @"(usage: exit)";
-        private const string passwordExceptionPattern = @"(Please make sure to set a password)";
         private const string portExceptionPattern = @"(Please make sure the port)";
         private const string versionPattern = @"(v\d+.\d+.\d+)";
-        private const string serverIsRunningPattern = @"The server is running.";
         private const string serverHasStartedPattern = @"The server has been started successfully with port: \d{1,5}";
-        private const string portSetPattern = @"The port has been set to \d{1,5} successfully.";
-        private const string passwordSetPattern = @"The password has been set to \S+ successfully.";
         private const string invalidCommandPattern = @"'\S+' is not a valid command. See 'help'.";
 
-        private const string testPassword_1 = "!Password456#";
-        private const string testPassword_2 = "!Password789987?";
-        private const string testPassword_3 = "!PasswordDifferent123132#";
-        private const int testPort_1 = 5555;
-        private const int testPort_2 = 6666;
-        private const int testPort_3 = 8888;
-
-
+        
         /// <summary>
         /// Sets the path variable for the log file from the settings to a test log
         /// file to prevent changes to the actual log file by the tests.
@@ -62,24 +51,6 @@ namespace ServerLogicTests.Control
         {
             ServerLogger.CreateServerLogger();
             ServerLogger.WipeLogFile();
-        }
-
-
-        /// <summary>
-        /// Validates that an <c>ArgumentException</c> is thrown when a port is
-        /// transmitted that violates the port rules.
-        /// </summary>
-        [TestMethod]
-        public void IllegalPortTest()
-        {
-            // Port is a negative value
-            Assert.ThrowsException<ArgumentException>(() => new ServerShell("!Password123", -2500));
-
-            // Port is in "system port" range
-            Assert.ThrowsException<ArgumentException>(() => new ServerShell("!Password123", 782));
-
-            // Port is outside port range (port > 65535)
-            Assert.ThrowsException<ArgumentException>(() => new ServerShell("!Password123", 65536));
         }
 
         /// <summary>
@@ -126,94 +97,6 @@ namespace ServerLogicTests.Control
         }
 
         /// <summary>
-        /// Validates that <the c>ParsePort</c> method acts like inteded, when certain 
-        /// arguments are transmitted.
-        /// </summary>
-        [TestMethod]
-        public void ParsePortTest()
-        {
-            ServerShell s = ServerShell.DebugServerShell();
-
-            /*
-             * Tests for the following conditions:
-             * - commandList.Length == 0
-             * 
-             * What it does:
-             * Returns the currently set port, which is always 7777 (standard port).
-             */
-            string t = s.ParseCommandDebugger("port");
-            Assert.AreEqual(Settings.Default.PAWebPagePort, Convert.ToInt32(t, CultureInfo.CurrentCulture));
-
-            /*
-             * Tests for the following conditions:
-             * - commandList.Length != 0
-             * - port is not a numeral
-             * 
-             * What it does:
-             * A "FormatException" is thrown that is caught to return an
-             * "InvalidPortExceptionMessage" to inform the user that the port  
-             * was not in form of a numeral.
-             */
-            t = s.ParseCommandDebugger("port 2%75Gz_f#");
-            Assert.IsTrue(Regex.IsMatch(t, portExceptionPattern));
-
-            /*
-             * Tests for the following conditions:
-             * - commandList.Length != 0
-             * - port is outside the settable range for ports
-             * 
-             * What it does:
-             * An "ArugmentException" is thrown that is caught to return an
-             * "InvalidPortExceptionMessage" to inform the user that the port
-             * was outside the settable range (aka: 1025-65535).
-             */
-            t = s.ParseCommandDebugger("port 8320870");
-            Assert.IsTrue(Regex.IsMatch(t, portExceptionPattern));
-
-            /*
-             * Tests for the following conditions:
-             * - commandList.Length != 0
-             * - port is inside the settable range for ports
-             * 
-             * What it does:
-             * Sets the port of the ServerLogic to 5555 and returns a
-             * confirmation message for the user.
-             */
-            t = s.ParseCommandDebugger("port " + testPort_1);
-            Assert.IsTrue(Regex.IsMatch(t, portSetPattern));
-            Assert.AreEqual(testPort_1, s.Port);
-
-            /*
-             * Tests for the following conditions:
-             * - commandList.Length != 0
-             * - password does not violate the password rules
-             * - more than one argument is being transmitted
-             * 
-             * What it does:
-             * Sets the port of the ServerLogic to 5555 and returns a
-             * confirmation message for the user without regarding the 
-             * excess arguments.
-             */
-            t = s.ParseCommandDebugger("port " + testPort_2 + " g:78G#f)_F75f 2222 245664840320");
-            Assert.IsTrue(Regex.IsMatch(t, portSetPattern));
-            Assert.AreEqual(testPort_2, s.Port);
-
-            /*
-             * Tests for the following conditions:
-             * - commandList.Length != 0
-             * - serverIsRunning == true
-             * 
-             * What it does:
-             * Returns a message, informing the user that the server is currently
-             * running, and returns before even trying to set the port.
-             */
-            s.ParseCommandDebugger("start");
-            t = s.ParseCommandDebugger("port " + testPort_3);
-            Assert.IsTrue(Regex.IsMatch(t, serverIsRunningPattern));
-            Assert.AreNotEqual(testPort_3, s.Port);
-        }
-
-        /// <summary>
         /// Validates that the <c>StartServer</c> method acts like inteded, 
         /// when certain options are transmitted.
         /// </summary>
@@ -232,50 +115,6 @@ namespace ServerLogicTests.Control
              */
             string t = s.ParseCommandDebugger("start");
             Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("StartServer")]
-        public void StartServer_ValidPortTest()
-        {
-            ServerShell s = ServerShell.DebugServerShell();
-
-            /*
-             * Tests for the following conditions:
-             * - an element of commandList matches "--port\=(\d*)"
-             * 
-             * What it does:
-             * Starts the ServerLogic with previously set password and
-             * the newly set port.
-             */
-            string t = s.ParseCommandDebugger("start --port=" + testPort_1);
-            Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
-            Assert.AreEqual(testPort_1, s.Port);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("StartServer")]
-        public void StartServer_InvalidPortTest()
-        {
-            ServerShell s = ServerShell.DebugServerShell();
-
-            /*
-             * Tests for the following conditions:
-             * - port is outside the settable range for ports or non-numerical
-             * 
-             * What it does:
-             * An "ArgumentException" is thrown that is caught to return 
-             * an "InvalidPortExceptionMessage" to inform the user that
-             * the port was not in adequate form.
-             */
-            string t = s.ParseCommandDebugger("start --port=4g%gL#1");
-            Assert.IsTrue(Regex.IsMatch(t, portExceptionPattern));
         }
 
 
@@ -299,54 +138,6 @@ namespace ServerLogicTests.Control
              */
             string t = s.ParseCommandDebugger("start --h#4tH2&5=h78/tj/)");
             Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("StartServer")]
-        public void StartServer_ValidPasswordAndPortTest()
-        {
-            ServerShell s = ServerShell.DebugServerShell();
-
-            /*
-             * Tests for the following conditions:
-             * - an element of commandList matches "--port\=(\d*)"
-             * - an element of commandList matches "--password\=(\S*)"
-             * - the order of considered options is "Password", then "Port"
-             * 
-             * What it does:
-             * Starts the ServerLogic with newly set port and password,
-             * disregarding the order of the options provided.
-             */
-            string t = s.ParseCommandDebugger("start --password=" + testPassword_2 + " --port=" + testPort_2);
-            Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
-            Assert.AreEqual(testPort_2, s.Port);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod]
-        [TestCategory("StartServer")]
-        public void StartServer_ValidPortAndPasswordTest()
-        {
-            ServerShell s = ServerShell.DebugServerShell();
-
-            /*
-             * Tests for the following conditions:
-             * - an element of commandList matches "--port\=(\d*)"
-             * - an element of commandList matches "--password\=(\S*)"
-             * - the order of considered options is "Port", then "Password"
-             * 
-             * What it does:
-             * Starts the ServerLogic with newly set port and password,
-             * disregarding the order of the options provided.
-             */
-            string t = s.ParseCommandDebugger("start --port=" + testPort_3 + " --password=" + testPassword_3);
-            Assert.IsTrue(Regex.IsMatch(t, serverHasStartedPattern));
-            Assert.AreEqual(testPort_3, s.Port);
         }
 
         /// <summary>

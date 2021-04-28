@@ -85,8 +85,6 @@ namespace ServerLogicTests.Model.Messages
         public void ToStringCorrectness()
         {
             MessageContainer m = new MessageContainer(testGuid, testType);
-
-            Assert.IsNotNull(m.ToString());
             Assert.IsTrue(Regex.IsMatch(m.ToString(), expectedStringPattern));
         }
     }
