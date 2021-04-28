@@ -557,11 +557,13 @@ public class OnlineClientManager : MonoBehaviour
                     case WebSocketState.Open:
                         if (sessionKey == null)
                         {
+                            GameState.gameIsOnline = true;
                             SendRequestSessionOpenedMessage();
                             activeScreenManager.ActivatePauseButton();
                         }
                         else
                         {
+                            GameState.gameIsOnline = true;
                             ContinueOnlineStory(gameStory.playThrough.CurrentEvent);
                         }
                         break;
