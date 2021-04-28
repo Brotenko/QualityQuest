@@ -20,11 +20,11 @@ public class ActiveScreenManager : MonoBehaviour
     public GameObject result;
     public GameObject pauseScreen;
     public GameObject gameMenu;
-    public GameObject gameInfo;
     public GameObject connect;
     public GameObject qrCode;
     public GameObject statistics;
     public GameObject errorScreen;
+    public GameObject loadingScreen;
 
     /// <summary>
     /// Generates the QR code.
@@ -86,6 +86,7 @@ public class ActiveScreenManager : MonoBehaviour
     /// </summary>
     public void HideAllMenus()
     {
+        loadingScreen.SetActive(false);
         gameMenu.SetActive(false);
         errorScreen.SetActive(false);
         connect.SetActive(false);

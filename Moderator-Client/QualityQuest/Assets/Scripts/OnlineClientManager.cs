@@ -51,7 +51,6 @@ public class OnlineClientManager : MonoBehaviour
     {
         votingTime = 20;
         debugVotingTime = 1;
-        moderatorClientGuid = Guid.NewGuid();
         votingStatistics ??= new VotingStatistics(new List<VotingResult>());
     }
 
@@ -77,9 +76,14 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     public void ConnectionEstablished()
     {
+        if (sessionKey != null)
+        {
+            Debug.Log("SessionKey ist: " + sessionKey);
+        }
         // Open new session
         if (sessionKey == null)
         {
+            moderatorClientGuid = Guid.NewGuid();
             SendRequestSessionOpenedMessage();
         }
         // Reconnect 
@@ -480,7 +484,6 @@ public class OnlineClientManager : MonoBehaviour
     /// <param name="errorCode">The errorCode of the close reason.</param>
     public void ServerIssues(int errorCode)
     {
-        moderatorClientGuid = Guid.NewGuid();
         switch (errorCode)
         {
             case 1006:
