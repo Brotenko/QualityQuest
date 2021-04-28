@@ -1,4 +1,4 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ServerLogic.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
@@ -11,16 +11,16 @@
     <Setting Name="LogFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">Log.txt</Value>
     </Setting>
-    <Setting Name="ServerURL" Type="System.String" Scope="User">
+    <Setting Name="ServerURL" Type="System.String" Scope="Application">
       <Value Profile="(Default)">127.0.0.1</Value>
     </Setting>
-    <Setting Name="PAWebPagePort" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">7777</Value>
+    <Setting Name="PAWebPagePort" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">443</Value>
     </Setting>
-    <Setting Name="MCWebSocketPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">8181</Value>
+    <Setting Name="MCWebSocketPort" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">80</Value>
     </Setting>
-    <Setting Name="CertFilePath" Type="System.String" Scope="User">
+    <Setting Name="CertFilePath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">TestCert.pfx</Value>
     </Setting>
     <Setting Name="PWHash" Type="System.String" Scope="User">
@@ -29,10 +29,10 @@
     <Setting Name="Salt" Type="System.String" Scope="User">
       <Value Profile="(Default)">f4e4gn3m32da4b17</Value>
     </Setting>
-    <Setting Name="CertPW" Type="System.String" Scope="User">
+    <Setting Name="CertPW" Type="System.String" Scope="Application">
       <Value Profile="(Default)">thisIsForTestingOnly</Value>
     </Setting>
-    <Setting Name="DockerUrl" Type="System.String" Scope="User">
+    <Setting Name="DockerUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">//0.0.0.0:</Value>
     </Setting>
   </Settings>

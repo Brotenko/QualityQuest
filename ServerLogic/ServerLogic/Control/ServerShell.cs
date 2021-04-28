@@ -446,7 +446,7 @@ namespace ServerLogic.Control
                         return Properties.Resources.InvalidPortExceptionMessage;
                     }
 
-                    Settings.Default.PAWebPagePort = tempPort;
+                    //Settings.Default.PAWebPagePort = tempPort;
                     return "The port has been set to " + tempPort + " successfully.";
                 }
             }

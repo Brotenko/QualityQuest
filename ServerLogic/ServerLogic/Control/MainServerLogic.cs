@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
@@ -46,11 +47,10 @@ namespace ServerLogic.Control
         /// </summary>
         public void Start()
         {
-            //
-            _server = new WebSocketServer("wss:"+Settings.Default.DockerUrl + Settings.Default.MCWebSocketPort);
+            _server = new WebSocketServer($"wss:{Settings.Default.DockerUrl}:80");
             _server.EnabledSslProtocols = SslProtocols.Tls12;
             _server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, Settings.Default.CertPW);
-            _playerAudienceClientApi.StartServer(Settings.Default.PAWebPagePort);
+            _playerAudienceClientApi.StartServer(7777);
             StartWebsocket();
             _timerForInactiveSessionDataDeletion.Start();
             ServerLogger.LogDebug($"Website started on {Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
