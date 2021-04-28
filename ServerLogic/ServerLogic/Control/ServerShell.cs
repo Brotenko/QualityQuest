@@ -15,26 +15,9 @@ namespace ServerLogic.Control
     {
         //public Logger logger = [...];
         private readonly MainServerLogic _mainServerLogic = new MainServerLogic();
-        private int _port;
         private bool _serverIsRunning = false;
         private bool _commandRequestsHelpMessage = false;
         private static bool _isDebug;
-
-        /*todo delete
-        public int Port
-        {
-            get => _port;
-            private set
-            {
-                // Makes sure the port is not outside the range of settable ports.
-                if (value <= 1023 || value > 65535)
-                {
-                    throw new ArgumentException(message: Properties.Resources.InvalidPortExceptionMessage);
-                }
-
-                _port = value;
-            }
-        }*/
 
 
         /// <summary>
@@ -326,22 +309,6 @@ namespace ServerLogic.Control
         {
             if (!_serverIsRunning)
             {
-                /* todo remove
-                foreach (string item in parameterList)
-                {
-                    if (Regex.IsMatch(item, @"--port\=(\d*)"))
-                    {
-                        try
-                        {
-                            Match m = Regex.Match(item, @"--port\=(\d*)");
-                            Port = Convert.ToInt32(m.Groups[1].Value, CultureInfo.CurrentCulture);
-                        }
-                        catch (ArgumentException)
-                        {
-                            return Properties.Resources.InvalidPortExceptionMessage;
-                        }
-                    }
-                }*/
                 try
                 {
                     if (!_isDebug)

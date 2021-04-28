@@ -139,7 +139,6 @@ OPTIONS
 These are commands that can be used in various situations:
 
   password       Show or set the server-access password
-  port           Show or set the port
   start          Start the server
   stop           Stop the server
   sess         	 Shows the currently active sessions
@@ -212,29 +211,6 @@ DESCRIPTON
 Starts a dialog to change the current password.
 
 OPTIONS
-
---help
-  Shows this.</value>
-  </data>
-  <data name="PortHelpMessage" xml:space="preserve">
-    <value>usage: port [--help] &lt;integer&gt;
-
-DESCRIPTON
-
-Shows the port that is currently set and will be used to set
-up the WebSocket of the ServerLogic. Alternatively it can also
-set a new port.
-
-If the command is of form 'port', the currently set port will
-be shown.
-If the command is of form 'port integer', a new port will be
-set according to the integer provided.
-
-OPTIONS
-
-&lt;integer&gt;
-  The integer that will be set as the new port of the WebSocket
-  of the ServerLogic.
 
 --help
   Shows this.</value>
