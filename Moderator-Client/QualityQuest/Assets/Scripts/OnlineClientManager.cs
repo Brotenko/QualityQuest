@@ -50,7 +50,7 @@ public class OnlineClientManager : MonoBehaviour
 
     private void Awake()
     {
-        clientLogic = new ClientLogic();
+        //clientLogic = new ClientLogic();
     }
 
     private void Start()
