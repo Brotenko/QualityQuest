@@ -11,26 +11,38 @@ using Random = System.Random;
 
 public class OnlineClientManager : MonoBehaviour
 {
+    [SerializeField]
+    private QualityQuestWebSocket qualityQuestWebSocket;
+    [SerializeField]
+    private ActiveScreenManager activeScreenManager;
+    [SerializeField]
+    private GameStory gameStory;
+    [SerializeField]
+    private DisplayStatusbar displayStatusBar;
+    [SerializeField]
+    private DisplayDecision displayDecision;
+    [SerializeField]
+    private DisplayStoryFlow displayStoryFlow;
+    [SerializeField]
+    private Result result;
+    [SerializeField]
+    private DisplayStatistics displayStatistics;
+    [SerializeField]
+    private VideoBackground videoBackground;
+    [SerializeField]
+    private VotingStatistics votingStatistics;
+    [SerializeField]
+    private CharacterSelection characterSelection;
 
-    public QualityQuestWebSocket qualityQuestWebSocket;
-    public ActiveScreenManager activeScreenManager;
-    public GameStory gameStory;
-    public DisplayStatusbar displayStatusBar;
-    public DisplayDecision displayDecision;
-    public DisplayStoryFlow displayStoryFlow;
-    public Result result;
-    public DisplayStatistics displayStatistics;
-    public VideoBackground videoBackground;
-    public VotingStatistics votingStatistics;
+    private int votingTime;
+    private int debugVotingTime;
 
-    public CharacterSelection characterSelection;
-
-    public int votingTime;
-    public int debugVotingTime;
-
-    public TMP_InputField ip;
-    public TMP_InputField port;
-    public TMP_InputField password;
+    [SerializeField]
+    private TMP_InputField ip;
+    [SerializeField]
+    private TMP_InputField port;
+    [SerializeField]
+    private TMP_InputField password;
 
     private string sessionKey;
     private string url;
@@ -76,10 +88,6 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     public void ConnectionEstablished()
     {
-        if (sessionKey != null)
-        {
-            Debug.Log("SessionKey ist: " + sessionKey);
-        }
         // Open new session
         if (sessionKey == null)
         {
@@ -486,6 +494,9 @@ public class OnlineClientManager : MonoBehaviour
     {
         switch (errorCode)
         {
+            case 1000:
+                activeScreenManager.ShowErrorScreen("Passwort ist falsch. Bitte erneut versuchen oder im Offline-Modus fortfahren.");
+                break;
             case 1006:
                 activeScreenManager.ShowErrorScreen("Es konnte keine Verbindung zum Server aufgebaut werden.");
                 break;

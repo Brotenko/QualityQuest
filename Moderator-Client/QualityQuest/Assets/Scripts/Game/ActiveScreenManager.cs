@@ -111,9 +111,7 @@ public class ActiveScreenManager : MonoBehaviour
     /// </summary>
     public void ShowConnection()
     {
-        Debug.Log(GameState.gameIsOnline + "HIIIIIEEER");
         GameState.gameIsOnline = true;
-        Debug.Log(GameState.gameIsOnline + "HIIIIIEEER");
         activeMenu = connect;
         if (!gameMenu.activeSelf && !paused)
         {
@@ -199,7 +197,7 @@ public class ActiveScreenManager : MonoBehaviour
             qrCode.SetActive(true);
             websiteUrl.text = url;
             sessionKey.text = key;
-            qrCodeGenerator.GenerateQRCode(url,1);
+            qrCodeGenerator.GenerateQRCode(url, QrCodeType.QrCodeConnect);
             audienceCount.text = "Verbundene Spieler (0)";
             Debug.Log("3");
         }
@@ -305,7 +303,7 @@ public class ActiveScreenManager : MonoBehaviour
                 pauseScreen.SetActive(true);
                 pauseKey.text = sessionKey;
                 pauseUrl.text = url;
-                qrCodeGenerator.GenerateQRCode(url, 2);
+                qrCodeGenerator.GenerateQRCode(url, QrCodeType.QrCodePause);
             }
 
         }

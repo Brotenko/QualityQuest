@@ -615,7 +615,6 @@ public class GameStory : MonoBehaviour
         var rollTheDice = diceRoll.Next(0, 6);
         var children = playThrough.CurrentEvent.Children.ToList();
 
-        // TODO: New dice animation
         displayStatusBar.DisplayDice(3);
 
         switch (currentEvent.Children.First().Random)
