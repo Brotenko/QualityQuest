@@ -55,6 +55,7 @@ public class OnlineClientManager : MonoBehaviour
 
     private void Start()
     {
+        videoBackground.SwitchBackground(BackgroundType.UNIVERSITY);
         if (!GameState.gameIsOnline)
         {
             StartOfflinePlaythrough();
