@@ -215,7 +215,9 @@ public class OnlineClientManager : MonoBehaviour
     /// <param name="votingEndedMessage">The VotingEndedMessage.</param>
     public void ReceivedVotingEndedMessage(VotingEndedMessage votingEndedMessage)
     {
+        activeVoting = false;
         var currentEvent = gameStory.playThrough.CurrentEvent;
+
         try
         {
             // validate the received message.
@@ -461,6 +463,7 @@ public class OnlineClientManager : MonoBehaviour
     /// <param name="votingStartedMessage">The VotingStartedMessage.</param>
     public void ReceivedVotingStartedMessage(VotingStartedMessage votingStartedMessage)
     {
+        activeVoting = true;
         displayStatusBar.DisplayTimer(votingTime);
     }
 
@@ -469,7 +472,7 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     public void RequestGamePause()
     {
-        if (gameStory.playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryDecision) || gameStory.playThrough.CurrentEvent.StoryType.Equals(StoryEventType.StoryRootEvent))
+        if (activeVoting)
         {
             if (!ActiveScreenManager.paused)
             {
@@ -556,8 +559,6 @@ public class OnlineClientManager : MonoBehaviour
         }
         else
         {
-            displayDecision.RemoveOfflineDecisionListeners();
-            characterSelection.RemoveOfflinePickButtons();
             if (qualityQuestWebSocket.webSocket == null)
             {
                 activeScreenManager.ShowConnection();
