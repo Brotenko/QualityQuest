@@ -108,9 +108,7 @@ public class ActiveScreenManager : MonoBehaviour
     /// </summary>
     public void ShowConnection()
     {
-        Debug.Log(GameState.gameIsOnline + "HIIIIIEEER");
         GameState.gameIsOnline = true;
-        Debug.Log(GameState.gameIsOnline + "HIIIIIEEER");
         activeMenu = connect;
         if (!gameMenu.activeSelf && !paused)
         {
