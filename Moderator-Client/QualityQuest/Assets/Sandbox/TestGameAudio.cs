@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-public class GameAudio : MonoBehaviour
+public class TestGameAudio : MonoBehaviour
 {
 
     public GameObject universityBackground;
