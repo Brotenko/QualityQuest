@@ -83,7 +83,7 @@ namespace ServerLogic.Control
         {
             ServerLogger.LogDebug($"MC-{ModeratorGuid} was set to inactive.");
             IsInactive = true;
-            Stop();
+            Stop(true);
         }
 
 
@@ -192,15 +192,19 @@ namespace ServerLogic.Control
         /// Stops all processes that may still be running in the background.
         /// Should be called if the connection to the ModeratorClient is closed.
         /// </summary>
-        public void Stop()
+        public void Stop(Boolean closeSocket)
         {
             try
             {
+                string log = $"ModeratorClientManager of MC-{ModeratorGuid} is stopped.";
                 StopAudienceCountLiveUpdate();
                 _votingTimer?.Stop();
                 _votingTimer?.Dispose();
-                SocketConnection.Close();
-                ServerLogger.LogDebug($"MC-{ModeratorGuid} was stopped.");
+                if (closeSocket) { 
+                    SocketConnection.Close();
+                    log= "Socket is closed by Server.";
+                }
+                ServerLogger.LogDebug(log);
             }
             catch (Exception exception)
             {

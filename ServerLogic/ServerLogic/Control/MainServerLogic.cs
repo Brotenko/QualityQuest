@@ -23,7 +23,7 @@ namespace ServerLogic.Control
         
         private WebSocketServer _server;
         private const int MaxRepForRandomGeneration = 16;
-        private readonly Timer _timerForInactiveSessionDataDeletion;
+        private readonly Timer _checkForInactiveSessionsTimer;
 
         //TODO Remove default password from settings before release
 
@@ -35,11 +35,11 @@ namespace ServerLogic.Control
         {
             _playerAudienceClientApi = new PlayerAudienceClientAPI();
             _connectedModeratorClients = new Dictionary<Guid, ModeratorClientManager>();
-            //30sec interval
-            _timerForInactiveSessionDataDeletion = new Timer(30000);
-            _timerForInactiveSessionDataDeletion.Elapsed += CheckForInactiveSessionInactivity;
-            _timerForInactiveSessionDataDeletion.AutoReset = true;
-            _timerForInactiveSessionDataDeletion.Enabled = true;
+            //3sec interval
+            _checkForInactiveSessionsTimer = new Timer(3000);
+            _checkForInactiveSessionsTimer.Elapsed += CheckForSessionInactivity;
+            _checkForInactiveSessionsTimer.AutoReset = true;
+            _checkForInactiveSessionsTimer.Enabled = true;
         }
 
         /// <summary>
@@ -47,15 +47,15 @@ namespace ServerLogic.Control
         /// </summary>
         public void Start()
         {
+            FleckLog.Level = LogLevel.Warn;
             _server = new WebSocketServer($"wss:{Settings.Default.DockerUrl}:80");
             _server.EnabledSslProtocols = SslProtocols.Tls12;
             _server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, Settings.Default.CertPW);
             _playerAudienceClientApi.StartServer(7777);
             StartWebsocket();
-            _timerForInactiveSessionDataDeletion.Start();
-            ServerLogger.LogDebug($"Website started on {Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
-            ServerLogger.LogDebug($"Using wss: {_server.IsSecure}.");
-
+            _checkForInactiveSessionsTimer.Start();
+            ServerLogger.LogInformation($"Website started on {Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
+            ServerLogger.LogInformation($"Using wss: {_server.IsSecure}.");
         }
 
         /// <summary>
@@ -68,17 +68,18 @@ namespace ServerLogic.Control
                 value.SocketConnection.Send(JsonConvert.SerializeObject(new SessionClosedMessage(value.ModeratorGuid)));
                 value.SocketConnection.Close();
             }
-            _timerForInactiveSessionDataDeletion?.Stop();
+            _checkForInactiveSessionsTimer?.Stop();
             _server?.Dispose();
             _playerAudienceClientApi.StopServer();
         }
 
         /// <summary>
-        /// Is periodically triggered by the _timerForInactiveSessionDataDeletion. Checks if one of the connected ModeratorClients has been marked as inactive and deletes them from _connectedModeratorClients if necessary. 
+        /// Is periodically triggered by the _checkForInactiveSessionsTimer. Checks if one of the connected ModeratorClients has been marked as inactive and deletes them from _connectedModeratorClients if necessary.
+        /// Also sets Global string 'ActiveConnections' which contains all active Sessions. 
         /// </summary>
         /// <param name="source">Parameter used by Timer-Elapsed-Event.</param>
         /// <param name="eventArgs">Parameter used by Timer-Elapsed-Event.</param>
-        private void CheckForInactiveSessionInactivity(object source, ElapsedEventArgs eventArgs)
+        private void CheckForSessionInactivity(object source, ElapsedEventArgs eventArgs)
         {
             if (_connectedModeratorClients.Count>0)
             {
@@ -88,7 +89,6 @@ namespace ServerLogic.Control
                     if (moderatorClientManager.IsInactive) _connectedModeratorClients.Remove(socket);
                     else tempLog += $"\tMC-{moderatorClientManager.ModeratorGuid} in Session {moderatorClientManager.SessionKey}.\n";
                 }
-
                 ActiveConnections = tempLog;
             }
         }
@@ -102,8 +102,7 @@ namespace ServerLogic.Control
             {
                 socketConnection.OnOpen = () =>
                 {
-                    ServerLogger.LogDebug("WebSocket-connection to " + socketConnection.ConnectionInfo.ClientIpAddress + " established.\nHeader: " + socketConnection.ConnectionInfo.Headers +
-                                          "\nIP: " + socketConnection.ConnectionInfo.ClientIpAddress + "\nSubProtocol: " + socketConnection.ConnectionInfo.NegotiatedSubProtocol);
+                    ServerLogger.LogDebug($"WebSocket-connection to " + socketConnection.ConnectionInfo.ClientIpAddress + " established.");
                 };
                 socketConnection.OnClose = () =>
                 {
@@ -112,8 +111,8 @@ namespace ServerLogic.Control
                         if (socketConnection.Equals(moderatorClientManager.SocketConnection))
                         {
                             //Disposes all timers, except inactivity-timer, and closes the socket. 
-                            moderatorClientManager.Stop();
-                            ServerLogger.LogDebug("Websocket-connection to " + socketConnection.ConnectionInfo.ClientIpAddress + " was closed. Communication attempts are temporarily paused until a moderator-client reconnect attempt or until the server-side session-relevant data is deleted after 30 minutes of inactivity.");
+                            moderatorClientManager.Stop(false);
+                            ServerLogger.LogDebug("Websocket-connection to " + socketConnection.ConnectionInfo.ClientIpAddress + " was closed by Moderator-Client.");
                         }
                     }
                 };
@@ -176,7 +175,7 @@ namespace ServerLogic.Control
                         {
                             ServerLogger.LogDebug("Connection cancel: \n"+response);
                             socketConnection.Send(response);
-                            _connectedModeratorClients[messageContainer.ModeratorID].Stop();
+                            _connectedModeratorClients[messageContainer.ModeratorID].Stop(true);
                             _connectedModeratorClients[messageContainer.ModeratorID].StopInactivityTimer();
                             _connectedModeratorClients.Remove(messageContainer.ModeratorID);
                         }
@@ -377,7 +376,7 @@ namespace ServerLogic.Control
             _connectedModeratorClients[moderatorId].Strikes += 1;
             if (_connectedModeratorClients[moderatorId].Strikes >= 3)
             {
-                _connectedModeratorClients[moderatorId].Stop();
+                _connectedModeratorClients[moderatorId].Stop(true);
                 _connectedModeratorClients.Remove(moderatorId);
             }
         }

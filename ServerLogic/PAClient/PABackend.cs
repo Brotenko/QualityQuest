@@ -594,14 +594,12 @@ namespace PAClient
         private static IHostBuilder CreateHostBuilder(int port) =>
             Host.CreateDefaultBuilder()
                 .ConfigureLogging(logging =>
-                //sets the built in Logger to Warning-Level, to reduce Log-Spam in Server-Shell 
-                    logging.AddFilter("System", LogLevel.Warning)
-                        .AddFilter("Microsoft", LogLevel.Warning))
+                    logging.AddFilter("System", LogLevel.Error)
+                        .AddFilter("Microsoft", LogLevel.Error))
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseUrls("https:"+ _dockerUrl + port + "/");
-                   
                 });
     }
 }
