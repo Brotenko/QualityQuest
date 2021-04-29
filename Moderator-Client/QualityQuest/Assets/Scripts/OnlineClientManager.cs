@@ -32,7 +32,7 @@ public class OnlineClientManager : MonoBehaviour
     [SerializeField]
     private CharacterSelection characterSelection;
 
-    private ClientLogic clientLogic;
+    //private ClientLogic clientLogic;
     private bool activeVoting;
     private int votingTime;
     private int debugVotingTime;
