@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public enum Background {UNIVERSITY,INTERNSHIP,MEETING,PARTY,OFFICE,BEACH}
 public class GameAudio : MonoBehaviour
@@ -33,38 +35,10 @@ public class GameAudio : MonoBehaviour
     public AudioSource effects;
     public AudioSource music;
 
-    public TMP_Text masterVolume;
-    public TMP_Text musicVolume;
-    public TMP_Text effectsVolume;
-    public TMP_Text ambientVolume;
-
     public void Start()
     {
         SwitchBackground(Background.UNIVERSITY);
         PlayMusic1();
-    }
-
-    public void SetEffectsLevel(float sliderValue)
-    {
-        mixer.SetFloat("Effects", Mathf.Log10(sliderValue) * 20);
-        effectsVolume.text = Mathf.RoundToInt(sliderValue * 100) + "%";
-    }
-
-    public void SetMusicLevel(float sliderValue)
-    {
-        mixer.SetFloat("Music", Mathf.Log10(sliderValue) * 20);
-        musicVolume.text = Mathf.RoundToInt(sliderValue * 100) + "%";
-    }
-
-    public void SetMasterLevel(float sliderValue)
-    {
-        mixer.SetFloat("Master", Mathf.Log10(sliderValue) * 20);
-        masterVolume.text = Mathf.RoundToInt(sliderValue * 100) + "%";
-    }
-    public void SetAmbientLevel(float sliderValue)
-    {
-        mixer.SetFloat("Ambient", Mathf.Log10(sliderValue) * 20);
-        ambientVolume.text = Mathf.RoundToInt(sliderValue * 100) + "%";
     }
 
     public void PlayDiceSound()

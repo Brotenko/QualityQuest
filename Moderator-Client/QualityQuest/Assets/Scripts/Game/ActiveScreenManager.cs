@@ -4,6 +4,7 @@ using System.Net.WebSockets;
 using MessageContainer;
 using MessageContainer.Messages;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,6 +26,7 @@ public class ActiveScreenManager : MonoBehaviour
     public GameObject statistics;
     public GameObject errorScreen;
     public GameObject loadingScreen;
+    public GameObject options;
 
     /// <summary>
     /// Generates the QR code.
@@ -96,6 +98,7 @@ public class ActiveScreenManager : MonoBehaviour
         storyflow.SetActive(false);
         result.SetActive(false);
         statistics.SetActive(false);
+        options.SetActive(false);
     }
 
     /// <summary>
@@ -208,6 +211,16 @@ public class ActiveScreenManager : MonoBehaviour
     public void UpdateAudienceCount(int audienceCount)
     {
         this.audienceCount.text = "Verbundene Spieler (" + audienceCount.ToString() + ")";
+    }
+
+    /// <summary>
+    /// HideAllMenus is called to make sure no other screen is active
+    /// and the options screen is displayed.
+    /// </summary>
+    public void ShowOptions()
+    {
+        HideAllMenus();
+        options.SetActive(true);
     }
 
     /// <summary>
