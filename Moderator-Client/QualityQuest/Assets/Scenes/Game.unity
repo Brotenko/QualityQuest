@@ -4801,7 +4801,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345024886}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: ba762e57a382572498ccaa6be696c955, type: 3}
+  m_VideoClip: {fileID: 0}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 2053635034}
@@ -15920,7 +15920,7 @@ MonoBehaviour:
   displayStoryFlow: {fileID: 1093310179}
   result: {fileID: 1234932276}
   displayStatistics: {fileID: 457941537}
-  videoBackground: {fileID: 1093310177}
+  videoBackground: {fileID: 345024889}
   characterSelection: {fileID: 1093310172}
   ip: {fileID: 8958024211337089618}
   port: {fileID: 8958024210022591637}
