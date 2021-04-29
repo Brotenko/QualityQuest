@@ -205,7 +205,7 @@ namespace ServerLogic.Control
         internal string CheckStringMessage(string message)
         {
             string response = "";
-            try 
+            try
             {
                 MessageContainer messageContainer = JsonConvert.DeserializeObject<MessageContainer>(message);
                 Guid mcId = messageContainer.ModeratorID;
@@ -219,12 +219,15 @@ namespace ServerLogic.Control
                         {
                             if (_connectedModeratorClients[mcId].SessionKey.Equals(""))
                             {
-                                _connectedModeratorClients[mcId].InitSession(GenerateSessionKey(MaxRepForRandomGeneration));
+                                _connectedModeratorClients[mcId]
+                                    .InitSession(GenerateSessionKey(MaxRepForRandomGeneration));
                                 response = JsonConvert.SerializeObject(new SessionOpenedMessage(
                                     _connectedModeratorClients[mcId].ModeratorGuid,
                                     _connectedModeratorClients[mcId].SessionKey,
-                                    new Uri($"https://{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}/?key={_connectedModeratorClients[mcId].SessionKey}")));
-                                ServerLogger.LogDebug($"Received RequestOpenSession. Opened Session {_connectedModeratorClients[mcId].SessionKey} for MC-{mcId}.");
+                                    new Uri(
+                                        $"https://{Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort}/?key={_connectedModeratorClients[mcId].SessionKey}")));
+                                ServerLogger.LogDebug(
+                                    $"Received RequestOpenSession. Opened Session {_connectedModeratorClients[mcId].SessionKey} for MC-{mcId}.");
                                 _connectedModeratorClients[mcId].Strikes = 0;
                             }
                             else
@@ -233,7 +236,8 @@ namespace ServerLogic.Control
                                     openSessionMessage.ModeratorID,
                                     ErrorType.WrongSession,
                                     "Session with this ModeratorGuid already exists."));
-                                ServerLogger.LogDebug($"ModeratorClient {openSessionMessage.ModeratorID} tried to open another session.");
+                                ServerLogger.LogDebug(
+                                    $"ModeratorClient {openSessionMessage.ModeratorID} tried to open another session.");
                                 AddStrike(mcId);
                             }
                         }
@@ -243,6 +247,7 @@ namespace ServerLogic.Control
                             response = JsonConvert.SerializeObject(new ErrorMessage(
                                 mcId, ErrorType.WrongPassword, ""));
                         }
+
                         break;
 
                     // ######## Start to play ########
@@ -280,6 +285,7 @@ namespace ServerLogic.Control
                             ServerLogger.LogDebug("Received RequestStartVoting before current voting was finished.");
                             AddStrike(mcId);
                         }
+
                         break;
 
                     // ######## Pause/Unpause Voting ########
@@ -314,6 +320,7 @@ namespace ServerLogic.Control
                                 ""));
                             AddStrike(mcId);
                         }
+
                         break;
 
                     // ######## Close Session ########
@@ -322,26 +329,29 @@ namespace ServerLogic.Control
                         RequestCloseSessionMessage closeSessionMessage =
                             JsonConvert.DeserializeObject<RequestCloseSessionMessage>(message);
                         //if (SessionKeyExists(closeSessionMessage.SessionKey))
-                        if(_connectedModeratorClients[mcId].SessionKey.Equals(closeSessionMessage.SessionKey))
+                        if (_connectedModeratorClients[mcId].SessionKey.Equals(closeSessionMessage.SessionKey))
                         {
                             response = JsonConvert.SerializeObject(
-                                    new SessionClosedMessage(closeSessionMessage.ModeratorID));
+                                new SessionClosedMessage(closeSessionMessage.ModeratorID));
                             ServerLogger.LogDebug(
-                                $"Session {closeSessionMessage.SessionKey} was closed, {_connectedModeratorClients[mcId].SocketConnection.ConnectionInfo} has disconnected.");
+                                $"Session {closeSessionMessage.SessionKey} has finished, {_connectedModeratorClients[mcId].SocketConnection.ConnectionInfo.ClientIpAddress} has disconnected.");
                         }
                         else
                         {
                             response = JsonConvert.SerializeObject(
                                 new ErrorMessage(closeSessionMessage.ModeratorID, ErrorType.WrongSession, ""));
-                            ServerLogger.LogDebug($"MC-{closeSessionMessage.SessionKey} tried to close Session but failed to due wrong sessionKey. \n\tTransmitted sessionKey: \t{closeSessionMessage.SessionKey}\n\tActual sessionKey: \t\t{_connectedModeratorClients[mcId].SessionKey}");
+                            ServerLogger.LogDebug(
+                                $"MC-{closeSessionMessage.SessionKey} tried to close Session but failed to due wrong sessionKey. \n\tTransmitted sessionKey: \t{closeSessionMessage.SessionKey}\n\tActual sessionKey: \t\t{_connectedModeratorClients[mcId].SessionKey}");
                             AddStrike(mcId);
                         }
+
                         break;
 
                     // unknown MessageType
                     default:
                         //FR57 'ServerLogic persistence': "The ServerLogic shall not crash or terminate a session upon receiving a faulty message or faulty data."
-                        ServerLogger.LogDebug($"Corrupted MessageType: {typeof(MessageType)}, received from {_connectedModeratorClients[mcId].ModeratorGuid}, {_connectedModeratorClients[mcId].SocketConnection.ConnectionInfo} within session {_connectedModeratorClients[mcId].SessionKey}.");
+                        ServerLogger.LogDebug(
+                            $"Corrupted MessageType: {typeof(MessageType)}, received from {_connectedModeratorClients[mcId].ModeratorGuid}, {_connectedModeratorClients[mcId].SocketConnection.ConnectionInfo} within session {_connectedModeratorClients[mcId].SessionKey}.");
                         //FR31 'Network protocol violation'
                         response = JsonConvert.SerializeObject(new ErrorMessage(
                             messageContainer.ModeratorID,
@@ -350,12 +360,17 @@ namespace ServerLogic.Control
                         AddStrike(mcId);
                         break;
                 }
+
                 _connectedModeratorClients[mcId].ResetInactivity();
-                
+
             }
             catch (JsonSerializationException jsonSerializationException)
             {
                 ServerLogger.LogDebug($"Exception occurred on json-serialization: {jsonSerializationException}.");
+            }
+            catch (KeyNotFoundException keyNotFoundException)
+            {
+                //may be thrown when the MC continues writing after beeing kicked, which is kind of intended, as the MC tries to reconnect after losing connection.
             }
             catch (Exception exception)
             {

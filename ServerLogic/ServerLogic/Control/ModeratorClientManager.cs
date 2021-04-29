@@ -147,6 +147,7 @@ namespace ServerLogic.Control
                 }
                 ServerLogger.LogDebug("Game is continued.");
                 _votingTimer.Start();
+                _votingStarted = DateTime.Now;
                 return true;
             }
             return false;
