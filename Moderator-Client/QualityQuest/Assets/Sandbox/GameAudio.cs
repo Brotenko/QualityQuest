@@ -5,8 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-
-public enum Background {UNIVERSITY,INTERNSHIP,MEETING,PARTY,OFFICE,BEACH}
 public class GameAudio : MonoBehaviour
 {
 
@@ -37,7 +35,7 @@ public class GameAudio : MonoBehaviour
 
     public void Start()
     {
-        SwitchBackground(Background.UNIVERSITY);
+        SwitchBackground(BackgroundType.UNIVERSITY);
         PlayMusic1();
     }
 
@@ -47,22 +45,22 @@ public class GameAudio : MonoBehaviour
         effects.Play();
     }
 
-    public void SwitchBackground(Background background)
+    public void SwitchBackground(BackgroundType backgroundType)
     {
 
         HideAllBackgrounds();
         ambient.volume = 1;
 
-        switch (background)
+        switch (backgroundType)
         {
-            case Background.UNIVERSITY:
+            case BackgroundType.UNIVERSITY:
 
                 ambient.clip = universitySound;
                 ambient.Play();
                 universityBackground.SetActive(true);
                 break;
 
-            case Background.INTERNSHIP:
+            case BackgroundType.INTERNSHIP:
 
                 ambient.clip = internshipSound;
                 ambient.volume = 0.7f;
@@ -70,14 +68,14 @@ public class GameAudio : MonoBehaviour
                 internshipBackground.SetActive(true);
                 break;
 
-            case Background.MEETING:
+            case BackgroundType.MEETING:
 
                 ambient.clip = meetingSound;
                 ambient.Play();
                 meetingBackground.SetActive(true);
                 break;
 
-            case Background.PARTY:
+            case BackgroundType.PARTY:
 
                 ambient.clip = partySound;
                 ambient.volume = 0.4f;
@@ -85,14 +83,14 @@ public class GameAudio : MonoBehaviour
                 partyBackground.SetActive(true);
                 break;
 
-            case Background.OFFICE:
+            case BackgroundType.OFFICE:
 
                 ambient.clip = officeSound;
                 ambient.Play();
                 officeBackground.SetActive(true);
                 break;
 
-            case Background.BEACH:
+            case BackgroundType.BEACH:
 
                 ambient.clip = beachSound;
                 ambient.Play();
@@ -115,27 +113,27 @@ public class GameAudio : MonoBehaviour
 
     public void SwitchBackgroundUniversity()
     {
-        SwitchBackground(Background.UNIVERSITY);
+        SwitchBackground(BackgroundType.UNIVERSITY);
     }
     public void SwitchBackgroundInternship()
     {
-        SwitchBackground(Background.INTERNSHIP);
+        SwitchBackground(BackgroundType.INTERNSHIP);
     }
     public void SwitchBackgroundMeeting()
     {
-        SwitchBackground(Background.MEETING);
+        SwitchBackground(BackgroundType.MEETING);
     }
     public void SwitchBackgroundParty()
     {
-        SwitchBackground(Background.PARTY);
+        SwitchBackground(BackgroundType.PARTY);
     }
     public void SwitchBackgroundOffice()
     {
-        SwitchBackground(Background.OFFICE);
+        SwitchBackground(BackgroundType.OFFICE);
     }
     public void SwitchBackgroundBeach()
     {
-        SwitchBackground(Background.BEACH);
+        SwitchBackground(BackgroundType.BEACH);
     }
     public void PlayMusic1()
     {

@@ -18,7 +18,7 @@ public enum StoryEventType
     StoryFlow,
 
     /// <summary>
-    /// StoryEvent to change the background of the game between StoryEvents.
+    /// StoryEvent to change the backgroundType of the game between StoryEvents.
     /// </summary>
     StoryBackground,
 

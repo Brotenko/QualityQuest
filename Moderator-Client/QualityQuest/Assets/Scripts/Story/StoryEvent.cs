@@ -10,7 +10,7 @@ public class StoryEvent
     public StoryEventType StoryType { get; }
     public Skills SkillChange { get; }
     public bool RandomOption { get; }
-    public VideoClip Background { get; }
+    public BackgroundType BackgroundType { get; }
     public RandomType Random { get; }
 
     /// <summary>
@@ -83,11 +83,11 @@ public class StoryEvent
         this.Random = randomType;
     }
 
-    public StoryEvent(VideoClip b,HashSet<StoryEvent> children, StoryEventType storyType)
+    public StoryEvent(BackgroundType backgroundType,HashSet<StoryEvent> children, StoryEventType storyType)
     {
         this.Children = children;
         this.StoryType = storyType;
-        this.Background = b;
+        this.BackgroundType = backgroundType;
     }
 
     /// <summary>

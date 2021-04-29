@@ -99,7 +99,7 @@ public class GameStory : MonoBehaviour
         storyelement4option2.AddChild(storyelement5);
         storyelement4option3.AddChild(storyelement5);
 
-        var background2 = new StoryEvent(Resources.Load<VideoClip>("videobackgrounds/praktika"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        var background2 = new StoryEvent(BackgroundType.INTERNSHIP, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         storyelement5.AddChild(background2);
 
@@ -218,7 +218,7 @@ public class GameStory : MonoBehaviour
 
         // at the company party
 
-        var background4 = new StoryEvent(Resources.Load<VideoClip>("videobackgrounds/party"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        var background4 = new StoryEvent(BackgroundType.PARTY, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         decision6option1.AddChild(background4);
 
@@ -302,7 +302,7 @@ public class GameStory : MonoBehaviour
 
         // training course
 
-        var background5 = new StoryEvent(Resources.Load<VideoClip>("videobackgrounds/meeting"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        var background5 = new StoryEvent(BackgroundType.MEETING, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         storyelement16.AddChild(background5);
         storyelement23.AddChild(background5);
@@ -338,7 +338,7 @@ public class GameStory : MonoBehaviour
         decision10option3.AddChild(storyelement24option3);
         decision10option4.AddChild(storyelement24option4);
 
-        var background6 = new StoryEvent(Resources.Load<VideoClip>("videobackgrounds/desk"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        var background6 = new StoryEvent(BackgroundType.OFFICE, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         storyelement24option1.AddChild(background6);
         storyelement24option2.AddChild(background6);
@@ -562,7 +562,7 @@ public class GameStory : MonoBehaviour
 
         //workshop
 
-        var background3 = new StoryEvent(Resources.Load<VideoClip>("videobackgrounds/beach"), new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
+        var background3 = new StoryEvent(BackgroundType.BEACH, new HashSet<StoryEvent>(), StoryEventType.StoryBackground);
 
         storyelement47.AddChild(background3);
 
