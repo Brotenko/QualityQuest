@@ -5,9 +5,7 @@ using MessageContainer;
 using UnityEngine;
 using MessageContainer.Messages;
 using TMPro;
-using UnityEngine.UI;
 using WebSocketSharp;
-using Random = System.Random;
 
 public class OnlineClientManager : MonoBehaviour
 {
@@ -28,12 +26,14 @@ public class OnlineClientManager : MonoBehaviour
     [SerializeField]
     private DisplayStatistics displayStatistics;
     [SerializeField]
-    private VideoBackground videoBackground;
+    private GameBackground videoBackground;
     [SerializeField]
     private VotingStatistics votingStatistics;
     [SerializeField]
     private CharacterSelection characterSelection;
 
+    private ClientLogic clientLogic;
+    private bool activeVoting;
     private int votingTime;
     private int debugVotingTime;
 
@@ -47,6 +47,11 @@ public class OnlineClientManager : MonoBehaviour
     private string sessionKey;
     private string url;
     private Guid moderatorClientGuid;
+
+    private void Awake()
+    {
+        clientLogic = new ClientLogic();
+    }
 
     private void Start()
     {
@@ -146,14 +151,12 @@ public class OnlineClientManager : MonoBehaviour
     /// <param name="gamePausedStatusMessage">The GamePausedStatusMessage.</param>
     public void ReceivedGamePausedStatusChange(GamePausedStatusMessage gamePausedStatusMessage)
     {
-        if (gamePausedStatusMessage.GamePaused)
+        if (activeVoting)
         {
-            ActiveScreenManager.paused = false;
             activeScreenManager.ShowPauseMenu(url, sessionKey);
         }
         else
         {
-            ActiveScreenManager.paused = true;
             activeScreenManager.ShowPauseMenu(url, sessionKey);
         }
     }
@@ -714,7 +717,7 @@ public class OnlineClientManager : MonoBehaviour
     {
         if (currentEvent.Children.Any())
         {
-            videoBackground.SwitchBackground(currentEvent.Background);
+            videoBackground.SwitchBackground(currentEvent.BackgroundType);
             if (GameState.gameIsOnline)
             {
                 ContinueOnlineStory(currentEvent.Children.First());
