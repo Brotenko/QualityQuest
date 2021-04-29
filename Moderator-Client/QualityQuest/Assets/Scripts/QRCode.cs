@@ -4,22 +4,23 @@ using UnityEngine.UI;
 using ZXing;
 using ZXing.QrCode;
 
+/// <summary>
+/// Class to generate a QrCode.
+/// </summary>
 public class QRCode : MonoBehaviour
 {
-
-
     private Texture2D encoded;
     [Tooltip("Put a picture of a RawImage")]
     public RawImage connectionPanel;
     [Tooltip("Put a picture of a RawImage")]
     public RawImage pausePanel;
-    
+
     /// <summary>
-    /// Create a QR code
+    /// Creates a qrCode.
     /// </summary>
-    /// <param name="textForEncoding"></param>
-    /// <param name="width"></param>
-    /// <param name="height"></param>
+    /// <param name="textForEncoding">The text that is encoded to a qrCode.</param>
+    /// <param name="width">The width of the qrCode.</param>
+    /// <param name="height">the height of the qrCode.</param>
     /// <returns></returns>
     private static Color32[] Encode(string textForEncoding, int width, int height)
     {
@@ -36,15 +37,16 @@ public class QRCode : MonoBehaviour
     }
 
     /// <summary>
-    /// Change the last url
+    /// Method to fill the RawImage with the QrCode.
     /// </summary>
-    /// <param name="url"></param>
-    public void GenerateQRCode(string url, int a)
+    /// <param name="url">The url to be converted to qrCode.</param>
+    /// <param name="a"></param>
+    public void GenerateQRCode(string url, QrCodeType qrCodeType)
     {
         
-        switch (a)
+        switch (qrCodeType)
         {
-            case 1:
+            case QrCodeType.QrCodeConnect:
                 encoded = new Texture2D(256, 256);
 
                 
@@ -56,7 +58,7 @@ public class QRCode : MonoBehaviour
                     connectionPanel.GetComponent<RawImage>().texture = encoded;
                 }
                 break;
-            case 2:
+            case QrCodeType.QrCodePause:
                 encoded = new Texture2D(256, 256);
 
                 if (url != null)
