@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using ServerLogic.Model;
 using ServerLogic.Properties;
 
 namespace ServerLogic.Control
@@ -187,6 +190,22 @@ namespace ServerLogic.Control
         /// </summary>
         private void RunShell()
         {
+            ServerParams serverParams = new ServerParams();
+            using (StreamReader r = new StreamReader("ServerLogic/Properties/serverParams.json"))
+            {
+                string json = r.ReadToEnd();
+                serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
+            }
+            Settings.Default.ServerURL = serverParams.ServerURL;
+            Settings.Default.PAWebPagePort = serverParams.PAWebPagePort;
+            Settings.Default.MCWebSocketPort = serverParams.MCWebSocketPort;
+            Settings.Default.CertFilePath = serverParams.CertFilePath;
+            Settings.Default.CertPW = serverParams.CertPW;
+            Settings.Default.PWHash = serverParams.PWHash;
+            Settings.Default.Salt = serverParams.Salt;
+            Settings.Default.LogLevel = serverParams.LogLevel;
+            Settings.Default.LogOutPutType = serverParams.LogOutPutType;
+            Settings.Default.Save();
             Console.WriteLine(Properties.Resources.StartupMessage);
 
             if (!_isDebug)
@@ -206,6 +225,21 @@ namespace ServerLogic.Control
         /// </summary>
         private void StopShell()
         {
+            Settings.Default.Reload();
+            ServerParams serverParams = new ServerParams();
+            serverParams.ServerURL = Settings.Default.ServerURL;
+            serverParams.PAWebPagePort = Settings.Default.PAWebPagePort;
+            serverParams.MCWebSocketPort = Settings.Default.MCWebSocketPort;
+            serverParams.CertFilePath = Settings.Default.CertFilePath;
+            serverParams.CertPW = Settings.Default.CertPW;
+            serverParams.PWHash = Settings.Default.PWHash;
+            serverParams.Salt = Settings.Default.Salt;
+            serverParams.LogLevel = Settings.Default.LogLevel;
+            serverParams.LogOutPutType = Settings.Default.LogOutPutType;
+            string json = JsonConvert.SerializeObject(serverParams, Formatting.Indented);
+            ServerLogger.LogWarning(json);
+            using var streamWriter = new StreamWriter("ServerLogic/Properties/Persist/serverParams.json");
+            streamWriter.WriteLine(json);
             Environment.Exit(exitCode: 0);
         }
 

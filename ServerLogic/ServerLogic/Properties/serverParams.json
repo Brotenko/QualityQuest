@@ -1,7 +1,11 @@
 {
-    "ServerURL": "127.0.0.1",
+    "ServerURL": "localhost",
     "PAWebPagePort": "443",
     "MCWebSocketPort": "80",
     "CertFilePath": "TestCert.pfx",
-    "CertPW": "thisIsForTestingOnly"
+    "CertPW": "thisIsForTestingOnly",
+    "PWHash": "",
+    "Salt": "",
+    "LogLevel": 0,
+    "LogOutPutType": 2
 }

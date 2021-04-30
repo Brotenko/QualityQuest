@@ -1,0 +1,62 @@
+[2021-04-30 18:03:45] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-04-30 18:03:45] [0] INFO: Using wss: True.
+[2021-04-30 18:06:30] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-04-30 18:06:30] [0] INFO: Using wss: True.
+[2021-04-30 18:11:14] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-04-30 18:11:14] [0] INFO: Using wss: True.
+[2021-04-30 18:14:31] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-04-30 18:14:31] [0] INFO: Using wss: True.
+[2021-04-30 18:20:06] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-04-30 18:20:06] [0] INFO: Using wss: True.
+[2021-04-30 18:24:28] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-04-30 18:24:28] [0] INFO: Using wss: True.
+[2021-04-30 18:24:39] [1] INFO: LogLevel was set to 1.
+[2021-04-30 18:25:45] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-04-30 18:25:45] [0] INFO: Using wss: True.
+[2021-04-30 18:30:03] [0] INFO: Website started on otto:443 and WebSocket on 80
+[2021-04-30 18:30:03] [0] INFO: Using wss: True.
+[2021-04-30 18:30:18] [1] INFO: LogLevel was set to 1.
+[2021-04-30 18:34:51] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-04-30 18:34:51] [0] INFO: Using wss: True.
+[2021-04-30 18:34:57] [1] INFO: LogLevel was set to 1.
+[2021-04-30 18:38:24] [0] INFO: Website started on localhost:443 and WebSocket on 80
+[2021-04-30 18:38:24] [0] INFO: Using wss: True.
+[2021-04-30 18:38:31] [1] INFO: LogLevel was set to 1.
+[2021-04-30 18:38:33] [1] WARNING: {
+  "ServerURL": "localhost",
+  "PAWebPagePort": 443,
+  "MCWebSocketPort": "80",
+  "CertFilePath": "TestCert.pfx",
+  "CertPW": "thisIsForTestingOnly",
+  "PWHash": "",
+  "Salt": "",
+  "LogLevel": 1,
+  "LogOutPutType": 2
+}
+[2021-04-30 18:39:26] [0] INFO: Website started on localhost:443 and WebSocket on 80
+[2021-04-30 18:39:26] [0] INFO: Using wss: True.
+[2021-04-30 18:44:32] [1] INFO: LogLevel was set to 1.
+[2021-04-30 18:44:37] [1] WARNING: {
+  "ServerURL": "127.0.0.1",
+  "PAWebPagePort": 443,
+  "MCWebSocketPort": "80",
+  "CertFilePath": "TestCert.pfx",
+  "CertPW": "thisIsForTestingOnly",
+  "PWHash": "",
+  "Salt": "",
+  "LogLevel": 1,
+  "LogOutPutType": 2
+}
+[2021-04-30 18:49:35] [0] INFO: Website started on localhost:443 and WebSocket on 80
+[2021-04-30 18:49:35] [0] INFO: Using wss: True.
+[2021-04-30 18:49:41] [0] WARNING: {
+  "ServerURL": "localhost",
+  "PAWebPagePort": 443,
+  "MCWebSocketPort": "80",
+  "CertFilePath": "TestCert.pfx",
+  "CertPW": "thisIsForTestingOnly",
+  "PWHash": "",
+  "Salt": "",
+  "LogLevel": 0,
+  "LogOutPutType": 2
+}
