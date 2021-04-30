@@ -1,53 +1,47 @@
+import json
 import os
-import xml.etree.ElementTree as ET
 
-settingsPath = "ServerLogic/ServerLogic/Properties/Settings.settings"
-
-
-print("Hello, this is the QualityQuest-Server Installer-skript.\nThis script uses some Docker commands, so make sure Docker is installed and running.\nWhen rebuilding images, this script also removes dangling images, so if you use Docker for other things and use names like 'qqserver' you should back up the corresponding images.\nDo you:\n\t1: (Install) Want to (re)build image and start a fresh server?\n\t   (An unbiased recommendation: Do this exactly once.)\n\t2: (Start) Simply start the server with the previous parameters?\n\t   (Only works with an already existing image!)")
+pathServerParams = "ServerLogic/ServerLogic/Properties/serverParams.json"
+# todo sollte über -v mit docker veränderbar/lesbar sein, im code wird einfach das settingsfile mit den werten befüllt und gespeichert, dadurch unabhängig vom image bau
+print(
+    "Hello, this is the QualityQuest-Server Installer-skript.\nThis script uses some Docker commands, so make sure Docker is installed and running.\nWhen rebuilding images, this script also removes dangling images, so if you use Docker for other things and use names like 'qqserver' you should back up the corresponding images.\nDo you:\n\t1: (Install) (Re)build image and start a fresh server.\n\t   (Recommendation: Do this exactly once.)\n\t2: (Start) Simply start the server with the previous parameters.\n\t   (Only works with an already existing image!)")
 try:
     option = int(input())
 except ValueError:
     print("Please only enter the respective number of the desired parameter.")
     exit()
-ET.register_namespace('','http://schemas.microsoft.com/VisualStudio/2004/01/settings')
-tree = ET.parse(settingsPath)
-root = tree.getroot()
-# 0 Logoutputtype
-# 1 LogLevel
-# 2 LogFilePath
-# 3 ServerUrl
-# 4 WebPageport
-# 5 MCPort
-# 6 CertFilePath
-# 7 PW-Hash
-# 8 Salt
-# 9 CertPW
-# 10 DockerURL
 if int(option) == 1:
-    print("Please enter the URL under which the website can be reached externally (without 'https://www.':")
-    root[1][3][0].text = input()
+    print("Please enter the URL under which the website can be reached (without 'https://www.':")
+    ServerURL = input()
     print("Please enter the port for the website (e.g. 443):")
-    root[1][4][0].text = input()
+    PAWebPagePort = input()
     print("Please enter the port for the ModeratorClient to connect to:")
-    root[1][5][0].text = input()
-    print("Please enter the relative path to the certificate (must be .pfx):")
-    root[1][6][0].text = input()
+    MCWebSocketPort = input()
+    print(
+        "Please make sure that the certificate (must be .pfx) is inside 'QualityQuest/ServerLogic' and enter the name of it:")
+    CertFilePath = input()
     print("Please enter the access-password for the certificate:")
-    root[1][9][0].text = input()
+    CertPW = input()
+    print("Removing dangling Docker-images:")
+
+    dic_opts = {"ServerURL": ServerURL, "PAWebPagePort": PAWebPagePort, "MCWebSocketPort":MCWebSocketPort, "CertFilePath":CertFilePath, "CertPW":CertPW}
+    json_obj = json.dumps(dic_opts, indent=4)
+    with open(pathServerParams, "w") as outfile:
+        outfile.write(json_obj)
     os.system("docker system prune -f")
+    print("Build new Image:")
     os.system("docker build -t qqserverimage .")
 elif int(option) == 2:
     print("Loading params from Settings-File")
 else:
     print("Please enter only the respective number of the desired parameter.")
     exit()
-serverUrl = root[1][3][0].text
-webPagePort = root[1][4][0].text
-backendPort = root[1][5][0].text
-certFilePath = root[1][6][0].text
-certPW = root[1][9][0].text
-root[1][10][0].text = "//0.0.0.0:"
-tree.write(settingsPath, encoding='utf-8', xml_declaration=True)
-# todo log&settings export from docker is missing right now
-os.system("docker run --rm -it -p "+webPagePort+":7777 -p "+backendPort+":80 -e ASPNETCORE_URLS=\"https://+\" -e ASPNETCORE_HTTPS_PORT="+webPagePort+" -e ASPNETCORE_Kestrel__Certificates__Default__Password=\""+certPW+"\" -e ASPNETCORE_Kestrel__Certificates__Default__Path=./"+certFilePath+" --name=qqservercontainer qqserverimage")
+with open(pathServerParams) as f:
+    paramsData = json.load(f)
+PAWebPagePort = paramsData["PAWebPagePort"]
+MCWebSocketPort = paramsData["MCWebSocketPort"]
+CertFilePath = paramsData["CertFilePath"]
+CertPW = paramsData["CertPW"]
+os.system("docker run --rm -it -p " + PAWebPagePort + ":7777 -p " + MCWebSocketPort + ":80 -e ASPNETCORE_URLS=\"https://+;http://+\" -e ASPNETCORE_HTTPS_PORT=" + PAWebPagePort + " -e ASPNETCORE_Kestrel__Certificates__Default__Password=\"" + CertPW + "\" -e ASPNETCORE_Kestrel__Certificates__Default__Path=./" + CertFilePath + " --name=qqservercontainer qqserverimage")
+
+#os.system("echo docker run --rm -it -p " + PAWebPagePort + ":7777 -p " + MCWebSocketPort + ":80 -e ASPNETCORE_URLS=\"https://+;http://+\" -e ASPNETCORE_HTTPS_PORT=" + PAWebPagePort + " -e ASPNETCORE_Kestrel__Certificates__Default__Password=\"" + CertPW + "\" -e ASPNETCORE_Kestrel__Certificates__Default__Path=./" + CertFilePath + " --name=qqservercontainer qqserverimage")

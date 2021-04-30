@@ -1,8 +1,0 @@
-[2021-03-18 20:44:02] [0] INFO: New Logger-Instance started. LogLevel is 0, LogOutputType is 2.
-[2021-03-18 20:46:38] [0] INFO: New Logger-Instance started. LogLevel is 0, LogOutputType is 2.
-[2021-03-18 20:46:46] [0] DEBUG: Caught Overflow Exception, caused by using 'log --setLevel' with a parameter to small or to big for short.
-[2021-04-20 16:34:55] [0] INFO: New Logger-Instance started. LogLevel is 0, LogOutputType is 0.
-[2021-04-20 16:40:39] [0] INFO: New Logger-Instance started. LogLevel is 0, LogOutputType is 0.
-[2021-04-20 16:47:11] [0] INFO: New Logger-Instance started. LogLevel is 0, LogOutputType is 0.
-[2021-04-20 16:47:47] [0] INFO: New Logger-Instance started. LogLevel is 0, LogOutputType is 0.
-[2021-04-20 16:48:05] [0] INFO: New Logger-Instance started. LogLevel is 0, LogOutputType is 0.

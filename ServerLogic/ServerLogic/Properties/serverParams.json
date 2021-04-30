@@ -1,0 +1,7 @@
+{
+    "ServerURL": "127.0.0.1",
+    "PAWebPagePort": "443",
+    "MCWebSocketPort": "80",
+    "CertFilePath": "TestCert.pfx",
+    "CertPW": "thisIsForTestingOnly"
+}

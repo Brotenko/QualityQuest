@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
@@ -8,6 +9,7 @@ using System.Timers;
 using Newtonsoft.Json;
 using ServerLogic.Model.Messages;
 using Fleck;
+using Newtonsoft.Json.Linq;
 using ServerLogic.Model;
 using ServerLogic.Properties;
 
@@ -42,19 +44,43 @@ namespace ServerLogic.Control
             _checkForInactiveSessionsTimer.Enabled = true;
         }
 
+        private class ServerParams
+        {
+            public string ServerURL;
+            public string PAWebPagePort;
+            public string MCWebSocketPort;
+            public string CertFilePath;
+            public string CertPW;
+        }
+
         /// <summary>
         /// Starts and initializes the MainServerLogic.
         /// </summary>
         public void Start()
         {
             FleckLog.Level = LogLevel.Warn;
+            //Update Settings todo move to servershell start/stop
+            ServerParams serverParams = new ServerParams();
+            using (StreamReader r = new StreamReader("ServerLogic/Properties/serverParams.json"))
+            {
+                string json = r.ReadToEnd();
+                serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
+            }
+            Settings.Default.ServerURL = serverParams.ServerURL;
+            Settings.Default.PAWebPagePort = short.Parse(serverParams.PAWebPagePort);
+            Settings.Default.MCWebSocketPort = serverParams.MCWebSocketPort;
+            Settings.Default.CertFilePath = serverParams.CertFilePath;
+            Settings.Default.CertPW = serverParams.CertPW;
+            Settings.Default.Save();
+            
             _server = new WebSocketServer($"wss:{Settings.Default.DockerUrl}:80");
+            //_server = new WebSocketServer($"wss:{Settings.Default.DockerUrl}:80");
             _server.EnabledSslProtocols = SslProtocols.Tls12;
             _server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, Settings.Default.CertPW);
             _playerAudienceClientApi.StartServer(7777);
             StartWebsocket();
             _checkForInactiveSessionsTimer.Start();
-            ServerLogger.LogInformation($"Website started on {Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
+            ServerLogger.LogInformation($"Website started on {Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
             ServerLogger.LogInformation($"Using wss: {_server.IsSecure}.");
         }
 
@@ -71,6 +97,15 @@ namespace ServerLogic.Control
             _checkForInactiveSessionsTimer?.Stop();
             _server?.Dispose();
             _playerAudienceClientApi.StopServer();
+            ServerParams serverParams = new ServerParams();
+            serverParams.ServerURL = Settings.Default.ServerURL;
+            serverParams.PAWebPagePort = ""+Settings.Default.PAWebPagePort;
+            serverParams.MCWebSocketPort = Settings.Default.MCWebSocketPort;
+            serverParams.CertFilePath = Settings.Default.CertFilePath;
+            serverParams.CertPW = Settings.Default.CertPW;
+            string json = JsonConvert.SerializeObject(serverParams, Formatting.Indented);
+            using var streamWriter = new StreamWriter("ServerLogic/Properties/serverParams.json");
+            streamWriter.WriteLine(json);
         }
 
         /// <summary>

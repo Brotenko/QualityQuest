@@ -59,39 +59,51 @@ namespace ServerLogic.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
         public string ServerURL {
             get {
                 return ((string)(this["ServerURL"]));
             }
+            set {
+                this["ServerURL"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("443")]
         public int PAWebPagePort {
             get {
                 return ((int)(this["PAWebPagePort"]));
             }
+            set {
+                this["PAWebPagePort"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("80")]
         public string MCWebSocketPort {
             get {
                 return ((string)(this["MCWebSocketPort"]));
             }
+            set {
+                this["MCWebSocketPort"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("TestCert.pfx")]
         public string CertFilePath {
             get {
                 return ((string)(this["CertFilePath"]));
+            }
+            set {
+                this["CertFilePath"] = value;
             }
         }
         
@@ -119,21 +131,27 @@ namespace ServerLogic.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("thisIsForTestingOnly")]
         public string CertPW {
             get {
                 return ((string)(this["CertPW"]));
             }
+            set {
+                this["CertPW"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("//0.0.0.0")]
         public string DockerUrl {
             get {
                 return ((string)(this["DockerUrl"]));
+            }
+            set {
+                this["DockerUrl"] = value;
             }
         }
     }
