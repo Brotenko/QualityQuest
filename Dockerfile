@@ -5,7 +5,7 @@ EXPOSE 7777
 COPY ServerLogic/ ./
 RUN dotnet publish ./ServerLogic.sln -c Release -o build --self-contained=false
 #CMD ["dotnet", "./build/ServerLogic.dll", "!Password123#", "7777"]
-ENTRYPOINT ["dotnet", "./build/ServerLogic.dll"]
+#ENTRYPOINT ["dotnet", "./build/ServerLogic.dll"]
 
 
 ############# A small compilation of Docker commands. Will be removed from the Dockerfile in the distant future.#################
