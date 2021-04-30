@@ -97,7 +97,7 @@ public class Menu : MonoBehaviour
     {
         GameState.gameIsOnline = false;
         Debug.Log("Offlinemode enabled");
-        SceneManager.LoadScene(sceneBuildIndex: 2);
+        SceneManager.LoadScene(sceneBuildIndex: 1);
     }
 
     /// <summary>
@@ -106,6 +106,6 @@ public class Menu : MonoBehaviour
     public void PlayOnline()
     {
         GameState.gameIsOnline = true;
-        SceneManager.LoadScene(sceneBuildIndex: 2);
+        SceneManager.LoadScene(sceneBuildIndex: 1);
     }
 }
