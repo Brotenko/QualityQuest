@@ -55,7 +55,6 @@ public class OnlineClientManager : MonoBehaviour
 
     private void Start()
     {
-        videoBackground.SwitchBackground(BackgroundType.UNIVERSITY);
         if (!GameState.gameIsOnline)
         {
             StartOfflinePlaythrough();
@@ -380,6 +379,7 @@ public class OnlineClientManager : MonoBehaviour
                     ContinueOfflineStory(gameStory.GetRandomOption(displayStatusBar));
                 }
                 break;
+
         }
     }
 
@@ -398,6 +398,7 @@ public class OnlineClientManager : MonoBehaviour
         }
         else
         {
+            videoBackground.SwitchBackground(BackgroundType.UNIVERSITY);
             activeScreenManager.ShowCharacterSelection();
         }
 
