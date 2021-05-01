@@ -171,9 +171,6 @@ Use '&lt;command&gt; --help' to read about a specific command.</value>
   <data name="InvalidPortExceptionMessage" xml:space="preserve">
     <value>Please make sure the port is an integer between 1024 and 65535.</value>
   </data>
-  <data name="LogFilePath" xml:space="preserve">
-    <value>ServerLogic/Properties/Persist/Log.txt</value>
-  </data>
   <data name="LogHelpMessage" xml:space="preserve">
     <value>usage: log [--clear] [--setLevel 0-4] [--getLevel] [--setLogOutput] [--help]
 

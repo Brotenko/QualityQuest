@@ -78,13 +78,13 @@ namespace ServerLogic.Control
             }
             else if (Settings.Default.LogOutPutType == 0)
             {
-                using var streamWriter = new StreamWriter(Resources.LogFilePath, true);
+                using var streamWriter = new StreamWriter(Settings.Default.LogFilePath, true);
                 streamWriter.WriteLine(logRecord);
                 streamWriter.Close();
             }
             else
             {
-                using var streamWriter = new StreamWriter(Resources.LogFilePath, true);
+                using var streamWriter = new StreamWriter(Settings.Default.LogFilePath, true);
                 streamWriter.WriteLine(logRecord);
                 streamWriter.Close();
                 Console.WriteLine(logRecord);
@@ -100,7 +100,7 @@ namespace ServerLogic.Control
             string fileToString = "";
             try
             {
-                using var streamReader = new StreamReader(Resources.LogFilePath, true);
+                using var streamReader = new StreamReader(Settings.Default.LogFilePath, true);
                 fileToString = streamReader.ReadToEnd();
                 streamReader.Close();
             }
@@ -117,7 +117,7 @@ namespace ServerLogic.Control
         /// </summary>
         public static void WipeLogFile()
         {
-            File.Delete(Resources.LogFilePath);
+            File.Delete(Settings.Default.LogFilePath);
         }
 
         /// <summary>

@@ -231,22 +231,24 @@ namespace ServerLogic.Control
         /// </summary>
         private void StopShell()
         {
-            Settings.Default.Reload();
-            ServerParams serverParams = new ServerParams();
-            serverParams.ServerURL = Settings.Default.ServerURL;
-            serverParams.PAWebPagePort = Settings.Default.PAWebPagePort;
-            serverParams.MCWebSocketPort = Settings.Default.MCWebSocketPort;
-            serverParams.CertFilePath = Settings.Default.CertFilePath;
-            serverParams.CertPW = Settings.Default.CertPW;
-            serverParams.PWHash = Settings.Default.PWHash;
-            serverParams.Salt = Settings.Default.Salt;
-            serverParams.LogLevel = Settings.Default.LogLevel;
-            serverParams.LogOutPutType = Settings.Default.LogOutPutType;
-            string json = JsonConvert.SerializeObject(serverParams, Formatting.Indented);
-            //todo extract path to resource file
-            using var streamWriter = new StreamWriter(Properties.Resources.ServerParamsFilePath);
-            streamWriter.WriteLine(json);
-            streamWriter.Close();
+            if (!_isDebug)
+            {
+                Settings.Default.Reload();
+                ServerParams serverParams = new ServerParams();
+                serverParams.ServerURL = Settings.Default.ServerURL;
+                serverParams.PAWebPagePort = Settings.Default.PAWebPagePort;
+                serverParams.MCWebSocketPort = Settings.Default.MCWebSocketPort;
+                serverParams.CertFilePath = Settings.Default.CertFilePath;
+                serverParams.CertPW = Settings.Default.CertPW;
+                serverParams.PWHash = Settings.Default.PWHash;
+                serverParams.Salt = Settings.Default.Salt;
+                serverParams.LogLevel = Settings.Default.LogLevel;
+                serverParams.LogOutPutType = Settings.Default.LogOutPutType;
+                string json = JsonConvert.SerializeObject(serverParams, Formatting.Indented);
+                using var streamWriter = new StreamWriter(Resources.ServerParamsFilePath);
+                streamWriter.WriteLine(json);
+                streamWriter.Close();
+            }
             Environment.Exit(exitCode: 0);
         }
 

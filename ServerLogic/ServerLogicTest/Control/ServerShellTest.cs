@@ -213,28 +213,6 @@ namespace ServerLogicTests.Control
 
             /*
              * Tests for the following conditions:
-             * - the "--help" option for the command "port" is transmitted
-             * 
-             * What it does:
-             * Returns the help message for the "port" command.
-             */
-            t = s.ParseCommandDebugger("port --help");
-            Assert.IsTrue(Regex.IsMatch(t, portCommandPattern));
-
-            /*
-             * Tests for the following conditions:
-             * - the "--help" option for the command "port" is transmitted with
-             * some additional options.
-             * 
-             * What it does:
-             * Returns the help message for the "port" command, disregarding the
-             * additional options.
-             */
-            t = s.ParseCommandDebugger("port --help a4T&#4/ --z&v_4p=#");
-            Assert.IsTrue(Regex.IsMatch(t, portCommandPattern));
-
-            /*
-             * Tests for the following conditions:
              * - the "--help" option for the command "password" is transmitted
              * 
              * What it does:
