@@ -17,17 +17,20 @@ public class QualityQuestWebSocket : MonoBehaviour
 {
 
     public OnlineClientManager onlineClientManager;
-    public MainThreadWorker mainThreadWorker;
+    [SerializeField]
+    private MainThreadWorker mainThreadWorker;
     public WebSocket webSocket;
-    
+
+    /// <summary>
+    /// Method to start the WebSocket connection.
+    /// </summary>
+    /// <param name="ip">Ip of the webSocket.</param>
+    /// <param name="port">Port of the webSocket.</param>
     public void StartConnection(string ip, string port)
     {
-        // Connect ws://127.0.0.1:8181
-        
-        webSocket = new WebSocket("ws://" + ip +":" + port.ToString());
-
         // Logic to connect with a secure websocket
-        //webSocket = new WebSocket("wss://" + ip);
+        webSocket = new WebSocket("ws://" + ip + ":" + port.ToString());
+
         //webSocket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
 
         /*
@@ -42,10 +45,9 @@ public class QualityQuestWebSocket : MonoBehaviour
         // Event when the WebSocket connection is established.
         webSocket.OnOpen += (sender, e) =>
         {
-            GameState.gameIsOnline = true;
-            onlineClientManager.StartOnlineMode();
-            onlineClientManager.ConnectionEstablished();
             Debug.Log("Connection established.");
+            GameState.gameIsOnline = true;
+            onlineClientManager.ConnectionEstablished();
         };
 
         webSocket.EmitOnPing = true;
@@ -103,50 +105,51 @@ public class QualityQuestWebSocket : MonoBehaviour
     /// Method to read/parse the incoming string message.
     /// </summary>
     /// <param name="msg">The incoming data</param>
-    void Read(string msg)
+    private void Read(string msg)
     {
         Debug.Log("RECEIVING => " + msg);
         try
         {
-            MessageContainer.MessageContainer container =
-                    JsonConvert.DeserializeObject<MessageContainer.MessageContainer>(msg);
-                
-                switch (container.Type)
-                {
-                    case MessageType.SessionOpened:
-                        onlineClientManager.ReceivedSessionOpenedMessage(JsonConvert.DeserializeObject<SessionOpenedMessage>(msg));
-                        break;
-                    case MessageType.AudienceStatus:
-                        onlineClientManager.ReceivedAudienceStatusMessage(JsonConvert.DeserializeObject<AudienceStatusMessage>(msg));
-                        break;
-                    case MessageType.GameStarted:
-                        onlineClientManager.ReceivedGameStartedMessage(JsonConvert.DeserializeObject<GameStartedMessage>(msg));
-                        break;
-                    case MessageType.VotingStarted:
-                        onlineClientManager.ReceivedVotingStartedMessage(JsonConvert.DeserializeObject<VotingStartedMessage>(msg));
-                        break;
-                    case MessageType.VotingEnded:
-                        onlineClientManager.ReceivedVotingEndedMessage(JsonConvert.DeserializeObject<VotingEndedMessage>(msg));
-                        break;
-                    case MessageType.Error:
-                        onlineClientManager.ReceivedErrorMessage(JsonConvert.DeserializeObject<ErrorMessage>(msg));
-                        break;
-                    case MessageType.GamePausedStatus:
-                        onlineClientManager.ReceivedGamePausedStatusChange(JsonConvert.DeserializeObject<GamePausedStatusMessage>(msg));
-                        break;
-                    case MessageType.SessionClosed:
-                        break;
-                    case MessageType.ReconnectSuccessful:
-                        onlineClientManager.ReceivedReconnectSuccessfulMessage(JsonConvert.DeserializeObject<ReconnectSuccessfulMessage>(msg));
-                        break;
-                    default:
-                        Debug.Log(container.Type + " is not a valid messageType."); 
-                        break;
-                }
-        } catch (JsonSerializationException jse)
+            var container = JsonConvert.DeserializeObject<MessageContainer.MessageContainer>(msg);
+
+            switch (container.Type)
+            {
+                case MessageType.SessionOpened:
+                    onlineClientManager.ReceivedSessionOpenedMessage(JsonConvert.DeserializeObject<SessionOpenedMessage>(msg));
+                    break;
+                case MessageType.AudienceStatus:
+                    onlineClientManager.ReceivedAudienceStatusMessage(JsonConvert.DeserializeObject<AudienceStatusMessage>(msg)); 
+                    break;
+                case MessageType.GameStarted:
+                    onlineClientManager.ReceivedGameStartedMessage(JsonConvert.DeserializeObject<GameStartedMessage>(msg));
+                    break;
+                case MessageType.VotingStarted:
+                    onlineClientManager.ReceivedVotingStartedMessage(JsonConvert.DeserializeObject<VotingStartedMessage>(msg));
+                    break;
+                case MessageType.VotingEnded:
+                    onlineClientManager.ReceivedVotingEndedMessage(JsonConvert.DeserializeObject<VotingEndedMessage>(msg));
+                    break;
+                case MessageType.Error:
+                    onlineClientManager.ReceivedErrorMessage(JsonConvert.DeserializeObject<ErrorMessage>(msg));
+                    break;
+                case MessageType.GamePausedStatus:
+                    onlineClientManager.ReceivedGamePausedStatusChange(JsonConvert.DeserializeObject<GamePausedStatusMessage>(msg));
+                    break;
+                case MessageType.SessionClosed:
+                    break;
+                case MessageType.ReconnectSuccessful:
+                    onlineClientManager.ReceivedReconnectSuccessfulMessage(JsonConvert.DeserializeObject<ReconnectSuccessfulMessage>(msg));
+                    break;
+                default:
+                    Debug.Log(container.Type + " is not a valid messageType.");
+                    break;
+            }
+        }
+        catch (JsonSerializationException jse)
         {
             Debug.Log("Can't read message, JSON parse error: " + jse);
-        } catch (NullReferenceException nullReferenceException)
+        }
+        catch (NullReferenceException nullReferenceException)
         {
             Debug.Log("RECIEVED messages is null:" + nullReferenceException);
         }
@@ -158,7 +161,7 @@ public class QualityQuestWebSocket : MonoBehaviour
     /// <param name="msg"></param>
     void Read(byte[] msg)
     {
-      
+
     }
 
     /// <summary>
@@ -173,17 +176,26 @@ public class QualityQuestWebSocket : MonoBehaviour
             string jsonMessage = JsonConvert.SerializeObject(message);
             Debug.Log("SENDING => " + jsonMessage);
             webSocket.Send(jsonMessage);
-        } catch (JsonSerializationException jse)
+        }
+        catch (JsonSerializationException jse)
         {
             Debug.Log("Can't send Message, JSON parse error: " + jse);
         }
     }
 
+    /// <summary>
+    /// Method to close the connection.
+    /// </summary>
     public void CloseConnection()
     {
         webSocket.CloseAsync();
     }
 
+    /// <summary>
+    /// Method to close the connection with a closeStatusCode and a closing reason.
+    /// </summary>
+    /// <param name="closeStatusCode">The closeStatusCode.</param>
+    /// <param name="reason">The close reason.</param>
     public void CloseConnectionWithReason(CloseStatusCode closeStatusCode, string reason)
     {
         webSocket.CloseAsync(closeStatusCode, reason);
