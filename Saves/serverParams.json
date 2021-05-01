@@ -1,11 +1,11 @@
 {
-  "ServerURL": "127.0.0.1",
-  "PAWebPagePort": 443,
-  "MCWebSocketPort": "80",
-  "CertFilePath": "TestCert.pfx",
-  "CertPW": "thisIsForTestingOnly",
-  "PWHash": "b215f53d6fede44a5c0a325f20fc153fd4424fb3f0af7d1ba30f3ef94138c5d6",
-  "Salt": "m7PtokG5Ui1w5Wix",
-  "LogLevel": 0,
-  "LogOutPutType": 2
+    "ServerURL": "127.0.0.1",
+    "PAWebPagePort": "443",
+    "MCWebSocketPort": "80",
+    "CertFilePath": "qualityquest.informatik.uni-ulm.de.pfx",
+    "CertPW": "thisIsForTestingOnly",
+    "PWHash": "",
+    "Salt": "",
+    "LogLevel": 0,
+    "LogOutPutType": 2
 }

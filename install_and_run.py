@@ -64,4 +64,4 @@ CertFilePath = paramsData["CertFilePath"]
 CertPW = paramsData["CertPW"]
 SavesPath = os.path.dirname(os.path.abspath(__file__))+'\Saves'
 
-os.system("docker run --rm -it -p " + str(PAWebPagePort) + ":7777 -p " + MCWebSocketPort + ":80 -e ASPNETCORE_URLS=\"https://+\" -e ASPNETCORE_HTTPS_PORT=" + str(PAWebPagePort) + " -e ASPNETCORE_Kestrel__Certificates__Default__Password=\"" + CertPW + "\" -e ASPNETCORE_Kestrel__Certificates__Default__Path=./" + CertFilePath + " -v "+SavesPath+":/app/ServerLogic/Properties/Persist --name=qqservercontainer qqserverimage")
+os.system("docker run --rm -it -p " + str(PAWebPagePort) + ":7777 -p " + MCWebSocketPort + ":80 -e ASPNETCORE_URLS=\"https://+;http://+\" -e ASPNETCORE_HTTPS_PORT=" + str(PAWebPagePort) + " -e ASPNETCORE_Kestrel__Certificates__Default__Password=\"" + CertPW + "\" -e ASPNETCORE_Kestrel__Certificates__Default__Path=./" + CertFilePath + " -v "+SavesPath+":/app/ServerLogic/Properties/Persist --name=qqservercontainer qqserverimage")

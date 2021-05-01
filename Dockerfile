@@ -25,4 +25,4 @@ ENTRYPOINT ["dotnet", "./build/ServerLogic.dll"]
 # 'docker container attach Containername'
 
 # Exports logs to local machine
-#docker run --rm -it -p 443:7777 -p 8181:8181 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=443 -e ASPNETCORE_Kestrel__Certificates__Default__Password="thisIsForTestingOnly" -e ASPNETCORE_Kestrel__Certificates__Default__Path=./TestCert.pfx -v $(pwd):ServerLogic/ServerLogic/Properties --name=qqserver qqserver
+#docker run --rm -it -p 443:7777 -p 8181:8181 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=443 -e ASPNETCORE_Kestrdocker run --rm -it -p 443:7777 -p 8181:8181 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=443 -e ASPNETCORE_Kestrel__Certificates__Default__Password="thisIsForTestingOnly" -e ASPNETCORE_Kestrel__Certificates__Default__Path=./TestCert.pfx -v C:\Users\Elias\source\repos\QualityQuest\Saves:/app/ServerLogic/Properties/Persist --name=qqservercontainer qqserverimage

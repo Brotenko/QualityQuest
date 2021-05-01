@@ -184,3 +184,27 @@
   "LogLevel": 0,
   "LogOutPutType": 2
 }
+[2021-05-01 16:14:46] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 16:14:46] [0] INFO: Using wss: True.
+[2021-05-01 16:15:32] [0] DEBUG: WebSocket-connection to 172.17.0.1 established.
+[2021-05-01 16:15:32] [0] DEBUG: Received RequestOpenSession. Opened Session 2VWWCP for MC-d9a8494b-07ae-40d6-b020-50479c58a450.
+[2021-05-01 16:18:50] [0] DEBUG: ModeratorClientManager of MC-d9a8494b-07ae-40d6-b020-50479c58a450 is stopped.
+[2021-05-01 16:18:50] [0] DEBUG: Websocket-connection to 172.17.0.1 was closed by Moderator-Client.
+[2021-05-01 16:21:55] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 16:21:55] [0] INFO: Using wss: True.
+[2021-05-01 16:22:31] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 16:22:31] [0] INFO: Using wss: True.
+[2021-05-01 16:26:47] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 16:26:47] [0] INFO: Using wss: True.
+[2021-05-01 16:27:16] [0] DEBUG: WebSocket-connection to 172.17.0.1 established.
+[2021-05-01 16:27:41] [0] DEBUG: Received RequestOpenSession. Opened Session 9B5UQK for MC-7e5d078c-aa87-44c4-8607-b9a8f989d66c.
+[2021-05-01 16:30:40] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 16:30:40] [0] INFO: Using wss: True.
+[2021-05-01 16:30:57] [0] DEBUG: WebSocket-connection to 172.17.0.1 established.
+[2021-05-01 16:31:01] [0] DEBUG: Received RequestOpenSession. Opened Session 4KX5MZ for MC-617feb31-ea37-4c34-8894-db1ae6d211fe.
+[2021-05-01 16:32:14] [0] DEBUG: Received RequestGameStart.
+[2021-05-01 16:32:14] [0] DEBUG: Received RequestStartVoting.
+[2021-05-01 16:32:34] [0] DEBUG: Voting ended. Winning prompt is 'Noruso' with 0 votes.
+[2021-05-01 16:32:38] [0] DEBUG: Received RequestStartVoting.
+[2021-05-01 16:32:55] [0] DEBUG: ModeratorClientManager of MC-617feb31-ea37-4c34-8894-db1ae6d211fe is stopped.
+[2021-05-01 16:32:55] [0] DEBUG: Websocket-connection to 172.17.0.1 was closed by Moderator-Client.
