@@ -58,10 +58,10 @@ public class CharacterSelection : MonoBehaviour
     /// <param name="character">Character which has been selected for the game by the audience or by the moderator.</param>
     /// <param name="story">Script which contains the StoryGraph.</param> 
     /// <param name="statusBar">Script which updates skills, SkillChanges and the character image in the StatusBar.</param>
-    public void InitializeCharacter(Character character, GameStory story, DisplayStatusbar statusBar)
+    public void InitializeCharacter(Character character, StoryGraph storyGraph, DisplayStatusbar statusBar)
     {
-        story.playThrough.Character = character ;
-        statusBar.DisplaySkills(story.playThrough.Character.Abilities);
+        storyGraph.Character = character;
+        statusBar.DisplaySkills(storyGraph.Character.Abilities);
         statusBar.ShowStatusBar(true);
         statusBar.SetImage(character.Sprite);
     }
