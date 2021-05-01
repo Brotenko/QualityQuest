@@ -14,8 +14,6 @@ public class OnlineClientManager : MonoBehaviour
     [SerializeField]
     private ActiveScreenManager activeScreenManager;
     [SerializeField]
-    private GameStory gameStory;
-    [SerializeField]
     private DisplayStatusbar displayStatusBar;
     [SerializeField]
     private DisplayDecision displayDecision;
@@ -28,14 +26,9 @@ public class OnlineClientManager : MonoBehaviour
     [SerializeField]
     private GameBackground videoBackground;
     [SerializeField]
-    private VotingStatistics votingStatistics;
-    [SerializeField]
     private CharacterSelection characterSelection;
 
-    //private ClientLogic clientLogic;
-    private bool activeVoting;
-    private int votingTime;
-    private int debugVotingTime;
+    
 
     [SerializeField]
     private TMP_InputField ip;
@@ -44,13 +37,11 @@ public class OnlineClientManager : MonoBehaviour
     [SerializeField]
     private TMP_InputField password;
 
-    private string sessionKey;
-    private string url;
-    private Guid moderatorClientGuid;
+    private ClientLogic clientLogic;
 
     private void Awake()
     {
-        //clientLogic = new ClientLogic();
+        clientLogic = new ClientLogic(2);
     }
 
     private void Start()
@@ -63,21 +54,12 @@ public class OnlineClientManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Method that initializes all variables needed for the online mode.
-    /// </summary>
-    public void StartOnlineMode()
-    {
-        votingTime = 20;
-        debugVotingTime = 1;
-        votingStatistics ??= new VotingStatistics(new List<VotingResult>());
-    }
-
-    /// <summary>
     /// Method to start a connection with a WebSocket. Uses the InputFields for ip, port and password.
     /// Shows a errorMessage if one or more of the inputs are blank.
     /// </summary>
     public void Connect()
     {
+        /*
         if (ip.text != "" && port.text != "" && password.text != "")
         {
             qualityQuestWebSocket.StartConnection(ip.text, port.text);
@@ -85,7 +67,8 @@ public class OnlineClientManager : MonoBehaviour
         else
         {
             activeScreenManager.ShowErrorScreen("Ip, Port oder Passwort fehlt. Bitte neu versuchen oder im Offline-Modus fortfahren.");
-        }
+        } */
+        qualityQuestWebSocket.StartConnection("127.0.0.1", "8181");
     }
 
     /// <summary>
@@ -95,10 +78,9 @@ public class OnlineClientManager : MonoBehaviour
     public void ConnectionEstablished()
     {
         // Open new session
-        if (sessionKey == null)
+        if (clientLogic.SessionKey == null)
         {
-            moderatorClientGuid = Guid.NewGuid();
-            SendRequestSessionOpenedMessage();
+            SendRequestOpenSessionMessage();
         }
         // Reconnect 
         else
@@ -112,17 +94,15 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     public void SendReconnectMessage()
     {
-        var reconnectMessage = new ReconnectMessage(moderatorClientGuid);
-        qualityQuestWebSocket.SendMessage(reconnectMessage);
+        qualityQuestWebSocket.SendMessage(clientLogic.InitializeReconnectMessage());
     }
 
     /// <summary>
     /// Method to send a RequestSessionOpenedMessage.
     /// </summary>
-    public void SendRequestSessionOpenedMessage()
+    public void SendRequestOpenSessionMessage()
     {
-        var requestOpenSessionMessage = new RequestOpenSessionMessage(moderatorClientGuid, password.text);
-        qualityQuestWebSocket.SendMessage(requestOpenSessionMessage);
+        qualityQuestWebSocket.SendMessage(clientLogic.InitializeRequestOpenSessionMessage(password.text));
     }
 
     /// <summary>
@@ -130,9 +110,7 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     public void SendRequestGameStartMessage()
     {
-        Debug.Log("RequestGameStartMessage");
-        var requestGameStartMessage = new RequestGameStartMessage(moderatorClientGuid);
-        qualityQuestWebSocket.SendMessage(requestGameStartMessage);
+        qualityQuestWebSocket.SendMessage(clientLogic.InitializeRequestGameStartMessage());
     }
 
     /// <summary>
@@ -140,9 +118,8 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     public void SendRequestCloseSessionMessage()
     {
-        if (sessionKey == null) return;
-        var requestCloseSessionMessage = new RequestCloseSessionMessage(moderatorClientGuid, sessionKey);
-        qualityQuestWebSocket.SendMessage(requestCloseSessionMessage);
+        if (clientLogic.SessionKey == null) return;
+        qualityQuestWebSocket.SendMessage(clientLogic.InitializeRequestCloseSession());
     }
 
     /// <summary>
@@ -152,14 +129,7 @@ public class OnlineClientManager : MonoBehaviour
     /// <param name="gamePausedStatusMessage">The GamePausedStatusMessage.</param>
     public void ReceivedGamePausedStatusChange(GamePausedStatusMessage gamePausedStatusMessage)
     {
-        if (activeVoting)
-        {
-            activeScreenManager.ShowPauseMenu(url, sessionKey);
-        }
-        else
-        {
-            activeScreenManager.ShowPauseMenu(url, sessionKey);
-        }
+        activeScreenManager.ShowPauseMenu(clientLogic.Url, clientLogic.SessionKey);
     }
 
     /// <summary>
@@ -170,7 +140,7 @@ public class OnlineClientManager : MonoBehaviour
     public void ReceivedReconnectSuccessfulMessage(ReconnectSuccessfulMessage reconnectSuccessfulMessage)
     {
         GameState.gameIsOnline = true;
-        ContinueOnlineStory(gameStory.playThrough.CurrentEvent);
+        ContinueOnlineStory(clientLogic.StoryGraph.CurrentEvent);
     }
 
     /// <summary>
@@ -181,9 +151,8 @@ public class OnlineClientManager : MonoBehaviour
     public void ReceivedSessionOpenedMessage(SessionOpenedMessage sessionOpenedMessage)
     {
         GameState.gameIsOnline = true;
-        url = sessionOpenedMessage.DirectURL.ToString();
-        sessionKey = sessionOpenedMessage.SessionKey;
-        activeScreenManager.ShowQrCodePanel(sessionOpenedMessage.DirectURL.ToString(), sessionOpenedMessage.SessionKey);
+        clientLogic.SaveUrlAndSessionKey(sessionOpenedMessage);
+        activeScreenManager.ShowQrCodePanel(clientLogic.Url, clientLogic.SessionKey);
     }
 
     /// <summary>
@@ -203,7 +172,7 @@ public class OnlineClientManager : MonoBehaviour
     /// <param name="gameStartedMessage">The GameStartedMessage.</param>
     public void ReceivedGameStartedMessage(GameStartedMessage gameStartedMessage)
     {
-        ContinueOnlineStory(gameStory.playThrough.CurrentEvent);
+        ContinueOnlineStory(clientLogic.StoryGraph.CurrentEvent);
     }
 
     /// <summary>
@@ -215,44 +184,81 @@ public class OnlineClientManager : MonoBehaviour
     /// <param name="votingEndedMessage">The VotingEndedMessage.</param>
     public void ReceivedVotingEndedMessage(VotingEndedMessage votingEndedMessage)
     {
-        activeVoting = false;
-        var currentEvent = gameStory.playThrough.CurrentEvent;
+        // delete old click listeners
+        displayDecision.RemoveOnlineDecisionListeners();
 
+        clientLogic.ActiveVoting = false;
+
+        var currentEvent = clientLogic.StoryGraph.CurrentEvent;
+        
         try
         {
             // validate the received message.
             ValidateVotingEndedMessage(currentEvent, votingEndedMessage.VotingResults);
             // save voting statistic
-            SaveStatistics(currentEvent.Description, currentEvent.Children, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes);
+            clientLogic.SaveStatistics(currentEvent.Description, currentEvent.Children, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes);
 
+            var currentEventChildren = clientLogic.StoryGraph.CurrentEvent.Children.ToList();
 
-            var currentEventChildren = gameStory.playThrough.CurrentEvent.Children.ToList();
+            activeScreenManager.ShowResults();
+            result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes, votingEndedMessage.WinningOption);
 
-            if (currentEvent.StoryType.Equals(StoryEventType.StoryRootEvent))
+            // Activate results screen and loads the results. Activates click listeners for option one and two.
+            if (currentEventChildren.Count >= 2)
             {
-                OnlineModePickInitializeChar(currentEvent, currentEventChildren, votingEndedMessage);
-            }
-            else
+                displayDecision.selectOnlineA.onClick.AddListener(delegate
+                {
+                    if (currentEvent.StoryType.Equals(StoryEventType.StoryDecision))
+                    {
+                        ContinueOnlineStory(currentEventChildren[0]);
+                    }
+                    else 
+                    { 
+                        PickNoruso();
+                    }
+                        
+                });
+                displayDecision.selectOnlineB.onClick.AddListener(delegate 
+                { 
+                    if (currentEvent.StoryType.Equals(StoryEventType.StoryDecision)) 
+                    { 
+                        ContinueOnlineStory(currentEventChildren[1]);
+                    }
+                    else 
+                    { 
+                        PickLumati();
+                    }
+                });
+            } 
+            // Activates the click listener for option 3
+            if (currentEventChildren.Count >= 3)
             {
-                // Activate results screen and loads the results. Activates click listeners for option one and two.
-                if (currentEventChildren.Count >= 2)
+                displayDecision.selectOnlineC.onClick.AddListener(delegate 
                 {
-                    activeScreenManager.ShowResults();
-                    result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults,
-                        votingEndedMessage.TotalVotes, votingEndedMessage.WinningOption);
-                    displayDecision.selectOnlineA.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[0]); });
-                    displayDecision.selectOnlineB.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[1]); });
-                }
-                // Activates the click listener for option 3
-                if (currentEventChildren.Count >= 3)
+                    if (currentEvent.StoryType.Equals(StoryEventType.StoryDecision)) 
+                    { 
+                        ContinueOnlineStory(currentEventChildren[2]);
+                    }
+                    else 
+                    { 
+                        PickTurgal();
+                    }
+                });
+            } 
+            // Activates the click listener for option 4
+            if (currentEventChildren.Count >= 4) 
+            {
+                displayDecision.selectOnlineD.onClick.AddListener(delegate
                 {
-                    displayDecision.selectOnlineC.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[2]); });
-                }
-                // Activates the click listener for option 4
-                if (currentEventChildren.Count >= 4)
-                {
-                    displayDecision.selectOnlineD.onClick.AddListener(delegate { ContinueOnlineStory(currentEventChildren[3]); });
-                }
+                    if (currentEvent.StoryType.Equals(StoryEventType.StoryDecision))
+                    {
+                        ContinueOnlineStory(currentEventChildren[3]);
+                    }
+                    else
+                    {
+                        PickKirogh();
+                    }
+                });
             }
         }
         catch (WrongVotingEndedMessage e)
@@ -261,41 +267,6 @@ public class OnlineClientManager : MonoBehaviour
             Debug.Log("Switch to offline mode.");
             SwitchModes();
         }
-    }
-
-    /// <summary>
-    /// Method to display the result of the CharacterSelection after a VotingEndedMessage.
-    /// Sets the clickListeners for the individual characters.
-    /// </summary>
-    /// <param name="currentEvent">The current StoryEvent.</param>
-    /// <param name="currentEventChildren">The children of the current StoryEvent.</param>
-    /// <param name="votingEndedMessage">The VotingEndedMessage.</param>
-    private void OnlineModePickInitializeChar(StoryEvent currentEvent, List<StoryEvent> currentEventChildren, VotingEndedMessage votingEndedMessage)
-    {
-        activeScreenManager.ShowResults();
-        result.LoadResult(currentEvent, currentEventChildren, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes, votingEndedMessage.WinningOption);
-        displayDecision.selectOnlineA.onClick.AddListener(PickNoruso);
-        displayDecision.selectOnlineB.onClick.AddListener(PickLumati);
-        displayDecision.selectOnlineC.onClick.AddListener(PickTurgal);
-        displayDecision.selectOnlineD.onClick.AddListener(PickKirogh);
-    }
-
-    /// <summary>
-    /// Method to save the voting statistic.
-    /// </summary>
-    /// <param name="votingPrompt">The current votingPrompt.</param>
-    /// <param name="votingOptions">The votingOptions of the current votingPrompt.</param>
-    /// <param name="votingResults">The result of the voting.</param>
-    /// <param name="totalVotes">The total number of votes.</param>
-    private void SaveStatistics(string votingPrompt, HashSet<StoryEvent> votingOptions, Dictionary<Guid, int> votingResults, int totalVotes)
-    {
-        var voting = new VotingResult(votingPrompt, totalVotes, new Dictionary<string, int>());
-
-        foreach (var storyEvent in votingOptions)
-        {
-            voting.VotingOptions.Add(storyEvent.Description, votingResults[storyEvent.EventId]);
-        }
-        votingStatistics.Statistic.Add(voting);
     }
 
     /// <summary>
@@ -318,13 +289,14 @@ public class OnlineClientManager : MonoBehaviour
     /// <param name="storyEvent">The next StoryEvent.</param>
     public void ContinueOnlineStory(StoryEvent storyEvent)
     {
+        Debug.Log("Current Event: " + storyEvent.Description);
         displayDecision.RemoveOnlineDecisionListeners();
-        gameStory.SetCurrentEvent(storyEvent);
+        clientLogic.StoryGraph.SetCurrentEvent(storyEvent);
         
         if (storyEvent.SkillChange != null)
         {
-            gameStory.playThrough.Character.Abilities.updateAbilities(storyEvent.SkillChange);
-            displayStatusBar.DisplaySkills(gameStory.playThrough.Character.Abilities);
+            clientLogic.StoryGraph.Character.Abilities.updateAbilities(storyEvent.SkillChange);
+            displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
             displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
         }
 
@@ -350,39 +322,24 @@ public class OnlineClientManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Method to continue the story with a StoryFlowDecisionOption.
-    /// If the StoryEvent is a RandomEvent, the story will be continued with a random StoryEvent.
-    /// Continues the story in offline or online mode, depending on the state of the game.
-    /// </summary>
-    /// <param name="currentEvent">The current StoryEvent.</param>
-    private void ContinueDecisionOption(StoryEvent currentEvent)
+    public void ContinueDecisionOption(StoryEvent currentEvent)
     {
-        switch (currentEvent.Children.Count())
+        // Display dice animation if its a random event
+        if (currentEvent.Children.Count > 1)
         {
-            case 1:
-                if (GameState.gameIsOnline)
-                {
-                    ContinueOnlineStory(currentEvent.Children.First());
-                }
-                else
-                {
-                    ContinueOfflineStory(currentEvent.Children.First());
-                }
-                break;
-            default:
-                if (GameState.gameIsOnline)
-                {
-                    ContinueOnlineStory(gameStory.GetRandomOption(displayStatusBar));
-                }
-                else
-                {
-                    ContinueOfflineStory(gameStory.GetRandomOption(displayStatusBar));
-                }
-                break;
+            displayStatusBar.DisplayDice(3);
+        }
+
+        if (GameState.gameIsOnline)
+        {
+            ContinueOnlineStory(clientLogic.ContinueDecision(clientLogic.StoryGraph));
+        }
+        else
+        {
+            ContinueOfflineStory(clientLogic.ContinueDecision(clientLogic.StoryGraph));
         }
     }
-
+    
     /// <summary>
     /// Method to continue the story with a StoryFlowDecision if the game is in online mode.
     /// Activates the decisionPanel and sends the RequestStartVotingMessage.
@@ -401,20 +358,9 @@ public class OnlineClientManager : MonoBehaviour
             activeScreenManager.ShowCharacterSelection();
         }
 
-        var children = currentEvent.Children.ToList();
-        displayDecision.LoadDecision(currentEvent, children);
+        displayDecision.LoadDecision(currentEvent, currentEvent.Children.ToList());
 
-        var requestStartVotingMessage = new RequestStartVotingMessage(moderatorClientGuid, votingTime, new KeyValuePair<Guid, string>(), new KeyValuePair<Guid, string>[currentEvent.Children.Count])
-        {
-            VotingPrompt = new KeyValuePair<Guid, string>(currentEvent.EventId, currentEvent.Description)
-        };
-
-        // start Voting
-        for (var i = 0; i < children.Count; i++)
-        {
-            requestStartVotingMessage.VotingOptions[i] = new KeyValuePair<Guid, string>(children[i].EventId, children[i].Description);
-        }
-        qualityQuestWebSocket.SendMessage(requestStartVotingMessage);
+        qualityQuestWebSocket.SendMessage(clientLogic.InitializeRequestStartVotingMessage(currentEvent));
     }
 
     /// <summary>
@@ -451,7 +397,7 @@ public class OnlineClientManager : MonoBehaviour
                 {
                     SendRequestCloseSessionMessage();
                     activeScreenManager.ShowStatistics();
-                    displayStatistics.DisplayAllDecisions(votingStatistics);
+                    displayStatistics.DisplayAllDecisions(clientLogic.VotingStatistic);
                 }
             });
         }
@@ -463,31 +409,25 @@ public class OnlineClientManager : MonoBehaviour
     /// <param name="votingStartedMessage">The VotingStartedMessage.</param>
     public void ReceivedVotingStartedMessage(VotingStartedMessage votingStartedMessage)
     {
-        activeVoting = true;
-        displayStatusBar.DisplayTimer(votingTime);
+        clientLogic.ActiveVoting = true;
+        displayStatusBar.DisplayTimer(clientLogic.VotingTime);
     }
 
     /// <summary>
     /// Method to request a game pause. Sends the RequestGamePause message and activates or disables the pause screen.
+    /// Is used by unity.
     /// </summary>
     public void RequestGamePause()
     {
-        if (activeVoting)
+        if (clientLogic.ActiveVoting)
         {
-            if (!ActiveScreenManager.paused)
-            {
-                var requestGamePausedStatusChangeMessage = new RequestGamePausedStatusChangeMessage(moderatorClientGuid, true);
-                qualityQuestWebSocket.SendMessage(requestGamePausedStatusChangeMessage);
-            }
-            else
-            {
-                var requestGamePausedStatusChangeMessage = new RequestGamePausedStatusChangeMessage(moderatorClientGuid, false);
-                qualityQuestWebSocket.SendMessage(requestGamePausedStatusChangeMessage);
-            }
+            qualityQuestWebSocket.SendMessage(!ActiveScreenManager.paused
+                ? clientLogic.InitializeRequestGamePausedStatusChangeMessage(true)
+                : clientLogic.InitializeRequestGamePausedStatusChangeMessage(false));
         }
         else
         {
-            activeScreenManager.ShowPauseMenu(url, sessionKey);
+            activeScreenManager.ShowPauseMenu(clientLogic.Url, clientLogic.SessionKey);
         }
     }
 
@@ -499,6 +439,7 @@ public class OnlineClientManager : MonoBehaviour
     /// <param name="errorCode">The errorCode of the close reason.</param>
     public void ServerIssues(int errorCode)
     {
+        // TODO: Fix pw issue
         switch (errorCode)
         {
             case 1000:
@@ -525,21 +466,22 @@ public class OnlineClientManager : MonoBehaviour
             case ErrorType.IllegalMessage:
                 break;
             case ErrorType.IllegalPauseAction:
+                //TODO: implement
                 break;
             case ErrorType.GuidAlreadyExists:
-                moderatorClientGuid = Guid.NewGuid();
-                SendRequestSessionOpenedMessage();
+                clientLogic.SetNewModeratorClientGuid();
+                SendRequestOpenSessionMessage();
                 break;
             case ErrorType.UnknownGuid:
-                moderatorClientGuid = Guid.NewGuid();
-                SendRequestSessionOpenedMessage();
+                clientLogic.SetNewModeratorClientGuid();
+                SendRequestOpenSessionMessage();
                 break;
             case ErrorType.WrongPassword:
                 activeScreenManager.ShowErrorScreen("Passwort ist falsch. Bitte erneut versuchen oder im Offline-Modus fortfahren.");
                 break;
             case ErrorType.WrongSession:
-                moderatorClientGuid = Guid.NewGuid();
-                SendRequestSessionOpenedMessage();
+                clientLogic.SetNewModeratorClientGuid();
+                SendRequestOpenSessionMessage();
                 break;
             default:
                 break;
@@ -551,11 +493,12 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     public void SwitchModes()
     {
+        // TODO: Pause button
         Debug.Log("Switch modes:" + GameState.gameIsOnline);
         if (GameState.gameIsOnline)
         {
             GameState.gameIsOnline = false;
-            ContinueOfflineStory(gameStory.playThrough.CurrentEvent);
+            ContinueOfflineStory(clientLogic.StoryGraph.CurrentEvent);
         }
         else
         {
@@ -571,16 +514,16 @@ public class OnlineClientManager : MonoBehaviour
                         activeScreenManager.ShowConnection();
                         break;
                     case WebSocketState.Open:
-                        if (sessionKey == null)
+                        if (clientLogic.SessionKey == null)
                         {
                             GameState.gameIsOnline = true;
-                            SendRequestSessionOpenedMessage();
+                            SendRequestOpenSessionMessage();
                             activeScreenManager.ActivatePauseButton();
                         }
                         else
                         {
                             GameState.gameIsOnline = true;
-                            ContinueOnlineStory(gameStory.playThrough.CurrentEvent);
+                            ContinueOnlineStory(clientLogic.StoryGraph.CurrentEvent);
                         }
                         break;
                     case WebSocketState.Closing:
@@ -608,8 +551,8 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     public void PickNoruso()
     {
-        characterSelection.InitializeCharacter(characterSelection.noruso, gameStory, displayStatusBar);
-        var list = gameStory.playThrough.CurrentEvent.Children.ToList();
+        characterSelection.InitializeCharacter(characterSelection.noruso, clientLogic.StoryGraph, displayStatusBar);
+        var list = clientLogic.StoryGraph.CurrentEvent.Children.ToList();
         if (GameState.gameIsOnline)
         {
             ContinueOnlineStory(list[0]);
@@ -618,7 +561,6 @@ public class OnlineClientManager : MonoBehaviour
         {
             ContinueOfflineStory(list[0]);
         }
-
     }
 
     /// <summary>
@@ -626,8 +568,8 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     public void PickLumati()
     {
-        characterSelection.InitializeCharacter(characterSelection.lumati, gameStory, displayStatusBar);
-        var list = gameStory.playThrough.CurrentEvent.Children.ToList();
+        characterSelection.InitializeCharacter(characterSelection.lumati, clientLogic.StoryGraph, displayStatusBar);
+        var list = clientLogic.StoryGraph.CurrentEvent.Children.ToList();
         if (GameState.gameIsOnline)
         {
             ContinueOnlineStory(list[1]);
@@ -643,8 +585,8 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     public void PickTurgal()
     {
-        characterSelection.InitializeCharacter(characterSelection.turgal, gameStory, displayStatusBar);
-        var list = gameStory.playThrough.CurrentEvent.Children.ToList();
+        characterSelection.InitializeCharacter(characterSelection.turgal, clientLogic.StoryGraph, displayStatusBar);
+        var list = clientLogic.StoryGraph.CurrentEvent.Children.ToList();
         if (GameState.gameIsOnline)
         {
             ContinueOnlineStory(list[2]);
@@ -660,8 +602,8 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     public void PickKirogh()
     {
-        characterSelection.InitializeCharacter(characterSelection.kirogh, gameStory, displayStatusBar);
-        var list = gameStory.playThrough.CurrentEvent.Children.ToList();
+        characterSelection.InitializeCharacter(characterSelection.kirogh, clientLogic.StoryGraph, displayStatusBar);
+        var list = clientLogic.StoryGraph.CurrentEvent.Children.ToList();
         if (GameState.gameIsOnline)
         {
             ContinueOnlineStory(list[3]);
@@ -679,13 +621,13 @@ public class OnlineClientManager : MonoBehaviour
     /// <param name="storyEvent">The next StoryEvent.</param>
     public void ContinueOfflineStory(StoryEvent storyEvent)
     {
-        gameStory.SetCurrentEvent(storyEvent);
-        Debug.Log("Current Event: " + gameStory.playThrough.CurrentEvent.Description);
+        clientLogic.StoryGraph.SetCurrentEvent(storyEvent);
+        Debug.Log("Current Event: " + clientLogic.StoryGraph.CurrentEvent.Description);
 
         if (storyEvent.SkillChange != null)
         {
-            gameStory.playThrough.Character.Abilities.updateAbilities(storyEvent.SkillChange);
-            displayStatusBar.DisplaySkills(gameStory.playThrough.Character.Abilities);
+            clientLogic.StoryGraph.Character.Abilities.updateAbilities(storyEvent.SkillChange);
+            displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
             displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
         }
 
