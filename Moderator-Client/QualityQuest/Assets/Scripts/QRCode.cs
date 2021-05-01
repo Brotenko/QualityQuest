@@ -69,6 +69,8 @@ public class QRCode : MonoBehaviour
                     pausePanel.GetComponent<RawImage>().texture = encoded;
                 }
                 break;
+            default:
+                break;
         }
     }
 }
