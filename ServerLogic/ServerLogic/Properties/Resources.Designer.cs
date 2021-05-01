@@ -336,5 +336,12 @@ namespace ServerLogic.Properties {
                 return ResourceManager.GetString("StartupMessage", resourceCulture);
             }
         }
+
+        internal static string ServerParamsFilePath {
+            get
+            {
+                return ResourceManager.GetString("ServerParamsFilePath", resourceCulture);
+            }
+        }
     }
 }

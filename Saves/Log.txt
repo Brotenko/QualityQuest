@@ -60,3 +60,127 @@
   "LogLevel": 0,
   "LogOutPutType": 2
 }
+[2021-05-01 10:01:00] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 10:01:00] [0] INFO: Using wss: True.
+[2021-05-01 10:01:10] [1] INFO: LogLevel was set to 1.
+[2021-05-01 10:01:19] [1] WARNING: {
+  "ServerURL": "127.0.0.1",
+  "PAWebPagePort": 443,
+  "MCWebSocketPort": "80",
+  "CertFilePath": "TestCert.pfx",
+  "CertPW": "thisIsForTestingOnly",
+  "PWHash": "",
+  "Salt": "",
+  "LogLevel": 1,
+  "LogOutPutType": 2
+}
+[2021-05-01 10:02:04] [1] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 10:02:04] [1] INFO: Using wss: True.
+[2021-05-01 10:04:25] [1] WARNING: {
+  "ServerURL": "127.0.0.1",
+  "PAWebPagePort": 443,
+  "MCWebSocketPort": "80",
+  "CertFilePath": "TestCert.pfx",
+  "CertPW": "thisIsForTestingOnly",
+  "PWHash": "",
+  "Salt": "",
+  "LogLevel": 1,
+  "LogOutPutType": 2
+}
+[2021-05-01 10:05:36] [0] INFO: Website started on localhost:443 and WebSocket on 80
+[2021-05-01 10:05:36] [0] INFO: Using wss: True.
+[2021-05-01 10:06:05] [0] DEBUG: WebSocket-connection to 172.17.0.1 established.
+[2021-05-01 10:06:05] [0] DEBUG: Connection cancel: 
+{"ErrorMessageType":0,"ErrorMessageText":"","ModeratorID":"8aa81316-3838-4921-93f4-265abe6516d9","Type":12,"CreationDate":"2021-05-01T10:06:05.8621112+00:00"}
+[2021-05-01 10:06:05] [0] DEBUG: Socket is closed by Server.
+[2021-05-01 10:06:05] [0] DEBUG: ModeratorClientManager of MC-8aa81316-3838-4921-93f4-265abe6516d9 is stopped.
+[2021-05-01 10:06:05] [0] DEBUG: Websocket-connection to 172.17.0.1 was closed by Moderator-Client.
+[2021-05-01 10:11:26] [0] WARNING: {
+  "ServerURL": "localhost",
+  "PAWebPagePort": 443,
+  "MCWebSocketPort": "80",
+  "CertFilePath": "TestCert.pfx",
+  "CertPW": "thisIsForTestingOnly",
+  "PWHash": "",
+  "Salt": "",
+  "LogLevel": 0,
+  "LogOutPutType": 2
+}
+[2021-05-01 10:14:50] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 10:14:50] [0] INFO: Using wss: True.
+[2021-05-01 10:19:28] [0] DEBUG: WebSocket-connection to 172.17.0.1 established.
+[2021-05-01 10:19:29] [0] DEBUG: Received RequestOpenSession. Opened Session 9I2I13 for MC-fc55c2db-9dea-4738-880b-80a4e03ed9df.
+[2021-05-01 10:38:18] [0] WARNING: {
+  "ServerURL": "127.0.0.1",
+  "PAWebPagePort": 443,
+  "MCWebSocketPort": "80",
+  "CertFilePath": "TestCert.pfx",
+  "CertPW": "thisIsForTestingOnly",
+  "PWHash": "ee4562fc4bb6275663f8de08f08b691131a5865e03447734fbd620aa1207307a",
+  "Salt": "UCeQj2obyj5EoJ2S",
+  "LogLevel": 0,
+  "LogOutPutType": 2
+}
+[2021-05-01 10:45:09] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 10:45:09] [0] INFO: Using wss: True.
+[2021-05-01 10:45:14] [0] DEBUG: WebSocket-connection to 172.17.0.1 established.
+[2021-05-01 10:45:17] [0] DEBUG: Received RequestOpenSession. Opened Session YO1I1C for MC-52720133-04a3-4a2a-a13b-66a6ec45ff12.
+[2021-05-01 10:47:18] [0] WARNING: {
+  "ServerURL": "127.0.0.1",
+  "PAWebPagePort": 443,
+  "MCWebSocketPort": "80",
+  "CertFilePath": "TestCert.pfx",
+  "CertPW": "thisIsForTestingOnly",
+  "PWHash": "625ea69bc157391a4d54bac01b0c68664183b570992b0d61eea8692a64238585",
+  "Salt": "LmVYmwFcUNtnRRKK",
+  "LogLevel": 0,
+  "LogOutPutType": 2
+}
+[2021-05-01 10:48:06] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 10:48:06] [0] INFO: Using wss: True.
+[2021-05-01 10:49:10] [0] WARNING: {
+  "ServerURL": "127.0.0.1",
+  "PAWebPagePort": 443,
+  "MCWebSocketPort": "80",
+  "CertFilePath": "TestCert.pfx",
+  "CertPW": "thisIsForTestingOnly",
+  "PWHash": "6d25f69d190bfd3f5f9f49fd475a65c36cab51222a1e11afa5206e1d57fcc40c",
+  "Salt": "8BC1V6ByZOIUArKy",
+  "LogLevel": 0,
+  "LogOutPutType": 2
+}
+[2021-05-01 10:52:51] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 10:52:51] [0] INFO: Using wss: True.
+[2021-05-01 10:55:47] [0] WARNING: {
+  "ServerURL": "127.0.0.1",
+  "PAWebPagePort": 443,
+  "MCWebSocketPort": "80",
+  "CertFilePath": "TestCert.pfx",
+  "CertPW": "thisIsForTestingOnly",
+  "PWHash": "3f8f62e9e0f38425a34bae2a2dab7ba9cf0f8b1c3f56f40343fb8038b8e8574e",
+  "Salt": "1bG19SxevvMu2QOk",
+  "LogLevel": 0,
+  "LogOutPutType": 2
+}
+[2021-05-01 10:56:52] [0] WARNING: {
+  "ServerURL": "127.0.0.1",
+  "PAWebPagePort": 443,
+  "MCWebSocketPort": "80",
+  "CertFilePath": "TestCert.pfx",
+  "CertPW": "thisIsForTestingOnly",
+  "PWHash": "b215f53d6fede44a5c0a325f20fc153fd4424fb3f0af7d1ba30f3ef94138c5d6",
+  "Salt": "m7PtokG5Ui1w5Wix",
+  "LogLevel": 0,
+  "LogOutPutType": 2
+}
+[2021-05-01 10:57:21] [0] WARNING: {
+  "ServerURL": "127.0.0.1",
+  "PAWebPagePort": 443,
+  "MCWebSocketPort": "80",
+  "CertFilePath": "TestCert.pfx",
+  "CertPW": "thisIsForTestingOnly",
+  "PWHash": "b215f53d6fede44a5c0a325f20fc153fd4424fb3f0af7d1ba30f3ef94138c5d6",
+  "Salt": "m7PtokG5Ui1w5Wix",
+  "LogLevel": 0,
+  "LogOutPutType": 2
+}

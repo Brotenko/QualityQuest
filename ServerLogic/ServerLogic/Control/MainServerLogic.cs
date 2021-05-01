@@ -49,7 +49,7 @@ namespace ServerLogic.Control
         /// </summary>
         public void Start()
         {
-            FleckLog.Level = LogLevel.Warn;
+            //FleckLog.Level = LogLevel.Warn;
             _server = new WebSocketServer($"wss:{Settings.Default.DockerUrl}:80");
             //_server = new WebSocketServer($"wss:{Settings.Default.DockerUrl}:80");
             _server.EnabledSslProtocols = SslProtocols.Tls12;

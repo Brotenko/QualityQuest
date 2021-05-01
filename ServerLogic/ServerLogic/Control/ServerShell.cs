@@ -61,12 +61,12 @@ namespace ServerLogic.Control
 
                 if (count < 3)
                 {
-                    throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
+                    throw new ArgumentException(message: Resources.InvalidPasswordExceptionMessage);
                 }
             }
             else
             {
-                throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
+                throw new ArgumentException(message: Resources.InvalidPasswordExceptionMessage);
             }
 
             return password;
@@ -190,28 +190,34 @@ namespace ServerLogic.Control
         /// </summary>
         private void RunShell()
         {
-            ServerParams serverParams = new ServerParams();
-            using (StreamReader r = new StreamReader("ServerLogic/Properties/serverParams.json"))
-            {
-                string json = r.ReadToEnd();
-                serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
-            }
-            Settings.Default.ServerURL = serverParams.ServerURL;
-            Settings.Default.PAWebPagePort = serverParams.PAWebPagePort;
-            Settings.Default.MCWebSocketPort = serverParams.MCWebSocketPort;
-            Settings.Default.CertFilePath = serverParams.CertFilePath;
-            Settings.Default.CertPW = serverParams.CertPW;
-            Settings.Default.PWHash = serverParams.PWHash;
-            Settings.Default.Salt = serverParams.Salt;
-            Settings.Default.LogLevel = serverParams.LogLevel;
-            Settings.Default.LogOutPutType = serverParams.LogOutPutType;
-            Settings.Default.Save();
-            Console.WriteLine(Properties.Resources.StartupMessage);
-
             if (!_isDebug)
             {
+                ServerParams serverParams = new ServerParams();
+                //todo extract path to resource file (logFilePath too)
+                using (StreamReader r = new StreamReader(Resources.ServerParamsFilePath))
+                {
+                    string json = r.ReadToEnd();
+                    serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
+                }
+                Settings.Default.ServerURL = serverParams.ServerURL;
+                Settings.Default.PAWebPagePort = serverParams.PAWebPagePort;
+                Settings.Default.MCWebSocketPort = serverParams.MCWebSocketPort;
+                Settings.Default.CertFilePath = serverParams.CertFilePath;
+                Settings.Default.CertPW = serverParams.CertPW;
+                Settings.Default.PWHash = serverParams.PWHash;
+                Settings.Default.Salt = serverParams.Salt;
+                Settings.Default.LogLevel = serverParams.LogLevel;
+                Settings.Default.LogOutPutType = serverParams.LogOutPutType;
+                Settings.Default.Save();
+                Console.WriteLine(Resources.StartupMessage);
+
                 while (true)
                 {
+                    if (Settings.Default.PWHash.Equals(""))
+                    {
+                        Console.WriteLine("Password hasn't been set yet.");
+                        SetPasswordDialog();
+                    }
                     Console.Write(value: "qq >> ");
                     string command = Console.ReadLine();
 
@@ -237,9 +243,10 @@ namespace ServerLogic.Control
             serverParams.LogLevel = Settings.Default.LogLevel;
             serverParams.LogOutPutType = Settings.Default.LogOutPutType;
             string json = JsonConvert.SerializeObject(serverParams, Formatting.Indented);
-            ServerLogger.LogWarning(json);
-            using var streamWriter = new StreamWriter("ServerLogic/Properties/Persist/serverParams.json");
+            //todo extract path to resource file
+            using var streamWriter = new StreamWriter(Properties.Resources.ServerParamsFilePath);
             streamWriter.WriteLine(json);
+            streamWriter.Close();
             Environment.Exit(exitCode: 0);
         }
 
