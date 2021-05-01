@@ -208,3 +208,17 @@
 [2021-05-01 16:32:38] [0] DEBUG: Received RequestStartVoting.
 [2021-05-01 16:32:55] [0] DEBUG: ModeratorClientManager of MC-617feb31-ea37-4c34-8894-db1ae6d211fe is stopped.
 [2021-05-01 16:32:55] [0] DEBUG: Websocket-connection to 172.17.0.1 was closed by Moderator-Client.
+[2021-05-01 16:53:28] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 16:53:28] [0] INFO: Using wss: True.
+[2021-05-01 16:54:06] [0] DEBUG: WebSocket-connection to 172.17.0.1 established.
+[2021-05-01 16:54:06] [0] DEBUG: Received RequestOpenSession. Opened Session 34J63I for MC-1a3db370-95da-4cdb-8474-ec8357050280.
+[2021-05-01 16:54:39] [0] DEBUG: ModeratorClientManager of MC-1a3db370-95da-4cdb-8474-ec8357050280 is stopped.
+[2021-05-01 16:54:39] [0] DEBUG: Websocket-connection to 172.17.0.1 was closed by Moderator-Client.
+[2021-05-01 17:01:00] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 17:01:00] [0] INFO: Using wss: True.
+[2021-05-01 17:03:05] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 17:03:05] [0] INFO: Using wss: True.
+[2021-05-01 17:10:46] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 17:10:46] [0] INFO: Using wss: True.
+[2021-05-01 17:18:33] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-01 17:18:33] [0] INFO: Using wss: True.

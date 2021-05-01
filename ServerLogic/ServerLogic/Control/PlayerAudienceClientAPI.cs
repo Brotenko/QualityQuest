@@ -18,8 +18,9 @@ namespace ServerLogic.Control
         /// <summary>
         /// A flag that determines if the server is currently running or not.
         /// </summary>
-        public bool ServerIsActive { 
-            get; private set; 
+        public bool ServerIsActive
+        {
+            get; private set;
         }
 
         /// <summary>
@@ -40,21 +41,14 @@ namespace ServerLogic.Control
         /// <param name="port">The port of the PlayerAudience-Client host.</param>
         public void StartServer(int port)
         {
-            if (port >= 1024 && port <= 65535)
+            if (ServerIsActive == false)
             {
-                if (ServerIsActive == false)
-                {
-                    ServerIsActive = true;
-                    _pABackend = new PABackend(port, Settings.Default.DockerUrl);
-                }
-                else
-                {
-                    throw new InvalidOperationException(message: "The server is already running and can't be started right now!");
-                }
+                ServerIsActive = true;
+                _pABackend = new PABackend(port, Settings.Default.DockerUrl);
             }
             else
             {
-                throw new ArgumentException(message: "The given port is not in the valid range (1024-65535).");
+                throw new InvalidOperationException(message: "The server is already running and can't be started right now!");
             }
         }
 

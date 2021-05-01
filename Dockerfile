@@ -1,10 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine
 WORKDIR /app
 EXPOSE 80
-EXPOSE 7777
+EXPOSE 443
 COPY ServerLogic/ ./
 RUN dotnet publish ./ServerLogic.sln -c Release -o build --self-contained=false
-#CMD ["dotnet", "./build/ServerLogic.dll", "!Password123#", "7777"]
 ENTRYPOINT ["dotnet", "./build/ServerLogic.dll"]
 #CMD ["cp", "ServerLogic/Properties/Log.txt", "ServerLogic/Properties/Persist/Log.txt"]
 
@@ -25,4 +24,4 @@ ENTRYPOINT ["dotnet", "./build/ServerLogic.dll"]
 # 'docker container attach Containername'
 
 # Exports logs to local machine
-#docker run --rm -it -p 443:7777 -p 8181:8181 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=443 -e ASPNETCORE_Kestrdocker run --rm -it -p 443:7777 -p 8181:8181 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=443 -e ASPNETCORE_Kestrel__Certificates__Default__Password="thisIsForTestingOnly" -e ASPNETCORE_Kestrel__Certificates__Default__Path=./TestCert.pfx -v C:\Users\Elias\source\repos\QualityQuest\Saves:/app/ServerLogic/Properties/Persist --name=qqservercontainer qqserverimage
+#docker run --rm -it -p 443:7777 -p 8181:8181 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=443 -e ASPNETCORE_Kestrdocker run --rm -it -p 443:7777 -p 8181:8181 -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=443 -e ASPNETCORE_Kestrel__Certificates__Default__Password="thisIsForTestingOnly" -e ASPNETCORE_Kestrel__Certificates__Default__Path=./TestCert.pfx -v C:($pwd)\QualityQuest\Saves:/app/ServerLogic/Properties/Persist --name=qqservercontainer qqserverimage

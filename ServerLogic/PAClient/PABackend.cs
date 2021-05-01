@@ -599,7 +599,7 @@ namespace PAClient
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("https:"+ _dockerUrl + port + "/");
+                    webBuilder.UseUrls("https:"+ _dockerUrl +":"+ port + "/");
                 });
     }
 }

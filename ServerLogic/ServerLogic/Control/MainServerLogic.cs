@@ -49,12 +49,12 @@ namespace ServerLogic.Control
         /// </summary>
         public void Start()
         {
-            //FleckLog.Level = LogLevel.Warn;
+            FleckLog.Level = LogLevel.Warn;
             _server = new WebSocketServer($"wss:{Settings.Default.DockerUrl}:80");
             //_server = new WebSocketServer($"wss:{Settings.Default.DockerUrl}:80");
             _server.EnabledSslProtocols = SslProtocols.Tls12;
             _server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, Settings.Default.CertPW);
-            _playerAudienceClientApi.StartServer(7777);
+            _playerAudienceClientApi.StartServer(443);
             StartWebsocket();
             _checkForInactiveSessionsTimer.Start();
             ServerLogger.LogInformation($"Website started on {Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
