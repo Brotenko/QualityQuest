@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 /// <summary>
@@ -9,6 +12,7 @@ using UnityEngine.UI;
 /// </summary>
 public class DisplayStatusbar : MonoBehaviour
 {
+
     /// <summary>
     /// UI elements which can be hidden during some parts of the game.
     /// </summary>
@@ -48,12 +52,27 @@ public class DisplayStatusbar : MonoBehaviour
     public float skillHideTimerDuration = 5;
 
     /// <summary>
+    /// Parameter which are used for calling the UpdateSkillChanges method with a delay
+    /// </summary>
+    public float updateSkillChangeDelay;
+    public Skills skillChangeDelayedSkills;
+
+    /// <summary>
     /// Updates the image of the Character in the StatusBar.
     /// </summary>
     /// <param name="sprite">Image of the Selected Character.</param>
     public void SetImage(Sprite sprite)
     {
         characterImage.sprite = sprite;
+    }
+
+    /// <summary>
+    /// Calls the UpdateSkillChange method with a delay
+    /// </summary>
+    public void UpdateSkillChangesDelayed(Skills skills,float delay)
+    {
+        updateSkillChangeDelay = delay;
+        skillChangeDelayedSkills = skills;
     }
 
     /// <summary>
@@ -158,11 +177,21 @@ public class DisplayStatusbar : MonoBehaviour
     /// </summary>
     public void Update()
     {
+        // Shows skill changes with a delay
+        if (updateSkillChangeDelay > 0)
+        {
+            updateSkillChangeDelay -= Time.deltaTime;
+            if (updateSkillChangeDelay <= 0)
+            {
+                UpdateSkillChanges(skillChangeDelayedSkills);
+            }
+        }
+
         // Hides programming SkillChange when timer hits 0.
         if (programmingSkillChangeTimer > 0)
         {
             programmingSkillChangeTimer -= Time.deltaTime;
-            if(programmingSkillChangeTimer < 0)
+            if(programmingSkillChangeTimer <= 0)
             {
                 skillChangeProgramming.gameObject.SetActive(false);
             }
@@ -172,7 +201,7 @@ public class DisplayStatusbar : MonoBehaviour
         if (communicationSkillChangeTimer > 0)
         {
             communicationSkillChangeTimer -= Time.deltaTime;
-            if(communicationSkillChangeTimer < 0)
+            if(communicationSkillChangeTimer <= 0)
             {
                 skillChangeCommunication.gameObject.SetActive(false);
             }
@@ -182,7 +211,7 @@ public class DisplayStatusbar : MonoBehaviour
         if (analyticsSkillChangeTimer > 0)
         {
             analyticsSkillChangeTimer -= Time.deltaTime;
-            if(analyticsSkillChangeTimer < 0)
+            if(analyticsSkillChangeTimer <= 0)
             {
                 skillChangeAnalytics.gameObject.SetActive(false);
             }
@@ -192,7 +221,7 @@ public class DisplayStatusbar : MonoBehaviour
         if (partySkillChangeTimer > 0)
         {
             partySkillChangeTimer -= Time.deltaTime;
-            if(partySkillChangeTimer < 0)
+            if(partySkillChangeTimer <= 0)
             {
                 skillChangeParty.gameObject.SetActive(false);
             }
@@ -202,7 +231,7 @@ public class DisplayStatusbar : MonoBehaviour
         if (diceTimer > 0)
         {
             diceTimer -= Time.deltaTime;
-            if (diceTimer < 0)
+            if (diceTimer <= 0)
             {
                 dice.gameObject.SetActive(false);
             }
@@ -215,7 +244,7 @@ public class DisplayStatusbar : MonoBehaviour
             {
                 decisionTimer -= Time.deltaTime;
                 decisionTimerTime.text = ((int) decisionTimer).ToString();
-                if (decisionTimer < 0)
+                if (decisionTimer <= 0)
                 {
                     decision.gameObject.SetActive(false);
                 }
