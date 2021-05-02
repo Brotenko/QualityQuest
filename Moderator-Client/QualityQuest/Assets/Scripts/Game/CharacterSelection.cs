@@ -71,10 +71,10 @@ public class CharacterSelection : MonoBehaviour
     /// </summary>
     public void ActivateOfflineCharacterPickButtons()
     {
-        selectOfflineKirogh.gameObject.SetActive(true);
-        selectOfflineLumati.gameObject.SetActive(true);
-        selectOfflineTurgal.gameObject.SetActive(true);
-        selectOfflineNoruso.gameObject.SetActive(true);
+        selectOfflineKirogh.interactable = true;
+        selectOfflineNoruso.interactable = true;
+        selectOfflineTurgal.interactable = true;
+        selectOfflineLumati.interactable = true;
     }
 
     /// <summary>
@@ -82,9 +82,9 @@ public class CharacterSelection : MonoBehaviour
     /// </summary>
     public void RemoveOfflinePickButtons()
     {
-        selectOfflineKirogh.gameObject.SetActive(false);
-        selectOfflineLumati.gameObject.SetActive(false);
-        selectOfflineTurgal.gameObject.SetActive(false);
-        selectOfflineNoruso.gameObject.SetActive(false);
+        selectOfflineKirogh.interactable = false;
+        selectOfflineNoruso.interactable = false;
+        selectOfflineTurgal.interactable = false;
+        selectOfflineLumati.interactable = false;
     }
 }

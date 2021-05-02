@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 
+/// <summary>
+/// Class to save the voting of a specific StoryFlowDecision voting.
+/// </summary>
 public class VotingResult
 {
-
     public int VotingCount { get; }
     public string VotingDecision { get;  }
     public Dictionary<string, int> VotingOptions { get; set; }

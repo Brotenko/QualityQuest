@@ -2,6 +2,9 @@ using Assets.Scripts.Game;
 using UnityEngine;
 using UnityEngine.Video;
 
+/// <summary>
+/// Class for all the different in game backgrounds.
+/// </summary>
 public class GameBackground : MonoBehaviour
 {
     /// <summary>
@@ -97,9 +100,7 @@ public class GameBackground : MonoBehaviour
 
             switch (theme)
             {
-
                 case Theme.Normal:
-
                     if (standard == 1)
                     {
                         music.clip = Resources.Load<AudioClip>("sounds/music/standard1");
@@ -112,9 +113,7 @@ public class GameBackground : MonoBehaviour
                     }
                     music.Play();
                     break;
-
                 case Theme.Party:
-
                     if (party == 1)
                     {
                         music.clip = Resources.Load<AudioClip>("sounds/music/party1");
@@ -127,16 +126,12 @@ public class GameBackground : MonoBehaviour
                     }
                     music.Play();
                     break;
-
                 case Theme.Beach:
                     music.clip = Resources.Load<AudioClip>("sounds/music/hawaii");
                     music.Play();
                     break;
-
             }
-
         }
-
     }
 
     /// <summary>
@@ -149,5 +144,4 @@ public class GameBackground : MonoBehaviour
             PlayMusic(currentTheme);
         }
     }
-
 }

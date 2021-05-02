@@ -1,13 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.WebSockets;
-using MessageContainer;
-using MessageContainer.Messages;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class ActiveScreenManager : MonoBehaviour
 {
@@ -15,18 +8,19 @@ public class ActiveScreenManager : MonoBehaviour
     /// <summary>
     /// All panels that the game switches through during a game.
     /// </summary>
-    public GameObject characterSelection;
-    public GameObject decision;
-    public GameObject storyflow;
-    public GameObject result;
-    public GameObject pauseScreen;
-    public GameObject gameMenu;
-    public GameObject connect;
-    public GameObject qrCode;
-    public GameObject statistics;
-    public GameObject errorScreen;
-    public GameObject loadingScreen;
-    public GameObject options;
+    public GameObject characterSelectionPanel;
+    public GameObject decisionPanel;
+    public GameObject storyFlowPanel;
+    public GameObject resultPanel;
+    public GameObject pauseScreenPanel;
+    public GameObject gameMenuPanel;
+    public GameObject connectPanel;
+    public GameObject qrCodePanel;
+    public GameObject statisticsPanel;
+    public GameObject errorScreenPanel;
+    public GameObject loadingScreenPanel;
+    public GameObject optionsPanel;
+    public GameObject pauseButtonPanel;
 
     /// <summary>
     /// Generates the QR code.
@@ -45,17 +39,12 @@ public class ActiveScreenManager : MonoBehaviour
     public TMP_Text errorMessage;
 
     /// <summary>
-    /// Button which is used to pause the game.
-    /// </summary>
-    public GameObject pauseButton;
-
-    /// <summary>
     /// This parameter helps to switch back to the correct screen after the pause screen or menu screen was shown.
     /// </summary>
     private GameObject activeMenu;
 
     /// <summary>
-    /// This parameter helps to determine if the game si paused or not.
+    /// This parameter helps to determine if the game is paused or not.
     /// </summary>
     public static bool paused;
 
@@ -71,14 +60,14 @@ public class ActiveScreenManager : MonoBehaviour
         HideAllMenus();
         if (GameState.gameIsOnline)
         {
-            activeMenu = connect;
-            connect.SetActive(true);
+            activeMenu = connectPanel;
+            connectPanel.SetActive(true);
         }
         else
         {
-            pauseButton.gameObject.SetActive(false);
-            activeMenu = characterSelection;
-            characterSelection.SetActive(true);
+            pauseButtonPanel.gameObject.SetActive(false);
+            activeMenu = characterSelectionPanel;
+            characterSelectionPanel.SetActive(true);
         }
     }
 
@@ -88,17 +77,17 @@ public class ActiveScreenManager : MonoBehaviour
     /// </summary>
     public void HideAllMenus()
     {
-        loadingScreen.SetActive(false);
-        gameMenu.SetActive(false);
-        errorScreen.SetActive(false);
-        connect.SetActive(false);
-        qrCode.SetActive(false);
-        characterSelection.SetActive(false);
-        decision.SetActive(false);
-        storyflow.SetActive(false);
-        result.SetActive(false);
-        statistics.SetActive(false);
-        options.SetActive(false);
+        loadingScreenPanel.SetActive(false);
+        gameMenuPanel.SetActive(false);
+        errorScreenPanel.SetActive(false);
+        connectPanel.SetActive(false);
+        qrCodePanel.SetActive(false);
+        characterSelectionPanel.SetActive(false);
+        decisionPanel.SetActive(false);
+        storyFlowPanel.SetActive(false);
+        resultPanel.SetActive(false);
+        statisticsPanel.SetActive(false);
+        optionsPanel.SetActive(false);
     }
 
     /// <summary>
@@ -112,12 +101,10 @@ public class ActiveScreenManager : MonoBehaviour
     public void ShowConnection()
     {
         GameState.gameIsOnline = true;
-        activeMenu = connect;
-        if (!gameMenu.activeSelf && !paused)
-        {
-            HideAllMenus();
-            connect.SetActive(true);
-        }
+        activeMenu = connectPanel;
+        if (gameMenuPanel.activeSelf || paused) return;
+        HideAllMenus();
+        connectPanel.SetActive(true);
     }
 
     /// <summary>
@@ -130,13 +117,11 @@ public class ActiveScreenManager : MonoBehaviour
     /// </summary>
     public void ShowStatistics()
     {
-        activeMenu = statistics;
+        activeMenu = statisticsPanel;
 
-        if (!gameMenu.activeSelf && !paused)
-        {
-            HideAllMenus();
-            statistics.SetActive(true);
-        }
+        if (gameMenuPanel.activeSelf || paused) return;
+        HideAllMenus();
+        statisticsPanel.SetActive(true);
     }
 
     /// <summary>
@@ -149,14 +134,12 @@ public class ActiveScreenManager : MonoBehaviour
     /// </summary>
     public void ShowErrorScreen(string errorMessage)
     {
-        activeMenu = errorScreen;
+        activeMenu = errorScreenPanel;
 
-        if (!gameMenu.activeSelf)
-        {
-            HideAllMenus();
-            errorScreen.SetActive(true);
-            this.errorMessage.text = errorMessage;
-        }
+        if (gameMenuPanel.activeSelf) return;
+        HideAllMenus();
+        errorScreenPanel.SetActive(true);
+        this.errorMessage.text = errorMessage;
     }
 
     /// <summary>
@@ -169,13 +152,11 @@ public class ActiveScreenManager : MonoBehaviour
     /// </summary>
     public void ShowCharacterSelection()
     {
-        activeMenu = characterSelection;
+        activeMenu = characterSelectionPanel;
 
-        if (!gameMenu.activeSelf && !paused)
-        {
-            HideAllMenus();
-            characterSelection.SetActive(true);
-        }
+        if (gameMenuPanel.activeSelf || paused) return;
+        HideAllMenus();
+        characterSelectionPanel.SetActive(true);
     }
 
     /// <summary>
@@ -189,18 +170,15 @@ public class ActiveScreenManager : MonoBehaviour
     /// </summary>
     public void ShowQrCodePanel(string url, string key)
     {
-        activeMenu = qrCode;
-        
-        if (!gameMenu.activeSelf && !paused)
-        {
-            HideAllMenus();
-            qrCode.SetActive(true);
-            websiteUrl.text = url;
-            sessionKey.text = key;
-            qrCodeGenerator.GenerateQRCode(url, QrCodeType.QrCodeConnect);
-            audienceCount.text = "Verbundene Spieler (0)";
-            Debug.Log("3");
-        }
+        activeMenu = qrCodePanel;
+
+        if (gameMenuPanel.activeSelf || paused) return;
+        HideAllMenus();
+        qrCodePanel.SetActive(true);
+        websiteUrl.text = url;
+        sessionKey.text = key;
+        qrCodeGenerator.GenerateQRCode(url, QrCodeType.QrCodeConnect);
+        audienceCount.text = "Verbundene Spieler (0)";
     }
 
     /// <summary>
@@ -218,7 +196,7 @@ public class ActiveScreenManager : MonoBehaviour
     public void ShowOptions()
     {
         HideAllMenus();
-        options.SetActive(true);
+        optionsPanel.SetActive(true);
     }
 
     /// <summary>
@@ -231,13 +209,11 @@ public class ActiveScreenManager : MonoBehaviour
     /// </summary>
     public void ShowDecision()
     {
-        activeMenu = decision;
+        activeMenu = decisionPanel;
 
-        if (!gameMenu.activeSelf && !paused)
-        {
-            HideAllMenus();
-            decision.SetActive(true);
-        }
+        if (gameMenuPanel.activeSelf || paused) return;
+        HideAllMenus();
+        decisionPanel.SetActive(true);
     }
 
     /// <summary>
@@ -251,13 +227,11 @@ public class ActiveScreenManager : MonoBehaviour
     /// </summary>
     public void ShowStoryFlow()
     {
-        activeMenu = storyflow;
+        activeMenu = storyFlowPanel;
 
-        if (!gameMenu.activeSelf && !paused)
-        {
-            HideAllMenus();
-            storyflow.SetActive(true);
-        }
+        if (gameMenuPanel.activeSelf || paused) return;
+        HideAllMenus();
+        storyFlowPanel.SetActive(true);
     }
 
     /// <summary>
@@ -270,13 +244,11 @@ public class ActiveScreenManager : MonoBehaviour
     /// </summary>
     public void ShowResults()
     {
-        activeMenu = result;
+        activeMenu = resultPanel;
 
-        if (!gameMenu.activeSelf && !paused)
-        {
-            HideAllMenus();
-            result.SetActive(true);
-        }
+        if (gameMenuPanel.activeSelf || paused) return;
+        HideAllMenus();
+        resultPanel.SetActive(true);
     }
 
     /// <summary>
@@ -286,25 +258,21 @@ public class ActiveScreenManager : MonoBehaviour
     /// <param name="sessionKey">Key that has to be entered by the audience to enter the session</param> 
     public void ShowPauseMenu(string url, string sessionKey)
     {
-
         if (!paused)
         {
             //Sets the pause parameter to true which prevents all other screens except for the menu screen from getting shown.
             paused = true;
 
-
             /*
             If the menu screen is not currently active HideAllMenus is called to make sure no other screen is active
-            and the pause screen is displayed. Additionally the session key and url gets updated and generateWRCode is called to display the qr code.
+            and the pause screen is displayed. Additionally the session key and url gets updated and generateQrCode is called to display the qr code.
             */
-            if (!gameMenu.activeSelf)
-            {
-                HideAllMenus();
-                pauseScreen.SetActive(true);
-                pauseKey.text = sessionKey;
-                pauseUrl.text = url;
-                qrCodeGenerator.GenerateQRCode(url, QrCodeType.QrCodePause);
-            }
+            if (gameMenuPanel.activeSelf) return;
+            HideAllMenus();
+            pauseScreenPanel.SetActive(true);
+            pauseKey.text = sessionKey;
+            pauseUrl.text = url;
+            qrCodeGenerator.GenerateQRCode(url, QrCodeType.QrCodePause);
 
         }
         else
@@ -313,11 +281,9 @@ public class ActiveScreenManager : MonoBehaviour
             paused = false;
 
             // If the menu screen in not currently active the pause screen gets hidden and the active screen is set be visible again.
-            if (!gameMenu.activeSelf)
-            {
-                pauseScreen.SetActive(false);
-                activeMenu.SetActive(true);
-            }
+            if (gameMenuPanel.activeSelf) return;
+            pauseScreenPanel.SetActive(false);
+            activeMenu.SetActive(true);
         }
     }
 
@@ -327,47 +293,39 @@ public class ActiveScreenManager : MonoBehaviour
     public void ShowGameMenu()
     {
         // changes the button which is used to switch between offline and online mode according to the currently active mode.
-        if (GameState.gameIsOnline)
-        {
-            gameMenuSwitchModeButton.text = "Offline Mode";
-        }
-        else
-        {
-            gameMenuSwitchModeButton.text = "Online Mode";
-        }
+        gameMenuSwitchModeButton.text = GameState.gameIsOnline ? "Offline Mode" : "Online Mode";
 
         // Hides all screens and displays the game menu.
-        if (!gameMenu.activeSelf)
+        if (!gameMenuPanel.activeSelf)
         {
             HideAllMenus();
             if (paused)
             {
-                pauseScreen.SetActive(false);
+                pauseScreenPanel.SetActive(false);
             }
-            gameMenu.SetActive(true);
+            gameMenuPanel.SetActive(true);
         }
         // Hides the game menu. If the game is currently paused the pause menu is shown otherwise the active screen is displayed.
         else
         {
-            gameMenu.SetActive(false);
+            gameMenuPanel.SetActive(false);
             if (paused)
             {
-                pauseScreen.SetActive(true);
+                pauseScreenPanel.SetActive(true);
             }
             else
             {
                 activeMenu.SetActive(true);
             }
-
         }
     }
 
     /// <summary>
     /// Method to activate the pause button on the top right corner.
     /// </summary>
-    public void ActivatePauseButton()
+    public void ShowPauseButton(bool activate)
     {
-        pauseButton.SetActive(true);
+        pauseButtonPanel.SetActive(activate);
     }
 
     /// <summary>

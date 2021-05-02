@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class for the logic needed in the main menu.
+/// </summary>
 public class Menu : MonoBehaviour
 {
     public GameObject mainMenu;
@@ -16,7 +19,7 @@ public class Menu : MonoBehaviour
     /// <summary>
     /// Makes sure that when the game is launched the main menu is displayed.
     /// </summary>
-    void Start()
+    private void Start()
     {
         HideAllMenu();
         ShowMainMenu();

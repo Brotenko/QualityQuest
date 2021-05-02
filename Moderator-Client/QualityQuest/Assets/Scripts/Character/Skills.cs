@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 
 public class Skills
 {
@@ -79,6 +77,10 @@ public class Skills
         }
     }
 
+    /// <summary>
+    /// Method to update all skills.
+    /// </summary>
+    /// <param name="skills">The skill change.</param>
     public void updateAbilities(Skills skills)
     {
         UpdateProgrammingSkill(skills.Programming);
@@ -86,6 +88,5 @@ public class Skills
         UpdateAnalyticSkill(skills.Analytics);
         UpdatePartyingSkill(skills.Partying);
     }
-
 }
 

@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class for the statusBar.
+/// </summary>
 public class DisplayStatusbar : MonoBehaviour
 {
     /// <summary>
@@ -40,10 +43,8 @@ public class DisplayStatusbar : MonoBehaviour
     private float communicationSkillChangeTimer;
     private float analyticsSkillChangeTimer;
     private float partySkillChangeTimer;
-
     private float diceTimer;
     private float decisionTimer;
-
     public float skillHideTimerDuration = 5;
 
     /// <summary>
@@ -61,8 +62,6 @@ public class DisplayStatusbar : MonoBehaviour
     /// </summary>
     public void UpdateSkillChanges(Skills skills)
     {
-
-
         if (ShowSkillChange(skillChangeProgramming, skills.Programming))
         { programmingSkillChangeTimer = skillHideTimerDuration; };
         if (ShowSkillChange(skillChangeCommunication, skills.Communication))
@@ -71,7 +70,6 @@ public class DisplayStatusbar : MonoBehaviour
         { analyticsSkillChangeTimer = skillHideTimerDuration; };
         if (ShowSkillChange(skillChangeParty, skills.Partying))
         { partySkillChangeTimer = skillHideTimerDuration; };
-
     }
 
     /// <summary>
@@ -82,7 +80,6 @@ public class DisplayStatusbar : MonoBehaviour
     /// <param name="value">Value of the skill change.</param>
     public bool ShowSkillChange(TMP_Text text,int value)
     {
-
         if (value > 0)
         {
             text.gameObject.SetActive(true);
@@ -99,7 +96,6 @@ public class DisplayStatusbar : MonoBehaviour
         }
         else
         {
-            //text.gameObject.SetActive(false);
             return false;
         }
 
@@ -146,6 +142,10 @@ public class DisplayStatusbar : MonoBehaviour
         decision.SetActive(true);
     }
 
+    /// <summary>
+    /// Gets called at the start of the game.
+    /// Disables the statusBar before the character pick phase.
+    /// </summary>
     public void Start()
     {
         statusbar.SetActive(false);
@@ -153,6 +153,9 @@ public class DisplayStatusbar : MonoBehaviour
         dice.SetActive(false);
     }
 
+    /// <summary>
+    /// Method gets called every frame. Updates the timers.
+    /// </summary>
     public void Update()
     {
         // Hides programming SkillChange when timer hits 0.
@@ -195,7 +198,6 @@ public class DisplayStatusbar : MonoBehaviour
             }
         }
 
-        
         // Hides dice icon when timer hits 0.
         if (diceTimer > 0)
         {
@@ -206,7 +208,6 @@ public class DisplayStatusbar : MonoBehaviour
             }
         }
         
-
         if (!ActiveScreenManager.paused)
         {
             // Hides dice icon when timer hits 0.

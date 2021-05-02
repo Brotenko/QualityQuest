@@ -1,8 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Class to display the statistics at the end of the game.
+/// </summary>
 public class DisplayStatisticsDecision : MonoBehaviour
 {
     public GameObject optionPanelA;
@@ -37,6 +39,10 @@ public class DisplayStatisticsDecision : MonoBehaviour
         optionPanelD.SetActive(false);
     }
 
+    /// <summary>
+    /// Method to display the voting statistics on the screen.
+    /// </summary>
+    /// <param name="result">The votingResult of the play through.</param>
     public void DisplayDecision(VotingResult result)
     {
         HideAllOptions();
@@ -44,41 +50,39 @@ public class DisplayStatisticsDecision : MonoBehaviour
         question.text = result.VotingDecision;
         questionVotes.text = result.VotingCount.ToString();
 
-        List<KeyValuePair<string, int>> optionen = new List<KeyValuePair<string, int>>();
+        var keyValuePairs = new List<KeyValuePair<string, int>>();
 
-        foreach (KeyValuePair<string, int> option in result.VotingOptions)
+        foreach (var option in result.VotingOptions)
         {
-            optionen.Add(option);
+            keyValuePairs.Add(option);
         }
 
-        if (optionen.Count > 0)
+        if (keyValuePairs.Count > 0)
         {
-            answerA.text = optionen[0].Key;
-            votesA.text = optionen[0].Value.ToString();
+            answerA.text = keyValuePairs[0].Key;
+            votesA.text = keyValuePairs[0].Value.ToString();
             optionPanelA.SetActive(true);
         }
 
-        if (optionen.Count > 1)
+        if (keyValuePairs.Count > 1)
         {
-            answerB.text = optionen[1].Key;
-            votesB.text = optionen[1].Value.ToString();
+            answerB.text = keyValuePairs[1].Key;
+            votesB.text = keyValuePairs[1].Value.ToString();
             optionPanelB.SetActive(true);
         }
 
-        if (optionen.Count > 2)
+        if (keyValuePairs.Count > 2)
         {
-            answerC.text = optionen[2].Key;
-            votesC.text = optionen[2].Value.ToString();
+            answerC.text = keyValuePairs[2].Key;
+            votesC.text = keyValuePairs[2].Value.ToString();
             optionPanelC.SetActive(true);
         }
 
-        if (optionen.Count > 3)
+        if (keyValuePairs.Count > 3)
         {
-            answerD.text = optionen[3].Key;
-            votesD.text = optionen[3].Value.ToString();
+            answerD.text = keyValuePairs[3].Key;
+            votesD.text = keyValuePairs[3].Value.ToString();
             optionPanelD.SetActive(true);
         }
-
     }
-
 }

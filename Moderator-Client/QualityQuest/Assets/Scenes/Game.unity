@@ -15878,7 +15878,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   qualityQuestWebSocket: {fileID: 795812797}
   activeScreenManager: {fileID: 1093310180}
-  gameStory: {fileID: 1093310182}
   displayStatusBar: {fileID: 1093310169}
   displayDecision: {fileID: 1093310178}
   displayStoryFlow: {fileID: 1093310179}
@@ -15999,7 +15998,6 @@ GameObject:
   - component: {fileID: 1093310179}
   - component: {fileID: 1093310180}
   - component: {fileID: 1093310181}
-  - component: {fileID: 1093310182}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -16216,18 +16214,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d388fe50381f34db16f8641f6799a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterSelection: {fileID: 1589426792}
-  decision: {fileID: 708271541}
-  storyflow: {fileID: 562642644}
-  result: {fileID: 700661100}
-  pauseScreen: {fileID: 1720045352}
-  gameMenu: {fileID: 829761884}
-  connect: {fileID: 8958024210929195034}
-  qrCode: {fileID: 8152985335474103994}
-  statistics: {fileID: 457941533}
-  errorScreen: {fileID: 373414549}
-  loadingScreen: {fileID: 2013832912}
-  options: {fileID: 815348827}
+  characterSelectionPanel: {fileID: 1589426792}
+  decisionPanel: {fileID: 708271541}
+  storyFlowPanel: {fileID: 562642644}
+  resultPanel: {fileID: 700661100}
+  pauseScreenPanel: {fileID: 1720045352}
+  gameMenuPanel: {fileID: 829761884}
+  connectPanel: {fileID: 8958024210929195034}
+  qrCodePanel: {fileID: 8152985335474103994}
+  statisticsPanel: {fileID: 457941533}
+  errorScreenPanel: {fileID: 373414549}
+  loadingScreenPanel: {fileID: 2013832912}
+  optionsPanel: {fileID: 815348827}
+  pauseButtonPanel: {fileID: 1054240995}
   qrCodeGenerator: {fileID: 2053635036}
   gameMenuSwitchModeButton: {fileID: 1027499670}
   audienceCount: {fileID: 8152985334479808095}
@@ -16236,7 +16235,6 @@ MonoBehaviour:
   pauseUrl: {fileID: 1232317706}
   pauseKey: {fileID: 1739502290}
   errorMessage: {fileID: 192776492}
-  pauseButton: {fileID: 1054240995}
 --- !u!114 &1093310181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16247,18 +16245,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be2d81ec8197d844a9f22a1fb77725ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1093310182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1093310168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9004ff09539e3104da0f3e6fc993c89d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1133373680

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DisplayStatistics : MonoBehaviour
@@ -20,14 +18,12 @@ public class DisplayStatistics : MonoBehaviour
     /// <param name="statistics"></param>
     public void DisplayAllDecisions(VotingStatistics statistics)
     {
-        List<VotingResult> results = statistics.Statistic;
+        var results = statistics.Statistic;
 
-        for (int i = 0; i < results.Count; i++)
+        foreach (var t in results)
         {
-            GameObject obj = Instantiate(myPrefab, content);
-            obj.GetComponent<DisplayStatisticsDecision>().DisplayDecision(results[i]);
+            var obj = Instantiate(myPrefab, content);
+            obj.GetComponent<DisplayStatisticsDecision>().DisplayDecision(t);
         }
     }
-
-
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -66,7 +65,7 @@ public class DisplayDecision : MonoBehaviour
         question.text = currentEvent.Description;
 
         titleA.text = "Option A";
-        if (children.Count() >= 1)
+        if (children.Any())
         {
             descriptionA.text = children[0].Description;
             panelA.SetActive(true);
@@ -115,5 +114,4 @@ public class DisplayDecision : MonoBehaviour
         selectOnlineC.onClick.RemoveAllListeners();
         selectOnlineD.onClick.RemoveAllListeners();
     }
-
 }

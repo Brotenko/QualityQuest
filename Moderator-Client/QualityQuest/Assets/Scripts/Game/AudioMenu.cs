@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
@@ -32,7 +30,7 @@ public class AudioMenu : MonoBehaviour
     /// <summary>
     /// Ensures the volume sliders match the AudioMixer after switching scenes.
     /// </summary>
-    void Start()
+    private void Start()
     {
         UpdateSlider();
     }
@@ -79,7 +77,6 @@ public class AudioMenu : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Sets the volume of the music sound in the AudioMixer.
     /// </summary>
@@ -93,7 +90,6 @@ public class AudioMenu : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Sets the volume of the ambient sound in the AudioMixer.
     /// </summary>
@@ -106,5 +102,4 @@ public class AudioMenu : MonoBehaviour
             ambientVolume.text = Mathf.RoundToInt(sliderValue * 100) + "%";
         }
     }
-
 }

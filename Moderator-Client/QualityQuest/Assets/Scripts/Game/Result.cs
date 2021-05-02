@@ -1,11 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class to show the results if in online mode.
+/// </summary>
 public class Result : MonoBehaviour
 {
     /// <summary>
@@ -97,16 +98,13 @@ public class Result : MonoBehaviour
     /// <param name="winningOption">String of the StoryOption which is used to find the corresponding children in the list of StoryEvents.</param>
     public void GetWinner(Dictionary<Guid,int> results, List<StoryEvent> children, string winningOption)
     {
+        var winner = 0;
 
-        int winner = 0;
-
-        for (int i = 0; i < children.Count; i++)
+        for (var i = 0; i < children.Count; i++)
         {
-            if (children[i].Description.Equals(winningOption))
-            {
-                winner = i;
-                break;
-            }
+            if (!children[i].Description.Equals(winningOption)) continue;
+            winner = i;
+            break;
         }
 
         SetAllBlue();
@@ -124,7 +122,6 @@ public class Result : MonoBehaviour
             default:
                 break;
         }
-
     }
 
     /// <summary>

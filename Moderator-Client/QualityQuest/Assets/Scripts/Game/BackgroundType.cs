@@ -12,5 +12,4 @@ namespace Assets.Scripts.Game
         Office,
         Beach
     }
-
 }

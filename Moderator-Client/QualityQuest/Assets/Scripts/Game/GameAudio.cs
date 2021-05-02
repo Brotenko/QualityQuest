@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class for all the audio effects of the game, e.g. dice animation sound.
+/// </summary>
 public class GameAudio : MonoBehaviour
 {
     /// <summary>

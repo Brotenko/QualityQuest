@@ -4,11 +4,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class to display StoryFlowEvents.
+/// </summary>
 public class DisplayStoryFlow : MonoBehaviour
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public GameObject storyflowElement;
     public TMP_Text storyflowText;
     public Button storyFlowButton;
@@ -30,5 +30,4 @@ public class DisplayStoryFlow : MonoBehaviour
     {
         storyFlowButton.onClick.RemoveAllListeners();
     }
-
 }

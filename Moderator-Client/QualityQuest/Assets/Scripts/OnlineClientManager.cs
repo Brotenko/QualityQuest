@@ -8,6 +8,9 @@ using MessageContainer.Messages;
 using TMPro;
 using WebSocketSharp;
 
+/// <summary>
+/// Class for the main logic of the ModeratorClient.
+/// </summary>
 public class OnlineClientManager : MonoBehaviour
 {
     [SerializeField]
@@ -28,9 +31,6 @@ public class OnlineClientManager : MonoBehaviour
     private GameBackground videoBackground;
     [SerializeField]
     private CharacterSelection characterSelection;
-
-    
-
     [SerializeField]
     private TMP_InputField ip;
     [SerializeField]
@@ -40,14 +40,23 @@ public class OnlineClientManager : MonoBehaviour
 
     private ClientLogic clientLogic;
 
+    /// <summary>
+    /// The unity awake method gets called on script initialization.
+    /// Used to construct the clientLogic.
+    /// </summary>
     private void Awake()
     {
         clientLogic = new ClientLogic(2);
     }
 
+    /// <summary>
+    /// Gets called after all awake methods.
+    /// Starts the music and background video and starts the offline mode.
+    /// </summary>
     private void Start()
     {
         videoBackground.SwitchBackground(BackgroundType.University);
+
         if (!GameState.gameIsOnline)
         {
             StartOfflinePlaythrough();
@@ -60,7 +69,6 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     public void Connect()
     {
-        /*
         if (ip.text != "" && port.text != "" && password.text != "")
         {
             qualityQuestWebSocket.StartConnection(ip.text, port.text);
@@ -68,8 +76,7 @@ public class OnlineClientManager : MonoBehaviour
         else
         {
             activeScreenManager.ShowErrorScreen("Ip, Port oder Passwort fehlt. Bitte neu versuchen oder im Offline-Modus fortfahren.");
-        } */
-        qualityQuestWebSocket.StartConnection("127.0.0.1", "8181");
+        }
     }
 
     /// <summary>
@@ -120,7 +127,7 @@ public class OnlineClientManager : MonoBehaviour
     public void SendRequestCloseSessionMessage()
     {
         if (clientLogic.SessionKey == null) return;
-        qualityQuestWebSocket.SendMessage(clientLogic.InitializeRequestCloseSession());
+        qualityQuestWebSocket.SendMessage(clientLogic.InitializeRequestCloseSessionMessage());
     }
 
     /// <summary>
@@ -195,7 +202,7 @@ public class OnlineClientManager : MonoBehaviour
         try
         {
             // validate the received message.
-            ValidateVotingEndedMessage(currentEvent, votingEndedMessage.VotingResults);
+            clientLogic.ValidateVotingEndedMessage(currentEvent, votingEndedMessage.VotingResults);
             // save voting statistic
             clientLogic.SaveStatistics(currentEvent.Description, currentEvent.Children, votingEndedMessage.VotingResults, votingEndedMessage.TotalVotes);
 
@@ -267,19 +274,6 @@ public class OnlineClientManager : MonoBehaviour
             Debug.Log("Exception :" + e);
             Debug.Log("Switch to offline mode.");
             SwitchModes();
-        }
-    }
-
-    /// <summary>
-    /// Checks if the voting options match the current StoryEvent.
-    /// </summary>
-    /// <param name="currentEvent">The current StoryEvent.</param>
-    /// <param name="votingOptions">The votingOptions of the VotingEndedMessage.</param>
-    public void ValidateVotingEndedMessage(StoryEvent currentEvent, Dictionary<Guid, int> votingOptions)
-    {
-        if (currentEvent.Children.Any(child => !votingOptions.ContainsKey(child.EventId)))
-        {
-            throw new WrongVotingEndedMessage("The VotingEndedMessage does not match the current StoryEvent.");
         }
     }
 
@@ -494,21 +488,26 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     public void SwitchModes()
     {
-        // TODO: Pause button
         Debug.Log("Switch modes:" + GameState.gameIsOnline);
         if (GameState.gameIsOnline)
         {
             GameState.gameIsOnline = false;
             ContinueOfflineStory(clientLogic.StoryGraph.CurrentEvent);
+            activeScreenManager.ShowPauseButton(false);
         }
         else
         {
+            // remove offline listeners
+            characterSelection.RemoveOfflinePickButtons();
+            displayDecision.RemoveOfflineDecisionListeners();
+
             if (qualityQuestWebSocket.webSocket == null)
             {
                 activeScreenManager.ShowConnection();
             }
             else
             {
+                activeScreenManager.ShowPauseButton(true);
                 switch (qualityQuestWebSocket.webSocket.ReadyState)
                 {
                     case WebSocketState.Closed:
@@ -519,7 +518,6 @@ public class OnlineClientManager : MonoBehaviour
                         {
                             GameState.gameIsOnline = true;
                             SendRequestOpenSessionMessage();
-                            activeScreenManager.ActivatePauseButton();
                         }
                         else
                         {
