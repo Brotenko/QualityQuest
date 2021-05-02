@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Game;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -35,7 +36,7 @@ public class TestGameAudio : MonoBehaviour
 
     public void Start()
     {
-        SwitchBackground(BackgroundType.UNIVERSITY);
+        SwitchBackground(BackgroundType.University);
         PlayMusic1();
     }
 
@@ -53,14 +54,14 @@ public class TestGameAudio : MonoBehaviour
 
         switch (backgroundType)
         {
-            case BackgroundType.UNIVERSITY:
+            case BackgroundType.University:
 
                 ambient.clip = universitySound;
                 ambient.Play();
                 universityBackground.SetActive(true);
                 break;
 
-            case BackgroundType.INTERNSHIP:
+            case BackgroundType.Internship:
 
                 ambient.clip = internshipSound;
                 ambient.volume = 0.7f;
@@ -68,14 +69,14 @@ public class TestGameAudio : MonoBehaviour
                 internshipBackground.SetActive(true);
                 break;
 
-            case BackgroundType.MEETING:
+            case BackgroundType.Meeting:
 
                 ambient.clip = meetingSound;
                 ambient.Play();
                 meetingBackground.SetActive(true);
                 break;
 
-            case BackgroundType.PARTY:
+            case BackgroundType.Party:
 
                 ambient.clip = partySound;
                 ambient.volume = 0.4f;
@@ -83,14 +84,14 @@ public class TestGameAudio : MonoBehaviour
                 partyBackground.SetActive(true);
                 break;
 
-            case BackgroundType.OFFICE:
+            case BackgroundType.Office:
 
                 ambient.clip = officeSound;
                 ambient.Play();
                 officeBackground.SetActive(true);
                 break;
 
-            case BackgroundType.BEACH:
+            case BackgroundType.Beach:
 
                 ambient.clip = beachSound;
                 ambient.Play();
@@ -113,27 +114,27 @@ public class TestGameAudio : MonoBehaviour
 
     public void SwitchBackgroundUniversity()
     {
-        SwitchBackground(BackgroundType.UNIVERSITY);
+        SwitchBackground(BackgroundType.University);
     }
     public void SwitchBackgroundInternship()
     {
-        SwitchBackground(BackgroundType.INTERNSHIP);
+        SwitchBackground(BackgroundType.Internship);
     }
     public void SwitchBackgroundMeeting()
     {
-        SwitchBackground(BackgroundType.MEETING);
+        SwitchBackground(BackgroundType.Meeting);
     }
     public void SwitchBackgroundParty()
     {
-        SwitchBackground(BackgroundType.PARTY);
+        SwitchBackground(BackgroundType.Party);
     }
     public void SwitchBackgroundOffice()
     {
-        SwitchBackground(BackgroundType.OFFICE);
+        SwitchBackground(BackgroundType.Office);
     }
     public void SwitchBackgroundBeach()
     {
-        SwitchBackground(BackgroundType.BEACH);
+        SwitchBackground(BackgroundType.Beach);
     }
     public void PlayMusic1()
     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Game;
 using MessageContainer;
 using UnityEngine;
 using MessageContainer.Messages;
@@ -46,7 +47,7 @@ public class OnlineClientManager : MonoBehaviour
 
     private void Start()
     {
-        videoBackground.SwitchBackground(BackgroundType.UNIVERSITY);
+        videoBackground.SwitchBackground(BackgroundType.University);
         if (!GameState.gameIsOnline)
         {
             StartOfflinePlaythrough();
