@@ -35,7 +35,6 @@ namespace ServerLogic.Control
         /// Starts the server and SignalR-Hub for the PlayerAudience-Clients.
         /// </summary>
         /// 
-        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
         /// <exception cref="InvalidOperationException">The server is already in a running state.</exception>
         /// 
         /// <param name="port">The port of the PlayerAudience-Client host.</param>

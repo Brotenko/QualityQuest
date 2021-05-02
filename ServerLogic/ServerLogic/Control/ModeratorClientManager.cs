@@ -157,8 +157,8 @@ namespace ServerLogic.Control
         /// Retrieves the results of the voting process from the PA-Client. Determines the prompt with the highest votes and sends a <a cref="VotingEndedMessage">VotingEndedMessage</a>.
         /// Gets automatically triggered by the _votingTimer.
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="e"></param>
+        /// <param name="source">Parameter used by Timer-Elapsed-Event.</param>
+        /// <param name="eventArgs">Parameter used by Timer-Elapsed-Event.</param>
         private void SendVotingResults(object source, ElapsedEventArgs e)
         {
             Dictionary<KeyValuePair<Guid, string>, int> votingResults = _playerAudienceClientApi.GetVotingResult(SessionKey, _currentPrompt);
@@ -193,7 +193,7 @@ namespace ServerLogic.Control
         /// Stops all processes that may still be running in the background.
         /// Should be called if the connection to the ModeratorClient is closed.
         /// </summary>
-        public void Stop(Boolean closeSocket)
+        public void Stop(bool closeSocket)
         {
             try
             {

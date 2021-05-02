@@ -27,8 +27,6 @@ namespace ServerLogic.Control
         private const int MaxRepForRandomGeneration = 16;
         private readonly Timer _checkForInactiveSessionsTimer;
 
-        //TODO Remove default password from settings before release
-
         /// <summary>
         /// Contains a WebSocket through which messages are exchanged with the ModeratorClient,
         /// as well as methods needed for the general management of this communication.
@@ -51,7 +49,6 @@ namespace ServerLogic.Control
         {
             FleckLog.Level = LogLevel.Warn;
             _server = new WebSocketServer($"wss:{Settings.Default.DockerUrl}:80");
-            //_server = new WebSocketServer($"wss:{Settings.Default.DockerUrl}:80");
             _server.EnabledSslProtocols = SslProtocols.Tls12;
             _server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, Settings.Default.CertPW);
             _playerAudienceClientApi.StartServer(443);
@@ -89,8 +86,14 @@ namespace ServerLogic.Control
                 string tempLog = "";
                 foreach (var (socket, moderatorClientManager) in _connectedModeratorClients)
                 {
-                    if (moderatorClientManager.IsInactive) _connectedModeratorClients.Remove(socket);
-                    else tempLog += $"\tMC-{moderatorClientManager.ModeratorGuid} in Session {moderatorClientManager.SessionKey}.\n";
+                    if (moderatorClientManager.IsInactive)
+                    {
+                        _connectedModeratorClients.Remove(socket);
+                    }
+                    else
+                    {
+                        tempLog += $"\tMC-{moderatorClientManager.ModeratorGuid} in Session {moderatorClientManager.SessionKey}.\n";
+                    }
                 }
                 ActiveConnections = tempLog;
             }
@@ -331,7 +334,6 @@ namespace ServerLogic.Control
 
                         RequestCloseSessionMessage closeSessionMessage =
                             JsonConvert.DeserializeObject<RequestCloseSessionMessage>(message);
-                        //if (SessionKeyExists(closeSessionMessage.SessionKey))
                         if (_connectedModeratorClients[mcId].SessionKey.Equals(closeSessionMessage.SessionKey))
                         {
                             response = JsonConvert.SerializeObject(
@@ -371,7 +373,7 @@ namespace ServerLogic.Control
             {
                 ServerLogger.LogDebug($"Exception occurred on json-serialization: {jsonSerializationException}.");
             }
-            catch (KeyNotFoundException keyNotFoundException)
+            catch (KeyNotFoundException)
             {
                 //may be thrown when the MC continues writing after beeing kicked, which is kind of intended, as the MC tries to reconnect after losing connection.
             }
@@ -387,7 +389,7 @@ namespace ServerLogic.Control
         /// Increases and checks the number of network protocol violations of the passed IWebSocketConnection.
         /// </summary>
         /// <param name="moderatorId">The Guid of the violator.</param>
-        internal void AddStrike(Guid moderatorId)
+        protected internal void AddStrike(Guid moderatorId)
         {
             //FR31 'Network protocol violation'
             ServerLogger.LogDebug($"Strike for {moderatorId}.");
@@ -401,8 +403,7 @@ namespace ServerLogic.Control
 
         /// <summary>
         /// Generates a random session key and compares it with already recorded sessions and recreates it if necessary.
-        /// If no unique SessionKey can be created after several attempts, it is aborted and a SessionKey is returned without a new check,
-        /// even at the risk that it is already in use.
+        /// If no unique SessionKey can be created after several attempts, all current Sessions also using the generated key are stopped and set inactive.
         /// </summary>
         /// <param name="maxRecursionCycles">The maximum number of recursions allowed to generate a random unique sessionKey.</param>
         /// <returns>A unique SessionKey.</returns>
@@ -415,14 +416,27 @@ namespace ServerLogic.Control
             //Termination condition, takes effect if, after several runs, no session key can be generated which is not already in use.
             if (maxRecursionCycles == 0)
             {
-                ServerLogger.LogWarning($"Couldn't generate unique Session-Key. Session-Key {sessionKey} might be duplicate.");
+                foreach (var (_, value) in _connectedModeratorClients)
+                {
+                    //stop all session with 
+                    if (value.SessionKey.Equals(sessionKey))
+                    {
+                        value.Stop(true);
+                        value.IsInactive = true;
+                        ServerLogger.LogWarning($"Couldn't generate unique Session-Key. Session-Key {sessionKey} might be duplicate. Removed session of MC-{value.ModeratorGuid} with identical Session-Key");
+
+                    }
+                }
                 return sessionKey;
             }
 
             //SessionKey already in use?
             foreach (var (_, value) in _connectedModeratorClients)
             {
-                if (value.SessionKey.Equals(sessionKey)) GenerateSessionKey(maxRecursionCycles - 1);
+                if (value.SessionKey.Equals(sessionKey))
+                {
+                    GenerateSessionKey(maxRecursionCycles - 1);
+                }
             }
 
             return sessionKey;

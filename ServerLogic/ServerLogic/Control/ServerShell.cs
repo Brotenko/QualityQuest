@@ -16,7 +16,6 @@ namespace ServerLogic.Control
     /// </summary>
     public class ServerShell
     {
-        //public Logger logger = [...];
         private readonly MainServerLogic _mainServerLogic = new MainServerLogic();
         private bool _serverIsRunning = false;
         private bool _commandRequestsHelpMessage = false;
@@ -34,8 +33,8 @@ namespace ServerLogic.Control
         ///  At least one uppercase character
         ///  At least one special character
         /// </summary>
-        /// <param name="password"></param>
-        /// <returns></returns>
+        /// <param name="password">The password to be checked.</param>
+        /// <returns>The password to be checked.</returns>
         private string CheckPasswordConditions(string password)
         {
             if (password.Length >= 8 && password.Length <= 32 && !password.StartsWith('-'))
@@ -139,11 +138,6 @@ namespace ServerLogic.Control
         /// </summary>
         public ServerShell()
         {
-            if (Settings.Default.PWHash.Equals(""))
-            {
-                Console.WriteLine("Currently no password is specified.");
-                SetPasswordDialog();
-            }
             RunShell();
         }
 
@@ -399,6 +393,7 @@ namespace ServerLogic.Control
             catch (InvalidOperationException e)
             {
                 _serverIsRunning = false;
+                
                 return e.ToString();
             }
         }
@@ -457,7 +452,7 @@ namespace ServerLogic.Control
         /// <returns>The current version of the ServerLogic.</returns>
         private string ShowVersion()
         {
-            return Properties.Resources.CurrentVersion;
+            return Resources.CurrentVersion;
         }
 
         /// <summary>

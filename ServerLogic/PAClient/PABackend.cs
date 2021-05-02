@@ -64,6 +64,7 @@ namespace PAClient
         /// </summary>
         /// 
         /// <param name="port">The port of the PlayerAudience-Client host.</param>
+        /// <param name="dockerUrl">The URL used.</param>
         public PABackend(int port, string dockerUrl)
         {
             Port = port;

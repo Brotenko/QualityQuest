@@ -65,7 +65,7 @@ namespace ServerLogic.Properties {
         ///
         ///DESCRIPTON
         ///
-        ///TODO
+        ///
         ///
         ///OPTIONS
         ///
@@ -193,7 +193,7 @@ namespace ServerLogic.Properties {
         ///
         ///DESCRIPTON
         ///
-        ///TODO
+        ///
         ///
         ///OPTIONS
         ///

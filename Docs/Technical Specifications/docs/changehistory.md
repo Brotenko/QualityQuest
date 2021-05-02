@@ -33,7 +33,7 @@ The change history is a chronologically ordered list of all changes between diff
 | 0.2.1   | First revision of the component design     | 2020-11-26 | [Link](#version-021-first-revision-of-the-component-design)     |
 | 0.2.2   | Second revision of the component design    | 2021-01-08 | [Link](#version-022-second-revision-of-the-component-design)    |
 | 0.3.0   | PlayerAudience-Client implementation       | 2021-02-06 | [Link](#version-030-playeraudience-client-implementation)       |
-| 0.3.1   | ServerLogic implementation                 | TBA        | [Link](#version-031---serverlogic-implementation)               |
+| 0.3.1   | ServerLogic implementation                 | 2021-05-06        | [Link](#version-031---serverlogic-implementation)               |
 
 </span>
 
