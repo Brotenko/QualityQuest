@@ -74,7 +74,7 @@ namespace ServerLogic.Control
         /// <summary>
         /// Adds a salt from the settings-file to the passed string and returns the SHA256 hash from it.
         /// </summary>
-        /// <param name="hashMe"></param>
+        /// <param name="hashMe">The string to use SHA256 on.</param>
         /// <returns>A SHA256-Hash</returns>
         public static string StringToSHA256Hash(string hashMe)
         {
@@ -85,8 +85,8 @@ namespace ServerLogic.Control
             using (SHA256 hash = SHA256.Create())
             {
                 Encoding enc = Encoding.UTF8;
-                Byte[] result = hash.ComputeHash(enc.GetBytes(hashMe));
-                foreach (Byte b in result)
+                byte[] result = hash.ComputeHash(enc.GetBytes(hashMe));
+                foreach (byte b in result)
                 {
                     stringBuilder.Append(b.ToString("x2"));
                 }
