@@ -4,8 +4,8 @@
   "MCWebSocketPort": "80",
   "CertFilePath": "TestCert.pfx",
   "CertPW": "thisIsForTestingOnly",
-  "PWHash": "3b81554017d82382f290c6591718c04bb7a843609c867982c59f1f4c1d0b66f0",
-  "Salt": "z6WJJr23GgZWvIWD",
-  "LogLevel": 0,
+  "PWHash": "f715667b52db3cca2fe7729c0fb7a1ef43413bf650dbc058eb25c8eaf00b4534",
+  "Salt": "qTqTCCtJyX3iIEGB",
+  "LogLevel": 1,
   "LogOutPutType": 2
 }

@@ -222,3 +222,10 @@
 [2021-05-01 17:10:46] [0] INFO: Using wss: True.
 [2021-05-01 17:18:33] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
 [2021-05-01 17:18:33] [0] INFO: Using wss: True.
+[2021-05-02 11:54:24] [0] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-02 11:54:24] [0] INFO: Using wss: True.
+[2021-05-02 11:56:24] [1] INFO: LogLevel was set to 1.
+[2021-05-02 11:56:28] [1] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-02 11:56:28] [1] INFO: Using wss: True.
+[2021-05-02 11:56:53] [1] INFO: Website started on 127.0.0.1:443 and WebSocket on 80
+[2021-05-02 11:56:53] [1] INFO: Using wss: True.

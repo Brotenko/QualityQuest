@@ -193,7 +193,6 @@ namespace ServerLogic.Control
             if (!_isDebug)
             {
                 ServerParams serverParams = new ServerParams();
-                //todo extract path to resource file (logFilePath too)
                 using (StreamReader r = new StreamReader(Resources.ServerParamsFilePath))
                 {
                     string json = r.ReadToEnd();
