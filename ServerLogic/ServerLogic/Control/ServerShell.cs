@@ -193,11 +193,23 @@ namespace ServerLogic.Control
             if (!_isDebug)
             {
                 ServerParams serverParams = new ServerParams();
-                using (StreamReader r = new StreamReader(Resources.ServerParamsFilePath))
+                try
                 {
-                    string json = r.ReadToEnd();
-                    serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
+                    using (StreamReader r = new StreamReader(Resources.ServerParamsFilePath))
+                    {
+                        string json = r.ReadToEnd();
+                        serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
+                    }
                 }
+                catch (FileNotFoundException)
+                {
+                    using (StreamReader r = new StreamReader("ServerLogic/Properties/serverParams.json"))
+                    {
+                        string json = r.ReadToEnd();
+                        serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
+                    }
+                }
+
                 Settings.Default.ServerURL = serverParams.ServerURL;
                 Settings.Default.PAWebPagePort = serverParams.PAWebPagePort;
                 Settings.Default.MCWebSocketPort = serverParams.MCWebSocketPort;

@@ -4,7 +4,7 @@ EXPOSE 80
 EXPOSE 443
 COPY ServerLogic/ ./
 RUN dotnet publish ./ServerLogic.sln -c Release -o build --self-contained=false
-ENTRYPOINT ["dotnet", "./build/ServerLogic.dll"]
+#ENTRYPOINT ["dotnet", "./build/ServerLogic.dll"]
 #CMD ["cp", "ServerLogic/Properties/Log.txt", "ServerLogic/Properties/Persist/Log.txt"]
 
 

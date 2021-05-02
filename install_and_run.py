@@ -29,7 +29,7 @@ if int(option) == 1:
     json_obj = json.dumps(dic_opts, indent=4)
     with open(pathServerParams, "w") as outfile:
         outfile.write(json_obj)
-    with open("ServerLogic/ServerLogic/Properties/Persist/serverParams.json", "w") as outfile:
+    with open("ServerLogic/ServerLogic/Properties/serverParams.json", "w") as outfile:
         outfile.write(json_obj)
     os.system("docker system prune -f")
     print("Build new Image...")
