@@ -561,22 +561,20 @@ public class StoryGraph
 
         storyelement47.AddChild(background3);
 
-        var storyelement48 = new StoryEvent(Guid.NewGuid(), "Die besten Mitarbeiter werden zu einem Workshop auf Hawaii eingeladen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var storyelement48 = new StoryEvent(Guid.NewGuid(), "Die besten Mitarbeiter werden zu einem Workshop auf Hawaii eingeladen.", new HashSet<StoryEvent>(), StoryEventType.StoryEventWorkshop);
 
         background3.AddChild(storyelement48);
 
-
-
         //sufficient amount of skill points required
-        var storyelement49option1 = new StoryEvent(Guid.NewGuid(), "Glückwunsch du wurdest zum Workshop eingeladen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
-        var storyelement49option2 = new StoryEvent(Guid.NewGuid(), "Leider warst du nicht gut genug, vielleicht wird dein nächstes Projekt erfolgreicher.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
-        var storyelement49option3 = new StoryEvent(Guid.NewGuid(), "Leider musst du die Firma verlassen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var storyelement49option1 = new StoryEvent(Guid.NewGuid(), "Glückwunsch du wurdest zum Workshop eingeladen.", new HashSet<StoryEvent>(), StoryEventType.StoryEventWorkshopInvite);
+        var storyelement49option2 = new StoryEvent(Guid.NewGuid(), "Leider warst du nicht gut genug, vielleicht wird dein nächstes Projekt erfolgreicher.", new HashSet<StoryEvent>(), StoryEventType.StoryEventWorkshopNoInvite);
+        var storyelement49option3 = new StoryEvent(Guid.NewGuid(), "Leider musst du die Firma verlassen.", new HashSet<StoryEvent>(), StoryEventType.StoryEventFired);
 
         storyelement48.AddChild(storyelement49option1);
         storyelement48.AddChild(storyelement49option2);
         storyelement48.AddChild(storyelement49option3);
 
-        var end = new StoryEvent(Guid.NewGuid(), "", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var end = new StoryEvent(Guid.NewGuid(), "End.", new HashSet<StoryEvent>(), StoryEventType.StoryEnd);
 
         storyelement49option1.AddChild(end);
         storyelement49option2.AddChild(end);

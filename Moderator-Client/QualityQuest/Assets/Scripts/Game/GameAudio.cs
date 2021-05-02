@@ -36,5 +36,4 @@ public class GameAudio : MonoBehaviour
         effects.clip = Resources.Load<AudioClip>("sounds/effects/dice");
         effects.Play();
     }
-
 }

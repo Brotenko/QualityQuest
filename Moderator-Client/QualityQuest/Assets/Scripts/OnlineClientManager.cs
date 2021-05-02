@@ -311,12 +311,67 @@ public class OnlineClientManager : MonoBehaviour
             case StoryEventType.StoryFlow:
                 ContinueStoryFlow(storyEvent);
                 break;
+            case StoryEventType.StoryEventWorkshop:
+                WorkshopEvent(storyEvent);
+                break;
+            case StoryEventType.StoryEventFired:
+            case StoryEventType.StoryEventWorkshopInvite:
+            case StoryEventType.StoryEventWorkshopNoInvite:
+                ContinueStoryFlow(storyEvent);
+                break;
+            case StoryEventType.StoryEnd:
+                StoryEnd(storyEvent);
+                break;
             default:
                 Debug.Log("StoryEventType is not valid.");
                 break;
         }
     }
 
+    /// <summary>
+    /// Method if the special StoryEvent before the Workshop is reached.
+    /// Checks the player performance depending on the character stats and continues the story.
+    /// </summary>
+    /// <param name="currentEvent">The current StoryEvent.</param>
+    public void WorkshopEvent(StoryEvent currentEvent)
+    {
+        displayStoryFlow.RemoveStoryFlowListeners();
+
+        activeScreenManager.ShowStoryFlow();
+        displayStoryFlow.SetStoryFlow(currentEvent);
+
+        displayStoryFlow.storyFlowButton.onClick.AddListener(delegate
+        {
+            ContinueOnlineStory(clientLogic.WorkshopDecision(currentEvent));
+        });
+    }
+
+    /// <summary>
+    /// Method which gets triggered of the last StoryEvent gets reached.
+    /// If on online mode, sends a RequestCloseSessionMessage and shows statistics.
+    /// </summary>
+    /// <param name="currentEvent"></param>
+    public void StoryEnd(StoryEvent currentEvent)
+    {
+        displayStoryFlow.RemoveStoryFlowListeners();
+
+        activeScreenManager.ShowStoryFlow();
+        displayStoryFlow.SetStoryFlow(currentEvent);
+
+        displayStoryFlow.storyFlowButton.onClick.AddListener(delegate
+        {
+            if (!GameState.gameIsOnline) return;
+            SendRequestCloseSessionMessage();
+            if (clientLogic.VotingStatistic == null) return;
+            activeScreenManager.ShowStatistics();
+            displayStatistics.DisplayAllDecisions(clientLogic.VotingStatistic);
+        });
+    }
+
+    /// <summary>
+    /// Method to continue the story if after a StoryEventDecision.
+    /// </summary>
+    /// <param name="currentEvent">The current StoryEvent.</param>
     public void ContinueDecisionOption(StoryEvent currentEvent)
     {
         // Display dice animation if its a random event
@@ -386,15 +441,7 @@ public class OnlineClientManager : MonoBehaviour
         }
         else
         {
-            displayStoryFlow.storyFlowButton.onClick.AddListener(delegate
-            {
-                if (GameState.gameIsOnline)
-                {
-                    SendRequestCloseSessionMessage();
-                    activeScreenManager.ShowStatistics();
-                    displayStatistics.DisplayAllDecisions(clientLogic.VotingStatistic);
-                }
-            });
+            
         }
     }
 
@@ -434,7 +481,6 @@ public class OnlineClientManager : MonoBehaviour
     /// <param name="errorCode">The errorCode of the close reason.</param>
     public void ServerIssues(int errorCode)
     {
-        // TODO: Fix pw issue
         switch (errorCode)
         {
             case 1000:
@@ -461,7 +507,6 @@ public class OnlineClientManager : MonoBehaviour
             case ErrorType.IllegalMessage:
                 break;
             case ErrorType.IllegalPauseAction:
-                //TODO: implement
                 break;
             case ErrorType.GuidAlreadyExists:
                 clientLogic.SetNewModeratorClientGuid();
@@ -646,6 +691,17 @@ public class OnlineClientManager : MonoBehaviour
                 break;
             case StoryEventType.StoryFlow:
                 ContinueStoryFlow(storyEvent);
+                break;
+            case StoryEventType.StoryEventWorkshop:
+                WorkshopEvent(storyEvent);
+                break;
+            case StoryEventType.StoryEventFired:
+            case StoryEventType.StoryEventWorkshopInvite:
+            case StoryEventType.StoryEventWorkshopNoInvite:
+                ContinueStoryFlow(storyEvent);
+                break;
+            case StoryEventType.StoryEnd:
+                StoryEnd(storyEvent);
                 break;
             default:
                 break;

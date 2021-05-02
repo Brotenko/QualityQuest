@@ -172,4 +172,33 @@ public class ClientLogic
             throw new WrongVotingEndedMessage("The VotingEndedMessage does not match the current StoryEvent.");
         }
     }
+
+    public StoryEvent WorkshopDecision(StoryEvent storyEvent)
+    {
+        var skill = StoryGraph.Character.CalculateSkills();
+
+        if (skill < 10)
+        {
+            foreach (var child in storyEvent.Children.Where(child => child.StoryType.Equals(StoryEventType.StoryEventFired)))
+            {
+                return child;
+            }
+        } 
+        else if (skill  >= 10 && skill < 20)
+        {
+            foreach (var child in storyEvent.Children.Where(child => child.StoryType.Equals(StoryEventType.StoryEventWorkshopNoInvite)))
+            {
+                return child;
+            }
+        }
+        else
+        {
+            foreach (var child in storyEvent.Children.Where(child => child.StoryType.Equals(StoryEventType.StoryEventWorkshopInvite)))
+            {
+                return child;
+            }
+        }
+        // can not happen
+        return storyEvent.Children.First();
+    }
 }

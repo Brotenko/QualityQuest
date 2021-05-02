@@ -31,5 +31,25 @@ public enum StoryEventType
     /// The last StoryEvent of the game, when reaching the event, the game was successfully completed.
     /// Used to decide how the player did and to display the statistics.
     /// </summary>
-    StoryEnd
+    StoryEnd,
+
+    /// <summary>
+    /// StoryEvent to mark the RandomEvent to determine the next StoryEvent depending on the players performance.
+    /// </summary>
+    StoryEventWorkshop,
+
+    /// <summary>
+    /// StoryEvent if the player gets invited to the workshop.
+    /// </summary>
+    StoryEventWorkshopInvite,
+
+    /// <summary>
+    /// StoryEvent if the player gets fired at the end of the game.
+    /// </summary>
+    StoryEventFired,
+
+    /// <summary>
+    /// StoryEvent when the player is not invited to the workshop.
+    /// </summary>
+    StoryEventWorkshopNoInvite
 }

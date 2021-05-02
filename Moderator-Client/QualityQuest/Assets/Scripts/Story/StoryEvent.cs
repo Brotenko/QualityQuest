@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System;
 using Assets.Scripts.Game;
-using UnityEngine.Video;
 
+/// <summary>
+/// Class for the StoryEvents. The StoryEvents build the StoryGraph.
+/// </summary>
 public class StoryEvent
 {
     public Guid EventId { get; }
@@ -21,7 +23,7 @@ public class StoryEvent
     /// <param name="description">The Description of the StoryEvent.</param>
     /// <param name="children">The Children StoryEvents of the StoryEvent.</param>
     /// <param name="storyType">The type of the StoryEvent.</param>
-    /// <param name="skillChange">The ammount by which the StoryEvent changes the skills of the Character.</param>
+    /// <param name="skillChange">The amount by which the StoryEvent changes the skills of the Character.</param>
     public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, Skills skillChange)
     {
         this.EventId = eventId;
@@ -53,7 +55,8 @@ public class StoryEvent
     /// <param name="description">The Description of the StoryEvent.</param>
     /// <param name="children">The Children StoryEvents of the StoryEvent.</param>
     /// <param name="storyType">The type of the StoryEvent.</param>
-    /// <param name="randomEvent"></param>
+    /// <param name="randomOption">The RandomEventPath.</param>
+    /// <param name="randomType">The RandomEventPath.</param>
     public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, bool randomOption, RandomType randomType)
     {
         this.EventId = eventId;
@@ -71,8 +74,9 @@ public class StoryEvent
     /// <param name="description">The Description of the StoryEvent.</param>
     /// <param name="children">The Children StoryEvents of the StoryEvent.</param>
     /// <param name="storyType">The type of the StoryEvent.</param>
-    /// <param name="skillChange">The ammount by which the StoryEvent changes the skills of the Character.</param>
-    /// <param name="randomEvent"></param>
+    /// <param name="skillChange">The amount by which the StoryEvent changes the skills of the Character.</param>
+    /// <param name="randomOption">The RandomEventPath.</param>
+    /// <param name="randomType">The RandomEventType.</param>
     public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, Skills skillChange, bool randomOption, RandomType randomType)
     {
         this.EventId = eventId;
@@ -84,6 +88,12 @@ public class StoryEvent
         this.Random = randomType;
     }
 
+    /// <summary>
+    /// Constructor of the StoryEvent class. Special StoryEvent to switch the background.
+    /// </summary>
+    /// <param name="backgroundType">The background of the StoryEvent.</param>
+    /// <param name="children">The children of the StoryEvent.</param>
+    /// <param name="storyType">The StoryEventType.</param>
     public StoryEvent(BackgroundType backgroundType,HashSet<StoryEvent> children, StoryEventType storyType)
     {
         this.Children = children;

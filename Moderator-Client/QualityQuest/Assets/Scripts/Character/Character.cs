@@ -18,4 +18,13 @@ public class Character
         this.Name = name;
         this.Sprite = sprite;
     }
+
+    /// <summary>
+    /// Method to calculate the skills of the character.
+    /// </summary>
+    /// <returns></returns>
+    public int CalculateSkills()
+    {
+        return Abilities.Programming + Abilities.Partying + Abilities.Analytics + Abilities.Communication;
+    }
 }
