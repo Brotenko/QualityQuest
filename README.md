@@ -39,7 +39,6 @@ Possible issues and possible fixes:
 * Website or WebSocket not available?
   - Specify 'https://' explicitly for the website.
   - Check whether the sockets on your device are enabled or occupied by another service. 
-[...]?
 
 If you have any problems, please write us an issue, we will be happy to help you.
   
