@@ -592,7 +592,7 @@ GameObject:
   - component: {fileID: 48086342}
   - component: {fileID: 48086341}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: BackToMainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -664,7 +664,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1093310180}
         m_TargetAssemblyTypeName: ActiveScreenManager, Scripts
-        m_MethodName: ShowConnection
+        m_MethodName: BackToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2472,7 +2472,7 @@ GameObject:
   - component: {fileID: 177671608}
   - component: {fileID: 177671607}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: GameCrashText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9493,7 +9493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &645581871
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16574,7 +16574,7 @@ MonoBehaviour:
   loadingScreenPanel: {fileID: 2013832912}
   optionsPanel: {fileID: 815348827}
   pauseButtonPanel: {fileID: 1054240995}
-  gameCrashPanel: {fileID: 0}
+  gameCrashPanel: {fileID: 645581870}
   qrCodeGenerator: {fileID: 2053635036}
   gameMenuSwitchModeButton: {fileID: 1027499670}
   audienceCount: {fileID: 8152985334479808095}
@@ -22963,7 +22963,7 @@ GameObject:
   - component: {fileID: 1503366742}
   - component: {fileID: 1503366741}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: mainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
