@@ -21,8 +21,9 @@ s -> p: Notify about poll
         deactivate s
         deactivate p
     end
+s -> s: Evaluate vote
 s --> m: VotingEnded
-m -> m: Evaluate vote
+
 
 
 @enduml

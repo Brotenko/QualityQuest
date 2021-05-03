@@ -7,12 +7,22 @@ The security and persistence of communication is guaranteed by the use of WebSoc
 
 ## ServerLogic logs
 
-The ServerLogic log stores the Moderator-Client's GUID, the PlayerAudience-Client GUIDs, the voting results, and the sessionKey. If the ServerLogic should at any time lose the connection to the internet or have to close the current Online-Session, this will provide the following advantages:
+The ServerLogic log stores the Moderator-Client's GUID and the sessionkey as a pair. If the ServerLogic should at any time lose the connection to the internet or have to close the current Online-Session, this will provide the following advantages:
 
 - The logged Moderator-Client's GUID can still be used to send a [ReconnectMessage](#reconnectmessage) to the ServerLogic without requiring the password to be re-entered. This allows the Online-Session to resume easily without having to change sessionKey or re-entering the password.
-- The logged PlayerAudience-Client GUIDs can be used for keeping track of the PlayerAudience-Clients connected to the ServerLogic.
-- The logged sessionKey allows the PlayerAudience-Clients to quickly and easily reconnect to the Online-Session without having to enter a new sessionKey.
+- The logged sessionKey allows the PlayerAudience-Clients to quickly and easily reconnect to the Online-Session without the need to enter a new sessionKey.
+
+## PlayerAudience-Client logs
+
+The backend of the PlayerAudience-Clients stores the the list of active sessions, the respective sessionkeys, a list of all clients connected to the respective session and the voting results for the respective session. This provides the following advantages:
+
+- Multi-Game is supported by the PlayerAudience-Client backend.
+- The logged PlayerAudience-Client IDs can be used for keeping track of the PlayerAudience-Clients connected to the ServerLogic.
 - The logged voting results realize postgame statistics.
+
+## Moderator-Client GUID-Sessionkey-Pair
+
+The ServerLogic stores each Moderator-Client GUID with which it communicates and assigns it a sessionkey accordingly. This tuple of GUID and sessionkey is logged by the ServerLogic and is used for any ServerLogic internal communication to translate the GUID into the respective sessionkey required by the PlayerAudience-Client backend.
 
 ## Differences between starting in Online-Mode and Offline-Mode
 
@@ -35,7 +45,7 @@ A selection of possible causes for the loss of connection from the Moderator-Cli
 2. The moderator's end device loses the connection to the network, and thus to the ServerLogic.
 3. The ServerLogic does not react within 5 seconds after receiving the Moderator-Client's message.
 
-If the Moderator-Client should at any time lose the connection to the ServerLogic, it automatically switches to Offline-Mode and notifies the moderator. The moderator can then continue to play the game in form of an Offline-Session. In the meantime, the Moderator-Client continuously sends [RequestServerStatusMessages](#requestserverstatusmessage) to the ServerLogic to determine if the ServerLogic is back online. When the Moderator-Client receives a [ServerStatusMessage](#serverstatusmessage), it informs the moderator that the Online-Session can be resumed. In this case, the moderator can either go back into Online-Mode via an UI element or continue playing in Offline-Mode. This can result in the following three scenarios:
+If the Moderator-Client should at any time lose the connection to the ServerLogic, it automatically switches to Offline-Mode and notifies the moderator. The moderator can then continue to play the game in form of an Offline-Session. In the meantime, the WebSocket will continuously send messages to the ServerLogic to determine if the ServerLogic is back online. When the Moderator-Client receives an answer from WebSocket of the ServerLogic, it informs the moderator that the Online-Session can be resumed. In this case, the moderator can either go back into Online-Mode via an UI element or continue playing in Offline-Mode. This can result in the following three scenarios:
 
 - The ServerLogic is reachable again and the connection can be re-established. Furthermore, the Online-Session on the ServerLogic was not closed and the PlayerAudience-Clients are still connected to the ServerLogic. In that case the Moderator-Client only has to send a [ReconnectMessage](#reconnectmessage) to return to normal gameplay, since the Online-Session is still going.
 - The ServerLogic is reachable again and the connection can be re-established, but the Online-Session on the ServerLogic has been closed and the PlayerAudience-Clients are no longer connected to the ServerLogic. In that case the Moderator-Client only has to send a [ReconnectMessage](#reconnectmessage), since the logs of the ServerLogic still hold the GUID of the Moderator-Client. This way the Online-Session can be restored without entering the password again and the PlayerAudience-Clients can simply reconnect to the ServerLogic, through the same QR-code, URL and sessionKey, to be able to participate in the game again. 
@@ -86,8 +96,8 @@ Breaks are always initiated by the Moderator-Client and cannot be initiated by t
 
 ## What about the communication between PlayerAudience-Clients and ServerLogic?
 
-Communication between the ServerLogic and the PlayerAudience-Clients is not specified as part of the network protocol because the back-end of the PlayerAudience-Clients and the general ServerLogic logic are on the same physical server and can thus communicate directly with each other. This communication happens locally, through different functions, and does not need pre-defined message types, like the communication between Moderator-Client and ServerLogic. Since the front-end of the PlayerAudience-Clients is a web page, nothing more specific needs to be defined here either, as pre-implemented solutions of HTML and JavaScript can be used to implement the communication between PlayerAudience-Clients and ServerLogic. </br>
-Apart from that, the Observer-pattern is used to make the communication simple and efficient. Here the PlayerAudience-Clients subscribe to the ServerLogic to observe it.
+Communication between the ServerLogic and the PlayerAudience-Clients is not specified as part of the network protocol because the back-end of the PlayerAudience-Clients and the general ServerLogic logic are on the same physical server and can thus communicate directly with each other. This communication happens locally, through different functions, and does not need pre-defined message types, like the communication between Moderator-Client and ServerLogic. Since the front-end of the PlayerAudience-Clients is a web page, nothing more specific needs to be defined here either, as pre-implemented solutions of ASP.NET, SignalR and JQuery can be used to implement the communication between PlayerAudience-Clients and ServerLogic. </br>
+Apart from that, the Observer-pattern is used, in form of SignalR Hubs, to make the communication simple and efficient. Here the PlayerAudience-Clients subscribe to the ServerLogic to observe it.
 
 ## MessageContainer
 
@@ -99,14 +109,12 @@ class MessageContainer
     Guid ModeratorId; 
     MessageType Type;
     DateTime CreationDate;
-    string DebugMessage;
 }
 ```
 
 - **moderatorId:** The individual identifier assigned to the Moderator-Client. Only the Moderator-Client sends this id to the ServerLogic to identify itself. The ServerLogic leaves this field empty.
 - **type:** Specifies the type of the message to be able to parse it accordingly.
 - **creationDate:** The timestamp of the message.
-- **debugMessage:** Can be used during development to transport additional data between ServerLogic and Moderator-Client. This way, in case of a non parsable message, or an error occurring, information can be carried to the Moderator-Client directly for quick access, without the need to search through the logs.
 
 ## MessageType Enum
 
@@ -119,8 +127,6 @@ enum MessageType
     RequestOpenSession,
     SessionOpened,
     AudienceStatus,
-    RequestServerStatus,
-    ServerStatus,
     Reconnect,
     ReconnectSuccessful,
     RequestGameStart,
@@ -176,16 +182,6 @@ Listing which participant may send which message, the order of the listing is ba
                 </tr>
                 <tr>
                     <th style="font-weight: normal"><a href="#audiencestatusmessage">AudienceStatus</a></th>
-                    <th></th>
-                    <th>✓</th>
-                </tr>
-                <tr>
-                    <th style="font-weight: normal"><a href="#requestserverstatusmessage">RequestServerStatus</a></th>
-                    <th>✓</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th style="font-weight: normal"><a href="#serverstatusmessage">ServerStatus</a></th>
                     <th></th>
                     <th>✓</th>
                 </tr>
@@ -293,9 +289,9 @@ enum ErrorType
     WrongPassword,
     UnknownGuid,
     IllegalPauseAction,
-    SessionDoesNotExist,
-    NewModerator,
-    IllegalMessage
+    WrongSession,
+    IllegalMessage,
+    GuidAlreadyExists
 }
 ```
 
@@ -304,9 +300,10 @@ enum ErrorType
 - **IllegalPauseAction:** Is triggered if one of the following cases applies:
     - A request to pause the game reaches the ServerLogic even though the game is already paused.
     - A request to continue the game reaches the ServerLogic even though the game has not been paused previously.
-- **SessionDoesNotExist:** Is triggered when an attempt is made to interact with an Online-Session that does not exist.
-- **NewModerator:** Is triggered and sent to the current Moderator-Client, when a new Moderator connects to the ServerLogic via [RequestOpenSessionMessage](#requestopensessionmessage).
+- **WrongSession:** Is triggered when a ModeratorClient tries to interact with a session not assigned to the moderator.
 - **IllegalMessage:** Is triggered when an unknown message type is received, or when a message arrives at the ServerLogic out of order. More precise details are to be specified in the errorMessage.
+- **GuidAlreadyExists:** Is triggered if an already registered ModeratorGuid attempts to open a new session from a new connection.
+Addresses the unlikely event that two different ModeratorClients happen to generate the same GUID.
 
 ## Detailed message definitions
 
@@ -338,13 +335,11 @@ class SessionOpenedMessage : MessageContainer
 {
     string SessionKey;
     Uri DirectURL;
-    Bitmap QrCode;
 }
 ```
 
 - **SessionKey:** A randomly generated Online-Session key, of size 6, required by the audience to join the Online-Session, after connecting to the ServerLogic.
-- **DirectURL:** A direct URL that the audience can use to connect to the ServerLogic via the PlayerAudience-Client should the QR code not be usable.
-- **QrCode:** A QR-code automatically generated by the ServerLogic which can be scanned by the audience to connect to the ServerLogic. 
+- **DirectURL:** A direct URL that the audience can use to connect to the ServerLogic via the PlayerAudience-Client. An QR-Code based on this is also provided by the Moderator-Client.
 
 #### AudienceStatusMessage
 
@@ -359,32 +354,6 @@ class AudienceStatusMessage : MessageContainer
 ```
 
 - **AudienceCount:** The amount of PlayerAudience members that connected to the current session.
-
-#### RequestServerStatusMessage
-
-Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageType](#messagetype-enum)::RequestServerStatus**. </br>
-This message is sent from the Moderator-Client to the ServerLogic if there is currently no connection to a ServerLogic. This message is sent to the ServerLogic at regular intervals until the ServerLogic returns a response in form of a [ServerStatusMessage](#serverstatusmessage). If a [ServerStatusMessage](#serverstatusmessage) is received by the Moderator-Client at any given time, the moderator is notified that a connection to the ServerLogic is possible, and at the same time, RequestServerStatus messages are stopped being sent to the ServerLogic.
-
-``` csharp
-class RequestServerStatusMessage : MessageContainer 
-{
-    // No extra fields needed
-}
-```
-
-The ServerLogic responds with a **[ServerStatusMessage](#serverstatusmessage)**.
-
-#### ServerStatusMessage
-
-Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageType](#messagetype-enum)::ServerStatus**. </br>
-This message is sent from the ServerLogic to the Moderator-Client in response to a **[RequestServerStatusMessage](#requestserverstatusmessage)** to confirm that the ServerLogic is available for a connection.
-
-``` csharp
-class ServerStatusMessage : MessageContainer 
-{
-    // No extra fields needed
-}
-```
 
 #### ReconnectMessage
 
@@ -449,14 +418,17 @@ This message is sent from the Moderator-Client to the ServerLogic to request the
 class RequestStartVotingMessage : MessageContainer 
 {
     int VotingTime;
-    Dictionary<Guid, string> VotingOptions;
+    KeyValuePair<Guid, string> VotingPrompt;
+    KeyValuePair<Guid, string>[] VotingOptions;
 }
 ```
 
 - **VotingTime:** The time in seconds that PlayerAudience-Clients have to cast their vote.
+- **VotingPrompt:** The Guid and string of the prompt to be voted on. 
 - **VotingOptions:** Contains the GUIDs of the respective voting option as the key and textual description of the voting option as the value.
 
 The ServerLogic responds with a [VotingStartedMessage](#votingstartedmessage) and some time after with a [VotingEndedMessage](#votingendedmessage).
+
 
 #### VotingStartedMessage
 
@@ -478,13 +450,15 @@ This message is sent from the ServerLogic to the Moderator-Client in response to
 ``` csharp
 class VotingEndedMessage : MessageContainer 
 {
-    Guid WinningOption;
+    string WinningOption;
     Dictionary<Guid, int> VotingResults;
+    int TotalVotes;
 }
 ```
 
-- **WinningOption:** The GUID of the option that got the most votes from the PlayerAudience.
-- **VotingResults:** Contains the GUIDs of the option as the key and the respective amount of received votes as the value.
+- **WinningOption:** The string of the option that got the most votes from the PlayerAudience.
+- **VotingResults:** Contains the Guid of the option as the key and the respective amount of received votes as the value.
+- **TotalVotes:** The total number of votes cast in this round of voting.
 
 ### Control messages
 
@@ -555,16 +529,14 @@ The ServerLogic responds with a **[SessionClosedMessage](#sessionclosedmessage)*
 #### SessionClosedMessage
 
 Specification of a **[MessageContainer](#messagecontainer)** with the type **[MessageType](#messagetype-enum)::SessionClosed**. </br>
-This message is sent from the ServerLogic to the Moderator-Client in response to a **[RequestCloseSessionMessage](#requestclosesessionmessage)**, to confirm that the Online-Session has been successfully closed and that the logs have been cleared completely. In addition to that, the statistics of the Online-Session are returned to the Moderator-Client, which can be used to display every conducted vote and which option got how many votes.
+This message is sent from the ServerLogic to the Moderator-Client in response to a **[RequestCloseSessionMessage](#requestclosesessionmessage)**, to confirm that the Online-Session has been successfully closed and that the logs have been cleared completely. 
 
 ``` csharp
 class SessionClosedMessage : MessageContainer 
 {
-    Dictionary<string, int> Statistics;
+    // No extra fields needed
 }
 ```
-
-- **Statistics:** Contains the id of the option as the key and the respective amount of received votes as the value.
 
 ## Sequence diagrams of typical communicational processes
 
@@ -585,7 +557,7 @@ List of MessageTypes used: [RequestOpenSessionMessage](#requestopensessionmessag
 
 This diagram illustrates a typical process how a Moderator-Client checks if the connection to a ServerLogic has been restored and optionally how the Moderator-Client reconnects to a running session. 
 
-List of MessageTypes used: [RequestServerStatusMessage](#requestserverstatusmessage), [ServerStatusMessage](#serverstatusmessage), [ReconnectMessage](#reconnectmessage), [ReconnectSuccessfulMessage](#reconnectsuccessfulmessage)
+List of MessageTypes used: [ReconnectMessage](#reconnectmessage), [ReconnectSuccessfulMessage](#reconnectsuccessfulmessage)
 
 ![Player reconnect](../diagrams/network-diagrams/player-reconnect.svg)
 
@@ -604,14 +576,6 @@ This diagram illustrates a typical process of how a Moderator-Client initialises
 List of MessageTypes used: [RequestStartVotingMessage](#requeststartvotingmessage), [VotingStartedMessage](#votingstartedmessage), [VotingEndedMessage](#votingendedmessage)
 
 ![Voting phase](../diagrams/network-diagrams/voting-phase.svg)
-
-### New moderator
-
-This diagram illustrates a typical process how a Moderator-Client replaces another Moderator-Client while opening a new Online-Session.
-
-List of MessageTypes used: [RequestOpenSessionMessage](#requestopensessionmessage), [ErrorMessage](#errormessage), [SessionOpenedMessage](#sessionopenedmessage)
-
-![New moderator](../diagrams/network-diagrams/new-moderator.svg)
 
 ### End Online-Session
 

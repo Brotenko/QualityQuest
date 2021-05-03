@@ -10,7 +10,7 @@ package "Moderator-Client" {
     {field} -parent: StoryEvent
     {field} -children: StoryEvent[]
     {method} +StoryEvent(parent: StoryEvent, id: int)
-    {method} +AddChild(): void
+    {method} +addChild(): void
   }
 
   class StoryGraph {
@@ -18,18 +18,18 @@ package "Moderator-Client" {
     {field} -root: StoryEvent
     {field} -currentEvent: StoryEvent
     {method} +StoryGraph(id: int)
-    {method} +LoadGraphFromFile(filepath: string): Graph
-    {method} +SaveGraphToFile(filepath: string): void
-    {method} +GetNextPossibleEvent(): StoryEvent[]
-    {method} +SetCurrentEvent(newCurrentEvent: StoryEvent): void
-    {method} +GetNextStoryEventById(id: int): StoryEvent
+    {method} +loadGraphFromFile(filepath: string): Graph
+    {method} +saveGraphToFile(filepath: string): void
+    {method} +getNextPossibleEvent(): StoryEvent[]
+    {method} +setCurrentEvent(newCurrentEvent: StoryEvent): void
+    {method} +getNextStoryEventById(id: int): StoryEvent
   }
 
   class "ModeratorView" as mf {
     {field} -startedOnline: bool
     {method} +ModeratorView()
-    {method} +PausePolling(val: bool): void
-    {method} +OfflineMode(val: bool): void
+    {method} +pausePolling(val: bool): void
+    {method} +offlineMode(val: bool): void
   }
 
   class "ModeratorClientExchange" as mcei{
@@ -37,11 +37,11 @@ package "Moderator-Client" {
     {field} -authentificationGuid: Guid
     {field} -timeoutDuration: int
     {method} +ModeratorClientExchange()
-    {method} +SendMessage(message: string): void
-    {method} +EvalJSON(json: string): bool
-    {method} +GetVotingResults(): int
-    {method} +MakeJSON(): string
-    {method} +EnterPassword(pw: string): void
+    {method} +sendMessage(message: string): void
+    {method} +evalJSON(json: string): bool
+    {method} +getVotingResults(): int
+    {method} +makeJSON(): string
+    {method} +enterPassword(pw: string): void
   }
 
   class Skills {
@@ -50,10 +50,10 @@ package "Moderator-Client" {
     {field} -partying: int
     {field} -programming: int
     {method} + Skills(commu: int, analy: int, party: int, progr: int)
-    {method} + UpdateCommunicationSkill(value: int): void
-    {method} + UpdateAnalyticsSkill(value: int): void
-    {method} + UpdatePartyingSkill(value: int): void
-    {method} + UpdateProgrammingSkill(value: int): void
+    {method} + updateCommunicationSkill(value: int): void
+    {method} + updateAnalyticsSkill(value: int): void
+    {method} + updatePartyingSkill(value: int): void
+    {method} + updateProgrammingSkill(value: int): void
   }
 
   class Character {
@@ -76,193 +76,21 @@ package "Server" {
   package "ServerLogic" <<Rectangle>>{
     class "ServerShell" as ss {
       {field} +logger: Logger
-      {field} <<Property>> +Port: int <<+get; -set>>
-      {field} <<Property>> +Password: string <<+get; -set>>
+      {field} -port: int
+      {field} -runShell: bool
       {field} -serverShell: ServerShell
-      {field} -serverIsRunning: bool
-      {field} -commandRequestsHelpMessage: bool
-      {field} -mainServerLogic: MainServerLogic
+      {field} -streamReader: StreamReader
       {method} +ServerShell()
-      {method} -RunShell(): void
-      {method} -StopShell(): void
-      {method} +ParseCommandDebugger(debugInput: string): string
-      {method} -ParseCommand(input: string): string
-      {method} -ParsePort(parameterList: string[]): string
-      {method} -ParsePassword(parameterList: string[]): string
-      {method} +ServerShell(password: string, port: int)
-      {method} -StartServer(parameterList: string[]): string
-      {method} -StopServer(): string
-      {method} -ShowHelp(command: string): string
-      {method} -ShowVersion(): string
-      {method} -ShowLogs(parameterList: string[]): string 
-      {static} -CheckMainMethodArgs(args: string[]): string[]
-      {static} -ValidateShellPassword(password: string): string
-      {static} -ValidateShellPort(portString: string): int
-      {static} +Main(args: string[])
+      {method} +startShell(): void
+      {method} +stopShell(): void
+      {method} +parseCommand(command: string): void
+      {method} +showHelp(): void
+      {method} +configPort(): void
+      {method} +configCapacity(): void
+      {method} +startServer(): void
+      {method} +stopServer(): void
+      {method} +main(args: string[]): void
     }
-    
-
-    class "MessageContainer" as messCont {
-      {field} <<Property>> +ModeratorID: Guid <<+get>>
-      {field} <<Property>> +Type: MessageType <<+get>>
-      {field} <<Property>> +CreationDate: DateTime <<+get>>
-      {field} <<Property>> +DebugMessage: string <<+get>>
-      {method} +MessageContainer(moderatorId: Guid, type: MessageType, creationDate: DateTime, debugMessage: string)
-      {method} +MessageContainer(moderatorId: Guid, type: MessageType, debugMessage: string)
-      {method} +MessageContainer(moderatorId: Guid, type: MessageType)
-      {method} +ToString(): string
-    }
-
-    class "AudienceStatusMessage" as audStatMess {
-      {field} <<Property>> +AudienceCount: int <<+get>>
-      {method} +AudienceStatusMessage(moderatorId: Guid, audienceCount: int)
-      {method} +AudienceStatusMessage(moderatorId: Guid, audienceCount: int, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "ErrorMessage" as errMess{
-      {field} <<Property>> +ErrorMessageType: ErrorType <<+get>>
-      {field} <<Property>> +ErrorMessageText: string <<+get>>
-      {method} +ErrorMessage(moderatorId: Guid, errorMessageType: ErrorType, errorMessageText: string)
-      {method} +ErrorMessage(moderatorId: Guid, errorMessageType: ErrorType, errorMessageText: string, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "GamePausedStatusMessage" as gaPaStatMess{
-      {field} <<Property>> +GamePaused: bool <<+get>>
-      {method} +GamePausedStatusMessage(moderatorId: Guid, gamePaused: bool)
-      {method} +GamePausedStatusMessage(moderatorId: Guid, gamePaused: bool, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "GameStartedMessage" as gaStartMess{
-      {method} +GameStartedMessage(moderatorId: Guid)
-      {method} +GameStartedMessage(moderatorId: Guid, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "ReconnectMessage" as reconnMess{
-      {method} +ReconnectMessage(moderatorId: Guid)
-      {method} +ReconnectMessage(moderatorId: Guid, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "RecconnectSuccessfulMessage" as reconnSuccMess{
-      {method} +ReconnectSuccessfulMessage(moderatorId: Guid)
-      {method} +ReconnectSuccessfulMessage(moderatorId: Guid, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "RequestCloseSessionMessage" as reqCloseSessMess{
-      {field} <<Property>> +SessionKey: string <<+get>>
-      {method} +RequestCloseSessionMessage(moderatorId: Guid, sessionKey: string)
-      {method} +RequestCloseSessionMessage(moderatorId: Guid, sessionKey: string, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "RequestGamePausedStatusChangeMessage" as reqGaPaStatMess{
-      {field} <<Property>> +GamePaused: bool <<+get>>
-      {method} +RequestGamePausedStatusChangeMessage(moderatorId: Guid, gamePaused: bool)
-      {method} +RequestGamePausedStatusChangeMessage(moderatorId: Guid, gamePaused: bool, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "RequestGameStartMessage" as reqGaStartMess{
-      {method} +RequestGameStartedMessage(moderatorId: Guid)
-      {method} +RequestGameStartedMessage(moderatorId: Guid, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "RequestOpenSessionMessage" as reqOpSessMess{
-      {field} <<Property>> +Password: string <<+get>>
-      {method} +RequestOpenSessionMessage(moderatorId: Guid, password: string)
-      {method} +RequestOpenSessionMessage(moderatorId: Guid, password: string, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "RequestServerStatusMessage" as reqServStatMess{
-      {method} +RequestServerStatusMessage(moderatorId: Guid)
-      {method} +RequestServerStatusMessage(moderatorId: Guid, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "RequestStartVotingMessage" as reqStartVotMess{
-      {field} <<Property>> +VotingTime: int <<+get>>
-      {field} <<Property>> +VotingOptions: Dictionary<Guid, string> <<+get>>
-      {method} +RequestStartVotingMessage(moderatorId: Guid, votingTime: int, votingOptions: Dictionary<Guid, string>)
-      {method} +RequestStartVotingMessage(moderatorId: Guid, votingTime: int, votingOptions: Dictionary<Guid, string>, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "ServerStatusMessage" as servStatMess{
-      {method} +ServerStatusMessage(moderatorId: Guid)
-      {method} +ServerStatusMessage(moderatorId: Guid, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "SessionClosedMessage" as sessClosedMess{
-      {method} +SessionClosedMessage(moderatorId: Guid, statistics: Dictionary<string, int>)
-      {method} +SessionClosedMessage(moderatorId: Guid, statistics: Dictionary<string, int>, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "SessionOpenedMessage" as sessOpMess{
-      {field} <<Property>> +SessionKey: string <<+get>>
-      {field} <<Property>> +DirectURL: Uri <<+get>>
-      {field} <<Property>> +QrCode: Bitmap <<+get>>
-      {method} +SessionOpenedMessage(moderatorId: Guid, sessionKey: string, directURL: Uri, qrCode: Bitmap)
-      {method} +SessionOpenedMessage(moderatorId: Guid, sessionKey: string, directURL: Uri, qrCode: Bitmap, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    class "VotingEndedMessage" as votEndMess{
-      {field} <<Property>> +WinningOption: Guid <<+get>>
-      {field} <<Property>> +VotingResults: Dictionary<Guid, int> <<+get>>
-      {method} +VotingEndedMessage(moderatorId: Guid, winningOption: Guid, votingResults: Dictionary<Guid, int>)
-      {method} +ToString(): string
-    }
-
-    class "VotingStartedMessage" as votStartMess{
-      {method} +VotingStartedMessage(moderator: Guid)
-      {method} +VotingStartedMessage(moderator: Guid, debugMessage: string)
-      {method} +ToString(): string
-    }
-
-    skinparam enum{
-      BackgroundColor Wheat
-      BorderColor Wheat
-    }
-
-    enum "ErrorType" as errorType {
-      ..
-      WrongPassword
-      UnknownGuid
-      IllegalPauseAction
-      SessionDoesNotExist
-      NewModerator
-      IllegalMessage
-    }
-
-    enum "MessageType" as messType{
-      ..
-      RequestOpenSession
-      SessionOpened
-      AudienceStatus
-      RequestServerStatus
-      Reconnect
-      ReconnectSuccessful
-      RequestGameStart
-      GameStarted
-      RequestStartVoting
-      VotingStarted
-      VotingEnded
-      ErrorType
-      RequestGamePausedStatusChange
-      GamePausedStatus
-      RequestCloseSession
-      SessionClosed
-    }
-
 
     class "ModeratorClientManager" as cm {
       {field} -webSocket: WebSocket
@@ -272,12 +100,12 @@ package "Server" {
       {field} +logger: Logger
       {field} -authentificationTokenModeratorClientHash: int
       {method} +ModeratorClientManager(): void
-      {method} +Disconnect(): void
-      {method} +RecieveMessage(message: string): void
-      {method} +CheckJSON(message: string): bool
-      {method} +SendMessage(message: string): void
-      {method} +SendVotingResults(results: Dictionary<Guid, int>): void
-      {method} +EvalJSON(json: string): string[]
+      {method} +disconnect(): void
+      {method} +recieveMessage(message: string): void
+      {method} +checkJSON(message: string): bool
+      {method} +sendMessage(message: string): void
+      {method} +sendVotingResults(results: Dictionary<Guid, int>): void
+      {method} +evalJSON(json: string): string[]
 
     }    
 
@@ -287,10 +115,10 @@ package "Server" {
       {field} -timer: Timer
       {field} +logger: Logger
       {method} +MainServerLogic(capacity: int, port: int)
-      {method} +OnFalseMessage(message: string): void
-      {method} +OnVotingMessage(message: string): void
-      {method} +UpdateModeratorClientManagerPlayerAudienceClientCountAttribute(): void
-      {method} +StartPollingTimer(): void
+      {method} +onFalseMessage(message: string): void
+      {method} +onVotingMessage(message: string): void
+      {method} +updateModeratorClientManagerPlayerAudienceClientCountAttribute(): void
+      {method} +startPollingTimer(): void
     }
 
     class "PlayerAudienceClientManager" as api {
@@ -298,11 +126,11 @@ package "Server" {
         {field} -possibleDecisions: string[]
         {field} -voteCounter: Dictionary<int, int>
         {method} +PlayerAudienceClientManager()
-        {method} +SubscribeObserver(observer: Observer, cookie: Cookie): void
-        {method} +UnsubscribeObserver(observer: Observer): void
-        {method} -NotifyObservers(): void
-        {method} +UpdatePossibleDecisions(decisions: Dictionary<Guid, string>): void
-        {method} +EvaluateVotes(): Dictionary<Guid, int>
+        {method} +subscribeObserver(observer: Observer, cookie: Cookie): void
+        {method} +unsubscribeObserver(observer: Observer): void
+        {method} -notifyObservers(): void
+        {method} +updatePossibleDecisions(decisions: Dictionary<Guid, string>): void
+        {method} +evaluateVotes(): Dictionary<Guid, int>
   }
 
     class "ServerLogger" as sl <<Singleton>> {
@@ -311,11 +139,11 @@ package "Server" {
       {field} -isSetup: bool
       {field} -consoleHandler: Handler
       {method} -Logger()
-      {method} +CreateNewLogger(): Logger
-      {method} +Setup(): void
-      {method} +AddHandler(logger: Logger): void
-      {method} +SetLevel(level: int): void
-      {method} +SetConsoleOutput(val: bool): void
+      {method} +createNewLogger(): Logger
+      {method} +setup(): void
+      {method} +addHandler(logger: Logger): void
+      {method} +setLevel(level: int): void
+      {method} +setConsoleOutput(val: bool): void
     }
   }
   package "PlayerAudience-Client" <<Rectangle>>{  
@@ -325,8 +153,8 @@ package "Server" {
       {field} -selectedDecision: int
       {field} -possibleDecisions: Dictionary<Guid, string>
       {method} +PlayerAudienceClientExchange()
-      {method} +Update(): void
-      {method} -HashifyStringToID(decision: string): int
+      {method} +update(): void
+      {method} -hashifyStringToID(decision: string): int
     }
 
     class "PlayerAudienceView" as pav {
@@ -342,42 +170,6 @@ package "Server" {
   sl ... ss
   pace -left- pav
   api "1" <-right- "n" pace : observes
-  messCont <|- audStatMess
-  messCont <|- gaPaStatMess
-  messCont <|- gaStartMess
-  messCont <|- reconnMess
-  messCont <|- reconnSuccMess
-  messCont <|- reqCloseSessMess
-  messCont <|- reqGaPaStatMess
-  messCont <|- reqGaStartMess
-  messCont <|- reqOpSessMess
-  messCont <|- reqServStatMess
-  messCont <|- reqStartVotMess
-  messCont <|- servStatMess
-  messCont <|- sessClosedMess
-  messCont <|- sessOpMess
-  messCont <|- votEndMess
-  messCont <|- votStartMess
-  messCont <|- errMess
-  messCont -left- messType
-  errMess - errorType
-
-  votStartMess -[hidden]- votEndMess
-  votEndMess -[hidden]- sessOpMess
-  sessOpMess -[hidden]- sessClosedMess
-  sessClosedMess -[hidden]- reqGaPaStatMess
-  reqCloseSessMess -[hidden]- reconnSuccMess
-  reconnSuccMess -[hidden]- reconnMess
-  servStatMess -[hidden]- reqStartVotMess
-  reqStartVotMess -[hidden]-reqServStatMess
-  reqServStatMess -[hidden]- gaStartMess
-  gaStartMess -[hidden]-gaPaStatMess
-  reconnMess -[hidden]- audStatMess
-  reqStartVotMess -[hidden]- servStatMess
-  servStatMess -[hidden]- votStartMess
-  votStartMess -[hidden]-reqCloseSessMess
-
-  
 }
 
 mcei -right- cm
