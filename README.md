@@ -21,15 +21,16 @@ Make sure that Python3 is installed and Docker is running. Place a valid .pfx ce
 
 ## How to use the Server
 The server-shell contains the following commands:
-  password       Show or set the server-access password
-  start          Start the server
-  stop           Stop the server
-  sess         	 Shows the currently active sessions
-  log          	 Show the logs
-  exit         	 Exit the shell
+```
+  - password       Show or set the server-access password
+  - start          Start the server
+  - stop           Stop the server
+  - sess         	 Shows the currently active sessions
+  - log          	 Show the logs
+  - exit         	 Exit the shell
 
 Use 'command --help' to read about a specific command.
-
+```
 The settings made in the shell persist beyond the end of the container and are thus also available after a restart via the script if option three is selected. The same applies to the log file, which can be found in `/Saves`, although unlike the parameters, this is not reset with any of the three options. This should be done, if desired, via the server shell with `log --clear`.
 
 ## Maintenance / Known issues
