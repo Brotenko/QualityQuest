@@ -36,4 +36,10 @@ public class GameAudio : MonoBehaviour
         effects.clip = Resources.Load<AudioClip>("sounds/effects/dice");
         effects.Play();
     }
+
+    public void PlaySkillChangeSound()
+    {
+        effects.clip = Resources.Load<AudioClip>("sounds/effects/skillChange");
+        effects.Play();
+    }
 }

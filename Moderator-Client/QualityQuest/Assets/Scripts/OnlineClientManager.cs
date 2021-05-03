@@ -20,6 +20,8 @@ public class OnlineClientManager : MonoBehaviour
     [SerializeField]
     private DisplayStatusbar displayStatusBar;
     [SerializeField]
+    private GameAudio gameAudio;
+    [SerializeField]
     private DisplayDecision displayDecision;
     [SerializeField]
     private DisplayStoryFlow displayStoryFlow;
@@ -293,6 +295,7 @@ public class OnlineClientManager : MonoBehaviour
             clientLogic.StoryGraph.Character.Abilities.updateAbilities(storyEvent.SkillChange);
             displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
             displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
+            gameAudio.PlaySkillChangeSound();
         }
 
         switch (storyEvent.StoryType)
@@ -378,6 +381,7 @@ public class OnlineClientManager : MonoBehaviour
         if (currentEvent.Children.Count > 1)
         {
             displayStatusBar.DisplayDice(3);
+            gameAudio.PlayDiceSound();
         }
 
         if (GameState.gameIsOnline)
@@ -673,6 +677,7 @@ public class OnlineClientManager : MonoBehaviour
             clientLogic.StoryGraph.Character.Abilities.updateAbilities(storyEvent.SkillChange);
             displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
             displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
+            gameAudio.PlaySkillChangeSound();
         }
 
         switch (storyEvent.StoryType)
