@@ -15879,6 +15879,7 @@ MonoBehaviour:
   qualityQuestWebSocket: {fileID: 795812797}
   activeScreenManager: {fileID: 1093310180}
   displayStatusBar: {fileID: 1093310169}
+  gameAudio: {fileID: 1980935960}
   displayDecision: {fileID: 1093310178}
   displayStoryFlow: {fileID: 1093310179}
   result: {fileID: 1234932276}
@@ -16031,6 +16032,7 @@ MonoBehaviour:
   skillChangeParty: {fileID: 680701862}
   decisionTimerTime: {fileID: 1234933204}
   skillHideTimerDuration: 5
+  updateSkillChangeDelay: 0
 --- !u!4 &1093310171
 Transform:
   m_ObjectHideFlags: 0
