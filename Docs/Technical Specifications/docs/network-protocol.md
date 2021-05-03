@@ -424,7 +424,7 @@ class RequestStartVotingMessage : MessageContainer
 ```
 
 - **VotingTime:** The time in seconds that PlayerAudience-Clients have to cast their vote.
-- **VotingPrompt:** The Guid and string of the prompt to be voted on. 
+- **VotingPrompt:** Contains the GUID of the voting prompt as the key and textual description of the voting prompt as the value.
 - **VotingOptions:** Contains the GUIDs of the respective voting option as the key and textual description of the voting option as the value.
 
 The ServerLogic responds with a [VotingStartedMessage](#votingstartedmessage) and some time after with a [VotingEndedMessage](#votingendedmessage).
