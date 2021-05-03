@@ -50,7 +50,7 @@ public class Client : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        clientLogic = new ClientLogic(5);
+        clientLogic = new ClientLogic(30);
     }
 
     /// <summary>
