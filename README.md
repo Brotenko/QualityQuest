@@ -14,18 +14,35 @@ We provide placeholders for these purposes which can be replaced, or removed, de
 ## Setup
 
 Make sure that Python3 is installed and Docker is running. Place a valid .pfx certificate in `QualityQuest/ServerLogic`. Run `install_and_run.py` with administrator privileges. The script offers you three options to start QualityQuest: 
-1. Must have been run once to enable the other two options. Creates a new Docker image, the requested parameters are used to start a Docker container and run QualityQuest directly afterwards.
-2. Start QualityQuest from an existing Docker image and change parameters such as port, URL and certificate. Resets parameters such as LogLevel and password from previous sessions.
-3. Start QualityQuest and apply settings from previous sessions.
+1. (Install) Must have been run once to enable the other two options. Creates a new Docker image, the requested parameters are used to start a Docker container and run QualityQuest directly afterwards.
+2. (Configurate) Start QualityQuest from an existing Docker image and change parameters such as port, URL and certificate. Resets parameters such as LogLevel and password from previous sessions.
+3. (Continue) Start QualityQuest and apply settings from previous sessions.
 
 
 ## How to use the Server
+The server-shell contains the following commands:
+  password       Show or set the server-access password
+  start          Start the server
+  stop           Stop the server
+  sess         	 Shows the currently active sessions
+  log          	 Show the logs
+  exit         	 Exit the shell
 
-_Do your thing again Elias - Oh and we should probably put the `help` thingy from the shell here once we are 100% certain the commands won't change anymore_
+Use 'command --help' to read about a specific command.
+
+The settings made in the shell persist beyond the end of the container and are thus also available after a restart via the script if option three is selected. The same applies to the log file, which can be found in `/Saves`, although unlike the parameters, this is not reset with any of the three options. This should be done, if desired, via the server shell with `log --clear`.
 
 ## Maintenance / Known issues
+In general it is sufficient to use option one in the script only once to generate a docker image. From there on, options two and three are perfectly sufficient for normal operation.
 
-_Idk, is there stuff that could easily go wrong and some "easy" fixes or whatever? Couldn't hurt to list them here then!_
+Possible issues and possible fixes:
+* Website or WebSocket not available?
+  - Specify 'https://' explicitly for the website.
+  - Check whether the sockets on your device are enabled or occupied by another service. 
+[...]?
+
+If you have any problems, please write us an issue, we will be happy to help you.
+  
 
 ## Licensing
 
