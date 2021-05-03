@@ -21,6 +21,7 @@ public class ActiveScreenManager : MonoBehaviour
     public GameObject loadingScreenPanel;
     public GameObject optionsPanel;
     public GameObject pauseButtonPanel;
+    public GameObject gameCrashPanel;
 
     /// <summary>
     /// Generates the QR code.
@@ -343,5 +344,13 @@ public class ActiveScreenManager : MonoBehaviour
     public void BackToMainMenu()
     {
         SceneManager.LoadScene(sceneBuildIndex: 0);
+    }
+
+    /// <summary>
+    /// Method if the game crashes, e.g. a StoryEvent is null.
+    /// </summary>
+    public void GameCrash()
+    {
+        gameCrashPanel.SetActive(true);
     }
 }

@@ -288,59 +288,70 @@ public class Client : MonoBehaviour
     /// <param name="storyEvent">The next StoryEvent.</param>
     public void ContinueOnlineStory(StoryEvent storyEvent)
     {
-        Debug.Log("Current Event: " + storyEvent.Description);
-        displayDecision.RemoveOnlineDecisionListeners();
-        clientLogic.StoryGraph.SetCurrentEvent(storyEvent);
-        
-        if (storyEvent.SkillChange != null)
+        try
         {
-            clientLogic.StoryGraph.Character.Abilities.updateAbilities(storyEvent.SkillChange);
-            displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
-            displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
-            gameAudio.PlaySkillChangeSound();
-        }
 
-        switch (storyEvent.StoryType)
-        {
-            case StoryEventType.StoryBackground:
-                ContinueBackground(storyEvent);
-                break;
-            case StoryEventType.StoryRootEvent:
+
+            Debug.Log("Current Event: " + storyEvent.Description);
+            displayDecision.RemoveOnlineDecisionListeners();
+            clientLogic.StoryGraph.SetCurrentEvent(storyEvent);
+
+            if (storyEvent.SkillChange != null)
+            {
+                clientLogic.StoryGraph.Character.Abilities.updateAbilities(storyEvent.SkillChange);
+                displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
+                displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
+                gameAudio.PlaySkillChangeSound();
+            }
+
+            switch (storyEvent.StoryType)
+            {
+                case StoryEventType.StoryBackground:
+                    ContinueBackground(storyEvent);
+                    break;
+                case StoryEventType.StoryRootEvent:
                 // FALL THROUGH
-            case StoryEventType.StoryDecision:
-                ContinueStoryDecision(storyEvent);
-                break;
-            case StoryEventType.StoryDecisionOption:
-                ContinueDecisionOption(storyEvent);
-                break;
-            case StoryEventType.StoryFlow:
-                ContinueStoryFlow(storyEvent);
-                break;
-            case StoryEventType.StorySpecialDecision:
-                clientLogic.ContinueSpecialDecision(storyEvent);
-                ContinueStoryDecision(storyEvent);
-                break;
-            case StoryEventType.StoryUnlockDecisionOption:
-                clientLogic.UnlockDecision();
-                ContinueDecisionOption(storyEvent);
-                break;
-            case StoryEventType.StorySpecialOption:
-                ContinueDecisionOption(storyEvent);
-                break;
-            case StoryEventType.StoryWorkshop:
-                WorkshopEvent(storyEvent);
-                break;
-            case StoryEventType.StoryFired:
-            case StoryEventType.StoryWorkshopInvite:
-            case StoryEventType.StoryWorkshopNoInvite:
-                ContinueStoryFlow(storyEvent);
-                break;
-            case StoryEventType.StoryEnd:
-                StoryEnd(storyEvent);
-                break;
-            default:
-                Debug.Log("StoryEventType is not valid.");
-                break;
+                case StoryEventType.StoryDecision:
+                    ContinueStoryDecision(storyEvent);
+                    break;
+                case StoryEventType.StoryDecisionOption:
+                    ContinueDecisionOption(storyEvent);
+                    break;
+                case StoryEventType.StoryFlow:
+                    ContinueStoryFlow(storyEvent);
+                    break;
+                case StoryEventType.StorySpecialDecision:
+                    clientLogic.ValidateStoryEvent(storyEvent);
+                    clientLogic.ContinueSpecialDecision(storyEvent);
+                    ContinueStoryDecision(storyEvent);
+                    break;
+                case StoryEventType.StoryUnlockDecisionOption:
+                    clientLogic.UnlockDecision();
+                    ContinueDecisionOption(storyEvent);
+                    break;
+                case StoryEventType.StorySpecialOption:
+                    ContinueDecisionOption(storyEvent);
+                    break;
+                case StoryEventType.StoryWorkshop:
+                    WorkshopEvent(storyEvent);
+                    break;
+                case StoryEventType.StoryFired:
+                case StoryEventType.StoryWorkshopInvite:
+                case StoryEventType.StoryWorkshopNoInvite:
+                    ContinueStoryFlow(storyEvent);
+                    break;
+                case StoryEventType.StoryEnd:
+                    StoryEnd(storyEvent);
+                    break;
+                default:
+                    Debug.Log("StoryEventType is not valid.");
+                    break;
+            }
+        }
+        catch (WrongStoryEvent wrongStoryEvent)
+        {
+            Debug.Log("WrongStoryException: " + wrongStoryEvent);
+            activeScreenManager.GameCrash();
         }
     }
 
@@ -351,6 +362,8 @@ public class Client : MonoBehaviour
     /// <param name="currentEvent">The current StoryEvent.</param>
     public void WorkshopEvent(StoryEvent currentEvent)
     {
+        clientLogic.ValidateStoryEvent(currentEvent);
+
         displayStoryFlow.RemoveStoryFlowListeners();
 
         activeScreenManager.ShowStoryFlow();
@@ -390,6 +403,8 @@ public class Client : MonoBehaviour
     /// <param name="currentEvent">The current StoryEvent.</param>
     public void ContinueDecisionOption(StoryEvent currentEvent)
     {
+        clientLogic.ValidateStoryEvent(currentEvent);
+
         // Display dice animation if its a random event
         if (currentEvent.Children.Count > 1)
         {
@@ -439,27 +454,23 @@ public class Client : MonoBehaviour
     /// <param name="currentEvent">The current StoryFlow StoryEvent.</param>
     private void ContinueStoryFlow(StoryEvent currentEvent)
     {
+        clientLogic.ValidateStoryEvent(currentEvent);
+
         displayStoryFlow.RemoveStoryFlowListeners();
-        if (currentEvent.Children.Count > 0)
-        {
-            activeScreenManager.ShowStoryFlow();
-            displayStoryFlow.SetStoryFlow(currentEvent);
-            displayStoryFlow.storyFlowButton.onClick.AddListener(delegate
-            {
-                if (GameState.gameIsOnline)
-                {
-                    ContinueOnlineStory(currentEvent.Children.First());
-                }
-                else
-                {
-                    ContinueOfflineStory(currentEvent.Children.First());
-                }
-            });
-        }
-        else
-        {
-            
-        }
+        
+        activeScreenManager.ShowStoryFlow();
+        displayStoryFlow.SetStoryFlow(currentEvent); 
+        displayStoryFlow.storyFlowButton.onClick.AddListener(delegate
+        { 
+            if (GameState.gameIsOnline) 
+            { 
+                ContinueOnlineStory(currentEvent.Children.First());
+            }
+            else 
+            { 
+                ContinueOfflineStory(currentEvent.Children.First());
+            }
+        });
     }
 
     /// <summary>
@@ -603,6 +614,7 @@ public class Client : MonoBehaviour
     /// </summary>
     public void StartOfflinePlaythrough()
     {
+        clientLogic.ValidateStoryEvent(clientLogic.StoryGraph.Root);
         activeScreenManager.ShowCharacterSelection();
         characterSelection.ActivateOfflineCharacterPickButtons();
     }
@@ -682,58 +694,69 @@ public class Client : MonoBehaviour
     /// <param name="storyEvent">The next StoryEvent.</param>
     public void ContinueOfflineStory(StoryEvent storyEvent)
     {
-        clientLogic.StoryGraph.SetCurrentEvent(storyEvent);
-        Debug.Log("Current Event: " + clientLogic.StoryGraph.CurrentEvent.Description);
-
-        if (storyEvent.SkillChange != null)
+        try
         {
-            clientLogic.StoryGraph.Character.Abilities.updateAbilities(storyEvent.SkillChange);
-            displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
-            displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
-            gameAudio.PlaySkillChangeSound();
+
+
+            clientLogic.StoryGraph.SetCurrentEvent(storyEvent);
+            Debug.Log("Current Event: " + clientLogic.StoryGraph.CurrentEvent.Description);
+
+            if (storyEvent.SkillChange != null)
+            {
+                clientLogic.StoryGraph.Character.Abilities.updateAbilities(storyEvent.SkillChange);
+                displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
+                displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
+                gameAudio.PlaySkillChangeSound();
+            }
+
+            switch (storyEvent.StoryType)
+            {
+                case StoryEventType.StoryRootEvent:
+                    StartOfflinePlaythrough();
+                    break;
+                case StoryEventType.StoryBackground:
+                    ContinueBackground(storyEvent);
+                    break;
+                case StoryEventType.StoryDecision:
+                    ContinueOfflineDecision(storyEvent);
+                    break;
+                case StoryEventType.StoryDecisionOption:
+                    ContinueDecisionOption(storyEvent);
+                    break;
+                case StoryEventType.StoryFlow:
+                    ContinueStoryFlow(storyEvent);
+                    break;
+                case StoryEventType.StorySpecialDecision:
+                    clientLogic.ValidateStoryEvent(storyEvent);
+                    clientLogic.ContinueSpecialDecision(storyEvent);
+                    ContinueOfflineDecision(storyEvent);
+                    break;
+                case StoryEventType.StoryUnlockDecisionOption:
+                    clientLogic.UnlockDecision();
+                    ContinueDecisionOption(storyEvent);
+                    break;
+                case StoryEventType.StorySpecialOption:
+                    ContinueDecisionOption(storyEvent);
+                    break;
+                case StoryEventType.StoryWorkshop:
+                    WorkshopEvent(storyEvent);
+                    break;
+                case StoryEventType.StoryFired:
+                case StoryEventType.StoryWorkshopInvite:
+                case StoryEventType.StoryWorkshopNoInvite:
+                    ContinueStoryFlow(storyEvent);
+                    break;
+                case StoryEventType.StoryEnd:
+                    StoryEnd(storyEvent);
+                    break;
+                default:
+                    break;
+            }
         }
-
-        switch (storyEvent.StoryType)
+        catch (WrongStoryEvent wrongStoryEvent)
         {
-            case StoryEventType.StoryRootEvent:
-                StartOfflinePlaythrough();
-                break;
-            case StoryEventType.StoryBackground:
-                ContinueBackground(storyEvent);
-                break;
-            case StoryEventType.StoryDecision:
-                ContinueOfflineDecision(storyEvent);
-                break;
-            case StoryEventType.StoryDecisionOption:
-                ContinueDecisionOption(storyEvent);
-                break;
-            case StoryEventType.StoryFlow:
-                ContinueStoryFlow(storyEvent);
-                break;
-            case StoryEventType.StorySpecialDecision:
-                clientLogic.ContinueSpecialDecision(storyEvent);
-                ContinueOfflineDecision(storyEvent);
-                break;
-            case StoryEventType.StoryUnlockDecisionOption:
-                clientLogic.UnlockDecision();
-                ContinueDecisionOption(storyEvent);
-                break;
-            case StoryEventType.StorySpecialOption:
-                ContinueDecisionOption(storyEvent);
-                break;
-            case StoryEventType.StoryWorkshop:
-                WorkshopEvent(storyEvent);
-                break;
-            case StoryEventType.StoryFired:
-            case StoryEventType.StoryWorkshopInvite:
-            case StoryEventType.StoryWorkshopNoInvite:
-                ContinueStoryFlow(storyEvent);
-                break;
-            case StoryEventType.StoryEnd:
-                StoryEnd(storyEvent);
-                break;
-            default:
-                break;
+            Debug.Log("WrongStoryException: " + wrongStoryEvent);
+            activeScreenManager.GameCrash();
         }
     }
 
@@ -743,22 +766,16 @@ public class Client : MonoBehaviour
     /// <param name="currentEvent"></param>
     private void ContinueBackground(StoryEvent currentEvent)
     {
-        if (currentEvent.Children.Any())
+        clientLogic.ValidateStoryEvent(currentEvent);
+        
+        videoBackground.SwitchBackground(currentEvent.BackgroundType);
+        if (GameState.gameIsOnline)
         {
-            videoBackground.SwitchBackground(currentEvent.BackgroundType);
-            if (GameState.gameIsOnline)
-            {
-                ContinueOnlineStory(currentEvent.Children.First());
-            }
-            else
-            {
-                ContinueOfflineStory(currentEvent.Children.First());
-            }
+            ContinueOnlineStory(currentEvent.Children.First());
         }
         else
         {
-            // Should not happen
-            Debug.Log("Story Event has no Children");
+            ContinueOfflineStory(currentEvent.Children.First());
         }
     }
 
@@ -770,6 +787,8 @@ public class Client : MonoBehaviour
     private void ContinueOfflineDecision(StoryEvent currentEvent)
     {
         displayDecision.RemoveOfflineDecisionListeners();
+
+        clientLogic.ValidateStoryEvent(currentEvent);
 
         var children = currentEvent.Children.ToList();
         displayDecision.LoadDecision(currentEvent, children);
