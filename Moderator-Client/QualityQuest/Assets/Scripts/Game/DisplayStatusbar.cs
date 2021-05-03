@@ -52,27 +52,12 @@ public class DisplayStatusbar : MonoBehaviour
     public float skillHideTimerDuration = 5;
 
     /// <summary>
-    /// Parameter which are used for calling the UpdateSkillChanges method with a delay
-    /// </summary>
-    public float updateSkillChangeDelay;
-    public Skills skillChangeDelayedSkills;
-
-    /// <summary>
     /// Updates the image of the Character in the StatusBar.
     /// </summary>
     /// <param name="sprite">Image of the Selected Character.</param>
     public void SetImage(Sprite sprite)
     {
         characterImage.sprite = sprite;
-    }
-
-    /// <summary>
-    /// Calls the UpdateSkillChange method with a delay
-    /// </summary>
-    public void UpdateSkillChangesDelayed(Skills skills,float delay)
-    {
-        updateSkillChangeDelay = delay;
-        skillChangeDelayedSkills = skills;
     }
 
     /// <summary>
@@ -179,15 +164,6 @@ public class DisplayStatusbar : MonoBehaviour
     /// </summary>
     public void Update()
     {
-        // Shows skill changes with a delay
-        if (updateSkillChangeDelay > 0)
-        {
-            updateSkillChangeDelay -= Time.deltaTime;
-            if (updateSkillChangeDelay <= 0)
-            {
-                UpdateSkillChanges(skillChangeDelayedSkills);
-            }
-        }
 
         // Hides programming SkillChange when timer hits 0.
         if (programmingSkillChangeTimer > 0)

@@ -14,6 +14,9 @@ public class MenuNavigation : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Allows the user after clicking into a InputField to navigate with tab to the next field
+    /// </summary>
     public void Update()
     {
 
