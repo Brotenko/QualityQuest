@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MessageContainer.Messages;
+using UnityEngine;
 
 /// <summary>
 /// Class to split the ClientLogic from the MonoBehavior script to achieve a better testability.
@@ -13,6 +14,7 @@ public class ClientLogic
     public bool ActiveVoting { get; set; }
     public string SessionKey { get; set; }
     public string Url { get; set; }
+    public bool SpecialOption { get; set; }
 
     public StoryGraph StoryGraph { get; }
 
@@ -173,32 +175,59 @@ public class ClientLogic
         }
     }
 
+    /// <summary>
+    /// Method to calculate the ending of the game.
+    /// </summary>
+    /// <param name="storyEvent">The current StoryEvent.</param>
+    /// <returns></returns>
     public StoryEvent WorkshopDecision(StoryEvent storyEvent)
     {
         var skill = StoryGraph.Character.CalculateSkills();
 
         if (skill < 10)
         {
-            foreach (var child in storyEvent.Children.Where(child => child.StoryType.Equals(StoryEventType.StoryEventFired)))
+            foreach (var child in storyEvent.Children.Where(child => child.StoryType.Equals(StoryEventType.StoryFired)))
             {
                 return child;
             }
         } 
         else if (skill  >= 10 && skill < 20)
         {
-            foreach (var child in storyEvent.Children.Where(child => child.StoryType.Equals(StoryEventType.StoryEventWorkshopNoInvite)))
+            foreach (var child in storyEvent.Children.Where(child => child.StoryType.Equals(StoryEventType.StoryWorkshopNoInvite)))
             {
                 return child;
             }
         }
         else
         {
-            foreach (var child in storyEvent.Children.Where(child => child.StoryType.Equals(StoryEventType.StoryEventWorkshopInvite)))
+            foreach (var child in storyEvent.Children.Where(child => child.StoryType.Equals(StoryEventType.StoryWorkshopInvite)))
             {
                 return child;
             }
         }
         // can not happen
         return storyEvent.Children.First();
+    }
+
+    /// <summary>
+    /// Method to remove the special StoryFlowDecisionOption.
+    /// </summary>
+    /// <param name="storyEvent">The current StoryEvent.</param>
+    public void ContinueSpecialDecision(StoryEvent storyEvent)
+    {
+        if (SpecialOption) return;
+        foreach (var child in storyEvent.Children.Where(child => child.StoryType.Equals(StoryEventType.StorySpecialOption)))
+        {
+            storyEvent.RemoveChild(child);
+            return;
+        }
+    }
+
+    /// <summary>
+    /// Method to set the SpecialOption bool true and unlock the additional dialog option.
+    /// </summary>
+    public void UnlockDecision()
+    {
+        SpecialOption = true;
     }
 }

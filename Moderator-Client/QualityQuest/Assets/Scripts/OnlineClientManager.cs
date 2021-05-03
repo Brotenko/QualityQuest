@@ -48,7 +48,7 @@ public class OnlineClientManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        clientLogic = new ClientLogic(2);
+        clientLogic = new ClientLogic(5);
     }
 
     /// <summary>
@@ -314,12 +314,23 @@ public class OnlineClientManager : MonoBehaviour
             case StoryEventType.StoryFlow:
                 ContinueStoryFlow(storyEvent);
                 break;
-            case StoryEventType.StoryEventWorkshop:
+            case StoryEventType.StorySpecialDecision:
+                clientLogic.ContinueSpecialDecision(storyEvent);
+                ContinueStoryDecision(storyEvent);
+                break;
+            case StoryEventType.StoryUnlockDecisionOption:
+                clientLogic.UnlockDecision();
+                ContinueDecisionOption(storyEvent);
+                break;
+            case StoryEventType.StorySpecialOption:
+                ContinueDecisionOption(storyEvent);
+                break;
+            case StoryEventType.StoryWorkshop:
                 WorkshopEvent(storyEvent);
                 break;
-            case StoryEventType.StoryEventFired:
-            case StoryEventType.StoryEventWorkshopInvite:
-            case StoryEventType.StoryEventWorkshopNoInvite:
+            case StoryEventType.StoryFired:
+            case StoryEventType.StoryWorkshopInvite:
+            case StoryEventType.StoryWorkshopNoInvite:
                 ContinueStoryFlow(storyEvent);
                 break;
             case StoryEventType.StoryEnd:
@@ -403,13 +414,13 @@ public class OnlineClientManager : MonoBehaviour
     {
         displayDecision.RemoveOnlineDecisionListeners();
 
-        if (currentEvent.StoryType.Equals(StoryEventType.StoryDecision))
+        if (currentEvent.StoryType.Equals(StoryEventType.StoryRootEvent))
         {
-            activeScreenManager.ShowDecision();
+            activeScreenManager.ShowCharacterSelection();
         }
         else
         {
-            activeScreenManager.ShowCharacterSelection();
+            activeScreenManager.ShowDecision();
         }
 
         displayDecision.LoadDecision(currentEvent, currentEvent.Children.ToList());
@@ -697,12 +708,23 @@ public class OnlineClientManager : MonoBehaviour
             case StoryEventType.StoryFlow:
                 ContinueStoryFlow(storyEvent);
                 break;
-            case StoryEventType.StoryEventWorkshop:
+            case StoryEventType.StorySpecialDecision:
+                clientLogic.ContinueSpecialDecision(storyEvent);
+                ContinueOfflineDecision(storyEvent);
+                break;
+            case StoryEventType.StoryUnlockDecisionOption:
+                clientLogic.UnlockDecision();
+                ContinueDecisionOption(storyEvent);
+                break;
+            case StoryEventType.StorySpecialOption:
+                ContinueDecisionOption(storyEvent);
+                break;
+            case StoryEventType.StoryWorkshop:
                 WorkshopEvent(storyEvent);
                 break;
-            case StoryEventType.StoryEventFired:
-            case StoryEventType.StoryEventWorkshopInvite:
-            case StoryEventType.StoryEventWorkshopNoInvite:
+            case StoryEventType.StoryFired:
+            case StoryEventType.StoryWorkshopInvite:
+            case StoryEventType.StoryWorkshopNoInvite:
                 ContinueStoryFlow(storyEvent);
                 break;
             case StoryEventType.StoryEnd:

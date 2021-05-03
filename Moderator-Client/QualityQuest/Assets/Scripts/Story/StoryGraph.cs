@@ -226,7 +226,7 @@ public class StoryGraph
         storyelement18.AddChild(decision7);
 
         var decision7option1 = new StoryEvent(Guid.NewGuid(), "Du plauderst mit Kollegen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
-        var decision7option2 = new StoryEvent(Guid.NewGuid(), "Du redest mit deinem Mentor und deinem Chef.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        var decision7option2 = new StoryEvent(Guid.NewGuid(), "Du redest mit deinem Mentor und deinem Chef.", new HashSet<StoryEvent>(), StoryEventType.StoryUnlockDecisionOption);
         var decision7option3 = new StoryEvent(Guid.NewGuid(), "Du suchst dir alleine einen Sitzplatz, um etwas zu essen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         decision7.AddChild(decision7option1);
@@ -307,7 +307,7 @@ public class StoryGraph
         background5.AddChild(storyelement17);
 
         // Deadline should be mentioned here as well
-        var decision10 = new StoryEvent(Guid.NewGuid(), "Willst du an der Weiterbildung teilnehmen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
+        var decision10 = new StoryEvent(Guid.NewGuid(), "Willst du an der Weiterbildung teilnehmen?", new HashSet<StoryEvent>(), StoryEventType.StorySpecialDecision);
 
         storyelement17.AddChild(decision10);
 
@@ -316,7 +316,7 @@ public class StoryGraph
         var decision10option3 = new StoryEvent(Guid.NewGuid(), "Nein, du brauchst erstmal Urlaub.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
 
         // only if dialog option was ulocked previously
-        var decision10option4 = new StoryEvent(Guid.NewGuid(), "Dein Chef bietet dir an, nach der Weiterbildung Urlaub zu machen.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
+        var decision10option4 = new StoryEvent(Guid.NewGuid(), "Dein Chef bietet dir an, nach der Weiterbildung Urlaub zu machen.", new HashSet<StoryEvent>(), StoryEventType.StorySpecialOption);
 
         decision10.AddChild(decision10option1);
         decision10.AddChild(decision10option2);
@@ -561,14 +561,14 @@ public class StoryGraph
 
         storyelement47.AddChild(background3);
 
-        var storyelement48 = new StoryEvent(Guid.NewGuid(), "Die besten Mitarbeiter werden zu einem Workshop auf Hawaii eingeladen.", new HashSet<StoryEvent>(), StoryEventType.StoryEventWorkshop);
+        var storyelement48 = new StoryEvent(Guid.NewGuid(), "Die besten Mitarbeiter werden zu einem Workshop auf Hawaii eingeladen.", new HashSet<StoryEvent>(), StoryEventType.StoryWorkshop);
 
         background3.AddChild(storyelement48);
 
         //sufficient amount of skill points required
-        var storyelement49option1 = new StoryEvent(Guid.NewGuid(), "Glückwunsch du wurdest zum Workshop eingeladen.", new HashSet<StoryEvent>(), StoryEventType.StoryEventWorkshopInvite);
-        var storyelement49option2 = new StoryEvent(Guid.NewGuid(), "Leider warst du nicht gut genug, vielleicht wird dein nächstes Projekt erfolgreicher.", new HashSet<StoryEvent>(), StoryEventType.StoryEventWorkshopNoInvite);
-        var storyelement49option3 = new StoryEvent(Guid.NewGuid(), "Leider musst du die Firma verlassen.", new HashSet<StoryEvent>(), StoryEventType.StoryEventFired);
+        var storyelement49option1 = new StoryEvent(Guid.NewGuid(), "Glückwunsch du wurdest zum Workshop eingeladen.", new HashSet<StoryEvent>(), StoryEventType.StoryWorkshopInvite);
+        var storyelement49option2 = new StoryEvent(Guid.NewGuid(), "Leider warst du nicht gut genug, vielleicht wird dein nächstes Projekt erfolgreicher.", new HashSet<StoryEvent>(), StoryEventType.StoryWorkshopNoInvite);
+        var storyelement49option3 = new StoryEvent(Guid.NewGuid(), "Leider musst du die Firma verlassen.", new HashSet<StoryEvent>(), StoryEventType.StoryFired);
 
         storyelement48.AddChild(storyelement49option1);
         storyelement48.AddChild(storyelement49option2);

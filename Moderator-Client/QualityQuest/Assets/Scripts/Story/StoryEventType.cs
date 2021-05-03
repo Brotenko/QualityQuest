@@ -36,20 +36,36 @@ public enum StoryEventType
     /// <summary>
     /// StoryEvent to mark the RandomEvent to determine the next StoryEvent depending on the players performance.
     /// </summary>
-    StoryEventWorkshop,
+    StoryWorkshop,
 
     /// <summary>
     /// StoryEvent if the player gets invited to the workshop.
     /// </summary>
-    StoryEventWorkshopInvite,
+    StoryWorkshopInvite,
 
     /// <summary>
     /// StoryEvent if the player gets fired at the end of the game.
     /// </summary>
-    StoryEventFired,
+    StoryFired,
 
     /// <summary>
     /// StoryEvent when the player is not invited to the workshop.
     /// </summary>
-    StoryEventWorkshopNoInvite
+    StoryWorkshopNoInvite,
+
+    /// <summary>
+    /// StoryEvent which with the player can unlock additional StoryFlowDecisionOptions in later StoryFlowDecisions.
+    /// </summary>
+    StoryUnlockDecisionOption,
+
+
+    /// <summary>
+    /// Special StoryFlowDecision which has additional StoryFlowDecisionOptions to be unlocked by the player.
+    /// </summary>
+    StorySpecialDecision,
+
+    /// <summary>
+    /// The special StoryFlowDecisionOption.
+    /// </summary>
+    StorySpecialOption
 }
