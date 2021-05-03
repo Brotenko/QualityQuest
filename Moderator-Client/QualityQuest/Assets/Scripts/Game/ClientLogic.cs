@@ -15,9 +15,7 @@ public class ClientLogic
     public string SessionKey { get; set; }
     public string Url { get; set; }
     public bool SpecialOption { get; set; }
-
     public StoryGraph StoryGraph { get; }
-
     public VotingStatistics VotingStatistic { get; set; }
     public Guid ModeratorClientGuid { get; set; }
 
@@ -146,11 +144,11 @@ public class ClientLogic
     }
 
     /// <summary>
-    /// Method to continue the story with a StoryFlowDecisionOption.
-    /// If the StoryEvent is a RandomEvent, the story will be continued with a random StoryEvent.
-    /// Continues the story in offline or online mode, depending on the state of the game.
+    /// Method to continue the after a StoryFlowDecision.
+    /// If the chosen StoryEvent is a RandomEvent, the story will be continued with a random StoryEvent.
     /// </summary>
-    /// <param name="currentEvent">The current StoryEvent.</param>
+    /// <param name="storyGraph">The StoryGraph of the game.</param>
+    /// <returns>The next StoryEvent.</returns>
     public StoryEvent ContinueDecision(StoryGraph storyGraph)
     {
         switch (storyGraph.CurrentEvent.Children.Count)
@@ -248,6 +246,23 @@ public class ClientLogic
         else
         {
             VotingTime = newVotingTime;
+        }
+    }
+
+    /// <summary>
+    /// Method to validate the StoryEvent. Checks that the StoryEvent is not null and has child StoryEvents.
+    /// </summary>
+    /// <param name="storyEvent">The StoryEvent which needs to checked.</param>
+    public void ValidateStoryEvent(StoryEvent storyEvent)
+    {
+        if (storyEvent == null)
+        {
+            throw new WrongStoryEvent("The current StoryEvent is null. Its not possible to continue with the play through.");
+        }
+
+        if (storyEvent.Children.Count <= 0)
+        {
+            throw new WrongStoryEvent("The StoryEvent has no children. The Story can not continue.");
         }
     }
 }
