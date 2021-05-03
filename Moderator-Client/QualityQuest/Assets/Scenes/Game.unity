@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 27678229}
   - component: {fileID: 27678228}
   m_Layer: 5
-  m_Name: DescriptionOption1
+  m_Name: DescriptionOptionA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1281,7 +1281,7 @@ GameObject:
   - component: {fileID: 120202800}
   - component: {fileID: 120202801}
   m_Layer: 5
-  m_Name: VotingOption3
+  m_Name: VotingOptionC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2548,7 +2548,7 @@ GameObject:
   - component: {fileID: 184352190}
   - component: {fileID: 184352189}
   m_Layer: 5
-  m_Name: sliderOption4
+  m_Name: sliderOptionD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4207,7 +4207,7 @@ GameObject:
   - component: {fileID: 291488774}
   - component: {fileID: 291488773}
   m_Layer: 5
-  m_Name: TilteVotingOption2
+  m_Name: TilteVotingOptionB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4493,7 +4493,7 @@ GameObject:
   - component: {fileID: 304998661}
   - component: {fileID: 304998660}
   m_Layer: 5
-  m_Name: descriptionOption3
+  m_Name: descriptionOptionC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6540,7 +6540,7 @@ GameObject:
   - component: {fileID: 457152625}
   - component: {fileID: 457152624}
   m_Layer: 5
-  m_Name: sliderOption2
+  m_Name: sliderOptionB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7108,7 +7108,7 @@ GameObject:
   - component: {fileID: 493160040}
   - component: {fileID: 493160039}
   m_Layer: 5
-  m_Name: sliderOption1
+  m_Name: sliderOptionA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7327,7 +7327,7 @@ GameObject:
   - component: {fileID: 503501121}
   - component: {fileID: 503501120}
   m_Layer: 5
-  m_Name: pickOption1Button
+  m_Name: pickOptionAButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10909,7 +10909,7 @@ GameObject:
   - component: {fileID: 759759806}
   - component: {fileID: 759759807}
   m_Layer: 5
-  m_Name: VotingOption2
+  m_Name: VotingOptionB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11119,7 +11119,7 @@ GameObject:
   - component: {fileID: 782100914}
   - component: {fileID: 782100913}
   m_Layer: 5
-  m_Name: TitleVotingOption3
+  m_Name: TitleVotingOptionC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11212,7 +11212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d044c31393e2f49a01ae69523ebac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onlineClientManager: {fileID: 1086257395}
+  client: {fileID: 1086257395}
   mainThreadWorker: {fileID: 1093310181}
 --- !u!4 &795812798
 Transform:
@@ -11854,7 +11854,7 @@ GameObject:
   - component: {fileID: 805083531}
   - component: {fileID: 805083530}
   m_Layer: 5
-  m_Name: pickOption3Button
+  m_Name: pickOptionCButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12393,7 +12393,7 @@ GameObject:
   - component: {fileID: 822883284}
   - component: {fileID: 822883283}
   m_Layer: 5
-  m_Name: title1
+  m_Name: titleA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13303,7 +13303,7 @@ GameObject:
   - component: {fileID: 861940558}
   - component: {fileID: 861940557}
   m_Layer: 5
-  m_Name: ResultOption2
+  m_Name: ResultOptionB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13448,7 +13448,7 @@ GameObject:
   - component: {fileID: 866158020}
   - component: {fileID: 866158021}
   m_Layer: 5
-  m_Name: VotingOption4
+  m_Name: VotingOptionD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14003,7 +14003,7 @@ GameObject:
   - component: {fileID: 922458621}
   - component: {fileID: 922458620}
   m_Layer: 5
-  m_Name: description2
+  m_Name: descriptionB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14404,7 +14404,7 @@ GameObject:
   - component: {fileID: 958247046}
   - component: {fileID: 958247045}
   m_Layer: 5
-  m_Name: votesOption1
+  m_Name: votesOptionA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15515,7 +15515,7 @@ GameObject:
   - component: {fileID: 1052518451}
   - component: {fileID: 1052518450}
   m_Layer: 5
-  m_Name: descriptionOption4
+  m_Name: descriptionOptionD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15858,7 +15858,7 @@ GameObject:
   - component: {fileID: 1086257396}
   - component: {fileID: 1086257395}
   m_Layer: 0
-  m_Name: OnlineClientManager
+  m_Name: Client
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15915,7 +15915,7 @@ GameObject:
   - component: {fileID: 1088891795}
   - component: {fileID: 1088891794}
   m_Layer: 5
-  m_Name: DescriptionOption4
+  m_Name: DescriptionOptionD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16598,7 +16598,7 @@ GameObject:
   - component: {fileID: 1138419595}
   - component: {fileID: 1138419594}
   m_Layer: 5
-  m_Name: description1
+  m_Name: descriptionA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17133,7 +17133,7 @@ GameObject:
   - component: {fileID: 1164812060}
   - component: {fileID: 1164812061}
   m_Layer: 5
-  m_Name: VotingOption1
+  m_Name: VotingOptionA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17632,7 +17632,7 @@ GameObject:
   - component: {fileID: 1199426229}
   - component: {fileID: 1199426228}
   m_Layer: 5
-  m_Name: DescriptionOption3
+  m_Name: DescriptionOptionC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17710,7 +17710,7 @@ GameObject:
   - component: {fileID: 1205143726}
   - component: {fileID: 1205143725}
   m_Layer: 5
-  m_Name: ResultOption4
+  m_Name: ResultOptionD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21384,7 +21384,7 @@ GameObject:
   - component: {fileID: 1425459686}
   - component: {fileID: 1425459685}
   m_Layer: 5
-  m_Name: sliderOption3
+  m_Name: sliderOptionC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21461,7 +21461,7 @@ GameObject:
   - component: {fileID: 1427350791}
   - component: {fileID: 1427350790}
   m_Layer: 5
-  m_Name: ResultOption1
+  m_Name: ResultOptionA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22422,7 +22422,7 @@ GameObject:
   - component: {fileID: 1490120577}
   - component: {fileID: 1490120576}
   m_Layer: 5
-  m_Name: TitleVotingOption1
+  m_Name: TitleVotingOptionA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22680,7 +22680,7 @@ GameObject:
   - component: {fileID: 1506435420}
   - component: {fileID: 1506435419}
   m_Layer: 5
-  m_Name: votesOption4
+  m_Name: votesOptionD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23101,7 +23101,7 @@ GameObject:
   - component: {fileID: 1518407737}
   - component: {fileID: 1518407736}
   m_Layer: 5
-  m_Name: title4
+  m_Name: titleD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23235,7 +23235,7 @@ GameObject:
   - component: {fileID: 1521840682}
   - component: {fileID: 1521840681}
   m_Layer: 5
-  m_Name: DescriptionOption2
+  m_Name: DescriptionOptionB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25117,7 +25117,7 @@ GameObject:
   - component: {fileID: 1639655794}
   - component: {fileID: 1639655793}
   m_Layer: 5
-  m_Name: title3
+  m_Name: titleC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25358,7 +25358,7 @@ GameObject:
   - component: {fileID: 1654974707}
   - component: {fileID: 1654974706}
   m_Layer: 5
-  m_Name: description4
+  m_Name: descriptionD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26791,7 +26791,7 @@ GameObject:
   - component: {fileID: 1728332702}
   - component: {fileID: 1728332701}
   m_Layer: 5
-  m_Name: pickOption2Button
+  m_Name: pickOptionBButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27194,7 +27194,7 @@ GameObject:
   - component: {fileID: 1756334728}
   - component: {fileID: 1756334727}
   m_Layer: 5
-  m_Name: title2
+  m_Name: titleB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28519,7 +28519,7 @@ GameObject:
   - component: {fileID: 1837689617}
   - component: {fileID: 1837689616}
   m_Layer: 5
-  m_Name: ResultOption3
+  m_Name: ResultOptionC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29055,7 +29055,7 @@ GameObject:
   - component: {fileID: 1857060243}
   - component: {fileID: 1857060242}
   m_Layer: 5
-  m_Name: pickOption4Button
+  m_Name: pickOptionDButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29174,7 +29174,7 @@ GameObject:
   - component: {fileID: 1858733527}
   - component: {fileID: 1858733526}
   m_Layer: 5
-  m_Name: description3
+  m_Name: descriptionC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29464,7 +29464,7 @@ GameObject:
   - component: {fileID: 1885986327}
   - component: {fileID: 1885986326}
   m_Layer: 5
-  m_Name: descriptionOption1
+  m_Name: descriptionOptionA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30815,7 +30815,7 @@ GameObject:
   - component: {fileID: 1987030555}
   - component: {fileID: 1987030554}
   m_Layer: 5
-  m_Name: descriptionOption2
+  m_Name: descriptionOptionB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31482,7 +31482,7 @@ GameObject:
   - component: {fileID: 2009841218}
   - component: {fileID: 2009841217}
   m_Layer: 5
-  m_Name: TitleVotingOption4
+  m_Name: TitleVotingOptionD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32660,7 +32660,7 @@ GameObject:
   - component: {fileID: 2058625705}
   - component: {fileID: 2058625704}
   m_Layer: 5
-  m_Name: votesOption3
+  m_Name: votesOptionC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33246,7 +33246,7 @@ GameObject:
   - component: {fileID: 2130178694}
   - component: {fileID: 2130178693}
   m_Layer: 5
-  m_Name: votesOption2
+  m_Name: votesOptionB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
