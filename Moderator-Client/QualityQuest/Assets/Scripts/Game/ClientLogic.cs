@@ -230,4 +230,24 @@ public class ClientLogic
     {
         SpecialOption = true;
     }
+
+    /// <summary>
+    /// Method to change the VotingTime. Minimum is 5 and maximum is 60.
+    /// </summary>
+    /// <param name="newVotingTime">The new VotingTime.</param>
+    public void SetVotingTime(int newVotingTime)
+    {
+        if (newVotingTime < 5)
+        {
+            VotingTime = 5;
+        }
+        else if (newVotingTime > 60)
+        {
+            VotingTime = 60;
+        }
+        else
+        {
+            VotingTime = newVotingTime;
+        }
+    }
 }

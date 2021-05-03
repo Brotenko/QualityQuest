@@ -39,6 +39,8 @@ public class Client : MonoBehaviour
     private TMP_InputField port;
     [SerializeField]
     private TMP_InputField password;
+    [SerializeField] 
+    private TMP_InputField votingTime;
 
     private ClientLogic clientLogic;
 
@@ -788,5 +790,14 @@ public class Client : MonoBehaviour
         {
             displayDecision.selectOfflineD.onClick.AddListener(delegate { ContinueOfflineStory(children[3]); });
         }
+    }
+
+    /// <summary>
+    /// Method to change the VotingTime.
+    /// </summary>
+    public void SetVotingTime()
+    {
+        var newVotingTime = int.Parse(this.votingTime.text);
+        clientLogic.SetVotingTime(newVotingTime);
     }
 }
