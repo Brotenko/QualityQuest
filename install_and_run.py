@@ -23,7 +23,6 @@ if int(option) == 1:
     CertFilePath = input()
     if not os.path.isfile(os.path.dirname(os.path.abspath(__file__))+"/ServerLogic/"+CertFilePath) or not CertFilePath.__contains__(".pfx"):
         print("The Cert-File was not found, please make sure that it's inside 'QualityQuest/ServerLogic' and is of .pfx format.")
-        os.system("dir")
         exit()
     print("Please enter the access-password for the certificate:")
     CertPW = input()

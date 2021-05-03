@@ -113,7 +113,7 @@ namespace ServerLogic.Control
         {
             string backupSalt = Settings.Default.Salt;
             string backupPW = Settings.Default.PWHash;
-            Console.WriteLine("Please enter your password:");
+            Console.WriteLine("Please enter a new password:");
             string password = Console.ReadLine();
             try
             {

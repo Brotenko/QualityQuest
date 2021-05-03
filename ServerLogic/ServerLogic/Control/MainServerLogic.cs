@@ -50,12 +50,20 @@ namespace ServerLogic.Control
             FleckLog.Level = LogLevel.Warn;
             _server = new WebSocketServer($"wss:{Settings.Default.DockerUrl}:80");
             _server.EnabledSslProtocols = SslProtocols.Tls12;
-            _server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, Settings.Default.CertPW);
-            _playerAudienceClientApi.StartServer(443);
-            StartWebsocket();
-            _checkForInactiveSessionsTimer.Start();
-            ServerLogger.LogInformation($"Website started on {Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
-            ServerLogger.LogInformation($"Using wss: {_server.IsSecure}.");
+            try
+            {
+                _server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, Settings.Default.CertPW);
+                _playerAudienceClientApi.StartServer(443);
+                StartWebsocket();
+                _checkForInactiveSessionsTimer.Start();
+                ServerLogger.LogInformation($"Website started on {Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
+                ServerLogger.LogInformation($"Using wss: {_server.IsSecure}.");
+            }
+            catch (Exception)
+            {
+                ServerLogger.LogError("Could not load certificate, please restart and configurate the docker-container and ensure that name and password of the certificate are correct.");
+                Environment.Exit(exitCode: -1);
+            }
         }
 
         /// <summary>
