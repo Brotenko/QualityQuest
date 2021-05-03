@@ -47,7 +47,7 @@ public class DisplayStatusbar : MonoBehaviour
     private float communicationSkillChangeTimer;
     private float analyticsSkillChangeTimer;
     private float partySkillChangeTimer;
-    private float diceTimer;
+    private float diceTimer = 0;
     private float decisionTimer;
     public float skillHideTimerDuration = 5;
 
@@ -81,6 +81,7 @@ public class DisplayStatusbar : MonoBehaviour
     /// </summary>
     public void UpdateSkillChanges(Skills skills)
     {
+
         if (ShowSkillChange(skillChangeProgramming, skills.Programming))
         { programmingSkillChangeTimer = skillHideTimerDuration; };
         if (ShowSkillChange(skillChangeCommunication, skills.Communication))
@@ -99,6 +100,7 @@ public class DisplayStatusbar : MonoBehaviour
     /// <param name="value">Value of the skill change.</param>
     public bool ShowSkillChange(TMP_Text text,int value)
     {
+
         if (value > 0)
         {
             text.gameObject.SetActive(true);

@@ -908,7 +908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: -1
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1565,10 +1565,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 1308693234}
+    m_SelectOnDown: {fileID: 1644022043}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -2626,11 +2626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9ce9095e9a5124a8bb90bcdf40f7bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 296ff11af55c6f84aa8238fee8045241, type: 2}
   resolutionDropdown: {fileID: 1781545758}
-  musicVolumeSlider: {fileID: 2081428343}
-  soundVolumeSlider: {fileID: 772001305}
-  muteAllToggle: {fileID: 1840264116}
 --- !u!1 &364494077
 GameObject:
   m_ObjectHideFlags: 0
@@ -2922,10 +2918,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 165662634}
+    m_SelectOnDown: {fileID: 1308693234}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -9914,10 +9910,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 430025743}
+    m_SelectOnDown: {fileID: 261838643}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -11866,10 +11862,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 261838643}
+    m_SelectOnDown: {fileID: 165662634}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -16120,9 +16116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e777a77c9fa05459aaf1ac693408cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dice: {fileID: 8300000, guid: 495db5b267274cd4198a747eb865e699, type: 3}
-  hover: {fileID: 8300000, guid: 8e6be3f6cfd1b054db9696cf1d6361e9, type: 3}
-  click: {fileID: 8300000, guid: ba95dc74e8534de418012f987aab2337, type: 3}
   effects: {fileID: 2017089076}
 --- !u!4 &2142875460
 Transform:

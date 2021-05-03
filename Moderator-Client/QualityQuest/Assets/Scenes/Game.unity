@@ -1505,7 +1505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2646,10 +2646,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 756985831}
+    m_SelectOnDown: {fileID: 708992684}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -8684,7 +8684,7 @@ RectTransform:
   m_Children:
   - {fileID: 1450303062}
   m_Father: {fileID: 1234932273}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -10661,10 +10661,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 181891958}
+    m_SelectOnDown: {fileID: 1987085127}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -11110,10 +11110,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 957642204}
+    m_SelectOnDown: {fileID: 181891958}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -11344,7 +11344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -11556,7 +11556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d044c31393e2f49a01ae69523ebac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  client: {fileID: 1086257395}
+  client: {fileID: 0}
   mainThreadWorker: {fileID: 1093310181}
 --- !u!4 &795812798
 Transform:
@@ -13005,7 +13005,7 @@ RectTransform:
   m_Children:
   - {fileID: 1657222595}
   m_Father: {fileID: 1234932273}
-  m_RootOrder: 5
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -13883,7 +13883,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -14655,10 +14655,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 1987085127}
+    m_SelectOnDown: {fileID: 756985831}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -16344,6 +16344,7 @@ GameObject:
   - component: {fileID: 1093310179}
   - component: {fileID: 1093310180}
   - component: {fileID: 1093310181}
+  - component: {fileID: 1093310170}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -16378,6 +16379,18 @@ MonoBehaviour:
   decisionTimerTime: {fileID: 1234933204}
   skillHideTimerDuration: 5
   updateSkillChangeDelay: 0
+--- !u!114 &1093310170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093310168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fbd87bff4c71cb43a657a7fd949c6b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1093310171
 Transform:
   m_ObjectHideFlags: 0
@@ -16574,7 +16587,7 @@ MonoBehaviour:
   loadingScreenPanel: {fileID: 2013832912}
   optionsPanel: {fileID: 815348827}
   pauseButtonPanel: {fileID: 1054240995}
-  gameCrashPanel: {fileID: 645581870}
+  gameCrashPanel: {fileID: 0}
   qrCodeGenerator: {fileID: 2053635036}
   gameMenuSwitchModeButton: {fileID: 1027499670}
   audienceCount: {fileID: 8152985334479808095}
@@ -17570,7 +17583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -18891,16 +18904,16 @@ RectTransform:
   - {fileID: 708271542}
   - {fileID: 700661101}
   - {fileID: 1262634009}
-  - {fileID: 829761887}
   - {fileID: 1720045353}
   - {fileID: 562642645}
   - {fileID: 8152985335474103995}
+  - {fileID: 7938666829801257562}
   - {fileID: 8958024210929195037}
   - {fileID: 457941534}
   - {fileID: 373414550}
-  - {fileID: 7938666829801257562}
-  - {fileID: 815348828}
   - {fileID: 2013832913}
+  - {fileID: 815348828}
+  - {fileID: 829761887}
   - {fileID: 645581871}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -21901,7 +21914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -22256,7 +22269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -27122,7 +27135,7 @@ RectTransform:
   - {fileID: 432843986}
   - {fileID: 701502750}
   m_Father: {fileID: 1234932273}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -31482,10 +31495,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 708992684}
+    m_SelectOnDown: {fileID: 957642204}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -32148,7 +32161,7 @@ RectTransform:
   m_Children:
   - {fileID: 1133373681}
   m_Father: {fileID: 1234932273}
-  m_RootOrder: 14
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -36718,7 +36731,7 @@ RectTransform:
   - {fileID: 1842919750}
   - {fileID: 1147086320}
   m_Father: {fileID: 1234932273}
-  m_RootOrder: 12
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -37675,7 +37688,7 @@ RectTransform:
   - {fileID: 8152985334479808093}
   - {fileID: 101599500}
   m_Father: {fileID: 1234932273}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -38170,7 +38183,7 @@ RectTransform:
   m_Children:
   - {fileID: 8958024211321658020}
   m_Father: {fileID: 8958024210929195037}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -38189,6 +38202,7 @@ GameObject:
   - component: {fileID: 8958024210022591639}
   - component: {fileID: 8958024210022591636}
   - component: {fileID: 8958024210022591637}
+  - component: {fileID: 8958024210022591638}
   m_Layer: 5
   m_Name: portInput
   m_TagString: Untagged
@@ -38239,10 +38253,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 8958024211337089618}
+    m_SelectOnDown: {fileID: 8958024210826368123}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -38324,6 +38338,19 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
+--- !u!114 &8958024210022591638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8958024210022591635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2f6be689f09bb4eb9fda76845b2e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlaceholderText: {fileID: 8958024209897359658}
 --- !u!222 &8958024210022591639
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -39029,7 +39056,7 @@ RectTransform:
   m_Children:
   - {fileID: 8958024209924498112}
   m_Father: {fileID: 8958024210929195037}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -39048,6 +39075,7 @@ GameObject:
   - component: {fileID: 8958024210826368125}
   - component: {fileID: 8958024210826368122}
   - component: {fileID: 8958024210826368123}
+  - component: {fileID: 8958024210826368124}
   m_Layer: 5
   m_Name: passwordInput
   m_TagString: Untagged
@@ -39098,10 +39126,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 8958024210022591637}
+    m_SelectOnDown: {fileID: 8958024211247932267}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -39183,6 +39211,19 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
+--- !u!114 &8958024210826368124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8958024210826368121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2f6be689f09bb4eb9fda76845b2e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlaceholderText: {fileID: 8958024210211803632}
 --- !u!222 &8958024210826368125
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -39251,10 +39292,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8958024210657088500}
-  - {fileID: 8958024211247932264}
-  - {fileID: 8958024210826368120}
-  - {fileID: 8958024210022591634}
   - {fileID: 8958024211337089619}
+  - {fileID: 8958024210022591634}
+  - {fileID: 8958024210826368120}
+  - {fileID: 8958024211247932264}
   m_Father: {fileID: 1234932273}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -39439,7 +39480,7 @@ RectTransform:
   m_Children:
   - {fileID: 8958024209982662977}
   m_Father: {fileID: 8958024210929195037}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -39508,10 +39549,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 8958024210826368123}
+    m_SelectOnDown: {fileID: 8958024211337089618}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -39635,6 +39676,7 @@ GameObject:
   - component: {fileID: 8958024211337089620}
   - component: {fileID: 8958024211337089621}
   - component: {fileID: 8958024211337089618}
+  - component: {fileID: 8958024211337089617}
   m_Layer: 5
   m_Name: ipInput
   m_TagString: Untagged
@@ -39642,6 +39684,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8958024211337089617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8958024211337089616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2f6be689f09bb4eb9fda76845b2e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlaceholderText: {fileID: 8958024211197705107}
 --- !u!114 &8958024211337089618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39655,10 +39710,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 8958024211247932267}
+    m_SelectOnDown: {fileID: 8958024210022591637}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -39753,7 +39808,7 @@ RectTransform:
   m_Children:
   - {fileID: 8958024210415987449}
   m_Father: {fileID: 8958024210929195037}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
