@@ -11,7 +11,7 @@ using WebSocketSharp;
 /// <summary>
 /// Class for the main logic of the ModeratorClient.
 /// </summary>
-public class OnlineClientManager : MonoBehaviour
+public class Client : MonoBehaviour
 {
     [SerializeField]
     private QualityQuestWebSocket qualityQuestWebSocket;
