@@ -1,11 +1,11 @@
 {
-  "ServerURL": "127.0.0.1",
+  "ServerURL": "localhost",
   "PAWebPagePort": 443,
   "MCWebSocketPort": "80",
   "CertFilePath": "TestCert.pfx",
   "CertPW": "thisIsForTestingOnly",
-  "PWHash": "a0037f34d70c9d2daf4b97d3705c8bb2cb9a61239933ccb0e6a098a3e0f63040",
-  "Salt": "q2DYZ99vb7bFfvxo",
+  "PWHash": "40376d59b4098db75e24a5f15e67d2599de792d5f67f1acfe1eaed9e203f81f4",
+  "Salt": "zPYOWMyMYztgSZRp",
   "LogLevel": 0,
   "LogOutPutType": 2
 }
