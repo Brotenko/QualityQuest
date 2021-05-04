@@ -55,7 +55,7 @@ public class ActiveScreenManager : MonoBehaviour
     /// otherwise the CharacterSelection screen is shown and the pause button is disable
     /// because the game can't be paused in offline mode.
     /// </summary>
-    private void Awake()
+    private void Start()
     {
         Debug.Log("Game is online:" + GameState.gameIsOnline);
         HideAllMenus();
