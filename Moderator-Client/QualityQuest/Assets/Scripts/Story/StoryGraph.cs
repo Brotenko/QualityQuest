@@ -619,7 +619,7 @@ public class StoryGraph
     public StoryEvent GetRandomOption()
     {
         var diceRoll = new Random();
-        var rollTheDice = diceRoll.Next(0, 6);
+        var rollTheDice = diceRoll.Next(1, 6);
         var children = CurrentEvent.Children.ToList();
 
         switch (CurrentEvent.Children.First().Random)
