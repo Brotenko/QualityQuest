@@ -11,13 +11,13 @@ public class ActiveScreenTest
 {
 
     private ActiveScreenManager screenManager;
-    private GameObject scriptholder;
+    private GameObject scriptHolder;
 
-    [Test]
+    [SetUp]
     public void SetUp()
     {
-        scriptholder = GameObject.Instantiate(new GameObject());
-        screenManager = scriptholder.AddComponent<ActiveScreenManager>();
+        scriptHolder = GameObject.Instantiate(new GameObject());
+        screenManager = scriptHolder.AddComponent<ActiveScreenManager>();
         //screenManager = new ActiveScreenManager();
         screenManager.characterSelectionPanel = GameObject.Instantiate(new GameObject());
         screenManager.decisionPanel = GameObject.Instantiate(new GameObject());
@@ -117,7 +117,7 @@ public class ActiveScreenTest
     public void UpdateAudienceCountTest()
     {
 
-
+        screenManager.UpdateAudienceCount(99);
 
     }
 
@@ -125,7 +125,8 @@ public class ActiveScreenTest
     public void ShowOptionsTest()
     {
 
-
+        screenManager.ShowOptions();
+        Assert.AreEqual(true, screenManager.optionsPanel.activeSelf);
 
     }
 
@@ -133,7 +134,8 @@ public class ActiveScreenTest
     public void ShowDecisionTest()
     {
 
-
+        screenManager.ShowDecision();
+        Assert.AreEqual(true, screenManager.decisionPanel.activeSelf);
 
     }
 
@@ -141,7 +143,8 @@ public class ActiveScreenTest
     public void ShowStoryFlowTest()
     {
 
-
+        screenManager.ShowStoryFlow();
+        Assert.AreEqual(true, screenManager.storyFlowPanel.activeSelf);
 
     }
 
@@ -149,7 +152,7 @@ public class ActiveScreenTest
     public void ShowResultsTest()
     {
 
-
+        screenManager.ShowResults();
 
     }
 
@@ -157,23 +160,28 @@ public class ActiveScreenTest
     public void ShowPauseMenuTest()
     {
 
-
+        screenManager.ShowPauseMenu("www.qualityquest.de", "1234");
+        Assert.AreEqual(true, screenManager.pauseScreenPanel.activeSelf);
 
     }
 
+    /*
     [Test]
     public void ShowGameMenuTest()
     {
-
-
+        screenManager.gameMenuPanel.SetActive(true);
+        screenManager.ShowGameMenu();
+        Assert.AreEqual(true, screenManager.gameMenuPanel.activeSelf);
 
     }
+    */
 
     [Test]
-    public void ShowPauseButton()
+    public void ShowPauseButtonTest()
     {
 
-
+        screenManager.ShowPauseButton(true);
+        Assert.AreEqual(true, screenManager.pauseButtonPanel.activeSelf);
 
     }
 
@@ -181,7 +189,7 @@ public class ActiveScreenTest
     public void QuitGameTest()
     {
 
-
+        screenManager.QuitGame();
 
     }
 
@@ -189,7 +197,7 @@ public class ActiveScreenTest
     public void BackToMainMenuTest()
     {
 
-
+        screenManager.BackToMainMenu();
 
     }
 
@@ -197,8 +205,15 @@ public class ActiveScreenTest
     public void GameCrashTest()
     {
 
+        screenManager.GameCrash();
+        Assert.AreEqual(true, screenManager.errorScreenPanel.activeSelf);
 
+    }
 
+    [TearDown]
+    public virtual void TearDown()
+    {
+        Object.DestroyImmediate(scriptHolder);
     }
 
 }
