@@ -9,9 +9,6 @@ package "ServerLogic" {
       {field} <<Property>> +ModeratorID: Guid <<+get>>
       {field} <<Property>> +Type: MessageType <<+get>>
       {field} <<Property>> +CreationDate: DateTime <<+get>>
-      {field} <<Property>> +DebugMessage: string <<+get>>
-      {method} +MessageContainer(moderatorId: Guid, type: MessageType, creationDate: DateTime, debugMessage: string)
-      {method} +MessageContainer(moderatorId: Guid, type: MessageType, debugMessage: string)
       {method} +MessageContainer(moderatorId: Guid, type: MessageType)
       {method} +ToString(): string
     }
@@ -19,7 +16,6 @@ package "ServerLogic" {
     class "AudienceStatusMessage" as audStatMess {
       {field} <<Property>> +AudienceCount: int <<+get>>
       {method} +AudienceStatusMessage(moderatorId: Guid, audienceCount: int)
-      {method} +AudienceStatusMessage(moderatorId: Guid, audienceCount: int, debugMessage: string)
       {method} +ToString(): string
     }
 
@@ -27,107 +23,93 @@ package "ServerLogic" {
       {field} <<Property>> +ErrorMessageType: ErrorType <<+get>>
       {field} <<Property>> +ErrorMessageText: string <<+get>>
       {method} +ErrorMessage(moderatorId: Guid, errorMessageType: ErrorType, errorMessageText: string)
-      {method} +ErrorMessage(moderatorId: Guid, errorMessageType: ErrorType, errorMessageText: string, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "GamePausedStatusMessage" as gaPaStatMess{
       {field} <<Property>> +GamePaused: bool <<+get>>
       {method} +GamePausedStatusMessage(moderatorId: Guid, gamePaused: bool)
-      {method} +GamePausedStatusMessage(moderatorId: Guid, gamePaused: bool, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "GameStartedMessage" as gaStartMess{
       {method} +GameStartedMessage(moderatorId: Guid)
-      {method} +GameStartedMessage(moderatorId: Guid, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "ReconnectMessage" as reconnMess{
       {method} +ReconnectMessage(moderatorId: Guid)
-      {method} +ReconnectMessage(moderatorId: Guid, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "RecconnectSuccessfulMessage" as reconnSuccMess{
       {method} +ReconnectSuccessfulMessage(moderatorId: Guid)
-      {method} +ReconnectSuccessfulMessage(moderatorId: Guid, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "RequestCloseSessionMessage" as reqCloseSessMess{
       {field} <<Property>> +SessionKey: string <<+get>>
       {method} +RequestCloseSessionMessage(moderatorId: Guid, sessionKey: string)
-      {method} +RequestCloseSessionMessage(moderatorId: Guid, sessionKey: string, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "RequestGamePausedStatusChangeMessage" as reqGaPaStatMess{
       {field} <<Property>> +GamePaused: bool <<+get>>
       {method} +RequestGamePausedStatusChangeMessage(moderatorId: Guid, gamePaused: bool)
-      {method} +RequestGamePausedStatusChangeMessage(moderatorId: Guid, gamePaused: bool, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "RequestGameStartMessage" as reqGaStartMess{
       {method} +RequestGameStartedMessage(moderatorId: Guid)
-      {method} +RequestGameStartedMessage(moderatorId: Guid, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "RequestOpenSessionMessage" as reqOpSessMess{
       {field} <<Property>> +Password: string <<+get>>
       {method} +RequestOpenSessionMessage(moderatorId: Guid, password: string)
-      {method} +RequestOpenSessionMessage(moderatorId: Guid, password: string, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "RequestServerStatusMessage" as reqServStatMess{
       {method} +RequestServerStatusMessage(moderatorId: Guid)
-      {method} +RequestServerStatusMessage(moderatorId: Guid, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "RequestStartVotingMessage" as reqStartVotMess{
       {field} <<Property>> +VotingTime: int <<+get>>
-      {field} <<Property>> +VotingOptions: Dictionary<Guid, string> <<+get>>
-      {method} +RequestStartVotingMessage(moderatorId: Guid, votingTime: int, votingOptions: Dictionary<Guid, string>)
-      {method} +RequestStartVotingMessage(moderatorId: Guid, votingTime: int, votingOptions: Dictionary<Guid, string>, debugMessage: string)
+      {field} <<Property>> +VotingPrompt: KeyValuePair<Guid, string> <<+get>>
+      {field} <<Property>> +VotingOptions: KeyValuePair<Guid, string>[] <<+get>>
+      {method} +RequestStartVotingMessage(moderatorId: Guid, votingTime: int, votingPrompt: KeyValuePair<Guid, string>, votingOptions: KeyValuePair<Guid, string>[])
       {method} +ToString(): string
     }
 
     class "ServerStatusMessage" as servStatMess{
       {method} +ServerStatusMessage(moderatorId: Guid)
-      {method} +ServerStatusMessage(moderatorId: Guid, debugMessage: string)
       {method} +ToString(): string
     }
 
     class "SessionClosedMessage" as sessClosedMess{
-      {method} +SessionClosedMessage(moderatorId: Guid, statistics: Dictionary<string, int>)
-      {method} +SessionClosedMessage(moderatorId: Guid, statistics: Dictionary<string, int>, debugMessage: string)
+      {method} +SessionClosedMessage(moderatorId: Guid)
       {method} +ToString(): string
     }
 
     class "SessionOpenedMessage" as sessOpMess{
       {field} <<Property>> +SessionKey: string <<+get>>
       {field} <<Property>> +DirectURL: Uri <<+get>>
-      {field} <<Property>> +QrCode: Bitmap <<+get>>
-      {method} +SessionOpenedMessage(moderatorId: Guid, sessionKey: string, directURL: Uri, qrCode: Bitmap)
-      {method} +SessionOpenedMessage(moderatorId: Guid, sessionKey: string, directURL: Uri, qrCode: Bitmap, debugMessage: string)
+      {method} +SessionOpenedMessage(moderatorId: Guid, sessionKey: string, directURL: Uri)
       {method} +ToString(): string
     }
 
     class "VotingEndedMessage" as votEndMess{
-      {field} <<Property>> +WinningOption: Guid <<+get>>
+      {field} <<Property>> +WinningOption: string <<+get>>
       {field} <<Property>> +VotingResults: Dictionary<Guid, int> <<+get>>
+      {field} +TotalVotes: int
       {method} +VotingEndedMessage(moderatorId: Guid, winningOption: Guid, votingResults: Dictionary<Guid, int>)
       {method} +ToString(): string
     }
 
     class "VotingStartedMessage" as votStartMess{
       {method} +VotingStartedMessage(moderator: Guid)
-      {method} +VotingStartedMessage(moderator: Guid, debugMessage: string)
       {method} +ToString(): string
     }
 
@@ -141,8 +123,8 @@ package "ServerLogic" {
       WrongPassword
       UnknownGuid
       IllegalPauseAction
-      SessionDoesNotExist
-      NewModerator
+      WrongSession
+      GuidAlreadyExists
       IllegalMessage
     }
 
@@ -151,7 +133,6 @@ package "ServerLogic" {
       RequestOpenSession
       SessionOpened
       AudienceStatus
-      RequestServerStatus
       Reconnect
       ReconnectSuccessful
       RequestGameStart
