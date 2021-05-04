@@ -1,30 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.TestTools;
 
 public class SkillsTests
 {
 
     // Test Setup
-    Skills testSkills;
+    private Skills testSkills;
+    private Skills testUpdateOne;
+    private Skills testUpdateTwo;
+    private Skills testUpdateThree;
+    private Skills testUpdateFour;
+    private Skills testUpdateFive;
 
     /// <summary>
     /// Method to reset the test values.
     /// </summary>
-    public void testSetup()
+    [SetUp]
+    public void TestSetup()
     {
         testSkills = new Skills(5, 5, 5, 5);
+        testUpdateOne = new Skills(1, 1, 1, 1);
+        testUpdateTwo = new Skills(0, 0, 1, 2);
+        testUpdateThree = new Skills(-1, -2, 0, -8);
+        testUpdateFour = new Skills(1, 2, 3, 4);
+        testUpdateFive = new Skills(0, 0, 0, 0);
     }
 
     /// <summary>
     /// Tests the UpdateCommunicationSkill method by increasing the value by one.
     /// </summary>
     [Test]
-    public void communicationIncreasedByOne()
+    public void CommunicationIncreasedByOne()
     {
-        testSetup();
         testSkills.UpdateCommunicationSkill(1);
 
         Assert.AreEqual(6, testSkills.Communication);
@@ -34,9 +40,8 @@ public class SkillsTests
     /// Tests the UpdateCommunicationSkill method by increasing the value by six.
     /// </summary>
     [Test]
-    public void communicationIncreasedBySix()
+    public void CommunicationIncreasedBySix()
     {
-        testSetup();
         testSkills.UpdateCommunicationSkill(6);
 
         Assert.AreEqual(11, testSkills.Communication);
@@ -46,9 +51,8 @@ public class SkillsTests
     /// Tests the UpdateCommunicationSkill method by decreasing the value by 1.
     /// </summary>
     [Test]
-    public void communicationDecreasedByOne()
+    public void CommunicationDecreasedByOne()
     {
-        testSetup();
         testSkills.UpdateCommunicationSkill(-1);
 
         Assert.AreEqual(4, testSkills.Communication);
@@ -58,9 +62,8 @@ public class SkillsTests
     /// Tests the UpdateCommunicationSkill method by decreasing the value by 4.
     /// </summary>
     [Test]
-    public void communicationDecreasedByFour()
+    public void CommunicationDecreasedByFour()
     {
-        testSetup();
         testSkills.UpdateCommunicationSkill(-4);
 
         Assert.AreEqual(1, testSkills.Communication);
@@ -70,9 +73,8 @@ public class SkillsTests
     /// Tests the UpdateCommunicationSkill method by decreasing the value below zero.
     /// </summary>
     [Test]
-    public void communicationDecreasedBelowZero()
+    public void CommunicationDecreasedBelowZero()
     {
-        testSetup();
         testSkills.UpdateCommunicationSkill(-999);
 
         Assert.AreEqual(0, testSkills.Communication);
@@ -82,9 +84,8 @@ public class SkillsTests
     /// Tests the UpdateAnalyticsSkill method by increasing the value by two.
     /// </summary>
     [Test]
-    public void analyticsIncreasedByTwo()
+    public void AnalyticsIncreasedByTwo()
     {
-        testSetup();
         testSkills.UpdateAnalyticSkill(2);
 
         Assert.AreEqual(7, testSkills.Analytics);
@@ -94,9 +95,8 @@ public class SkillsTests
     /// Tests the UpdateAnalyticsSkill method by increasing the value by four.
     /// </summary>
     [Test]
-    public void analyticsIncreasedByFive()
+    public void AnalyticsIncreasedByFive()
     {
-        testSetup();
         testSkills.UpdateAnalyticSkill(5);
 
         Assert.AreEqual(10, testSkills.Analytics);
@@ -106,9 +106,8 @@ public class SkillsTests
     /// Tests the UpdateAnalyticsSkill method by decreasing the value by 2.
     /// </summary>
     [Test]
-    public void analyticsDecreasedByTwo()
+    public void AnalyticsDecreasedByTwo()
     {
-        testSetup();
         testSkills.UpdateAnalyticSkill(-2);
 
         Assert.AreEqual(3, testSkills.Analytics);
@@ -118,9 +117,8 @@ public class SkillsTests
     /// Tests the UpdateAnalyticsSkill method by decreasing the value by 5.
     /// </summary>
     [Test]
-    public void analyticsDecreasedByFive()
+    public void AnalyticsDecreasedByFive()
     {
-        testSetup();
         testSkills.UpdateAnalyticSkill(-5);
 
         Assert.AreEqual(0, testSkills.Analytics);
@@ -130,9 +128,8 @@ public class SkillsTests
     /// Tests the UpdateAnalyticsSkill method by decreasing the value below 0.
     /// </summary>
     [Test]
-    public void analyticsDecreasedBelowZero()
+    public void AnalyticsDecreasedBelowZero()
     {
-        testSetup();
         testSkills.UpdateAnalyticSkill(-99);
 
         Assert.AreEqual(0, testSkills.Analytics);
@@ -143,9 +140,8 @@ public class SkillsTests
     /// Tests the UpdatePartyingSkill method by increasing the value by 1.
     /// </summary>
     [Test]
-    public void partyingIncreasedByOne()
+    public void PartyingIncreasedByOne()
     {
-        testSetup();
         testSkills.UpdatePartyingSkill(1);
 
         Assert.AreEqual(6, testSkills.Partying);
@@ -155,9 +151,8 @@ public class SkillsTests
     /// Tests the UpdatePartyingSkill method by increasing the value by 3.
     /// </summary>
     [Test]
-    public void partyingIncreasedByThree()
+    public void PartyingIncreasedByThree()
     {
-        testSetup();
         testSkills.UpdatePartyingSkill(3);
 
         Assert.AreEqual(8, testSkills.Partying);
@@ -167,9 +162,8 @@ public class SkillsTests
     /// Tests the UpdatePartyingSkill method by decreasing the value by 3.
     /// </summary>
     [Test]
-    public void partyingDecreasingByThree()
+    public void PartyingDecreasingByThree()
     {
-        testSetup();
         testSkills.UpdatePartyingSkill(-3);
 
         Assert.AreEqual(2, testSkills.Partying);
@@ -179,9 +173,8 @@ public class SkillsTests
     /// Tests the UpdatePartyingSkill method by decreasing the value by 5.
     /// </summary>
     [Test]
-    public void partyingDecreasingByFive()
+    public void PartyingDecreasingByFive()
     {
-        testSetup();
         testSkills.UpdatePartyingSkill(-5);
 
         Assert.AreEqual(0, testSkills.Partying);
@@ -191,9 +184,8 @@ public class SkillsTests
     /// Tests the UpdatePartyingSkill method by decreasing the value below zero.
     /// </summary>
     [Test]
-    public void partyingDecreasingBelowZero()
+    public void PartyingDecreasingBelowZero()
     {
-        testSetup();
         testSkills.UpdatePartyingSkill(-99);
 
         Assert.AreEqual(0, testSkills.Partying);
@@ -204,9 +196,8 @@ public class SkillsTests
     /// Tests the UpdateProgrammingSkill method by increasing the value by 6.
     /// </summary>
     [Test]
-    public void programmingIncreasedBySix()
+    public void ProgrammingIncreasedBySix()
     {
-        testSetup();
         testSkills.UpdateProgrammingSkill(6);
 
         Assert.AreEqual(11, testSkills.Programming);
@@ -216,9 +207,8 @@ public class SkillsTests
     /// Tests the UpdateProgrammingSkill method by increasing the value by 7.
     /// </summary>
     [Test]
-    public void programmingIncreasedBySeven()
+    public void ProgrammingIncreasedBySeven()
     {
-        testSetup();
         testSkills.UpdateProgrammingSkill(7);
 
         Assert.AreEqual(12, testSkills.Programming);
@@ -228,9 +218,8 @@ public class SkillsTests
     /// Tests the UpdateProgrammingSkill method by decreasing the value by 2.
     /// </summary>
     [Test]
-    public void programmingDecreasedByTwo()
+    public void ProgrammingDecreasedByTwo()
     {
-        testSetup();
         testSkills.UpdateProgrammingSkill(-2);
 
         Assert.AreEqual(3, testSkills.Programming);
@@ -240,9 +229,8 @@ public class SkillsTests
     /// Tests the UpdateProgrammingSkill method by decreasing the value by 4.
     /// </summary>
     [Test]
-    public void programmingDecreasedByFour()
+    public void ProgrammingDecreasedByFour()
     {
-        testSetup();
         testSkills.UpdateProgrammingSkill(-4);
 
         Assert.AreEqual(1, testSkills.Programming);
@@ -252,11 +240,80 @@ public class SkillsTests
     /// Tests the UpdateProgrammingSkill method by decreasing the value below 0.
     /// </summary>
     [Test]
-    public void programmingDecreasedBelowZero()
+    public void ProgrammingDecreasedBelowZero()
     {
-        testSetup();
         testSkills.UpdateProgrammingSkill(-999);
 
         Assert.AreEqual(0, testSkills.Programming);
+    }
+
+    /// <summary>
+    /// Tests the UpdateAbilities method with testUpdateOne.
+    /// </summary>
+    [Test]
+    public void UpdateAbilitiesWithUpdateOne()
+    {
+        testSkills.updateAbilities(testUpdateOne);
+
+        Assert.AreEqual(6, testSkills.Programming);
+        Assert.AreEqual(6, testSkills.Analytics);
+        Assert.AreEqual(6, testSkills.Communication);
+        Assert.AreEqual(6, testSkills.Partying);
+    }
+
+    /// <summary>
+    /// Tests the UpdateAbilities method with testUpdateTwo.
+    /// </summary>
+    [Test]
+    public void UpdateAbilitiesWithUpdateTwo()
+    {
+        testSkills.updateAbilities(testUpdateTwo);
+
+        Assert.AreEqual(7, testSkills.Programming);
+        Assert.AreEqual(5, testSkills.Analytics);
+        Assert.AreEqual(5, testSkills.Communication);
+        Assert.AreEqual(6, testSkills.Partying);
+    }
+
+    /// <summary>
+    /// Tests the UpdateAbilities method with testUpdateThree.
+    /// </summary>
+    [Test]
+    public void UpdateAbilitiesWithUpdateThree()
+    {
+        testSkills.updateAbilities(testUpdateThree);
+
+        Assert.AreEqual(0, testSkills.Programming);
+        Assert.AreEqual(3, testSkills.Analytics);
+        Assert.AreEqual(4, testSkills.Communication);
+        Assert.AreEqual(5, testSkills.Partying);
+    }
+
+    /// <summary>
+    /// Tests the UpdateAbilities method with testUpdateFour.
+    /// </summary>
+    [Test]
+    public void UpdateAbilitiesWithUpdateFour()
+    {
+        testSkills.updateAbilities(testUpdateFour);
+
+        Assert.AreEqual(9, testSkills.Programming);
+        Assert.AreEqual(7, testSkills.Analytics);
+        Assert.AreEqual(6, testSkills.Communication);
+        Assert.AreEqual(8, testSkills.Partying);
+    }
+
+    /// <summary>
+    /// Tests the UpdateAbilities method with testUpdateFive.
+    /// </summary>
+    [Test]
+    public void UpdateAbilitiesWithUpdateFive()
+    {
+        testSkills.updateAbilities(testUpdateFive);
+
+        Assert.AreEqual(5, testSkills.Programming);
+        Assert.AreEqual(5, testSkills.Analytics);
+        Assert.AreEqual(5, testSkills.Communication);
+        Assert.AreEqual(5, testSkills.Partying);
     }
 }

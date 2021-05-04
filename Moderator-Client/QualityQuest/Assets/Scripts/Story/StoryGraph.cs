@@ -589,6 +589,19 @@ public class StoryGraph
     }
 
     /// <summary>
+    /// Constructor !only! for test purpose.
+    /// </summary>
+    /// <param name="character">The character.</param>
+    /// <param name="root">The root event.</param>
+    /// <param name="currentEvent">The current event.</param>
+    public StoryGraph(Character character, StoryEvent root, StoryEvent currentEvent)
+    {
+        Character = character;
+        Root = root;
+        CurrentEvent = currentEvent;
+    }
+
+    /// <summary>
     /// Method to set a new current StoryEvent
     /// </summary>
     /// <param name="newCurrentEvent">The new current StoryEvent.</param>

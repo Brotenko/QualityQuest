@@ -171,6 +171,10 @@ public class ClientLogic
         {
             throw new WrongVotingEndedMessage("The VotingEndedMessage does not match the current StoryEvent.");
         }
+        else
+        {
+            return;
+        }
     }
 
     /// <summary>
@@ -259,8 +263,7 @@ public class ClientLogic
         {
             throw new WrongStoryEvent("The current StoryEvent is null. Its not possible to continue with the play through.");
         }
-
-        if (storyEvent.Children.Count <= 0)
+        else if (storyEvent.Children.Count <= 0)
         {
             throw new WrongStoryEvent("The StoryEvent has no children. The Story can not continue.");
         }

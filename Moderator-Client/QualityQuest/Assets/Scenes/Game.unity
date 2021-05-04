@@ -11556,7 +11556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d044c31393e2f49a01ae69523ebac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  client: {fileID: 0}
+  client: {fileID: 1086257395}
   mainThreadWorker: {fileID: 1093310181}
 --- !u!4 &795812798
 Transform:
@@ -16587,7 +16587,7 @@ MonoBehaviour:
   loadingScreenPanel: {fileID: 2013832912}
   optionsPanel: {fileID: 815348827}
   pauseButtonPanel: {fileID: 1054240995}
-  gameCrashPanel: {fileID: 0}
+  gameCrashPanel: {fileID: 645581870}
   qrCodeGenerator: {fileID: 2053635036}
   gameMenuSwitchModeButton: {fileID: 1027499670}
   audienceCount: {fileID: 8152985334479808095}
