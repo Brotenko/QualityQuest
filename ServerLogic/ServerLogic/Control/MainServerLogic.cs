@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
@@ -9,7 +7,6 @@ using System.Timers;
 using Newtonsoft.Json;
 using ServerLogic.Model.Messages;
 using Fleck;
-using Newtonsoft.Json.Linq;
 using ServerLogic.Model;
 using ServerLogic.Properties;
 
@@ -397,7 +394,7 @@ namespace ServerLogic.Control
         /// Increases and checks the number of network protocol violations of the passed IWebSocketConnection.
         /// </summary>
         /// <param name="moderatorId">The Guid of the violator.</param>
-        protected internal void AddStrike(Guid moderatorId)
+        internal void AddStrike(Guid moderatorId)
         {
             //FR31 'Network protocol violation'
             ServerLogger.LogDebug($"Strike for {moderatorId}.");

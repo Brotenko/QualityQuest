@@ -159,7 +159,7 @@ namespace ServerLogic.Control
         /// </summary>
         /// <param name="source">Parameter used by Timer-Elapsed-Event.</param>
         /// <param name="eventArgs">Parameter used by Timer-Elapsed-Event.</param>
-        private void SendVotingResults(object source, ElapsedEventArgs e)
+        private void SendVotingResults(object source, ElapsedEventArgs eventArgs)
         {
             Dictionary<KeyValuePair<Guid, string>, int> votingResults = _playerAudienceClientApi.GetVotingResult(SessionKey, _currentPrompt);
 

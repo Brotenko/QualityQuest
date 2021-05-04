@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using System.IO;
 using System.IO.Abstractions.TestingHelpers;
 using ServerLogic.Properties;
 
@@ -28,7 +29,7 @@ namespace ServerLogicTests.Control
         private const string serverHasStartedPattern = @"The server has been started successfully with port: \d{1,5}";
         private const string invalidCommandPattern = @"'\S+' is not a valid command. See 'help'.";
 
-        
+
         /// <summary>
         /// Sets the path variable for the log file from the settings to a test log
         /// file to prevent changes to the actual log file by the tests.
@@ -329,7 +330,7 @@ namespace ServerLogicTests.Control
 
             //Test for Input with a non-Integer
             s.ParseCommandDebugger("log --setLevel $");
-            Assert.IsTrue(Settings.Default.LogLevel==0);
+            Assert.IsTrue(Settings.Default.LogLevel == 0);
 
             //Test for Null-Input
             s.ParseCommandDebugger("log --setLevel");
@@ -358,6 +359,43 @@ namespace ServerLogicTests.Control
             s.ParseCommandDebugger("log --setLogOutput");
             Assert.IsTrue(Settings.Default.LogOutPutType == 0);
             ServerLogger.WipeLogFile();
+        }
+
+        /// <summary>
+        /// Checks if the password has changed and if the hash-values equal.
+        /// </summary>
+        [TestMethod]
+        public void ValidPasswordDialogTest()
+        {
+            ServerShell s = ServerShell.DebugServerShell();
+            //doesn't go well
+            
+            string pw = "!Password4";
+
+            var input = new StringReader(pw + "\n");
+            Console.SetIn(input);
+            s.ParseCommandDebugger("password");
+            Assert.AreEqual(Settings.Default.PWHash, ServerShell.StringToSHA256Hash(pw));
+        }
+
+        /// <summary>
+        /// Checks if a password missing number won't overwrite an existing password.
+        /// </summary>
+        [TestMethod]
+        public void InvalidPasswordDialogTest()
+        {
+            ServerShell s = ServerShell.DebugServerShell();
+            string oldPW = "!Password4";
+            var input = new StringReader(oldPW + "\n");
+            Console.SetIn(input);
+            s.ParseCommandDebugger("password");
+
+            input = new StringReader("keineZahlenOderSonderzeichen\n");
+            Console.SetIn(input);
+            s.ParseCommandDebugger("password");
+
+            //PW shouldn't have changed cause the second one didn't fulfill the requirements
+            Assert.AreEqual(Settings.Default.PWHash, ServerShell.StringToSHA256Hash(oldPW));
         }
     }
 }
