@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MessageContainer.Messages;
-using UnityEngine;
 
 /// <summary>
 /// Class to split the ClientLogic from the MonoBehavior script to achieve a better testability.
@@ -15,7 +14,7 @@ public class ClientLogic
     public string SessionKey { get; set; }
     public string Url { get; set; }
     public bool SpecialOption { get; set; }
-    public StoryGraph StoryGraph { get; }
+    public StoryGraph StoryGraph { get; set; }
     public VotingStatistics VotingStatistic { get; set; }
     public Guid ModeratorClientGuid { get; set; }
 

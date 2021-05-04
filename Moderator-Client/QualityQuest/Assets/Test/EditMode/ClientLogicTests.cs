@@ -43,7 +43,7 @@ public class ClientLogicTests
     [SetUp]
     public void ClientLogicTestSetup()
     {
-        testCharacter = new Character(new Skills(10, 10, 10, 10), "manda", null);
+        testCharacter = new Character(new Skills(10, 10, 10, 10), "TestCharacter", null);
         clientLogic = new ClientLogic(30);
         root = new StoryEvent(Guid.NewGuid(), "Event1", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
         childOne = new StoryEvent(Guid.NewGuid(), "child1", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, true, RandomType.RandomDecisionOne);
@@ -155,7 +155,7 @@ public class ClientLogicTests
     /// Test for InitializeReconnectMessage method with the correct password.
     /// </summary>
     [Test]
-    public void InitializeRequestOpenSessionMessageCorrectPw()
+    public void InitializeRequestOpenSessionMessageTest_CorrectPw()
     {
         var testMessage = new RequestOpenSessionMessage(clientLogic.ModeratorClientGuid, "Hallo");
         Assert.AreEqual(requestOpenSessionMessage.Password, testMessage.Password);
@@ -166,7 +166,7 @@ public class ClientLogicTests
     /// Test for InitializeReconnectMessage method with the wrong password.
     /// </summary>
     [Test]
-    public void InitializeRequestOpenSessionMessageIncorrectPw()
+    public void InitializeRequestOpenSessionMessage_IncorrectPw()
     {
         var testMessage = new RequestOpenSessionMessage(clientLogic.ModeratorClientGuid, "sup");
         Assert.AreNotEqual(requestOpenSessionMessage.Password, testMessage.Password);
@@ -252,7 +252,7 @@ public class ClientLogicTests
     /// Test for the ContinueDecision method with 1 child StoryEvent.
     /// </summary>
     [Test]
-    public void ContinueDecisionTestWithOneChild()
+    public void ContinueDecisionTest_OneChild()
     {
         var testEvent = clientLogic.ContinueDecision(testGraphTwo);
 
@@ -263,7 +263,7 @@ public class ClientLogicTests
     /// Test for the ContinueDecision method with two child StoryEvents.
     /// </summary>
     [Test]
-    public void ContinueDecisionTestWithTwoChilds()
+    public void ContinueDecisionTest_TwoChilds()
     {
         var testEvent = clientLogic.ContinueDecision(testGraphOne);
 
@@ -274,7 +274,7 @@ public class ClientLogicTests
     /// Test for the ValidateVotingEndedMessage with a correct input.
     /// </summary>
     [Test]
-    public void ValidateVotingEndedMessageTestSuccess()
+    public void ValidateVotingEndedMessageTest_Success()
     {
         // Cant test it correctly since nothing happens with a correct input.
         clientLogic.ValidateVotingEndedMessage(root, votingResults);
@@ -284,7 +284,7 @@ public class ClientLogicTests
     /// Test for the ValidateVotingEndedMessage with a wrong input. Throws a WrongVotingEndedMessageException.
     /// </summary>
     [Test]
-    public void ValidateVotingEndedMessageTestFail()
+    public void ValidateVotingEndedMessageTest_Fail()
     {
         Assert.Throws<WrongVotingEndedMessage>(() => clientLogic.ValidateVotingEndedMessage(childThree, votingResults));
     }
@@ -293,7 +293,7 @@ public class ClientLogicTests
     /// Test for the ValidateStoryEvent method with null as the StoryEvent.
     /// </summary>
     [Test]
-    public void ValidateStoryEventTestWithNull()
+    public void ValidateStoryEventTest_Null()
     {
         Assert.Throws<WrongStoryEvent>(() => clientLogic.ValidateStoryEvent(null));
     }
@@ -302,7 +302,7 @@ public class ClientLogicTests
     /// Test for the ValidateStoryEvent method with a StoryEvent with zero children.
     /// </summary>
     [Test]
-    public void ValidateStoryEventTestWithNoChild()
+    public void ValidateStoryEventTest_NoChild()
     {
         Assert.Throws<WrongStoryEvent>(() => clientLogic.ValidateStoryEvent(noChild));
     }
@@ -311,10 +311,127 @@ public class ClientLogicTests
     /// Test for the ValidateStoryEvent method with a valid StoryEvent as Input
     /// </summary>
     [Test]
-    public void ValidateStoryEventTestWithValidStoryEvent()
+    public void ValidateStoryEventTest_ValidStoryEvent()
     {
         // cant test it correctly since nothing happens.
         clientLogic.ValidateStoryEvent(root);
+    }
+
+    /// <summary>
+    /// Test for the WorkshopDecision method. The PlayerCharacter gets fired.
+    /// </summary>
+    [Test]
+    public void WorkshopDecisionTest_Fired()
+    {
+        testCharacter.Abilities.updateAbilities(new Skills(-10, -99, -99, -99));
+        var testEvent = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var workshop = new StoryEvent(Guid.NewGuid(), "invite", new HashSet<StoryEvent>(), StoryEventType.StoryWorkshopInvite);
+        var noWorkshop = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryWorkshopNoInvite);
+        var fired = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryFired);
+        var wrongEvent = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        clientLogic.StoryGraph = new StoryGraph(testCharacter, testEvent, testEvent);
+
+        testEvent.AddChild(workshop);
+        testEvent.AddChild(noWorkshop);
+        testEvent.AddChild(fired);
+
+        Assert.AreEqual(fired, clientLogic.WorkshopDecision(testEvent));
+    }
+
+    /// <summary>
+    /// Test for the WorkshopDecision method. The PlayerCharacter no workshop invite.
+    /// </summary>
+    [Test]
+    public void WorkshopDecisionTest_NoInvite()
+    {
+        testCharacter.Abilities.updateAbilities(new Skills(-10, -10, -5, 0));
+        var testEvent = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var workshop = new StoryEvent(Guid.NewGuid(), "invite", new HashSet<StoryEvent>(), StoryEventType.StoryWorkshopInvite);
+        var noWorkshop = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryWorkshopNoInvite);
+        var fired = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryFired);
+        var wrongEvent = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        clientLogic.StoryGraph = new StoryGraph(testCharacter, testEvent, testEvent);
+
+        testEvent.AddChild(workshop);
+        testEvent.AddChild(noWorkshop);
+        testEvent.AddChild(fired);
+
+        Assert.AreEqual(noWorkshop, clientLogic.WorkshopDecision(testEvent));
+    }
+
+    /// <summary>
+    /// Test for the WorkshopDecision method. The PlayerCharacter gets fired.
+    /// </summary>
+    [Test]
+    public void WorkshopDecisionTest_WorkshopInvite()
+    {
+        var testEvent = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var workshop = new StoryEvent(Guid.NewGuid(), "invite", new HashSet<StoryEvent>(), StoryEventType.StoryWorkshopInvite);
+        var noWorkshop = new StoryEvent(Guid.NewGuid(), "noWorkshop", new HashSet<StoryEvent>(), StoryEventType.StoryWorkshopNoInvite);
+        var fired = new StoryEvent(Guid.NewGuid(), "fired", new HashSet<StoryEvent>(), StoryEventType.StoryFired);
+        var wrongEvent = new StoryEvent(Guid.NewGuid(), "cant happen", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        clientLogic.StoryGraph = new StoryGraph(testCharacter, testEvent, testEvent);
+
+        testEvent.AddChild(workshop);
+        testEvent.AddChild(noWorkshop);
+        testEvent.AddChild(fired);
+
+        Assert.AreEqual(workshop, clientLogic.WorkshopDecision(testEvent));
+    }
+
+    /// <summary>
+    /// Test for the WorkshopDecision method. Can not happen, since the Workshop event has the followup events, just in case.
+    /// </summary>
+    [Test]
+    public void WorkshopDecisionTest_CanNotHappen()
+    {
+        var testEvent = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        var wrongEvent = new StoryEvent(Guid.NewGuid(), "cant happen", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
+        clientLogic.StoryGraph = new StoryGraph(testCharacter, testEvent, testEvent);
+        testEvent.AddChild(wrongEvent);
+
+        Assert.AreEqual(wrongEvent, clientLogic.WorkshopDecision(testEvent));
+    }
+
+    /// <summary>
+    /// Test for the ContinueSpecialDecision method. The Special options gets removed.
+    /// </summary>
+    [Test]
+    public void ContinueSpecialDecisionTest_DeleteSpecialOption()
+    {
+        var testDecision = new StoryEvent(Guid.NewGuid(), "really special decision", new HashSet<StoryEvent>(), StoryEventType.StorySpecialDecision);
+        var specialOption = new StoryEvent(Guid.NewGuid(), "really special option", new HashSet<StoryEvent>(), StoryEventType.StorySpecialOption);
+        clientLogic.SpecialOption = false;
+        testDecision.AddChild(specialOption);
+        Assert.IsTrue(testDecision.Children.Contains(specialOption));
+        clientLogic.ContinueSpecialDecision(testDecision);
+        Assert.IsFalse(testDecision.Children.Contains(specialOption));
+    }
+
+    /// <summary>
+    /// Test for the ContinueSpecialDecision method. Nothing happens.
+    /// </summary>
+    [Test]
+    public void ContinueSpecialDecisionTest_DontDeleteSpecialOption()
+    {
+        var testDecision = new StoryEvent(Guid.NewGuid(), "really special decision", new HashSet<StoryEvent>(), StoryEventType.StorySpecialDecision);
+        var specialOption = new StoryEvent(Guid.NewGuid(), "really special option", new HashSet<StoryEvent>(), StoryEventType.StorySpecialOption);
+        clientLogic.SpecialOption = true;
+        testDecision.AddChild(specialOption);
+        Assert.IsTrue(testDecision.Children.Contains(specialOption));
+        clientLogic.ContinueSpecialDecision(testDecision);
+        Assert.IsTrue(testDecision.Children.Contains(specialOption));
+    }
+
+    /// <summary>
+    /// Test for the UnlockDecision method.
+    /// </summary>
+    [Test]
+    public void UnlockDecisionTest()
+    {
+        Assert.IsFalse(clientLogic.SpecialOption);
+        clientLogic.UnlockDecision();
+        Assert.IsTrue(clientLogic.SpecialOption);
     }
 }
 
