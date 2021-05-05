@@ -56,7 +56,7 @@ namespace ServerLogic.Control
                     string json = r.ReadToEnd();
                     serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
                 }
-                _server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, Settings.Default.CertPW);
+                _server.Certificate = new X509Certificate2(serverParams.CertFilePath, serverParams.CertPW);
                 _playerAudienceClientApi.StartServer(443);
                 StartWebsocket();
                 _checkForInactiveSessionsTimer.Start();
