@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using PAClient;
+using ServerLogic.Properties;
 
 namespace ServerLogic.Control
 {
@@ -17,8 +18,9 @@ namespace ServerLogic.Control
         /// <summary>
         /// A flag that determines if the server is currently running or not.
         /// </summary>
-        public bool ServerIsActive { 
-            get; private set; 
+        public bool ServerIsActive
+        {
+            get; private set;
         }
 
         /// <summary>
@@ -33,27 +35,19 @@ namespace ServerLogic.Control
         /// Starts the server and SignalR-Hub for the PlayerAudience-Clients.
         /// </summary>
         /// 
-        /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
         /// <exception cref="InvalidOperationException">The server is already in a running state.</exception>
         /// 
         /// <param name="port">The port of the PlayerAudience-Client host.</param>
         public void StartServer(int port)
         {
-            if (port >= 1024 && port <= 65535)
+            if (ServerIsActive == false)
             {
-                if (ServerIsActive == false)
-                {
-                    ServerIsActive = true;
-                    _pABackend = new PABackend(port);
-                }
-                else
-                {
-                    throw new InvalidOperationException(message: "The server is already running and can't be started right now!");
-                }
+                ServerIsActive = true;
+                _pABackend = new PABackend(port, Settings.Default.DockerUrl);
             }
             else
             {
-                throw new ArgumentException(message: "The given port is not in the valid range (1024-65535).");
+                throw new InvalidOperationException(message: "The server is already running and can't be started right now!");
             }
         }
 
@@ -90,7 +84,7 @@ namespace ServerLogic.Control
         /// Starts a new session for the PlayerAudience to connect to.
         /// </summary>
         /// 
-        /// <param name="sessionkey">The sessionkey of the to be started session.</param>
+        /// <param name="sessionkey">The SessionKey of the to be started session.</param>
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
@@ -105,7 +99,7 @@ namespace ServerLogic.Control
                 }
                 else
                 {
-                    throw new ArgumentException(message: "Sessionkey needs to be 6 uppercase, alphanumerical characters.");
+                    throw new ArgumentException(message: "SessionKey needs to be 6 uppercase, alphanumerical characters.");
                 }
             }
             else
@@ -126,7 +120,7 @@ namespace ServerLogic.Control
         /// 
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
-        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
+        /// <exception cref="SessionNotFoundException">The given SessionKey is invalid or missformed.</exception>
         /// <exception cref="InvalidOperationException">The server is currently not in a running state.</exception>
         public async Task StartNewVote(string sessionkey, KeyValuePair<Guid, string> prompt, KeyValuePair<Guid, string>[] options)
         {
@@ -150,7 +144,7 @@ namespace ServerLogic.Control
         ///
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
         /// <exception cref="ArgumentException">One or more of the arguments provided is not valid.</exception>
-        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
+        /// <exception cref="SessionNotFoundException">The given SessionKey is invalid or missformed.</exception>
         /// <exception cref="InvalidOperationException">The server is currently not in a running state.</exception>
         /// 
         /// <returns>The voting result of the given session and prompt.</returns>
@@ -174,7 +168,7 @@ namespace ServerLogic.Control
         /// <param name="sessionkey">The to be terminated session.</param>
         ///
         /// <exception cref="ArgumentNullException">Any of the given parameters contains a null-value.</exception>
-        /// <exception cref="SessionNotFoundException">The given sessionkey is invalid or missformed.</exception>
+        /// <exception cref="SessionNotFoundException">The given SessionKey is invalid or missformed.</exception>
         /// <exception cref="InvalidOperationException">The server is currently not in a running state.</exception>
         /// 
         /// <returns>The statistics of the terminated session.</returns>

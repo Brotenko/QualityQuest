@@ -1,18 +1,39 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ServerLogic.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="LogOutPutType" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="LogLevel" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="LogFilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">..//..//..//Properties//Log.txt</Value>
+      <Value Profile="(Default)">ServerLogic/Properties/Persist/Log.txt</Value>
     </Setting>
-    <Setting Name="ServerLogicLogFilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">..//..//..//Properties//ServerLogicLogs</Value>
+    <Setting Name="ServerURL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">127.0.0.1</Value>
+    </Setting>
+    <Setting Name="PAWebPagePort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">443</Value>
+    </Setting>
+    <Setting Name="MCWebSocketPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">80</Value>
+    </Setting>
+    <Setting Name="CertFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">TestCert.pfx</Value>
+    </Setting>
+    <Setting Name="PWHash" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dc0000c65f1829e02e9bff46190c82a41f937ba843cb275826ec6b06d460f814</Value>
+    </Setting>
+    <Setting Name="Salt" Type="System.String" Scope="User">
+      <Value Profile="(Default)">f4e4gn3m32da4b17</Value>
+    </Setting>
+    <Setting Name="CertPW" Type="System.String" Scope="User">
+      <Value Profile="(Default)">thisIsForTestingOnly</Value>
+    </Setting>
+    <Setting Name="DockerUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//0.0.0.0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -4,12 +4,12 @@ using Microsoft.Extensions.Hosting;
 using PAClient.Hubs;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace PAClient
 {
@@ -22,6 +22,7 @@ namespace PAClient
         private static IHubContext<ServerHub> _hubContext;
         private Thread _serverThread;
         private static bool isDebug;
+        private static string _dockerUrl;
 
         /// <summary>
         /// A complex datatype acting as a database for the PABackend, holding sessions,
@@ -61,9 +62,11 @@ namespace PAClient
         /// </summary>
         /// 
         /// <param name="port">The port of the PlayerAudience-Client host.</param>
-        public PABackend(int port)
+        /// <param name="dockerUrl">The URL used.</param>
+        public PABackend(int port, string dockerUrl)
         {
             Port = port;
+            _dockerUrl = dockerUrl;
             PAVotingResults = new VotingResults(new Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>());
             ConnectionList = new Dictionary<string, List<string>>();
             CurrentPrompt = new Dictionary<string, KeyValuePair<Guid, string>>();
@@ -86,7 +89,7 @@ namespace PAClient
         public static PABackend DebugPABackend(int port)
         {
             isDebug = true;
-            return new PABackend(port);
+            return new PABackend(port, "//0.0.0.0:");
         }
 
         /// <summary>
@@ -246,19 +249,16 @@ namespace PAClient
                     throw new SessionNotFoundException("The requested session is either inactive or invalid!");
                 }
             }
-            catch (ArgumentNullException e)
+            catch (ArgumentNullException)
             {
-                /* LOG ERROR HERE */
                 return (int) PABackendErrorType.NullSessionkeyError;
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
-                /* LOG ERROR HERE */
                 return (int) PABackendErrorType.InvalidArgumentError;
             }
-            catch (SessionNotFoundException e)
+            catch (SessionNotFoundException)
             {
-                /* LOG ERROR HERE */
                 return (int) PABackendErrorType.InvalidSessionkeyError;
             }
         }
@@ -592,10 +592,13 @@ namespace PAClient
         /// <returns>The program initialization.</returns>
         private static IHostBuilder CreateHostBuilder(int port) =>
             Host.CreateDefaultBuilder()
+                .ConfigureLogging(logging =>
+                    logging.AddFilter("System", LogLevel.Error)
+                        .AddFilter("Microsoft", LogLevel.Error))
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("https://localhost:" + port + "/");
+                    webBuilder.UseUrls("https:"+ _dockerUrl +":"+ port + "/");
                 });
     }
 }

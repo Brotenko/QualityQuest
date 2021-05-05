@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServerLogic.Model.Messages
 {
@@ -15,25 +13,8 @@ namespace ServerLogic.Model.Messages
     public class RequestStartVotingMessage : MessageContainer
     {
         public int VotingTime { get; }
-        public Dictionary<Guid, string> VotingOptions { get; }
-
-        /// <summary>
-        /// Constructs a new RequestStartVotingMessage with an empty debugMessage.
-        /// </summary>
-        /// 
-        /// <param name="moderatorId">The individual identifier assigned to the Moderator-Client. 
-        /// Only the Moderator-Client sends this id to the ServerLogic to identify itself. The 
-        /// ServerLogic leaves this field empty.</param>
-        /// 
-        /// <param name="votingTime">The time in seconds that PlayerAudience-Clients have to cast 
-        /// their vote.</param>
-        /// 
-        /// <param name="votingOptions">Contains the GUIDs of the respective voting option as the 
-        /// key and textual description of the voting option as the value.</param>
-        public RequestStartVotingMessage(Guid moderatorId, int votingTime, Dictionary<Guid, string> votingOptions) : this(moderatorId, votingTime, votingOptions, "")
-        {
-            /* FALL THROUGH */
-        }
+        public KeyValuePair<Guid, string> VotingPrompt;
+        public KeyValuePair<Guid, string>[] VotingOptions { get; }
 
         /// <summary>
         /// Constructs a new RequestStartVotingMessage.
@@ -45,18 +26,14 @@ namespace ServerLogic.Model.Messages
         /// 
         /// <param name="votingTime">The time in seconds that PlayerAudience-Clients have to cast 
         /// their vote.</param>
-        /// 
+        /// <param name="votingPrompt">The Guid and string of the prompt to be voted on.</param>
         /// <param name="votingOptions">Contains the GUIDs of the respective voting option as the 
         /// key and textual description of the voting option as the value.</param>
-        /// 
-        /// <param name="debugMessage">Can be used during development to transport additional data 
-        /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
-        /// or an error occurring, information can be carried to the Moderator-Client directly for 
-        /// quick access, without the need to search through the logs.</param>
-        public RequestStartVotingMessage(Guid moderatorId, int votingTime, Dictionary<Guid, string> votingOptions, string debugMessage) : base(moderatorId, MessageType.RequestStartVoting, debugMessage)
+        public RequestStartVotingMessage(Guid moderatorId, int votingTime, KeyValuePair<Guid, string> votingPrompt, KeyValuePair<Guid, string>[] votingOptions) : base(moderatorId, MessageType.RequestStartVoting)
         {
             VotingTime = votingTime;
             VotingOptions = votingOptions;
+            VotingPrompt = votingPrompt;
         }
 
         public override string ToString()

@@ -8,14 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Runtime.CompilerServices;
-[assembly: InternalsVisibleTo("ServerLogicTest")]
-namespace ServerLogic.Properties
-{
+namespace ServerLogic.Properties {
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-
+    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
         public static Settings Default {
@@ -26,7 +25,7 @@ namespace ServerLogic.Properties
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public int LogOutPutType {
             get {
                 return ((int)(this["LogOutPutType"]));
@@ -50,7 +49,7 @@ namespace ServerLogic.Properties
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("..//..//..//Properties//Log.txt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ServerLogic/Properties/Persist/Log.txt")]
         public string LogFilePath {
             get {
                 return ((string)(this["LogFilePath"]));
@@ -62,13 +61,97 @@ namespace ServerLogic.Properties
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("..//..//..//Properties//ServerLogicLogs")]
-        public string ServerLogicLogFilePath {
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
+        public string ServerURL {
             get {
-                return ((string)(this["ServerLogicLogFilePath"]));
+                return ((string)(this["ServerURL"]));
             }
             set {
-                this["ServerLogicLogFilePath"] = value;
+                this["ServerURL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("443")]
+        public int PAWebPagePort {
+            get {
+                return ((int)(this["PAWebPagePort"]));
+            }
+            set {
+                this["PAWebPagePort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("80")]
+        public string MCWebSocketPort {
+            get {
+                return ((string)(this["MCWebSocketPort"]));
+            }
+            set {
+                this["MCWebSocketPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("TestCert.pfx")]
+        public string CertFilePath {
+            get {
+                return ((string)(this["CertFilePath"]));
+            }
+            set {
+                this["CertFilePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("dc0000c65f1829e02e9bff46190c82a41f937ba843cb275826ec6b06d460f814")]
+        public string PWHash {
+            get {
+                return ((string)(this["PWHash"]));
+            }
+            set {
+                this["PWHash"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("f4e4gn3m32da4b17")]
+        public string Salt {
+            get {
+                return ((string)(this["Salt"]));
+            }
+            set {
+                this["Salt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("thisIsForTestingOnly")]
+        public string CertPW {
+            get {
+                return ((string)(this["CertPW"]));
+            }
+            set {
+                this["CertPW"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("//0.0.0.0")]
+        public string DockerUrl {
+            get {
+                return ((string)(this["DockerUrl"]));
+            }
+            set {
+                this["DockerUrl"] = value;
             }
         }
     }

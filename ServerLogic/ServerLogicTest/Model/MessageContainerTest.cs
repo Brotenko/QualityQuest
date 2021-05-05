@@ -2,6 +2,9 @@
 using ServerLogic.Model;
 using System;
 using System.Text.RegularExpressions;
+using Microsoft.VisualStudio.CodeCoverage;
+using Pose;
+using Shim = Pose.Shim;
 
 namespace ServerLogicTests.Model.Messages
 {
@@ -15,9 +18,8 @@ namespace ServerLogicTests.Model.Messages
         private static readonly Guid testGuid = Guid.NewGuid();
         private const MessageType testType = MessageType.AudienceStatus;
         private static readonly DateTime testDate = DateTime.Now;
-        private static readonly string testMessage = "This is a debug test 123456 =";
         private readonly string expectedStringPattern = @"MessageContainer \[ModeratorId: " +
-            testGuid + @", Type: " + testType + @", Date: " + testDate.ToString("yyyy.MM.dd hh:mm:ss") + @", Debug: " + testMessage + @"\]";
+                                                        testGuid + @", Type: " + testType + @", Date: " + testDate.ToString("yyyy.MM.dd HH:mm:ss") + @"\]";
 
         /// <summary>
         /// Validates that the assigned test-variable is the same before and after
@@ -50,28 +52,28 @@ namespace ServerLogicTests.Model.Messages
         [TestMethod]
         public void CreationDateTest()
         {
+            //As Date ist set inside the MessageContainer-Class, we mock with Pose the DateTime.Now-Method and set it to always return the Value in 'testDateTime'
+            DateTime testDateTime = new DateTime(2012, 12, 21, 11, 50, 0);
+            Shim dateTimeShim = Shim.Replace(() => DateTime.Now).With(() => testDateTime);
+
+            // Objects initialized inside PoseContext.Isolate won't be visible outside of it, so we override already initialized Objects,
+            // as Assert sadly doesn't seem to work inside PoseContext.Isolate.
             MessageContainer m_1 = new MessageContainer(testGuid, testType);
-            MessageContainer m_2 = new MessageContainer(testGuid, testType, testDate, "");
+            MessageContainer m_2 = new MessageContainer(testGuid, testType);
+
+            PoseContext.Isolate(() =>
+            {
+                m_1 = new MessageContainer(testGuid, testType);
+                m_2 = new MessageContainer(testGuid, testType);
+            }, dateTimeShim);
 
             Assert.IsNotNull(m_1.CreationDate);
             Assert.IsInstanceOfType(m_1.CreationDate, typeof(DateTime));
 
             Assert.IsNotNull(m_2.CreationDate);
-            Assert.AreEqual(m_2.CreationDate, testDate);
+            Assert.AreEqual(m_2.CreationDate, testDateTime);
         }
 
-        /// <summary>
-        /// Validates that the assigned test-variable is the same before and after
-        /// construction of the message.
-        /// </summary>
-        [TestMethod]
-        public void DebugMessageTest()
-        {
-            MessageContainer m = new MessageContainer(testGuid, testType, testDate, testMessage);
-
-            Assert.IsNotNull(m.DebugMessage);
-            Assert.AreEqual(m.DebugMessage, testMessage);
-        }
 
         /// <summary>
         /// Validates that the constructed message contains all the provided
@@ -82,9 +84,7 @@ namespace ServerLogicTests.Model.Messages
         [TestMethod]
         public void ToStringCorrectness()
         {
-            MessageContainer m = new MessageContainer(testGuid, testType, testDate, testMessage);
-
-            Assert.IsNotNull(m.ToString());
+            MessageContainer m = new MessageContainer(testGuid, testType);
             Assert.IsTrue(Regex.IsMatch(m.ToString(), expectedStringPattern));
         }
     }

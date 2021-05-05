@@ -1,6 +1,12 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using ServerLogic.Model;
 using ServerLogic.Properties;
 
 namespace ServerLogic.Control
@@ -10,74 +16,121 @@ namespace ServerLogic.Control
     /// </summary>
     public class ServerShell
     {
-        //public Logger logger = [...];
-        private MainServerLogic mainServerLogic = new MainServerLogic();
-        private int _port;
-        private string _password; //Passwort des Servers 
-        private bool serverIsRunning = false;
-        private bool commandRequestsHelpMessage = false;
-        private static bool isDebug;
+        private readonly MainServerLogic _mainServerLogic = new MainServerLogic();
+        private bool _serverIsRunning = false;
+        private bool _commandRequestsHelpMessage = false;
+        private static bool _isDebug;
 
-        public int Port
+
+        /// <summary>
+        /// This is a direct copy from the Password-setter:
+        /// 
+        /// Makes sure to set a password that doesn't start with a dash ("-"), 
+        /// is at least 8 characters in length, but no more than 32, and satisfies 
+        /// 3 out of the following 4 rules:
+        ///  At least one digit
+        ///  At least one lowercase character
+        ///  At least one uppercase character
+        ///  At least one special character
+        /// </summary>
+        /// <param name="password">The password to be checked.</param>
+        /// <returns>The password to be checked.</returns>
+        private string CheckPasswordConditions(string password)
         {
-            get => _port;
-            private set
+            if (password.Length >= 8 && password.Length <= 32 && !password.StartsWith('-'))
             {
-                // Makes sure the port is not outside the range of settable ports.
-                if (value <= 1023 || value > 65535)
+                int count = 0;
+
+                if (Regex.IsMatch(password, @".*\d.*"))
                 {
-                    throw new ArgumentException(message: Properties.Resources.InvalidPortExceptionMessage);
+                    count++;
+                }
+                if (Regex.IsMatch(password, @".*[a-z].*"))
+                {
+                    count++;
+                }
+                if (Regex.IsMatch(password, @".*[A-Z].*"))
+                {
+                    count++;
+                }
+                if (Regex.IsMatch(password, @".*[^a-zA-Z0-9 ].*"))
+                {
+                    count++;
                 }
 
-                _port = value;
+                if (count < 3)
+                {
+                    throw new ArgumentException(message: Resources.InvalidPasswordExceptionMessage);
+                }
             }
+            else
+            {
+                throw new ArgumentException(message: Resources.InvalidPasswordExceptionMessage);
+            }
+
+            return password;
         }
 
-        public string Password
+        /// <summary>
+        /// Adds a salt from the settings-file to the passed string and returns the SHA256 hash from it.
+        /// </summary>
+        /// <param name="hashMe">The string to use SHA256 on.</param>
+        /// <returns>A SHA256-Hash</returns>
+        public static string StringToSHA256Hash(string hashMe)
         {
-            get => _password;
-            private set
+            hashMe += Settings.Default.Salt;
+            //source: https://stackoverflow.com/questions/16999361/obtain-sha-256-string-of-a-string
+            StringBuilder stringBuilder = new();
+
+            using (SHA256 hash = SHA256.Create())
             {
-                // Makes sure to set a password that doesn't start with a dash ("-"), 
-                // is at least 8 characters in length, but no more than 32, and satisfies 
-                // 3 out of the following 4 rules:
-                //  At least one digit
-                //  At least one lowercase character
-                //  At least one uppercase character
-                //  At least one special character
-                if (value.Length >= 8 && value.Length <= 32 && !value.StartsWith('-'))
+                Encoding enc = Encoding.UTF8;
+                byte[] result = hash.ComputeHash(enc.GetBytes(hashMe));
+                foreach (byte b in result)
                 {
-                    int count = 0;
-
-                    if (Regex.IsMatch(value, @".*\d.*"))
-                    {
-                        count++;
-                    }
-                    if (Regex.IsMatch(value, @".*[a-z].*"))
-                    {
-                        count++;
-                    }
-                    if (Regex.IsMatch(value, @".*[A-Z].*"))
-                    {
-                        count++;
-                    }
-                    if (Regex.IsMatch(value, @".*[^a-zA-Z0-9 ].*"))
-                    {
-                        count++;
-                    }
-
-                    if (count < 3)
-                    {
-                        throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
-                    }
+                    stringBuilder.Append(b.ToString("x2"));
                 }
-                else
-                {
-                    throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
-                }
-
-                _password = value;
             }
+            return stringBuilder.ToString();
+        }
+
+        /// <summary>
+        /// Generates a random string with length 16. May be used to salt a password before hashing.
+        /// </summary>
+        /// <returns>A string of length 16.</returns>
+        private static string SaltGen()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+            var rand = new Random();
+            string salt = new(Enumerable.Repeat(chars, 16).Select(s => s[rand.Next(s.Length)]).ToArray());
+            return salt;
+        }
+
+        /// <summary>
+        /// A basic method for secure password retrieval. The requested password is stored as a hash in the settings file.
+        /// </summary>
+        private void SetPasswordDialog()
+        {
+            string backupSalt = Settings.Default.Salt;
+            string backupPW = Settings.Default.PWHash;
+            Console.WriteLine("Please enter a new password:");
+            string password = Console.ReadLine();
+            try
+            {
+                //FR37, new PW, new Salt
+                Settings.Default.Salt = SaltGen();
+                Settings.Default.PWHash = StringToSHA256Hash(CheckPasswordConditions(password));
+
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("\n" + Resources.InvalidPasswordExceptionMessage);
+                Settings.Default.Salt = backupSalt;
+                Settings.Default.PWHash = backupPW;
+                return;
+            }
+            Console.WriteLine("Password was changed successfully.");
+            Settings.Default.Save();
         }
 
         /// <summary>
@@ -85,9 +138,7 @@ namespace ServerLogic.Control
         /// </summary>
         public ServerShell()
         {
-            this.Password = "!Password123";
-            this.Port = 7777;
-            ServerLogger.CreateServerLogger();
+            RunShell();
         }
 
         /// <summary>
@@ -96,28 +147,10 @@ namespace ServerLogic.Control
         /// </summary>
         public static ServerShell DebugServerShell()
         {
-            isDebug = true;
+            _isDebug = true;
             return new ServerShell();
         }
 
-        /// <summary>
-        /// Constructs a new ServerShell with a password and a port and starts the main-loop
-        /// that runs the actual shell application.
-        /// </summary>
-        /// 
-        /// <param name="password">The password, that will be required by the Moderator-Client, 
-        /// to establish a connection with the ServerLogic.</param>
-        /// 
-        /// <param name="port">The port that will be used to set up the WebSocket of the 
-        /// ServerLogic.</param>
-        public ServerShell(string password, int port)
-        {
-            this.Password = password;
-            this.Port = port;
-            ServerLogger.CreateServerLogger();
-
-            RunShell();
-        }
 
         /// <summary>
         /// The Main method of the ServerShell.
@@ -129,14 +162,7 @@ namespace ServerLogic.Control
         /// password or port violate the rules for setting them.</exception>
         public static void Main(string[] args)
         {
-            string[] returnValue = CheckMainMethodArgs(args);
-
-            if (returnValue == null)
-            {
-                return;
-            }
-
-            _ = new ServerShell(password: returnValue[0], port: Convert.ToInt32(returnValue[1], CultureInfo.CurrentCulture));
+            new ServerShell();
         }
 
         /// <summary>
@@ -158,14 +184,50 @@ namespace ServerLogic.Control
         /// </summary>
         private void RunShell()
         {
-            Console.WriteLine(Properties.Resources.StartupMessage);
-
-            while (true)
+            if (!_isDebug)
             {
-                Console.Write(value: "qq >> ");
-                string command = Console.ReadLine();
+                ServerParams serverParams = new ServerParams();
+                try
+                {
+                    using (StreamReader r = new StreamReader(Resources.ServerParamsFilePath))
+                    {
+                        string json = r.ReadToEnd();
+                        serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
+                    }
+                }
+                catch (FileNotFoundException)
+                {
+                    using (StreamReader r = new StreamReader("ServerLogic/Properties/serverParams.json"))
+                    {
+                        string json = r.ReadToEnd();
+                        serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
+                    }
+                }
 
-                Console.WriteLine(ParseCommand(command));
+                Settings.Default.ServerURL = serverParams.ServerURL;
+                Settings.Default.PAWebPagePort = serverParams.PAWebPagePort;
+                Settings.Default.MCWebSocketPort = serverParams.MCWebSocketPort;
+                Settings.Default.CertFilePath = serverParams.CertFilePath;
+                Settings.Default.CertPW = serverParams.CertPW;
+                Settings.Default.PWHash = serverParams.PWHash;
+                Settings.Default.Salt = serverParams.Salt;
+                Settings.Default.LogLevel = serverParams.LogLevel;
+                Settings.Default.LogOutPutType = serverParams.LogOutPutType;
+                Settings.Default.Save();
+                Console.WriteLine(Resources.StartupMessage);
+
+                while (true)
+                {
+                    if (Settings.Default.PWHash.Equals(""))
+                    {
+                        Console.WriteLine("Password hasn't been set yet.");
+                        SetPasswordDialog();
+                    }
+                    Console.Write(value: "qq >> ");
+                    string command = Console.ReadLine();
+
+                    Console.WriteLine(ParseCommand(command));
+                }
             }
         }
 
@@ -174,6 +236,24 @@ namespace ServerLogic.Control
         /// </summary>
         private void StopShell()
         {
+            if (!_isDebug)
+            {
+                Settings.Default.Reload();
+                ServerParams serverParams = new ServerParams();
+                serverParams.ServerURL = Settings.Default.ServerURL;
+                serverParams.PAWebPagePort = Settings.Default.PAWebPagePort;
+                serverParams.MCWebSocketPort = Settings.Default.MCWebSocketPort;
+                serverParams.CertFilePath = Settings.Default.CertFilePath;
+                serverParams.CertPW = Settings.Default.CertPW;
+                serverParams.PWHash = Settings.Default.PWHash;
+                serverParams.Salt = Settings.Default.Salt;
+                serverParams.LogLevel = Settings.Default.LogLevel;
+                serverParams.LogOutPutType = Settings.Default.LogOutPutType;
+                string json = JsonConvert.SerializeObject(serverParams, Formatting.Indented);
+                using var streamWriter = new StreamWriter(Resources.ServerParamsFilePath);
+                streamWriter.WriteLine(json);
+                streamWriter.Close();
+            }
             Environment.Exit(exitCode: 0);
         }
 
@@ -215,242 +295,47 @@ namespace ServerLogic.Control
 
                 if (commandParameters[0] == "--help")
                 {
-                    commandRequestsHelpMessage = true;
+                    _commandRequestsHelpMessage = true;
                     ret = ShowHelp(command);
                 }
             }
 
-            if (!commandRequestsHelpMessage)
+            if (!_commandRequestsHelpMessage)
             {
                 switch (command)
                 {
-                case "port":
-                    ret = ParsePort(commandParameters);
-                    break;
-                case "password":
-                    ret = ParsePassword(commandParameters);
-                    break;
-                case "start":
-                    ret = StartServer(commandParameters);
-                    break;
-                case "stop":
-                    ret = StopServer();
-                    break;
-                case "version":
-                    ret = ShowVersion();
-                    break;
-                case "help":
-                    ret = ShowHelp("help");
-                    break;
-                case "log":
-                    ret = ShowLogs(commandParameters);
-                    break;
-                case "exit":
-                    StopShell();
-                    break;
-                default:
-                    ret = "'" + command + "' is not a valid command. See 'help'.";
-                    break;
+                    case "password":
+                        SetPasswordDialog();
+                        break;
+                    case "start":
+                        ret = StartServer(commandParameters);
+                        break;
+                    case "stop":
+                        ret = StopServer();
+                        break;
+                    case "version":
+                        ret = ShowVersion();
+                        break;
+                    case "help":
+                        ret = ShowHelp("help");
+                        break;
+                    case "log":
+                        ret = ShowLogs(commandParameters);
+                        break;
+                    case "sess":
+                        ret = _mainServerLogic.ActiveConnections;
+                        break;
+                    case "exit":
+                        StopShell();
+                        break;
+                    default:
+                        ret = "'" + command + "' is not a valid command. See 'help'.";
+                        break;
                 }
             }
 
-            commandRequestsHelpMessage = false;
+            _commandRequestsHelpMessage = false;
             return ret;
-        }
-
-        /// <summary>
-        /// Parses the parameters the "port" command was called with. Depending on the
-        /// number of arguments and type of argument, the following services are provided.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>
-        /// Empty parameter list
-        /// </term>
-        /// <description>
-        /// Returns the currently set port.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Numeric first parameter inside settable range
-        /// </term>
-        /// <description>
-        /// Sets the port equal to the numeric value and returns a confirmation message.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Numeric first parameter inside settable range
-        /// </term>
-        /// <description>
-        /// Returns an error message in form of a 
-        /// <see cref="Properties.Resources.InvalidPortExceptionMessage"/>.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Non-numeric first parameter
-        /// </term>
-        /// <description>
-        /// Returns an error message in form of a 
-        /// <see cref="Properties.Resources.InvalidPortExceptionMessage"/>.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Server is running
-        /// </term>
-        /// <description>
-        /// While the server is running, the port can't be changed.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Parameter 2...n
-        /// </term>
-        /// <description>
-        /// Any kind of parameter, after the first one, will be ignored.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// 
-        /// <param name="parameterList">List of all parameters the command has been called 
-        /// with.</param>
-        /// 
-        /// <returns>Which port is currently set or has been set, if no errors occurred.
-        /// </returns>
-        private string ParsePort(string[] parameterList)
-        {
-            // command: port -> Returns the currently set port.
-            if (parameterList.Length == 0)
-            {
-                return Port.ToString(CultureInfo.CurrentCulture);
-            }
-            // command: port number -> Sets a new port.
-            else
-            {
-                if (serverIsRunning)
-                {
-                    return "The server is running. Switching ports is disabled.";
-                }
-                else
-                {
-                    int tempPort;
-
-                    // port-input is not a numeral.
-                    try
-                    {
-                        tempPort = Convert.ToInt32(parameterList[0], CultureInfo.CurrentCulture);
-                    }
-                    catch (FormatException)
-                    {
-                        return Properties.Resources.InvalidPortExceptionMessage;
-                    }
-                    catch (OverflowException)
-                    {
-                        return Properties.Resources.InvalidPortExceptionMessage;
-                    }
-
-                    // test for port number being inside the settable range.
-                    try
-                    {
-                        Port = tempPort;
-                    }
-                    // port number outside the range.
-                    catch (ArgumentException)
-                    {
-                        return Properties.Resources.InvalidPortExceptionMessage;
-                    }
-
-                    return "The port has been set to " + tempPort + " successfully.";
-                }
-            }
-        }
-
-        /// <summary>
-        /// Parses the parameters the "password" command was called with. Depending on the
-        /// number of arguments and type of argument, the following services are provided.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>
-        /// Empty parameter list
-        /// </term>
-        /// <description>
-        /// Returns the currently set password.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// String that does not violate the password rules
-        /// </term>
-        /// <description>
-        /// Sets the port equal to the numeric value and returns a confirmation message.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// String that violates the password rules
-        /// </term>
-        /// <description>
-        /// Returns an error message in form of a 
-        /// <see cref="Properties.Resources.InvalidPasswordExceptionMessage"/>.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Server is running
-        /// </term>
-        /// <description>
-        /// While the server is running, the password can't be changed.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <term>
-        /// Parameter 2...n
-        /// </term>
-        /// <description>
-        /// Any kind of parameter, after the first one, will be ignored.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// 
-        /// <param name="parameterList">List of all parameters the command has been called 
-        /// with</param>
-        /// 
-        /// <returns>Which password is currently set or has been set, if no errors 
-        /// occurred.</returns>
-        private string ParsePassword(string[] parameterList)
-        {
-            // command: password -> Returns the currently set password.
-            if (parameterList.Length == 0)
-            {
-                return Password;
-            }
-            // command: password string -> Sets a new password.
-            else
-            {
-                if (serverIsRunning)
-                {
-                    return "The server is running. Switching passwords is disabled.";
-                }
-                else
-                {
-                    // test if password string is of adequate length and characters.
-                    try
-                    {
-                        Password = parameterList[0];
-                    }
-                    // password string violates the password rules.
-                    catch (ArgumentException)
-                    {
-                        return Properties.Resources.InvalidPasswordExceptionMessage;
-                    }
-
-                    return "The password has been set to " + parameterList[0] + " successfully.";
-                }
-            }
         }
 
         /// <summary>
@@ -470,40 +355,13 @@ namespace ServerLogic.Control
         /// has been started, if no errors occurred.</returns>
         private string StartServer(string[] parameterList)
         {
-            if (!serverIsRunning)
+            if (!_serverIsRunning)
             {
-                foreach (string item in parameterList)
-                {
-                    if (Regex.IsMatch(item, @"--port\=(\d*)"))
-                    {
-                        try
-                        {
-                            Match m = Regex.Match(item, @"--port\=(\d*)");
-                            Port = Convert.ToInt32(m.Groups[1].Value, CultureInfo.CurrentCulture);
-                        }
-                        catch (ArgumentException)
-                        {
-                            return Properties.Resources.InvalidPortExceptionMessage;
-                        }
-                    }
-                    else if (Regex.IsMatch(item, @"--password\=(\S*)"))
-                    {
-                        try
-                        {
-                            Match m = Regex.Match(item, @"--password\=(\S*)");
-                            Password = m.Groups[1].Value;
-                        }
-                        catch (ArgumentException)
-                        {
-                            return Properties.Resources.InvalidPasswordExceptionMessage;
-                        }
-                    }
-                }
                 try
                 {
-                    if (!isDebug)
+                    if (!_isDebug)
                     {
-                        mainServerLogic.playerAudienceClientAPI.StartServer(Port);
+                        _mainServerLogic.Start();
                     }
                 }
                 catch (Exception e)
@@ -511,12 +369,11 @@ namespace ServerLogic.Control
                     return "The server could not be started due to following Exception: \n"
                         + e.StackTrace;
                 }
-
-                serverIsRunning = true;
-                return "The server has been started successfully with port: " + Port;
+                _serverIsRunning = true;
+                return "The server has been started successfully with port: " + Settings.Default.PAWebPagePort;
             }
 
-            return "The server is already running with port: " + Port;
+            return "The server is already running with port: " + Settings.Default.PAWebPagePort;
         }
 
         /// <summary>
@@ -527,10 +384,18 @@ namespace ServerLogic.Control
         /// <returns>Confirmation hat the server has been stopped successfully.</returns>
         private string StopServer()
         {
-            mainServerLogic.playerAudienceClientAPI.StopServer();
-
-            serverIsRunning = false;
-            return "The server has been shut down successfully.";
+            try
+            {
+                _mainServerLogic.Stop();
+                _serverIsRunning = false;
+                return "The server has been shut down successfully.";
+            }
+            catch (InvalidOperationException e)
+            {
+                _serverIsRunning = false;
+                
+                return e.ToString();
+            }
         }
 
         /// <summary>
@@ -546,34 +411,37 @@ namespace ServerLogic.Control
             string ret;
             switch (command)
             {
-            case "port":
-                ret = Properties.Resources.PortHelpMessage;
-                break;
-            case "password":
-                ret = Properties.Resources.PasswordHelpMessage;
-                break;
-            case "start":
-                ret = Properties.Resources.StartHelpMessage;
-                break;
-            case "stop":
-                ret = Properties.Resources.StopHelpMessage;
-                break;
-            case "version":
-                ret = Properties.Resources.VersionHelpMessage;
-                break;
-            case "help":
-                ret = Properties.Resources.HelpHelpMessage;
-                break;
-            case "log":
-                ret = Properties.Resources.LogHelpMessage;
-                break;
-            case "exit":
-                ret = Properties.Resources.ExitHelpMessage;
-                break;
-            default:
-                return "'" + command + "' is not a valid command. See 'help'.";
+                case "port":
+                    ret = Properties.Resources.PortHelpMessage;
+                    break;
+                case "password":
+                    ret = Properties.Resources.PasswordHelpMessage;
+                    break;
+                case "start":
+                    ret = Properties.Resources.StartHelpMessage;
+                    break;
+                case "stop":
+                    ret = Properties.Resources.StopHelpMessage;
+                    break;
+                case "version":
+                    ret = Properties.Resources.VersionHelpMessage;
+                    break;
+                case "help":
+                    ret = Properties.Resources.HelpHelpMessage;
+                    break;
+                case "log":
+                    ret = Properties.Resources.LogHelpMessage;
+                    break;
+                case "sess":
+                    ret = Properties.Resources.SessHelpMessage;
+                    break;
+                case "exit":
+                    ret = Properties.Resources.ExitHelpMessage;
+                    break;
+                default:
+                    return "'" + command + "' is not a valid command. See 'help'.";
             }
-            
+
             return ret;
         }
 
@@ -584,7 +452,7 @@ namespace ServerLogic.Control
         /// <returns>The current version of the ServerLogic.</returns>
         private string ShowVersion()
         {
-            return Properties.Resources.CurrentVersion;
+            return Resources.CurrentVersion;
         }
 
         /// <summary>
@@ -632,7 +500,7 @@ namespace ServerLogic.Control
                     case "--clear":
                         ServerLogger.WipeLogFile();
                         return "Logs were cleared.";
-                    case "--setLevel":
+                    case "--setLevel" or "--sl":
                         try
                         {
                             ServerLogger.SetLogLevel(short.Parse(parameterList[1]));
@@ -659,7 +527,7 @@ namespace ServerLogic.Control
 
                         //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
                         return "";
-                    case "--setLogOutput":
+                    case "--setLogOutput" or "--slo":
                         try
                         {
                             ServerLogger.ChangeLoggingOutputType(short.Parse(parameterList[1]));
@@ -684,125 +552,11 @@ namespace ServerLogic.Control
                         //return should be empty in case of wrong Input, which is handled inside ServerLogger class.
                         return "";
                     case "--getLevel":
-                        return "Current LogLevel is "+ Settings.Default.LogLevel +".";
+                        return "Current LogLevel is " + Settings.Default.LogLevel + ".";
                     default:
-                        return "Command "+parameterList[0]+" is unknown, use 'log --help' for more information";
+                        return "Command " + parameterList[0] + " is unknown, use 'log --help' for more information";
                 }
             }
-        }
-
-        /// <summary>
-        /// Wrapper-Function to check if the command-line arguments are valid and can be
-        /// transmitted forward to set password and/or port of the server.
-        /// </summary>
-        /// 
-        /// <param name="args">Command-line parameters that need to checked.</param>
-        /// 
-        /// <returns>To be used password and port, if no errors occurred.</returns>
-        /// 
-        /// <exception cref="System.ArgumentException">Thrown when either the supposed 
-        /// password or port violate the rules for setting them.</exception>
-        private static string[] CheckMainMethodArgs(string[] args)
-        {
-            int port;
-            string password;
-
-            if (args.Length == 0)
-            {
-                throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
-            }
-            else
-            {
-                password = ValidateShellPassword(args[0].ToLower(CultureInfo.CurrentCulture));
-
-                if (args.Length == 1)
-                {
-                    port = 7777;
-                }
-                else
-                {
-                    port = ValidateShellPort(args[1]);
-                }
-
-                return new string[] { password, port.ToString(CultureInfo.CurrentCulture) };
-            }
-        }
-
-        /// <summary>
-        /// Checks if the supposed password is an actual password and if it complies with
-        /// the password rules. Alternatively, if the supposed password starts with a dash,
-        /// it's instead checked if a known option is being called.
-        /// </summary>
-        /// 
-        /// <param name="password">The supposed password that needs to be checked.</param>
-        /// 
-        /// <returns>The entered password, if no errors occurred.</returns>
-        /// 
-        /// <exception cref="System.ArgumentException">Thrown when the supposed password 
-        /// violates the rules.</exception>
-        private static string ValidateShellPassword(string password)
-        {
-            if (password.Length == 0)
-            {
-                throw new ArgumentException(message: Properties.Resources.InvalidPasswordExceptionMessage);
-            }
-            else if (password.StartsWith("-", StringComparison.CurrentCulture))
-            {
-                if (password == "--version")
-                {
-                    Console.WriteLine(Properties.Resources.CurrentVersion);
-                }
-                else if (password == "--help")
-                {
-                    Console.WriteLine(Properties.Resources.HelpHelpMessage);
-                }
-                else
-                {
-                    throw new ArgumentException(message: "Unknown option: '" + password + "'");
-                }
-
-                Environment.Exit(exitCode: 0);
-                return null;
-            }
-            else
-            {
-                return password;
-            }
-        }
-
-        /// <summary>
-        /// Checks if the supposed port is an actual password and if it complies with
-        /// the port rules.
-        /// </summary>
-        /// 
-        /// <param name="portString">The supposed port that needs to be checked.</param>
-        /// 
-        /// <returns>The entered port, if no errors occurred.</returns>
-        /// 
-        /// <exception cref="System.ArgumentException">Thrown when the supposed port
-        /// violates the rules.</exception>
-        private static int ValidateShellPort(string portString)
-        {
-            int port;
-
-            try
-            {
-                port = Convert.ToInt32(value: portString, provider: CultureInfo.CurrentCulture);
-
-                if (port <= 1023 || port > 65535)
-                {
-                    throw new ArgumentException(message: Properties.Resources.InvalidPortExceptionMessage);
-                }
-                else
-                {
-                    return port;
-                }
-            }
-            catch (Exception)
-            {
-                throw new ArgumentException(message: Properties.Resources.InvalidPortExceptionMessage);
-            }
-
         }
     }
 }

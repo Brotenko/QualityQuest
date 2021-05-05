@@ -8,6 +8,7 @@ using ServerLogic.Properties;
 
 namespace ServerLogicTest.Control
 {
+
     [TestClass]
     public class ServerLoggerTest
     {

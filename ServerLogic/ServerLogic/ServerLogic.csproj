@@ -6,8 +6,13 @@
     <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
+
   <ItemGroup>
+    <PackageReference Include="Aspose.BarCode" Version="21.3.0" />
+    <PackageReference Include="Fleck" Version="1.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="OpenCover" Version="4.7.1138-rc" />
     <PackageReference Include="QRCoder" Version="1.4.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
@@ -18,7 +23,11 @@
     <Folder Include="View\" />
   </ItemGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="ServerLogicTest" />
+	</ItemGroup>
+
+	<ItemGroup>
     <ProjectReference Include="..\PAClient\PAClient.csproj" />
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -29,7 +38,7 @@
 
   <ItemGroup>
     <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>

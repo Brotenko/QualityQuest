@@ -111,7 +111,7 @@ namespace PAClient
                         tempDict.Add(option, 0);
                     }
 
-                    data.GetValueOrDefault(sessionkey).Add(prompt, tempDict);
+                    data[sessionkey].Add(prompt, tempDict);
                 }
                 else
                 {
@@ -349,7 +349,7 @@ namespace PAClient
                             {
                                 if (session.Value.Values != null)
                                 {
-                                    return session.Value.Values.First();
+                                    return session.Value[tempPrompt];
                                 }
                             }
                         }

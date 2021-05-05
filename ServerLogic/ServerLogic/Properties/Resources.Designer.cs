@@ -65,7 +65,7 @@ namespace ServerLogic.Properties {
         ///
         ///DESCRIPTON
         ///
-        ///TODO
+        ///
         ///
         ///OPTIONS
         ///
@@ -105,7 +105,27 @@ namespace ServerLogic.Properties {
                 return ResourceManager.GetString("ExitHelpMessage", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to usage: sess [--help]
+        ///
+        ///DESCRIPTON
+        ///
+        ///Shows the currently active sessions.
+        ///
+        ///OPTIONS
+        ///
+        ///--help
+        ///  Shows this..
+        /// </summary>
+        internal static string SessHelpMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("SessHelpMessage", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to usage: qq [--version] [--help] &lt;password | password port&gt;
         ///
@@ -173,7 +193,7 @@ namespace ServerLogic.Properties {
         ///
         ///DESCRIPTON
         ///
-        ///TODO
+        ///
         ///
         ///OPTIONS
         ///
@@ -314,6 +334,13 @@ namespace ServerLogic.Properties {
             get
             {
                 return ResourceManager.GetString("StartupMessage", resourceCulture);
+            }
+        }
+
+        internal static string ServerParamsFilePath {
+            get
+            {
+                return ResourceManager.GetString("ServerParamsFilePath", resourceCulture);
             }
         }
     }
