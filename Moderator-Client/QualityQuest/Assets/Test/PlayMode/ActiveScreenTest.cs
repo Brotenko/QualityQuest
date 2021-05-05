@@ -6,7 +6,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
-using TMPro;
 
 public class ActiveScreenTest
 {
@@ -165,7 +164,7 @@ public class ActiveScreenTest
     public void GameCrashTest()
     {
         screenManager.GameCrash();
-        Assert.AreEqual(true, screenManager.errorScreenPanel.activeSelf);
+        Assert.IsTrue(screenManager.errorScreenPanel.activeSelf);
     }
 
 }

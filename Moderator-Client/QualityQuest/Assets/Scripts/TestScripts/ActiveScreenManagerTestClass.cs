@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// TEST CLASS
+/// </summary>
 public class ActiveScreenManagerTestClass
 {
     /// <summary>
@@ -25,7 +28,7 @@ public class ActiveScreenManagerTestClass
     /// <summary>
     /// Generates the QR code.
     /// </summary>
-    public QRCode qrCodeGenerator;
+    public QrCodeTestClass qrCodeGenerator;
 
     /// <summary>
     /// Text elements which are changed during the game.
@@ -48,8 +51,12 @@ public class ActiveScreenManagerTestClass
     /// </summary>
     public static bool paused;
 
+    /// <summary>
+    /// Test constructor.
+    /// </summary>
     public ActiveScreenManagerTestClass()
     {
+        qrCodeGenerator = new QrCodeTestClass();
         errorMessage = new GameObject().AddComponent<TextMeshPro>();
 
         loadingScreenPanel = GameObject.Instantiate(new GameObject());
@@ -63,7 +70,19 @@ public class ActiveScreenManagerTestClass
         resultPanel = GameObject.Instantiate(new GameObject());
         statisticsPanel = GameObject.Instantiate(new GameObject());
         optionsPanel = GameObject.Instantiate(new GameObject());
-        
+        gameCrashPanel = GameObject.Instantiate(new GameObject());
+        pauseButtonPanel = GameObject.Instantiate(new GameObject());
+        pauseScreenPanel = GameObject.Instantiate(new GameObject());
+
+        gameMenuSwitchModeButton = new GameObject().AddComponent<TextMeshPro>();
+        audienceCount = new GameObject().AddComponent<TextMeshPro>();
+        websiteUrl = new GameObject().AddComponent<TextMeshPro>();
+        sessionKey = new GameObject().AddComponent<TextMeshPro>();
+        pauseUrl = new GameObject().AddComponent<TextMeshPro>();
+        pauseKey = new GameObject().AddComponent<TextMeshPro>();
+        errorMessage = new GameObject().AddComponent<TextMeshPro>();
+        paused = false;
+
     }
 
     /// <summary>
