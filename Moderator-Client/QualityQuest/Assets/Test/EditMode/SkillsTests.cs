@@ -253,7 +253,7 @@ public class SkillsTests
     [Test]
     public void UpdateAbilitiesWithUpdateOne()
     {
-        testSkills.updateAbilities(testUpdateOne);
+        testSkills.UpdateAbilities(testUpdateOne);
 
         Assert.AreEqual(6, testSkills.Programming);
         Assert.AreEqual(6, testSkills.Analytics);
@@ -267,7 +267,7 @@ public class SkillsTests
     [Test]
     public void UpdateAbilitiesWithUpdateTwo()
     {
-        testSkills.updateAbilities(testUpdateTwo);
+        testSkills.UpdateAbilities(testUpdateTwo);
 
         Assert.AreEqual(7, testSkills.Programming);
         Assert.AreEqual(5, testSkills.Analytics);
@@ -281,7 +281,7 @@ public class SkillsTests
     [Test]
     public void UpdateAbilitiesWithUpdateThree()
     {
-        testSkills.updateAbilities(testUpdateThree);
+        testSkills.UpdateAbilities(testUpdateThree);
 
         Assert.AreEqual(0, testSkills.Programming);
         Assert.AreEqual(3, testSkills.Analytics);
@@ -295,7 +295,7 @@ public class SkillsTests
     [Test]
     public void UpdateAbilitiesWithUpdateFour()
     {
-        testSkills.updateAbilities(testUpdateFour);
+        testSkills.UpdateAbilities(testUpdateFour);
 
         Assert.AreEqual(9, testSkills.Programming);
         Assert.AreEqual(7, testSkills.Analytics);
@@ -309,7 +309,7 @@ public class SkillsTests
     [Test]
     public void UpdateAbilitiesWithUpdateFive()
     {
-        testSkills.updateAbilities(testUpdateFive);
+        testSkills.UpdateAbilities(testUpdateFive);
 
         Assert.AreEqual(5, testSkills.Programming);
         Assert.AreEqual(5, testSkills.Analytics);

@@ -73,13 +73,21 @@ public class Client : MonoBehaviour
     /// </summary>
     public void Connect()
     {
-        if (ip.text != "" && port.text != "" && password.text != "")
+        try
         {
-            qualityQuestWebSocket.StartConnection(ip.text, port.text);
+            if (ip.text != "" && port.text != "" && password.text != "")
+            {
+                qualityQuestWebSocket.StartConnection(ip.text, port.text);
+            }
+            else
+            {
+                activeScreenManager.ShowErrorScreen(
+                    "Ip, Port oder Passwort fehlt. Bitte neu versuchen oder im Offline-Modus fortfahren.");
+            }
         }
-        else
+        catch (ArgumentException argumentException)
         {
-            activeScreenManager.ShowErrorScreen("Ip, Port oder Passwort fehlt. Bitte neu versuchen oder im Offline-Modus fortfahren.");
+            activeScreenManager.ShowErrorScreen("Keine gültiger Port. Bitte erneut versuchen oder im Offline-Modus fortfahren.");
         }
     }
 
@@ -151,6 +159,7 @@ public class Client : MonoBehaviour
     /// <param name="reconnectSuccessfulMessage">The ReconnectSuccessfulMessage.</param>
     public void ReceivedReconnectSuccessfulMessage(ReconnectSuccessfulMessage reconnectSuccessfulMessage)
     {
+        activeScreenManager.ShowPauseButton(true);
         GameState.gameIsOnline = true;
         ContinueOnlineStory(clientLogic.StoryGraph.CurrentEvent);
     }
@@ -302,7 +311,7 @@ public class Client : MonoBehaviour
 
             if (storyEvent.SkillChange != null)
             {
-                clientLogic.StoryGraph.Character.Abilities.updateAbilities(storyEvent.SkillChange);
+                clientLogic.StoryGraph.Character.Abilities.UpdateAbilities(storyEvent.SkillChange);
                 displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
                 displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
                 gameAudio.PlaySkillChangeSound();
@@ -514,7 +523,7 @@ public class Client : MonoBehaviour
         switch (errorCode)
         {
             case 1000:
-                activeScreenManager.ShowErrorScreen("Passwort ist falsch. Bitte erneut versuchen oder im Offline-Modus fortfahren.");
+                activeScreenManager.ShowErrorScreen("Verbindung wurde beendet. Bitte erneut Verbindung oder im Offline-Modus fortfahren.");
                 break;
             case 1006:
                 activeScreenManager.ShowErrorScreen("Es konnte keine Verbindung zum Server aufgebaut werden.");
@@ -597,7 +606,6 @@ public class Client : MonoBehaviour
             }
             else
             {
-                activeScreenManager.ShowPauseButton(true);
                 switch (qualityQuestWebSocket.webSocket.ReadyState)
                 {
                     case WebSocketState.Closed:
@@ -722,7 +730,7 @@ public class Client : MonoBehaviour
 
             if (storyEvent.SkillChange != null)
             {
-                clientLogic.StoryGraph.Character.Abilities.updateAbilities(storyEvent.SkillChange);
+                clientLogic.StoryGraph.Character.Abilities.UpdateAbilities(storyEvent.SkillChange);
                 displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
                 displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
                 gameAudio.PlaySkillChangeSound();
@@ -834,7 +842,29 @@ public class Client : MonoBehaviour
     /// </summary>
     public void SetVotingTime()
     {
-        var newVotingTime = int.Parse(this.votingTime.text);
-        clientLogic.SetVotingTime(newVotingTime);
+        try
+        {
+            var newVotingTime = int.Parse(votingTime.text);
+            if (newVotingTime > 60)
+            {
+                this.votingTime.text = "60";
+                newVotingTime = 60;
+            }
+            else if (newVotingTime < 5)
+            {
+                this.votingTime.text = "5";
+                newVotingTime = 5;
+            }
+            else
+            {
+                clientLogic.SetVotingTime(newVotingTime);
+            }
+        }
+        catch (FormatException formatException)
+        {
+            Debug.Log(formatException);
+            votingTime.text = "30";
+            clientLogic.SetVotingTime(30);
+        }
     }
 }

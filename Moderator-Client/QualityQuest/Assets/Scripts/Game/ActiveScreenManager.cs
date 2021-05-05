@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ActiveScreenManager : MonoBehaviour
 {
@@ -137,7 +138,7 @@ public class ActiveScreenManager : MonoBehaviour
     {
         activeMenu = errorScreenPanel;
 
-        if (gameMenuPanel.activeSelf) return;
+        if (errorScreenPanel.activeSelf) return;
         HideAllMenus();
         errorScreenPanel.SetActive(true);
         this.errorMessage.text = errorMessage;
@@ -296,6 +297,8 @@ public class ActiveScreenManager : MonoBehaviour
         // changes the button which is used to switch between offline and online mode according to the currently active mode.
         gameMenuSwitchModeButton.text = GameState.gameIsOnline ? "Offline Mode" : "Online Mode";
 
+        // cant open while loading the game
+        if (loadingScreenPanel.activeSelf) return;
         // Hides all screens and displays the game menu.
         if (!gameMenuPanel.activeSelf)
         {
@@ -304,6 +307,7 @@ public class ActiveScreenManager : MonoBehaviour
             {
                 pauseScreenPanel.SetActive(false);
             }
+
             gameMenuPanel.SetActive(true);
         }
         // Hides the game menu. If the game is currently paused the pause menu is shown otherwise the active screen is displayed.
