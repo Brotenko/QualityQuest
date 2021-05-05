@@ -79,7 +79,7 @@ public class ClientLogic
     /// <returns>The RequestOpenSessionMessage.</returns>
     public RequestOpenSessionMessage InitializeRequestOpenSessionMessage(string password)
     {
-        var requestOpenSessionMessage = new RequestOpenSessionMessage(ModeratorClientGuid, "!Password123#");
+        var requestOpenSessionMessage = new RequestOpenSessionMessage(ModeratorClientGuid, password);
         return requestOpenSessionMessage;
     }
 
