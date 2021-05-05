@@ -27,7 +27,7 @@ public class WrongStoryEvent : Exception
     /// of this exception.
     /// </summary>
     /// 
-    /// <param name="message"></param>
+    /// <param name="message">The message of the exception.</param>
     /// 
     /// <param name="inner"> The exception that is the cause of the current exception. If the 
     /// innerException parameter is not a null reference, the current exception is raised in 
