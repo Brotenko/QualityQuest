@@ -12,8 +12,8 @@ If the ServerLogic can no longer be reached by the Moderator-Client, then this w
 In Offline-Mode, the Voting-Timer is deactivated and the moderator can select StoryFlowDecisions directly, while status checks are still performed in the background to inform the moderator in case the ServerLogic becomes available again.
 
 ### Server class diagrams
-The software components PlayerAudience-Client and ServerLogic are located on the same physical device, which is called Server. Since a separate cookie is created for each PlayerAudience-Client when connecting to the Online-Session, the communication between PlayerAudience-Clients and ServerLogic is managed by the PlayerAudienceClientManager class, which implements the Observer-pattern.
-The communication between ServerLogic and Moderator-Client is realized via a WebSocket connection over HTTPS, which is established after successful authentication.
+The software components PlayerAudience-Client and ServerLogic are located on the same physical device, aka Server. The Audience connects to the Website provided by the PlayerAudience-Client via HTTPS.
+The communication between ServerLogic and Moderator-Client is realized via a secure WebSocket connection (wss), which is established after successful authentication.
 
 ![PlayerAudience-Client Class diagram](../diagrams/class-diagrams/pa-client-class-diagram.svg)
 ![ServerLogic Class diagram](../diagrams/class-diagrams/serverlogic-class-diagram.svg)
