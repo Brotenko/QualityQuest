@@ -71,10 +71,15 @@ After the joining the `Session` the audience can lay back and wait for the next 
 - "CC0" means no credits required, "CC BY" means you gotta credit them here.
 ```
 
-#### Titlescreen Theme:
-"Title" by Kevin MacLeod (incompetech.com)
-Licensed under Creative Commons: By Attribution 3.0
-http://creativecommons.org/licenses/by/3.0/
+### Titlescreen Theme:
+"Title" by Kevin MacLeod (incompetech.com) </br>
+Licensed under Creative Commons: By Attribution 3.0 </br>
+http://creativecommons.org/licenses/by/3.0/ </br>
+
+### Other Theme:
+"Title" by Kevin MacLeod (incompetech.com) </br>
+Licensed under Creative Commons: By Attribution 3.0 </br>
+http://creativecommons.org/licenses/by/3.0/ </br>
 
 
 ## Licensing
