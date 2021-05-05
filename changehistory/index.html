@@ -92,7 +92,9 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#table-of-contents">Table of contents</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#version-040-tbn">Version 0.4.0 - TBN</a>
+    <li class="toctree-l2"><a class="reference internal" href="#version-100-moderator-client-implementation">Version 1.0.0 - Moderator-Client implementation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#version-031-serverlogic-implementation">Version 0.3.1 - ServerLogic implementation</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#version-030-playeraudience-client-implementation">Version 0.3.0 - PlayerAudience-Client implementation</a>
     </li>
@@ -247,15 +249,21 @@
 <td><a href="#version-030-playeraudience-client-implementation">Link</a></td>
 </tr>
 <tr>
-<td>0.4.0</td>
-<td align="left">TBN</td>
-<td align="left">TBA</td>
-<td><a href="#version-040-tbn">Link</a></td>
+<td>0.3.1</td>
+<td align="left">ServerLogic implementation</td>
+<td align="left">2021-05-05</td>
+<td><a href="#version-031-serverlogic-implementation">Link</a></td>
+</tr>
+<tr>
+<td>1.0.0</td>
+<td align="left">Moderator-Client implementation</td>
+<td align="left">2021-05-05</td>
+<td><a href="#version-100-moderator-client-implementation">Link</a></td>
 </tr>
 </tbody>
 </table>
 <p></span></p>
-<h2 id="version-040-tbn">Version 0.4.0 - TBN</h2>
+<h2 id="version-100-moderator-client-implementation">Version 1.0.0 - Moderator-Client implementation</h2>
 <table>
 <thead>
 <tr>
@@ -265,11 +273,165 @@
 </thead>
 <tbody>
 <tr>
-<td align="center"></td>
-<td align="left"></td>
+<td align="center">*</td>
+<td align="left"><strong><a href="../glossary#voting-timer"><em>Glossary:</em></a> <em>Voting-Timer:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../glossary#offline-mode"><em>Glossary:</em></a> <em>Offline-Mode:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../requirements#pausebutton-location"><em>Functional Requirements:</em></a> <em>FR23:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../requirements#connection-timeout"><em>Functional Requirements:</em></a> <em>FR25:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../requirements#offline-mode-condition"><em>Functional Requirements:</em></a> <em>FR29:</em></strong> Updated name.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../requirements#offline-mode"><em>Functional Requirements:</em></a> <em>FR39:</em></strong> Updated name and description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../requirements#online-session-permanence"><em>Functional Requirements:</em></a> <em>FR43:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../requirements#multiple-moderator-clients"><em>Functional Requirements:</em></a> <em>FR44:</em></strong> Updated name and description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../requirements#pause-menu"><em>Functional Requirements:</em></a> <em>FR50:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../requirements#non-exclusive-moderator-client-connection"><em>Non-functional Requirements:</em></a> <em>NFR21:</em></strong> Updated name and description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="../requirements#moderator-veto"><em>Functional Requirements:</em></a> <em>FR76:</em></strong> Added requirement "Moderator veto".</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="../requirements#moderator-client-statistics-display"><em>Functional Requirements:</em></a> <em>FR77:</em></strong> Added requirement "Moderator-Client statistics display".</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="../requirements#moderator-client-winning-option-display"><em>Functional Requirements:</em></a> <em>FR78:</em></strong> Added requirement "Moderator-Client winning option display".</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="../requirements#moderator-client-error-display"><em>Functional Requirements:</em></a> <em>FR79:</em></strong> Added requirement "Moderator-Client error display".</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="../requirements#tied-winning-options"><em>Functional Requirements:</em></a> <em>FR80:</em></strong> Added requirement "Tied winning options".</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="../requirements#sound-options"><em>Functional Requirements:</em></a> <em>FR81:</em></strong> Added requirement "Sound options".</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="../requirements#multiple-endings"><em>Non-functional Requirements:</em></a> <em>NFR28:</em></strong> Added requirement "Multiple endings".</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../network-protocol#voting-phase"><em>Network Protocol:</em></a> <em>Voting phase diagram:</em></strong> Updated voting phase diagram.</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="left"><strong><a href="../network-protocol#sequence-diagrams-of-typical-communicational-processes"><em>Network Protocol:</em></a> <em>New Moderator diagram:</em></strong> Removed "New Moderator" diagram.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../network-protocol#playeraudience-client-logs"><em>Network Protocol:</em></a> <em>PlayerAudience-Client logs:</em></strong> Added paragraph about postgame statistics.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../requirements#playeraudience-client-data-filtration"><em>Functional Requirements:</em></a> <em>FR75:</em></strong> Updated description.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="../usedtools#used-libraries"><em>Used Libraries:</em></a> <em>Newtonsoft.Json:</em></strong> Added new used library.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="../usedtools#used-libraries"><em>Used Libraries:</em></a> <em>WebSocketSharp:</em></strong> Added new used library.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="../usedtools#used-libraries"><em>Used Libraries:</em></a> <em>Fleck:</em></strong> Added new used library.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="../usedtools#used-tools"><em>Used Tools:</em></a> Unity:_</strong> Added new used tool.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="../usedtools#used-tools"><em>Used Tools:</em></a> Unity Test Framework:_</strong> Added new used tool.</td>
 </tr>
 </tbody>
 </table>
+<p></span></p>
+<h2 id="version-031-serverlogic-implementation">Version 0.3.1 - ServerLogic implementation</h2>
+<table>
+<thead>
+<tr>
+<th align="center">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">-</td>
+<td align="left"><strong><a href="../network-protocol#messagecontainer"><em>Network Protocol:</em></a> <em>MessageContainer:</em></strong> Removed Debug-Field from MessageContainer.</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="left"><strong><a href="../network-protocol#sessionopenedmessage"><em>Network Protocol:</em></a> <em>SessionOpenedMessage:</em></strong> Removed field for QR-Code.</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="left"><strong><a href="../network-protocol#sessionopenedmessage"><em>Network Protocol:</em></a> <em>SessionClosedMessage:</em></strong> Removed field for game-statistics.</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="left"><strong><a href="../network-protocol#errortype-enum"><em>Network Protocol:</em></a> <em>ErrorType Enum:</em></strong> Removed entry for NewModerator-ErrorType.</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="left"><strong><a href="../network-protocol#errortype-enum"><em>Network Protocol:</em></a> <em>ErrorType Enum:</em></strong> Added entry and explanation for GuidAlreadyExists-ErrorType.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../network-protocol#errortype-enum"><em>Network Protocol:</em></a> <em>ErrorType Enum:</em></strong> Renamed SessionDoesNotExist-ErrorType to WrongSession.</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="left"><strong><a href="../network-protocol#who-can-send-which-messagetype"><em>Network Protocol:</em></a> <em>MessageOverview:</em></strong> Removed entries for ServerStatus-Messages.</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="left"><strong><a href="../network-protocol#detailed-message-definitions"><em>Network Protocol:</em></a> <em>RequestServerStatusMessage:</em></strong> Removed detailed definitions for RequestServerStatusMessage.</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="left"><strong><a href="../network-protocol#detailed-message-definitions"><em>Network Protocol:</em></a> <em>ServerStatusMessage:</em></strong> Removed detailed definitions for ServerStatusMessage.</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left"><strong><a href="../network-protocol#votingendedmessage"><em>Network Protocol:</em></a> <em>VotingEndedMessage:</em></strong> Changed VotingEndedMessage to include WinningOption as string, VotingResults as <Guid,int> Dictionary and TotalVotes as an int.</td>
+</tr>
+</tbody>
+</table>
+<p>|   *   | <strong><a href="../network-protocol#requeststartvotingmessage"><em>Network Protocol:</em></a> <em>RequestStartVotingMessage:</em></strong> Changed RequestStartVotingMessage to use an KeyValuePair-Array for the VotingOptions. |
+|   *   | <strong><a href="../architecture-diagrams"><em>Architecture diagrams:</em></a> <em>Architecture diagrams:</em></strong> Updated diagrams according to current implementation.                 |</p>
 <p></span></p>
 <h2 id="version-030-playeraudience-client-implementation">Version 0.3.0 - PlayerAudience-Client implementation</h2>
 <table>
@@ -1074,7 +1236,7 @@
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="../requirements/#online-mode-flag"><em>Functional Requirements:</em></a> <em>FR39:</em></strong> Added requirement "Online-Mode flag".</td>
+<td align="left"><strong><a href="../requirements/#offline-mode"><em>Functional Requirements:</em></a> <em>FR39:</em></strong> Added requirement "Online-Mode flag".</td>
 </tr>
 <tr>
 <td align="center">+</td>
@@ -1094,7 +1256,7 @@
 </tr>
 <tr>
 <td align="center">+</td>
-<td align="left"><strong><a href="../requirements/#switch-between-moderator-clients"><em>Functional Requirements:</em></a> <em>FR44:</em></strong> Added requirement "Switch between Moderator-Clients".</td>
+<td align="left"><strong><a href="../requirements/#multiple-moderator-clients"><em>Functional Requirements:</em></a> <em>FR44:</em></strong> Added requirement "Switch between Moderator-Clients".</td>
 </tr>
 <tr>
 <td align="center">+</td>

@@ -120,10 +120,6 @@
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#audiencestatusmessage">AudienceStatusMessage</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#requestserverstatusmessage">RequestServerStatusMessage</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#serverstatusmessage">ServerStatusMessage</a>
-    </li>
     <li class="toctree-l4"><a class="reference internal" href="#reconnectmessage">ReconnectMessage</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#reconnectsuccessfulmessage">ReconnectSuccessfulMessage</a>
@@ -173,8 +169,6 @@
     <li class="toctree-l3"><a class="reference internal" href="#pause-game">Pause game</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#voting-phase">Voting phase</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#new-moderator">New moderator</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#end-online-session">End Online-Session</a>
     </li>
@@ -244,6 +238,7 @@ The security and persistence of communication is guaranteed by the use of WebSoc
 <li>The logged PlayerAudience-Client IDs can be used for keeping track of the PlayerAudience-Clients connected to the ServerLogic.</li>
 <li>The logged voting results realize postgame statistics.</li>
 </ul>
+<p>In the current realization of the network protocol, the postgame statistics are not transmitted to the Moderator-Client, but the Moderator-Client itself logs its statistics.</p>
 <h2 id="moderator-client-guid-sessionkey-pair">Moderator-Client GUID-Sessionkey-Pair</h2>
 <p>The ServerLogic stores each Moderator-Client GUID with which it communicates and assigns it a sessionkey accordingly. This tuple of GUID and sessionkey is logged by the ServerLogic and is used for any ServerLogic internal communication to translate the GUID into the respective sessionkey required by the PlayerAudience-Client backend.</p>
 <h2 id="differences-between-starting-in-online-mode-and-offline-mode">Differences between starting in Online-Mode and Offline-Mode</h2>
@@ -263,7 +258,7 @@ Since this can have very different effects, the following section specifies how,
 <li>The moderator's end device loses the connection to the network, and thus to the ServerLogic.</li>
 <li>The ServerLogic does not react within 5 seconds after receiving the Moderator-Client's message.</li>
 </ol>
-<p>If the Moderator-Client should at any time lose the connection to the ServerLogic, it automatically switches to Offline-Mode and notifies the moderator. The moderator can then continue to play the game in form of an Offline-Session. In the meantime, the Moderator-Client continuously sends <a href="#requestserverstatusmessage">RequestServerStatusMessages</a> to the ServerLogic to determine if the ServerLogic is back online. When the Moderator-Client receives a <a href="#serverstatusmessage">ServerStatusMessage</a>, it informs the moderator that the Online-Session can be resumed. In this case, the moderator can either go back into Online-Mode via an UI element or continue playing in Offline-Mode. This can result in the following three scenarios:</p>
+<p>If the Moderator-Client should at any time lose the connection to the ServerLogic, it automatically switches to Offline-Mode and notifies the moderator. The moderator can then continue to play the game in form of an Offline-Session. In the meantime, the WebSocket will continuously send messages to the ServerLogic to determine if the ServerLogic is back online. When the Moderator-Client receives an answer from the WebSocket of the ServerLogic, it informs the moderator that the Online-Session can be resumed. In this case, the moderator can either go back into Online-Mode via an UI element or continue playing in Offline-Mode. This can result in the following three scenarios:</p>
 <ul>
 <li>The ServerLogic is reachable again and the connection can be re-established. Furthermore, the Online-Session on the ServerLogic was not closed and the PlayerAudience-Clients are still connected to the ServerLogic. In that case the Moderator-Client only has to send a <a href="#reconnectmessage">ReconnectMessage</a> to return to normal gameplay, since the Online-Session is still going.</li>
 <li>The ServerLogic is reachable again and the connection can be re-established, but the Online-Session on the ServerLogic has been closed and the PlayerAudience-Clients are no longer connected to the ServerLogic. In that case the Moderator-Client only has to send a <a href="#reconnectmessage">ReconnectMessage</a>, since the logs of the ServerLogic still hold the GUID of the Moderator-Client. This way the Online-Session can be restored without entering the password again and the PlayerAudience-Clients can simply reconnect to the ServerLogic, through the same QR-code, URL and sessionKey, to be able to participate in the game again. </li>
@@ -313,7 +308,6 @@ Apart from that, the Observer-pattern is used, in form of SignalR Hubs, to make 
     <span class="n">Guid</span> <span class="n">ModeratorId</span><span class="p">;</span> 
     <span class="n">MessageType</span> <span class="n">Type</span><span class="p">;</span>
     <span class="n">DateTime</span> <span class="n">CreationDate</span><span class="p">;</span>
-    <span class="kt">string</span> <span class="n">DebugMessage</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -322,7 +316,6 @@ Apart from that, the Observer-pattern is used, in form of SignalR Hubs, to make 
 <li><strong>moderatorId:</strong> The individual identifier assigned to the Moderator-Client. Only the Moderator-Client sends this id to the ServerLogic to identify itself. The ServerLogic leaves this field empty.</li>
 <li><strong>type:</strong> Specifies the type of the message to be able to parse it accordingly.</li>
 <li><strong>creationDate:</strong> The timestamp of the message.</li>
-<li><strong>debugMessage:</strong> Can be used during development to transport additional data between ServerLogic and Moderator-Client. This way, in case of a non parsable message, or an error occurring, information can be carried to the Moderator-Client directly for quick access, without the need to search through the logs.</li>
 </ul>
 <h2 id="messagetype-enum">MessageType Enum</h2>
 <p>Lists all message types. The structuring by comments is only for overview and has no semantic meaning whatsoever. All messages are identified by the <a href="#messagecontainer">MessageContainer</a>.</p>
@@ -332,8 +325,6 @@ Apart from that, the Observer-pattern is used, in form of SignalR Hubs, to make 
     <span class="n">RequestOpenSession</span><span class="p">,</span>
     <span class="n">SessionOpened</span><span class="p">,</span>
     <span class="n">AudienceStatus</span><span class="p">,</span>
-    <span class="n">RequestServerStatus</span><span class="p">,</span>
-    <span class="n">ServerStatus</span><span class="p">,</span>
     <span class="n">Reconnect</span><span class="p">,</span>
     <span class="n">ReconnectSuccessful</span><span class="p">,</span>
     <span class="n">RequestGameStart</span><span class="p">,</span>
@@ -388,16 +379,6 @@ Apart from that, the Observer-pattern is used, in form of SignalR Hubs, to make 
                 </tr>
                 <tr>
                     <th style="font-weight: normal"><a href="#audiencestatusmessage">AudienceStatus</a></th>
-                    <th></th>
-                    <th>✓</th>
-                </tr>
-                <tr>
-                    <th style="font-weight: normal"><a href="#requestserverstatusmessage">RequestServerStatus</a></th>
-                    <th>✓</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th style="font-weight: normal"><a href="#serverstatusmessage">ServerStatus</a></th>
                     <th></th>
                     <th>✓</th>
                 </tr>
@@ -501,9 +482,9 @@ Apart from that, the Observer-pattern is used, in form of SignalR Hubs, to make 
     <span class="n">WrongPassword</span><span class="p">,</span>
     <span class="n">UnknownGuid</span><span class="p">,</span>
     <span class="n">IllegalPauseAction</span><span class="p">,</span>
-    <span class="n">SessionDoesNotExist</span><span class="p">,</span>
-    <span class="n">NewModerator</span><span class="p">,</span>
-    <span class="n">IllegalMessage</span>
+    <span class="n">WrongSession</span><span class="p">,</span>
+    <span class="n">IllegalMessage</span><span class="p">,</span>
+    <span class="n">GuidAlreadyExists</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -516,9 +497,10 @@ Apart from that, the Observer-pattern is used, in form of SignalR Hubs, to make 
 <li>A request to continue the game reaches the ServerLogic even though the game has not been paused previously.</li>
 </ul>
 </li>
-<li><strong>SessionDoesNotExist:</strong> Is triggered when an attempt is made to interact with an Online-Session that does not exist.</li>
-<li><strong>NewModerator:</strong> Is triggered and sent to the current Moderator-Client, when a new Moderator connects to the ServerLogic via <a href="#requestopensessionmessage">RequestOpenSessionMessage</a>.</li>
+<li><strong>WrongSession:</strong> Is triggered when a ModeratorClient tries to interact with a session not assigned to the moderator.</li>
 <li><strong>IllegalMessage:</strong> Is triggered when an unknown message type is received, or when a message arrives at the ServerLogic out of order. More precise details are to be specified in the errorMessage.</li>
+<li><strong>GuidAlreadyExists:</strong> Is triggered if an already registered ModeratorGuid attempts to open a new session from a new connection.
+Addresses the unlikely event that two different ModeratorClients happen to generate the same GUID.</li>
 </ul>
 <h2 id="detailed-message-definitions">Detailed message definitions</h2>
 <h3 id="initialisation">Initialisation</h3>
@@ -543,15 +525,13 @@ This message is sent from the ServerLogic to the Moderator-Client in response to
 <span class="p">{</span>
     <span class="kt">string</span> <span class="n">SessionKey</span><span class="p">;</span>
     <span class="n">Uri</span> <span class="n">DirectURL</span><span class="p">;</span>
-    <span class="n">Bitmap</span> <span class="n">QrCode</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <ul>
 <li><strong>SessionKey:</strong> A randomly generated Online-Session key, of size 6, required by the audience to join the Online-Session, after connecting to the ServerLogic.</li>
-<li><strong>DirectURL:</strong> A direct URL that the audience can use to connect to the ServerLogic via the PlayerAudience-Client should the QR code not be usable.</li>
-<li><strong>QrCode:</strong> A QR-code automatically generated by the ServerLogic which can be scanned by the audience to connect to the ServerLogic. </li>
+<li><strong>DirectURL:</strong> A direct URL that the audience can use to connect to the ServerLogic via the PlayerAudience-Client. An QR-Code based on this is also provided by the Moderator-Client.</li>
 </ul>
 <h4 id="audiencestatusmessage">AudienceStatusMessage</h4>
 <p>Specification of a <strong><a href="#messagecontainer">MessageContainer</a></strong> with the type <strong><a href="#messagetype-enum">MessageType</a>::AudienceStatus</strong>. </br>
@@ -566,27 +546,6 @@ This message is sent from the ServerLogic to Moderator-Client every 3 seconds to
 <ul>
 <li><strong>AudienceCount:</strong> The amount of PlayerAudience members that connected to the current session.</li>
 </ul>
-<h4 id="requestserverstatusmessage">RequestServerStatusMessage</h4>
-<p>Specification of a <strong><a href="#messagecontainer">MessageContainer</a></strong> with the type <strong><a href="#messagetype-enum">MessageType</a>::RequestServerStatus</strong>. </br>
-This message is sent from the Moderator-Client to the ServerLogic if there is currently no connection to a ServerLogic. This message is sent to the ServerLogic at regular intervals until the ServerLogic returns a response in form of a <a href="#serverstatusmessage">ServerStatusMessage</a>. If a <a href="#serverstatusmessage">ServerStatusMessage</a> is received by the Moderator-Client at any given time, the moderator is notified that a connection to the ServerLogic is possible, and at the same time, RequestServerStatus messages are stopped being sent to the ServerLogic.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">RequestServerStatusMessage</span> <span class="p">:</span> <span class="n">MessageContainer</span> 
-<span class="p">{</span>
-    <span class="c1">// No extra fields needed</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-<p>The ServerLogic responds with a <strong><a href="#serverstatusmessage">ServerStatusMessage</a></strong>.</p>
-<h4 id="serverstatusmessage">ServerStatusMessage</h4>
-<p>Specification of a <strong><a href="#messagecontainer">MessageContainer</a></strong> with the type <strong><a href="#messagetype-enum">MessageType</a>::ServerStatus</strong>. </br>
-This message is sent from the ServerLogic to the Moderator-Client in response to a <strong><a href="#requestserverstatusmessage">RequestServerStatusMessage</a></strong> to confirm that the ServerLogic is available for a connection.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">ServerStatusMessage</span> <span class="p">:</span> <span class="n">MessageContainer</span> 
-<span class="p">{</span>
-    <span class="c1">// No extra fields needed</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
 <h4 id="reconnectmessage">ReconnectMessage</h4>
 <p>Specification of a <strong><a href="#messagecontainer">MessageContainer</a></strong> with the type <strong><a href="#messagetype-enum">MessageType</a>::Reconnect</strong>. </br>
 This message is sent from the Moderator-Client to the ServerLogic to reestablish a lost connection. For this purpose, the Moderator-Client's GUID is required for comparison with the previously saved Moderator-Client GUID. This message shall only be sent when the Moderator-Client is still in-game, otherwise a new Online-Session has to be opened through a <a href="#requestopensessionmessage">RequestOpenSessionMessage</a>.</p>
@@ -644,7 +603,7 @@ This message is sent from the Moderator-Client to the ServerLogic to request the
 
 <ul>
 <li><strong>VotingTime:</strong> The time in seconds that PlayerAudience-Clients have to cast their vote.</li>
-<li><strong>VotingPrompt:</strong> Contains the GUID of the voting prompt as the key and textual description of the voting prompt as the value.</li>
+<li><strong>VotingPrompt:</strong> The Guid and string of the prompt to be voted on. </li>
 <li><strong>VotingOptions:</strong> Contains the GUIDs of the respective voting option as the key and textual description of the voting option as the value.</li>
 </ul>
 <p>The ServerLogic responds with a <a href="#votingstartedmessage">VotingStartedMessage</a> and some time after with a <a href="#votingendedmessage">VotingEndedMessage</a>.</p>
@@ -663,15 +622,17 @@ This message is sent from the ServerLogic to the Moderator-Client in response to
 This message is sent from the ServerLogic to the Moderator-Client in response to a <strong><a href="#requeststartvotingmessage">RequestStartVotingMessage</a></strong>, after the voting time has expired. The winning option and the statistical results of the vote are sent back to the Moderator-Client. </p>
 <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">VotingEndedMessage</span> <span class="p">:</span> <span class="n">MessageContainer</span> 
 <span class="p">{</span>
-    <span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="n">Guid</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;</span> <span class="n">WinningOption</span><span class="p">;</span>
-    <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="n">Guid</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;,</span> <span class="kt">int</span><span class="p">&gt;</span> <span class="n">VotingResults</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="n">WinningOption</span><span class="p">;</span>
+    <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">Guid</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;</span> <span class="n">VotingResults</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">TotalVotes</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <ul>
-<li><strong>WinningOption:</strong> The GUID and textual description of the option that got the most votes from the PlayerAudience.</li>
-<li><strong>VotingResults:</strong> Contains the GUID and textual description of the option as the key and the respective amount of received votes as the value.</li>
+<li><strong>WinningOption:</strong> The string of the option that got the most votes from the PlayerAudience.</li>
+<li><strong>VotingResults:</strong> Contains the Guid of the option as the key and the respective amount of received votes as the value.</li>
+<li><strong>TotalVotes:</strong> The total number of votes cast in this round of voting.</li>
 </ul>
 <h3 id="control-messages">Control messages</h3>
 <h4 id="errormessage">ErrorMessage</h4>
@@ -733,17 +694,14 @@ This message is sent from the Moderator-Client to the ServerLogic to tell the Se
 <p>The ServerLogic responds with a <strong><a href="#sessionclosedmessage">SessionClosedMessage</a></strong>.</p>
 <h4 id="sessionclosedmessage">SessionClosedMessage</h4>
 <p>Specification of a <strong><a href="#messagecontainer">MessageContainer</a></strong> with the type <strong><a href="#messagetype-enum">MessageType</a>::SessionClosed</strong>. </br>
-This message is sent from the ServerLogic to the Moderator-Client in response to a <strong><a href="#requestclosesessionmessage">RequestCloseSessionMessage</a></strong>, to confirm that the Online-Session has been successfully closed and that the logs have been cleared completely. In addition to that, the statistics of the Online-Session are returned to the Moderator-Client, which can be used to display every conducted vote and which option got how many votes.</p>
+This message is sent from the ServerLogic to the Moderator-Client in response to a <strong><a href="#requestclosesessionmessage">RequestCloseSessionMessage</a></strong>, to confirm that the Online-Session has been successfully closed and that the logs have been cleared completely. </p>
 <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">SessionClosedMessage</span> <span class="p">:</span> <span class="n">MessageContainer</span> 
 <span class="p">{</span>
-    <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="n">Guid</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;,</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">KeyValuePair</span><span class="p">&lt;</span><span class="n">Guid</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;,</span> <span class="kt">int</span><span class="p">&gt;&gt;</span> <span class="n">Statistics</span><span class="p">;</span>
+    <span class="c1">// No extra fields needed</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
-<ul>
-<li><strong>Statistics:</strong> Contains the prompts as the keys, and poll results of the respective prompt as the values.</li>
-</ul>
 <h2 id="sequence-diagrams-of-typical-communicational-processes">Sequence diagrams of typical communicational processes</h2>
 <p>The following diagrams always show typical communication processes between clients and ServerLogic. Only the core contents of the communication, which are relevant for the understanding, are pointed out. For the sake of clarity, the specific message verification mechanisms of the clients and the ServerLogic are not shown, as they are active at all times and check each message for correctness. 
 For example, it is not specifically stated that an <a href="#errortype-enum">IllegalMessage</a> error can be thrown with every message sent or received.</p>
@@ -754,7 +712,7 @@ For example, it is not specifically stated that an <a href="#errortype-enum">Ill
 <p><img alt="Start online session" src="../diagrams/network-diagrams/start-online-session.svg" /></p>
 <h3 id="player-reconnect">Player reconnect</h3>
 <p>This diagram illustrates a typical process how a Moderator-Client checks if the connection to a ServerLogic has been restored and optionally how the Moderator-Client reconnects to a running session. </p>
-<p>List of MessageTypes used: <a href="#requestserverstatusmessage">RequestServerStatusMessage</a>, <a href="#serverstatusmessage">ServerStatusMessage</a>, <a href="#reconnectmessage">ReconnectMessage</a>, <a href="#reconnectsuccessfulmessage">ReconnectSuccessfulMessage</a></p>
+<p>List of MessageTypes used: <a href="#reconnectmessage">ReconnectMessage</a>, <a href="#reconnectsuccessfulmessage">ReconnectSuccessfulMessage</a></p>
 <p><img alt="Player reconnect" src="../diagrams/network-diagrams/player-reconnect.svg" /></p>
 <h3 id="pause-game">Pause game</h3>
 <p>This diagram illustrates a typical process of how a Moderator-Client initializes a global pause via the ServerLogic. It also describes what happens in the case of an ongoing vote and what typical errors can occur.</p>
@@ -764,10 +722,6 @@ For example, it is not specifically stated that an <a href="#errortype-enum">Ill
 <p>This diagram illustrates a typical process of how a Moderator-Client initialises an election phase via the ServerLogic and how the PlayerAudience-Clients are involved.</p>
 <p>List of MessageTypes used: <a href="#requeststartvotingmessage">RequestStartVotingMessage</a>, <a href="#votingstartedmessage">VotingStartedMessage</a>, <a href="#votingendedmessage">VotingEndedMessage</a></p>
 <p><img alt="Voting phase" src="../diagrams/network-diagrams/voting-phase.svg" /></p>
-<h3 id="new-moderator">New moderator</h3>
-<p>This diagram illustrates a typical process how a Moderator-Client replaces another Moderator-Client while opening a new Online-Session.</p>
-<p>List of MessageTypes used: <a href="#requestopensessionmessage">RequestOpenSessionMessage</a>, <a href="#errormessage">ErrorMessage</a>, <a href="#sessionopenedmessage">SessionOpenedMessage</a></p>
-<p><img alt="New moderator" src="../diagrams/network-diagrams/new-moderator.svg" /></p>
 <h3 id="end-online-session">End Online-Session</h3>
 <p>This diagram illustrates a typical process of how a Moderator-Client ends an existing Online-Session and how the PlayerAudience-Clients are affected.</p>
 <p>List of MessageTypes used: <a href="#requestclosesessionmessage">RequestCloseSessionMessage</a>, <a href="#sessionclosedmessage">SessionClosedMessage</a></p>

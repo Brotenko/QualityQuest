@@ -718,7 +718,7 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>The PauseButton shall be around the lower right corner.</td>
+<td>The PauseButton shall be around the upper right corner.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
@@ -768,7 +768,7 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>If the Moderator-Client does not react within 5 seconds after receiving the ServerLogic's message, the connection from the Moderator-Client to the ServerLogic shall be interrupted. In this case the Moderator can either continue playing in Offline-Mode or try to re-establish the connection to the ServerLogic.</td>
+<td>If the Moderator-Client or ServerLogic does not react to each others messages, the connection shall be timed out by the WebSocket.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
@@ -852,7 +852,7 @@
 </tbody>
 </table>
 <p></span></p>
-<h4 style="margin-bottom: 0em"; id="offline-mode">Offline-Mode</h4>
+<h4 style="margin-bottom: 0em"; id="offline-mode-condition">Offline-Mode condition</h4>
 
 <table>
 <thead>
@@ -1102,7 +1102,7 @@
 </tbody>
 </table>
 <p></span></p>
-<h4 style="margin-bottom: 0em"; id="online-mode-flag">Online-Mode flag</h4>
+<h4 style="margin-bottom: 0em"; id="offline-mode">Offline-Mode</h4>
 
 <table>
 <thead>
@@ -1118,11 +1118,11 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>A flag shall be set at the initialization of the game to distinguish between a pure Offline-Session, and an Online-Session that can switch between Offline-Mode and Online-Mode.</td>
+<td>If the Moderator-Client is not currently playing in Online-Mode, the game shall be in Offline-Mode.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
-<td>For network protocol purposes, a flag is set to distinguish whether the game was initialized in Online-Mode or Offline-Mode, so that sending and receiving messages is disregarded right from the start of the game.</td>
+<td>-</td>
 </tr>
 </tbody>
 </table>
@@ -1218,7 +1218,7 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>An Online-Session shall persist until one of the following conditions apply: </br></br><ul><li>A new Moderator-Client connects to the ServerLogic.</li><li>A new Online-Session is started by the moderator.</li><li>No Moderator-Client has been connected to the ServerLogic in the last 30 minutes.</li></ul></td>
+<td>An Online-Session shall persist until one of the following conditions apply: </br></br><ul><li>The Moderator-Client intentionally disconnects from the ServerLogic.</li><li>A new Online-Session is started by the moderator.</li><li>The Moderator-Client has not communicated with the ServerLogic in the last 30 minutes.</li></ul></td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
@@ -1227,7 +1227,7 @@
 </tbody>
 </table>
 <p></span></p>
-<h4 style="margin-bottom: 0em"; id="switch-between-moderator-clients">Switch between Moderator-Clients</h4>
+<h4 style="margin-bottom: 0em"; id="multiple-moderator-clients">Multiple Moderator-Clients</h4>
 
 <table>
 <thead>
@@ -1243,7 +1243,7 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>If a Moderator-Client connects to the ServerLogic while another Moderator-Client is already connected to the ServerLogic, then the old Moderator-Client shall be kicked and the new Moderator-Client shall stay connected.</td>
+<td>If a Moderator-Client connects to the ServerLogic while another Moderator-Client is already connected to the ServerLogic, then a new, separate Online-Session shall be started and both Moderator-Clients shall stay connected.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
@@ -1393,7 +1393,7 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>The pause menu shall pop-up after a pause has been initialized.</td>
+<td>The pause menu shall pop-up after the PauseButton has been pressed.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
@@ -2018,7 +2018,157 @@
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>The ServerLogic shall filter incoming data from the PlayerAudience-Client and discard anything out of order or format.</td>
+<td>The backend of the PlayerAudience-Client shall filter incoming data from the PlayerAudience-Clients and discard anything out of order or format.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="moderator-veto">Moderator veto</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR76</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The moderator may be able to veto the PlayerAudience.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>The moderator can use a special UI element of the Moderator-Client to veto the decision of the PlayerAudience.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="moderator-client-statistics-display">Moderator-Client statistics display</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR77</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Moderator-Client shall display the voting results of the last poll in form of a bar graph.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="moderator-client-winning-option-display">Moderator-Client winning option display</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR78</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Moderator-Client shall display the winning option of the last poll in a separate colour.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="moderator-client-error-display">Moderator-Client error display</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR79</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Errors caused by faulty communication between Moderator-Client and ServerLogic shall be displayed by the Moderator-Client.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="tied-winning-options">Tied winning options</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>If two or more voting options receive the same number of votes, one of these options shall be randomly selected as the winning option.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="sound-options">Sound options</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR81</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Moderator-Client shall support that one can set the audio options independently of each other.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
@@ -2529,7 +2679,7 @@
 </tbody>
 </table>
 <p></span></p>
-<h4 style="margin-bottom: 0em"; id="exclusive-moderator-client-connection">Exclusive Moderator-Client connection</h4>
+<h4 style="margin-bottom: 0em"; id="non-exclusive-moderator-client-connection">Non-exclusive Moderator-Client connection</h4>
 
 <table>
 <thead>
@@ -2541,11 +2691,11 @@
 <tbody>
 <tr>
 <td>PRIORITY</td>
-<td>+</td>
+<td>0</td>
 </tr>
 <tr>
 <td>DESCRIPTION</td>
-<td>The ServerLogic shall only allow a single Moderator-Client to connect to the ServerLogic at any given time.</td>
+<td>The ServerLogic should allow a multitude of Moderator-Clients to connect to the ServerLogic at any given time.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>
@@ -2696,6 +2846,31 @@
 <tr>
 <td>DESCRIPTION</td>
 <td>The Moderator-Client shall have a 60% integration test coverage.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="multiple-endings">Multiple endings</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR28</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Moderator-Client should have three different endings, depending on the performance of the PlayerAudience.</td>
 </tr>
 <tr>
 <td>EXPLANATION</td>

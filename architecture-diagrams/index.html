@@ -72,7 +72,11 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#class-diagrams">Class diagrams</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#server-class-diagrams">Server class diagrams</a>
+    <li class="toctree-l3"><a class="reference internal" href="#serverlogic">ServerLogic</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#playeraudience-client">PlayerAudience-Client</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#moderator-client">Moderator-Client</a>
     </li>
         </ul>
     </li>
@@ -80,11 +84,11 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#component-overview">Component-Overview</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#playeraudience-client">PlayerAudience-Client</a>
+    <li class="toctree-l3"><a class="reference internal" href="#playeraudience-client_1">PlayerAudience-Client</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#serverlogic">ServerLogic</a>
+    <li class="toctree-l3"><a class="reference internal" href="#serverlogic_1">ServerLogic</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#moderator-client">Moderator-Client</a>
+    <li class="toctree-l3"><a class="reference internal" href="#moderator-client_1">Moderator-Client</a>
     </li>
         </ul>
     </li>
@@ -146,23 +150,26 @@
 <p>Since the StoryGraph is run and build locally on the Moderator-Client and the ServerLogic only has a forwarding function, a fallback is easily possible with only the moderator as decision-maker.
 If the ServerLogic can no longer be reached by the Moderator-Client, then this will be noticed by the lack of response to the messages of the Moderator-Client and the moderator will be informed together with the option to switch to Offline-Mode. Since the ServerLogic only transfers the voting results to the Moderator-Client, in case of a ServerLogic failure, only the functionality of online voting is lost, and the Moderator-Client can continue the game in an Offline-Session with no further drawbacks. </p>
 <p>In Offline-Mode, the Voting-Timer is deactivated and the moderator can select StoryFlowDecisions directly, while status checks are still performed in the background to inform the moderator in case the ServerLogic becomes available again.</p>
-<p><img alt="Class diagram" src="../diagrams/class-diagrams/class-diagram.svg" /></p>
-<h3 id="server-class-diagrams">Server class diagrams</h3>
-<p>The software components PlayerAudience-Client and ServerLogic are located on the same physical device, which is called Server. Since a separate cookie is created for each PlayerAudience-Client when connecting to the Online-Session, the communication between PlayerAudience-Clients and ServerLogic is managed by the PlayerAudienceClientManager class, which implements the Observer-pattern.
-The communication between ServerLogic and Moderator-Client is realized via a WebSocket connection over HTTPS, which is established after successful authentication.</p>
-<p><img alt="Class diagram" src="../diagrams/class-diagrams/server-class-diagram.svg" /></p>
+<h3 id="serverlogic">ServerLogic</h3>
+<p>The software components PlayerAudience-Client and ServerLogic are located on the same physical device, aka Server. The Audience connects to the Website provided by the PlayerAudience-Client via HTTPS.
+The communication between ServerLogic and Moderator-Client is realized via a secure WebSocket connection (wss), which is established after successful authentication.</p>
+<p><img alt="ServerLogic Class diagram" src="../diagrams/class-diagrams/serverlogic-class-diagram.svg" /></p>
+<h3 id="playeraudience-client">PlayerAudience-Client</h3>
+<p><img alt="PlayerAudience-Client Class diagram" src="../diagrams/class-diagrams/pa-client-class-diagram.svg" /></p>
+<h3 id="moderator-client">Moderator-Client</h3>
+<p><img alt="Moderator-Client Class diagram" src="../diagrams/class-diagrams/moderator-client-class-diagram.svg" /></p>
 <h2 id="component-diagrams">Component diagrams</h2>
 <p>The class diagrams show the architectural structure of the individual components using interfaces/ports and subsystems.</p>
 <h3 id="component-overview">Component-Overview</h3>
 <p>An overview of all components of QualityQuest and which interfaces exist between the individual components, or the user interfaces of the participants. The physical device Server contains the software component ServerLogic as the backend, while the PlayerAudience-Client component corresponds to the frontend. Since there are several instances of the PlayerAudience-Client, the communication between front-and backend is done via the Observer-pattern. The exchange between ServerLogic and Moderator-Client is realized via a WebSocket connection.</p>
 <p><img alt="Component-Overview" src="../diagrams/component-diagrams/overview-components.svg" /></p>
-<h3 id="playeraudience-client">PlayerAudience-Client</h3>
+<h3 id="playeraudience-client_1">PlayerAudience-Client</h3>
 <p>The PlayerAudience-Client component consists of a subsystem GUI, which will allow the participant to interact with the game via the user interface, using HTML and JavaScript, and the subsystem Logic, which is responsible for interpreting inputs and exchanging data with the ServerLogic.</p>
 <p><img alt="PlayerAudience-Client" src="../diagrams/component-diagrams/playeraudience-client-component-diagram.svg" /></p>
-<h3 id="serverlogic">ServerLogic</h3>
+<h3 id="serverlogic_1">ServerLogic</h3>
 <p>The ServerLogic component consists of a subsystem for the Message Management, which interprets the determined results, and a MainLogic subsystem. The MainLogic subsystem interacts with the PlayerAudience-Client, providing the voting options for it and evaluating the submitted votes. Connected to this is the subsystem Message Management, which prepares the received data and converts the results into a JSON for further communication.</p>
 <p><img alt="ServerLogic" src="../diagrams/component-diagrams/serverlogic-component-diagram.svg" /></p>
-<h3 id="moderator-client">Moderator-Client</h3>
+<h3 id="moderator-client_1">Moderator-Client</h3>
 <p>The component Moderator-Client consists of a subsystem GUI, which, based on Unity, provides a user interface to the moderator for interacting and presenting the game. The subsystem Logic manages the progress in the StoryGraph, the influence of PlayerCharacterStatusValues on StoryFlowDecisions as well as the communication to the component ServerLogic via the WebSocket.</p>
 <p><img alt="Moderator-Client" src="../diagrams/component-diagrams/moderator-client-component-diagram.svg" /></p>
               
