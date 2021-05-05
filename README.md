@@ -82,16 +82,6 @@ The user may presst he button in the upper left-hand corner, while in-game, to o
 
 ## Credits
 
-@alex
-
-```
-### Example for you - Please delete afterwards:
-
-- For everything related to Kevin MacLeod you can use this template by replacing the "Title" and the place where the piece was used. Just make sure to credit him for every piece independently. 
-- For the soundeffects you gotta look at who made it and the CC license they have on the SFX (I put those next to the SFX download links I provided you with). Same template so to say - You just have to change more
-- "CC0" means no credits required, "CC BY" means you gotta credit them here.
-```
-
 ### Menu Theme:
 "Easy Lemon" by Kevin MacLeod (incompetech.com) </br>
 Licensed under Creative Commons: By Attribution 3.0 </br>
