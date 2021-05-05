@@ -11,6 +11,7 @@ We provide placeholders for these purposes which can be replaced, or removed, de
 
 **We highly recommend setting everything up according to legal requirements, regardless of the location of the host and the userbase, to circumvent possible future issues with the law and law enforcement.**
 
+
 ## Setup
 
 Make sure that Python3 is installed and Docker is running. Place a valid .pfx certificate in `QualityQuest/ServerLogic`. Run `install_and_run.py` with administrator privileges. The script offers you three options to start QualityQuest: 
@@ -19,7 +20,19 @@ Make sure that Python3 is installed and Docker is running. Place a valid .pfx ce
 3. (Continue) Start QualityQuest and apply settings from previous sessions.
 
 
+## Maintenance / Known issues
+In general it is sufficient to use option one in the script only once to generate a docker image. From there on, options two and three are perfectly sufficient for normal operation.
+
+Possible issues and possible fixes:
+* Website or WebSocket not available?
+  - Specify 'https://' explicitly for the website.
+  - Check whether the sockets on your device are enabled or occupied by another service. 
+
+If you have any problems, please write us an issue, we will be happy to help you.
+
+
 ## How to use the Server
+
 The server-shell contains the following commands:
 ```
   - password       Show or set the server-access password
@@ -33,16 +46,23 @@ Use 'command --help' to read about a specific command.
 ```
 The settings made in the shell persist beyond the end of the container and are thus also available after a restart via the script if option three is selected. The same applies to the log file, which can be found in `/Saves`, although unlike the parameters, this is not reset with any of the three options. This should be done, if desired, via the server shell with `log --clear`.
 
-## Maintenance / Known issues
-In general it is sufficient to use option one in the script only once to generate a docker image. From there on, options two and three are perfectly sufficient for normal operation.
 
-Possible issues and possible fixes:
-* Website or WebSocket not available?
-  - Specify 'https://' explicitly for the website.
-  - Check whether the sockets on your device are enabled or occupied by another service. 
+## How to use the PlayerAudience-Client
 
-If you have any problems, please write us an issue, we will be happy to help you.
+The PlayerAudience-Client is designed to be easy to be used by the audience, as they only need to enter the `SessionKey` provided by the Moderator-Client into the provided textfield. Alternatively the audience may scan the QR-Code provided by the Moderator-Client to skip entering the `SessionKey` altogether.
+
+After the joining the `Session` the audience can lay back and wait for the next poll to start, where they can vote by simply pressing one of the buttons appearing on their screen.
+
+
+## How to use the Moderator-Client
   
+@elias
+
+
+## Credits
+
+@alex
+
 
 ## Licensing
 
