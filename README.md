@@ -92,15 +92,70 @@ The user may presst he button in the upper left-hand corner, while in-game, to o
 - "CC0" means no credits required, "CC BY" means you gotta credit them here.
 ```
 
-### Titlescreen Theme:
-"Title" by Kevin MacLeod (incompetech.com) </br>
+### Menu Theme:
+"Easy Lemon" by Kevin MacLeod (incompetech.com) </br>
 Licensed under Creative Commons: By Attribution 3.0 </br>
-http://creativecommons.org/licenses/by/3.0/ </br>
+https://creativecommons.org/licenses/by/3.0/ </br>
 
-### Other Theme:
-"Title" by Kevin MacLeod (incompetech.com) </br>
+### Standard Background Theme 1:
+"Wallpaper" by Kevin MacLeod (incompetech.com) </br>
 Licensed under Creative Commons: By Attribution 3.0 </br>
-http://creativecommons.org/licenses/by/3.0/ </br>
+https://creativecommons.org/licenses/by/3.0/ </br>
+
+### Standard Background Theme 2:
+"Shades of Spring" by Kevin MacLeod (incompetech.com) </br>
+Licensed under Creative Commons: By Attribution 3.0 </br>
+https://creativecommons.org/licenses/by/3.0/ </br>
+
+### Party Background Theme 1:
+"Blue Ska" by Kevin MacLeod (incompetech.com) </br>
+Licensed under Creative Commons: By Attribution 3.0 </br>
+https://creativecommons.org/licenses/by/3.0/ </br>
+
+### Party Background Theme 2:
+"Upbeat Forever" by Kevin MacLeod (incompetech.com) </br>
+Licensed under Creative Commons: By Attribution 3.0 </br>
+https://creativecommons.org/licenses/by/3.0/ </br>
+
+### Hawaii Background Theme:
+"Beach Party" by Kevin MacLeod (incompetech.com) </br>
+Licensed under Creative Commons: By Attribution 3.0 </br>
+https://creativecommons.org/licenses/by/3.0/ </br>
+
+### Hawaii Background Theme:
+"Beach Party" by Kevin MacLeod (incompetech.com) </br>
+Licensed under Creative Commons: By Attribution 3.0 </br>
+https://creativecommons.org/licenses/by/3.0/ </br>
+
+### Internship Background Noise:
+"Office ambience" by Nightwatcher98 (freesound.org) </br>
+Licensed under Creative Commons: By Attribution-NonCommercial 3.0 </br>
+https://creativecommons.org/licenses/by-nc/3.0/ </br>
+
+### Office Background Noise:
+"computer keyboard typing" by FREE_SOUND_ENTERTAINMENT (freesound.org) </br>
+Licensed under Creative Commons: By Attribution 3.0 </br>
+https://creativecommons.org/licenses/by/3.0/ </br>
+
+### Party Background Noise:
+"Party Crowd 1" by Kolezan (freesound.org) </br>
+Licensed under Creative Commons: By Attribution 3.0 </br>
+https://creativecommons.org/licenses/by/3.0/ </br>
+
+### Hawaii Background Noise:
+"Beach Ambience" by bone666138 (freesound.org) </br>
+Licensed under Creative Commons: By Attribution 3.0 </br>
+https://creativecommons.org/licenses/by/3.0/ </br>
+
+### Button Click Sound Effect:
+"Button Click 3" by Mellau (freesound.org) </br>
+Licensed under Creative Commons: By Attribution-NonCommercial 3.0 </br>
+https://creativecommons.org/licenses/by-nc/3.0/ </br>
+
+### Skillchange Sound Effect:
+"Electro win sound" by Mativve (freesound.org) </br>
+Licensed under Creative Commons: By Attribution 3.0 </br>
+https://creativecommons.org/licenses/by/3.0/ </br>
 
 
 ## Licensing
