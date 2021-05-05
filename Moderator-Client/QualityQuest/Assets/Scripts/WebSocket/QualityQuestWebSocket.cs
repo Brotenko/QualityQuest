@@ -43,7 +43,6 @@ public class QualityQuestWebSocket : MonoBehaviour
         webSocket.OnOpen += (sender, e) =>
         {
             Debug.Log("Connection established.");
-            GameState.gameIsOnline = true;
             client.ConnectionEstablished();
         };
 
@@ -57,20 +56,12 @@ public class QualityQuestWebSocket : MonoBehaviour
                 Debug.Log("String data");
                 mainThreadWorker.AddAction(() =>
                 {
-                    //Ignores all messages if the game is in offline mode.
-                    if (GameState.gameIsOnline)
-                    {
-                        Read(e.Data);
-                    }
+                    Read(e.Data);
                 });
             }
             // Check if the data is binary.
             if (e.IsBinary)
             {
-                mainThreadWorker.AddAction(() =>
-                {
-                    Read(e.RawData);
-                });
                 Debug.Log("Binary Data");
             }
             if (e.IsPing)
@@ -150,15 +141,6 @@ public class QualityQuestWebSocket : MonoBehaviour
         {
             Debug.Log("RECIEVED messages is null:" + nullReferenceException);
         }
-    }
-
-    /// <summary>
-    /// Method the read/parse the incoming binary data.
-    /// </summary>
-    /// <param name="msg"></param>
-    void Read(byte[] msg)
-    {
-
     }
 
     /// <summary>
