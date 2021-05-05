@@ -33,15 +33,61 @@ The change history is a chronologically ordered list of all changes between diff
 | 0.2.1   | First revision of the component design     | 2020-11-26 | [Link](#version-021-first-revision-of-the-component-design)     |
 | 0.2.2   | Second revision of the component design    | 2021-01-08 | [Link](#version-022-second-revision-of-the-component-design)    |
 | 0.3.0   | PlayerAudience-Client implementation       | 2021-02-06 | [Link](#version-030-playeraudience-client-implementation)       |
-| 0.4.0   | TBN                                        | TBA        | [Link](#version-040-tbn)                                        |
+| 0.3.1   | ServerLogic implementation                 | 2021-05-05 | [Link](#version-031-serverlogic-implementation)                 |
+| 1.0.0   | Moderator-Client implementation            | 2021-05-05 | [Link](#version-100-moderator-client-implementation)            |
 
 </span>
 
-## Version 0.4.0 - TBN
+## Version 1.0.0 - Moderator-Client implementation 
 
-| Type  | Description |
-| :---: | :---------- |
-|       |             |
+| Type  | Description                                                                                                                                                     |
+| :---: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|   *   | **[_Glossary:_](../glossary#voting-timer) _Voting-Timer:_** Updated description.                                                                                |
+|   *   | **[_Glossary:_](../glossary#offline-mode) _Offline-Mode:_** Updated description.                                                                                |
+|   *   | **[_Functional Requirements:_](../requirements#pausebutton-location) _FR23:_** Updated description.                                                             |
+|   *   | **[_Functional Requirements:_](../requirements#connection-timeout) _FR25:_** Updated description.                                                               |
+|   *   | **[_Functional Requirements:_](../requirements#offline-mode-condition) _FR29:_** Updated name.                                                                  |
+|   *   | **[_Functional Requirements:_](../requirements#offline-mode) _FR39:_** Updated name and description.                                                            |
+|   *   | **[_Functional Requirements:_](../requirements#online-session-permanence) _FR43:_** Updated description.                                                        |
+|   *   | **[_Functional Requirements:_](../requirements#multiple-moderator-clients) _FR44:_** Updated name and description.                                              |
+|   *   | **[_Functional Requirements:_](../requirements#pause-menu) _FR50:_** Updated description.                                                                       |
+|   *   | **[_Non-functional Requirements:_](../requirements#non-exclusive-moderator-client-connection) _NFR21:_** Updated name and description.                          |
+|   +   | **[_Functional Requirements:_](../requirements#moderator-veto) _FR76:_** Added requirement "Moderator veto".                                                    |
+|   +   | **[_Functional Requirements:_](../requirements#moderator-client-statistics-display) _FR77:_** Added requirement "Moderator-Client statistics display".          |
+|   +   | **[_Functional Requirements:_](../requirements#moderator-client-winning-option-display) _FR78:_** Added requirement "Moderator-Client winning option display".  |
+|   +   | **[_Functional Requirements:_](../requirements#moderator-client-error-display) _FR79:_** Added requirement "Moderator-Client error display".                    |
+|   +   | **[_Functional Requirements:_](../requirements#tied-winning-options) _FR80:_** Added requirement "Tied winning options".                                        |
+|   +   | **[_Functional Requirements:_](../requirements#sound-options) _FR81:_** Added requirement "Sound options".                                                      |
+|   +   | **[_Non-functional Requirements:_](../requirements#multiple-endings) _NFR28:_** Added requirement "Multiple endings".                                           |
+|   *   | **[_Network Protocol:_](../network-protocol#voting-phase) _Voting phase diagram:_** Updated voting phase diagram.                                               |
+|   -   | **[_Network Protocol:_](../network-protocol#sequence-diagrams-of-typical-communicational-processes) _New Moderator diagram:_** Removed "New Moderator" diagram. |
+|   *   | **[_Network Protocol:_](../network-protocol#playeraudience-client-logs) _PlayerAudience-Client logs:_** Added paragraph about postgame statistics.              |
+|   *   | **[_Functional Requirements:_](../requirements#playeraudience-client-data-filtration) _FR75:_** Updated description.                                            |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _Newtonsoft.Json:_** Added new used library.                                                                 |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _WebSocketSharp:_** Added new used library.                                                                  |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _Fleck:_** Added new used library.                                                                           |
+|   +   | **[_Used Tools:_](../usedtools#used-tools) Unity:_** Added new used tool.                                                                                       |
+|   +   | **[_Used Tools:_](../usedtools#used-tools) Unity Test Framework:_** Added new used tool.                                                                        |
+
+</span>
+
+## Version 0.3.1 - ServerLogic implementation
+
+| Type  | Description                                                                                                                                                                                                             |
+| :---: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|   -   | **[_Network Protocol:_](../network-protocol#messagecontainer) _MessageContainer:_** Removed Debug-Field from MessageContainer.                                                                                          |
+|   -   | **[_Network Protocol:_](../network-protocol#sessionopenedmessage) _SessionOpenedMessage:_** Removed field for QR-Code.                                                                                                  |
+|   -   | **[_Network Protocol:_](../network-protocol#sessionopenedmessage) _SessionClosedMessage:_** Removed field for game-statistics.                                                                                          |
+|   -   | **[_Network Protocol:_](../network-protocol#errortype-enum) _ErrorType Enum:_** Removed entry for NewModerator-ErrorType.                                                                                               |
+|   +   | **[_Network Protocol:_](../network-protocol#errortype-enum) _ErrorType Enum:_** Added entry and explanation for GuidAlreadyExists-ErrorType.                                                                            |
+|   *   | **[_Network Protocol:_](../network-protocol#errortype-enum) _ErrorType Enum:_** Renamed SessionDoesNotExist-ErrorType to WrongSession.                                                                                  |
+|   -   | **[_Network Protocol:_](../network-protocol#who-can-send-which-messagetype) _MessageOverview:_** Removed entries for ServerStatus-Messages.                                                                             |
+|   -   | **[_Network Protocol:_](../network-protocol#detailed-message-definitions) _RequestServerStatusMessage:_** Removed detailed definitions for RequestServerStatusMessage.                                                  |
+|   -   | **[_Network Protocol:_](../network-protocol#detailed-message-definitions) _ServerStatusMessage:_** Removed detailed definitions for ServerStatusMessage.                                                                |
+|   *   | **[_Network Protocol:_](../network-protocol#votingendedmessage) _VotingEndedMessage:_** Changed VotingEndedMessage to include WinningOption as string, VotingResults as <Guid,int> Dictionary and TotalVotes as an int. |
+
+|   *   | **[_Network Protocol:_](../network-protocol#requeststartvotingmessage) _RequestStartVotingMessage:_** Changed RequestStartVotingMessage to use an KeyValuePair-Array for the VotingOptions. |
+|   *   | **[_Architecture diagrams:_](../architecture-diagrams) _Architecture diagrams:_** Updated diagrams according to current implementation.                 |
 
 </span>
 
@@ -259,12 +305,12 @@ The change history is a chronologically ordered list of all changes between diff
 |   +   | **[_Functional Requirements:_](../requirements/#serverlogic-access-password) _FR36:_** Added requirement "ServerLogic access-password".                                                      |
 |   +   | **[_Functional Requirements:_](../requirements/#encryption-of-integral-data) _FR37:_** Added requirement "Hashing of integral data".                                                         |
 |   +   | **[_Functional Requirements:_](../requirements/#online-mode) _FR38:_** Added requirement "Online-Mode".                                                                                      |
-|   +   | **[_Functional Requirements:_](../requirements/#online-mode-flag) _FR39:_** Added requirement "Online-Mode flag".                                                                            |
+|   +   | **[_Functional Requirements:_](../requirements/#offline-mode) _FR39:_** Added requirement "Online-Mode flag".                                                                                |
 |   +   | **[_Functional Requirements:_](../requirements/#moderator-client-guid) _FR40:_** Added requirement "Moderator-Client GUID".                                                                  |
 |   +   | **[_Functional Requirements:_](../requirements/#playeraudience-client-count) _FR41:_** Added requirement "PlayerAudience-Client count".                                                      |
 |   +   | **[_Functional Requirements:_](../requirements/#playeraudience-client-count-live-updates) _FR42:_** Added requirement "PlayerAudience-Client count live update".                             |
 |   +   | **[_Functional Requirements:_](../requirements/#online-session-permanence) _FR43:_** Added requirement "Online-Session permanence".                                                          |
-|   +   | **[_Functional Requirements:_](../requirements/#switch-between-moderator-clients) _FR44:_** Added requirement "Switch between Moderator-Clients".                                            |
+|   +   | **[_Functional Requirements:_](../requirements/#multiple-moderator-clients) _FR44:_** Added requirement "Switch between Moderator-Clients".                                                  |
 |   +   | **[_Functional Requirements:_](../requirements/#voting-timer-stop-on-pause) _FR45:_** Added requirement "Voting-Timer stop on pause".                                                        |
 |   +   | **[_Functional Requirements:_](../requirements/#communication-during-pauses) _FR46:_** Added requirement "Communication during pauses".                                                      |
 |   +   | **[_Functional Requirements:_](../requirements/#playeraudience-connection-method) _FR47:_** Added requirement "PlayerAudience connection method".                                            |

@@ -216,7 +216,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ID          | FR23                                                    |
 | ----------- | ------------------------------------------------------- |
 | PRIORITY    | +                                                       |
-| DESCRIPTION | The PauseButton shall be around the lower right corner. |
+| DESCRIPTION | The PauseButton shall be around the upper right corner. |
 | EXPLANATION | -                                                       |
 
 </span>
@@ -231,11 +231,11 @@ This section contains all requirements that specify the basic actions of the sof
 </span>
 
 <h4 style="margin-bottom: 0em"; id="connection-timeout">Connection Timeout</h4>
-| ID          | FR25                                                                                                                                                                                                                                                                                                                  |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                                                                                                                                                                                                                                                                     |
-| DESCRIPTION | If the Moderator-Client does not react within 5 seconds after receiving the ServerLogic's message, the connection from the Moderator-Client to the ServerLogic shall be interrupted. In this case the Moderator can either continue playing in Offline-Mode or try to re-establish the connection to the ServerLogic. |
-| EXPLANATION | This serves as a failsafe, in case of corrupted messages or connection loss.                                                                                                                                                                                                                                          |
+| ID          | FR25                                                                                                                               |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                  |
+| DESCRIPTION | If the Moderator-Client or ServerLogic does not react to each others messages, the connection shall be timed out by the WebSocket. |
+| EXPLANATION | This serves as a failsafe, in case of corrupted messages or connection loss.                                                       |
 
 </span>
 
@@ -266,7 +266,7 @@ This section contains all requirements that specify the basic actions of the sof
 
 </span>
 
-<h4 style="margin-bottom: 0em"; id="offline-mode">Offline-Mode</h4>
+<h4 style="margin-bottom: 0em"; id="offline-mode-condition">Offline-Mode condition</h4>
 | ID          | FR29                                                                                                                                                                                                                                                                                   |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | PRIORITY    | +                                                                                                                                                                                                                                                                                      |
@@ -356,12 +356,12 @@ This section contains all requirements that specify the basic actions of the sof
 
 </span>
 
-<h4 style="margin-bottom: 0em"; id="online-mode-flag">Online-Mode flag</h4>
-| ID          | FR39                                                                                                                                                                                                                 |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                                                                                                                                                                    |
-| DESCRIPTION | A flag shall be set at the initialization of the game to distinguish between a pure Offline-Session, and an Online-Session that can switch between Offline-Mode and Online-Mode.                                     |
-| EXPLANATION | For network protocol purposes, a flag is set to distinguish whether the game was initialized in Online-Mode or Offline-Mode, so that sending and receiving messages is disregarded right from the start of the game. |
+<h4 style="margin-bottom: 0em"; id="offline-mode">Offline-Mode</h4>
+| ID          | FR39                                                                                                |
+| ----------- | --------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                   |
+| DESCRIPTION | If the Moderator-Client is not currently playing in Online-Mode, the game shall be in Offline-Mode. |
+| EXPLANATION | -                                                                                                   |
 
 </span>
 
@@ -393,20 +393,20 @@ This section contains all requirements that specify the basic actions of the sof
 </span>
 
 <h4 style="margin-bottom: 0em"; id="online-session-permanence">Online-Session permanence</h4>
-| ID          | FR43                                                                                                                                                                                                                                                                                                             |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                                                                                                                                                                                                                                                                |
-| DESCRIPTION | An Online-Session shall persist until one of the following conditions apply: </br></br><ul><li>A new Moderator-Client connects to the ServerLogic.</li><li>A new Online-Session is started by the moderator.</li><li>No Moderator-Client has been connected to the ServerLogic in the last 30 minutes.</li></ul> |
-| EXPLANATION | -                                                                                                                                                                                                                                                                                                                |
+| ID          | FR43                                                                                                                                                                                                                                                                                                                                   |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                                                                                                                                                                                                                      |
+| DESCRIPTION | An Online-Session shall persist until one of the following conditions apply: </br></br><ul><li>The Moderator-Client intentionally disconnects from the ServerLogic.</li><li>A new Online-Session is started by the moderator.</li><li>The Moderator-Client has not communicated with the ServerLogic in the last 30 minutes.</li></ul> |
+| EXPLANATION | -                                                                                                                                                                                                                                                                                                                                      |
 
 </span>
 
-<h4 style="margin-bottom: 0em"; id="switch-between-moderator-clients">Switch between Moderator-Clients</h4>
-| ID          | FR44                                                                                                                                                                                                                       |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                                                                                                                                                                          |
-| DESCRIPTION | If a Moderator-Client connects to the ServerLogic while another Moderator-Client is already connected to the ServerLogic, then the old Moderator-Client shall be kicked and the new Moderator-Client shall stay connected. |
-| EXPLANATION | -                                                                                                                                                                                                                          |
+<h4 style="margin-bottom: 0em"; id="multiple-moderator-clients">Multiple Moderator-Clients</h4>
+| ID          | FR44                                                                                                                                                                                                                            |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                                                                                                               |
+| DESCRIPTION | If a Moderator-Client connects to the ServerLogic while another Moderator-Client is already connected to the ServerLogic, then a new, separate Online-Session shall be started and both Moderator-Clients shall stay connected. |
+| EXPLANATION | -                                                                                                                                                                                                                               |
 
 </span>
 
@@ -456,11 +456,11 @@ This section contains all requirements that specify the basic actions of the sof
 </span>
 
 <h4 style="margin-bottom: 0em"; id="pause-menu">Pause menu</h4>
-| ID          | FR50                                                            |
-| ----------- | --------------------------------------------------------------- |
-| PRIORITY    | +                                                               |
-| DESCRIPTION | The pause menu shall pop-up after a pause has been initialized. |
-| EXPLANATION | -                                                               |
+| ID          | FR50                                                                |
+| ----------- | ------------------------------------------------------------------- |
+| PRIORITY    | +                                                                   |
+| DESCRIPTION | The pause menu shall pop-up after the PauseButton has been pressed. |
+| EXPLANATION | -                                                                   |
 
 </span>
 
@@ -684,11 +684,64 @@ This section contains all requirements that specify the basic actions of the sof
 | ID          | FR75                                                                                                                   |
 | ----------- | ---------------------------------------------------------------------------------------------------------------------- |
 | PRIORITY    | +                                                                                                                      |
-| DESCRIPTION | The ServerLogic shall filter incoming data from the PlayerAudience-Client and discard anything out of order or format. |
+| DESCRIPTION | The backend of the PlayerAudience-Client shall filter incoming data from the PlayerAudience-Clients and discard anything out of order or format. |
 | EXPLANATION | -                                                                                                                      |
 
 </span>
 
+<h4 style="margin-bottom: 0em"; id="moderator-veto">Moderator veto</h4>
+| ID          | FR76                                                                                                           |
+| ----------- | -------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | -                                                                                                              |
+| DESCRIPTION | The moderator may be able to veto the PlayerAudience.                                                          |
+| EXPLANATION | The moderator can use a special UI element of the Moderator-Client to veto the decision of the PlayerAudience. |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="moderator-client-statistics-display">Moderator-Client statistics display</h4>
+| ID          | FR77                                                                                           |
+| ----------- | ---------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                              |
+| DESCRIPTION | The Moderator-Client shall display the voting results of the last poll in form of a bar graph. |
+| EXPLANATION | -                                                                                              |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="moderator-client-winning-option-display">Moderator-Client winning option display</h4>
+| ID          | FR78                                                                                         |
+| ----------- | -------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                            |
+| DESCRIPTION | The Moderator-Client shall display the winning option of the last poll in a separate colour. |
+| EXPLANATION | -                                                                                            |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="moderator-client-error-display">Moderator-Client error display</h4>
+| ID          | FR79                                                                                                                       |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                          |
+| DESCRIPTION | Errors caused by faulty communication between Moderator-Client and ServerLogic shall be displayed by the Moderator-Client. |
+| EXPLANATION | -                                                                                                                          |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="tied-winning-options">Tied winning options</h4>
+| ID          | FR80                                                                                                                                   |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                      |
+| DESCRIPTION | If two or more voting options receive the same number of votes, one of these options shall be randomly selected as the winning option. |
+| EXPLANATION | -                                                                                                                                      |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="sound-options">Sound options</h4>
+| ID          | FR81                                                                                               |
+| ----------- | -------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                  |
+| DESCRIPTION | The Moderator-Client shall support that one can set the audio options independently of each other. |
+| EXPLANATION | -                                                                                                  |
+
+</span>
 
 
 ## Non-functional Requirements
@@ -875,12 +928,12 @@ This section specifies the non-functional requirements for the software system.
 
 </span>
 
-<h4 style="margin-bottom: 0em"; id="exclusive-moderator-client-connection">Exclusive Moderator-Client connection</h4>
-| ID          | NFR21                                                                                                       |
-| ----------- | ----------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                                                           |
-| DESCRIPTION | The ServerLogic shall only allow a single Moderator-Client to connect to the ServerLogic at any given time. |
-| EXPLANATION | -                                                                                                           |
+<h4 style="margin-bottom: 0em"; id="non-exclusive-moderator-client-connection">Non-exclusive Moderator-Client connection</h4>
+| ID          | NFR21                                                                                                          |
+| ----------- | -------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | 0                                                                                                              |
+| DESCRIPTION | The ServerLogic should allow a multitude of Moderator-Clients to connect to the ServerLogic at any given time. |
+| EXPLANATION | -                                                                                                              |
 
 </span>
 
@@ -930,10 +983,19 @@ This section specifies the non-functional requirements for the software system.
 </span>
 
 <h4 style="margin-bottom: 0em"; id="integration-test-coverage">Integration test coverage</h4>
-| ID          | NFR27                                                     |
-| ----------- | --------------------------------------------------------- |
-| PRIORITY    | +                                                         |
+| ID          | NFR27                                                            |
+| ----------- | ---------------------------------------------------------------- |
+| PRIORITY    | +                                                                |
 | DESCRIPTION | The Moderator-Client shall have a 60% integration test coverage. |
-| EXPLANATION | -                                                         |
+| EXPLANATION | -                                                                |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="multiple-endings">Multiple endings</h4>
+| ID          | NFR28                                                                                                         |
+| ----------- | ------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | 0                                                                                                             |
+| DESCRIPTION | The Moderator-Client should have three different endings, depending on the performance of the PlayerAudience. |
+| EXPLANATION | -                                                                                                             |
 
 </span>

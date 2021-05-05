@@ -226,15 +226,6 @@ This section contains a collection of information regarding technical terms that
 
 </span>
 
-<h4 style="margin-bottom: 0em"; id="sidekick-pet">Sidekick-Pet</h4>
-| <div style="font-weight: normal">DESCRIPTION</div> | <div style="font-weight: normal">Can be unlocked by the PlayerAudience through a StoryFlowDecision. Helps the player in StoryFlowDecisions with helpful tips and suggestions.</div> |
-| -------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| IS-A                                               | -                                                                                                                                                                                   |
-| CAN-BE                                             | -                                                                                                                                                                                   |
-| EXAMPLE                                            | -                                                                                                                                                                                   |
-
-</span>
-
 <h4 style="margin-bottom: 0em"; id="play-time">Play-Time</h4>
 | <div style="font-weight: normal">DESCRIPTION</div> | <div style="font-weight: normal">The time it takes to finish a game. The time needed for QualityQuest should be about 15 to 20 minutes.</div> |
 | -------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -245,11 +236,11 @@ This section contains a collection of information regarding technical terms that
 </span>
 
 <h4 style="margin-bottom: 0em"; id="voting-timer">Voting-Timer</h4>
-| <div style="font-weight: normal">DESCRIPTION</div> | <div style="font-weight: normal">Timer that is triggered by a StoryFlowDecision. While the timer is running the PlayerAudience has to vote. The moderator can stop the timer with the pause button.</div> |
-| -------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| IS-A                                               | -                                                                                                                                                                                                         |
-| CAN-BE                                             | -                                                                                                                                                                                                         |
-| EXAMPLE                                            | The PlayerAudience has 30 seconds to vote on a StoryFlowDecision.                                                                                                                                         |
+| <div style="font-weight: normal">DESCRIPTION</div> | <div style="font-weight: normal">Timer that is triggered by a StoryFlowDecision. While the timer is running the PlayerAudience has to vote. The moderator can set the voting time as desired and stop the timer with the pause button, at any given time.</div> |
+| -------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| IS-A                                               | -                                                                                                                                                                                                                                                               |
+| CAN-BE                                             | -                                                                                                                                                                                                                                                               |
+| EXAMPLE                                            | The PlayerAudience has 30 seconds to vote on a StoryFlowDecision.                                                                                                                                                                                               |
 
 </span>
 
@@ -299,11 +290,11 @@ This section contains a collection of information regarding technical terms that
 </span>
 
 <h4 style="margin-bottom: 0em"; id="offline-mode">Offline-Mode</h4>
-| <div style="font-weight: normal">DESCRIPTION</div> | <div style="font-weight: normal">The Moderator-Client is not connected to a ServerLogic and thus also not connected to any PlayerAudience-Clients.</div> |
-| -------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| IS-A                                               | -                                                                                                                                                        |
-| CAN-BE                                             | -                                                                                                                                                        |
-| EXAMPLE                                            | -                                                                                                                                                        |
+| <div style="font-weight: normal">DESCRIPTION</div> | <div style="font-weight: normal">The Moderator-Client is not connected to a ServerLogic and thus also not connected to any PlayerAudience-Clients. Alternatively, a connection may exist that is intentionally ignored in order to play offline. </div> |
+| -------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| IS-A                                               | -                                                                                                                                                                                                                                                       |
+| CAN-BE                                             | -                                                                                                                                                                                                                                                       |
+| EXAMPLE                                            | -                                                                                                                                                                                                                                                       |
 
 </span>
 

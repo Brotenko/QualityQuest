@@ -1,0 +1,96 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+  package "PlayerAudience-Client" <<Rectangle>>{  
+
+    class "PABackend" as be {
+      {field} -host: IHost
+      {static} -_hubContext: IHubContext<ServerHub>
+      {field} -_serverThread: Thread
+      {static} -isDebug: bool 
+      {static} -_dockerUrl: string
+      {static} <<Property>> +PAVotingResults: VotingResults <<+get,-set>>
+      {static} <<Property>> +ConnectionList: Dictionary<string, List<string>> <<+get, -set>>
+      {static} <<Property>> -CurrentPrompt: Dictionary<string, KeyValuePair<Guid, string>> <<+get, +set>>
+      {static} <<Property>> -Port: int
+      {method} +PABackend(port: int, dockerUrl: string): void
+      {static} +DebugPABackend(port: int): PABackend
+      {method} +GetSessionKeys(): string[]
+      {method} +StartNewSession(sessionkey: string): void
+      {method} +DebugCreatePageContent(prompt: KeyValuePair<Guid, string>, options: KeyValuePair<Guid, string>[]): string
+      {method} +StartNewVote(sessionkey: string, prompt: KeyValuePair<Guid, string>, options: KeyValuePair<Guid, string>[]): Task
+      {static} +CountNewVote(sessionkey: string, option: Guid): int
+      {method} +EndSession(sessionkey: string): Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>
+      {static} +AddConnection(sessionkey: string, connectionId: string): int
+      {static} +RemoveConnection(connectionId: string): int
+      {method} +GetVotingResult(sessionkey: string, prompt: KeyValuePair<Guid, string>): Dictionary<KeyValuePair<Guid, string>, int>
+      {method} +StopServer(): void
+      {static} +Main(args: string[]): void
+      {static} -IsSessionActive(sessionkey: string): bool
+      {static} -AddNewSession(sessionkey: string): void
+      {method} -CreatePageContent(prompt: KeyValuePair<Guid, string>, options: KeyValuePair<Guid, string>[]): string
+      {static} -RemoveSession(sessionkey: string): void
+      {method} -SendPushClear(sessionkey: string): void
+      {method} -StartServer(): void
+      {static} -CreateHostBuilder(int port): IHostBuilder
+    }
+
+    skinparam enum{
+      BackgroundColor Wheat
+      BorderColor Wheat
+    }
+
+    enum "PABackendErrorType" as beet {
+      ..
+      NoError
+      NullSessionkeyError
+      InvalidArgumentError
+      InvalidSessionkeyError
+      InvalidConnectionIdError
+      NullConnectionIdError
+    }
+
+    class "SessionNotFoundException : Exception" as snfe{
+      {method} +SessionNotFoundException(): void
+      {method} +SessionNotFoundException(message: string): void
+      {method} +SessionNotFoundException(message: string, inner: Exception): void
+    }
+
+    class "Startup" as su {
+      {field} <<Property>> +Configuration: IConfiguration <<+get>>
+      {method} +Startup(configuration: IConfiguration): void
+      {method} +ConfigureServices(services: IServiceCollection): void
+      {method} +Configure(app: IApplicationBuilder, env: IWebHostEnvironment): void
+    }
+
+    class "VotingResults" as vr {
+      {field} +data: Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>
+      {method} +VotingResults(data: Dictionary<string, Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>>)
+      {method} +GetSessionKeys(): string[]
+      {method} +AddSessionKey(sessionkey: string): void
+      {method} +AddNewPoll(sessionkey: string, prompt: KeyValuePair<Guid, string>, options: KeyValuePair<Guid, string>[])
+      {method} +AddVote(sessionkey: string, prompt: Guid, option: Guid): void
+      {method} +RemoveSession(sessionkey: string): void
+      {method} +GetPromptsBySession(sessionkey: string): KeyValuePair<Guid, string>[]
+      {method} +GetPromptGuidsBySession(sessionkey: string): Guid[]
+      {method} +GetPromptStringsBySession(sessionkey: string): string[]
+      {method} +GetOptionsVotesPairsByPrompt(sessionkey: string, prompt: Guid): Dictionary<KeyValuePair<Guid, string>, int>
+      {method} +GetOptionsByPrompt(sessionkey: string, prompt: Guid): KeyValuePair<Guid, string>[]
+      {method} +GetOptionStringsByPrompt(sessionkey: string, prompt: Guid): string[]
+      {method} +GetOptionGuidsByPrompt(sessionkey: string, prompt: Guid): Guid[]
+      {method} +GetVotesByOption(sessionkey: string, prompt: Guid, option: Guid): int
+      {method} +GetStatistics(sessionkey: string): Dictionary<KeyValuePair<Guid, string>, Dictionary<KeyValuePair<Guid, string>, int>>
+      {method} +ToString(): string
+      {method} -IsSessionActive(sessionkey: string): bool
+    }
+    be - vr
+    be -left- su
+    be -up- snfe
+    snfe - vr
+    be -up- beet
+  
+  }  
+
+
+@enduml

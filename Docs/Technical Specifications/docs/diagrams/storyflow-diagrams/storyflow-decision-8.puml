@@ -8,9 +8,11 @@ else
 -->[A few Tequila shots will do it, \nafter all it's for free, you should take advantage of it.] "You drink two shots."
 if "Do you want to \n drink more shots?" then 
 --> [You drink a few more shots] if "partying + dice roll > 8" as drink then 
---> [true] "Due to your excellent party experience \n you are able to drink \n and survive the party \n without creating a stir. \n Your stats change \n +3 partying" as goodEnd
+--> [true] "Due to your excellent party experience \n you are able to drink \n and survive the party \n without creating a stir."
+--> "You'll be remembered positively by your boss. \n Your stats change: \n +2 partying" as goodEnd
 else 
---> [false] "You bring a good atmosphere to the party, \n but your mentor and boss notice you \n negatively, because you are quite drunk.\n Your stats change: \n +3 partying \n -2 communication" as badEnd
+--> [false] "You create a good mood, but you attract negative attention because you are quite drunk."
+--> "You'll be remembered negatively by your boss. \n Your stats change: \n +3 partying \n -2 communication" as badEnd
 endif
 else 
 --> [No, 2 are enough for today] "You bring a good atmosphere to the party. \n Your stats change:\n +2 partying"
