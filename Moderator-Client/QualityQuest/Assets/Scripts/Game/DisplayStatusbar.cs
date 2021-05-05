@@ -112,7 +112,6 @@ public class DisplayStatusbar : MonoBehaviour
     /// </summary>
     public void DisplaySkills(Skills skills)
     {
-        this.programmingSkillValue.text = "";
         this.programmingSkillValue.text = skills.Programming.ToString();
         this.communicationSkillValue.text = skills.Communication.ToString();
         this.analyticsSkillValue.text = skills.Analytics.ToString();
