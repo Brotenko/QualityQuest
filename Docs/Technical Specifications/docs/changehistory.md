@@ -33,8 +33,8 @@ The change history is a chronologically ordered list of all changes between diff
 | 0.2.1   | First revision of the component design     | 2020-11-26 | [Link](#version-021-first-revision-of-the-component-design)     |
 | 0.2.2   | Second revision of the component design    | 2021-01-08 | [Link](#version-022-second-revision-of-the-component-design)    |
 | 0.3.0   | PlayerAudience-Client implementation       | 2021-02-06 | [Link](#version-030-playeraudience-client-implementation)       |
-| 0.3.1   | ServerLogic implementation                 | 2021-05-06 | [Link](#version-031-serverlogic-implementation)                 |
-| 0.3.2   | Moderator-Client implementation            | 2021-05-06 | [Link](#version-032-moderator-client-implementation)            |
+| 0.3.1   | ServerLogic implementation                 | 2021-05-05 | [Link](#version-031-serverlogic-implementation)                 |
+| 0.3.2   | Moderator-Client implementation            | 2021-05-05 | [Link](#version-032-moderator-client-implementation)            |
 
 </span>
 
@@ -61,6 +61,8 @@ The change history is a chronologically ordered list of all changes between diff
 |   +   | **[_Non-functional Requirements:_](../requirements#multiple-endings) _NFR28:_** Added requirement "Multiple endings".                                          |
 |   *   | **[_Network Protocol:_](../network-protocol#voting-phase) _Voting phase diagram:_** Updated voting phase diagram.                                               |
 |   -   | **[_Network Protocol:_](../network-protocol#sequence-diagrams-of-typical-communicational-processes) _New Moderator diagram:_** Removed "New Moderator" diagram. |
+|   *   | **[_Network Protocol:_](../network-protocol#playeraudience-client-logs) _PlayerAudience-Client logs:_** Added paragraph about postgame statistics. |
+|   *   | **[_Functional Requirements:_](../requirements#playeraudience-client-data-filtration) _FR75:_** Updated description.   
 
 </span>
 
