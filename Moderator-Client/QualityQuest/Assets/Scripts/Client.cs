@@ -311,7 +311,7 @@ public class Client : MonoBehaviour
 
             if (storyEvent.SkillChange != null)
             {
-                clientLogic.StoryGraph.Character.Abilities.updateAbilities(storyEvent.SkillChange);
+                clientLogic.StoryGraph.Character.Abilities.UpdateAbilities(storyEvent.SkillChange);
                 displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
                 displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
                 gameAudio.PlaySkillChangeSound();
@@ -730,7 +730,7 @@ public class Client : MonoBehaviour
 
             if (storyEvent.SkillChange != null)
             {
-                clientLogic.StoryGraph.Character.Abilities.updateAbilities(storyEvent.SkillChange);
+                clientLogic.StoryGraph.Character.Abilities.UpdateAbilities(storyEvent.SkillChange);
                 displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
                 displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
                 gameAudio.PlaySkillChangeSound();

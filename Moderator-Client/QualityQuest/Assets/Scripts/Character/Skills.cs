@@ -81,7 +81,7 @@ public class Skills
     /// Method to update all skills.
     /// </summary>
     /// <param name="skills">The skill change.</param>
-    public void updateAbilities(Skills skills)
+    public void UpdateAbilities(Skills skills)
     {
         UpdateProgrammingSkill(skills.Programming);
         UpdateCommunicationSkill(skills.Communication);
