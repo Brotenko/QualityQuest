@@ -54,7 +54,7 @@ public enum StoryEventType
     StoryWorkshopNoInvite,
 
     /// <summary>
-    /// StoryEvent which with the player can unlock additional StoryFlowDecisionOptions in later StoryFlowDecisions.
+    /// StoryEvent with which the player can unlock additional StoryFlowDecisionOptions in later StoryFlowDecisions.
     /// </summary>
     StoryUnlockDecisionOption,
 
