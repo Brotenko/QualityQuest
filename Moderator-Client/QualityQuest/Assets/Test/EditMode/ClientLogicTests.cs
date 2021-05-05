@@ -323,7 +323,7 @@ public class ClientLogicTests
     [Test]
     public void WorkshopDecisionTest_Fired()
     {
-        testCharacter.Abilities.updateAbilities(new Skills(-10, -99, -99, -99));
+        testCharacter.Abilities.UpdateAbilities(new Skills(-10, -99, -99, -99));
         var testEvent = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
         var workshop = new StoryEvent(Guid.NewGuid(), "invite", new HashSet<StoryEvent>(), StoryEventType.StoryWorkshopInvite);
         var noWorkshop = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryWorkshopNoInvite);
@@ -344,7 +344,7 @@ public class ClientLogicTests
     [Test]
     public void WorkshopDecisionTest_NoInvite()
     {
-        testCharacter.Abilities.updateAbilities(new Skills(-10, -10, -5, 0));
+        testCharacter.Abilities.UpdateAbilities(new Skills(-10, -10, -5, 0));
         var testEvent = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
         var workshop = new StoryEvent(Guid.NewGuid(), "invite", new HashSet<StoryEvent>(), StoryEventType.StoryWorkshopInvite);
         var noWorkshop = new StoryEvent(Guid.NewGuid(), "root", new HashSet<StoryEvent>(), StoryEventType.StoryWorkshopNoInvite);
