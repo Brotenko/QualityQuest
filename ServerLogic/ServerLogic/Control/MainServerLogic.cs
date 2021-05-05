@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
@@ -49,6 +50,12 @@ namespace ServerLogic.Control
             _server.EnabledSslProtocols = SslProtocols.Tls12;
             try
             {
+                ServerParams serverParams = new ServerParams();
+                using (StreamReader r = new StreamReader("ServerLogic/Properties/serverParams.json"))
+                {
+                    string json = r.ReadToEnd();
+                    serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
+                }
                 _server.Certificate = new X509Certificate2(Settings.Default.CertFilePath, Settings.Default.CertPW);
                 _playerAudienceClientApi.StartServer(443);
                 StartWebsocket();
