@@ -4,8 +4,6 @@ using Microsoft.Extensions.Hosting;
 using PAClient.Hubs;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
