@@ -11,7 +11,7 @@ public class StoryEvent
     public string Description { get; }
     public HashSet<StoryEvent> Children { get; }
     public StoryEventType StoryType { get; }
-    public Skills SkillChange { get; }
+    public Skills SkillChange { get; set; }
     public bool RandomOption { get; }
     public BackgroundType BackgroundType { get; }
     public RandomType Random { get; }

@@ -14,6 +14,9 @@ public class QrCodeTestClass
     [Tooltip("Put a picture of a RawImage")]
     public RawImage pausePanel;
 
+    /// <summary>
+    /// Test constructor.
+    /// </summary>
     public QrCodeTestClass()
     {
         connectionPanel = Resources.Load<RawImage>("RawImage");

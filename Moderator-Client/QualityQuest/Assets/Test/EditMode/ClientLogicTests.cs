@@ -21,7 +21,6 @@ public class ClientLogicTests
     private StoryEvent childThree;
     private StoryEvent childFour;
     private StoryEvent noChild;
-    private StoryEvent nullEvent;
     private Character testCharacter;
 
     private StoryEvent testRandom;
@@ -432,6 +431,17 @@ public class ClientLogicTests
         Assert.IsFalse(clientLogic.SpecialOption);
         clientLogic.UnlockDecision();
         Assert.IsTrue(clientLogic.SpecialOption);
+    }
+
+    /// <summary>
+    /// Test for the Voting
+    /// </summary>
+    [Test]
+    public void SetVotingTimeTest()
+    {
+        Assert.AreEqual(30, clientLogic.VotingTime);
+        clientLogic.SetVotingTime(10);
+        Assert.AreEqual(10, clientLogic.VotingTime);
     }
 }
 

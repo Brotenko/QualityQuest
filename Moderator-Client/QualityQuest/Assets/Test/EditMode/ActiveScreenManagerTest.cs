@@ -8,7 +8,10 @@ public class ActiveScreenManagerTest
 {
     private ActiveScreenManagerTestClass activeScreen;
 
-    // A Test behaves as an ordinary method
+    
+    /// <summary>
+    /// Setup.
+    /// </summary>
     [SetUp]
     public void SetUp()
     {
@@ -16,7 +19,9 @@ public class ActiveScreenManagerTest
         activeScreen.HideAllMenus();
     }
 
-
+    /// <summary>
+    /// Test for HideAllMenus method.
+    /// </summary>
     [Test]
     public void HideAllMenusTest()
     {
@@ -45,8 +50,11 @@ public class ActiveScreenManagerTest
         Assert.AreEqual(false, activeScreen.optionsPanel.activeSelf);
     }
 
+    /// <summary>
+    /// Test for ShowErrorScreen method.
+    /// </summary>
     [Test]
-    public void ShowErrorScreenTest()
+    public void ShowErrorScreenTest_NoActiveSelf()
     {
         Assert.IsNull(activeScreen.errorMessage.text);
         Assert.IsFalse(activeScreen.errorScreenPanel.activeSelf);
@@ -55,11 +63,31 @@ public class ActiveScreenManagerTest
         Assert.AreEqual("Error 0815", activeScreen.errorMessage.text);
     }
 
+    /// <summary>
+    /// Test for ShowErrorScreen method.
+    /// </summary>
+    [Test]
+    public void ShowErrorScreenTest_ActiveSelf()
+    {
+        Assert.IsNull(activeScreen.errorMessage.text);
+        Assert.IsFalse(activeScreen.errorScreenPanel.activeSelf);
+        activeScreen.ShowErrorScreen("Error 0815");
+        Assert.IsTrue(activeScreen.errorScreenPanel.activeSelf);
+        Assert.AreEqual("Error 0815", activeScreen.errorMessage.text);
+        activeScreen.ShowErrorScreen("Error 08");
+        Assert.AreEqual("Error 0815", activeScreen.errorMessage.text);
+    }
+
+    /// <summary>
+    /// Test for the ShowConnection will pause is not active.
+    /// </summary>
     [Test]
     public void ShowConnectionTest()
     {
+        GameState.gameIsOnline = false;
         Assert.IsFalse(activeScreen.connectPanel.activeSelf);
         activeScreen.ShowConnection();
+        Assert.IsTrue(GameState.gameIsOnline);
         Assert.IsTrue(activeScreen.connectPanel.activeSelf);
     }
 
@@ -158,5 +186,17 @@ public class ActiveScreenManagerTest
         Assert.IsFalse(activeScreen.gameCrashPanel.activeSelf);
         activeScreen.GameCrash();
         Assert.IsTrue(activeScreen.gameCrashPanel.activeSelf);
+    }
+
+    /// <summary>
+    /// Test for the ShowGameMenu method with the loadingPanel active. The game menu can not open.
+    /// </summary>
+    [Test]
+    public void ShowGameMenuTest_LoadingPanelOn_GameIsOnline()
+    {
+        activeScreen.loadingScreenPanel.SetActive(true);
+        Assert.IsFalse(activeScreen.gameMenuPanel.activeSelf);
+        activeScreen.ShowGameMenu();
+        Assert.IsFalse(activeScreen.gameMenuPanel.activeSelf);
     }
 }

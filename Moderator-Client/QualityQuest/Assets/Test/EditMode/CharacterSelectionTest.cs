@@ -9,6 +9,9 @@ public class CharacterSelectionTest
 {
 
     private CharacterSelectionTestClass characterSelection;
+    private DisplayStatusbarTestClass displayStatusbar;
+    private Character testChar;
+    private StoryGraph testGraph;
 
     /// <summary>
     /// SetUp.
@@ -16,7 +19,11 @@ public class CharacterSelectionTest
     [SetUp]
     public void LastTestSimplePasses()
     {
+        displayStatusbar = new DisplayStatusbarTestClass();
         characterSelection = new CharacterSelectionTestClass();
+        testChar = new Character(new Skills(1, 2, 3, 4), "Tobi", null);
+        testGraph = new StoryGraph(null, null, null);
+
     }
 
     /// <summary>
@@ -45,5 +52,24 @@ public class CharacterSelectionTest
         Assert.AreEqual("2", characterSelection.displayTurgal.party.text);
         Assert.AreEqual("1", characterSelection.displayLumati.communcation.text);
         Assert.AreEqual("0", characterSelection.displayKirogh.analytics.text);
+    }
+
+    /// <summary>
+    /// Test for the InitializeCharacter method.
+    /// </summary>
+    [Test]
+    public void InitializeCharacterTest()
+    {
+        Assert.IsNull(testGraph.Character);
+        Assert.IsNull(displayStatusbar.analyticsSkillValue.text);
+        Assert.IsNull(displayStatusbar.programmingSkillValue.text);
+        Assert.IsNull(displayStatusbar.communicationSkillValue.text);
+        Assert.IsNull(displayStatusbar.partySkillValue.text);
+        characterSelection.InitializeCharacter(testChar, testGraph, displayStatusbar);
+        Assert.AreEqual("2", displayStatusbar.analyticsSkillValue.text);
+        Assert.AreEqual("4", displayStatusbar.programmingSkillValue.text);
+        Assert.AreEqual("1", displayStatusbar.communicationSkillValue.text);
+        Assert.AreEqual("3", displayStatusbar.partySkillValue.text);
+        Assert.IsTrue(displayStatusbar.statusbar.activeSelf);
     }
 }

@@ -10,7 +10,7 @@ public class DisplayCharacterTestClass
     /// <summary>
     /// Text elements and images which are changed during the game.
     /// </summary>
-    public new TMP_Text name;
+    public TMP_Text name;
     public Image image;
     public TMP_Text programming;
     public TMP_Text communcation;

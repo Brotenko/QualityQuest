@@ -35,15 +35,18 @@ public class DisplayDecisionTest
 
     }
 
+    /// <summary>
+    /// Test for LoadDecision. Test for 2, 3 or 4 options.
+    /// </summary>
     [Test]
     public void LoadDecisionTest()
     {
         displayDecision.LoadDecision(currentEvent,twoOptions);
 
-        Assert.AreEqual(true,displayDecision.panelA.activeSelf);
-        Assert.AreEqual(true,displayDecision.panelB.activeSelf);
-        Assert.AreEqual(false,displayDecision.panelC.activeSelf);
-        Assert.AreEqual(false,displayDecision.panelD.activeSelf);
+        Assert.IsTrue(displayDecision.panelA.activeSelf);
+        Assert.IsTrue(displayDecision.panelB.activeSelf);
+        Assert.IsFalse(displayDecision.panelC.activeSelf);
+        Assert.IsFalse(displayDecision.panelD.activeSelf);
 
         Assert.AreEqual("Option1",displayDecision.descriptionA.text);
         Assert.AreEqual("Option2",displayDecision.descriptionB.text);
@@ -53,10 +56,10 @@ public class DisplayDecisionTest
 
         displayDecision.LoadDecision(currentEvent,threeOptions);
 
-        Assert.AreEqual(true,displayDecision.panelA.activeSelf);
-        Assert.AreEqual(true,displayDecision.panelB.activeSelf);
-        Assert.AreEqual(true,displayDecision.panelC.activeSelf);
-        Assert.AreEqual(false,displayDecision.panelD.activeSelf);
+        Assert.IsTrue(displayDecision.panelA.activeSelf);
+        Assert.IsTrue(displayDecision.panelB.activeSelf);
+        Assert.IsTrue(displayDecision.panelC.activeSelf);
+        Assert.IsFalse(displayDecision.panelD.activeSelf);
 
         Assert.AreEqual("Option1",displayDecision.descriptionA.text);
         Assert.AreEqual("Option2",displayDecision.descriptionB.text);
@@ -68,10 +71,10 @@ public class DisplayDecisionTest
 
         displayDecision.LoadDecision(currentEvent,fourOptions);
 
-        Assert.AreEqual(true,displayDecision.panelA.activeSelf);
-        Assert.AreEqual(true,displayDecision.panelB.activeSelf);
-        Assert.AreEqual(true,displayDecision.panelC.activeSelf);
-        Assert.AreEqual(true,displayDecision.panelD.activeSelf);
+        Assert.IsTrue(displayDecision.panelA.activeSelf);
+        Assert.IsTrue(displayDecision.panelB.activeSelf);
+        Assert.IsTrue(displayDecision.panelC.activeSelf);
+        Assert.IsTrue(displayDecision.panelD.activeSelf);
 
         Assert.AreEqual("Option1",displayDecision.descriptionA.text);
         Assert.AreEqual("Option2",displayDecision.descriptionB.text);

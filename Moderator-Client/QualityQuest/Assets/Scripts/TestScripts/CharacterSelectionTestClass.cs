@@ -79,7 +79,7 @@ public class CharacterSelectionTestClass
     /// <param name="character">Character which has been selected for the game by the audience or by the moderator.</param>
     /// <param name="story">Script which contains the StoryGraph.</param> 
     /// <param name="statusBar">Script which updates skills, SkillChanges and the character image in the StatusBar.</param>
-    public void InitializeCharacter(Character character, StoryGraph storyGraph, DisplayStatusbar statusBar)
+    public void InitializeCharacter(Character character, StoryGraph storyGraph, DisplayStatusbarTestClass statusBar)
     {
         storyGraph.Character = character;
         statusBar.DisplaySkills(storyGraph.Character.Abilities);
