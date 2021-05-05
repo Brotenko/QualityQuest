@@ -1,6 +1,6 @@
 import json
 import os
-
+import sys
 
 pathServerParams = "Saves/serverParams.json"
 print(
@@ -70,4 +70,10 @@ CertFilePath = paramsData["CertFilePath"]
 CertPW = paramsData["CertPW"]
 SavesPath = os.path.dirname(os.path.abspath(__file__))+'\Saves'
 
+print("Removing old containers ...")
+os.system("docker rm -f qqservercontainer")
+if os.name == 'nt':
+    os.system("cls")
+else:
+    os.system("clear")
 os.system("docker run --rm -it -p " + str(PAWebPagePort) + ":443 -p " + MCWebSocketPort + ":80 -e ASPNETCORE_URLS=\"https://+;http://+\" -e ASPNETCORE_HTTPS_PORT=443 -e ASPNETCORE_Kestrel__Certificates__Default__Password=\"" + CertPW + "\" -e ASPNETCORE_Kestrel__Certificates__Default__Path=./" + CertFilePath + " -v "+SavesPath+":/app/ServerLogic/Properties/Persist --name=qqservercontainer qqserverimage")
