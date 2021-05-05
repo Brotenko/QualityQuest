@@ -430,7 +430,7 @@ public class StoryGraph
         var storyelement33option1Bad = new StoryEvent(Guid.NewGuid(), "Der wurde Bug gefunden und Yaggaya ist ziemlich sauer auf dich, da dir der Bug hätte auffallen müssen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-3, -3, 0, 0));
 
 
-        var storyelement33option2 = new StoryEvent(Guid.NewGuid(), "Der Bug führt zu keinem kritischen Fehler. ", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,  false, RandomType.RandomDecisionFour);
+        var storyelement33option2 = new StoryEvent(Guid.NewGuid(), "Der Bug führt zu keinem kritischen Fehler.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,  false, RandomType.RandomDecisionFour);
         var storyelement33option2Good = new StoryEvent(Guid.NewGuid(), "Der Bug bleibt unentdeckt.",
             new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, -3, 0, 0));
 
@@ -516,7 +516,7 @@ public class StoryGraph
             new Skills(2, 0, 0, 0));
         var storyelement41option2 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden, aber du wirst es nicht schaffen deine Deadline zu halten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, false, RandomType.RandomDecisionFive);
         var storyelement41option2Bad = new StoryEvent(Guid.NewGuid(),
-            "Deine Einhaltung der Deadline ist zwar in Gefahr, aber Yaggaya ist erfreut über deine Aushilfe.", new HashSet<StoryEvent>(),
+            "Deine Einhaltung der Deadline ist zwar in Gefahr, aber Yaggaya ist erfreut über deine Hilfe.", new HashSet<StoryEvent>(),
             StoryEventType.StoryFlow, new Skills(2, 0, 0, 0));
 
         decision16option2.AddChild(storyelement41option1);
@@ -538,7 +538,8 @@ public class StoryGraph
 
         decision17option1.AddChild(storyelement42option1);
 
-        var storyelement42option2 = new StoryEvent(Guid.NewGuid(), "Yaggaya wird dir nicht helfen und du verpasst deine Deadline.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,false, RandomType.RandomDecisionSix);
+        var storyelement42option2 = new StoryEvent(Guid.NewGuid(), "Yaggaya wird dir nicht helfen und du verpasst deine Deadline um 5 Tage.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,false, RandomType.RandomDecisionSix);
+        var storyelement42option2Bad = new StoryEvent(Guid.NewGuid(), "Dein boss ist sauer, da du deine Deadline verpasst hast", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0,-2,0,0));
 
         decision17option1.AddChild(storyelement42option2);
 
@@ -558,7 +559,8 @@ public class StoryGraph
         storyelement41option1Good.AddChild(storyelement45);
         storyelement44.AddChild(storyelement45);
         storyelement42option1.AddChild(storyelement45);
-        storyelement42option2.AddChild(storyelement45);
+        storyelement42option2.AddChild(storyelement42option2Bad);
+        storyelement42option2Bad.AddChild(storyelement45);
         storyelement43.AddChild(storyelement45);
 
         var decision18 = new StoryEvent(Guid.NewGuid(), "Willst du an der Code Review teilnehmen?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
