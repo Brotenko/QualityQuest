@@ -842,7 +842,29 @@ public class Client : MonoBehaviour
     /// </summary>
     public void SetVotingTime()
     {
-        var newVotingTime = int.Parse(this.votingTime.text);
-        clientLogic.SetVotingTime(newVotingTime);
+        try
+        {
+            var newVotingTime = int.Parse(votingTime.text);
+            if (newVotingTime > 60)
+            {
+                this.votingTime.text = "60";
+                newVotingTime = 60;
+            }
+            else if (newVotingTime < 5)
+            {
+                this.votingTime.text = "5";
+                newVotingTime = 5;
+            }
+            else
+            {
+                clientLogic.SetVotingTime(newVotingTime);
+            }
+        }
+        catch (FormatException formatException)
+        {
+            Debug.Log(formatException);
+            votingTime.text = "30";
+            clientLogic.SetVotingTime(30);
+        }
     }
 }
