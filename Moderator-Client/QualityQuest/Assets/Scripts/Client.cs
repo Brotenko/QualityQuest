@@ -220,25 +220,25 @@ public class Client : MonoBehaviour
             {
                 displayDecision.selectOnlineA.onClick.AddListener(delegate
                 {
-                    if (currentEvent.StoryType.Equals(StoryEventType.StoryDecision))
+                    if (currentEvent.StoryType.Equals(StoryEventType.StoryRootEvent))
                     {
-                        ContinueOnlineStory(currentEventChildren[0]);
+                        PickNoruso();
                     }
                     else 
-                    { 
-                        PickNoruso();
+                    {
+                        ContinueOnlineStory(currentEventChildren[0]);
                     }
                         
                 });
                 displayDecision.selectOnlineB.onClick.AddListener(delegate 
                 { 
-                    if (currentEvent.StoryType.Equals(StoryEventType.StoryDecision)) 
-                    { 
-                        ContinueOnlineStory(currentEventChildren[1]);
+                    if (currentEvent.StoryType.Equals(StoryEventType.StoryRootEvent))
+                    {
+                        PickLumati();
                     }
                     else 
-                    { 
-                        PickLumati();
+                    {
+                        ContinueOnlineStory(currentEventChildren[1]);
                     }
                 });
             } 
@@ -247,13 +247,13 @@ public class Client : MonoBehaviour
             {
                 displayDecision.selectOnlineC.onClick.AddListener(delegate 
                 {
-                    if (currentEvent.StoryType.Equals(StoryEventType.StoryDecision)) 
-                    { 
-                        ContinueOnlineStory(currentEventChildren[2]);
+                    if (currentEvent.StoryType.Equals(StoryEventType.StoryRootEvent)) 
+                    {
+                        PickTurgal();
                     }
                     else 
-                    { 
-                        PickTurgal();
+                    {
+                        ContinueOnlineStory(currentEventChildren[2]);
                     }
                 });
             } 
@@ -262,13 +262,13 @@ public class Client : MonoBehaviour
             {
                 displayDecision.selectOnlineD.onClick.AddListener(delegate
                 {
-                    if (currentEvent.StoryType.Equals(StoryEventType.StoryDecision))
+                    if (currentEvent.StoryType.Equals(StoryEventType.StoryRootEvent))
                     {
-                        ContinueOnlineStory(currentEventChildren[3]);
+                        PickKirogh();
                     }
                     else
                     {
-                        PickKirogh();
+                        ContinueOnlineStory(currentEventChildren[3]);
                     }
                 });
             }
@@ -290,9 +290,13 @@ public class Client : MonoBehaviour
     {
         try
         {
-
-
             Debug.Log("Current Event: " + storyEvent.Description);
+
+            if (!storyEvent.StoryType.Equals(StoryEventType.StoryEnd))
+            {
+                clientLogic.ValidateStoryEvent(storyEvent);
+            }
+
             displayDecision.RemoveOnlineDecisionListeners();
             clientLogic.StoryGraph.SetCurrentEvent(storyEvent);
 
@@ -310,7 +314,8 @@ public class Client : MonoBehaviour
                     ContinueBackground(storyEvent);
                     break;
                 case StoryEventType.StoryRootEvent:
-                // FALL THROUGH
+                    ContinueStoryDecision(storyEvent);
+                    break;
                 case StoryEventType.StoryDecision:
                     ContinueStoryDecision(storyEvent);
                     break;
@@ -321,7 +326,6 @@ public class Client : MonoBehaviour
                     ContinueStoryFlow(storyEvent);
                     break;
                 case StoryEventType.StorySpecialDecision:
-                    clientLogic.ValidateStoryEvent(storyEvent);
                     clientLogic.ContinueSpecialDecision(storyEvent);
                     ContinueStoryDecision(storyEvent);
                     break;
@@ -336,7 +340,11 @@ public class Client : MonoBehaviour
                     WorkshopEvent(storyEvent);
                     break;
                 case StoryEventType.StoryFired:
+                    ContinueStoryFlow(storyEvent);
+                    break;
                 case StoryEventType.StoryWorkshopInvite:
+                    ContinueStoryFlow(storyEvent);
+                    break;
                 case StoryEventType.StoryWorkshopNoInvite:
                     ContinueStoryFlow(storyEvent);
                     break;
@@ -362,8 +370,6 @@ public class Client : MonoBehaviour
     /// <param name="currentEvent">The current StoryEvent.</param>
     public void WorkshopEvent(StoryEvent currentEvent)
     {
-        clientLogic.ValidateStoryEvent(currentEvent);
-
         displayStoryFlow.RemoveStoryFlowListeners();
 
         activeScreenManager.ShowStoryFlow();
@@ -403,8 +409,6 @@ public class Client : MonoBehaviour
     /// <param name="currentEvent">The current StoryEvent.</param>
     public void ContinueDecisionOption(StoryEvent currentEvent)
     {
-        clientLogic.ValidateStoryEvent(currentEvent);
-
         // Display dice animation if its a random event
         if (currentEvent.Children.Count > 1)
         {
@@ -454,8 +458,6 @@ public class Client : MonoBehaviour
     /// <param name="currentEvent">The current StoryFlow StoryEvent.</param>
     private void ContinueStoryFlow(StoryEvent currentEvent)
     {
-        clientLogic.ValidateStoryEvent(currentEvent);
-
         displayStoryFlow.RemoveStoryFlowListeners();
         
         activeScreenManager.ShowStoryFlow();
@@ -517,6 +519,9 @@ public class Client : MonoBehaviour
             case 1006:
                 activeScreenManager.ShowErrorScreen("Es konnte keine Verbindung zum Server aufgebaut werden.");
                 break;
+            case 1005:
+                Debug.Log("Connection is closed.");
+                break;
             default:
                 activeScreenManager.ShowErrorScreen("Verbindung verloren. Bitte erneut verbinden oder im Offline-Modus fortfahren.");
                 break;
@@ -561,12 +566,24 @@ public class Client : MonoBehaviour
     /// </summary>
     public void SwitchModes()
     {
-        Debug.Log("Switch modes:" + GameState.gameIsOnline);
         if (GameState.gameIsOnline)
         {
+            // reset every connection to the online mode
+            ActiveScreenManager.paused = false;
             GameState.gameIsOnline = false;
-            ContinueOfflineStory(clientLogic.StoryGraph.CurrentEvent);
+            clientLogic.ActiveVoting = false;
             activeScreenManager.ShowPauseButton(false);
+
+            // Check if there is a active connection
+            if (qualityQuestWebSocket.webSocket != null)
+            {
+                qualityQuestWebSocket.CloseConnection();
+                ContinueOfflineStory(clientLogic.StoryGraph.CurrentEvent);
+            }
+            else
+            {
+                ContinueOfflineStory(clientLogic.StoryGraph.CurrentEvent);
+            }
         }
         else
         {
@@ -614,7 +631,6 @@ public class Client : MonoBehaviour
     /// </summary>
     public void StartOfflinePlaythrough()
     {
-        clientLogic.ValidateStoryEvent(clientLogic.StoryGraph.Root);
         activeScreenManager.ShowCharacterSelection();
         characterSelection.ActivateOfflineCharacterPickButtons();
     }
@@ -696,7 +712,10 @@ public class Client : MonoBehaviour
     {
         try
         {
-
+            if (!storyEvent.StoryType.Equals(StoryEventType.StoryEnd))
+            {
+                clientLogic.ValidateStoryEvent(storyEvent);
+            }
 
             clientLogic.StoryGraph.SetCurrentEvent(storyEvent);
             Debug.Log("Current Event: " + clientLogic.StoryGraph.CurrentEvent.Description);
@@ -727,7 +746,6 @@ public class Client : MonoBehaviour
                     ContinueStoryFlow(storyEvent);
                     break;
                 case StoryEventType.StorySpecialDecision:
-                    clientLogic.ValidateStoryEvent(storyEvent);
                     clientLogic.ContinueSpecialDecision(storyEvent);
                     ContinueOfflineDecision(storyEvent);
                     break;
@@ -742,7 +760,11 @@ public class Client : MonoBehaviour
                     WorkshopEvent(storyEvent);
                     break;
                 case StoryEventType.StoryFired:
+                    ContinueStoryFlow(storyEvent);
+                    break;
                 case StoryEventType.StoryWorkshopInvite:
+                    ContinueStoryFlow(storyEvent);
+                    break;
                 case StoryEventType.StoryWorkshopNoInvite:
                     ContinueStoryFlow(storyEvent);
                     break;
@@ -766,8 +788,6 @@ public class Client : MonoBehaviour
     /// <param name="currentEvent"></param>
     private void ContinueBackground(StoryEvent currentEvent)
     {
-        clientLogic.ValidateStoryEvent(currentEvent);
-        
         videoBackground.SwitchBackground(currentEvent.BackgroundType);
         if (GameState.gameIsOnline)
         {
@@ -787,8 +807,6 @@ public class Client : MonoBehaviour
     private void ContinueOfflineDecision(StoryEvent currentEvent)
     {
         displayDecision.RemoveOfflineDecisionListeners();
-
-        clientLogic.ValidateStoryEvent(currentEvent);
 
         var children = currentEvent.Children.ToList();
         displayDecision.LoadDecision(currentEvent, children);
