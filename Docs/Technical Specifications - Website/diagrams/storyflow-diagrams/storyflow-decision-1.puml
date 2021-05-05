@@ -1,0 +1,19 @@
+@startuml
+(*) --> "Character-Selection"
+if "With which character do you\n want to play the game?" then 
+--> [Character 1] "Noruso \n Stats:\n Programming: 1 \n Analytics: 4\n Communication 3 \n Partying: 2" as char1
+else
+--> [Character 2] "Lumati \n Stats:\n Programming: 4 \n Analytics: 3\n Communication 1 \n Partying: 0" as char2
+else
+--> [Character 3] "Turgal \n Stats:\n Programming: 2 \n Analytics: 2\n Communication 2 \n Partying: 2" as char3
+else
+--> [Character 4] "Kirogh \n Stats:\n Programming: 1 \n Analytics: 0\n Communication 2 \n Partying: 5"
+
+--> "You are still missing an elective subject at the end of your studies." as subject
+-[#blue,dotted]-> "Choose subject"
+
+char1 --> subject
+char2 --> subject
+char3 --> subject
+
+@enduml

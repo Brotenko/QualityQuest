@@ -1,0 +1,20 @@
+@startuml
+
+actor "ServerLogic" as SC
+actor "Moderator" as P
+
+rectangle "Moderator-Client Online Mode" {
+    usecase "Play Game" as md
+    usecase "Pause Game" as cp
+} 
+
+rectangle "Moderator-Client Offline Mode" {
+    usecase "Play Game" as md2
+}
+
+SC -up-> md
+P -up-> cp
+
+P -up-> md2
+
+@enduml

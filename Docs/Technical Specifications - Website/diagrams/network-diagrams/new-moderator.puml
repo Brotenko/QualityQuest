@@ -1,0 +1,31 @@
+@startuml
+
+box "Network protocol relevance" #LightSteelBlue
+actor "New-Moderator-Client" as nm order 1
+database "ServerLogic" as s order 2
+actor "Old-Moderator-Client" as om order 3
+end box
+actor "PlayerAudience-Client" as p order 4
+
+
+
+activate nm
+activate s
+
+nm -> s: RequestOpenSession
+activate s
+s -> p: Notify about \nending session
+activate p
+deactivate s
+deactivate p
+s -> s: Clear logs
+s -> om: Error <NewModerator>
+activate s
+activate om
+om -> om: Notify about error
+s --> nm: SessionOpened
+deactivate s
+deactivate om
+
+
+@enduml

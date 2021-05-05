@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Use-Cases - Technical Specifications</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Use-Cases";
+    var mkdocs_page_input_path = "use-case-diagrams.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Technical Specifications</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Quality Quest</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc/">Table of content</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../glossary/">Glossary</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../requirements/">Requirements</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Use-Cases</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#playeraudience-client">PlayerAudience-Client</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#serverlogic">ServerLogic</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#moderator-client">Moderator-Client</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#start-application">Start application</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#play-game">Play game</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#end-application">End application</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../architecture-diagrams/">Architecture diagrams</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../network-protocol/">Network protocol</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../storyflow/">StoryFlow</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../usedtools/">Used tools, plugins and libraries</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../changehistory/">Change history</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Technical Specifications</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Use-Cases</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="use-case-diagrams">Use-case diagrams</h1>
+<h2 id="playeraudience-client">PlayerAudience-Client</h2>
+<p><img alt="PlayerAudience-Client" src="../diagrams/use-case-diagrams/playeraudience-client.svg" /></p>
+<p>Via the PlayerAudience-Client, the individual participant, as part of the PlayerAudience, has the possibility to vote on the StoryFlowDecisions that occur in the game. 
+The PlayerAudience-Client also acts as an actor for the ServerLogic.</p>
+<h2 id="serverlogic">ServerLogic</h2>
+<p><img alt="ServerLogic" src="../diagrams/use-case-diagrams/serverlogic.svg" /></p>
+<p>The SevrerLogic receives the respective StoryFlowDecisions from the PlayerAudience-Client, collects them and evaluates them in relation to the number of votes.
+The ServerLogic also acts as an actor for the Moderator-Client.</p>
+<h2 id="moderator-client">Moderator-Client</h2>
+<h3 id="start-application">Start application</h3>
+<p><img alt="Start application" src="../diagrams/use-case-diagrams/moderator-client-a.svg" /></p>
+<p>To start the game the Moderator-Client has to be launched by the moderator first. During the start of the application a flash screen with the NewTec logo is shown after which the main menu is loaded- In the main menu, a connection to the ServerLogic must first be established to start an Online-Session. If a connection has been established the game can be started through the menu. Alternatively there is the option to start the game in Offline-Mode in case no connection to the ServerLogic can be established or online voting is not needed. In the main menu an option sub-menu allows the moderator to set options like volume, resolution and language. The main menu also allows the moderator to close the game.</p>
+<h3 id="play-game">Play game</h3>
+<p><img alt="Play game" src="../diagrams/use-case-diagrams/moderator-client-b.svg" /></p>
+<p>If there is an Online-Session to the ServerLogic, the ServerLogic gathers data from the PlayerAudience and tells the Moderator-Client what has to be done depending on the data collected. The moderator can pause the game locally, which simultaneously sends a message to the ServerLogic to stop the voting process on the ServerLogic side. If there is no Online-Session, the moderator plays the game in form of a Offline-Session.</p>
+<h3 id="end-application">End application</h3>
+<p><img alt="End application" src="../diagrams/use-case-diagrams/moderator-client-c.svg" /></p>
+<p>The moderator is responsible for ending the application. When the moderator ends the application, and an Online-Session is in progress, a message is sent to the ServerLogic to end the current Online-Session with the PlayerAudience-Clients.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../architecture-diagrams/" class="btn btn-neutral float-right" title="Architecture diagrams">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../requirements/" class="btn btn-neutral" title="Requirements"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../requirements/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../architecture-diagrams/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

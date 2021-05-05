@@ -1,0 +1,31 @@
+@startuml
+(*) --> "Your colleague Trummu is approaching you.\n Trummu urgently needs your support in his task."
+if "Do you help Trummu?" then 
+--> [You help Trummu, even if you\n might miss your own Deadline.] if "dice roll <= 3" then
+-left-> [true] "Trummu is satisfied and you manage to meet your deadline."
+--> "Yaggaya is happy that you are helping out your colleague. \n Your stats change: \n +2 communication" as helpNoProblem
+else
+--> [false] "Trummu is satisfied, but you will not manage to meet your deadline."
+--> "You may miss your own deadline, but Yaggaya is glad you helped Trummu. \n Your stats change: \n +2 communication"
+if "Do you want to ask for help, \n so you can meet your own deadline?" then 
+--> [No] "You miss your own deadline. \n Your stats change: \n -2 analytics." as alone
+
+else 
+--> [Yes, you ask Yaggaya for help.]if "communication > 6" then 
+-right-> [true] "Yaggaya helps you and you can meet your deadline." as getHelp
+
+else
+--> [false] "Yaggaya will not help you and therefore you will miss your deadline \n and need an additional 5 days."
+--> "Your boss is mad because you missed your deadline. \n Your stats change: \n-2 analytics"
+-[#blue,dotted]-> "The project is nearing completion, \n only a code review is missing." as nextDecision
+endif
+endif
+endif
+else
+-left-> [You have enough to do on your \n own and therefore continue \n to work on your own things.] "Trummu is angry that you didn't help him.\n Your stats change: \n -2 communication" as noHelp
+
+alone -[#blue,dotted]-> nextDecision
+helpNoProblem -[#blue,dotted]-> nextDecision
+getHelp -[#blue,dotted]-> nextDecision
+noHelp -[#blue,dotted]-> nextDecision
+@enduml

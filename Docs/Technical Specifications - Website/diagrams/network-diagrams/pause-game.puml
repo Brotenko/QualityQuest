@@ -1,0 +1,32 @@
+@startuml
+
+box "Network protocol relevance" #LightSteelBlue
+actor "Moderator-Client" as m order 1
+database "ServerLogic" as s order 2
+end box
+actor "PlayerAudience-Client" as p order 3
+
+
+
+activate m
+activate s
+
+m -> s: RequestPauseGameStatusChange
+
+alt 
+    opt during voting phase
+        s -> s: Pause votingTimer
+        activate s
+        activate p
+        s -> p: Notify about pause
+        deactivate s
+        deactivate p
+    end
+    s --> m: GamePauseStatus
+else error: IllegalPauseAction
+    s --> m: Error <IllegalPauseAction>
+    m -> m: Notify about error
+end
+
+
+@enduml

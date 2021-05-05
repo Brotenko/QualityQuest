@@ -1,0 +1,2935 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Requirements - Technical Specifications</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Requirements";
+    var mkdocs_page_input_path = "requirements.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Technical Specifications</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Quality Quest</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc/">Table of content</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../glossary/">Glossary</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Requirements</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#functional-requirements">Functional requirements</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#non-functional-requirements">Non-functional Requirements</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../use-case-diagrams/">Use-Cases</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../architecture-diagrams/">Architecture diagrams</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../network-protocol/">Network protocol</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../storyflow/">StoryFlow</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../usedtools/">Used tools, plugins and libraries</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../changehistory/">Change history</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Technical Specifications</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Requirements</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="requirements">Requirements</h1>
+<p>The requirements are divided into different priorities, whose meaning should be clear from the following table:</p>
+<table>
+<thead>
+<tr>
+<th>PRIORITY</th>
+<th>DESCRIPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td>The requirement must be fulfilled in any case so that the product can be accepted.</td>
+</tr>
+<tr>
+<td>0</td>
+<td>The fulfillment of the requirement is optional and therefore not necessarily a prerequisite for acceptance, but would have a very positive effect on the product.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>The fulfillment of the requirement is also optional and therefore not a prerequisite for the acceptance.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h2 id="functional-requirements">Functional requirements</h2>
+<p>This section contains all requirements that specify the basic actions of the software system.</p>
+<h4 style="margin-bottom: 0em"; id="game-type">Game type</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest shall be a 2D Visual-Novel-RPG.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>The PlayerAudience makes decisions over the PlayerCharacter in a fictional, high-fantasy world of a software engineer. The PlayerAudience plays the game only through StoryFlowDecisions, comparable to a Visual Novel in which the PlayerAudience can actively decide on certain parts of the story.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="game-presentation">Game presentation</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest shall be a visual-based 2D RPG.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>This means that QualityQuest shall not be a purely text-based game, but text may be an element of the visual appearance of the game.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="newtec-branding">NewTec branding</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest shall display the NewTec logo clearly visible at any given time.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="game-language">Game language</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The main language of QualityQuest shall be German.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>The majority of the to be used in-game language shall be german, but typical software engineering terms that are not german, but are commonly used in the german language, do not need to be translated.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="game-language-options">Game language options</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest should support multiple languages.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="music">Music</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest may be accompanied by a suitable musical background to enhance the player experience.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="sound-effects">Sound effects</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR7</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest should emphasize important events of the StoryFlow with sound effects.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="game-content">Game content</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest shall tell a story which mainly consists of typical elements of the software engineering profession.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="storyflow">StoryFlow</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The story of QualityQuest shall be non-linear.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>The story shall contain elements where the PlayerAudience needs to make a StoryFlowDecision. Depending on the decision, the StoryFlow shall continue in different StoryBranches.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="influence-on-the-storyflow-by-the-player">Influence on the StoryFlow by the player</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience shall influence the selection of StoryBranches by means of StoryFlowDecisions.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="participation-of-a-larger-playeraudience">Participation of a larger PlayerAudience</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR11</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest shall have the option to let a larger audience participate in StoryFlowDecisions by means of online voting.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>The online voting feature is directly embedded into the game, together with an offline backup in case the server can't be used.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="random-element-of-storyflow-control">Random element of StoryFlow control</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR12</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The selection of a StoryBranch after a StoryFlowDecision shall be generated randomly.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>Randomness can be either determined through ZeroRandomness or DiceRandomness.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="visualizing-the-randomness">Visualizing the randomness</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR13</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>If the selection of a StoryBranch after a StoryFlowDecision is generated with DiceRandomness, QualityQuest shall display a clear visualization of the randomization process.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="character-status-values">Character status values</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR14</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerCharacter shall have all of the following PlayerCharacterStatusValue: Programming, Analytics, Communication, Partying.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="selecting-a-character">Selecting a character</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>At the start of the game the PlayerAudience shall choose a PlayerCharacter from a selection of 4 possible PlayerCharacters via online voting.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="presentation-of-character-status-values">Presentation of character status values</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest shall display a PlayerCharacterStatusBox with all PlayerCharacterStatusValues at all times.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="portrait-of-the-playercharacter">Portrait of the PlayerCharacter</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR17</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest shall display a portrait of the PlayerCharacter as part of the PlayerCharacterStatusBox all the time.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="character-levelling">Character levelling</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR18</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PayerCharacter shall level up and level down its PlayerCharacterStatusValues based on events or StoryFlowDecisions.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="visual-presentation-of-playercharacter-status-changes">Visual presentation of PlayerCharacter status changes</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR19</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The change of PlayerCharacterStatusValues of the PlayerCharacter shall be highlighted visually.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="acoustic-presentation-of-playercharacter-status-changes">Acoustic presentation of PlayerCharacter status changes</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR20</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The change of PlayerCharacterStatusValues of the PlayerCharacter should be highlighted acoustically.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="operating-system">Operating system</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR21</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest shall run on Microsoft Windows 10 operating system.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="pause-game">Pause Game</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR22</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The moderator shall have the possibility to pause the game with the PauseButton.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="pausebutton-location">PauseButton location</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR23</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PauseButton shall be around the upper right corner.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="moderator-game-control">Moderator game control</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR24</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Once the Moderator-Client established the connection to the ServerLogic, the moderator shall have the option to start or interrupt the game at any time.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="connection-timeout">Connection Timeout</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR25</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>If the Moderator-Client or ServerLogic does not react to each others messages, the connection shall be timed out by the WebSocket.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>This serves as a failsafe, in case of corrupted messages or connection loss.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="serverlogic-connection-loss">ServerLogic connection loss</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>If a Moderator-Client or PlayerAudience-Client loses its connection to the ServerLogic, its GUID shall be stored in the ServerLogic. In this case, the respective client can reconnect to the ServerLogic to participate in the game again.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="data-exchange-file-format">Data exchange file format</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR27</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The file format for data exchange between Moderator-Client and ServerLogic shall be JSON.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-guid">PlayerAudience-Client GUID</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR28</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Every PlayerAudience-Client shall be assigned a GUID in the form of a SignalR connectionId.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>This ensures the following points: </br></br><ul><li>The SignalR-Hub can ensure a PlayerAudience-Client can't vote several times per vote.</li><li>The ServerLogic can count the amount of PlayerAudience-Clients connected.</li><li>The SignalR-Hub can keep exact track of every active PlayerAudience-Client.</li></ul></td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="offline-mode-condition">Offline-Mode condition</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR29</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>If any of the following conditions apply: </br></br><ul><li>The server is not functional</li><li>The network infrastructure slows down significantly</li><li>The connection between Moderator-Client and Server is problematic</li></ul>the Moderator shall continue the game offline.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="offline-mode-transition">Offline-Mode transition</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR30</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Offline-Mode must ensure a smooth transition between online and offline and shall be able to step in at any time.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="network-protocol-violation">Network protocol violation</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>If the Moderator-Client does not adhere to the network protocol 3 times in a row, the connection to the Moderator-Client shall be terminated.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>This ensures that it is not easily possible to tinker with the game through an altered client.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="unique-voting-option-identifier">Unique voting option identifier</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Every voting option shall be assigned a unique voting option identifier in form of a GUID.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="game-relevant-serverlogic-logging">Game-relevant ServerLogic logging</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR33</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Data that is needed for the general course of the game or for communication between clients and server shall be logged by the ServerLogic.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>Relevant data is: </br></br><ul><li>The Moderator-Client GUID</li><li>Online-Session key</li></ul></td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="general-serverlogic-logging">General ServerLogic logging</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR34</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The most important and communication relevant operations of the ServerLogic shall be logged on the server side for debugging reasons.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>The general data logged by the ServerLogic is neither integral nor personal user data.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="serverlogic-log-deletion">ServerLogic log deletion</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR35</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Game-relevant logs shall be cleared under following circumstances: </br></br><ul><li>No Moderator-Client has been connected to the ServerLogic in the last 30 minutes.</li><li>A new Online-Session is being started.</li><li>An ongoing Online-Session is being closed.</li></ul></td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>This ensures that no user-specific data is being saved on server side longer than it has to be.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="serverlogic-access-password">ServerLogic access-password</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR36</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The ServerLogic shall require a password to connect to it through a Moderator-Client.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="encryption-of-integral-data">Encryption of integral data</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR37</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Integral data shall be hashed and salted on the server side.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>An example for integral data is, but is not limited to being, the ServerLogic access-password.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="online-mode">Online-Mode</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR38</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>If the Moderator-Client is connected to a server, and the moderator is not currently playing in Offline-Mode, the game shall be in Online-Mode.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="offline-mode">Offline-Mode</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR39</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>If the Moderator-Client is not currently playing in Online-Mode, the game shall be in Offline-Mode.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="moderator-client-guid">Moderator-Client GUID</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR40</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Moderator-Client shall be assigned a GUID by the ServerLogic.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>The GUID serves to identify as the Moderator-Client during on-going communication with the ServerLogic.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-count">PlayerAudience-Client count</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR41</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The ServerLogic should keep count of the number of PlayerAudience-Clients being connected to the ServerLogic.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-count-live-update">PlayerAudience-Client count live update</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR42</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The ServerLogic should inform the Moderator-Client in 3 seconds intervals about the amount of PlayerAudience-Clients connected to the ServerLogic, as long as the game didn't start yet.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="online-session-permanence">Online-Session permanence</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR43</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>An Online-Session shall persist until one of the following conditions apply: </br></br><ul><li>The Moderator-Client intentionally disconnects from the ServerLogic.</li><li>A new Online-Session is started by the moderator.</li><li>The Moderator-Client has not communicated with the ServerLogic in the last 30 minutes.</li></ul></td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="multiple-moderator-clients">Multiple Moderator-Clients</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR44</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>If a Moderator-Client connects to the ServerLogic while another Moderator-Client is already connected to the ServerLogic, then a new, separate Online-Session shall be started and both Moderator-Clients shall stay connected.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="voting-timer-stop-on-pause">Voting-Timer stop on pause</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR45</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Voting-Timer shall pause when the Moderator-Client initializes a pause.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="communication-during-pauses">Communication during pauses</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR46</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Communication between Moderator-Client and ServerLogic, and between PlayerAudience-Clients and ServerLogic shall persist during the pause.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-connection-method">PlayerAudience connection method</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR47</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience shall be able to join an Online-Session using a dynamically generated session key, provided by the ServerLogic.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-connection-option">PlayerAudience connection option</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR48</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience shall be provided with an URL, at the start of the Online-Session, to be able to connect to the ServerLogic.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="additional-playeraudience-connection-options">Additional PlayerAudience connection options</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR49</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience should also be provided with a QR code, at the start of the Online-Session, to be able to connect to the ServerLogic.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="pause-menu">Pause menu</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR50</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The pause menu shall pop-up after the PauseButton has been pressed.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="pause-menu-contents">Pause menu contents</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR51</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The pause menu should display the following elements: </br></br><ul><li>A banner that reads "Pause"</li><li>A button to unpause the game</li><li>The PlayerAudience connection method</li><li>All PlayerAudience connection options</li></td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="vote-indexing-procedure">Vote indexing procedure</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR52</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The procedure used for indexing the different voting options shall be GUIDs.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="cryptographic-hashing-procedure">Cryptographic hashing procedure</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR53</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The hashing procedure used for cryptographic purposes shall be SHA-256.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="sessionkey-format">SessionKey format</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR54</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The SessionKey shall consist of six uppercase, alphanumerical characters.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>For example: <code>F8G21Z</code> or <code>8IB2P4</code> <br> Key-Pattern: <code>@"[A-Z0-9]{6}"</code></td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-count-display">PlayerAudience-Client count display</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR55</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client count shall be displayed in the Moderator-Client, as long as the PlayerAudience-Client count is transmitted to the Moderator-Client.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>For example: <code>F8G21Z</code> or <code>8IB2P4</code></td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="multi-game-support">Multi-Game support</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR56</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The ServerLogic may support several Online-Sessions at the same time.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-persistence">ServerLogic persistence</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR57</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The ServerLogic shall not crash or terminate a session upon receiving a faulty message or faulty data.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-content">PlayerAudience-Client content</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR58</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client shall contain the following pages and links: </br></br><ul><li>A landing page for cookies and Terms of Service.</li><li>A main homepage that turns into the game.</li><li>A link to the NewTec website.</li><li>A link to the Github Repository.</li><li>An about page.</li><li>A Terms of Service page.</li></ul></td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-cookies-and-terms-of-service">PlayerAudience-Client cookies and Terms of Service</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR59</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client shall inform the user about cookies and Terms of Service.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-landing-page">PlayerAudience-Client landing page</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR60</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client shall display a cookies and Terms of Service pop-up which the user needs to consent to.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-wrong-sessionkey-feedback">PlayerAudience-Client wrong SessionKey feedback</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR61</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The user should receive instant feedback upon entering a faulty SessionKey into the PlayerAudience-Client.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-error-logging">PlayerAudience-Client error logging</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR62</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Errors caused by faulty communication between PlayerAudience-Client and ServerLogic should be logged.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-persistent-connection">PlayerAudience-Client persistent connection</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR63</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The connection between PlayerAudience-Client and ServerLogic shall be persistent.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="asp-net-and-signalr">ASP.NET and SignalR</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR64</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The ServerLogic and PlayerAudience-Client shall use ASP.NET and SignalR for the implementation of the website and the persistent connection.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-statistics-display">PlayerAudience-Client statistics display</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR65</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client may display the voting results of the last poll.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-language">PlayerAudience-Client language</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR66</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The main language of the PlayerAudience-Client shall be English.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="additional-playeraudience-client-languages">Additional PlayerAudience-Client languages</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR67</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client may support the german language.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="supported-desktop-browser">Supported desktop browser</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR68</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client shall work on the following desktop browser: </br></br><ul><li>Mozilla Firefox 85</li><li>Google Chrome 88</li><li>Safari 14</li></ul></td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="additional-supported-desktop-browser">Additional supported desktop browser</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR69</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client may work on the following desktop browser: </br></br><ul><li>Microsoft Edge 88</li><li>Opera 72</li><li>Internet Explorer 14</li></ul></td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="supported-mobile-browser">Supported mobile browser</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR70</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client shall work on the following mobile browser: </br></br><ul><li>Mozilla Firefox Mobile 81</li><li>Google Chrome 88</li><li>Safari 14</li></ul></td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="additional-supported-mobile-browser">Additional supported mobile browser</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR71</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client may work on the following mobile browser: </br></br><ul><li>Microsoft Edge: Web Browser 46</li><li>Opera Mobile 61</li></ul></td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-colour-scheme">PlayerAudience-Client colour scheme</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR72</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The colour scheme of the PlayerAudience-Client shall roughly resemble the colour scheme of the <a href="https://www.newtec.de/">NewTec website</a>.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-newtec-branding">PlayerAudience-Client NewTec branding</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR73</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The NewTec logo shall be clearly visible on the homepage of the PlayerAudience-Client.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="webpage-live-updating">Webpage live updating</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR74</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The PlayerAudience-Client shall support the functionality to live update the HTML/CSS/JS of a webpage without reloading the site.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playeraudience-client-data-filtration">PlayerAudience-Client data filtration</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR75</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The backend of the PlayerAudience-Client shall filter incoming data from the PlayerAudience-Clients and discard anything out of order or format.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="moderator-veto">Moderator veto</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR76</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The moderator may be able to veto the PlayerAudience.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>The moderator can use a special UI element of the Moderator-Client to veto the decision of the PlayerAudience.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="moderator-client-statistics-display">Moderator-Client statistics display</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR77</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Moderator-Client shall display the voting results of the last poll in form of a bar graph.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="moderator-client-winning-option-display">Moderator-Client winning option display</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR78</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Moderator-Client shall display the winning option of the last poll in a separate colour.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="moderator-client-error-display">Moderator-Client error display</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR79</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Errors caused by faulty communication between Moderator-Client and ServerLogic shall be displayed by the Moderator-Client.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="tied-winning-options">Tied winning options</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR80</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>If two or more voting options receive the same number of votes, one of these options shall be randomly selected as the winning option.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="sound-options">Sound options</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR81</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Moderator-Client shall support that one can set the audio options independently of each other.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h2 id="non-functional-requirements">Non-functional Requirements</h2>
+<p>This section specifies the non-functional requirements for the software system.</p>
+<h4 style="margin-bottom: 0em"; id="documents-to-be-delivered">Documents to be delivered</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>A Technical Specification, which comprises use case diagrams, use case descriptions and a static view of the software architecture and Software Design Specification for each software component, which describes both the static and the dynamic view shall be delivered.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="in-code-documentation-style">In-code documentation style</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The source code shall be documented by means of XML comment documentation generation provided by Visual Studio 2019.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="in-code-documentation-content">In-code documentation content</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>All of the following source code elements shall be documented: Constants, variables and defines. Classes and class members. Methods and method signatures, including return values. Functions and function signatures, including return values.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="documentation-style-for-diagrams">Documentation style for diagrams</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>All documentation diagrams shall follow the UML standard.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="delivery-of-uml-diagrams">Delivery of UML diagrams</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>All UML diagrams shall be delivered in the form of a diagram and a PlantUML link.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="adherence-to-project-coding-styleguide">Adherence to project Coding Styleguide</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The software code should adhere to the code quality rules and .NET API usage rules Microsoft recommends.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="adherence-to-clean-code-principles">Adherence to Clean Code Principles</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR7</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The software code shall adhere to Grade 1 (Red) of the Clean Code Principles.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="target-audience">Target audience</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest shall address a target audience of university students with interest in a SW engineering career.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playing-time">Playing time</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The complete story of QualityQuest shall be playable in a time frame of 15 to 20 minutes.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="playing-fun">Playing fun</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The story of QualityQuest should be humorous.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="player-motivation">Player motivation</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR11</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The audience of QualityQuest shall be encouraged to follow the story by motivational elements.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>Motivational elements could be for example rewards, achievement &amp; level upgrades.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="deliverable-artefacts">Deliverable artefacts</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR12</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Documentation, Source Code and a running version of QualityQuest shall be delivered to NewTec.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="type-of-delivery">Type of delivery</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR13</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>All deliverable artifacts shall be delivered digitally.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>The delivery can be by depositing the deliverable artefacts in a public version control system. Documents should be delivered in HTML/CSS.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="deadline">Deadline</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR14</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The deadline for the final delivery is 2021-04-28.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="open-source-development">Open source development</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Source Code of QualityQuest may be published open source under CreativeCommons CC BY-NC 4.0 license terms.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="stand-alone-game">Stand-alone game</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest shall be a stand-alone game.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>The final binaries shall include everything that is needed to run the game. Any possibly needed frameworks have to be included in the delivery. The installation of additional frameworks or libraries is not acceptable.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="programming-language">Programming language</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR17</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>QualityQuest shall be programmed in C#.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="development-environment">Development environment</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR18</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Both the source code and the build solution of QualityQuest shall be buildable in one of the following development environments: Microsoft Visual Studio 2019, Microsoft Visual Studio Code.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="usage-of-online-voting-solutions">Usage of online voting solutions</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR19</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>A self-made online voting solution shall be created by the team in order to implement the requirements of the tool and ensure the compatibility as optimal as possible.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="amount-of-supported-connections">Amount of supported connections</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR20</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Server shall allow up to 200 PlayerAudience-Clients to connect to the game via the network.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="non-exclusive-moderator-client-connection">Non-exclusive Moderator-Client connection</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR21</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The ServerLogic should allow a multitude of Moderator-Clients to connect to the ServerLogic at any given time.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="game-engine">Game Engine</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR22</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>As a game engine the project shall use Unity.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>The license conditions of the game engine allow the source code of QualityQuest to be open source. The license conditions of the game engine allow the usage of the game engine without license fees. The license conditions of the game engine allow the usage of QualityQuest as intended by NewTec without license fees.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="communication-security">Communication security</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR23</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The safe communication between Moderator-Client and the ServerLogic shall be guaranteed through WebSocket and HTTPS.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="postgame-statistics">Postgame statistics</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR24</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Moderator-Client should display postgame statistics at the end of the Online-Session.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="postgame-statistics-contents">Postgame statistic contents</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR25</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The postgame statistics should display which option was voted how often.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="unit-test-coverage">Unit test coverage</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR26</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>Moderator-Client, PlayerAudience-Client and ServerLogic shall have a 60% unit test coverage.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="integration-test-coverage">Integration test coverage</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR27</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Moderator-Client shall have a 60% integration test coverage.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<h4 style="margin-bottom: 0em"; id="multiple-endings">Multiple endings</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>NFR28</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>The Moderator-Client should have three different endings, depending on the performance of the PlayerAudience.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../use-case-diagrams/" class="btn btn-neutral float-right" title="Use-Cases">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../glossary/" class="btn btn-neutral" title="Glossary"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../glossary/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../use-case-diagrams/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

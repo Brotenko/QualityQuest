@@ -1,0 +1,29 @@
+@startuml
+(*) --> "After completing your task, you must now write the corresponding tests."
+--> "You only have a few days to write the tests \n until the deadline for the tests is reached."
+if "How do you want to proceed?" then
+--> [You write extensive tests until \n they are ready, \n regardless of the deadline.] if "dice roll + programming + 1 >=8" then
+--> [true] "Due to your good programming skills \n you still will be ready in time."
+
+--> "Yaggaya is very pleased \n with your approach and your tests.\n Your stats change: \n+1 programming \n +3 analytics" as path1
+else 
+--> [false] "Unfortunately you won't be ready in time, \n but you have very extensive tests."
+--> "Yaggaya is satisfied with your tests \n and your approach, \n even though you did not finish in time.\n Your stats change: \n+2 programming \n +2 analytics" as path2
+endif
+else
+ --> [You write tests until the deadline is reached, \n what you don't finish by then is simply not tested.] if "dice roll + programming - 1 >= 8" then 
+--> [true] "Due to very good programming skills \n you have extensive tests despite the short time."
+--> "Yaggaya is very satisfied with your work. \n Your stats change: \n +2 programming" as path3
+else 
+--> [false] "The deadline has been reached \n and you have not managed to test everything extensively."
+--> "Yaggaya is not satisfied with your work, \n you have to revise your tests again \n and exceed the deadline by a few days.\n Your stats change: \n +1 programming \n -2 analytics" as path4
+endif
+endif
+
+path1 --> "Tests completed" as nextDecision
+path2 --> nextDecision
+path3 --> nextDecision
+path4 --> nextDecision
+nextDecision -[#blue,dotted]-> "There is a company party coming up."
+
+@enduml
