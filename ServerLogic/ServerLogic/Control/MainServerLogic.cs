@@ -123,6 +123,8 @@ namespace ServerLogic.Control
                         {
                             //Disposes all timers, except inactivity-timer, and closes the socket. 
                             moderatorClientManager.Stop(false);
+                            moderatorClientManager.IsVoting = false;
+                            moderatorClientManager.IsPaused = false;
                             ServerLogger.LogDebug("Websocket-connection to " + socketConnection.ConnectionInfo.ClientIpAddress + " was closed by Moderator-Client.");
                         }
                     }
