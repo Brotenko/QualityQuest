@@ -51,10 +51,21 @@ namespace ServerLogic.Control
             try
             {
                 ServerParams serverParams = new ServerParams();
-                using (StreamReader r = new StreamReader("ServerLogic/Properties/serverParams.json"))
+                try
                 {
-                    string json = r.ReadToEnd();
-                    serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
+                    using (StreamReader r = new StreamReader(Resources.ServerParamsFilePath))
+                    {
+                        string json = r.ReadToEnd();
+                        serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
+                    }
+                }
+                catch (FileNotFoundException)
+                {
+                    using (StreamReader r = new StreamReader("ServerLogic/Properties/serverParams.json"))
+                    {
+                        string json = r.ReadToEnd();
+                        serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
+                    }
                 }
                 _server.Certificate = new X509Certificate2(serverParams.CertFilePath, serverParams.CertPW);
                 _playerAudienceClientApi.StartServer(443);
