@@ -30,6 +30,8 @@ Possible issues and possible fixes:
 * `[Warn] Failed to Authenticate System.AggregateException: One or more errors occurred.`
   - This Exception is thrown when a PlayerAudience-Client tries to connect using HTTP, TLS 1.1 or other "outdated" protocols.
   - The Exception is non-critical and only warns the host of a connection that is not using modern standards. SignalR does support these connections anyway by default.
+* The website looks broken or is not working correctly!
+  - A big part of the website's communication is handled through JavaScript - Any add-ons or extensions blocking JavaScript need to be disabled to play the game.
 
 If you have any problems, please write us an issue, we will be happy to help you.
 
@@ -59,7 +61,23 @@ After the joining the `Session` the audience can lay back and wait for the next 
 
 ## How to use the Moderator-Client
   
-@elias
+The Moderator-Client is a simple to use client written in C# using the Unity engine. For an optimal experience we suggest playing the game with a resolution of 1080p/FULL-HD or higher! 
+
+### Options menu:
+
+The options menu gives the user to seperately change audio options, choose a different resolution and switch between windowed mode and fullscreen, using simple buttons, sliders and dropdown menus.
+
+### Online mode:
+
+After clicking on `Online spielen` the user is prompted to enter an IP, a port and a password, which are the informations the user had to enter when setting up the server using the handy Python-Setup-Script.
+
+### Pause menu:
+
+While online, the user may press the button in the upper right-hand corner to pause the game at any given timer - Effectively stopping the ongoing Online-Session and thus stopping the Voting-Timer.
+
+### In-game menu:
+
+The user may presst he button in the upper left-hand corner, while in-game, to open up an option menu at any given time. Here the user may adjust the game-options, return to the main menu or close down the game completely.
 
 
 ## Credits
