@@ -17,10 +17,10 @@ namespace ServerLogic.Control
     public class MainServerLogic
     {
         public string ActiveConnections;
-        
+
         internal PlayerAudienceClientAPI _playerAudienceClientApi;
         internal readonly Dictionary<Guid, ModeratorClientManager> _connectedModeratorClients;
-        
+
         private WebSocketServer _server;
         private const int MaxRepForRandomGeneration = 16;
         private readonly Timer _checkForInactiveSessionsTimer;
@@ -51,22 +51,13 @@ namespace ServerLogic.Control
             try
             {
                 ServerParams serverParams = new ServerParams();
-                try
+
+                using (StreamReader r = new StreamReader("ServerLogic/Properties/serverParams.json"))
                 {
-                    using (StreamReader r = new StreamReader(Resources.ServerParamsFilePath))
-                    {
-                        string json = r.ReadToEnd();
-                        serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
-                    }
+                    string json = r.ReadToEnd();
+                    serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
                 }
-                catch (FileNotFoundException)
-                {
-                    using (StreamReader r = new StreamReader("ServerLogic/Properties/serverParams.json"))
-                    {
-                        string json = r.ReadToEnd();
-                        serverParams = JsonConvert.DeserializeObject<ServerParams>(json);
-                    }
-                }
+
                 _server.Certificate = new X509Certificate2(serverParams.CertFilePath, serverParams.CertPW);
                 _playerAudienceClientApi.StartServer(443);
                 StartWebsocket();
@@ -104,7 +95,7 @@ namespace ServerLogic.Control
         /// <param name="eventArgs">Parameter used by Timer-Elapsed-Event.</param>
         private void CheckForSessionInactivity(object source, ElapsedEventArgs eventArgs)
         {
-            if (_connectedModeratorClients.Count>0)
+            if (_connectedModeratorClients.Count > 0)
             {
                 string tempLog = "";
                 foreach (var (socket, moderatorClientManager) in _connectedModeratorClients)
@@ -160,7 +151,7 @@ namespace ServerLogic.Control
                             if (messageContainer.Type == MessageType.RequestOpenSession)
                             {
                                 _connectedModeratorClients.Add(messageContainer.ModeratorID, new ModeratorClientManager(
-                                    messageContainer.ModeratorID, 
+                                    messageContainer.ModeratorID,
                                     socketConnection,
                                     _playerAudienceClientApi));
                                 response = CheckStringMessage(message);
@@ -168,7 +159,7 @@ namespace ServerLogic.Control
                             // unknown guid
                             else
                             {
-                                response= JsonConvert.SerializeObject(
+                                response = JsonConvert.SerializeObject(
                                     new ErrorMessage(messageContainer.ModeratorID, ErrorType.UnknownGuid, ""));
                             }
                         }
@@ -204,7 +195,7 @@ namespace ServerLogic.Control
                             (JsonConvert.DeserializeObject<MessageContainer>(response).Type.Equals(MessageType.Error) &&
                             JsonConvert.DeserializeObject<ErrorMessage>(response).ErrorMessageType.Equals(ErrorType.WrongPassword)))
                         {
-                            ServerLogger.LogDebug("Connection cancel: \n"+response);
+                            ServerLogger.LogDebug("Connection cancel: \n" + response);
                             socketConnection.Send(response);
                             _connectedModeratorClients[messageContainer.ModeratorID].Stop(true);
                             _connectedModeratorClients[messageContainer.ModeratorID].StopInactivityTimer();
