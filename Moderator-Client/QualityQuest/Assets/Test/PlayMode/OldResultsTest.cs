@@ -12,7 +12,7 @@ using Object = UnityEngine.Object;
 /// <summary>
 /// Test class for Result
 /// </summary>
-public class ResultsTest
+public class OldResultsTest
 {
     private Result result;
     private GameObject scriptHolder;
