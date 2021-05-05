@@ -1,0 +1,36 @@
+﻿using System;
+
+namespace ServerLogic.Model.Messages
+{
+    /// <summary>
+    /// This message is sent from the Moderator-Client to the ServerLogic when the moderator 
+    /// wants to connect to the ServerLogic. The password confirms that the moderator is allowed 
+    /// to use the ServerLogic and the GUID of the moderator will be saved in the logs henceforth, 
+    /// for further communication. In addition, the creation of an Online-Session is also requested 
+    /// from the ServerLogic at the same time.
+    /// </summary>
+    public class RequestOpenSessionMessage : MessageContainer
+    {
+        public string Password { get; }
+
+        /// <summary>
+        /// Constructs a new RequestOpenSessionMessage.
+        /// </summary>
+        /// 
+        /// <param name="moderatorId">The individual identifier assigned to the Moderator-Client. 
+        /// Only the Moderator-Client sends this id to the ServerLogic to identify itself. The 
+        /// ServerLogic leaves this field empty.</param>
+        /// 
+        /// <param name="password">The password, required by the ServerLogic, to establish a 
+        /// connection with the ServerLogic.</param>
+        public RequestOpenSessionMessage(Guid moderatorId, string password) : base(moderatorId, MessageType.RequestOpenSession)
+        {
+            Password = password;
+        }
+
+        public override string ToString()
+        {
+            return "RequestOpenSessionMessage [<container>: " + base.ToString() + ", Password: " + Password + "]";
+        }
+    }
+}

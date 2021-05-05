@@ -1,0 +1,842 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+/* Centers the main page content and aligns the text to the center */
+.content-center {
+    text-align: center !important;
+    margin-left: 25% !important;
+    margin-right: 25% !important;
+    margin-top: 7% !important;
+}
+
+/* Gives every button its general design */
+.input-button {
+    font-size: 1.3rem;
+    background-color: #f3f3f3;
+    border-width: 0;
+    box-shadow: 0 5px 0 0 #dcdcdc;
+    transition: 0.2s all;
+    border-radius: 12px;
+    min-width: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    white-space: normal;
+    outline: none !important;
+}
+    /* Gives every button its general design when it is pressed */
+    .input-button:active {
+        background-color: #dcdcdc;
+        box-shadow: 0 2px 0 0 #adadad;
+        transform: translateY(3px);
+    }
+
+/* Gives the submit button on the home page additional styles */
+.sessionkey-submit-button {
+    font-weight: bold;
+    height: 60px;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+
+/* Gives the big logo on the home page its design */
+.logo {
+    margin-top: 15%;
+    max-width: 50%;
+}
+
+/* Gives the sessionkey input-box on the home page its design */
+.sessionkey-input-box {
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    min-width: 100%;
+    max-width: 100%;
+    text-align: left;
+    font-weight: bold !important;
+    display: unset;
+    outline: none !important;
+    text-transform: uppercase;
+}
+
+/* Assures that there is always at least 80px of whitespace
+   between the footer and the page content                  */
+.content-container {
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 80px;
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 768px) {
+    .content-center {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin-top: 10% !important;
+    }
+
+    .html {
+        font-size: 16px;
+    }
+
+    .logo {
+        max-width: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+/************************** HEADER RELATED CSS *******************************/
+
+/* Assures that the navbar is always at the top of the screen */
+.fixed-navbar {
+    position: sticky !important;
+    top: 0 !important;
+    width: 100%;
+    background-color: #0C2C40;
+}
+
+/* Fixes the navbar not showing up correctly sometimes */
+.in {
+    display: unset !important;
+}
+
+
+
+
+
+
+
+/************************** FOOTER RELATED CSS *******************************/
+
+/* Assures that the footer is always at the bottom of the screen */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    background: white;
+    line-height: 60px;
+}
+
+/* Gives the logo in the footer its design */
+.footer-logo {
+    height: 40px;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+
+/* Assures that the logo is floating at the right part of the footer */
+.footer-logo-container {
+    float: right !important;
+    margin-right: 10px !important;
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 768px) {
+
+    /* Removes the logo in the footer for mobile devices to
+       make sure that the footer isn't twice as high than normally */
+    .footer-logo-container {
+        display: none !important;
+    }
+}
+
+
+
+
+
+
+
+
+
+/*************************** LANDING PAGE CSS ********************************/
+
+/* Sets the semi-transparent grey background infront of everything
+   as long as the Cookie/ToS-Popup is still active. */
+.landing-page {
+    background-color: rgba(60, 60, 60, 0.6);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    visibility: hidden;
+    top: 0px
+}
+
+/* Gives the submit button of the Cookie/ToS-Popup its design */
+.landing-page-popup-submit-button {
+    background-color: whitesmoke;
+    width: 100%;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    border-top: 0px;
+    margin-top: 4%;
+    height: 50px;
+    margin-bottom: 5%;
+    outline: none
+}
+
+/* Dynamic font size for the checkboxes of the Cookie/ToS-Popup */
+.landing-page-popup-checkbox-label {
+    font-size: 0.8rem;
+}
+
+/* Gives the Cookie/ToS-Popup itself its design */
+.landing-page-popup {
+    position: fixed;
+    background-color: #eeeeee;
+    height: 600px;
+    width: 30%;
+    min-width: 350px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 12px;
+    overflow: auto
+}
+
+/* Gives the Cookie/ToS-Popup title its design */
+.landing-page-popup-title {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    margin-top: 4%;
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 1.2;
+    color: #5e5e5e;
+    margin-bottom: 2%
+}
+
+/* Gives the Cookie/ToS-Popup subtitle its design */
+.landing-page-popup-subtitle {
+    width: 80%;
+    margin: auto;
+    font-size: 14px;
+    margin-bottom: 4%
+}
+
+/* Gives the Cookie/ToS-Popup text-field its design */
+.landing-page-popup-text {
+    position: relative;
+    width: 85%;
+    height: 45%;
+    overflow-y: auto;
+    background-color: whitesmoke;
+    color: black;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    margin: auto;
+    padding-left: 5px;
+    padding-right: 5px
+}
+
+/* Gives the checkboxes and the submit-button of the
+   Cookie/ToS-Popup its layout. */
+.landing-page-popup-form {
+    position: relative;
+    width: 85%;
+    height: auto;
+    margin: auto;
+    margin-top: 3%
+}
+
+/* Gives the button-like containers around the checkboxes 
+   of the Cookie/ToS-Popup its layout. */
+.landing-page-popup-checkbox-container {
+    position: relative;
+    background-color: whitesmoke;
+    width: 100%;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    height: auto;
+    margin-top: 1%;
+    height: 40px
+}
+
+/* Gives the checkboxes of the Cookie/ToS-Popup its layout. */
+.landing-page-popup-checkbox-content {
+    padding-top: 8px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    margin-left: 2%;
+}
+
+/* For mobile devices */
+@media only screen and (max-height: 600px) {
+    .landing-page-popup {
+        height: 90vh
+    }
+}
+
+/* For very slim mobile devices */
+@media only screen and (max-width: 350px) {
+    .landing-page-popup {
+        min-width: 98vw
+    }
+}
+
+
+
+
+
+
+
+
+
+/************************ VOTING GRID RELATED CSS ****************************/
+
+/* 
+    Overall layout of the CSS grid used for non-mobile devices:
+
+    <     11 Columns      >
+
+    #######################  ^
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #  3 Rows
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################  v
+
+
+    Layout for a 4-question-prompt:
+
+    #######################
+    #o|o|o|o|o| |o|o|o|o|o#
+    #o|o|o|o|o| |o|o|o|o|o#
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    #o|o|o|o|o| |o|o|o|o|o#
+    #o|o|o|o|o| |o|o|o|o|o#
+    #######################
+
+
+    Layout for a 3-question-prompt:
+
+    #######################
+    #o|o|o|o|o| |o|o|o|o|o#
+    #o|o|o|o|o| |o|o|o|o|o#
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | |o|o|o|o|o| | | #
+    # | | |o|o|o|o|o| | | #
+    #######################
+
+
+    Layout for a 2-question-prompt:
+
+    #######################
+    #o|o|o|o|o| |o|o|o|o|o#
+    #o|o|o|o|o| |o|o|o|o|o#
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
+.voting-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: 2fr 1fr 2fr;
+    position: relative;
+    width: 80%;
+    margin: auto;
+    height: 50vh;
+    margin-top: 5%;
+    margin-bottom: 5%
+}
+
+/***** VOTING CONTAINER ITEM LAYOUT FOR 4 CHOICES *****/
+
+/*
+    #######################
+    #o|o|o|o|o| | | | | | #
+    #o|o|o|o|o| | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
+.voting-container-4items-1 {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+/*
+    #######################
+    # | | | | | |o|o|o|o|o#
+    # | | | | | |o|o|o|o|o#
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
+.voting-container-4items-2 {
+    grid-column-start: 7;
+    grid-column-end: 11;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+/*
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    #o|o|o|o|o| | | | | | #
+    #o|o|o|o|o| | | | | | #
+    #######################
+*/
+.voting-container-4items-3 {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 3;
+    grid-row-end: 3;
+}
+
+/*
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | |o|o|o|o|o#
+    # | | | | | |o|o|o|o|o#
+    #######################
+*/
+.voting-container-4items-4 {
+    grid-column-start: 7;
+    grid-column-end: 11;
+    grid-row-start: 3;
+    grid-row-end: 3;
+}
+
+/***** VOTING CONTAINER ITEM LAYOUT FOR 3 CHOICES *****/
+
+/*
+    #######################
+    #o|o|o|o|o| | | | | | #
+    #o|o|o|o|o| | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
+.voting-container-3items-1 {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+/*
+    #######################
+    # | | | | | |o|o|o|o|o#
+    # | | | | | |o|o|o|o|o#
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
+.voting-container-3items-2 {
+    grid-column-start: 7;
+    grid-column-end: 11;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+/*
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | |o|o|o|o|o| | | #
+    # | | |o|o|o|o|o| | | #
+    #######################
+*/
+.voting-container-3items-3 {
+    grid-column-start: 4;
+    grid-column-end: 8;
+    grid-row-start: 3;
+    grid-row-end: 3;
+}
+
+/***** VOTING CONTAINER ITEM LAYOUT FOR 2 CHOICES *****/
+
+/*
+    #######################
+    #o|o|o|o|o| | | | | | #
+    #o|o|o|o|o| | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
+.voting-container-2items-1 {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+/*
+    #######################
+    # | | | | | |o|o|o|o|o#
+    # | | | | | |o|o|o|o|o#
+    #######################
+    # | | | | | | | | | | #
+    #######################
+    # | | | | | | | | | | #
+    # | | | | | | | | | | #
+    #######################
+*/
+.voting-container-2items-2 {
+    grid-column-start: 7;
+    grid-column-end: 11;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+/****** VOTING CONTAINER ITEM LAYOUTS FOR MOBILE ******/
+
+/* For mobile devices */
+@media only screen and (max-width: 768px) {
+    /*
+        Overall layout of the CSS grid used for mobile devices:
+
+        < 1 Column >
+
+        ############  ^
+        #          #
+        ############
+        #          #
+        ############  4 Rows
+        #          #
+        ############
+        #          #
+        ############  v
+
+
+        Layout for a 4-question prompt:
+
+        ############
+        #oooooooooo#
+        ############
+        #oooooooooo#
+        ############
+        #oooooooooo#
+        ############
+        #oooooooooo#
+        ############
+
+
+        Layout for a 3-question prompt:
+
+        ############
+        #oooooooooo#
+        ############
+        #oooooooooo#
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+
+
+        Layout for a 2-question prompt:
+
+        ############
+        #oooooooooo#
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
+    .voting-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-row-gap: 10px;
+    }
+
+    /*
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
+    .voting-container-4items-1 {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 1;
+        grid-row-end: 1;
+    }
+
+    /*
+        ############
+        #          #
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
+    .voting-container-4items-2 {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 2;
+        grid-row-end: 2;
+    }
+
+    /*
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+    */
+    .voting-container-4items-3 {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 3;
+        grid-row-end: 3;
+    }
+
+    /*
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #oooooooooo#
+        ############
+    */
+    .voting-container-4items-4 {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 4;
+        grid-row-end: 4;
+    }
+
+    /*
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
+    .voting-container-3items-1 {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 1;
+        grid-row-end: 1;
+    }
+
+    /*
+        ############
+        #          #
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
+    .voting-container-3items-2 {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 2;
+        grid-row-end: 2;
+    }
+
+    /*
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+    */
+    .voting-container-3items-3 {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 3;
+        grid-row-end: 3;
+    }
+
+    /*
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
+    .voting-container-2items-1 {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 1;
+        grid-row-end: 1;
+    }
+
+    /*
+        ############
+        #          #
+        ############
+        #oooooooooo#
+        ############
+        #          #
+        ############
+        #          #
+        ############
+    */
+    .voting-container-2items-2 {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 2;
+        grid-row-end: 2;
+    }
+}
+
+
+
+
+
+
+
+
+/*********************** OTHER VOTING RELATED CSS ****************************/
+
+/* Gives the voting buttons on the voting page additional styles */
+.voting-button {
+    border-style: solid;
+    border-radius: 12px;
+    font-size: 18px;
+    transition: color 1s, background-position 1s,box-shadow 1s;
+    background-color: #f5f5f5;
+    border-width: 0 0 5px 0;
+    border-color: #e0e0e0;
+    font-weight: bold;
+}
+
+/* Gives the voting buttons on the voting page additional 
+   styles when pressed */
+.voting-button-selected {
+    color: white;
+    background-color: #79a1ff;
+    box-shadow: #5b73aa 0px 5px 0px 0px;
+}
+    /* Gives the voting buttons on the voting page additional 
+       styles while being pressed */
+    .voting-button-selected:active {
+        color: white;
+        background-color: #5b73aa;
+        box-shadow: 0 2px 0 0 #343944;
+        transform: translateY(3px);
+    }
+
+/* Gives the question/title of the voting prompt its design */
+.voting-prompt {
+    font-weight: 300;
+    font-size: 2.5rem;
+    margin-bottom: 5vh;
+    line-height: 1.2;
+}
