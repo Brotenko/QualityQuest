@@ -684,7 +684,7 @@ This section contains all requirements that specify the basic actions of the sof
 | ID          | FR75                                                                                                                   |
 | ----------- | ---------------------------------------------------------------------------------------------------------------------- |
 | PRIORITY    | +                                                                                                                      |
-| DESCRIPTION | The ServerLogic shall filter incoming data from the PlayerAudience-Client and discard anything out of order or format. |
+| DESCRIPTION | The backend of the PlayerAudience-Client shall filter incoming data from the PlayerAudience-Clients and discard anything out of order or format. |
 | EXPLANATION | -                                                                                                                      |
 
 </span>

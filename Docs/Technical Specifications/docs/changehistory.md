@@ -33,34 +33,41 @@ The change history is a chronologically ordered list of all changes between diff
 | 0.2.1   | First revision of the component design     | 2020-11-26 | [Link](#version-021-first-revision-of-the-component-design)     |
 | 0.2.2   | Second revision of the component design    | 2021-01-08 | [Link](#version-022-second-revision-of-the-component-design)    |
 | 0.3.0   | PlayerAudience-Client implementation       | 2021-02-06 | [Link](#version-030-playeraudience-client-implementation)       |
-| 0.3.1   | ServerLogic implementation                 | 2021-05-06 | [Link](#version-031-serverlogic-implementation)                 |
-| 0.3.2   | Moderator-Client implementation            | 2021-05-06 | [Link](#version-032-moderator-client-implementation)            |
+| 0.3.1   | ServerLogic implementation                 | 2021-05-05 | [Link](#version-031-serverlogic-implementation)                 |
+| 0.3.2   | Moderator-Client implementation            | 2021-05-05 | [Link](#version-032-moderator-client-implementation)            |
 
 </span>
 
 ## Version 0.3.2 - Moderator-Client implementation 
 
-| Type  | Description                                                                                                                                                    |
-| :---: | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   *   | **[_Glossary:_](../glossary#voting-timer) _Voting-Timer:_** Updated description.                                                                               |
-|   *   | **[_Glossary:_](../glossary#offline-mode) _Offline-Mode:_** Updated description.                                                                               |
-|   *   | **[_Functional Requirements:_](../requirements#pausebutton-location) _FR23:_** Updated description.                                                            |
-|   *   | **[_Functional Requirements:_](../requirements#connection-timeout) _FR25:_** Updated description.                                                              |
-|   *   | **[_Functional Requirements:_](../requirements#offline-mode-condition) _FR29:_** Updated name.                                                                 |
-|   *   | **[_Functional Requirements:_](../requirements#offline-mode) _FR39:_** Updated name and description.                                                           |
-|   *   | **[_Functional Requirements:_](../requirements#online-session-permanence) _FR43:_** Updated description.                                                       |
-|   *   | **[_Functional Requirements:_](../requirements#multiple-moderator-clients) _FR44:_** Updated name and description.                                             |
-|   *   | **[_Functional Requirements:_](../requirements#pause-menu) _FR50:_** Updated description.                                                                      |
-|   *   | **[_Non-functional Requirements:_](../requirements#non-exclusive-moderator-client-connection) _NFR21:_** Updated name and description.                         |
-|   +   | **[_Functional Requirements:_](../requirements#moderator-veto) _FR76:_** Added requirement "Moderator veto".                                                   |
-|   +   | **[_Functional Requirements:_](../requirements#moderator-client-statistics-display) _FR77:_** Added requirement "Moderator-Client statistics display".         |
-|   +   | **[_Functional Requirements:_](../requirements#moderator-client-winning-option-display) _FR78:_** Added requirement "Moderator-Client winning option display". |
-|   +   | **[_Functional Requirements:_](../requirements#moderator-client-error-display) _FR79:_** Added requirement "Moderator-Client error display".                   |
-|   +   | **[_Functional Requirements:_](../requirements#tied-winning-options) _FR80:_** Added requirement "Tied winning options".                                       |
-|   +   | **[_Functional Requirements:_](../requirements#sound-options) _FR81:_** Added requirement "Sound options".                                                     |
-|   +   | **[_Non-functional Requirements:_](../requirements#multiple-endings) _NFR28:_** Added requirement "Multiple endings".                                          |
+| Type  | Description                                                                                                                                                     |
+| :---: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|   *   | **[_Glossary:_](../glossary#voting-timer) _Voting-Timer:_** Updated description.                                                                                |
+|   *   | **[_Glossary:_](../glossary#offline-mode) _Offline-Mode:_** Updated description.                                                                                |
+|   *   | **[_Functional Requirements:_](../requirements#pausebutton-location) _FR23:_** Updated description.                                                             |
+|   *   | **[_Functional Requirements:_](../requirements#connection-timeout) _FR25:_** Updated description.                                                               |
+|   *   | **[_Functional Requirements:_](../requirements#offline-mode-condition) _FR29:_** Updated name.                                                                  |
+|   *   | **[_Functional Requirements:_](../requirements#offline-mode) _FR39:_** Updated name and description.                                                            |
+|   *   | **[_Functional Requirements:_](../requirements#online-session-permanence) _FR43:_** Updated description.                                                        |
+|   *   | **[_Functional Requirements:_](../requirements#multiple-moderator-clients) _FR44:_** Updated name and description.                                              |
+|   *   | **[_Functional Requirements:_](../requirements#pause-menu) _FR50:_** Updated description.                                                                       |
+|   *   | **[_Non-functional Requirements:_](../requirements#non-exclusive-moderator-client-connection) _NFR21:_** Updated name and description.                          |
+|   +   | **[_Functional Requirements:_](../requirements#moderator-veto) _FR76:_** Added requirement "Moderator veto".                                                    |
+|   +   | **[_Functional Requirements:_](../requirements#moderator-client-statistics-display) _FR77:_** Added requirement "Moderator-Client statistics display".          |
+|   +   | **[_Functional Requirements:_](../requirements#moderator-client-winning-option-display) _FR78:_** Added requirement "Moderator-Client winning option display".  |
+|   +   | **[_Functional Requirements:_](../requirements#moderator-client-error-display) _FR79:_** Added requirement "Moderator-Client error display".                    |
+|   +   | **[_Functional Requirements:_](../requirements#tied-winning-options) _FR80:_** Added requirement "Tied winning options".                                        |
+|   +   | **[_Functional Requirements:_](../requirements#sound-options) _FR81:_** Added requirement "Sound options".                                                      |
+|   +   | **[_Non-functional Requirements:_](../requirements#multiple-endings) _NFR28:_** Added requirement "Multiple endings".                                           |
 |   *   | **[_Network Protocol:_](../network-protocol#voting-phase) _Voting phase diagram:_** Updated voting phase diagram.                                               |
 |   -   | **[_Network Protocol:_](../network-protocol#sequence-diagrams-of-typical-communicational-processes) _New Moderator diagram:_** Removed "New Moderator" diagram. |
+|   *   | **[_Network Protocol:_](../network-protocol#playeraudience-client-logs) _PlayerAudience-Client logs:_** Added paragraph about postgame statistics.              |
+|   *   | **[_Functional Requirements:_](../requirements#playeraudience-client-data-filtration) _FR75:_** Updated description.                                            |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _Newtonsoft.Json:_** Added new used library.                                                                 |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _WebSocketSharp:_** Added new used library.                                                                  |
+|   +   | **[_Used Libraries:_](../usedtools#used-libraries) _Fleck:_** Added new used library.                                                                           |
+|   +   | **[_Used Tools:_](../usedtools#used-tools) Unity:_** Added new used tool.                                                                                       |
+|   +   | **[_Used Tools:_](../usedtools#used-tools) Unity Test Framework:_** Added new used tool.                                                                        |
 
 </span>
 
