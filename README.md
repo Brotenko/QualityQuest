@@ -22,6 +22,7 @@ Make sure that Python3 is installed and Docker is running. Place a valid .pfx ce
 
 ## Maintenance / Known issues
 In general it is sufficient to use option one in the script only once to generate a docker image. From there on, options two and three are perfectly sufficient for normal operation.
+If somehow the ServerShell-Terminal is closed without stopping the ServerShell/qqservercontainer beforehand, you can use `docker attach qqservercontainer` to interact with the container again.
 
 Possible issues and possible fixes:
 * Website or WebSocket not available?
@@ -29,7 +30,7 @@ Possible issues and possible fixes:
   - Check whether the sockets on your device are enabled or occupied by another service. 
 * `[Warn] Failed to Authenticate System.AggregateException: One or more errors occurred.`
   - This Exception is thrown when a PlayerAudience-Client tries to connect using HTTP, TLS 1.1 or other "outdated" protocols.
-  - The Exception is non-critical and only warns the host of a connection that is not using modern standards. SignalR does support these connections anyway by default.
+  - The Exception is non-critical for the server, the PlayerAudience-Client still has to connect via HTTPS
 * The website looks broken or is not working correctly!
   - A big part of the website's communication is handled through JavaScript - Any add-ons or extensions blocking JavaScript need to be disabled to play the game.
 
