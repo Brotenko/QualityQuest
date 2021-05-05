@@ -4,70 +4,375 @@ skinparam classAttributeIconSize 0
 
 package "Moderator-Client" {
 
-  class StoryEvent {
-    {field} -eventId: int
-    {field} -description: string
-    {field} -parent: StoryEvent
-    {field} -children: StoryEvent[]
-    {method} +StoryEvent(parent: StoryEvent, id: int)
-    {method} +addChild(): void
+  class "Character" as character{
+    {field} <<Property>> +Abilities: Skills <<+get>>
+    {field} <<Property>> +Name: string <<+get>>
+    {field} <<Property>> +Sprite: Sprite <<+get>>
+    {method} +Character(abilities: Skills, name: string, sprite: Sprite): void
+    {method} +CalculateSkills(): int
   }
 
-  class StoryGraph {
-    {field} -character: Character
-    {field} -root: StoryEvent
-    {field} -currentEvent: StoryEvent
-    {method} +StoryGraph(id: int)
-    {method} +loadGraphFromFile(filepath: string): Graph
-    {method} +saveGraphToFile(filepath: string): void
-    {method} +getNextPossibleEvent(): StoryEvent[]
-    {method} +setCurrentEvent(newCurrentEvent: StoryEvent): void
-    {method} +getNextStoryEventById(id: int): StoryEvent
+  class "Skills" as skills{
+    {field} +Communication: int <<+get, +set>>
+    {field} +Analytics: int <<+get, +set>>
+    {field} +Partying: int <<+get, +set>>
+    {field} +Programming: int<<+get, +set>>
+    {method} +Skills(communication: int, analytic: int, partying: int, programming: int): void
+    {method} +UpdateCommunicationSkill(updateCommunication: int): void
+    {method} +UpdateAnalyticSkill(updateAnalytic: int): void
+    {method} +UpdatePartyingSkill(updateParying: int): void
+    {method} +UpdateProgrammingSkill(updateProgramming: int): void
+    {method} +UpdateAbilities(skills: Skills): void
   }
 
-  class "ModeratorView" as mf {
-    {field} -startedOnline: bool
-    {method} +ModeratorView()
-    {method} +pausePolling(val: bool): void
-    {method} +offlineMode(val: bool): void
+  class "Client" as client{
+    
+    {field} -qualityQuestWebSocket: QualityQuestWebSocket
+    {field} -activeScreenManager: ActiveScreenManager 
+    {field} -displayStatusBar: DisplayStatusbar 
+    {field} -gameAudio: GameAudio 
+    {field} -displayDecision: DisplayDecision 
+    {field} -displayStoryFlow: DisplayStoryFlow
+    {field} -result: Result 
+    {field} -displayStatistics: DisplayStatistics 
+    {field} -videoBackground: GameBackground 
+    {field} -characterSelection: CharacterSelection     
+    {field} -ip: TMP_InputField 
+    {field} -port: TMP_InputField 
+    {field} -password: TMP_InputField 
+    {field} -votingTime: TMP_InputField
+    {field} -clientLogic: ClientLogic
+    {method} -Awake(): void
+    {method} -Start(): void
+    {method} +Connect(): void
+    {method} +ConnectionEstablished(): void
+    {method} +SendReconnectMessage(): void
+    {method} +SendRequestOpenSessionMessage(): void
+    {method} +SendRequestGameStartMessage(): void
+    {method} +SendRequestCloseSessionMessage(): void
+    {method} +ReceivedGamePausedStatusChange(gamePausedStatusMessage: GamePausedStatusMessage): void
+    {method} +ReceivedReconnectSuccessfulMessage(reconnectSuccessfulMessage: ReconnectSuccessfulMessage): void
+    {method} +ReceivedSessionOpenedMessage(sessionOpenedMessage: SessionOpenedMessage): void
+    {method} +ReceivedGameStartedMessage(gamestartedMessage: GameStartedMessage): void
+    {method} +ReceivedVotingEndedMessage(votingEndedMessage VotingEndedMessage): void
+    {method} +ContinueOnlineStory(storyEvent: StoryEvent): void
+    {method} +WorkshopEvent(currentEvent: StoryEvent): void
+    {method} +StoryEnd(currentEvent: StoryEvent): void
+    {method} +ContinueDecisionOption(currentEvent: StoryEvent): void
+    {method} +ContinueStoryDecision(currentEvent: StoryEvent): void
+    {method} +ContinueStoryFlow(currentEvent: StoryEvent): void
+    {method} +ReceivedVotingStartedMessage(votingStartedMessage: VotingStartedMessage): void
+    {method} +RequestGamePause(): void
+    {method} +ServerIssues(errorCode: int): void
+    {method} +ReceivedErrorMessages(errorMessage: ErrorMessage): void
+    {method} +SwitchModes(): void
+    {method} +StartOfflinePlaythrough(): void
+    {method} +PickNoruso(): void
+    {method} +PickLumati(): void
+    {method} +PickTurgal(): void
+    {method} +PickKirogh(): void
+    {method} +ContinueOfflineStory(storyEvent: StoryEvent): void
+    {method} -ContinueBackground(currentEvent: StoryEvent): void
+    {method} -ContinueOfflineDecision(currentEvent: StoryEvent): void
+    {method} +SetVotingTime(): void
   }
 
-  class "ModeratorClientExchange" as mcei{
-    {field} -webSocket: WebSocket
-    {field} -authentificationGuid: Guid
-    {field} -timeoutDuration: int
-    {method} +ModeratorClientExchange()
-    {method} +sendMessage(message: string): void
-    {method} +evalJSON(json: string): bool
-    {method} +endCurrentPollAndGetVotingResults(): int
-    {method} +makeJSON(): string
-    {method} +enterPassword(pw: string): void
+  class "WrongStoryEvent : Exception" as wrongstoryeventexception{
+    {method} +WrongStoryEvent(): void
+    {method} +WrongStoryEvent(message: string): void
+    {method} +WrongStoryEvent(message: string, inner: Exception): void
   }
 
-  class Skills {
-    {field} -communication: int
-    {field} -analytics: int
-    {field} -partying: int
-    {field} -programming: int
-    {method} + Skills(commu: int, analy: int, party: int, progr: int)
-    {method} + updateCommunicationSkill(value: int): void
-    {method} + updateAnalyticsSkill(value: int): void
-    {method} + updatePartyingSkill(value: int): void
-    {method} + updateProgrammingSkill(value: int): void
+  class "WrongVotingEndedMessage: Exception" as wrongvotingendedmessageexception{
+    {method} +WrongVotingEndedMessage(): void
+    {method} +WrongVotingEndedMessage(message: string): void
+    {method} +WrongVotingEndedMessage(message: string, inner: Exception): void
   }
 
-  class Character {
-    {field} -abilities: Skills
-    {field} -name: string
-    {method} +Character()
+  class "ActiveScreenManager" as activescreenmanager{
+    {field} +characterSelectionPanel: GameObject
+    {field} +decisionPanel: GameObject
+    {field} +storyFlowPanel: GameObject
+    {field} +resultPanel: GameObject
+    {field} +pauseScreenPanel: GameObject
+    {field} +gameMenuPanel: GameObject
+    {field} +connectPanel: GameObject
+    {field} +qrCodePanel: GameObject
+    {field} +statisticsPanel: GameObject
+    {field} +errorScreenPanel: GameObject
+    {field} +loadingScreenPanel: GameObject
+    {field} +optionsPanel: GameObject
+    {field} +pauseButtonPanel: GameObject
+    {field} +gameCrashPanel: GameObject
+    {field} +qrCodeGenerator: QRCode 
+    {field} +gameMenuSwitchModeButton: TMP_Text
+    {field} +audienceCount: TMP_Text
+    {field} +websiteUrl: TMP_Text
+    {field} +sessionKey: TMP_Text
+    {field} +pauseUrl: TMP_Text
+    {field} +pauseKey: TMP_Text
+    {field} +errorMessage: TMP_Text
+    {method} -Start(): void
+    {method} +HideAllMenus(): void
+    {method} +ShowConnection(): void
+    {method} +ShowStatistics(): void
+    {method} +ShowErrorScreen(errorMessage: string): void
+    {method} +ShowCharacterSelection(): void
+    {method} +ShowQrCodePanel(url: string, key: string): void
+    {method} +UpdateAudienceCount(audienceCount: int): void
+    {method} +ShowDecision(): void
+    {method} +ShowStoryFlow(): void
+    {method} +ShowResults: void
+    {method} +ShowPauseMenu(url: string, sessionkey: string): void
+    {method} +ShowGameMenu(): void
+    {method} +ShowPauseButton(activate: bool): void
+    {method} +QuitGame(): void
+    {method} +BackToMainMenu(): void
+    {method} +GameCrash(): void
+  }
+
+  class "AudioMenu : MonoBehavior" as audiomenu{
+    {field} +masterVolume: TMP_Text
+    {field} +musicVolume: TMP_Text
+    {field} +effectsVolume: TMP_Text
+    {field} +ambientVolume: TMP_Text
+    {field} +masterSlider: Slider
+    {field} +musicSlider: Slider
+    {field} +effectsSlider: Slider
+    {field} +ambientSlider: Slider
+    {field} +mixer: AudioMixer 
+    {method} -Start(): void
+    {method} +UpdateSLider(): void
+    {method} +SetMasterLevel(sliderValue: float): void
+    {method} +SetEffectsLevel(sliderValue: float): void
+    {method} +SetMusicLevel(sliderValue: float): void
+    {method} +SetAmbientLevel(sliderValue: float): void
   }
   
-  StoryEvent "n" --* "1" StoryGraph
-  StoryGraph -- mf
-  StoryGraph -- Character
-  Character -- Skills
-  mf -- mcei
-  StoryGraph --- mcei
+  skinparam enum{
+      BackgroundColor Wheat
+      BorderColor Wheat
+  }
+
+  enum "BackgroundType" as backgroundtye{
+    ..
+    University
+    Internship
+    Meeting
+    Party
+    Office
+    Beach
+  }
+
+  class "CharacterSelection : MonoBehaviour" as charselection{
+    {field} +displayNoruso: DisplayCharacter
+    {field} +displayKirogh: DisplayCharacter
+    {field} +displayTurgal: DisplayCharacter
+    {field} +displayLumati: DisplayCharacter
+    {field} +selectOfflineLumati: Button
+    {field} +selectOfflineTurgal: Button
+    {field} +selectOfflineKirogh: Button
+    {field} +selectOfflineNoruso: Button
+    {field} +norusoSprite: Sprite
+    {field} +lumatiSprite: Sprite
+    {field} +turgalSprite: Sprite
+    {field} +kiroghSprite: Sprite
+    {field} +noruso: Character 
+    {field} +lumati: Character
+    {field} +turgal: Character
+    {field} +kirogh: Character
+    {method} -Awake(): void
+    {method} +SetCharacters(): void
+    {method} +InitializeCharacter(character: Character, storyGraph: StoryGraph, statusBar: Statusbar): void
+    {method} +ActivateOfflineCharacterPickButtons(): void
+    {method} +RemoveOfflinePickButtons(): void
+  }
+
+  class "ClearPlaceHoderOnFocus : MonoBehaviour, ISelectHandler, IDeselectHandler" as clearplaceholderonfocus{
+    {field} +PlaceholderText: TMP_Text
+    {method} +OnSelect(data: BaseEventData): void
+    {method} +OnDeselect(data: BaseEventData): void
+  }
+
+  class "ClientLogic" as clientlogic{
+    {field} <<Property>> +VotingTime: int <<+get, +set>>
+    {field} <<Property>> +ActiveVoting: bool <<+get, +set>>
+    {field} <<Property>> +SessionKey: string <<+get, +set>>
+    {field} <<Property>> +Url: string <<+get, +set>>
+    {field} <<Property>> +SpecialOption: bool <<+get, +set>>
+    {field} <<Property>> +StoryGraph: StoryGraph <<+get, +set>>
+    {field} <<Property>> +VotingStatistic: VotingStatistics <<+get, +set>>
+    {field} <<Property>> +Guid ModeratorClientGuid <<+get, +set>>
+    {method} +ClientLogic(votingTime: int): void
+    {method} +SetNewModeratorClientGuid(): void
+    {method} +RequestStartVotingMessage(currentEvent: StoryEvent): RequestStartVotingMessage
+    {method} +InitializeReconnectMessage(): ReconnectMessage
+    {method} +InitializeRequestOpenSessionMessage(password: string): RequestOpenSessionMessage
+    {method} +InitializeRequestGameStartMessage(): RequestGameStartMessage
+    {method} +SaveUrlAndSessionKey(sessionOpenedMessage: SessionOpenedMessage): void
+    {method} +InitializeRequestCloseSessionMessage(): RequestCloseSessionMessage
+    {method} +InitializeRequestGamePausedStatusChangeMessage(pause: bool): RequestGamePausedStatusChangeMessage
+    {method} +SaveStatistics(votingPrompt: string, votingOptions: HashSet<StoryEvent>, votingResults: Dictionary<Guid, int>, totalVotes: int): void
+    {method} +ContinueDecision(storyGraph: StoryGraph): StoryEvent
+    {method} +ValidateVotingEndedMessage(currentEvent: StoryEvent, votingOptions: Dictionary<Guid, int>): void
+    {method} +WorkshopDecision(storyEvent: StoryEvent): StoryEvent
+    {method} +ContinueSpecialDecision(storyEvent: StoryEvent): void
+    {method} +UnlockDecision(): void
+    {method} +SetVotingTime(newVotingTime: int): void
+    {method} +ValidateStoryEvent(storyEvent: StoryEvent): void
+  }
+
+  class "DisplayCharacter" as displaycharacter{
+    {field} +name: TMP_Text
+    {field} +image: Image 
+    {field} +programming: TMP_Text
+    {field} +communcation: TMP_Text
+    {field} +analytics: TMP_Text
+    {field} +party: TMP_Text
+    {method} +UpdateCharacter(character: Character): void
+  }
+
+  class "DisplayDecision : MonoBehaviour" as displaydecision{
+    {field} +selectOfflineA: Button
+    {field} +selectOfflineB: Button
+    {field} +selectOfflineC: Button
+    {field} +selectOfflineD: Button
+    {field} +selectOnlineA: Button
+    {field} +selectOnlineB: Button
+    {field} +selectOnlineC: Button
+    {field} +selectOnlineD: Button
+    {field} +titleA: TMP_Text
+    {field} +descriptionA: TMP_Text
+    {field} +panelA: GameObject
+    {field} +titleB: TMP_Text
+    {field} +descriptionB: TMP_Text
+    {field} +panelB: GameObject
+    {field} +titleC: TMP_Text
+    {field} +descriptionC: TMP_Text
+    {field} +panelC: GameObject
+    {field} +titleD: TMP_Text
+    {field} +descriptionD: TMP_Text
+    {field} +panelD: GameObject
+    {field} +question: TMP_Text
+    {method} +LoadDecision(currentEvent: StoryEvent, children: List<StoryEvent>): void
+    {method} +RemoveOfflineDecisionListeners(): void
+    {method} +RemoveOnlineDecisionListeners: void
+  }
+
+  class "DisplayStatistics : MonoBehaviour" as displaystatistics{
+    {field} +myPrefab: GameObject
+    {field} +content: Transform
+    {method} +DisplayAllDecisions(statistics: VotingStatistics): void
+  }
+
+  class "DisplayStatisticsDecision : MonoBehaviour" as displaystatisticsdecision{
+    {field} +optionPanelA: GameObject
+    {field} +optionPanelB: GameObject
+    {field} +optionPanelC: GameObject
+    {field} +optionPanelD: GameObject
+    {field} +question: TMP_Text
+    {field} +questionVotes: TMP_Text
+    {field} +answerA: TMP_Text
+    {field} +votesA: TMP_Text
+    {field} +answerB: TMP_Text
+    {field} +votesB: TMP_Text
+    {field} +answerC: TMP_Text
+    {field} +votesC: TMP_Text
+    {field} +answerD: TMP_Text
+    {field} +votesD: TMP_Text
+    {method} +HideAllOptions(): void
+    {method} +DisplayDecision(result: VotingResult): void
+  }
+
+  class "DisplayStatusbar : MonoBehaviour" as displaystatusbar{
+    {field} +statusbar: GameObject
+    {field} +decision: GameObject
+    {field} +dice: GameObject
+    {field} +characterImage: Image
+    {field} +programmingSkillValue: TMP_Text
+    {field} +communicationSkillValue: TMP_Text
+    {field} +analyticsSkillValue: TMP_Text
+    {field} +partySkillValue: TMP_Text
+    {field} +skillChangeProgramming: TMP_Text
+    {field} +skillChangeCommunication: TMP_Text
+    {field} +skillChangeAnalytics: TMP_Text
+    {field} +skillChangeParty: TMP_Text
+    {field} +decisionTimerTime: TMP_Text
+    {field} -programmingSkillChangeTimer: float
+    {field} -communicationSkillChangeTimer: float
+    {field} -analyticsSkillChangeTimer: float
+    {field} -partySkillChangeTimer: float
+    {field} -diceTimer: float
+    {field} -decisionTimer: float
+    {field} +skillHideTimerDuration: float
+    {method} +SetImage(sprite: Sprite): void
+    {method} +UpdateSkillChanges(skills: Skills): void
+    {method} +ShowSkillChange(text: TMP_Text, value: int): bool
+    {method} +DisplaySkills(skills: Skills): void
+    {method} +ShowStatusBar(status: bool): void
+    {method} +DisplayDice(time: int): void
+    {method} +DisplayTimer(time: int): void
+    {method} +Start(): void
+    {method} +Update(): void
+  }
+
+  class "DisplayStoryFlow : MonoBehaviour" as displaystoryflow{
+    {field} +storyflowElement: GameObject 
+    {field} +storyflowText: TMP_Text 
+    {field} +storyFlowButton: Button 
+    {method} +RemoveStoryFlowListeners(): void
+  }
+
+  class "GameAudio : MonoBehaviour" as gameaudio{
+    {field} +effects: AudioSource
+    {method} +PlayClickSound(): void
+    {method} +PlayHoverSound(): void
+    {method} +PlayDiceSound(): void
+    {method} +PlaySkillChangeSound(): void
+  }
+
+  class "GameBackground : MonoBehaviour" as gamebackground{
+    {field} +player: VideoPlayer
+    {field} +ambient: AudioSource
+    {field} +music: AudioSource
+    {field} -currentTheme: Theme 
+    {field} -standard: int
+    {field} -party: int
+    {method} +SwitchBackground(backgroundType BackgroundType): void
+    {method} +PlayMusic(theme: Theme): void
+    {method} +Update(): void
+  }
+
+  class "MenuNavigation : MonoBehaviour" as menunavigation{
+    {field} system: EventSystem
+    {method} +Start(): void
+    {method} +Update(): void
+  }
+
+  class "Result : MonoBehaviour" as result{
+    {field} +titleA: TMP_Text 
+    {field} +titleB: TMP_Text 
+    {field} +titleC: TMP_Text 
+    {field} +titleD: TMP_Text 
+    {field} +votesA: TMP_Text 
+    {field} +votesB: TMP_Text 
+    {field} +votesC: TMP_Text 
+    {field} +votesD: TMP_Text 
+    {field} +prompt: TMP_Text 
+    {field} +resultA: Slider
+    {field} +resultB: Slider
+    {field} +resultC: Slider
+    {field} +resultD: Slider
+    {field} +lightBlue: Color
+    {field} +darkBlue: Color
+    {field} +lightGreen: Color
+    {field} +darkGreen: Color
+
+    {method} +(): void
+  }
+
+{method} +(): void
+  
 }
 
 @enduml
