@@ -281,19 +281,31 @@ public class StoryGraph
         var storyelement22option1 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung auf der Party.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 2, 0));
 
         // affected by dice roll
-        var storyelement22option2 = new StoryEvent(Guid.NewGuid(), "Du überstehst die Firmenfeier ohne für Aufsehen zu sorgen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 3, 0), true, RandomType.RandomDecisionThree);
-        var storyelement22option3 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung, aber fällst negativ auf, weil du ziemlich stark betrunken bist.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, 0, 3, 0), false, RandomType.RandomDecisionThree);
+        var storyelement22option2 = new StoryEvent(Guid.NewGuid(), "Du überstehst die Firmenfeier ohne für Aufsehen zu sorgen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, true, RandomType.RandomDecisionThree);
+        var storyelement22option2Good = new StoryEvent(Guid.NewGuid(), "Du bleibst deinem Chef positiv in Erinnerung.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 3, 0));
 
+        
+
+        var storyelement22option3 = new StoryEvent(Guid.NewGuid(), "Du sorgst für gute Stimmung, aber fällst negativ auf, weil du ziemlich stark betrunken bist.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,  false, RandomType.RandomDecisionThree);
+        var storyelement22Option3Bad = new StoryEvent(Guid.NewGuid(), "Du bleibst deinem Chef negativ in Erinnerung.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, 0, 3, 0));
+
+        
         decision9option2.AddChild(storyelement22option1);
         decision9option1.AddChild(storyelement22option2);
         decision9option1.AddChild(storyelement22option3);
 
+        storyelement22option2.AddChild(storyelement22option2Good);
+        storyelement22option3.AddChild(storyelement22Option3Bad);
+
+
         var storyelement23 = new StoryEvent(Guid.NewGuid(), "Die Firmenfeier ist zu Ende und du gehst nach Hause.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
+        storyelement22Option3Bad.AddChild(storyelement23);
+        storyelement22option2Good.AddChild(storyelement23);
         storyelement21option1.AddChild(storyelement23);
         storyelement22option1.AddChild(storyelement23);
-        storyelement22option2.AddChild(storyelement23);
-        storyelement22option3.AddChild(storyelement23);
+        
+        
 
         // training course
 
@@ -414,8 +426,13 @@ public class StoryGraph
         decision13option1.AddChild(storyelement32);
 
         //affected by dice roll
-        var storyelement33option1 = new StoryEvent(Guid.NewGuid(), "Der Bug wurde gefunden und es kommt raus, dass du den Code mit dem Bug als letztes bearbeitet hast. Yaggaya ist sauer, da dir der Bug hätte auffallen müssen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-3, -3, 0, 0), true, RandomType.RandomDecisionFour);
-        var storyelement33option2 = new StoryEvent(Guid.NewGuid(), "Der Bug wurde nicht gefunden.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, -3, 0, 0), false, RandomType.RandomDecisionFour);
+        var storyelement33option1 = new StoryEvent(Guid.NewGuid(), "Der Bug führt zu einem kritischen Fehler.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,  true, RandomType.RandomDecisionFour);
+        var storyelement33option1Bad = new StoryEvent(Guid.NewGuid(), "Der wurde Bug gefunden und Yaggaya ist ziemlich sauer auf dich, da dir der Bug hätte auffallen müssen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-3, -3, 0, 0));
+
+
+        var storyelement33option2 = new StoryEvent(Guid.NewGuid(), "Der Bug führt zu keinem kritischen Fehler. ", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,  false, RandomType.RandomDecisionFour);
+        var storyelement33option2Good = new StoryEvent(Guid.NewGuid(), "Der Bug bleibt unentdeckt.",
+            new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, -3, 0, 0));
 
         decision13option2.AddChild(storyelement33option1);
         decision13option2.AddChild(storyelement33option2);
@@ -425,8 +442,10 @@ public class StoryGraph
         var storyelement34 = new StoryEvent(Guid.NewGuid(), "WizzBook meldet sich nochmals und dieses mal will WizzBook eine neue Funktion zu WizzApp hinzufügen.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
         storyelement32.AddChild(storyelement34);
-        storyelement33option1.AddChild(storyelement34);
-        storyelement33option2.AddChild(storyelement34);
+        storyelement33option1.AddChild(storyelement33option1Bad);
+        storyelement33option2.AddChild(storyelement33option2Good);
+        storyelement33option1Bad.AddChild(storyelement34);
+        storyelement33option2Good.AddChild(storyelement34);
 
         var storyelement35 = new StoryEvent(Guid.NewGuid(), "Dir kommt das etwas seltsam vor, da dies Probleme mit anderen Funktionen der App verursachen könnte.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
@@ -491,15 +510,22 @@ public class StoryGraph
         decision16.AddChild(decision16option2);
 
         //dice roll
-        var storyelement41option1 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden und du schafft es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), true, RandomType.RandomDecisionFive);
-        var storyelement41option2 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden, aber du wirst es nicht schaffen deine Deadline zu halten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(2, 0, 0, 0), false, RandomType.RandomDecisionFive);
+        var storyelement41option1 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden und du schafft es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,true, RandomType.RandomDecisionFive);
+        var storyelement41option1Good = new StoryEvent(Guid.NewGuid(),
+            "Yaggaya ist froh, dass du deinem Kollegen aushilfst.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,
+            new Skills(2, 0, 0, 0));
+        var storyelement41option2 = new StoryEvent(Guid.NewGuid(), "Trummu ist zufrieden, aber du wirst es nicht schaffen deine Deadline zu halten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, false, RandomType.RandomDecisionFive);
+        var storyelement41option2Bad = new StoryEvent(Guid.NewGuid(),
+            "Deine Einhaltung der Deadline ist zwar in Gefahr, aber Yaggaya ist erfreut über deine Aushilfe.", new HashSet<StoryEvent>(),
+            StoryEventType.StoryFlow, new Skills(2, 0, 0, 0));
 
         decision16option2.AddChild(storyelement41option1);
         decision16option2.AddChild(storyelement41option2);
 
         var decision17 = new StoryEvent(Guid.NewGuid(), "Frägst du um Hilfe, um deine Deadline noch halten zu können?", new HashSet<StoryEvent>(), StoryEventType.StoryDecision);
 
-        storyelement41option2.AddChild(decision17);
+        storyelement41option2.AddChild(storyelement41option2Bad);
+        storyelement41option2Bad.AddChild(decision17);
 
         var decision17option1 = new StoryEvent(Guid.NewGuid(), "Ja, du fragst Yaggaya um Hilfe.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
         var decision17option2 = new StoryEvent(Guid.NewGuid(), "Nein.", new HashSet<StoryEvent>(), StoryEventType.StoryDecisionOption);
@@ -512,7 +538,7 @@ public class StoryGraph
 
         decision17option1.AddChild(storyelement42option1);
 
-        var storyelement42option2 = new StoryEvent(Guid.NewGuid(), "Yaggaya wird dir nicht helfen und du verpasst deine Deadline.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, -2, 0, 0), false, RandomType.RandomDecisionSix);
+        var storyelement42option2 = new StoryEvent(Guid.NewGuid(), "Yaggaya wird dir nicht helfen und du verpasst deine Deadline.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,false, RandomType.RandomDecisionSix);
 
         decision17option1.AddChild(storyelement42option2);
 
@@ -528,7 +554,8 @@ public class StoryGraph
 
         var storyelement45 = new StoryEvent(Guid.NewGuid(), "Das Projekt ist fast abgeschlossen. Es fehlt nur noch die Code Review.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow);
 
-        storyelement41option1.AddChild(storyelement45);
+        storyelement41option1.AddChild(storyelement41option1Good);
+        storyelement41option1Good.AddChild(storyelement45);
         storyelement44.AddChild(storyelement45);
         storyelement42option1.AddChild(storyelement45);
         storyelement42option2.AddChild(storyelement45);
