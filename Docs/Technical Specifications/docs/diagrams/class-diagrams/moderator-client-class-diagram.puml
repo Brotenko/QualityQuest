@@ -188,7 +188,7 @@ package "Moderator-Client" {
     {method} +RemoveOfflinePickButtons(): void
   }
 
-  class "ClearPlaceHoderOnFocus : MonoBehaviour, ISelectHandler, IDeselectHandler" as clearplaceholderonfocus{
+  class "ClearPlaceHolderOnFocus : MonoBehaviour, ISelectHandler, IDeselectHandler" as clearplaceholderonfocus{
     {field} +PlaceholderText: TMP_Text
     {method} +OnSelect(data: BaseEventData): void
     {method} +OnDeselect(data: BaseEventData): void
@@ -367,12 +367,364 @@ package "Moderator-Client" {
     {field} +darkBlue: Color
     {field} +lightGreen: Color
     {field} +darkGreen: Color
-
-    {method} +(): void
+    {method} +LoadResult(currentEvent: StoryEvent, currentEventChildren: List<StoryEvent>, votingResults: Dictionary<Guid, int>, countVotings: int, winningOption: string): void
+    {method} +GetWinner(results: Dictionary<Guid,int>, children: List<StoryEvent>, winningOption: string): void
+    {method} +SetAllBlue(): void
+    {method} +SetGreen(result: Slider): void
+    {method} +SetBlue(result: Slider): void
+    {method} +SetMaxValues(maxValue: int): void
+    {method} +HideAllSlider(): void
   }
 
-{method} +(): void
-  
+  enum "Theme" as theme{
+    ..
+    None
+    Normal
+    Party
+    Beach
+  }
+
+  class "GameState : MonoBehavior" as gamestate{
+    {static} +gameIsOnline: bool
+    {method} -Awake(): void
+  }
+
+  class "Menu : MonoBehavior" as monobehaviour{
+    {field} +mainMenu: GameObject 
+    {field} +audioMenu: GameObject 
+    {field} +optionsMenu: GameObject 
+    {field} +languageMenu: GameObject 
+    {field} +displayMenu: GameObject 
+    {field} +playOnline: GameObject 
+    {method} -Start(): void
+    {method} +PlayOfflineMode(): void
+    {method} +PlayOnline(): void
+  }
+
+  class "Settings : MonoBehaviour" as settings{
+    {field} +resolutionDropdown: TMP_Dropdown
+    {field} +resolution: Resolution[]
+    {method} +SetResolution(resolutionIndex: int): void
+    {method} +SetFullscreen(isFullScrenn: bool): void
+  }
+
+
+
+  class "MessageContainer" as messCont {
+    {field} <<Property>> +ModeratorID: Guid <<+get>>
+    {field} <<Property>> +Type: MessageType <<+get>>
+    {field} <<Property>> +CreationDate: DateTime <<+get>>
+    {method} +MessageContainer(moderatorId: Guid, type: MessageType)
+    {method} +ToString(): string
+  }
+
+  class "AudienceStatusMessage" as audStatMess {
+    {field} <<Property>> +AudienceCount: int <<+get>>
+    {method} +AudienceStatusMessage(moderatorId: Guid, audienceCount: int)
+    {method} +ToString(): string
+  }
+
+  class "ErrorMessage" as errMess{
+    {field} <<Property>> +ErrorMessageType: ErrorType <<+get>>
+    {field} <<Property>> +ErrorMessageText: string <<+get>>
+    {method} +ErrorMessage(moderatorId: Guid, errorMessageType: ErrorType, errorMessageText: string)
+    {method} +ToString(): string
+  }
+
+  class "GamePausedStatusMessage" as gaPaStatMess{
+    {field} <<Property>> +GamePaused: bool <<+get>>
+    {method} +GamePausedStatusMessage(moderatorId: Guid, gamePaused: bool)
+    {method} +ToString(): string
+  }
+
+  class "GameStartedMessage" as gaStartMess{
+    {method} +GameStartedMessage(moderatorId: Guid)
+    {method} +ToString(): string
+  }
+
+  class "ReconnectMessage" as reconnMess{
+    {method} +ReconnectMessage(moderatorId: Guid)
+    {method} +ToString(): string
+  }
+
+  class "RecconnectSuccessfulMessage" as reconnSuccMess{
+    {method} +ReconnectSuccessfulMessage(moderatorId: Guid)
+    {method} +ToString(): string
+  }
+
+  class "RequestCloseSessionMessage" as reqCloseSessMess{
+    {field} <<Property>> +SessionKey: string <<+get>>
+    {method} +RequestCloseSessionMessage(moderatorId: Guid, sessionKey: string)
+    {method} +ToString(): string
+  }
+
+  class "RequestGamePausedStatusChangeMessage" as reqGaPaStatMess{
+    {field} <<Property>> +GamePaused: bool <<+get>>
+    {method} +RequestGamePausedStatusChangeMessage(moderatorId: Guid, gamePaused: bool)
+    {method} +ToString(): string
+  }
+
+  class "RequestGameStartMessage" as reqGaStartMess{
+    {method} +RequestGameStartedMessage(moderatorId: Guid)
+    {method} +ToString(): string
+  }
+
+  class "RequestOpenSessionMessage" as reqOpSessMess{
+    {field} <<Property>> +Password: string <<+get>>
+    {method} +RequestOpenSessionMessage(moderatorId: Guid, password: string)
+    {method} +ToString(): string
+  }
+
+  class "RequestServerStatusMessage" as reqServStatMess{
+    {method} +RequestServerStatusMessage(moderatorId: Guid)
+    {method} +ToString(): string
+  }
+
+  class "RequestStartVotingMessage" as reqStartVotMess{
+    {field} <<Property>> +VotingTime: int <<+get>>
+    {field} <<Property>> +VotingPrompt: KeyValuePair<Guid, string> <<+get>>
+    {field} <<Property>> +VotingOptions: KeyValuePair<Guid, string>[] <<+get>>
+    {method} +RequestStartVotingMessage(moderatorId: Guid, votingTime: int, votingPrompt: KeyValuePair<Guid, string>, votingOptions: KeyValuePair<Guid, string>[])
+    {method} +ToString(): string
+  }
+
+  class "ServerStatusMessage" as servStatMess{
+    {method} +ServerStatusMessage(moderatorId: Guid)
+    {method} +ToString(): string
+  }
+
+  class "SessionClosedMessage" as sessClosedMess{
+    {method} +SessionClosedMessage(moderatorId: Guid)
+    {method} +ToString(): string
+  }
+
+  class "SessionOpenedMessage" as sessOpMess{
+    {field} <<Property>> +SessionKey: string <<+get>>
+    {field} <<Property>> +DirectURL: Uri <<+get>>
+    {method} +SessionOpenedMessage(moderatorId: Guid, sessionKey: string, directURL: Uri)
+    {method} +ToString(): string
+  }
+
+  class "VotingEndedMessage" as votEndMess{
+    {field} <<Property>> +WinningOption: string <<+get>>
+    {field} <<Property>> +VotingResults: Dictionary<Guid, int> <<+get>>
+    {field} +TotalVotes: int
+    {method} +VotingEndedMessage(moderatorId: Guid, winningOption: Guid, votingResults: Dictionary<Guid, int>)
+    {method} +ToString(): string
+  }
+
+  class "VotingStartedMessage" as votStartMess{
+    {method} +VotingStartedMessage(moderator: Guid)
+    {method} +ToString(): string
+  }
+  enum "ErrorType" as errorType {
+    ..
+    WrongPassword
+    UnknownGuid
+    IllegalPauseAction
+    WrongSession
+    GuidAlreadyExists
+    IllegalMessage
+  }
+
+  enum "MessageType" as messType{
+    ..
+    RequestOpenSession
+    SessionOpened
+    AudienceStatus
+    Reconnect
+    ReconnectSuccessful
+    RequestGameStart
+    GameStarted
+    RequestStartVoting
+    VotingStarted
+    VotingEnded
+    ErrorType
+    RequestGamePausedStatusChange
+    GamePausedStatus
+    RequestCloseSession
+    SessionClosed
+  }
+
+  class "QRCode : MonoBehaviour" as qrcode{
+    {field} -encoded: Texture2D
+    {field} +connectionPanel: RawImage
+    {field} +pausePanel: RawImage
+    {static} -Encode(textForEncoding: string, width: int, height: int): Color32[]
+    {method} +GenerateQRCode(url: string, qrCodeType: QrCodeType): void
+  }
+
+  enum "QrCodeType" as qrcodetype{
+    QrCodeConnect
+    QrCodePause
+  }
+
+  class "VotingResult" as votingresult{
+    {field} <<Property>> +VotingCount: int <<+get>>
+    {field} <<Property>> +VotingDecision: string <<+get>>
+    {field} <<Property>> +VotingOptions: Dictionary<string, int> <<+get, +set>>
+    {method} +VotingResult(votingDecision: string, VotingCount: int,votingOptions: Dictionary<string, int>): void
+  }
+
+  class "VotingStatistics" as votingstatistic{
+    {field} <<Property>> +Statistic: List<VotingResult> <<+get>>
+    {method} +VotingStatistics(List<VotingResult> statistic): void
+  }
+
+  enum "RandomType" as randomtype{
+    ..
+    RandomDecisionOne
+    RandomDecisionTwo
+    RandomDecisionThree
+    RandomDecisionFour
+    RandomDecisionFive
+    RandomDecisionSix
+  }
+
+  class "StoryEvent" as storyevent{
+    {field} +EventId: Guid <<+get>>
+    {field} +Description: string <<+get>>
+    {field} +Children: HashSet<StoryEvent> <<+get>>
+    {field} +StoryType: StoryEventType <<+get>>
+    {field} +SkillChange: Skills <<+get>>
+    {field} +RandomOption: bool <<+get>>
+    {field} +BackgroundType: BackgroundType <<+get>>
+    {field} +Random: RandomType <<+get>>
+    {method} +StoryEvent(eventId: Guid, description: string, children: HashSet<StoryEvent>, storyType: StoryEventType, skillChange: Skills): void
+    {method} +StoryEvent(eventId: Guid, description: string, children: HashSet<StoryEvent>, storyType: StoryEventType): void
+    {method} +StoryEvent(eventId: Guid, description: string, children: HashSet<StoryEvent>, storyType: StoryEventType, randomOption: bool, randomType: RandomType): void
+    {method} +StoryEvent(eventId: Guid, description: string, children: HashSet<StoryEvent>, storyType: StoryEventType, skillChange: Skills, randomOption: bool, randomType: RandomType): void
+    {method} +StoryEvent(backgroundType: BackgroundType, children: HashSet<StoryEvent>, storyType: StoryEventType): void
+    {method} +AddChild(child: StoryEvent): void
+    {method} +RemoveChild(child: StoryEvent): void
+  }
+
+  enum "StoryEventType" as storyeventtype{
+    ..
+    StoryDecision
+    StoryDecisionOption
+    StoryFlow
+    StoryBackground
+    StoryRootEvent
+    StoryEnd 
+    StoryWorkshop
+    StoryWorkshopInvite
+    StoryFired
+    StoryWorkshopNoInvite
+    StoryUnlockDecisionOption
+    StorySpecialDecision
+    StorySpecialOption
+  }
+
+  class "StoryGraph" as storygraph{
+    {field} <<Property>> +Character: Character <<+get, +set>>
+    {field} <<Property>> +Root: StoryEvent <<+get, +set>>
+    {field} <<Property>> +CurrentEvent: StoryEvent <<+get, +set>>
+    {method} +StoryGraph(): void
+    {method} +StoryGraph(character: Character, root: StoryEvent, currentEvent: StoryEvent): void
+    {method} +SetCurrentEvent(newCurrentEvent: StoryEvent): void
+    {method} +GetRandomOption(): void
+  }
+
+  class "MainThreadWorker : MonoBehaviour" as mainthreadworker{
+    {field} actions: ConcurrentQueue<Action>
+    {method} -Update(): void
+    {method} +AddAction(action: Action): void
+  }
+
+  class "QualityQuestWebSocket : MonoBehaviour" as qualityquestwebsocket{
+    {field} -client: Client
+    {field} -mainThreadWorker: MainThreadWorker
+    {field} +webSocket: WebSocket
+    {method} +StartConnection(ip: string, port: string): void
+    {method} -Read(msg: string): void
+    {method} +SendMessage<T>(message T): void
+    {method} +CloseConnection(): void
+    {method} +CloseConnectionWithReason(closeStatusCode: CloseStatusCode, reason: string): void
+  }
+
+
+
+  mainthreadworker - qualityQuestWebSocket
+  client - qualityQuestWebSocket
+  storygraph - charselection
+  storygraph - clientLogic
+  storyeventtype - storyevent
+  storyevent - client
+  storyevent - storygraph
+  storyevent - result
+  storyevent - displaydecision
+  storyevent - clientlogic
+  storyevent - wrongstoryeventexception
+  votingstatistic - clientLogic
+  votingstatistic - displaystatistics
+  votingresult - displaystatisticsdecision
+  votingresult - votEndMess
+  votingresult - votingstatistic
+  qrcodetype - qrcode
+  qrcode - activescreenmanager
+  messCont <|- audStatMess
+  messCont <|- gaPaStatMess
+  messCont <|- gaStartMess
+  messCont <|- reconnMess
+  messCont <|- reconnSuccMess
+  messCont <|- reqCloseSessMess
+  messCont <|- reqGaPaStatMess
+  messCont <|- reqGaStartMess
+  messCont <|- reqOpSessMess
+  messCont <|- reqServStatMess
+  messCont <|- reqStartVotMess
+  messCont <|- servStatMess
+  messCont <|- sessClosedMess
+  messCont <|- sessOpMess
+  messCont <|- votEndMess
+  messCont <|- votStartMess
+  messCont <|-down- errMess
+  messCont -left- messType
+  errMess -down- errorType
+
+  votStartMess -[hidden]- votEndMess
+  votEndMess -[hidden]- sessOpMess
+  sessOpMess -[hidden]- sessClosedMess
+  sessClosedMess -[hidden]- reqGaPaStatMess
+  reqCloseSessMess -[hidden]- reconnSuccMess
+  reconnSuccMess -[hidden]- reconnMess
+  servStatMess -[hidden]- reqStartVotMess
+  reqStartVotMess -[hidden]-reqServStatMess
+  reqServStatMess -[hidden]- gaStartMess
+  gaStartMess -[hidden]-gaPaStatMess
+  reconnMess -[hidden]- audStatMess
+  reqStartVotMess -[hidden]- servStatMess
+  servStatMess -[hidden]- votStartMess
+  votStartMess -[hidden]-reqCloseSessMess
+
+  messCont -up- client
+  messCont -up- wrongvotingendedmessageexception
+  messCont -up- activescreenmanager
+  messCont -up- clientLogic
+  theme - gamebackground
+  result - client
+  result - displaystatisticsdecision
+  result - votingresult
+
+  gamebackground -down- client 
+  gameaudio -down- client 
+  displaystoryflow -up- client
+  displaystatusbar -up- client
+  displaystatistics -up- client 
+  displaydecision -up- client 
+  displaystatisticsdecision - displaydecision
+  displaycharacter - charselection
+  charselection -down- client
+  backgroundtype - gamebackground
+  backgroundtype - storyevent
+  activescreenmanager -up- client
+  skills - displaystatusbar
+  skills - storyevent
+  skills - character
+  character - displaycharacter
+  character - storygraph
+  character - charselection
 }
 
 @enduml
