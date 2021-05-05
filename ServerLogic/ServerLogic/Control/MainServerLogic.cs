@@ -60,7 +60,7 @@ namespace ServerLogic.Control
                 _playerAudienceClientApi.StartServer(443);
                 StartWebsocket();
                 _checkForInactiveSessionsTimer.Start();
-                ServerLogger.LogInformation($"Website started on {Settings.Default.ServerURL}:{Settings.Default.PAWebPagePort} and WebSocket on {Settings.Default.MCWebSocketPort}");
+                ServerLogger.LogInformation($"Website started on {serverParams.ServerURL}:{serverParams.PAWebPagePort} and WebSocket on {serverParams.MCWebSocketPort}");
                 ServerLogger.LogInformation($"Using wss: {_server.IsSecure}.");
             }
             catch (Exception)
