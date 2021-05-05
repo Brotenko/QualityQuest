@@ -87,6 +87,7 @@ public class Client : MonoBehaviour
         }
         catch (ArgumentException argumentException)
         {
+            Debug.Log(argumentException);
             activeScreenManager.ShowErrorScreen("Keine gültiger Port. Bitte erneut versuchen oder im Offline-Modus fortfahren.");
         }
     }
@@ -315,6 +316,7 @@ public class Client : MonoBehaviour
                 displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
                 displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
                 gameAudio.PlaySkillChangeSound();
+                storyEvent.SkillChange = null;
             }
 
             switch (storyEvent.StoryType)
@@ -527,6 +529,7 @@ public class Client : MonoBehaviour
                 break;
             case 1006:
                 activeScreenManager.ShowErrorScreen("Es konnte keine Verbindung zum Server aufgebaut werden.");
+                activeScreenManager.ShowErrorScreen("TROLOLOLOLO");
                 break;
             case 1005:
                 Debug.Log("Connection is closed.");
@@ -584,7 +587,7 @@ public class Client : MonoBehaviour
             activeScreenManager.ShowPauseButton(false);
 
             // Check if there is a active connection
-            if (qualityQuestWebSocket.webSocket != null)
+            if (qualityQuestWebSocket.webSocket != null && qualityQuestWebSocket.webSocket.ReadyState == WebSocketState.Open)
             {
                 qualityQuestWebSocket.CloseConnection();
                 ContinueOfflineStory(clientLogic.StoryGraph.CurrentEvent);
@@ -734,6 +737,7 @@ public class Client : MonoBehaviour
                 displayStatusBar.DisplaySkills(clientLogic.StoryGraph.Character.Abilities);
                 displayStatusBar.UpdateSkillChanges(storyEvent.SkillChange);
                 gameAudio.PlaySkillChangeSound();
+                storyEvent.SkillChange = null;
             }
 
             switch (storyEvent.StoryType)

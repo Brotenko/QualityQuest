@@ -143,7 +143,7 @@ public class ClientLogic
     }
 
     /// <summary>
-    /// Method to continue the after a StoryFlowDecision.
+    /// Method to continue the Story after a StoryFlowDecision.
     /// If the chosen StoryEvent is a RandomEvent, the story will be continued with a random StoryEvent.
     /// </summary>
     /// <param name="storyGraph">The StoryGraph of the game.</param>
@@ -238,18 +238,7 @@ public class ClientLogic
     /// <param name="newVotingTime">The new VotingTime.</param>
     public void SetVotingTime(int newVotingTime)
     {
-        if (newVotingTime < 5)
-        {
-            VotingTime = 5;
-        }
-        else if (newVotingTime > 60)
-        {
-            VotingTime = 60;
-        }
-        else
-        {
-            VotingTime = newVotingTime;
-        }
+        VotingTime = newVotingTime;
     }
 
     /// <summary>
