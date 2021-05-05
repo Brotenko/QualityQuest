@@ -376,10 +376,10 @@ public class Client : MonoBehaviour
     }
 
     /// <summary>
-    /// Method which gets triggered of the last StoryEvent gets reached.
+    /// Method which gets triggered if the last StoryEvent gets reached.
     /// If on online mode, sends a RequestCloseSessionMessage and shows statistics.
     /// </summary>
-    /// <param name="currentEvent"></param>
+    /// <param name="currentEvent">The last StoryEvent.</param>
     public void StoryEnd(StoryEvent currentEvent)
     {
         displayStoryFlow.RemoveStoryFlowListeners();
