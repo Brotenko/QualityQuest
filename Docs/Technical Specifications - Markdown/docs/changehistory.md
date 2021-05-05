@@ -66,8 +66,8 @@ The change history is a chronologically ordered list of all changes between diff
 |   +   | **[_Used Libraries:_](../usedtools#used-libraries) _Newtonsoft.Json:_** Added new used library.                                                                 |
 |   +   | **[_Used Libraries:_](../usedtools#used-libraries) _WebSocketSharp:_** Added new used library.                                                                  |
 |   +   | **[_Used Libraries:_](../usedtools#used-libraries) _Fleck:_** Added new used library.                                                                           |
-|   +   | **[_Used Tools:_](../usedtools#used-tools) Unity:_** Added new used tool.                                                                                       |
-|   +   | **[_Used Tools:_](../usedtools#used-tools) Unity Test Framework:_** Added new used tool.                                                                        |
+|   +   | **[_Used Tools:_](../usedtools#used-tools) _Unity:_** Added new used tool.                                                                                       |
+|   +   | **[_Used Tools:_](../usedtools#used-tools) _Unity Test Framework:_** Added new used tool.                                                                        |
 
 </span>
 
