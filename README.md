@@ -27,6 +27,9 @@ Possible issues and possible fixes:
 * Website or WebSocket not available?
   - Specify 'https://' explicitly for the website.
   - Check whether the sockets on your device are enabled or occupied by another service. 
+* `[Warn] Failed to Authenticate System.AggregateException: One or more errors occurred.`
+  - This Exception is thrown when a PlayerAudience-Client tries to connect using HTTP, TLS 1.1 or other "outdated" protocols.
+  - The Exception is non-critical and only warns the host of a connection that is not using modern standards. SignalR does support these connections anyway by default.
 
 If you have any problems, please write us an issue, we will be happy to help you.
 
