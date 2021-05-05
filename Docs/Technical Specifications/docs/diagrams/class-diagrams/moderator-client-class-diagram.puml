@@ -188,7 +188,7 @@ package "Moderator-Client" {
     {method} +RemoveOfflinePickButtons(): void
   }
 
-  class "ClearPlaceHoderOnFocus : MonoBehaviour, ISelectHandler, IDeselectHandler" as clearplaceholderonfocus{
+  class "ClearPlaceHolderOnFocus : MonoBehaviour, ISelectHandler, IDeselectHandler" as clearplaceholderonfocus{
     {field} +PlaceholderText: TMP_Text
     {method} +OnSelect(data: BaseEventData): void
     {method} +OnDeselect(data: BaseEventData): void
@@ -407,6 +407,8 @@ package "Moderator-Client" {
     {method} +SetResolution(resolutionIndex: int): void
     {method} +SetFullscreen(isFullScrenn: bool): void
   }
+
+
 
   class "MessageContainer" as messCont {
     {field} <<Property>> +ModeratorID: Guid <<+get>>
@@ -645,7 +647,84 @@ package "Moderator-Client" {
 
   mainthreadworker - qualityQuestWebSocket
   client - qualityQuestWebSocket
-  
+  storygraph - charselection
+  storygraph - clientLogic
+  storyeventtype - storyevent
+  storyevent - client
+  storyevent - storygraph
+  storyevent - result
+  storyevent - displaydecision
+  storyevent - clientlogic
+  storyevent - wrongstoryeventexception
+  votingstatistic - clientLogic
+  votingstatistic - displaystatistics
+  votingresult - displaystatisticsdecision
+  votingresult - votEndMess
+  votingresult - votingstatistic
+  qrcodetype - qrcode
+  qrcode - activescreenmanager
+  messCont <|- audStatMess
+  messCont <|- gaPaStatMess
+  messCont <|- gaStartMess
+  messCont <|- reconnMess
+  messCont <|- reconnSuccMess
+  messCont <|- reqCloseSessMess
+  messCont <|- reqGaPaStatMess
+  messCont <|- reqGaStartMess
+  messCont <|- reqOpSessMess
+  messCont <|- reqServStatMess
+  messCont <|- reqStartVotMess
+  messCont <|- servStatMess
+  messCont <|- sessClosedMess
+  messCont <|- sessOpMess
+  messCont <|- votEndMess
+  messCont <|- votStartMess
+  messCont <|-down- errMess
+  messCont -left- messType
+  errMess -down- errorType
+
+  votStartMess -[hidden]- votEndMess
+  votEndMess -[hidden]- sessOpMess
+  sessOpMess -[hidden]- sessClosedMess
+  sessClosedMess -[hidden]- reqGaPaStatMess
+  reqCloseSessMess -[hidden]- reconnSuccMess
+  reconnSuccMess -[hidden]- reconnMess
+  servStatMess -[hidden]- reqStartVotMess
+  reqStartVotMess -[hidden]-reqServStatMess
+  reqServStatMess -[hidden]- gaStartMess
+  gaStartMess -[hidden]-gaPaStatMess
+  reconnMess -[hidden]- audStatMess
+  reqStartVotMess -[hidden]- servStatMess
+  servStatMess -[hidden]- votStartMess
+  votStartMess -[hidden]-reqCloseSessMess
+
+  messCont -up- client
+  messCont -up- wrongvotingendedmessageexception
+  messCont -up- activescreenmanager
+  messCont -up- clientLogic
+  theme - gamebackground
+  result - client
+  result - displaystatisticsdecision
+  result - votingresult
+
+  gamebackground -down- client 
+  gameaudio -down- client 
+  displaystoryflow -up- client
+  displaystatusbar -up- client
+  displaystatistics -up- client 
+  displaydecision -up- client 
+  displaystatisticsdecision - displaydecision
+  displaycharacter - charselection
+  charselection -down- client
+  backgroundtype - gamebackground
+  backgroundtype - storyevent
+  activescreenmanager -up- client
+  skills - displaystatusbar
+  skills - storyevent
+  skills - character
+  character - displaycharacter
+  character - storygraph
+  character - charselection
 }
 
 @enduml

@@ -278,9 +278,9 @@ package "ServerLogic" {
   messCont <|- sessOpMess
   messCont <|- votEndMess
   messCont <|- votStartMess
-  messCont <|- errMess
+  messCont <|-down- errMess
   messCont -left- messType
-  errMess - errorType
+  errMess -down- errorType
 
   votStartMess -[hidden]- votEndMess
   votEndMess -[hidden]- sessOpMess
