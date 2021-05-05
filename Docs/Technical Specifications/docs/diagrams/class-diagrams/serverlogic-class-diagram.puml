@@ -259,7 +259,6 @@ package "ServerLogic" {
   sl ... msl
   sl ... api
   sl ... ss
-  api -- PABackend
   msl -- messCont
   cm -- messCont
   messCont <|- audStatMess
