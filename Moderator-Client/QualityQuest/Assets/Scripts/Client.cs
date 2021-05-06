@@ -585,6 +585,7 @@ public class Client : MonoBehaviour
             GameState.gameIsOnline = false;
             clientLogic.ActiveVoting = false;
             activeScreenManager.ShowPauseButton(false);
+            displayStatusBar.HideDecision();
 
             // Check if there is a active connection
             if (qualityQuestWebSocket.webSocket != null && qualityQuestWebSocket.webSocket.ReadyState == WebSocketState.Open)

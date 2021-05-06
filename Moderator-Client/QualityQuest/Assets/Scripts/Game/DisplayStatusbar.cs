@@ -148,6 +148,14 @@ public class DisplayStatusbar : MonoBehaviour
     }
 
     /// <summary>
+    /// Method to hide the timer if switching into offline mode.
+    /// </summary>
+    public void HideDecision()
+    {
+        decision.SetActive(false);
+    }
+
+    /// <summary>
     /// Gets called at the start of the game.
     /// Disables the statusBar before the character pick phase.
     /// </summary>
