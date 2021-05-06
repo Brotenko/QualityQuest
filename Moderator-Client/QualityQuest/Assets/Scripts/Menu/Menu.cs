@@ -1,20 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
+/// <summary>
+/// Class for the logic needed in the main menu.
+/// </summary>
 public class Menu : MonoBehaviour
 {
-
     public GameObject mainMenu;
     public GameObject audioMenu;
     public GameObject optionsMenu;
     public GameObject languageMenu;
     public GameObject displayMenu;
+    public GameObject playOnline;
 
     /// <summary>
     /// Makes sure that when the game is launched the main menu is displayed.
     /// </summary>
-    void Start()
+    private void Start()
     {
         HideAllMenu();
         ShowMainMenu();
@@ -45,6 +50,7 @@ public class Menu : MonoBehaviour
     {
         HideAllMenu();
         optionsMenu.SetActive(true);
+        
     }
 
     /// <summary>
@@ -75,6 +81,7 @@ public class Menu : MonoBehaviour
         mainMenu.SetActive(false);
         languageMenu.SetActive(false);
         displayMenu.SetActive(false);
+        playOnline.SetActive(false);
     }
 
     /// <summary>
@@ -84,5 +91,24 @@ public class Menu : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+
+    /// <summary>
+    /// Method to set the offlineMode through the main menu.
+    /// </summary>
+    public void PlayOfflineMode()
+    {
+        GameState.gameIsOnline = false;
+        Debug.Log("Offlinemode enabled");
+        SceneManager.LoadScene(sceneBuildIndex: 1);
+    }
+
+    /// <summary>
+    /// Makes the playOnline panel visible.
+    /// </summary>
+    public void PlayOnline()
+    {
+        GameState.gameIsOnline = true;
+        SceneManager.LoadScene(sceneBuildIndex: 1);
     }
 }

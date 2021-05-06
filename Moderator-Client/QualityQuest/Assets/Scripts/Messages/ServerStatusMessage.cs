@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServerLogic.Model.Messages
+namespace MessageContainer.Messages
 {
     /// <summary>
     /// This message is sent from the ServerLogic to the Moderator-Client in response to a 
@@ -13,18 +13,6 @@ namespace ServerLogic.Model.Messages
     /// </summary>
     public class ServerStatusMessage : MessageContainer
     {
-        /// <summary>
-        /// Constructs a new ServerStatusMessage with an empty debugMessage.
-        /// </summary>
-        /// 
-        /// <param name="moderatorId">The individual identifier assigned to the Moderator-Client. 
-        /// Only the Moderator-Client sends this id to the ServerLogic to identify itself. The 
-        /// ServerLogic leaves this field empty.</param>
-        public ServerStatusMessage(Guid moderatorId) : this(moderatorId, "")
-        {
-            /* FALL THROUGH */
-        }
-
         /// <summary>
         /// Constructs a new ServerStatusMessage.
         /// </summary>
@@ -37,7 +25,7 @@ namespace ServerLogic.Model.Messages
         /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
         /// or an error occurring, information can be carried to the Moderator-Client directly for 
         /// quick access, without the need to search through the logs.</param>
-        public ServerStatusMessage(Guid moderatorId, string debugMessage) : base(moderatorId, MessageType.ServerStatus, debugMessage)
+        public ServerStatusMessage(Guid moderatorId) : base(moderatorId, MessageType.ServerStatus)
         {
             /* FALL THROUGH */
         }

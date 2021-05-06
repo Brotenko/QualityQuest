@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServerLogic.Model.Messages
+namespace MessageContainer.Messages
 {
     /// <summary>
     /// This message is sent from the Moderator-Client to the ServerLogic to reestablish a lost 
@@ -16,17 +16,6 @@ namespace ServerLogic.Model.Messages
     /// </summary>
     public class ReconnectMessage : MessageContainer
     {
-        /// <summary>
-        /// Constructs a new ReconnectMessage with an empty debugMessage.
-        /// </summary>
-        /// 
-        /// <param name="moderatorId">The individual identifier assigned to the Moderator-Client. 
-        /// Only the Moderator-Client sends this id to the ServerLogic to identify itself. The 
-        /// ServerLogic leaves this field empty.</param>
-        public ReconnectMessage(Guid moderatorId) : this(moderatorId, "")
-        {
-            /* FALL THROUGH */
-        }
 
         /// <summary>
         /// Constructs a new ReconnectMessage.
@@ -40,7 +29,7 @@ namespace ServerLogic.Model.Messages
         /// between ServerLogic and Moderator-Client. This way, in case of a non parsable message, 
         /// or an error occurring, information can be carried to the Moderator-Client directly for 
         /// quick access, without the need to search through the logs.</param>
-        public ReconnectMessage(Guid moderatorId, string debugMessage) : base(moderatorId, MessageType.Reconnect, debugMessage)
+        public ReconnectMessage(Guid moderatorId) : base(moderatorId, MessageType.Reconnect)
         {
             /* FALL THROUGH */
         }

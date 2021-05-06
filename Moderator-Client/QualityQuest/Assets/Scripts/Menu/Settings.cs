@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.UI;
 using TMPro;
 
 /// <summary>
@@ -10,38 +7,8 @@ using TMPro;
 /// </summary>
 public class Settings : MonoBehaviour
 {
-    
-    public AudioMixer audioMixer;
-
     public TMP_Dropdown resolutionDropdown;
-
-    public Slider musicVolumeSlider;
-    public Slider soundVolumeSlider;
-    public Toggle muteAllToggle;
-
     Resolution[] resolutions;
-
-    /// <summary>
-    /// On entering of a scene, the current setting will be set, so the game objects represent the same values.
-    /// </summary>
-    private void Awake()
-    {
-        float musicVol, soundVol, allVol;
-        audioMixer.GetFloat("volumeMusic", out musicVol);
-        audioMixer.GetFloat("volumeSound", out soundVol);
-        musicVolumeSlider.value = Mathf.Pow(10, (musicVol / 20));
-        soundVolumeSlider.value = Mathf.Pow(10, (soundVol / 20));
-
-        audioMixer.GetFloat("volume", out allVol);
-        if (allVol == -80)
-        {
-            muteAllToggle.isOn = true;
-        }
-        else
-        {
-            muteAllToggle.isOn = false;
-        }
-    }
 
     /// <summary>
     /// Upon the first initialization, the resolution drop down will be filled.
@@ -86,51 +53,5 @@ public class Settings : MonoBehaviour
     public void SetFullscreen (bool isFullScreen)
     {
         Screen.fullScreen = isFullScreen;
-    }
-
-    /// <summary>
-    /// Method used to set the overall volume.
-    /// </summary>
-    /// <param name="volume">Value bigger than 0 and 1 at max.</param>
-    public void SetVolume (float volume)
-    {
-        Debug.Log(volume);
-        audioMixer.SetFloat("volume", Mathf.Log10(volume) * 20);
-    }
-
-    /// <summary>
-    /// Method used to set the music volume.
-    /// </summary>
-    /// <param name="volume">Value bigger than 0 and 1 at max.</param>
-    public void SetVolumeMusic(float volume)
-    {
-        Debug.Log(volume);
-        audioMixer.SetFloat("volumeMusic", Mathf.Log10(volume) * 20);
-    }
-
-    /// <summary>
-    /// Method used to set the sound effect volume.
-    /// </summary>
-    /// <param name="volume">Value bigger than 0 and 1 at max.</param>
-    public void SetVolumeSound(float volume)
-    {
-        Debug.Log(volume);
-        audioMixer.SetFloat("volumeSound", Mathf.Log10(volume) * 20);
-    }
-
-    /// <summary>
-    /// Method used to mute all audio.
-    /// </summary>
-    /// <param name="muted">Bool that determines if audio is muted or not.</param>
-    public void MuteAllAudio(bool muted)
-    {
-        if (muted)
-        {
-            audioMixer.SetFloat("volume", -80);
-        }
-        else
-        {
-            audioMixer.SetFloat("volume", 0);
-        }
     }
 }
