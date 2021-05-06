@@ -603,7 +603,7 @@ public class StoryGraph
         storyelement48.AddChild(storyelement49option2);
         storyelement48.AddChild(storyelement49option3);
 
-        var end = new StoryEvent(Guid.NewGuid(), "End.", new HashSet<StoryEvent>(), StoryEventType.StoryEnd);
+        var end = new StoryEvent(Guid.NewGuid(), "Ende", new HashSet<StoryEvent>(), StoryEventType.StoryEnd);
 
         storyelement49option1.AddChild(end);
         storyelement49option2.AddChild(end);
