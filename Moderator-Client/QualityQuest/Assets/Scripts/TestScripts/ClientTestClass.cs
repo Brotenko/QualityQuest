@@ -296,7 +296,7 @@ public class ClientTestClass
     {
         try
         {
-            if (!storyEvent.StoryType.Equals(StoryEventType.StoryEnd))
+            if (storyEvent == null || !storyEvent.StoryType.Equals(StoryEventType.StoryEnd))
             {
                 clientLogic.ValidateStoryEvent(storyEvent);
             }
@@ -523,7 +523,6 @@ public class ClientTestClass
                 break;
             case 1006:
                 activeScreenManager.ShowErrorScreen("Es konnte keine Verbindung zum Server aufgebaut werden.");
-                activeScreenManager.ShowErrorScreen("TROLOLOLOLO");
                 break;
             case 1005:
                 Debug.Log("Connection is closed.");
@@ -717,7 +716,7 @@ public class ClientTestClass
     {
         try
         {
-            if (!storyEvent.StoryType.Equals(StoryEventType.StoryEnd))
+            if (storyEvent == null || !storyEvent.StoryType.Equals(StoryEventType.StoryEnd))
             {
                 clientLogic.ValidateStoryEvent(storyEvent);
             }

@@ -166,8 +166,6 @@ public class ActiveScreenManagerTest
         Assert.IsFalse(activeScreen.pauseScreenPanel.activeSelf);
         activeScreen.ShowPauseMenu("www.qualityquest.de", "1234");
         Assert.IsTrue( activeScreen.pauseScreenPanel.activeSelf);
-        Assert.AreEqual("www.qualityquest.de", activeScreen.pauseUrl.text);
-        Assert.AreEqual("1234", activeScreen.pauseKey.text);
     }
 
     [Test]
@@ -198,5 +196,15 @@ public class ActiveScreenManagerTest
         Assert.IsFalse(activeScreen.gameMenuPanel.activeSelf);
         activeScreen.ShowGameMenu();
         Assert.IsFalse(activeScreen.gameMenuPanel.activeSelf);
+    }
+
+    [Test]
+    public void SetPauseQrPanelTest()
+    {
+        activeScreen.pauseKey.text = "KEY";
+        activeScreen.pauseUrl.text = "url";
+        activeScreen.SetPauseQrPanel("www.newurl.de", "NEWKEY");
+        Assert.AreEqual("NEWKEY",activeScreen.pauseKey.text);
+        Assert.AreEqual("www.newurl.de", activeScreen.pauseUrl.text);
     }
 }
