@@ -16,7 +16,7 @@ We provide placeholders for these purposes which can be replaced, or removed, de
 
 Make sure that Python3 is installed and Docker is running. Place a valid .pfx certificate in `QualityQuest/ServerLogic`. Run `install_and_run.py` with administrator privileges. The script offers you three options to start QualityQuest: 
 1. (Install) Must have been run once to enable the other two options. Creates a new Docker image, the requested parameters are used to start a Docker container and run QualityQuest directly afterwards.
-2. (Configurate) Start QualityQuest from an existing Docker image and change parameters such as port, URL and certificate. Resets parameters such as LogLevel and password from previous sessions.
+2. (Configurate) Start QualityQuest from an existing Docker image and change the parameters for port and URL. Also resets parameters such as LogLevel and password from previous sessions.
 3. (Continue) Start QualityQuest and apply settings from previous sessions.
 
 
