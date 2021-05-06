@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class for the character selection phase of the game.
+/// </summary>
 public class CharacterSelection : MonoBehaviour
 {
     // Scripts which update the displayed characters in the character selection screen.

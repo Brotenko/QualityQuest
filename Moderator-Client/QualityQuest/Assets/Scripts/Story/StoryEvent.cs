@@ -68,27 +68,6 @@ public class StoryEvent
     }
 
     /// <summary>
-    /// Constructor of the StoryEvent class. 
-    /// </summary>
-    /// <param name="eventId">The Guid of the StoryEvent.</param>
-    /// <param name="description">The Description of the StoryEvent.</param>
-    /// <param name="children">The Children StoryEvents of the StoryEvent.</param>
-    /// <param name="storyType">The type of the StoryEvent.</param>
-    /// <param name="skillChange">The amount by which the StoryEvent changes the skills of the Character.</param>
-    /// <param name="randomOption">The RandomEventPath.</param>
-    /// <param name="randomType">The RandomEventType.</param>
-    public StoryEvent(Guid eventId, string description, HashSet<StoryEvent> children, StoryEventType storyType, Skills skillChange, bool randomOption, RandomType randomType)
-    {
-        this.EventId = eventId;
-        this.Description = description;
-        this.Children = children;
-        this.StoryType = storyType;
-        this.SkillChange = skillChange;
-        this.RandomOption = randomOption;
-        this.Random = randomType;
-    }
-
-    /// <summary>
     /// Constructor of the StoryEvent class. Special StoryEvent to switch the background.
     /// </summary>
     /// <param name="backgroundType">The background of the StoryEvent.</param>

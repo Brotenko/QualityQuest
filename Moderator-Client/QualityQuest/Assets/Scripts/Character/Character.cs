@@ -1,5 +1,7 @@
 using UnityEngine;
-
+/// <summary>
+/// Class for the PlayerCharacter.
+/// </summary>
 public class Character
 {
     public Skills Abilities { get; }

@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Class to improve InputField functions.
+/// </summary>
 public class ClearPlaceholderOnFocus : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     public TMP_Text PlaceholderText;

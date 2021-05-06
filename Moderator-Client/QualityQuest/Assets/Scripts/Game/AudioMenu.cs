@@ -3,6 +3,9 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 using TMPro;
 
+/// <summary>
+/// Class for the menu adio.
+/// </summary>
 public class AudioMenu : MonoBehaviour
 {
     /// <summary>

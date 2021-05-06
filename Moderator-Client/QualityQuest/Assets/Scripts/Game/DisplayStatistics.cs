@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Class to display the statistics.
+/// </summary>
 public class DisplayStatistics : MonoBehaviour
 {
     /// <summary>

@@ -1,4 +1,6 @@
-
+/// <summary>
+/// Class for the Stats of the PlayerCharacter
+/// </summary>
 public class Skills
 {
     public int Communication { get; set; }

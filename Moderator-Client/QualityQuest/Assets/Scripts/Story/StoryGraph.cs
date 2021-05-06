@@ -6,6 +6,9 @@ using Assets.Scripts.Game;
 using UnityEngine;
 using Random = System.Random;
 
+/// <summary>
+/// Class for the StoryGraph.
+/// </summary>
 public class StoryGraph 
 {
     public Character Character { get; set; }

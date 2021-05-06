@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class that manages with gamePanel is active.
+/// </summary>
 public class ActiveScreenManager : MonoBehaviour
 {
 

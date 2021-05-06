@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class to display decisions.
+/// </summary>
 public class DisplayDecision : MonoBehaviour
 {
     /// <summary>

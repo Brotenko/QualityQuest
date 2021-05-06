@@ -2,6 +2,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class to display the character and his stats on the screen.
+/// </summary>
 public class DisplayCharacter : MonoBehaviour
 {
     /// <summary>
