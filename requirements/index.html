@@ -2177,6 +2177,31 @@
 </tbody>
 </table>
 <p></span></p>
+<h4 style="margin-bottom: 0em"; id="sessionkey-generator-limit">SessionKey generator limit</h4>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>FR82</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PRIORITY</td>
+<td>+</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>If the ServerLogic can't generate a new SessionKey, that is not currently used by another session, after 16 tries, the ServerLogic shall close all connections that use the last generated SessionKey and assign that SessionKey to the new session only.</td>
+</tr>
+<tr>
+<td>EXPLANATION</td>
+<td>With <code>2.176.782.336</code> possible combinations for a SessionKey, the chance of this happening is close to 0 and only serves as a fail-save.</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
 <h2 id="non-functional-requirements">Non-functional Requirements</h2>
 <p>This section specifies the non-functional requirements for the software system.</p>
 <h4 style="margin-bottom: 0em"; id="documents-to-be-delivered">Documents to be delivered</h4>
