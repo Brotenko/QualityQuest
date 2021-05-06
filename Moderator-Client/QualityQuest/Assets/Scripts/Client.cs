@@ -853,12 +853,12 @@ public class Client : MonoBehaviour
             if (newVotingTime > 60)
             {
                 this.votingTime.text = "60";
-                newVotingTime = 60;
+                clientLogic.SetVotingTime(60);
             }
             else if (newVotingTime < 5)
             {
                 this.votingTime.text = "5";
-                newVotingTime = 5;
+                clientLogic.SetVotingTime(5);
             }
             else
             {
