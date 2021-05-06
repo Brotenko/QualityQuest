@@ -65,6 +65,10 @@ public class Client : MonoBehaviour
         {
             StartOfflinePlaythrough();
         }
+        else
+        {
+            characterSelection.RemoveOfflinePickButtons();
+        }
     }
 
     /// <summary>
@@ -174,6 +178,7 @@ public class Client : MonoBehaviour
     {
         GameState.gameIsOnline = true;
         clientLogic.SaveUrlAndSessionKey(sessionOpenedMessage);
+        activeScreenManager.SetPauseQrPanel(clientLogic.Url, clientLogic.SessionKey);
         activeScreenManager.ShowQrCodePanel(clientLogic.Url, clientLogic.SessionKey);
     }
 

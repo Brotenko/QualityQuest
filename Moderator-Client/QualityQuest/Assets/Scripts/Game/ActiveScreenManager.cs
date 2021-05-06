@@ -74,6 +74,18 @@ public class ActiveScreenManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Method to set all variables at the pausePanel
+    /// </summary>
+    /// <param name="url">The url of the website.</param>
+    /// <param name="sessionKey">The sessionKey</param>
+    public void SetPauseQrPanel(string url, string sessionKey)
+    {
+        pauseKey.text = sessionKey;
+        pauseUrl.text = url;
+        qrCodeGenerator.GenerateQRCode(url, QrCodeType.QrCodePause);
+    }
+
+    /// <summary>
     /// This method is called before the screen is changed
     /// to make sure that only one screen is active at once.
     /// </summary>
@@ -272,10 +284,6 @@ public class ActiveScreenManager : MonoBehaviour
             if (gameMenuPanel.activeSelf) return;
             HideAllMenus();
             pauseScreenPanel.SetActive(true);
-            pauseKey.text = sessionKey;
-            pauseUrl.text = url;
-            qrCodeGenerator.GenerateQRCode(url, QrCodeType.QrCodePause);
-
         }
         else
         {

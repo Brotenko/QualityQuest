@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -105,6 +106,18 @@ public class ActiveScreenManagerTestClass
             activeMenu = characterSelectionPanel;
             characterSelectionPanel.SetActive(true);
         }
+    }
+
+    /// <summary>
+    /// Method to set all variables at the pausePanel
+    /// </summary>
+    /// <param name="url">The url of the website.</param>
+    /// <param name="sessionKey">The sessionKey</param>
+    public void SetPauseQrPanel(string url, string sessionKey)
+    {
+        pauseKey.text = sessionKey;
+        pauseUrl.text = url;
+        qrCodeGenerator.GenerateQRCode(url, QrCodeType.QrCodePause);
     }
 
     /// <summary>
@@ -306,10 +319,6 @@ public class ActiveScreenManagerTestClass
             if (gameMenuPanel.activeSelf) return;
             HideAllMenus();
             pauseScreenPanel.SetActive(true);
-            pauseKey.text = sessionKey;
-            pauseUrl.text = url;
-            qrCodeGenerator.GenerateQRCode(url, QrCodeType.QrCodePause);
-
         }
         else
         {
