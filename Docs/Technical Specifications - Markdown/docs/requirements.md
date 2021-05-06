@@ -681,11 +681,11 @@ This section contains all requirements that specify the basic actions of the sof
 </span>
 
 <h4 style="margin-bottom: 0em"; id="playeraudience-client-data-filtration">PlayerAudience-Client data filtration</h4>
-| ID          | FR75                                                                                                                   |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------- |
-| PRIORITY    | +                                                                                                                      |
+| ID          | FR75                                                                                                                                             |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| PRIORITY    | +                                                                                                                                                |
 | DESCRIPTION | The backend of the PlayerAudience-Client shall filter incoming data from the PlayerAudience-Clients and discard anything out of order or format. |
-| EXPLANATION | -                                                                                                                      |
+| EXPLANATION | -                                                                                                                                                |
 
 </span>
 
@@ -740,6 +740,15 @@ This section contains all requirements that specify the basic actions of the sof
 | PRIORITY    | +                                                                                                  |
 | DESCRIPTION | The Moderator-Client shall support that one can set the audio options independently of each other. |
 | EXPLANATION | -                                                                                                  |
+
+</span>
+
+<h4 style="margin-bottom: 0em"; id="sessionkey-generator-limit">SessionKey generator limit</h4>
+| ID          | FR82                                                                                                                                                                                                                                                      |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PRIORITY    | +                                                                                                                                                                                                                                                         |
+| DESCRIPTION | If the ServerLogic can't generate a new SessionKey, that is not currently used by another session, after 16 tries, the ServerLogic shall close all connections that use the last generated SessionKey and assign that SessionKey to the new session only. |
+| EXPLANATION | With `2.176.782.336` possible combinations for a SessionKey, the chance of this happening is close to 0 and only serves as a fail-save.                                                                                                                   |
 
 </span>
 

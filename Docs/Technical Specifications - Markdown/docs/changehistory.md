@@ -66,8 +66,8 @@ The change history is a chronologically ordered list of all changes between diff
 |   +   | **[_Used Libraries:_](../usedtools#used-libraries) _Newtonsoft.Json:_** Added new used library.                                                                 |
 |   +   | **[_Used Libraries:_](../usedtools#used-libraries) _WebSocketSharp:_** Added new used library.                                                                  |
 |   +   | **[_Used Libraries:_](../usedtools#used-libraries) _Fleck:_** Added new used library.                                                                           |
-|   +   | **[_Used Tools:_](../usedtools#used-tools) _Unity:_** Added new used tool.                                                                                       |
-|   +   | **[_Used Tools:_](../usedtools#used-tools) _Unity Test Framework:_** Added new used tool.                                                                        |
+|   +   | **[_Used Tools:_](../usedtools#used-tools) _Unity:_** Added new used tool.                                                                                      |
+|   +   | **[_Used Tools:_](../usedtools#used-tools) _Unity Test Framework:_** Added new used tool.                                                                       |
 
 </span>
 
@@ -88,6 +88,7 @@ The change history is a chronologically ordered list of all changes between diff
 
 |   *   | **[_Network Protocol:_](../network-protocol#requeststartvotingmessage) _RequestStartVotingMessage:_** Changed RequestStartVotingMessage to use an KeyValuePair-Array for the VotingOptions. |
 |   *   | **[_Architecture diagrams:_](../architecture-diagrams) _Architecture diagrams:_** Updated diagrams according to current implementation.                 |
+|   +   | **[_Functional Requirements:_](../requirements#sessionkey-generator-limit) _FR82:_** Added requirement "SessionKey generator limit".                                            |
 
 </span>
 
