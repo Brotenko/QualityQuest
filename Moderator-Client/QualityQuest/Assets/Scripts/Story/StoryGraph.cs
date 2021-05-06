@@ -341,7 +341,7 @@ public class StoryGraph
         var storyelement24option1 = new StoryEvent(Guid.NewGuid(), "Du kannst deine Deadline nicht einhalten, aber deinem Chef gefällt dein Engagement deine Fähigkeiten zu erweitern.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 1));
         var storyelement24option2 = new StoryEvent(Guid.NewGuid(), "Du arbeitest an dem Projekt weiter und schaffst es deine Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 0, 0, 0));
         var storyelement24option3 = new StoryEvent(Guid.NewGuid(), "Da du Urlaub genommen hast schaffst du es nicht die Deadline einzuhalten, dein Chef ist deshalb ziemlich sauer.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(-2, -2, 0, 0));
-        var storyelement24option4 = new StoryEvent(Guid.NewGuid(), "Nach der Weiterbildung genießt du eine Woche Urlaub und da dein Chef sich um eine Vertetung gekümmert hat, hast du keine Probleme die Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 2, 0, 2));
+        var storyelement24option4 = new StoryEvent(Guid.NewGuid(), "Nach der Weiterbildung genießt du eine Woche Urlaub und da dein Chef sich um eine Vertretung gekümmert hat, hast du keine Probleme die Deadline einzuhalten.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0, 2, 0, 2));
 
         decision10option1.AddChild(storyelement24option1);
         decision10option2.AddChild(storyelement24option2);
@@ -542,7 +542,7 @@ public class StoryGraph
         decision17option1.AddChild(storyelement42option1);
 
         var storyelement42option2 = new StoryEvent(Guid.NewGuid(), "Yaggaya wird dir nicht helfen und du verpasst deine Deadline um 5 Tage.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,false, RandomType.RandomDecisionSix);
-        var storyelement42option2Bad = new StoryEvent(Guid.NewGuid(), "Dein boss ist sauer, da du deine Deadline verpasst hast", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0,-2,0,0));
+        var storyelement42option2Bad = new StoryEvent(Guid.NewGuid(), "Dein Chef ist sauer, da du deine Deadline verpasst hast", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0,-2,0,0));
 
         decision17option1.AddChild(storyelement42option2);
 
