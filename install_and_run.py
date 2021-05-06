@@ -18,8 +18,7 @@ if int(option) == 1:
     PAWebPagePort = input()
     print("Please enter the port for the ModeratorClient to connect to:")
     MCWebSocketPort = input()
-    print(
-        "Please make sure that the certificate (must be .pfx) is inside 'QualityQuest/ServerLogic' and enter the name of it:")
+    print("Please make sure that the certificate (must be .pfx) is inside 'QualityQuest/ServerLogic' and enter the name of it:")
     CertFilePath = input()
     if not os.path.isfile(os.path.dirname(os.path.abspath(__file__))+"/ServerLogic/"+CertFilePath) or not CertFilePath.__contains__(".pfx"):
         print("The Cert-File was not found, please make sure that it's inside 'QualityQuest/ServerLogic' and is of .pfx format.")
@@ -40,7 +39,7 @@ if int(option) == 1:
     os.system("docker build -t qqserverimage .")
 # get params and run container on existing image with params
 elif int(option) == 2:
-    print("Please enter the URL under which the website can be reached (without 'https://www.':")
+    print("Please enter the URL under which the website can be reached (written like 'qualityquest.com')")
     ServerURL = input()
     print("Please enter the port for the website (e.g. 443):")
     PAWebPagePort = input()
@@ -48,6 +47,9 @@ elif int(option) == 2:
     MCWebSocketPort = input()
     print("Please make sure that the certificate (must be .pfx) is inside 'QualityQuest/ServerLogic' and enter the name of it:")
     CertFilePath = input()
+    if not os.path.isfile(os.path.dirname(os.path.abspath(__file__)) + "/ServerLogic/" + CertFilePath) or not CertFilePath.__contains__(".pfx"):
+        print("The Cert-File was not found, please make sure that it's inside 'QualityQuest/ServerLogic' and is of .pfx format.")
+        exit()
     print("Please enter the access-password for the certificate:")
     CertPW = input()
     dic_opts = {"ServerURL": ServerURL, "PAWebPagePort": PAWebPagePort, "MCWebSocketPort": MCWebSocketPort,
@@ -68,12 +70,15 @@ PAWebPagePort = paramsData["PAWebPagePort"]
 MCWebSocketPort = paramsData["MCWebSocketPort"]
 CertFilePath = paramsData["CertFilePath"]
 CertPW = paramsData["CertPW"]
-SavesPath = os.path.dirname(os.path.abspath(__file__))+'\Saves'
 
 print("Removing old containers ...")
 os.system("docker rm -f qqservercontainer")
 if os.name == 'nt':
+    #windows
     os.system("cls")
+    SavesPath = os.path.dirname(os.path.abspath(__file__)) + '\Saves'
 else:
+    #linux/...
     os.system("clear")
+    SavesPath = os.path.dirname(os.path.abspath(__file__)) + '/Saves'
 os.system("docker run --rm -it -p " + str(PAWebPagePort) + ":443 -p " + MCWebSocketPort + ":80 -e ASPNETCORE_URLS=\"https://+;http://+\" -e ASPNETCORE_HTTPS_PORT=443 -e ASPNETCORE_Kestrel__Certificates__Default__Password=\"" + CertPW + "\" -e ASPNETCORE_Kestrel__Certificates__Default__Path=./" + CertFilePath + " -v "+SavesPath+":/app/ServerLogic/Properties/Persist --name=qqservercontainer qqserverimage")
