@@ -542,7 +542,7 @@ public class StoryGraph
         decision17option1.AddChild(storyelement42option1);
 
         var storyelement42option2 = new StoryEvent(Guid.NewGuid(), "Yaggaya wird dir nicht helfen und du verpasst deine Deadline um 5 Tage.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow,false, RandomType.RandomDecisionSix);
-        var storyelement42option2Bad = new StoryEvent(Guid.NewGuid(), "Dein Chef ist sauer, da du deine Deadline verpasst hast", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0,-2,0,0));
+        var storyelement42option2Bad = new StoryEvent(Guid.NewGuid(), "Dein Chef ist sauer, da du deine Deadline verpasst hast.", new HashSet<StoryEvent>(), StoryEventType.StoryFlow, new Skills(0,-2,0,0));
 
         decision17option1.AddChild(storyelement42option2);
 
