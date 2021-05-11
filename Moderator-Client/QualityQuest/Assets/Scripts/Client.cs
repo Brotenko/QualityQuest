@@ -92,7 +92,7 @@ public class Client : MonoBehaviour
         catch (ArgumentException argumentException)
         {
             Debug.Log(argumentException);
-            activeScreenManager.ShowErrorScreen("Keine gültiger Port. Bitte erneut versuchen oder im Offline-Modus fortfahren.");
+            activeScreenManager.ShowErrorScreen("Ip oder Port entsprechen keinem gültigen Format. Bitte erneut versuchen oder im Offline-Modus fortfahren.");
         }
     }
 
